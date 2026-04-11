@@ -13,20 +13,19 @@ body {
     padding: 20px;
 }
 
-h1 {
+h1 { color: #22c55e; }
+
+input, textarea {
+    width: 90%;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #22c55e;
+    background: #0f172a;
     color: #22c55e;
 }
 
-textarea {
-    width: 90%;
-    height: 250px;
-    background: #0f172a;
-    color: #22c55e;
-    border: 1px solid #22c55e;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 14px;
-}
+textarea { height: 200px; }
 
 button {
     margin: 10px;
@@ -38,57 +37,57 @@ button {
     cursor: pointer;
 }
 
-.output {
+.box {
     margin-top: 20px;
     background: #0f172a;
     padding: 10px;
     border-radius: 10px;
-    word-wrap: break-word;
+    text-align: left;
 }
 </style>
-
 </head>
 
 <body>
 
 <h1>💻 SKIBIDI SCRIPT</h1>
 
-<textarea id="input" placeholder="Dán script vào đây..."></textarea>
+<input id="name" placeholder="Tên script...">
+<input id="desc" placeholder="Mô tả...">
+<textarea id="code" placeholder="Dán script vào đây..."></textarea>
+
 <br>
+<button onclick="save()">Lưu</button>
+<button onclick="clearAll()">Xóa</button>
 
-<button onclick="saveText()">Lưu</button>
-<button onclick="copyText()">Copy</button>
-<button onclick="clearText()">Xóa</button>
-
-<div class="output" id="outputBox"></div>
+<div id="output"></div>
 
 <script>
-function saveText() {
-    let text = document.getElementById("input").value;
-    localStorage.setItem("script", text);
-    document.getElementById("outputBox").innerText = text;
+function save() {
+    let name = document.getElementById("name").value;
+    let desc = document.getElementById("desc").value;
+    let code = document.getElementById("code").value;
+
+    let data = `
+    <div class="box">
+        <h3>${name}</h3>
+        <p>${desc}</p>
+        <pre>${code}</pre>
+    </div>
+    `;
+
+    document.getElementById("output").innerHTML += data;
+
+    localStorage.setItem("saved", document.getElementById("output").innerHTML);
 }
 
-function copyText() {
-    let text = document.getElementById("input");
-    text.select();
-    document.execCommand("copy");
-    alert("Đã copy!");
+function clearAll() {
+    document.getElementById("output").innerHTML = "";
+    localStorage.removeItem("saved");
 }
 
-function clearText() {
-    document.getElementById("input").value = "";
-    document.getElementById("outputBox").innerText = "";
-    localStorage.removeItem("script");
-}
-
-// load lại khi mở web
 window.onload = function() {
-    let saved = localStorage.getItem("script");
-    if(saved) {
-        document.getElementById("input").value = saved;
-        document.getElementById("outputBox").innerText = saved;
-    }
+    let saved = localStorage.getItem("saved");
+    if(saved) document.getElementById("output").innerHTML = saved;
 }
 </script>
 
