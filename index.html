@@ -6,126 +6,111 @@
 
 <style>
 body {
-    background:#0f172a;
+    background: linear-gradient(180deg, #020617, #0f172a);
     color: #FF4500;
     font-family: monospace;
     text-align: center;
     padding: 20px;
 }
 
-h1 { color: #FF4500; }
-
-input, textarea {
-    width: 90%;
+/* Tiêu đề */
+h1 {
+    color: #FF4500;
+    text-shadow: 0 0 10px #FF4500, 0 0 20px #FF4500;
     margin: 5px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid ##FF4500;
-    background: #0f172a;
-    color: #22c55e;
 }
 
-textarea { height: 200px; }
+/* Box */
+.box {
+    margin: 25px auto;
+    width: 92%;
+    background: rgba(17, 24, 39, 0.9);
+    padding: 15px;
+    border-radius: 14px;
+    border: 1px solid #FF4500;
+    box-shadow: 0 0 25px rgba(255,69,0,0.4);
+    text-align: left;
+    transition: 0.3s;
+}
 
+.box:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 35px rgba(255,69,0,0.7);
+}
+
+/* Link */
+a {
+    color: #FF6347;
+    word-break: break-all;
+}
+a:hover {
+    color: #ff8c66;
+}
+
+/* KHÔNG chỉnh <pre> theo yêu cầu */
+/* chỉ thêm chút viền nhẹ cho dễ nhìn */
+pre {
+    border-left: 3px solid #FF4500;
+    padding-left: 10px;
+}
+
+/* Button (nếu sau này dùng) */
 button {
     margin: 10px;
     padding: 10px 20px;
-    background: #22c55e;
+    background: #FF4500;
     border: none;
     border-radius: 8px;
     color: black;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(255,69,0,0.5);
 }
-
-.box {
-    margin-top: 20px;
-    background: #0f172a;
-    padding: 10px;
-    border-radius: 10px;
-    text-align: left;
+button:hover {
+    background: #FF6347;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🚽    SKIBIDI SCRIPT   👱</h1>
-<h1>🍃  MADE BY HOANG MINH  🍃</h1>
+<h1>🚽 SKIBIDI SCRIPT 👱</h1>
+<h1>🔥 MADE BY HOANG MINH 🔥</h1>
+
 <div id="output">
 
 <div class="box">
     <h3>Arceus X Neo Keyless</h3>
-    <p>Link Tải Cilent</p>
-    <pre> https://vng.spdmteam.com/ </pre>
+    <p>Link tải client</p>
+    <a href="https://vng.spdmteam.com/" target="_blank">
+        https://vng.spdmteam.com/
+    </a>
 </div>
 
 <div class="box">
     <h3>Ứng Dụng Hỗ Trợ Chạy UG PHONE 16H</h3>
-    <p>Link Tải</p>
-    <pre>https://www.mediafire.com/file/echmj6g6fwtje7h/Tr%25C3%25ACnh_%25C
+    <p>Link tải</p>
+    <a href="https://www.mediafire.com/file/echmj6g6fwtje7h/Tr%25C3%25ACnh_%25C
         4%2591i%25E1%25BB%2581u_khi%25E1%25BB%2583n_Ugphone_16h.apk/
-        file?dkey=5xvnlia6ghv&r=1178</pre>
+        file?dkey=5xvnlia6ghv&r=1178" target="_blank">
+        Tải tại đây
+    </a>
 </div>
 
 <div class="box">
     <h3>SolRng Auto Egg</h3>
-    <p>Script Sol Rng</p>
+    <p>Script</p>
     <pre>shared.spacing = 2 -- spacing between pathfinding orbs (1 is more accurate but makes you slow)
 shared.toggled = false -- set this to true to instantly activate it
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ShrimperIsReal/sols-rng/refs/heads/main/2026%20eggs%20macro.lua"))()
 
 --[[
-commands: -- uses chat
+commands:
 /e farm on
 /e farm off
-IF YOU DO NOT HAVE CHAT USE shared.toggle TO DEACTIVATE/ACTIVATE IT!!!!
-]]
-
--- This is open source by the way, feel free to edit it to your likings.</pre>
-</div>
-shared.spacing = 2 -- spacing between pathfinding orbs (1 is more accurate but makes you slow)
-shared.toggled = false -- set this to true to instantly activate it
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ShrimperIsReal/sols-rng/refs/heads/main/2026%20eggs%20macro.lua"))()
-
---[[
-commands: -- uses chat
-/e farm on
-/e farm off
-IF YOU DO NOT HAVE CHAT USE shared.toggle TO DEACTIVATE/ACTIVATE IT!!!!
-]]
-
--- This is open source by the way, feel free to edit it to your likings.    
+]]</pre>
 </div>
 
-<script>
-function save() {
-    let name = document.getElementById("name").value;
-    let desc = document.getElementById("desc").value;
-    let code = document.getElementById("code").value;
-
-    let data = `
-    <div class="box">
-        <h3>${name}</h3>
-        <p>${desc}</p>
-        <pre>${code}</pre>
-    </div>
-    `;
-
-    document.getElementById("output").innerHTML += data;
-
-    localStorage.setItem("saved", document.getElementById("output").innerHTML);
-}
-
-function clearAll() {
-    document.getElementById("output").innerHTML = "";
-    localStorage.removeItem("saved");
-}
-
-window.onload = function() {
-    let saved = localStorage.getItem("saved");
-    if(saved) document.getElementById("output").innerHTML = saved;
-}
-</script>
+</div>
 
 </body>
 </html>
