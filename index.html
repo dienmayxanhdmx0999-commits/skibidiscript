@@ -47,16 +47,15 @@ a:hover {
     color: #ff8c66;
 }
 
-/* KHÔNG chỉnh <pre> theo yêu cầu */
-/* chỉ thêm chút viền nhẹ cho dễ nhìn */
+/* KHÔNG chỉnh <pre> */
 pre {
     border-left: 3px solid #FF4500;
     padding-left: 10px;
 }
 
-/* Button (nếu sau này dùng) */
+/* Button */
 button {
-    margin: 10px;
+    margin-top: 10px;
     padding: 10px 20px;
     background: #FF4500;
     border: none;
@@ -64,7 +63,9 @@ button {
     color: black;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(255,69,0,0.5);
+    font-weight: bold;
 }
+
 button:hover {
     background: #FF6347;
 }
@@ -89,41 +90,57 @@ button:hover {
 <div class="box">
     <h3>APPLICATIONS THAT SUPPORT RUNNING UGPHONE ON THE MAIN DEVICE </h3>
     <p>APK</p>
-    <a href="https://www.mediafire.com/file/echmj6g6fwtje7h/Tr%25C3%25ACnh_%25C
-        4%2591i%25E1%25BB%2581u_khi%25E1%25BB%2583n_Ugphone_16h.apk/
-        file?dkey=5xvnlia6ghv&r=1178" target="_blank">
+    <a href="https://www.mediafire.com/file/echmj6g6fwtje7h/Tr%25C3%25ACnh_%25C4%2591i%25E1%25BB%2581u_khi%25E1%25BB%2583n_Ugphone_16h.apk/file?dkey=5xvnlia6ghv&r=1178" target="_blank">
       [ CLICK HERE ]
     </a>
 </div>
 
-    
 <div class="box">
     <h3> Beecon Hub [ 🔑 ]</h3>
     <p>Script</p>
-    <pre>loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()</pre>
+
+    <pre id="beecon">loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()</pre>
+
+    <button onclick="copyScript('beecon')">COPY SCRIPT</button>
+
 <a href="https://ads.luarmor.net/get_key?for=Beecon_Hub__Linkvertise-NbnfpfqYnZOG" target="_blank">
   🔑 - [ CLICK ] | [ 🟢 WORKING ]
 </a>
 </div>
-    
-       <div class="box">
+
+<div class="box">
     <h3>Delta VNG</h3>
     <p> APK </p>
     <a href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/">
       [ CLICK HERE ] | [ ⚠️ ] UPD SOON!
     </a>
-    </div>
+</div>
 
-    <div class="box">
+<div class="box">
     <h3>Zap Hub Freemium [ 🔑 ]</h3>
     <p>Script</p>
-    <pre>loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()"))()</pre>
+
+    <pre id="zaphub">loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()</pre>
+
+    <button onclick="copyScript('zaphub')">COPY SCRIPT</button>
+
 <a href="https://www.zaphub.xyz/getkey">
     🔑 - [ CLICK ] | [ 🟢 WORKING ]
 </a>
-    </div>
+</div>
 
 </div>
+
+<script>
+function copyScript(id) {
+    let text = document.getElementById(id).innerText;
+
+    navigator.clipboard.writeText(text).then(() => {
+        alert(" COPYING SUCCESSFUL! ");
+        
+    });
+}
+</script>
 
 </body>
 </html>
