@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,53 +8,78 @@
     <title>Giao Diện Đen Xám Hiện Đại</title>
     
     <style>
-        /* Toàn bộ giao diện chuyển sang tone Đen - Xám hiện đại */
+        /* Reset CSS cơ bản để chống lỗi layout */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Dùng Flexbox để căn giữa hoàn hảo toàn bộ trang */
         body {
             background: linear-gradient(180deg, #0a0a0c, #16161a);
             color: #d1d5db;
             font-family: 'Fira Code', Consolas, Monaco, monospace;
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 16px;
-            overflow-y: auto;
+            
+            /* Cấu trúc Flexbox căn giữa */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
             min-height: 100vh;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Bọc phần tiêu đề để quản lý khoảng cách dễ hơn */
+        .header-text {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         h1 {
             font-size: 32px;
             color: #ffffff;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            margin: 10px 0;
+            margin-bottom: 10px;
+        }
+
+        .header-text p {
+            font-size: 16px;
+            color: #9ca3af;
         }
 
         h2 {
             color: #ffffff;
             font-size: 26px;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+            margin-bottom: 10px;
         }
 
         h3 {
             font-size: 22px;
             color: #ececec;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
 
         p {
             font-size: 16px;
-            color: #9ca3af;
+            line-height: 1.5;
         }
 
         /* Hộp nội dung (Box) thiết kế kiểu viền mờ tối giản */
         .box {
-            margin: 30px auto;
-            width: 95%;
+            width: 100%; /* Giúp box linh hoạt trên điện thoại */
             max-width: 850px;
             background: rgba(23, 23, 27, 0.75);
             backdrop-filter: blur(8px);
-            padding: 25px;
+            padding: 30px;
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            text-align: left; /* Đổi sang left để đọc code và nội dung không bị lệch dòng */
+            text-align: left; /* Giữ chữ bên trong căn trái để dễ đọc */
             transition: all 0.3s ease;
         }
 
@@ -63,7 +90,7 @@
         }
 
         a {
-            color: #60a5fa; /* Màu xanh dương dịu mắt hợp nền tối */
+            color: #60a5fa;
             text-decoration: none;
             word-break: break-all;
             line-height: 1.8;
@@ -75,10 +102,10 @@
             text-shadow: 0 0 8px rgba(147, 197, 253, 0.4);
         }
 
-        /* Khung chứa lệnh/code - chuẩn Terminal cao cấp */
+        /* Khung chứa lệnh/code */
         pre {
             background: #0d0d11;
-            border-left: 4px solid #4b5563; /* Viền xám đậm */
+            border-left: 4px solid #4b5563;
             padding: 16px;
             color: #e4e4e7;
             white-space: pre-wrap;
@@ -90,15 +117,17 @@
             margin: 15px 0;
         }
 
-        /* Nút bấm (Button) phong cách tối giản */
+        /* Nút bấm (Button) - Được căn giữa tự động */
         button {
-            margin-top: 12px;
-            padding: 10px 22px;
+            display: block;
+            margin: 25px auto 0; /* Căn giữa nút trong box */
+            padding: 12px 28px;
             background: #27272a;
             color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 8px;
             cursor: pointer;
+            font-size: 16px;
             font-weight: bold;
             font-family: inherit;
             transition: all 0.2s ease;
@@ -110,8 +139,30 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
     </style>
+</head>
+<body>
 
+    <div class="header-text">
+        <h1>Tiêu Đề Trang Web</h1>
+        <p>Giao diện đã được tối ưu hóa sang tone màu đen xám lịch lãm.</p>
+    </div>
 
+    <div class="box">
+        <h2>Khu vực hiển thị</h2>
+        <p>Đây là nội dung văn bản thông thường nằm trong hộp. Toàn bộ khung box hiện đã được khoá cố định ở giữa trung tâm màn hình một cách gọn gàng.</p>
+        
+        <h3>Ví dụ hiển thị lệnh (Không bị lỗi):</h3>
+        <pre>
+# Cách chạy lệnh trên hệ thống:
+sudo apt update && sudo apt upgrade -y
+npm install dashboard-theme --save
+        </pre>
+
+        <button>Tương Tác Ngay</button>
+    </div>
+
+</body>
+</html>
 
 <div class="box">
     <h2>WELCOME TO SKIBIDI WEBSITE</h2>
