@@ -8,305 +8,214 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>Giao Diện Cyber Hệ Thống</title>
+    <title>Skibidi Hub - Tổng hợp APK & Script</title>
     
     <style>
-        /* Reset cấu trúc */
+        /* Đặt lại thông số cơ bản */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Giao diện Đen - Xanh Neon */
+        /* Nền tảng Đen - Xám */
         body {
-            background-color: #050505;
-            background-image: radial-gradient(circle at 50% 0%, #1a1a2e, #050505 80%);
-            color: #e0e0e0;
+            background: linear-gradient(180deg, #0a0a0c, #16161a);
+            color: #d1d5db;
             font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
         }
 
-        /* Khung hiển thị chính */
+        /* Khung chứa trung tâm */
         .container {
             width: 100%;
-            max-width: 600px;
-            background: #111118;
-            border: 1px solid #333;
-            border-top: 4px solid #00ffcc;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+            max-width: 750px;
         }
 
-        h1 { 
-            color: #ffffff; 
-            font-size: 28px; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            margin-bottom: 10px; 
-            text-align: center; 
-        }
-        
-        h1 span { 
-            color: #00ffcc; 
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.6); 
+        /* Tiêu đề trang */
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(23, 23, 27, 0.8);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
         }
 
-        p.desc { 
-            font-size: 15px; 
-            color: #9ca3af; 
-            margin-bottom: 25px; 
-            text-align: center; 
-            line-height: 1.6; 
+        h1 {
+            color: #ffffff;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            margin-bottom: 10px;
         }
 
-        /* Hộp cảnh báo / trạng thái */
-        .status-box {
-            background: rgba(0, 255, 204, 0.05);
-            border: 1px dashed #00ffcc;
-            padding: 15px;
-            border-radius: 5px;
+        .header-section p {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Hộp nội dung (Mỗi mục Script/APK) */
+        .box {
+            background: rgba(30, 30, 36, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
             margin-bottom: 20px;
-        }
-
-        .status-box h3 { 
-            color: #00ffcc; 
-            margin-bottom: 8px; 
-            font-size: 18px; 
-            text-transform: uppercase;
-        }
-
-        .status-box p {
-            font-size: 14px;
-            color: #d1d5db;
-        }
-
-        /* Khung chứa mã lệnh */
-        pre {
-            background: #000000;
-            color: #00ffcc;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 14px;
-            border-left: 3px solid #00ffcc;
-            line-height: 1.5;
-        }
-
-        /* Nút bấm Neon */
-        button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-top: 25px;
-            background: transparent;
-            color: #00ffcc;
-            border: 2px solid #00ffcc;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
         }
 
-        button:hover { 
-            background: #00ffcc; 
-            color: #000000; 
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5); 
+        .box:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
         }
+
+        .box h3 {
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .box p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Khu vực chứa Code Script */
+        pre {
+            background: #050505;
+            border-left: 3px solid #6b7280;
+            padding: 12px;
+            color: #e5e7eb;
+            white-space: pre-wrap;
+            word-break: break-all;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        /* Link tải xuống / Lấy key */
+        a {
+            display: inline-block;
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #93c5fd;
+            text-shadow: 0 0 8px rgba(147, 197, 253, 0.4);
+        }
+
+        /* Nút copy code */
+        button {
+            padding: 8px 16px;
+            background: #27272a;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            margin-right: 10px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #3f3f46;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Thẻ trạng thái */
+        .status-offline { color: #f87171; } /* Màu đỏ */
+        .status-online { color: #4ade80; } /* Màu xanh lá */
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Cập nhật <span>Hệ Thống</span></h1>
-        <p class="desc">Giao diện đã được làm mới hoàn toàn. Lỗi lộ CSS trước đó đã bị triệt tiêu.</p>
-        
-        <div class="status-box">
-            <h3>Cảnh Báo</h3>
-            <p>Kiểm tra trạng thái ONLINE/OFFLINE trước khi tải xuống.</p>
+        <div class="header-section">
+            <h1>WELCOME TO SKIBIDI WEBSITE</h1>
+            <p>Website tổng hợp APK và Script mới nhất</p>
+            <p>Cập nhật thường xuyên - Kiểm tra trạng thái trước khi tải</p>
         </div>
 
-        <pre>
-> Đang khởi tạo kết nối...
-> Cập nhật giao diện: [THÀNH CÔNG]
-> Quét lỗi cú pháp: [KHÔNG CÓ LỖI]
-> Chờ lệnh tiếp theo từ người dùng...
-        </pre>
+        <div id="output">
+            <div class="box">
+                <h3>Arceus X Neo VNG</h3>
+                <p>Loại: APK</p>
+                <a href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/" target="_blank">
+                    [ CLICK HERE ] | <span class="status-offline">[ 🔴 OFFLINE ] UPD SOON!</span>
+                </a>
+            </div>
 
-        <button>Khởi Động Lại Ngay</button>
+            <div class="box">
+                <h3>App Hỗ Trợ Chạy Ugphone Trên Máy Chính</h3>
+                <p>Loại: APK</p>
+                <a href="https://www.mediafire.com/file/echmj6g6fwtje7h/Tr%25C3%25ACnh_%25C4%2591i%25E1%25BB%2581u_khi%25E1%25BB%2583n_Ugphone_16h.apk/file?dkey=5xvnlia6ghv&r=1178" target="_blank">
+                    [ CLICK HERE ĐỂ TẢI ]
+                </a>
+            </div>
+
+            <div class="box">
+                <h3>Beecon Hub [ 🔑 ]</h3>
+                <p>Loại: Script</p>
+                <pre id="beecon">loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()</pre>
+                <button onclick="copyScript('beecon')">COPY SCRIPT</button>
+                <a href="https://ads.luarmor.net/get_key?for=Beecon_Hub__Linkvertise-NbnfpfqYnZOG" target="_blank">
+                    🔑 - [ CLICK LẤY KEY ] | <span class="status-online">[ 🟢 WORKING ]</span>
+                </a>
+            </div>
+
+            <div class="box">
+                <h3>Delta VNG V2.724</h3>
+                <p>Loại: APK</p>
+                <a href="https://zufile.com/download/kujLMAX4Ks" target="_blank">
+                    [ CLICK HERE ] | <span class="status-online">[ 🟢 ONLINE ]</span>
+                </a>
+            </div>
+
+            <div class="box">
+                <h3>Zap Hub Freemium [ 🔑 ]</h3>
+                <p>Loại: Script</p>
+                <pre id="zaphub">loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()</pre>
+                <button onclick="copyScript('zaphub')">COPY SCRIPT</button>
+                <a href="https://www.zaphub.xyz/getkey" target="_blank">
+                    🔑 - [ CLICK LẤY KEY ] | <span class="status-online">[ 🟢 WORKING ]</span>
+                </a>
+            </div>
+
+            <div class="box">
+                <h3>Speed X Hub [ 🔑 ]</h3>
+                <p>Loại: Script</p>
+                <pre id="SpeedxHub">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre>
+                <button onclick="copyScript('SpeedxHub')">COPY SCRIPT</button>
+                <a href="#" target="_blank">
+                    🔑 - [ CLICK LẤY KEY ] | <span class="status-online">[ 🟢 WORKING ]</span>
+                </a>
+            </div>
+        </div>
     </div>
 
-</body>
-</html>
-
-<div class="box">
-    <h2>WELCOME TO SKIBIDI WEBSITE</h2>
-
-    <p>
-        Website tổng hợp APK và Script mới nhất<br>
-        Cập nhật thường xuyên<br>
-        Kiểm tra trạng thái ONLINE/OFFLINE trước khi tải
-    </p>
-</div>
-    
-    background: linear-gradient(180deg, #020617, #0f172a);
-    color: #e5e7eb;
-    font-family: monospace;
-    text-align: center;
-    padding: 20px;
-}
-
-/* Tiêu đề */
-h1 {
-    color: #ffffff;
-    text-shadow: 0 0 10px #d1d5db, 0 0 20px #9ca3af;
-    margin: 5px;
-}
-
-/* Box */
-.box {
-    margin: 25px auto;
-    width: 92%;
-    background: rgba(17, 24, 39, 0.95);
-    padding: 15px;
-    border-radius: 14px;
-    border: 1px solid #9ca3af;
-    box-shadow: 0 0 25px rgba(255,255,255,0.15);
-    text-align: left;
-    transition: 0.3s;
-}
-
-.box:hover {
-    transform: scale(1.01);
-    box-shadow: 0 0 35px rgba(255,255,255,0.35);
-}
-
-/* Link */
-a {
-    color: #f3f4f6;
-    word-break: break-word;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(255,255,255,0.5);
-}
-
-/* Script */
-pre {
-    border-left: 3px solid #d1d5db;
-    padding-left: 10px;
-    color: #ffffff;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    line-height: 1.5;
-    text-shadow: 0 0 6px rgba(255,255,255,0.25);
-}
-
-/* Button */
-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background: #e5e7eb;
-    border: none;
-    border-radius: 8px;
-    color: #111827;
-    cursor: pointer;
-    box-shadow: 0 0 12px rgba(255,255,255,0.25);
-    font-weight: bold;
-}
-
-button:hover {
-    background: #ffffff;
-    box-shadow: 0 0 20px rgba(255,255,255,0.45);
-}
-</style>
-</head>
-
-    
-<div id="output">
-
-<div class="box">
-    <h3>Arceus X Neo VNG </h3>
-    <p> APK </p>
-    <a href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/" target="_blank">
-      [ CLICK HERE ] | [ 🔴 OFFLINE ] UPD SOON!
-    </a>
-</div>
-
-<div class="box">
-    <h3>APPLICATIONS THAT SUPPORT RUNNING UGPHONE ON THE MAIN DEVICE </h3>
-    <p>APK</p>
-    <a href="https://www.mediafire.com/file/echmj6g6fwtje7h/Tr%25C3%25ACnh_%25C4%2591i%25E1%25BB%2581u_khi%25E1%25BB%2583n_Ugphone_16h.apk/file?dkey=5xvnlia6ghv&r=1178" target="_blank">
-      [ CLICK HERE ]
-    </a>
-</div>
-
-<div class="box">
-    <h3> Beecon Hub [ 🔑 ]</h3>
-    <p>Script</p>
-
-    <pre id="beecon">loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()</pre>
-
-    <button onclick="copyScript('beecon')">COPY SCRIPT</button>
-
-<a href="https://ads.luarmor.net/get_key?for=Beecon_Hub__Linkvertise-NbnfpfqYnZOG" target="_blank">
-  🔑 - [ CLICK ] | [ 🟢 WORKING ]
-</a>
-</div>
-
-<div class="box">
-    <h3> Delta VNG V2.724 </h3>
-    <p> APK </p>
-    <a href="https://zufile.com/download/kujLMAX4Ks" target="_blank">
-      [ CLICK HERE ] | [ 🟢 ONLINE ]
-    </a>
-</div>
-
-<div class="box">
-    <h3>Zap Hub Freemium [ 🔑 ]</h3>
-    <p>Script</p>
-
-    <pre id="zaphub">loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()</pre>
-
-    <button onclick="copyScript('zaphub')">COPY SCRIPT</button>
-
-<a href="https://www.zaphub.xyz/getkey">
-    🔑 - [ CLICK ] | [ 🟢 WORKING ]
-</a>
-</div>
-
-    <div class="box">
-    <h3>Speed X Hub [ 🔑 ]</h3>
-    <p>Script</p>
-
-    <pre id="SpeedxHub">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre>
-
-    <button onclick="copyScript('SpeedxHub')">COPY SCRIPT</button>
-
-<a href="">
-    🔑 - [ CLICK ] | [ 🟢 WORKING ]
-</a>
-    </div>
-
-</div>
-
-<script>
-function copyScript(id) {
-    let text = document.getElementById(id).innerText;
-
-    navigator.clipboard.writeText(text).then(() => {
-        alert(" COPYING SUCCESSFUL! ");
-        
-    });
-}
-</script>
+    <script>
+        function copyScript(id) {
+            let text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert(" ĐÃ COPY SCRIPT THÀNH CÔNG! ");
+            }).catch(err => {
+                alert(" Có lỗi xảy ra khi copy! ");
+            });
+        }
+    </script>
 
 </body>
 </html>
