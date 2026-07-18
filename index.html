@@ -19,6 +19,9 @@
     
     <title>Skibidi Hub - Tổng hợp APK & Script</title>
     
+    <!-- 1. NHÚNG THƯ VIỆN ĐĂNG NHẬP GOOGLE -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <style>
         /* Đặt lại thông số cơ bản */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -65,6 +68,41 @@
             color: #9ca3af;
             font-size: 14px;
             line-height: 1.6;
+        }
+
+        /* STYLE RIÊNG CHO KHU VỰC ĐĂNG NHẬP GOOGLE */
+        .auth-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .user-profile {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+            gap: 10px;
+        }
+        .user-profile img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid #4285f4;
+        }
+        .user-profile span {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .btn-logout {
+            padding: 4px 8px !important;
+            font-size: 11px;
+            background: #e11d48 !important;
+            border: none !important;
+            margin-left: 10px;
         }
 
         /* Hộp nội dung (Mỗi mục Script/APK) */
@@ -156,6 +194,19 @@
             <h1>WELCOME TO SKIBIDI WEBSITE</h1>
             <p>Website tổng hợp APK và Script mới nhất</p>
             <p>Cập nhật thường xuyên - Kiểm tra trạng thái trước khi tải</p>
+            
+            <!-- KHU VỰC HIỂN THỊ ĐĂNG NHẬP -->
+            <div class="auth-container">
+                <!-- Nút đăng nhập Google mặc định -->
+                <div id="googleBtnDiv"></div>
+                
+                <!-- Giao diện hiển thị khi đã đăng nhập thành công -->
+                <div id="userProfile" class="user-profile">
+                    <img id="userAvatar" src="" alt="Avatar">
+                    <span id="userName"></span>
+                    <button class="btn-logout" onclick="logoutGoogle()">Đăng xuất</button>
+                </div>
+            </div>
         </div>
 
         <div id="output">
@@ -315,6 +366,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     </div>
 
     <script>
+        // Hàm sao chép code Script
         function copyScript(id) {
             let text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text).then(() => {
@@ -322,6 +374,57 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
             }).catch(err => {
                 alert(" Có lỗi xảy ra khi copy! ");
             });
+        }
+
+        /* SCRIPT XỬ LÝ ĐĂNG NHẬP GOOGLE */
+        
+        // Hàm giải mã dữ liệu mã hóa trả về từ Google
+        function decodeJwtResponse(token) {
+            let base64Url = token.split('.')[1];
+            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+
+        // Hàm chạy khi đăng nhập thành công
+        function handleCredentialResponse(response) {
+            const responsePayload = decodeJwtResponse(response.credential);
+
+            // Ẩn nút đăng nhập Google
+            document.getElementById("googleBtnDiv").style.display = "none";
+
+            // Điền thông tin user vào giao diện và hiển thị ra
+            document.getElementById("userName").textContent = responsePayload.name;
+            document.getElementById("userAvatar").src = responsePayload.picture;
+            document.getElementById("userProfile").style.display = "flex";
+        }
+
+        // Khởi động cấu hình Google Identity
+        window.onload = function () {
+            google.accounts.id.initialize({
+                // Đã tích hợp mã Client ID của bạn ở đây
+                client_id: "157848520545-r1ua9qve4lkbdla5i2mldbrfkdpbr590.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+
+            // Tự động render nút Google Sign-In vào trang web
+            google.accounts.id.renderButton(
+                document.getElementById("googleBtnDiv"),
+                { theme: "filled_black", size: "medium", text: "signin_with" } 
+            );
+
+            // Gợi ý đăng nhập nhanh (One Tap) ở góc màn hình
+            google.accounts.id.prompt(); 
+        }
+
+        // Hàm xử lý khi bấm nút Đăng xuất
+        function logoutGoogle() {
+            google.accounts.id.disableAutoSelect();
+            // Quay về trạng thái ẩn profile, hiện nút Đăng nhập ban đầu
+            document.getElementById("userProfile").style.display = "none";
+            document.getElementById("googleBtnDiv").style.display = "block";
         }
     </script>
 
