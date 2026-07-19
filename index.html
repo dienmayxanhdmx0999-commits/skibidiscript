@@ -18,6 +18,8 @@
     <title>Skibidi Hub - Ultra Liquid Glass Edition</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- Nhúng API Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
@@ -28,11 +30,11 @@
             box-sizing: border-box; 
         }
         
-        /* Hiệu ứng nền Liquid Glass chuyển động mượt mà dải ngân hà */
+        /* Hiệu ứng nền Liquid Chuyển Động Siêu Mượt */
         body {
-            background: linear-gradient(-45deg, #090514, #130a2a, #0b112c, #05050f);
+            background: linear-gradient(-45deg, #090514, #150935, #0a173a, #04040c);
             background-size: 400% 400%;
-            animation: liquidBg 15s ease infinite;
+            animation: liquidBg 12s ease infinite;
             color: #f3f4f6;
             font-family: 'Plus Jakarta Sans', sans-serif;
             padding: 40px 20px;
@@ -62,16 +64,16 @@
             .sidebar { width: 100% !important; position: static !important; }
         }
 
-        /* KHUNG SIDEBAR TRONG SUỐT LIQUID GLASS */
+        /* SIDEBAR KÍNH MỜ LIQUID GLASS PHẢN QUANG */
         .sidebar {
             width: 350px;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(35px) saturate(220%);
+            -webkit-backdrop-filter: blur(35px) saturate(220%);
             border-radius: 24px;
             padding: 30px 24px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.15);
             position: sticky;
             top: 40px;
         }
@@ -104,21 +106,32 @@
         .form-group input {
             width: 100%;
             padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.01);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 14px;
             color: #ffffff;
             font-family: inherit;
             font-size: 14px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(5px);
         }
 
         .form-group input:focus {
             outline: none;
             border-color: #00f0ff;
-            background: rgba(255, 255, 255, 0.03);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        /* KHUNG CHỨA CAPTCHA TIỆP MÀU NỀN KÍNH */
+        .captcha-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
         }
 
         .error-msg {
@@ -162,7 +175,6 @@
             font-weight: 600;
         }
 
-        /* GIAO DIỆN PROFILE THÀNH VIÊN KHI LIÊN KẾT */
         .user-profile {
             display: none;
             flex-direction: column;
@@ -183,7 +195,6 @@
             font-weight: 800;
             color: #00f0ff;
             font-size: 20px;
-            box-shadow: 0 0 15px rgba(0,240,255,0.1);
         }
 
         .user-profile span {
@@ -223,24 +234,23 @@
         .google-divider:not(:empty)::before { margin-right: .5em; }
         .google-divider:not(:empty)::after { margin-left: .5em; }
 
-        /* KHU VỰC CHÍNH MAIN CONTENT LIQUID GLASS */
         .main-content {
             flex: 1;
         }
 
         @keyframes borderRainbow {
-            0% { border-color: rgba(255, 0, 127, 0.3); box-shadow: 0 0 30px rgba(255,0,127,0.15); }
-            50% { border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 0 30px rgba(0,240,255,0.15); }
-            100% { border-color: rgba(255, 0, 127, 0.3); box-shadow: 0 0 30px rgba(255,0,127,0.15); }
+            0% { border-color: rgba(255, 0, 127, 0.25); box-shadow: 0 0 35px rgba(255,0,127,0.1); }
+            50% { border-color: rgba(0, 240, 255, 0.25); box-shadow: 0 0 35px rgba(0,240,255,0.1); }
+            100% { border-color: rgba(255, 0, 127, 0.25); box-shadow: 0 0 35px rgba(255,0,127,0.1); }
         }
 
         .header-section {
             padding: 40px;
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.005);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.04);
             animation: borderRainbow 8s ease infinite;
             margin-bottom: 30px;
         }
@@ -280,7 +290,6 @@
             padding-left: 12px;
         }
 
-        /* BỘ LỌC DANH MỤC */
         .filter-tabs {
             display: flex;
             background: rgba(0, 0, 0, 0.2);
@@ -306,16 +315,15 @@
 
         .tab-btn:hover, .tab-btn.active {
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
-        /* THẺ HỘP CHỨA (LIQUID GLASS BOXES) */
         .box {
             background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
             padding: 24px;
             border-radius: 20px;
             margin-bottom: 16px;
@@ -324,9 +332,9 @@
 
         .box:hover {
             transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border-color: rgba(0, 240, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
 
         .type-badge {
@@ -344,12 +352,7 @@
         .badge-script { background: rgba(167, 139, 250, 0.05); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.1); }
         .badge-link { background: rgba(96, 165, 250, 0.05); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.1); }
 
-        .box h3 {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+        .box h3 { color: #ffffff; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
 
         pre {
             background: rgba(0, 0, 0, 0.3);
@@ -361,135 +364,55 @@
             margin: 15px 0;
             font-size: 13px;
             font-family: monospace;
-            border: 1px solid rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.01);
             border-left: 3px solid #7f00ff;
         }
 
-        .action-link {
-            display: inline-flex;
-            color: #00f0ff;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 10px;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .action-link:hover {
-            color: #67e8f9;
-        }
+        .action-link { display: inline-flex; color: #00f0ff; text-decoration: none; font-weight: 600; margin-top: 10px; font-size: 14px; transition: all 0.2s; }
+        .action-link:hover { color: #67e8f9; }
 
         .btn-copy {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.02);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            margin-right: 10px;
-            transition: all 0.2s;
+            padding: 10px 20px; background: rgba(255, 255, 255, 0.02); color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 10px;
+            cursor: pointer; font-weight: 600; font-size: 13px; margin-right: 10px;
         }
-
-        .btn-copy:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: #00f0ff;
-        }
-
+        .btn-copy:hover { background: rgba(255, 255, 255, 0.04); border-color: #00f0ff; }
         .status-online { color: #34d399; font-weight: 600; }
 
-        /* BẢNG XÁC NHẬN CUSTOM MODAL ĐĂNG XUẤT CHUẨN LIQUID GLASS */
+        /* HỘP THOẠI XÁC NHẬN SIÊU KÍNH MỜ */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 3, 10, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 2, 8, 0.7); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            display: flex; align-items: center; justify-content: center; z-index: 9999;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            border-radius: 24px;
-            padding: 30px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6); border-radius: 24px; padding: 30px;
+            width: 100%; max-width: 400px; text-align: center; transform: scale(0.9); transition: transform 0.3s ease;
         }
 
-        .modal-overlay.active .modal-box {
-            transform: scale(1);
-        }
-
-        .modal-box h4 {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            color: #ffffff;
-        }
-
-        .modal-box p {
-            font-size: 14px;
-            color: #9ca3af;
-            margin-bottom: 24px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 12px;
-        }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+        .modal-box h4 { font-size: 18px; font-weight: 800; margin-bottom: 12px; color: #ffffff; }
+        .modal-box p { font-size: 14px; color: #9ca3af; margin-bottom: 24px; }
+        .modal-buttons { display: flex; gap: 12px; }
 
         .modal-btn {
-            flex: 1;
-            padding: 13px;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 14px;
-            text-transform: uppercase;
-            border: none;
-            transition: all 0.2s;
+            flex: 1; padding: 13px; border-radius: 12px; font-weight: 700;
+            cursor: pointer; font-size: 14px; text-transform: uppercase; border: none; transition: all 0.2s;
         }
-
-        .btn-confirm-yes {
-            background: #ef4444;
-            color: white;
-        }
-        .btn-confirm-yes:hover {
-            background: #dc2626;
-        }
-
-        .btn-confirm-no {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .btn-confirm-no:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
+        .btn-confirm-yes { background: #ef4444; color: white; }
+        .btn-confirm-yes:hover { background: #dc2626; }
+        .btn-confirm-no { background: rgba(255, 255, 255, 0.04); color: white; border: 1px solid rgba(255, 255, 255, 0.06); }
+        .btn-confirm-no:hover { background: rgba(255, 255, 255, 0.08); }
     </style>
 </head>
 <body>
 
     <div class="wrapper">
-        
-        <!-- SIDEBAR AUTHENTICATION -->
         <div class="sidebar">
             
             <!-- FORM ĐĂNG NHẬP -->
@@ -506,6 +429,12 @@
                     <div id="loginPasswordError" class="error-msg">Mật khẩu không chính xác!</div>
                 </div>
 
+                <!-- Đã tích hợp Site Key của bạn vào Turnstile -->
+                <div class="captcha-container">
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAD42fiaawZ4L3-qp" data-theme="dark" id="loginCaptcha"></div>
+                </div>
+                <div id="loginCaptchaError" class="error-msg" style="text-align: center; margin-bottom: 10px;">Vui lòng hoàn thành xác minh CAPTCHA!</div>
+
                 <button class="btn-submit" onclick="handleLogin()">Xác Nhận Đăng Nhập</button>
                 <div class="auth-toggle-text">
                     Chưa có tài khoản? <span onclick="toggleAuthForm('register')">Đăng ký ngay</span>
@@ -521,7 +450,7 @@
                 <div class="form-group">
                     <label>Tài khoản Gmail</label>
                     <input type="email" id="regEmail" placeholder="user@gmail.com" oninput="clearError('regEmailError')">
-                    <div id="regEmailError" class="error-msg">Email phải có định dạng thực tế (đuôi @gmail.com)!</div>
+                    <div id="regEmailError" class="error-msg">Email phải có định dạng @gmail.com!</div>
                 </div>
                 <div class="form-group">
                     <label>Mật khẩu</label>
@@ -534,13 +463,19 @@
                     <div id="regPasswordConfirmError" class="error-msg">Mật khẩu xác nhận không khớp!</div>
                 </div>
 
+                <!-- Đã tích hợp Site Key của bạn vào Turnstile -->
+                <div class="captcha-container">
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAD42fiaawZ4L3-qp" data-theme="dark" id="regCaptcha"></div>
+                </div>
+                <div id="regCaptchaError" class="error-msg" style="text-align: center; margin-bottom: 10px;">Vui lòng hoàn thành xác minh CAPTCHA!</div>
+
                 <button class="btn-submit" onclick="handleRegister()">Tạo Tài Khoản</button>
                 <div class="auth-toggle-text">
                     Đã có tài khoản? <span onclick="toggleAuthForm('login')">Đăng nhập</span>
                 </div>
             </div>
 
-            <!-- KHUNG THÀNH VIÊN SAU KHI LOGGED IN -->
+            <!-- KHUNG THÀNH VIÊN -->
             <div id="userProfile" class="user-profile">
                 <h2>Thành Viên</h2>
                 <div class="user-avatar-text">VIP</div>
@@ -549,177 +484,50 @@
             </div>
         </div>
 
-        <!-- MAIN HUB INTERFACE -->
+        <!-- MAIN INTERFACE -->
         <div class="main-content">
-            
             <div class="header-section">
                 <div class="web-logo">Skibidi Hub</div>
                 <p>Hệ thống tổng hợp dữ liệu Premium VIP - Ultra Liquid Glassmorphism</p>
             </div>
 
-            <!-- MỤC DÀNH RIÊNG CHO ROBLOX IOS -->
+            <!-- MỤC ROBLOX IOS -->
             <div class="section-title">ROBLOX IOS DOWNLOAD</div>
             <div id="iosDownloadSection">
                 <div class="box">
                     <span class="type-badge badge-ios">APPLE IOS</span>
                     <h3>Roblox Quốc Tế Toàn Cầu (iPhone / iPad)</h3>
-                    <a class="action-link" href="https://itunes.apple.com/us/app/roblox-mobile/id431946152" target="_blank">
-                        [ CLICK DOWNLOAD IOS ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
+                    <a class="action-link" href="https://itunes.apple.com/us/app/roblox-mobile/id431946152" target="_blank">[ CLICK DOWNLOAD IOS ] | <span class="status-online">🟢 ONLINE</span></a>
                 </div>
             </div>
 
-            <!-- MỤC KHHO FILE APK DOWNLOADS -->
+            <!-- MỤC APK -->
             <div class="section-title">APP DOWNLOAD (APK)</div>
             <div id="appDownloadSection">
-                <div class="box">
-                    <span class="type-badge badge-apk">ANDROID APK</span>
-                    <h3>Roblox Quốc Tế Android</h3>
-                    <a class="action-link" href="https://play.google.com/store/apps/details?id=com.roblox.client&hl=en" target="_blank">
-                        [ CLICK DOWNLOAD ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
-                </div>
-                <div class="box">
-                    <span class="type-badge badge-apk">APK EXECUTOR</span>
-                    <h3>Arceus X</h3>
-                    <a class="action-link" href="https://spdmteam.com/index?os=android" target="_blank">
-                        [ CLICK DOWNLOAD ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
-                </div>
-                <div class="box">
-                    <span class="type-badge badge-apk">APK TOOL</span>
-                    <h3>1.1.1.1 VPN</h3>
-                    <a class="action-link" href="https://1111-w-warp.vi.softonic.com/android" target="_blank">
-                        [ CLICK DOWNLOAD ]
-                    </a>
-                </div>
-                <div class="box">
-                    <span class="type-badge badge-apk">APK TOOL</span>
-                    <h3>Kiwi VPN</h3>
-                    <a class="action-link" href="https://kiwi-vpn-connection-ip-changer.vi.softonic.com/android/support?dt=internalDownload" target="_blank">
-                        [ CLICK DOWNLOAD ]
-                    </a>
-                </div>
-                <div class="box">
-                    <span class="type-badge badge-apk">APK TOOL</span>
-                    <h3>USA VPN</h3>
-                    <a class="action-link" href="https://d.apkpure.com/b/APK/com.ow.free.usavpn?version=latest" target="_blank">
-                        [ CLICK DOWNLOAD ]
-                    </a>
-                </div>
-                <div class="box">
-                    <span class="type-badge badge-apk">APK EXECUTOR VNG</span>
-                    <h3>Roblox Delta VNG V2.727</h3>
-                    <a class="action-link" href="https://zufile.com/download/J2jT7Gtugo" target="_blank">
-                        [ CLICK DOWNLOAD ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
-                </div>
-                <div class="box">
-                    <span class="type-badge badge-apk">APK EXECUTOR GLOBAL</span>
-                    <h3>Roblox Delta Quốc Tế V2.727</h3>
-                    <a class="action-link" href="https://delta.filenetwork.vip/file/Delta-2.727.1199.apk" target="_blank">
-                        [ CLICK DOWNLOAD ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
-                </div>
+                <div class="box"><span class="type-badge badge-apk">ANDROID APK</span><h3>Roblox Quốc Tế Android</h3><a class="action-link" href="https://play.google.com/store/apps/details?id=com.roblox.client&hl=en" target="_blank">[ CLICK DOWNLOAD ]</a></div>
+                <div class="box"><span class="type-badge badge-apk">APK EXECUTOR</span><h3>Arceus X</h3><a class="action-link" href="https://spdmteam.com/index?os=android" target="_blank">[ CLICK DOWNLOAD ]</a></div>
             </div>
 
-            <!-- SCRIPT HUB & LINKS PHỤ TRỢ -->
+            <!-- SCRIPT HUB -->
             <div class="section-title">SCRIPT HUB & LINKS</div>
             <div class="filter-tabs">
                 <button class="tab-btn active" onclick="filterCategory('all', this)">TẤT CẢ SCRIPT</button>
                 <button class="tab-btn" onclick="filterCategory('script', this)">📜 SCRIPT CHÍNH</button>
-                <button class="tab-btn" onclick="filterCategory('link', this)">🔗 LINKS BIÊN DỊCH</button>
+                <button class="tab-btn" onclick="filterCategory('link', this)">🔗 LINKS</button>
             </div>
 
             <div id="output">
-                <div class="box items-container" data-category="link">
-                    <span class="type-badge badge-link">LINK</span>
-                    <h3>Link Grow A Garden 2</h3>
-                    <a class="action-link" href="https://www.roblox.com/share?code=b6475c9baa1e3643a6d450d65c7fcbe8&type=Server" target="_blank">
-                        [ CLICK HERE ]
-                    </a>
-                </div>
-
                 <div class="box items-container" data-category="script">
                     <span class="type-badge badge-script">SCRIPT</span>
                     <h3>Beecon Hub [ 🔑 ]</h3>
                     <pre id="beecon">loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()</pre>
                     <button class="btn-copy" onclick="copyScript('beecon')">COPY SCRIPT</button>
-                    <a class="action-link" href="https://ads.luarmor.net/get_key?for=Beecon_Hub__Linkvertise-NbnfpfqYnZOG" target="_blank">
-                        🔑 [ LẤY KEY ] | <span class="status-online">🟢 WORKING</span>
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="link">
-                    <span class="type-badge badge-link">LINK</span>
-                    <h3>BYPASS KEY DELTA</h3>
-                    <a class="action-link" href="https://baconbypass.xyz/" target="_blank">
-                        [ CLICK HERE ]
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="link">
-                    <span class="type-badge badge-link">LINK</span>
-                    <h3>CLONE TAB DELTA VNG</h3>
-                    <a class="action-link" href="https://gofile.io/d/S1FNjL" target="_blank">
-                        [ CLICK HERE ]
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="link">
-                    <span class="type-badge badge-link">LINK</span>
-                    <h3>CLONE TAB DELTA QUỐC TẾ</h3>
-                    <a class="action-link" href="https://gofile.io/d/FoelUY" target="_blank">
-                        [ CLICK HERE ]
-                    </a>
-                </div>
-              
-                <div class="box items-container" data-category="script">
-                    <span class="type-badge badge-script">SCRIPT</span>
-                    <h3>Zap Hub Freemium [ 🔑 ]</h3>
-                    <pre id="zaphub">loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()</pre>
-                    <button class="btn-copy" onclick="copyScript('zaphub')">COPY SCRIPT</button>
-                    <a class="action-link" href="https://www.zaphub.xyz/getkey" target="_blank">
-                        🔑 [ LẤY KEY ] | <span class="status-online">🟢 WORKING</span>
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="script">
-                    <span class="type-badge badge-script">SCRIPT</span>
-                    <h3>Speed X Hub [ 🔑 ]</h3>
-                    <pre id="SpeedxHub">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre>
-                    <button class="btn-copy" onclick="copyScript('SpeedxHub')">COPY SCRIPT</button>
-                    <a class="action-link" href="https://ads.luarmor.net/get_key?for=Speed_Hub_X_Linkvertise-jOqPFgJvjYNe" target="_blank">
-                        🔑 [ LẤY KEY ] | <span class="status-online">🟢 WORKING</span>
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="script">
-                    <span class="type-badge badge-script">SCRIPT</span>
-                    <h3>Teddy Hub Gag 2</h3>
-                    <pre id="TeddyHub">repeat task.wait() until game:IsLoaded() and game:GetService("Players") and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui")
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/main.lua"))()</pre>
-                    <button class="btn-copy" onclick="copyScript('TeddyHub')">COPY SCRIPT</button>
-                    <a class="action-link" href="#" target="_blank">
-                        <span class="status-online">🟢 WORKING</span>
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="script">
-                    <span class="type-badge badge-script">SCRIPT</span>
-                    <h3>UB HUB [KEYLESS]</h3>
-                    <pre id="UBHUB">loadstring(game:HttpGet("https://raw.githubusercontent.com/TeamUBHub/UBLoader/refs/heads/main/index/Key.lua"))()</pre>
-                    <button class="btn-copy" onclick="copyScript('UBHUB')">COPY SCRIPT</button>
-                    <a class="action-link" href="#" target="_blank">
-                        <span class="status-online">🟢 WORKING</span>
-                    </a>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- BẢNG XÁC NHẬN ĐĂNG XUẤT CUSTOM -->
+    <!-- HỘP THOẠI XÁC NHẬN ĐĂNG XUẤT -->
     <div id="confirmModal" class="modal-overlay">
         <div class="modal-box">
             <h4>Xác nhận Đăng xuất</h4>
@@ -732,18 +540,15 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     </div>
 
     <script>
-        // Khởi tạo Database người dùng cục bộ
         if(!localStorage.getItem('registeredUsers')) {
             localStorage.setItem('registeredUsers', JSON.stringify([]));
         }
 
-        // Xóa thông báo chữ đỏ
-        function clearError(errorId) {
-            document.getElementById(errorId).style.display = "none";
-        }
+        function clearError(errorId) { document.getElementById(errorId).style.display = "none"; }
 
         function toggleAuthForm(mode) {
             document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+            if (typeof turnstile !== 'undefined') turnstile.reset();
             if(mode === 'register') {
                 document.getElementById('loginFormContainer').style.display = 'none';
                 document.getElementById('registerFormContainer').style.display = 'block';
@@ -753,26 +558,22 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
             }
         }
 
-        // ĐĂNG KÝ
         function handleRegister() {
             let email = document.getElementById('regEmail').value.trim();
             let pass = document.getElementById('regPassword').value;
             let confirmPass = document.getElementById('regPasswordConfirm').value;
             let hasError = false;
 
+            let captchaResponse = turnstile.getResponse('#regCaptcha');
+            if(!captchaResponse) {
+                document.getElementById('regCaptchaError').style.display = 'block';
+                hasError = true;
+            }
+
             let emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-            if(!emailRegex.test(email) || email.length < 11) {
-                document.getElementById('regEmailError').style.display = 'block';
-                hasError = true;
-            }
-            if(pass.length < 6) {
-                document.getElementById('regPasswordError').style.display = 'block';
-                hasError = true;
-            }
-            if(pass !== confirmPass || confirmPass === "") {
-                document.getElementById('regPasswordConfirmError').style.display = 'block';
-                hasError = true;
-            }
+            if(!emailRegex.test(email)) { document.getElementById('regEmailError').style.display = 'block'; hasError = true; }
+            if(pass.length < 6) { document.getElementById('regPasswordError').style.display = 'block'; hasError = true; }
+            if(pass !== confirmPass) { document.getElementById('regPasswordConfirmError').style.display = 'block'; hasError = true; }
 
             if(hasError) return;
 
@@ -788,24 +589,27 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
             toggleAuthForm('login');
         }
 
-        // ĐĂNG NHẬP
         function handleLogin() {
             let email = document.getElementById('loginEmail').value.trim();
             let pass = document.getElementById('loginPassword').value;
             let hasError = false;
 
-            let users = JSON.parse(localStorage.getItem('registeredUsers'));
-            let userMatch = users.find(u => u.email === email);
-
-            if(!userMatch) {
-                document.getElementById('loginEmailError').style.display = 'block';
-                hasError = true;
-            } else if(userMatch.password !== pass) {
-                document.getElementById('loginPasswordError').style.display = 'block';
+            let captchaResponse = turnstile.getResponse('#loginCaptcha');
+            if(!captchaResponse) {
+                document.getElementById('loginCaptchaError').style.display = 'block';
                 hasError = true;
             }
 
-            if(hasError) return;
+            let users = JSON.parse(localStorage.getItem('registeredUsers'));
+            let userMatch = users.find(u => u.email === email);
+
+            if(!userMatch) { document.getElementById('loginEmailError').style.display = 'block'; hasError = true; } 
+            else if(userMatch.password !== pass) { document.getElementById('loginPasswordError').style.display = 'block'; hasError = true; }
+
+            if(hasError) {
+                if (typeof turnstile !== 'undefined') turnstile.reset('#loginCaptcha');
+                return;
+            }
 
             showLoggedInState(email);
         }
@@ -817,37 +621,26 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
             document.getElementById('userName').innerText = name;
         }
 
-        // ĐIỀU KHIỂN HỘP THOẠI XÁC NHẬN ĐĂNG XUẤT CUSTOM
-        function openLogoutModal() {
-            document.getElementById('confirmModal').classList.add('active');
-        }
+        function openLogoutModal() { document.getElementById('confirmModal').classList.add('active'); }
 
         function confirmLogout(isYes) {
             document.getElementById('confirmModal').classList.remove('active');
             if(isYes) {
-                google.accounts.id.disableAutoSelect();
+                if(typeof google !== 'undefined') google.accounts.id.disableAutoSelect();
                 document.getElementById('userProfile').style.display = 'none';
+                if (typeof turnstile !== 'undefined') turnstile.reset();
                 toggleAuthForm('login');
             }
         }
 
-        // Bộ lọc danh mục Script Hub
         function filterCategory(category, button) {
             let tabs = document.querySelectorAll('.tab-btn');
             tabs.forEach(tab => tab.classList.remove('active'));
             button.classList.add('active');
-
             let items = document.querySelectorAll('.items-container');
             items.forEach(item => {
-                if (category === 'all') {
-                    item.style.display = 'block';
-                } else {
-                    if (item.getAttribute('data-category') === category) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                }
+                if (category === 'all') item.style.display = 'block';
+                else item.style.display = item.getAttribute('data-category') === category ? 'block' : 'none';
             });
         }
 
@@ -856,14 +649,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
             navigator.clipboard.writeText(text).catch(err => {});
         }
 
-        // Đồng bộ dữ liệu Google OAuth API
         function decodeJwtResponse(token) {
             let base64Url = token.split('.')[1];
             let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
+            return JSON.parse(decodeURIComponent(window.atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
         }
 
         function handleCredentialResponse(response) {
@@ -872,17 +661,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         }
 
         window.onload = function () {
-            google.accounts.id.initialize({
-                client_id: "157848520545-r1ua9qve4lkbdla5i2mldbrfkdpbr590.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-            });
-
-            google.accounts.id.renderButton(
-                document.getElementById("googleBtnDiv"),
-                { theme: "filled_black", size: "medium", text: "signin_with", width: "300" } 
-            );
-
-            google.accounts.id.prompt(); 
+            if(typeof google !== 'undefined') {
+                google.accounts.id.initialize({
+                    client_id: "157848520545-r1ua9qve4lkbdla5i2mldbrfkdpbr590.apps.googleusercontent.com",
+                    callback: handleCredentialResponse
+                });
+                google.accounts.id.renderButton(document.getElementById("googleBtnDiv"), { theme: "filled_black", size: "medium", width: "300" });
+            }
         }
     </script>
 </body>
