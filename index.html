@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLP4BY6FT8"></script>
@@ -15,7 +16,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>Skibidi Hub - Premium Edition</title>
+    <title>Skibidi Hub - Ultra Glass Edition</title>
     
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
@@ -28,8 +29,9 @@
             box-sizing: border-box; 
         }
         
+        /* Hình nền chuyển động hiệu ứng neon sâu thẳm */
         body {
-            background: radial-gradient(circle at 50% 0%, #1a1235 0%, #070814 70%);
+            background: linear-gradient(135deg, #0f0c20 0%, #15102a 40%, #060713 100%);
             color: #f3f4f6;
             font-family: 'Plus Jakarta Sans', sans-serif;
             padding: 40px 20px;
@@ -38,7 +40,7 @@
             justify-content: center;
         }
 
-        /* Bố cục chia hai cột: Trái làm Auth - Phải làm Nội dung chính */
+        /* Bố cục chính 2 cột */
         .wrapper {
             display: flex;
             width: 100%;
@@ -47,120 +49,147 @@
             align-items: flex-start;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
             .wrapper { flex-direction: column; }
             .sidebar { width: 100% !important; position: static !important; }
         }
 
-        /* CỘT TRÁI - KHU VỰC AUTH GLASSMORPHISM */
+        /* CỘT TRÁI - PANEL AUTH TRONG SUỐT HOÀN TOÀN (GLASSMORPHISM) */
         .sidebar {
-            width: 340px;
+            width: 350px;
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
             border-radius: 24px;
-            padding: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            padding: 30px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 40px;
         }
 
         .auth-box h2 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             color: #ffffff;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 10px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
         }
 
         .form-group {
-            margin-bottom: 14px;
+            margin-bottom: 18px;
+            position: relative;
         }
 
         .form-group label {
             display: block;
             font-size: 12px;
             font-weight: 600;
-            color: #9ca3af;
-            margin-bottom: 6px;
+            color: #b3b3b3;
+            margin-bottom: 8px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 16px;
-            background: rgba(0, 0, 0, 0.4);
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.35);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            border-radius: 14px;
             color: #ffffff;
             font-family: inherit;
             font-size: 14px;
-            transition: all 0.25s;
+            transition: all 0.3s;
         }
 
         .form-group input:focus {
             outline: none;
             border-color: #00f0ff;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
         }
 
-        /* Khung Captcha nghệ thuật */
-        .captcha-container {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 14px;
+        /* THÔNG BÁO LỖI CHỮ ĐỎ DƯỚI PHẦN Ô NHẬP */
+        .error-msg {
+            color: #ff4a4a;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 6px;
+            display: none;
         }
 
-        .captcha-img {
-            background: linear-gradient(45deg, #7f00ff, #ff007f);
-            color: #ffffff;
-            font-weight: 800;
-            font-style: italic;
-            letter-spacing: 4px;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            user-select: none;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        /* HỆ THỐNG CAPTCHA XÁC MINH BOT HÌNH ẢNH */
+        .captcha-verify-zone {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 18px;
         }
-
-        .btn-refresh-captcha {
-            padding: 10px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
+        
+        .captcha-instruction {
             font-size: 12px;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.1);
+            color: #00f0ff;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        /* Nút xác nhận chính */
+        .captcha-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .captcha-tile {
+            height: 70px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        /* Khi ô được bấm chọn làm mờ đổi màu viền neon */
+        .captcha-tile.selected {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+
+        /* Nút Submit chính */
         .btn-submit {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(90deg, #00f0ff, #7f00ff);
+            padding: 14px;
+            background: linear-gradient(90deg, #ff007f, #7f00ff);
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             color: #ffffff;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+            box-shadow: 0 5px 20px rgba(127, 0, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(255, 0, 127, 0.5);
         }
 
         .auth-toggle-text {
             text-align: center;
             font-size: 12px;
             color: #9ca3af;
-            margin-top: 14px;
+            margin-top: 16px;
         }
 
         .auth-toggle-text span {
@@ -169,92 +198,92 @@
             font-weight: 600;
         }
 
-        /* Hồ sơ người dùng sau đăng nhập */
+        /* Giao diện User Profile khi đăng nhập xong */
         .user-profile {
             display: none;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        .user-profile img {
-            width: 64px;
-            height: 64px;
+        .user-avatar-text {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 2px solid #00f0ff;
             border-radius: 50%;
-            border: 3px solid #00f0ff;
-            box-shadow: 0 0 15px rgba(0,240,255,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #00f0ff;
+            font-size: 20px;
         }
 
         .user-profile span {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #ffffff;
+            word-break: break-all;
         }
 
         .btn-logout {
             width: 100%;
-            margin-top: 10px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             color: #ef4444;
         }
 
         .btn-logout:hover {
             background: #ef4444;
             color: white;
-            box-shadow: 0 0 15px rgba(239,68,68,0.4);
         }
 
         .google-divider {
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 16px 0;
+            margin: 20px 0;
             font-size: 11px;
-            color: #4b5563;
+            color: #6b7280;
+            font-weight: 600;
         }
         .google-divider::before, .google-divider::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
         .google-divider:not(:empty)::before { margin-right: .5em; }
         .google-divider:not(:empty)::after { margin-left: .5em; }
 
-        #googleBtnDiv {
-            display: flex;
-            justify-content: center;
-        }
-
-        /* CỘT PHẢI - NỘI DUNG CHÍNH CHỨA WEB */
+        /* CỘT PHẢI - NỘI DUNG HUB TRONG SUỐT CÓ ĐÈN RAINBOW */
         .main-content {
             flex: 1;
         }
 
-        /* Khung Tiêu Đề LED Rainbow dạng Kính Mờ */
+        /* Khung Tiêu Đề LED Rainbow dạng Kính mờ siêu sâu */
         @keyframes rainbowGlow {
-            0% { border-color: #ff007f; box-shadow: 0 0 20px rgba(255,0,127,0.2); }
-            33% { border-color: #7f00ff; box-shadow: 0 0 20px rgba(127,0,255,0.2); }
-            66% { border-color: #00f0ff; box-shadow: 0 0 20px rgba(0,240,255,0.2); }
-            100% { border-color: #ff007f; box-shadow: 0 0 20px rgba(255,0,127,0.2); }
+            0% { border-color: #ff007f; box-shadow: 0 0 25px rgba(255,0,127,0.25); }
+            33% { border-color: #7f00ff; box-shadow: 0 0 25px rgba(127,0,255,0.25); }
+            66% { border-color: #00f0ff; box-shadow: 0 0 25px rgba(0,240,255,0.25); }
+            100% { border-color: #ff007f; box-shadow: 0 0 25px rgba(255,0,127,0.25); }
         }
 
         .header-section {
-            padding: 35px;
+            padding: 40px;
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: 24px;
             border: 2px solid #ff007f;
-            animation: rainbowGlow 8s linear infinite;
+            animation: rainbowGlow 6s linear infinite;
             margin-bottom: 30px;
-            position: relative;
         }
 
-        /* Logo Hub Chữ Ký Đặc Biệt Của Web */
+        /* Logo Hub Chữ Ký Neon Đổi Màu */
         .web-logo {
-            font-size: 36px;
+            font-size: 40px;
             font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -262,8 +291,8 @@
             background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: rainbowText 5s linear infinite;
-            margin-bottom: 4px;
+            animation: rainbowText 4s linear infinite;
+            margin-bottom: 6px;
         }
 
         @keyframes rainbowText {
@@ -275,18 +304,29 @@
         .header-section p {
             color: #9ca3af;
             font-size: 14px;
-            font-weight: 500;
+        }
+
+        /* TIÊU ĐỀ SECTION MỚI */
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 30px 0 15px 0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-left: 4px solid #00f0ff;
+            padding-left: 10px;
         }
 
         /* Thanh phân loại danh mục */
         .filter-tabs {
             display: flex;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 6px;
             border-radius: 16px;
             gap: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .tab-btn {
@@ -304,33 +344,32 @@
 
         .tab-btn:hover {
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .tab-btn.active {
             color: #ffffff;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 15px rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Hộp Chứa Item List */
+        /* Hộp Hàng Mục Trong Suốt Kính Mờ */
         .box {
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 24px;
             border-radius: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .box:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(0, 240, 255, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 240, 255, 0.1);
+            border-color: rgba(0, 240, 255, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
         .type-badge {
@@ -341,21 +380,20 @@
             border-radius: 8px;
             text-transform: uppercase;
             margin-bottom: 12px;
-            letter-spacing: 0.5px;
         }
-        .badge-apk { background: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); }
-        .badge-script { background: rgba(167, 139, 250, 0.1); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.2); }
-        .badge-link { background: rgba(96, 165, 250, 0.1); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.2); }
+        .badge-apk { background: rgba(52, 211, 153, 0.08); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.15); }
+        .badge-script { background: rgba(167, 139, 250, 0.08); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.15); }
+        .badge-link { background: rgba(96, 165, 250, 0.08); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.15); }
 
         .box h3 {
             color: #ffffff;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         pre {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4);
             padding: 14px;
             color: #e5e7eb;
             white-space: pre-wrap;
@@ -364,7 +402,7 @@
             margin: 15px 0;
             font-size: 13px;
             font-family: monospace;
-            border: 1px solid rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.03);
             border-left: 4px solid #7f00ff;
         }
 
@@ -373,33 +411,30 @@
             color: #00f0ff;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 12px;
+            margin-top: 10px;
             font-size: 14px;
             transition: all 0.2s;
         }
 
         .action-link:hover {
             color: #67e8f9;
-            text-shadow: 0 0 8px rgba(0,240,255,0.4);
         }
 
-        /* Nút Copy */
         .btn-copy {
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             font-size: 13px;
-            font-family: inherit;
             margin-right: 10px;
             transition: all 0.2s;
         }
 
         .btn-copy:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             border-color: #00f0ff;
         }
 
@@ -410,100 +445,151 @@
 
     <div class="wrapper">
         
-        <!-- CỘT GÓC TRÁI - KHU VỰC THÀNH VIÊN & CAPTCHA -->
+        <!-- COLUMN TRÁI - PANEL THÀNH VIÊN TRONG SUỐT & CHỐNG BOT HÌNH ẢNH -->
         <div class="sidebar">
-            <!-- Form Đăng Nhập -->
+            
+            <!-- FORM ĐĂNG NHẬP -->
             <div id="loginFormContainer" class="auth-box">
                 <h2>Đăng Nhập Hub</h2>
                 <div class="form-group">
                     <label>Tài khoản Gmail</label>
-                    <input type="email" id="loginEmail" placeholder="example@gmail.com">
+                    <input type="email" id="loginEmail" placeholder="example@gmail.com" oninput="clearError('loginEmailError')">
+                    <div id="loginEmailError" class="error-msg">Email chưa đúng hoặc không tồn tại!</div>
                 </div>
                 <div class="form-group">
                     <label>Mật khẩu</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••">
+                    <input type="password" id="loginPassword" placeholder="••••••••" oninput="clearError('loginPasswordError')">
+                    <div id="loginPasswordError" class="error-msg">Mật khẩu không chính xác!</div>
                 </div>
-                <div class="form-group">
-                    <label>Mã Captcha</label>
-                    <div class="captcha-container">
-                        <div id="loginCaptchaValue" class="captcha-img">0000</div>
-                        <div class="btn-refresh-captcha" onclick="generateCaptcha('login')">Đổi</div>
-                    </div>
-                    <input type="text" id="loginCaptchaInput" placeholder="Nhập mã bảo vệ">
+                
+                <!-- CAPTCHA HÌNH ẢNH CHỐNG BOT MỚI -->
+                <div class="captcha-verify-zone">
+                    <div id="loginCaptchaInstruction" class="captcha-instruction">Chọn tất cả ô: ĐANG TẢI...</div>
+                    <div class="captcha-grid" id="loginCaptchaGrid"></div>
+                    <div id="loginCaptchaError" class="error-msg">Vui lòng vượt qua xác minh Bot chính xác!</div>
                 </div>
-                <button class="btn-submit" onclick="handleLogin()">XÁC NHẬN ĐĂNG NHẬP</button>
+
+                <button class="btn-submit" onclick="handleLogin()">Xác Nhận Đăng Nhập</button>
                 <div class="auth-toggle-text">
                     Chưa có tài khoản? <span onclick="toggleAuthForm('register')">Đăng ký ngay</span>
                 </div>
                 
-                <div class="google-divider">HOẶC TIẾP TỤC VỚI</div>
+                <div class="google-divider">HOẶC ĐĂNG NHẬP NHANH</div>
                 <div id="googleBtnDiv"></div>
             </div>
 
-            <!-- Form Đăng Ký -->
+            <!-- FORM ĐĂNG KÝ THỦ CÔNG -->
             <div id="registerFormContainer" class="auth-box" style="display: none;">
                 <h2>Đăng Ký Thành Viên</h2>
                 <div class="form-group">
                     <label>Tài khoản Gmail (Bắt buộc đuôi @gmail.com)</label>
-                    <input type="email" id="regEmail" placeholder="user@gmail.com">
+                    <input type="email" id="regEmail" placeholder="user@gmail.com" oninput="clearError('regEmailError')">
+                    <div id="regEmailError" class="error-msg">Email phải có định dạng thực tế (ví dụ: tên@gmail.com)!</div>
                 </div>
                 <div class="form-group">
                     <label>Mật khẩu</label>
-                    <input type="password" id="regPassword" placeholder="Tối thiểu 6 ký tự">
+                    <input type="password" id="regPassword" placeholder="Tối thiểu 6 ký tự" oninput="clearError('regPasswordError')">
+                    <div id="regPasswordError" class="error-msg">Mật khẩu quá ngắn!</div>
                 </div>
                 <div class="form-group">
                     <label>Nhập lại mật khẩu</label>
-                    <input type="password" id="regPasswordConfirm" placeholder="Xác nhận lại mật khẩu">
+                    <input type="password" id="regPasswordConfirm" placeholder="Xác nhận lại mật khẩu" oninput="clearError('regPasswordConfirmError')">
+                    <div id="regPasswordConfirmError" class="error-msg">Mật khẩu xác nhận không khớp!</div>
                 </div>
-                <div class="form-group">
-                    <label>Mã Captcha</label>
-                    <div class="captcha-container">
-                        <div id="regCaptchaValue" class="captcha-img">0000</div>
-                        <div class="btn-refresh-captcha" onclick="generateCaptcha('reg')">Đổi</div>
-                    </div>
-                    <input type="text" id="regCaptchaInput" placeholder="Nhập mã bảo vệ">
+                
+                <!-- CAPTCHA ĐĂNG KÝ HÌNH ẢNH -->
+                <div class="captcha-verify-zone">
+                    <div id="regCaptchaInstruction" class="captcha-instruction">Chọn tất cả ô: ĐANG TẢI...</div>
+                    <div class="captcha-grid" id="regCaptchaGrid"></div>
+                    <div id="regCaptchaError" class="error-msg">Vui lòng vượt qua xác minh Bot chính xác!</div>
                 </div>
-                <button class="btn-submit" onclick="handleRegister()">TẠO TÀI KHOẢN</button>
+
+                <button class="btn-submit" onclick="handleRegister()">Tạo Tài Khoản</button>
                 <div class="auth-toggle-text">
                     Đã có tài khoản? <span onclick="toggleAuthForm('login')">Đăng nhập</span>
                 </div>
             </div>
 
-            <!-- Khung Trạng Thái Đã Đăng Nhập -->
+            <!-- KHUNG HIỂN THỊ TÀI KHOẢN SAU KHI ĐĂNG NHẬP THÀNH CÔNG -->
             <div id="userProfile" class="user-profile">
-                <h2>TÀI KHOẢN</h2>
-                <img id="userAvatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f0ff'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>" alt="Avatar">
+                <h2>Thành Viên</h2>
+                <div class="user-avatar-text">VIP</div>
                 <span id="userName">User@gmail.com</span>
-                <button class="btn-submit btn-logout" onclick="logoutSession()">ĐĂNG XUẤT</button>
+                <button class="btn-submit btn-logout" onclick="logoutSession()">Đăng Xuất</button>
             </div>
         </div>
 
-        <!-- CỘT BÊN PHẢI - NỘI DUNG HUB SCRIPT & APK -->
+        <!-- COLUMN PHẢI - KHU VỰC CHÍNH CHỨA WEB SCRIPT & KHO APK DOWLOAD -->
         <div class="main-content">
             
             <div class="header-section">
                 <div class="web-logo">Skibidi Hub</div>
-                <p>Hệ thống tổng hợp dữ liệu VIP - Tối ưu trải nghiệm sạch</p>
+                <p>Hệ thống tổng hợp dữ liệu Premium VIP - Đèn Neon LED Kính Mờ</p>
             </div>
 
-            <!-- Thanh Tabs Phân Loại -->
+            <!-- MỤC GOM FILE TẢI XUỐNG: APP DOWNLOAD (Không Phân Loại) -->
+            <div class="section-title">APP DOWNLOAD</div>
+            <div id="appDownloadSection">
+                <div class="box">
+                    <span class="type-badge badge-apk">ANDROID APK</span>
+                    <h3>Roblox Quốc Tế Android</h3>
+                    <a class="action-link" href="https://play.google.com/store/apps/details?id=com.roblox.client&hl=en" target="_blank">
+                        [ CLICK DOWNLOAD ] | <span class="status-online">🟢 ONLINE</span>
+                    </a>
+                </div>
+                <div class="box">
+                    <span class="type-badge badge-apk">APK EXECUTOR</span>
+                    <h3>Arceus X</h3>
+                    <a class="action-link" href="https://spdmteam.com/index?os=android" target="_blank">
+                        [ CLICK DOWNLOAD ] | <span class="status-online">🟢 ONLINE</span>
+                    </a>
+                </div>
+                <div class="box">
+                    <span class="type-badge badge-apk">APK TOOL</span>
+                    <h3>1.1.1.1 VPN</h3>
+                    <a class="action-link" href="https://1111-w-warp.vi.softonic.com/android" target="_blank">
+                        [ CLICK DOWNLOAD ]
+                    </a>
+                </div>
+                <div class="box">
+                    <span class="type-badge badge-apk">APK TOOL</span>
+                    <h3>Kiwi VPN</h3>
+                    <a class="action-link" href="https://kiwi-vpn-connection-ip-changer.vi.softonic.com/android/support?dt=internalDownload" target="_blank">
+                        [ CLICK DOWNLOAD ]
+                    </a>
+                </div>
+                <div class="box">
+                    <span class="type-badge badge-apk">APK TOOL</span>
+                    <h3>USA VPN</h3>
+                    <a class="action-link" href="https://d.apkpure.com/b/APK/com.ow.free.usavpn?version=latest" target="_blank">
+                        [ CLICK DOWNLOAD ]
+                    </a>
+                </div>
+                <div class="box">
+                    <span class="type-badge badge-apk">APK EXECUTOR VNG</span>
+                    <h3>Roblox Delta VNG V2.727</h3>
+                    <a class="action-link" href="https://zufile.com/download/J2jT7Gtugo" target="_blank">
+                        [ CLICK DOWNLOAD ] | <span class="status-online">🟢 ONLINE</span>
+                    </a>
+                </div>
+                <div class="box">
+                    <span class="type-badge badge-apk">APK EXECUTOR GLOBAL</span>
+                    <h3>Roblox Delta Quốc Tế V2.727</h3>
+                    <a class="action-link" href="https://delta.filenetwork.vip/file/Delta-2.727.1199.apk" target="_blank">
+                        [ CLICK DOWNLOAD ] | <span class="status-online">🟢 ONLINE</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- SCRIPT & CÁC HẠNG MỤC PHỤ TRỢ (Có bộ lọc) -->
+            <div class="section-title">SCRIPT HUB & LINKS</div>
             <div class="filter-tabs">
-                <button class="tab-btn active" onclick="filterCategory('all', this)">TẤT CẢ</button>
-                <button class="tab-btn" onclick="filterCategory('apk', this)">🤖 APK</button>
-                <button class="tab-btn" onclick="filterCategory('script', this)">📜 SCRIPT</button>
-                <button class="tab-btn" onclick="filterCategory('link', this)">🔗 LINK & IOS</button>
+                <button class="tab-btn active" onclick="filterCategory('all', this)">TẤT CẢ SCRIPT</button>
+                <button class="tab-btn" onclick="filterCategory('script', this)">📜 SCRIPT CHÍNH</button>
+                <button class="tab-btn" onclick="filterCategory('link', this)">🔗 LINKS PHỤ TRỢ</button>
             </div>
 
             <div id="output">
-                
-                <div class="box items-container" data-category="apk">
-                    <span class="type-badge badge-apk">APK</span>
-                    <h3>Arceus X</h3>
-                    <a class="action-link" href="https://spdmteam.com/index?os=android" target="_blank">
-                        [ CLICK HERE ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
-                </div>
-
                 <div class="box items-container" data-category="link">
                     <span class="type-badge badge-link">LINK</span>
                     <h3>Link Grow A Garden 2</h3>
@@ -519,14 +605,6 @@
                     <button class="btn-copy" onclick="copyScript('beecon')">COPY SCRIPT</button>
                     <a class="action-link" href="https://ads.luarmor.net/get_key?for=Beecon_Hub__Linkvertise-NbnfpfqYnZOG" target="_blank">
                         🔑 [ LẤY KEY ] | <span class="status-online">🟢 WORKING</span>
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="apk">
-                    <span class="type-badge badge-apk">APK</span>
-                    <h3>1.1.1.1 VPN</h3>
-                    <a class="action-link" href="https://1111-w-warp.vi.softonic.com/android" target="_blank">
-                        [ CLICK HERE ]
                     </a>
                 </div>
 
@@ -554,50 +632,10 @@
                     </a>
                 </div>
 
-                <div class="box items-container" data-category="apk">
-                    <span class="type-badge badge-apk">APK</span>
-                    <h3>Kiwi VPN</h3>
-                    <a class="action-link" href="https://kiwi-vpn-connection-ip-changer.vi.softonic.com/android/support?dt=internalDownload" target="_blank">
-                        [ CLICK HERE ]
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="apk">
-                    <span class="type-badge badge-apk">APK</span>
-                    <h3>USA VPN</h3>
-                    <a class="action-link" href="https://d.apkpure.com/b/APK/com.ow.free.usavpn?version=latest" target="_blank">
-                        [ CLICK HERE ]
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="apk">
-                    <span class="type-badge badge-apk">APK</span>
-                    <h3>Roblox Delta VNG V2.727</h3>
-                    <a class="action-link" href="https://zufile.com/download/J2jT7Gtugo" target="_blank">
-                        [ CLICK HERE ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="apk">
-                    <span class="type-badge badge-apk">APK</span>
-                    <h3>Roblox Delta Quốc Tế V2.727</h3>
-                    <a class="action-link" href="https://delta.filenetwork.vip/file/Delta-2.727.1199.apk" target="_blank">
-                        [ CLICK HERE ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
-                </div>
-
                 <div class="box items-container" data-category="link">
                     <span class="type-badge badge-link">IOS</span>
                     <h3>Roblox Quốc Tế IOS</h3>
                     <a class="action-link" href="https://itunes.apple.com/us/app/roblox-mobile/id431946152" target="_blank">
-                        [ CLICK HERE ] | <span class="status-online">🟢 ONLINE</span>
-                    </a>
-                </div>
-
-                <div class="box items-container" data-category="apk">
-                    <span class="type-badge badge-apk">APK</span>
-                    <h3>Roblox Quốc Tế Android</h3>
-                    <a class="action-link" href="https://play.google.com/store/apps/details?id=com.roblox.client&hl=en" target="_blank">
                         [ CLICK HERE ] | <span class="status-online">🟢 ONLINE</span>
                     </a>
                 </div>
@@ -642,127 +680,176 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
                         <span class="status-online">🟢 WORKING</span>
                     </a>
                 </div>
-          
             </div>
+
         </div>
     </div>
 
     <script>
-        // Khởi tạo bộ nhớ giả lập lưu tài khoản đăng ký trực tiếp trên trình duyệt
+        // Cơ sở dữ liệu tài khoản trên trình duyệt
         if(!localStorage.getItem('registeredUsers')) {
             localStorage.setItem('registeredUsers', JSON.stringify([]));
         }
 
-        // Tạo mã Captcha ngẫu nhiên
-        function generateCaptcha(type) {
-            let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            let captchaStr = "";
-            for (let i = 0; i < 4; i++) {
-                captchaStr += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            if(type === 'login') {
-                document.getElementById('loginCaptchaValue').innerText = captchaStr;
-            } else {
-                document.getElementById('regCaptchaValue').innerText = captchaStr;
-            }
+        // BIẾN ĐIỀU KHIỂN HỆ THỐNG CAPTCHA BOT HÌNH ẢNH GIẢ LẬP
+        let currentCaptchaTarget = "";
+        let selectedTiles = [];
+
+        function renderImageCaptcha(prefix) {
+            const targets = ["APPLE", "BANANA", "CHERRY"];
+            currentCaptchaTarget = targets[Math.floor(Math.random() * targets.length)];
+            document.getElementById(`${prefix}CaptchaInstruction`).innerText = `Click tất cả ô chứa từ: ${currentCaptchaTarget}`;
+            
+            selectedTiles = [];
+            const grid = document.getElementById(`${prefix}CaptchaGrid`);
+            grid.innerHTML = "";
+
+            // Tạo ngẫu nhiên 9 ô dữ liệu hình ảnh văn bản tương ứng
+            let pool = ["APPLE", "BANANA", "CHERRY", "APPLE", "BANANA", "CHERRY", "ORANGE", "GRAPE", "MELON"];
+            // Trộn mảng ngẫu nhiên
+            pool.sort(() => Math.random() - 0.5);
+
+            pool.forEach((item, index) => {
+                let tile = document.createElement("div");
+                tile.className = "captcha-tile";
+                tile.innerText = item;
+                tile.setAttribute("data-value", item);
+                tile.onclick = function() {
+                    if(tile.classList.contains("selected")) {
+                        tile.classList.remove("selected");
+                        selectedTiles = selectedTiles.filter(i => i !== index);
+                    } else {
+                        tile.classList.add("selected");
+                        selectedTiles.push(index);
+                    }
+                };
+                grid.appendChild(tile);
+            });
+            grid.setAttribute("data-prefix", prefix);
         }
 
-        // Chuyển đổi qua lại giữa form Đăng ký / Đăng nhập
+        function verifyCaptchaSuccess(prefix) {
+            const grid = document.getElementById(`${prefix}CaptchaGrid`);
+            const tiles = grid.children;
+            let isCorrect = true;
+            let targetCount = 0;
+
+            for(let i=0; i<tiles.length; i++) {
+                let val = tiles[i].getAttribute("data-value");
+                let isSelected = tiles[i].classList.contains("selected");
+                if(val === currentCaptchaTarget) targetCount++;
+                
+                if((val === currentCaptchaTarget && !isSelected) || (val !== currentCaptchaTarget && isSelected)) {
+                    isCorrect = false;
+                }
+            }
+            if(targetCount === 0) return false; // Tránh lỗi không có mục tiêu nào xuất hiện
+            return isCorrect;
+        }
+
+        // Xóa thông báo chữ đỏ khi người dùng gõ phím lại
+        function clearError(errorId) {
+            document.getElementById(errorId).style.display = "none";
+        }
+
         function toggleAuthForm(mode) {
+            // Reset các ô báo lỗi
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+            
             if(mode === 'register') {
                 document.getElementById('loginFormContainer').style.display = 'none';
                 document.getElementById('registerFormContainer').style.display = 'block';
-                generateCaptcha('reg');
+                renderImageCaptcha('reg');
             } else {
                 document.getElementById('loginFormContainer').style.display = 'block';
                 document.getElementById('registerFormContainer').style.display = 'none';
-                generateCaptcha('login');
+                renderImageCaptcha('login');
             }
         }
 
-        // Xử lý sự kiện Đăng ký thủ công
+        // XỬ LÝ ĐĂNG KÝ THÀNH VIÊN THỦ CÔNG
         function handleRegister() {
             let email = document.getElementById('regEmail').value.trim();
             let pass = document.getElementById('regPassword').value;
             let confirmPass = document.getElementById('regPasswordConfirm').value;
-            let captchaInput = document.getElementById('regCaptchaInput').value.trim().toUpperCase();
-            let captchaReal = document.getElementById('regCaptchaValue').innerText;
+            let hasError = false;
 
-            // Kiểm tra định dạng đuôi Gmail
+            // Kiểm tra định dạng chính xác thực tế của Gmail
             let emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-            if(!emailRegex.test(email)) {
-                alert("Định dạng email không hợp lệ! Vui lòng nhập đúng dạng đuôi @gmail.com");
-                return;
+            if(!emailRegex.test(email) || email.length < 11) {
+                document.getElementById('regEmailError').style.display = 'block';
+                hasError = true;
             }
             if(pass.length < 6) {
-                alert("Mật khẩu phải dài từ 6 ký tự trở lên!");
-                return;
+                document.getElementById('regPasswordError').style.display = 'block';
+                hasError = true;
             }
-            if(pass !== confirmPass) {
-                alert("Hai mật khẩu nhập lại không khớp nhau!");
-                return;
+            if(pass !== confirmPass || confirmPass === "") {
+                document.getElementById('regPasswordConfirmError').style.display = 'block';
+                hasError = true;
             }
-            if(captchaInput !== captchaReal) {
-                alert("Mã bảo vệ CAPTCHA không chính xác!");
-                generateCaptcha('reg');
-                return;
+            if(!verifyCaptchaSuccess('reg')) {
+                document.getElementById('regCaptchaError').style.display = 'block';
+                hasError = true;
+                renderImageCaptcha('reg');
             }
+
+            if(hasError) return;
 
             let users = JSON.parse(localStorage.getItem('registeredUsers'));
             if(users.some(u => u.email === email)) {
-                alert("Tài khoản Gmail này đã được đăng ký trước đó!");
+                document.getElementById('regEmailError').innerText = "Tài khoản Gmail này đã tồn tại trên hệ thống!";
+                document.getElementById('regEmailError').style.display = 'block';
                 return;
             }
 
             users.push({ email: email, password: pass });
             localStorage.setItem('registeredUsers', JSON.stringify(users));
-            alert("Đăng ký thành công tài khoản mới! Tiến hành đăng nhập.");
             toggleAuthForm('login');
         }
 
-        // Xử lý sự kiện Đăng nhập thủ công
+        // XỬ LÝ ĐĂNG NHẬP THỦ CÔNG
         function handleLogin() {
             let email = document.getElementById('loginEmail').value.trim();
             let pass = document.getElementById('loginPassword').value;
-            let captchaInput = document.getElementById('loginCaptchaInput').value.trim().toUpperCase();
-            let captchaReal = document.getElementById('loginCaptchaValue').innerText;
-
-            if(captchaInput !== captchaReal) {
-                alert("Mã bảo vệ CAPTCHA không chính xác!");
-                generateCaptcha('login');
-                return;
-            }
+            let hasError = false;
 
             let users = JSON.parse(localStorage.getItem('registeredUsers'));
-            let userMatch = users.find(u => u.email === email && u.password === pass);
+            let userMatch = users.find(u => u.email === email);
 
-            if(userMatch) {
-                showLoggedInState(email, null);
-            } else {
-                alert("Sai tài khoản Gmail hoặc mật khẩu chưa chính xác!");
-                generateCaptcha('login');
+            if(!userMatch) {
+                document.getElementById('loginEmailError').style.display = 'block';
+                hasError = true;
+            } else if(userMatch.password !== pass) {
+                document.getElementById('loginPasswordError').style.display = 'block';
+                hasError = true;
             }
+
+            if(!verifyCaptchaSuccess('login')) {
+                document.getElementById('loginCaptchaError').style.display = 'block';
+                hasError = true;
+                renderImageCaptcha('login');
+            }
+
+            if(hasError) return;
+
+            showLoggedInState(email);
         }
 
-        // Hiển thị trạng thái khi Login thành công
-        function showLoggedInState(name, avatarUrl) {
+        function showLoggedInState(name) {
             document.getElementById('loginFormContainer').style.display = 'none';
             document.getElementById('registerFormContainer').style.display = 'none';
             document.getElementById('userProfile').style.display = 'flex';
             document.getElementById('userName').innerText = name;
-            if(avatarUrl) {
-                document.getElementById('userAvatar').src = avatarUrl;
-            }
         }
 
-        // Đăng xuất tài khoản
         function logoutSession() {
             google.accounts.id.disableAutoSelect();
             document.getElementById('userProfile').style.display = 'none';
             toggleAuthForm('login');
         }
 
-        // Lọc danh mục dữ liệu chính xác 100%
+        // Lọc danh mục riêng biệt cho khối Script Hub bên dưới
         function filterCategory(category, button) {
             let tabs = document.querySelectorAll('.tab-btn');
             tabs.forEach(tab => tab.classList.remove('active'));
@@ -782,17 +869,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
             });
         }
 
-        // Sao chép nội dung Script nhanh
         function copyScript(id) {
             let text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text).then(() => {
-                alert("ĐÃ COPY SCRIPT THÀNH CÔNG!");
-            }).catch(err => {
-                alert("Có lỗi xảy ra khi sao chép mã!");
-            });
+                // Không dùng alert nữa
+            }).catch(err => {});
         }
 
-        // Tích hợp giải mã Google Sign-In
+        // Hệ thống Đăng Nhập Google Identity Tích Hợp Gọn Gàng Bên Trái
         function decodeJwtResponse(token) {
             let base64Url = token.split('.')[1];
             let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -804,12 +888,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
         function handleCredentialResponse(response) {
             const responsePayload = decodeJwtResponse(response.credential);
-            showLoggedInState(responsePayload.name, responsePayload.picture);
+            showLoggedInState(responsePayload.email);
         }
 
-        // Khởi chạy khi tải xong trang web
         window.onload = function () {
-            generateCaptcha('login');
+            renderImageCaptcha('login');
             
             google.accounts.id.initialize({
                 client_id: "157848520545-r1ua9qve4lkbdla5i2mldbrfkdpbr590.apps.googleusercontent.com",
@@ -818,7 +901,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
             google.accounts.id.renderButton(
                 document.getElementById("googleBtnDiv"),
-                { theme: "filled_black", size: "medium", text: "signin_with", width: "290" } 
+                { theme: "filled_black", size: "medium", text: "signin_with", width: "300" } 
             );
 
             google.accounts.id.prompt(); 
@@ -826,3 +909,5 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     </script>
 </body>
 </html>
+
+```
