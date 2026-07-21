@@ -40,7 +40,7 @@
       margin-bottom: 24px;
     }
 
-    /* Row 4 mục chọn */
+    /* Khung chuyển tab */
     .nav-tabs {
       display: flex;
       gap: 8px;
@@ -64,7 +64,7 @@
       border-color: #4f46e5;
     }
 
-    /* Khung chính giống ảnh mẫu */
+    /* Khung chứa các box */
     .card {
       background-color: #141418;
       border: 1px solid #282830;
@@ -73,58 +73,76 @@
       text-align: left;
     }
 
-    .notice-box {
-      background-color: #1a1215;
-      border: 1px solid #4a1d24;
-      color: #f87171;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      margin-bottom: 16px;
-      text-align: center;
+    .tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .field-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #d1d5db;
-      margin-bottom: 8px;
-      display: block;
+    .tab-content.active {
+      display: flex;
     }
 
-    .input-box {
-      width: 100%;
-      padding: 14px;
+    /* --- THIẾT KẾ MỖI BOX MỤC --- */
+    .box {
       background-color: #0e0e11;
       border: 1px solid #282830;
       border-radius: 10px;
-      color: #ffffff;
-      font-size: 0.85rem;
-      margin-bottom: 16px;
-      outline: none;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .main-btn {
-      width: 100%;
-      padding: 14px;
-      background-color: #1f2029;
-      border: 1px solid #333545;
-      border-radius: 10px;
-      color: #ffffff;
+    .box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .box-title {
       font-size: 0.9rem;
       font-weight: 600;
-      cursor: pointer;
-      margin-bottom: 16px;
+      color: #ffffff;
     }
 
-    .main-btn:hover {
+    .box-btn {
+      background-color: #1f2029;
+      border: 1px solid #333545;
+      border-radius: 8px;
+      color: #ffffff;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .box-btn:hover {
       background-color: #2b2d3a;
+    }
+
+    /* Hiển thị đoạn Script */
+    .script-text {
+      background-color: #16171d;
+      border: 1px solid #23242c;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 0.78rem;
+      color: #a5b4fc;
+      word-break: break-all;
+      user-select: all;
     }
 
     .card-footer {
       text-align: center;
       font-size: 0.75rem;
       color: #6b7280;
+      margin-top: 16px;
     }
   </style>
 </head>
@@ -134,86 +152,136 @@
     <h1 class="title">ReizShare</h1>
     <p class="subtitle">Quick and simple sharing service</p>
 
-    <!-- 4 Nút tương ứng 4 mục -->
+    <!-- NÚT MỤC TAB -->
     <div class="nav-tabs">
-      <button class="nav-btn active" onclick="setTab('link', this)">Link</button>
-      <button class="nav-btn" onclick="setTab('script', this)">Script</button>
-      <button class="nav-btn" onclick="setTab('apk', this)">APK</button>
-      <button class="nav-btn" onclick="setTab('ios', this)">iOS</button>
+      <button class="nav-btn active" onclick="showTab('tab-link', this)">Link</button>
+      <button class="nav-btn" onclick="showTab('tab-script', this)">Script</button>
+      <button class="nav-btn" onclick="showTab('tab-apk', this)">APK</button>
+      <button class="nav-btn" onclick="showTab('tab-ios', this)">iOS</button>
     </div>
 
-    <!-- Khung chính -->
+    <!-- KHUNG NỘI DUNG CHÍNH -->
     <div class="card">
-      <div class="notice-box">
-        Trang thai: Hoat dong binh thuong
+
+      <!-- =================================================== -->
+      <!-- 1. MỤC LINK (Chỉ hiện Tên + Nút truy cập) -->
+      <!-- =================================================== -->
+      <div id="tab-link" class="tab-content active">
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Link Bypass 1</span>
+            <a href="https://example.com/duong-dan-1" target="_blank" class="box-btn">Truy cập</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Link Bypass 2</span>
+            <a href="https://example.com/duong-dan-2" target="_blank" class="box-btn">Truy cập</a>
+          </div>
+        </div>
+
       </div>
 
-      <label class="field-label" id="fieldLabel">Link cua ban</label>
-      <input type="text" id="displayInput" class="input-box" readonly>
+      <!-- =================================================== -->
+      <!-- 2. MỤC SCRIPT (Hiện Tên + Nội dung Script + Nút chép) -->
+      <!-- =================================================== -->
+      <div id="tab-script" class="tab-content">
 
-      <button class="main-btn" id="actionBtn" onclick="handleAction()">Mo ngay -> </button>
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Script Blox Fruits</span>
+            <button class="box-btn" onclick="copyCode(this)">Sao chép</button>
+          </div>
+          <div class="script-text">loadstring(game:HttpGet('https://raw.githubusercontent.com/script1.lua'))()</div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Script King Legacy</span>
+            <button class="box-btn" onclick="copyCode(this)">Sao chép</button>
+          </div>
+          <div class="script-text">loadstring(game:HttpGet('https://raw.githubusercontent.com/script2.lua'))()</div>
+        </div>
+
+      </div>
+
+      <!-- =================================================== -->
+      <!-- 3. MỤC APK (Chỉ hiện Tên + Nút Tải) -->
+      <!-- =================================================== -->
+      <div id="tab-apk" class="tab-content">
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Delta Executor APK</span>
+            <a href="https://example.com/file1.apk" target="_blank" class="box-btn">Tải xuống</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Fluxus APK</span>
+            <a href="https://example.com/file2.apk" target="_blank" class="box-btn">Tải xuống</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =================================================== -->
+      <!-- 4. MỤC IOS (Chỉ hiện Tên + Nút Tải) -->
+      <!-- =================================================== -->
+      <div id="tab-ios" class="tab-content">
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Delta iOS IPA</span>
+            <a href="https://example.com/file1.ipa" target="_blank" class="box-btn">Tải xuống</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">CodeX iOS IPA</span>
+            <a href="https://example.com/file2.ipa" target="_blank" class="box-btn">Tải xuống</a>
+          </div>
+        </div>
+
+      </div>
 
       <div class="card-footer">
         Protected by ReizShare
       </div>
+
     </div>
   </div>
 
   <script>
-    // =========================================================
-    // BAN CHINH SUA LINK HOAC SCRIPT CUA 4 MUC TAI DAY:
-    // =========================================================
-    const DATA = {
-      link: "https://gofile.io/d/S1FNjL",
-      link: "https://gofile.io/d/p0Mww1",
-      script: "loadstring(game:HttpGet('https://script-cua-ban.lua'))()",
-      apk: "https://link-tai-apk.com/app.apk",
-      ios: "https://link-tai-ios.com/app.ipa"
-    };
-    // =========================================================
-
-    let currentTab = 'link';
-
-    function setTab(tab, element) {
-      currentTab = tab;
+    // Hàm chuyển Tab
+    function showTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
       
-      const buttons = document.querySelectorAll('.nav-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      element.classList.add('active');
-
-      const input = document.getElementById('displayInput');
-      const label = document.getElementById('fieldLabel');
-      const btn = document.getElementById('actionBtn');
-
-      input.value = DATA[tab] || '';
-
-      if (tab === 'script') {
-        label.innerText = 'Noi dung Script';
-        btn.innerText = 'Sao chep Script ->';
-      } else {
-        label.innerText = 'Duong dan ' + tab.toUpperCase();
-        btn.innerText = 'Mo / Tai ngay ->';
-      }
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
     }
 
-    function handleAction() {
-      const val = DATA[currentTab];
-      if (!val) return;
-
-      if (currentTab === 'script') {
-        navigator.clipboard.writeText(val);
-        const btn = document.getElementById('actionBtn');
-        btn.innerText = 'Da sao chep!';
-        setTimeout(() => {
-          btn.innerText = 'Sao chep Script ->';
-        }, 1500);
-      } else {
-        window.open(val, '_blank');
-      }
+    // Hàm sao chép Script
+    function copyCode(btn) {
+      const box = btn.closest('.box');
+      const scriptText = box.querySelector('.script-text').innerText;
+      
+      navigator.clipboard.writeText(scriptText);
+      
+      const oldText = btn.innerText;
+      btn.innerText = 'Đã chép';
+      btn.style.backgroundColor = '#16a34a';
+      
+      setTimeout(() => {
+        btn.innerText = oldText;
+        btn.style.backgroundColor = '';
+      }, 1500);
     }
-
-    // Chay mac dinh tab Link khi vao trang
-    setTab('link', document.querySelectorAll('.nav-btn')[0]);
   </script>
 </body>
 </html>
