@@ -13,7 +13,6 @@
     }
 
     body {
-      /* Nền tối sâu với điểm nhấn đỏ trung tâm */
       background: radial-gradient(circle at top, #2a080c 0%, #090203 60%, #000000 100%);
       color: #ffffff;
       display: flex;
@@ -30,7 +29,6 @@
       text-align: center;
     }
 
-    /* TIÊU ĐỀ ĐỎ CHUYỂN MÀU */
     .title {
       font-size: 2.3rem;
       font-weight: 900;
@@ -51,7 +49,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* NAV TABS - ĐỎ ĐEN */
     .nav-tabs {
       display: flex;
       gap: 8px;
@@ -85,7 +82,6 @@
       box-shadow: 0 4px 18px rgba(220, 38, 38, 0.45);
     }
 
-    /* CARD CỐ ĐỊNH CHIỀU CAO - TRÁNH CO CO GIÃN KHUNG */
     .card {
       background: rgba(15, 6, 8, 0.75);
       backdrop-filter: blur(16px);
@@ -94,7 +90,6 @@
       padding: 18px;
       text-align: left;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(220, 38, 38, 0.1);
-      /* Cố định chiều cao cho vùng nội dung */
       height: 440px;
       display: flex;
       flex-direction: column;
@@ -110,7 +105,6 @@
       padding-right: 6px;
     }
 
-    /* THANH CUỘN ĐỎ ĐEN TỰ ĐỊNH DẠNG */
     .tab-content::-webkit-scrollbar {
       width: 5px;
     }
@@ -126,7 +120,6 @@
       background: rgba(220, 38, 38, 0.8);
     }
 
-    /* ANIMATION CHUYỂN MỤC MƯỢT MÀ */
     .tab-content.active {
       display: flex;
       animation: smoothSlideIn 0.38s cubic-bezier(0.22, 1, 0.36, 1);
@@ -143,7 +136,6 @@
       }
     }
 
-    /* MỖI ITEM BOX */
     .box {
       background: rgba(26, 10, 13, 0.6);
       backdrop-filter: blur(8px);
@@ -176,7 +168,6 @@
       color: #f4f4f5;
     }
 
-    /* NÚT BẤM CHUYỂN MÀU ĐỎ */
     .box-btn {
       background: linear-gradient(135deg, #ef4444, #b91c1c, #991b1b, #ef4444);
       background-size: 300% 300%;
@@ -210,7 +201,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* VÙNG CHỨA SCRIPT CODE */
     .script-text {
       background: rgba(10, 4, 5, 0.85);
       border: 1px solid rgba(220, 38, 38, 0.15);
@@ -258,23 +248,19 @@
           </div>
         </div>
 
+        <div class="box">
           <div class="box-header">
             <span class="box-title">Clone Tab Delta Global ( Anya )</span>
             <a href="https://gofile.io/d/CQWaqp" target="_blank" class="box-btn">Access</a>
           </div>
         </div>
 
-          <div id="tab-link" class="tab-content active">
         <div class="box">
           <div class="box-header">
             <span class="box-title">Clone Tab Delta Roblox VN ( Anya )</span>
             <a href="https://gofile.io/d/94VEHn" target="_blank" class="box-btn">Access</a>
           </div>
         </div>
-        
-        <div id="tab-link" class="tab-content active">
-        <div class="box">
-      
 
         <div class="box">
           <div class="box-header">
@@ -389,7 +375,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
   </div>
 
   <script>
-    // Hàm chuyển Tab
     function showTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -399,7 +384,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       btn.classList.add('active');
     }
 
-    // Hàm sao chép Script
     function copyCode(btn) {
       const box = btn.closest('.box');
       const scriptText = box.querySelector('.script-text').innerText;
