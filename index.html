@@ -1,612 +1,218 @@
 <!DOCTYPE html>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VLP4BY6FT8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-VLP4BY6FT8');
-</script>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    
-    <title>Skibidi Hub - Smooth Liquid Glass Edition</title>
-    
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <!-- Nhúng API Cloudflare Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReizShare</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
-        
-        /* Chuyển động nền mượt mà */
-        body {
-            background: linear-gradient(-45deg, #090514, #150935, #0a173a, #04040c);
-            background-size: 400% 400%;
-            animation: liquidBg 15s ease infinite;
-            color: #f3f4f6;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            padding: 30px 15px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-        }
+    body {
+      background-color: #0d0e11;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-        @keyframes liquidBg {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .wrapper {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
 
-        .wrapper {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            gap: 25px;
-            align-items: flex-start;
-        }
+    .title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
 
-        @media (max-width: 950px) {
-            .wrapper { flex-direction: column; }
-            .sidebar { width: 100% !important; }
-        }
+    .subtitle {
+      color: #8a8a93;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
 
-        /* SIDEBAR SỬA LỖI HIỂN THỊ KHI CUỘN */
-        .sidebar {
-            width: 340px;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 20px;
-            padding: 25px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-            transform: translateZ(0); /* Ép phần cứng xử lý tránh lỗi mất hình khi cuộn */
-        }
+    /* Row 4 mục chọn */
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
 
-        .auth-box h2 {
-            font-size: 18px;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 10px;
-        }
+    .nav-btn {
+      flex: 1;
+      padding: 10px 0;
+      background-color: #1a1a1e;
+      color: #ffffff;
+      border: 1px solid #2e2e35;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+    .nav-btn.active {
+      background-color: #4f46e5;
+      border-color: #4f46e5;
+    }
 
-        .form-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            color: #d1d5db;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
+    /* Khung chính giống ảnh mẫu */
+    .card {
+      background-color: #141418;
+      border: 1px solid #282830;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: left;
+    }
 
-        .form-group input {
-            width: 100%;
-            padding: 12px 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            color: #ffffff;
-            font-family: inherit;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
+    .notice-box {
+      background-color: #1a1215;
+      border: 1px solid #4a1d24;
+      color: #f87171;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      text-align: center;
+    }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #00f0ff;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-        }
+    .field-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #d1d5db;
+      margin-bottom: 8px;
+      display: block;
+    }
 
-        /* KHUNG CHỨA CAPTCHA CHUẨN KÍCH THƯỚC ĐIỆN THOẠI */
-        .captcha-container {
-            margin: 15px 0;
-            display: flex;
-            justify-content: center;
-            min-height: 65px;
-            width: 100%;
-            overflow: hidden;
-        }
+    .input-box {
+      width: 100%;
+      padding: 14px;
+      background-color: #0e0e11;
+      border: 1px solid #282830;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      outline: none;
+    }
 
-        .error-msg {
-            color: #ff5252;
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 5px;
-            display: none;
-        }
+    .main-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #1f2029;
+      border: 1px solid #333545;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
 
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #ff007f, #7f00ff);
-            border: none;
-            border-radius: 12px;
-            color: #ffffff;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(127, 0, 255, 0.2);
-        }
+    .main-btn:hover {
+      background-color: #2b2d3a;
+    }
 
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 0, 127, 0.3);
-        }
-
-        .auth-toggle-text {
-            text-align: center;
-            font-size: 12px;
-            color: #9ca3af;
-            margin-top: 15px;
-        }
-
-        .auth-toggle-text span {
-            color: #00f0ff;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .user-profile {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 15px;
-        }
-
-        .user-avatar-text {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 240, 255, 0.05);
-            border: 2px solid rgba(0, 240, 255, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: #00f0ff;
-        }
-
-        .btn-logout {
-            width: 100%;
-            background: rgba(239, 68, 68, 0.05);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-
-        .btn-logout:hover {
-            background: #ef4444;
-            color: white;
-        }
-
-        .google-divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            margin: 15px 0;
-            font-size: 11px;
-            color: #6b7280;
-        }
-        .google-divider::before, .google-divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .google-divider:not(:empty)::before { margin-right: .5em; }
-        .google-divider:not(:empty)::after { margin-left: .5em; }
-
-        .main-content {
-            flex: 1;
-            width: 100%;
-        }
-
-        .header-section {
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.04);
-            margin-bottom: 25px;
-        }
-
-        .web-logo {
-            font-size: 36px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #ff007f, #7f00ff, #00f0ff, #ff007f);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rainbowText 5s linear infinite;
-        }
-
-        @keyframes rainbowText {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .section-title {
-            font-size: 14px;
-            font-weight: 800;
-            color: #ffffff;
-            margin: 25px 0 15px 0;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-left: 3px solid #00f0ff;
-            padding-left: 10px;
-        }
-
-        .filter-tabs {
-            display: flex;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 4px;
-            border-radius: 12px;
-            gap: 5px;
-            margin-bottom: 15px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 10px;
-            background: transparent;
-            color: #9ca3af;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 12px;
-        }
-
-        .tab-btn.active {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .box {
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 15px;
-            transform: translateZ(0);
-        }
-
-        .type-badge {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .badge-apk { background: rgba(52, 211, 153, 0.1); color: #34d399; }
-        .badge-ios { background: rgba(244, 63, 94, 0.1); color: #f43f5e; }
-        .badge-script { background: rgba(167, 139, 250, 0.1); color: #a78bfa; }
-        .badge-link { background: rgba(96, 165, 250, 0.1); color: #60a5fa; }
-
-        .box h3 { color: #ffffff; font-size: 15px; margin-bottom: 6px; }
-
-        pre {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 12px;
-            color: #e5e7eb;
-            white-space: pre-wrap;
-            word-break: break-all;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-size: 12px;
-            font-family: monospace;
-            border-left: 3px solid #7f00ff;
-        }
-
-        .action-link { display: inline-block; color: #00f0ff; text-decoration: none; font-weight: 600; margin-top: 5px; font-size: 13px; }
-        .btn-copy {
-            padding: 8px 16px; background: rgba(255, 255, 255, 0.03); color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px;
-            cursor: pointer; font-weight: 600; font-size: 12px; margin-top: 5px;
-        }
-        .btn-copy:hover { border-color: #00f0ff; }
-        .status-online { color: #34d399; font-weight: 600; }
-
-        /* MODAL */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(4, 2, 8, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            display: flex; align-items: center; justify-content: center; z-index: 9999;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-        }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-box {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px; padding: 25px; width: 90%; max-width: 360px; text-align: center;
-        }
-        .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
-        .modal-btn { flex: 1; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; border: none; }
-    </style>
+    .card-footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <div class="sidebar">
-            <!-- LOGIN FORM -->
-            <div id="loginFormContainer" class="auth-box">
-                <h2>Đăng Nhập Hub</h2>
-                <div class="form-group">
-                    <label>Tài khoản Gmail</label>
-                    <input type="email" id="loginEmail" placeholder="example@gmail.com" oninput="clearError('loginEmailError')">
-                    <div id="loginEmailError" class="error-msg">Email chưa đúng hoặc không tồn tại!</div>
-                </div>
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••" oninput="clearError('loginPasswordError')">
-                    <div id="loginPasswordError" class="error-msg">Mật khẩu không chính xác!</div>
-                </div>
+  <div class="wrapper">
+    <h1 class="title">ReizShare</h1>
+    <p class="subtitle">Quick and simple sharing service</p>
 
-                <div class="captcha-container">
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAD42fiaawZ4L3-qp" data-theme="dark" id="loginCaptcha"></div>
-                </div>
-                <div id="loginCaptchaError" class="error-msg" style="text-align: center; margin-bottom: 10px;">Vui lòng hoàn thành xác minh CAPTCHA!</div>
-
-                <button class="btn-submit" onclick="handleLogin()">Xác Nhận Đăng Nhập</button>
-                <div class="auth-toggle-text">
-                    Chưa có tài khoản? <span onclick="toggleAuthForm('register')">Đăng ký ngay</span>
-                </div>
-                <div class="google-divider">HOẶC ĐĂNG NHẬP NHANH</div>
-                <div id="googleBtnDiv"></div>
-            </div>
-
-            <!-- REGISTER FORM -->
-            <div id="registerFormContainer" class="auth-box" style="display: none;">
-                <h2>Đăng Ký Thành Viên</h2>
-                <div class="form-group">
-                    <label>Tài khoản Gmail</label>
-                    <input type="email" id="regEmail" placeholder="user@gmail.com" oninput="clearError('regEmailError')">
-                    <div id="regEmailError" class="error-msg">Email phải có định dạng @gmail.com!</div>
-                </div>
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" id="regPassword" placeholder="Tối thiểu 6 ký tự" oninput="clearError('regPasswordError')">
-                    <div id="regPasswordError" class="error-msg">Mật khẩu quá ngắn!</div>
-                </div>
-                <div class="form-group">
-                    <label>Nhập lại mật khẩu</label>
-                    <input type="password" id="regPasswordConfirm" placeholder="Xác nhận lại mật khẩu" oninput="clearError('regPasswordConfirmError')">
-                    <div id="regPasswordConfirmError" class="error-msg">Mật khẩu xác nhận không khớp!</div>
-                </div>
-
-                <div class="captcha-container">
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAD42fiaawZ4L3-qp" data-theme="dark" id="regCaptcha"></div>
-                </div>
-                <div id="regCaptchaError" class="error-msg" style="text-align: center; margin-bottom: 10px;">Vui lòng hoàn thành xác minh CAPTCHA!</div>
-
-                <button class="btn-submit" onclick="handleRegister()">Tạo Tài Khoản</button>
-                <div class="auth-toggle-text">
-                    Đã có tài khoản? <span onclick="toggleAuthForm('login')">Đăng nhập</span>
-                </div>
-            </div>
-
-            <!-- PROFILE CONTAINER -->
-            <div id="userProfile" class="user-profile">
-                <h2>Thành Viên</h2>
-                <div class="user-avatar-text">VIP</div>
-                <span id="userName">User@gmail.com</span>
-                <button class="btn-submit btn-logout" onclick="openLogoutModal()">Đăng Xuất</button>
-            </div>
-        </div>
-
-        <!-- MAIN INTERFACE -->
-        <div class="main-content">
-            <div class="header-section">
-                <div class="web-logo">Skibidi Hub</div>
-                <p>Hệ thống tổng hợp dữ liệu Premium VIP - Ultra Liquid Glassmorphism</p>
-            </div>
-
-            <div class="section-title">ROBLOX IOS DOWNLOAD</div>
-            <div class="box">
-                <span class="type-badge badge-ios">APPLE IOS</span>
-                <h3>Roblox Quốc Tế Toàn Cầu (iPhone / iPad)</h3>
-                <a class="action-link" href="https://itunes.apple.com/us/app/roblox-mobile/id431946152" target="_blank">[ CLICK DOWNLOAD IOS ] | <span class="status-online">🟢 ONLINE</span></a>
-            </div>
-
-            <div class="section-title">APP DOWNLOAD (APK)</div>
-            <div class="box">
-                <span class="type-badge badge-apk">ANDROID APK</span>
-                <h3>Roblox Quốc Tế Android</h3>
-                <a class="action-link" href="https://play.google.com/store/apps/details?id=com.roblox.client&hl=en" target="_blank">[ CLICK DOWNLOAD ]</a>
-            </div>
-            <div class="box">
-                <span class="type-badge badge-apk">APK EXECUTOR</span>
-                <h3>Arceus X</h3>
-                <a class="action-link" href="https://spdmteam.com/index?os=android" target="_blank">[ CLICK DOWNLOAD ]</a>
-            </div>
-
-            <div class="section-title">SCRIPT HUB & LINKS</div>
-            <div class="filter-tabs">
-                <button class="tab-btn active" onclick="filterCategory('all', this)">TẤT CẢ SCRIPT</button>
-                <button class="tab-btn" onclick="filterCategory('script', this)">📜 SCRIPT CHÍNH</button>
-                <button class="tab-btn" onclick="filterCategory('link', this)">🔗 LINKS</button>
-            </div>
-
-            <div id="output">
-                <div class="box items-container" data-category="script">
-                    <span class="type-badge badge-script">SCRIPT</span>
-                    <h3>Beecon Hub [ 🔑 ]</h3>
-                    <pre id="beecon">loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub"))()</pre>
-                    <button class="btn-copy" onclick="copyScript('beecon')">COPY SCRIPT</button>
-                </div>
-            </div>
-        </div>
+    <!-- 4 Nút tương ứng 4 mục -->
+    <div class="nav-tabs">
+      <button class="nav-btn active" onclick="setTab('link', this)">Link</button>
+      <button class="nav-btn" onclick="setTab('script', this)">Script</button>
+      <button class="nav-btn" onclick="setTab('apk', this)">APK</button>
+      <button class="nav-btn" onclick="setTab('ios', this)">iOS</button>
     </div>
 
-    <!-- LOGOUT MODAL -->
-    <div id="confirmModal" class="modal-overlay">
-        <div class="modal-box">
-            <h4 style="color:#fff; margin-bottom:10px;">Xác nhận Đăng xuất</h4>
-            <p style="color:#9ca3af; font-size:14px;">Bạn có chắc chắn muốn rời khỏi phiên làm việc hiện tại không?</p>
-            <div class="modal-buttons">
-                <button class="modal-btn" style="background:#ef4444; color:#fff;" onclick="confirmLogout(true)">Có</button>
-                <button class="modal-btn" style="background:rgba(255,255,255,0.05); color:#fff;" onclick="confirmLogout(false)">Không</button>
-            </div>
-        </div>
+    <!-- Khung chính -->
+    <div class="card">
+      <div class="notice-box">
+        Trang thai: Hoat dong binh thuong
+      </div>
+
+      <label class="field-label" id="fieldLabel">Link cua ban</label>
+      <input type="text" id="displayInput" class="input-box" readonly>
+
+      <button class="main-btn" id="actionBtn" onclick="handleAction()">Mo ngay -> </button>
+
+      <div class="card-footer">
+        Protected by ReizShare
+      </div>
     </div>
+  </div>
 
-    <script>
-        if(!localStorage.getItem('registeredUsers')) {
-            localStorage.setItem('registeredUsers', JSON.stringify([]));
-        }
+  <script>
+    // =========================================================
+    // BAN CHINH SUA LINK HOAC SCRIPT CUA 4 MUC TAI DAY:
+    // =========================================================
+    const DATA = {
+      link: "https://link-cua-ban.com",
+      script: "loadstring(game:HttpGet('https://script-cua-ban.lua'))()",
+      apk: "https://link-tai-apk.com/app.apk",
+      ios: "https://link-tai-ios.com/app.ipa"
+    };
+    // =========================================================
 
-        function clearError(errorId) { document.getElementById(errorId).style.display = "none"; }
+    let currentTab = 'link';
 
-        function toggleAuthForm(mode) {
-            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
-            if (typeof turnstile !== 'undefined') turnstile.reset();
-            if(mode === 'register') {
-                document.getElementById('loginFormContainer').style.display = 'none';
-                document.getElementById('registerFormContainer').style.display = 'block';
-            } else {
-                document.getElementById('loginFormContainer').style.display = 'block';
-                document.getElementById('registerFormContainer').style.display = 'none';
-            }
-        }
+    function setTab(tab, element) {
+      currentTab = tab;
+      
+      const buttons = document.querySelectorAll('.nav-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
 
-        function handleRegister() {
-            let email = document.getElementById('regEmail').value.trim();
-            let pass = document.getElementById('regPassword').value;
-            let confirmPass = document.getElementById('regPasswordConfirm').value;
-            let hasError = false;
+      const input = document.getElementById('displayInput');
+      const label = document.getElementById('fieldLabel');
+      const btn = document.getElementById('actionBtn');
 
-            let captchaResponse = turnstile.getResponse('#regCaptcha');
-            if(!captchaResponse) {
-                document.getElementById('regCaptchaError').style.display = 'block';
-                hasError = true;
-            }
+      input.value = DATA[tab] || '';
 
-            let emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-            if(!emailRegex.test(email)) { document.getElementById('regEmailError').style.display = 'block'; hasError = true; }
-            if(pass.length < 6) { document.getElementById('regPasswordError').style.display = 'block'; hasError = true; }
-            if(pass !== confirmPass) { document.getElementById('regPasswordConfirmError').style.display = 'block'; hasError = true; }
+      if (tab === 'script') {
+        label.innerText = 'Noi dung Script';
+        btn.innerText = 'Sao chep Script ->';
+      } else {
+        label.innerText = 'Duong dan ' + tab.toUpperCase();
+        btn.innerText = 'Mo / Tai ngay ->';
+      }
+    }
 
-            if(hasError) return;
+    function handleAction() {
+      const val = DATA[currentTab];
+      if (!val) return;
 
-            let users = JSON.parse(localStorage.getItem('registeredUsers'));
-            if(users.some(u => u.email === email)) {
-                document.getElementById('regEmailError').innerText = "Gmail này đã tồn tại!";
-                document.getElementById('regEmailError').style.display = 'block';
-                return;
-            }
+      if (currentTab === 'script') {
+        navigator.clipboard.writeText(val);
+        const btn = document.getElementById('actionBtn');
+        btn.innerText = 'Da sao chep!';
+        setTimeout(() => {
+          btn.innerText = 'Sao chep Script ->';
+        }, 1500);
+      } else {
+        window.open(val, '_blank');
+      }
+    }
 
-            users.push({ email: email, password: pass });
-            localStorage.setItem('registeredUsers', JSON.stringify(users));
-            toggleAuthForm('login');
-        }
-
-        function handleLogin() {
-            let email = document.getElementById('loginEmail').value.trim();
-            let pass = document.getElementById('loginPassword').value;
-            let hasError = false;
-
-            let captchaResponse = turnstile.getResponse('#loginCaptcha');
-            if(!captchaResponse) {
-                document.getElementById('loginCaptchaError').style.display = 'block';
-                hasError = true;
-            }
-
-            let users = JSON.parse(localStorage.getItem('registeredUsers'));
-            let userMatch = users.find(u => u.email === email);
-
-            if(!userMatch) { document.getElementById('loginEmailError').style.display = 'block'; hasError = true; } 
-            else if(userMatch.password !== pass) { document.getElementById('loginPasswordError').style.display = 'block'; hasError = true; }
-
-            if(hasError) {
-                if (typeof turnstile !== 'undefined') turnstile.reset('#loginCaptcha');
-                return;
-            }
-
-            showLoggedInState(email);
-        }
-
-        function showLoggedInState(name) {
-            document.getElementById('loginFormContainer').style.display = 'none';
-            document.getElementById('registerFormContainer').style.display = 'none';
-            document.getElementById('userProfile').style.display = 'flex';
-            document.getElementById('userName').innerText = name;
-        }
-
-        function openLogoutModal() { document.getElementById('confirmModal').classList.add('active'); }
-
-        function confirmLogout(isYes) {
-            document.getElementById('confirmModal').classList.remove('active');
-            if(isYes) {
-                if(typeof google !== 'undefined') google.accounts.id.disableAutoSelect();
-                document.getElementById('userProfile').style.display = 'none';
-                if (typeof turnstile !== 'undefined') turnstile.reset();
-                toggleAuthForm('login');
-            }
-        }
-
-        function filterCategory(category, button) {
-            let tabs = document.querySelectorAll('.tab-btn');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            button.classList.add('active');
-            let items = document.querySelectorAll('.items-container');
-            items.forEach(item => {
-                if (category === 'all') item.style.display = 'block';
-                else item.style.display = item.getAttribute('data-category') === category ? 'block' : 'none';
-            });
-        }
-
-        function copyScript(id) {
-            let text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text).catch(err => {});
-        }
-
-        function decodeJwtResponse(token) {
-            let base64Url = token.split('.')[1];
-            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            return JSON.parse(decodeURIComponent(window.atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
-        }
-
-        function handleCredentialResponse(response) {
-            const responsePayload = decodeJwtResponse(response.credential);
-            showLoggedInState(responsePayload.email);
-        }
-
-        window.onload = function () {
-            if(typeof google !== 'undefined') {
-                google.accounts.id.initialize({
-                    client_id: "157848520545-r1ua9qve4lkbdla5i2mldbrfkdpbr590.apps.googleusercontent.com",
-                    callback: handleCredentialResponse
-                });
-                google.accounts.id.renderButton(document.getElementById("googleBtnDiv"), { theme: "filled_black", size: "medium", width: "300" });
-            }
-        }
-    </script>
+    // Chay mac dinh tab Link khi vao trang
+    setTab('link', document.querySelectorAll('.nav-btn')[0]);
+  </script>
 </body>
 </html>
