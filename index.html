@@ -13,7 +13,7 @@
     }
 
     body {
-      background-color: #0d0e11;
+      background: radial-gradient(circle at top, #1a1b26 0%, #0d0e11 100%);
       color: #ffffff;
       display: flex;
       justify-content: center;
@@ -32,6 +32,12 @@
       font-size: 2.2rem;
       font-weight: 800;
       margin-bottom: 6px;
+      /* Hiệu ứng chuyển màu chữ cho Title */
+      background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #6366f1);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 6s ease infinite;
     }
 
     .subtitle {
@@ -50,27 +56,38 @@
     .nav-btn {
       flex: 1;
       padding: 10px 0;
-      background-color: #1a1a1e;
-      color: #ffffff;
-      border: 1px solid #2e2e35;
+      background: rgba(26, 26, 30, 0.7);
+      backdrop-filter: blur(8px);
+      color: #8a8a93;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 10px;
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-btn:hover {
+      color: #ffffff;
+      border-color: rgba(99, 102, 241, 0.4);
     }
 
     .nav-btn.active {
-      background-color: #4f46e5;
-      border-color: #4f46e5;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
     }
 
-    /* Khung chứa các box */
+    /* Khung chứa các box (Trong suốt kiểu Kính) */
     .card {
-      background-color: #141418;
-      border: 1px solid #282830;
+      background: rgba(20, 20, 24, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 20px;
       text-align: left;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .tab-content {
@@ -79,19 +96,39 @@
       gap: 12px;
     }
 
+    /* ANIMATION KHI CHUYỂN TAB MƯỢT MÀ */
     .tab-content.active {
       display: flex;
+      animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes tabFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     /* --- THIẾT KẾ MỖI BOX MỤC --- */
     .box {
-      background-color: #0e0e11;
-      border: 1px solid #282830;
-      border-radius: 10px;
+      background: rgba(14, 14, 17, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .box:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      transform: translateY(-2px);
     }
 
     .box-header {
@@ -107,28 +144,44 @@
       color: #ffffff;
     }
 
+    /* NÚT TRUY CẬP / DOWLOAD VỚI MÀU CHUYỂN ĐỘNG & BÓNG SÁNG */
     .box-btn {
-      background-color: #1f2029;
-      border: 1px solid #333545;
-      border-radius: 8px;
+      background: linear-gradient(135deg, #4f46e5, #9333ea, #06b6d4, #4f46e5);
+      background-size: 300% 300%;
+      animation: gradientMove 5s ease infinite;
       color: #ffffff;
-      padding: 8px 14px;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       text-decoration: none;
       cursor: pointer;
       text-align: center;
       white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(79, 70, 229, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .box-btn:hover {
-      background-color: #2b2d3a;
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.5);
+    }
+
+    .box-btn:active {
+      transform: scale(0.97);
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     /* Hiển thị đoạn Script */
     .script-text {
-      background-color: #16171d;
-      border: 1px solid #23242c;
+      background: rgba(22, 23, 29, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 6px;
       padding: 10px;
       font-family: monospace;
@@ -164,7 +217,7 @@
     <div class="card">
 
       <!-- =================================================== -->
-      <!-- 1. MỤC LINK (Chỉ hiện Tên + Nút truy cập) -->
+      <!-- 1. MỤC LINK -->
       <!-- =================================================== -->
       <div id="tab-link" class="tab-content active">
 
@@ -192,7 +245,7 @@
       </div>
 
       <!-- =================================================== -->
-      <!-- 2. MỤC SCRIPT (Hiện Tên + Nội dung Script + Nút chép) -->
+      <!-- 2. MỤC SCRIPT -->
       <!-- =================================================== -->
       <div id="tab-script" class="tab-content">
 
@@ -212,7 +265,6 @@
           <div class="script-text">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
         </div>
 
-        
         <div class="box">
           <div class="box-header">
             <span class="box-title">Teddy Hub</span>
@@ -225,7 +277,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       </div>
 
       <!-- =================================================== -->
-      <!-- 3. MỤC APK (Chỉ hiện Tên + Nút Tải) -->
+      <!-- 3. MỤC APK -->
       <!-- =================================================== -->
       <div id="tab-apk" class="tab-content">
 
@@ -242,6 +294,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
             <a href="https://m.apkpure.com/vn/" target="_blank" class="box-btn">DownLoad</a>
           </div>
         </div>
+
         <div class="box">
           <div class="box-header">
             <span class="box-title">1.1.1.1 WARP VPN</span>
@@ -273,14 +326,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         <div class="box">
           <div class="box-header">
             <span class="box-title">Roblox VN Android</span>
-            <a href="https://www.google.com/url?sa=i&source=web&rct=j&url=https://play.google.com/store/apps/details/Roblox_VNG?id%3Dcom.roblox.client.vnggames%26hl%3Den_IE&ved=2ahUKEwjb1Ir0vuOVAxXPmVYBHa14NDoQy_kOegoIAggACAEIDhAC&opi=89978449&cd&psig=AOvVaw0XQIFpEn5rwU8L4ndVfphq&ust=1784713737835000" target="_blank" class="box-btn">Download</a>
+            <a href="https://play.google.com/store/apps/details?id=com.roblox.client.vnggames" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
         
       </div>
 
       <!-- =================================================== -->
-      <!-- 4. MỤC IOS (Chỉ hiện Tên + Nút Tải) -->
+      <!-- 4. MỤC IOS -->
       <!-- =================================================== -->
       <div id="tab-ios" class="tab-content">
 
@@ -301,12 +354,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
   </div>
 
   <script>
-    // Hàm chuyển Tab
+    // Hàm chuyển Tab nhẹ nhàng
     function showTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
       
-      document.getElementById(tabId).classList.add('active');
+      const targetTab = document.getElementById(tabId);
+      targetTab.classList.add('active');
       btn.classList.add('active');
     }
 
@@ -318,12 +372,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       navigator.clipboard.writeText(scriptText);
       
       const oldText = btn.innerText;
-      btn.innerText = ' SUCCESS';
-      btn.style.backgroundColor = '#16a34a';
+      btn.innerText = 'SUCCESS';
+      btn.style.background = '#16a34a';
       
       setTimeout(() => {
         btn.innerText = oldText;
-        btn.style.backgroundColor = '';
+        btn.style.background = '';
       }, 1500);
     }
   </script>
