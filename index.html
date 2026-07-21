@@ -13,99 +13,129 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #1a1b26 0%, #0d0e11 100%);
+      /* Nền tối sâu với điểm nhấn đỏ trung tâm */
+      background: radial-gradient(circle at top, #2a080c 0%, #090203 60%, #000000 100%);
       color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      overflow-x: hidden;
     }
 
     .wrapper {
       width: 100%;
-      max-width: 420px;
+      max-width: 430px;
       text-align: center;
     }
 
+    /* TIÊU ĐỀ ĐỎ CHUYỂN MÀU */
     .title {
-      font-size: 2.2rem;
-      font-weight: 800;
+      font-size: 2.3rem;
+      font-weight: 900;
+      letter-spacing: 1px;
       margin-bottom: 6px;
-      /* Hiệu ứng chuyển màu chữ cho Title */
-      background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #6366f1);
+      background: linear-gradient(90deg, #ff4d4d, #dc2626, #991b1b, #ff4d4d);
       background-size: 300% 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: gradientMove 6s ease infinite;
+      animation: redGradient 5s ease infinite;
+      filter: drop-shadow(0 2px 12px rgba(220, 38, 38, 0.4));
     }
 
     .subtitle {
-      color: #8a8a93;
-      font-size: 0.9rem;
-      margin-bottom: 24px;
+      color: #a1a1aa;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
     }
 
-    /* Khung chuyển tab */
+    /* NAV TABS - ĐỎ ĐEN */
     .nav-tabs {
       display: flex;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .nav-btn {
       flex: 1;
-      padding: 10px 0;
-      background: rgba(26, 26, 30, 0.7);
-      backdrop-filter: blur(8px);
-      color: #8a8a93;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
+      padding: 11px 0;
+      background: rgba(20, 8, 10, 0.7);
+      backdrop-filter: blur(10px);
+      color: #a1a1aa;
+      border: 1px solid rgba(220, 38, 38, 0.15);
+      border-radius: 12px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .nav-btn:hover {
       color: #ffffff;
-      border-color: rgba(99, 102, 241, 0.4);
+      border-color: rgba(220, 38, 38, 0.5);
+      background: rgba(40, 12, 16, 0.8);
     }
 
     .nav-btn.active {
-      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      background: linear-gradient(135deg, #dc2626, #991b1b);
       color: #ffffff;
       border-color: transparent;
-      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+      box-shadow: 0 4px 18px rgba(220, 38, 38, 0.45);
     }
 
-    /* Khung chứa các box (Trong suốt kiểu Kính) */
+    /* CARD CỐ ĐỊNH CHIỀU CAO - TRÁNH CO CO GIÃN KHUNG */
     .card {
-      background: rgba(20, 20, 24, 0.65);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 20px;
+      background: rgba(15, 6, 8, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(220, 38, 38, 0.2);
+      border-radius: 20px;
+      padding: 18px;
       text-align: left;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(220, 38, 38, 0.1);
+      /* Cố định chiều cao cho vùng nội dung */
+      height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .tab-content {
       display: none;
       flex-direction: column;
       gap: 12px;
+      height: 370px;
+      overflow-y: auto;
+      padding-right: 6px;
     }
 
-    /* ANIMATION KHI CHUYỂN TAB MƯỢT MÀ */
+    /* THANH CUỘN ĐỎ ĐEN TỰ ĐỊNH DẠNG */
+    .tab-content::-webkit-scrollbar {
+      width: 5px;
+    }
+    .tab-content::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+    }
+    .tab-content::-webkit-scrollbar-thumb {
+      background: rgba(220, 38, 38, 0.4);
+      border-radius: 10px;
+    }
+    .tab-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(220, 38, 38, 0.8);
+    }
+
+    /* ANIMATION CHUYỂN MỤC MƯỢT MÀ */
     .tab-content.active {
       display: flex;
-      animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: smoothSlideIn 0.38s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    @keyframes tabFadeIn {
+    @keyframes smoothSlideIn {
       from {
         opacity: 0;
-        transform: translateY(10px) scale(0.98);
+        transform: translateY(12px) scale(0.98);
       }
       to {
         opacity: 1;
@@ -113,11 +143,11 @@
       }
     }
 
-    /* --- THIẾT KẾ MỖI BOX MỤC --- */
+    /* MỖI ITEM BOX */
     .box {
-      background: rgba(14, 14, 17, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(26, 10, 13, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(220, 38, 38, 0.12);
       border-radius: 12px;
       padding: 14px;
       display: flex;
@@ -127,8 +157,10 @@
     }
 
     .box:hover {
-      border-color: rgba(99, 102, 241, 0.3);
+      border-color: rgba(220, 38, 38, 0.4);
+      background: rgba(35, 12, 16, 0.7);
       transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.15);
     }
 
     .box-header {
@@ -139,63 +171,64 @@
     }
 
     .box-title {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
-      color: #ffffff;
+      color: #f4f4f5;
     }
 
-    /* NÚT TRUY CẬP / DOWLOAD VỚI MÀU CHUYỂN ĐỘNG & BÓNG SÁNG */
+    /* NÚT BẤM CHUYỂN MÀU ĐỎ */
     .box-btn {
-      background: linear-gradient(135deg, #4f46e5, #9333ea, #06b6d4, #4f46e5);
+      background: linear-gradient(135deg, #ef4444, #b91c1c, #991b1b, #ef4444);
       background-size: 300% 300%;
-      animation: gradientMove 5s ease infinite;
+      animation: redGradient 4s ease infinite;
       color: #ffffff;
       border: none;
       border-radius: 8px;
       padding: 8px 16px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
       text-align: center;
       white-space: nowrap;
-      box-shadow: 0 2px 10px rgba(79, 70, 229, 0.3);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 3px 12px rgba(220, 38, 38, 0.35);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
     }
 
     .box-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.5);
+      transform: scale(1.06);
+      box-shadow: 0 5px 18px rgba(239, 68, 68, 0.55);
     }
 
     .box-btn:active {
-      transform: scale(0.97);
+      transform: scale(0.95);
     }
 
-    @keyframes gradientMove {
+    @keyframes redGradient {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* Hiển thị đoạn Script */
+    /* VÙNG CHỨA SCRIPT CODE */
     .script-text {
-      background: rgba(22, 23, 29, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 6px;
+      background: rgba(10, 4, 5, 0.85);
+      border: 1px solid rgba(220, 38, 38, 0.15);
+      border-radius: 8px;
       padding: 10px;
       font-family: monospace;
-      font-size: 0.78rem;
-      color: #a5b4fc;
+      font-size: 0.76rem;
+      color: #fca5a5;
       word-break: break-all;
       user-select: all;
     }
 
     .card-footer {
       text-align: center;
-      font-size: 0.75rem;
-      color: #6b7280;
-      margin-top: 16px;
+      font-size: 0.72rem;
+      color: #71717a;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
   </style>
 </head>
@@ -205,7 +238,7 @@
     <h1 class="title">SKIBIDI HUB</h1>
     <p class="subtitle">Quick and simple sharing service</p>
 
-    <!-- NÚT MỤC TAB -->
+    <!-- TAB MENU -->
     <div class="nav-tabs">
       <button class="nav-btn active" onclick="showTab('tab-link', this)">Link</button>
       <button class="nav-btn" onclick="showTab('tab-script', this)">Script</button>
@@ -213,14 +246,11 @@
       <button class="nav-btn" onclick="showTab('tab-ios', this)">iOS</button>
     </div>
 
-    <!-- KHUNG NỘI DUNG CHÍNH -->
+    <!-- MAIN CARD -->
     <div class="card">
 
-      <!-- =================================================== -->
       <!-- 1. MỤC LINK -->
-      <!-- =================================================== -->
       <div id="tab-link" class="tab-content active">
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">BYPASS KEY DELTA</span>
@@ -241,14 +271,10 @@
             <a href="https://gofile.io/d/p0Mww1" target="_blank" class="box-btn">Truy cập</a>
           </div>
         </div>
-
       </div>
 
-      <!-- =================================================== -->
       <!-- 2. MỤC SCRIPT -->
-      <!-- =================================================== -->
       <div id="tab-script" class="tab-content">
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Speed X Hub</span>
@@ -273,32 +299,28 @@
           <div class="script-text">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()</div>
         </div>
-
       </div>
 
-      <!-- =================================================== -->
       <!-- 3. MỤC APK -->
-      <!-- =================================================== -->
       <div id="tab-apk" class="tab-content">
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Delta Cilent</span>
-            <a href="https://delta-executor.com/" target="_blank" class="box-btn">DownLoad</a>
+            <a href="https://delta-executor.com/" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
 
         <div class="box">
           <div class="box-header">
             <span class="box-title">APK Pure</span>
-            <a href="https://m.apkpure.com/vn/" target="_blank" class="box-btn">DownLoad</a>
+            <a href="https://m.apkpure.com/vn/" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
 
         <div class="box">
           <div class="box-header">
             <span class="box-title">1.1.1.1 WARP VPN</span>
-            <a href="https://one.one.one.one/" target="_blank" class="box-btn">DownLoad</a>
+            <a href="https://one.one.one.one/" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
 
@@ -329,21 +351,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
             <a href="https://play.google.com/store/apps/details?id=com.roblox.client.vnggames" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-        
       </div>
 
-      <!-- =================================================== -->
       <!-- 4. MỤC IOS -->
-      <!-- =================================================== -->
       <div id="tab-ios" class="tab-content">
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Delta Ios</span>
             <a href="https://delta-executor.com/" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
       </div>
 
       <div class="card-footer">
@@ -354,7 +371,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
   </div>
 
   <script>
-    // Hàm chuyển Tab nhẹ nhàng
+    // Hàm chuyển Tab
     function showTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -374,10 +391,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       const oldText = btn.innerText;
       btn.innerText = 'SUCCESS';
       btn.style.background = '#16a34a';
+      btn.style.animation = 'none';
       
       setTimeout(() => {
         btn.innerText = oldText;
         btn.style.background = '';
+        btn.style.animation = '';
       }, 1500);
     }
   </script>
