@@ -898,7 +898,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     // ==========================================
     // ⚙️ CẤU HÌNH THỜI GIAN UPDATE TẠI ĐÂY
     // ==========================================
-    const UPDATE_VERSION_NAME = "UPDATE VERSION 5.0 IN"; // Tên hiển thị phiên bản
+    const UPDATE_VERSION_NAME = "UPDATE VERSION 5.5 IN"; // Tên hiển thị phiên bản
     const COUNTDOWN_HOURS = 2; // Số giờ đếm ngược (VD: 2 giờ)
     // ==========================================
 
@@ -928,8 +928,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
           localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
           localStorage.setItem('skibidi_update_saved_time', Date.now());
 
-          const hrs = Math.floor(totalUpdateSeconds / 3600);
-          const mins = Math.floor((totalUpdateSeconds % 3600) / 60);
+          const hrs = Math.floor(totalUpdateSeconds / 1);
+          const mins = Math.floor((totalUpdateSeconds % 1) / 60);
           const secs = totalUpdateSeconds % 60;
 
           const hStr = hrs.toString().padStart(2, '0');
