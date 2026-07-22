@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SKIBIDI HUB - Fixed & Upgraded (v2.1)</title>
+  <title>SKIBIDI HUB - Fixed Weather & Audio (v3.0)</title>
   <style>
     * {
       box-sizing: border-box;
@@ -24,7 +24,7 @@
       transition: background 2s ease, color 2s ease;
     }
 
-    /* ☀️ TRỜI NẮNG / SÁNG */
+    /* ☀️ TRỜI NẮNG */
     body.weather-sunny {
       background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 45%, #4ade80 80%, #15803d 100%);
       color: #ffffff;
@@ -32,11 +32,11 @@
 
     /* 🌧️ TRỜI MƯA */
     body.weather-rain {
-      background: linear-gradient(180deg, #475569 0%, #64748b 45%, #166534 85%, #14532d 100%);
+      background: linear-gradient(180deg, #334155 0%, #475569 45%, #166534 85%, #14532d 100%);
       color: #f8fafc;
     }
 
-    /* 🌩️ TRỜI BÃO (TỐI U ÁM) */
+    /* 🌩️ TRỜI BÃO */
     body.weather-storm {
       background: linear-gradient(180deg, #0f172a 0%, #1e293b 45%, #064e3b 85%, #022c22 100%);
       color: #f1f5f9;
@@ -48,6 +48,49 @@
       color: #cbd5e1;
     }
 
+    /* ☀️ MẶT TRỜI BAN NGÀY */
+    .sun-element {
+      position: fixed;
+      top: 40px;
+      right: 12%;
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle, #fef08a 0%, #facc15 60%, #eab308 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 40px #facc15, 0 0 80px rgba(250, 204, 21, 0.6);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: all 2s ease;
+    }
+    body.weather-sunny .sun-element {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* 🌙 MẶT TRĂNG BAN ĐÊM */
+    .moon-element {
+      position: fixed;
+      top: 45px;
+      right: 14%;
+      width: 75px;
+      height: 75px;
+      background: transparent;
+      border-radius: 50%;
+      box-shadow: 14px 10px 0 0 #fef08a;
+      filter: drop-shadow(0 0 15px rgba(254, 240, 138, 0.8));
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: all 2s ease;
+    }
+    body.weather-night .moon-element {
+      opacity: 1;
+      transform: scale(1);
+    }
+
     /* ⚡ SẤM SÉT KHI BÃO */
     .lightning-flash {
       position: fixed;
@@ -55,7 +98,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       pointer-events: none;
       z-index: 90;
       opacity: 0;
@@ -76,9 +119,9 @@
 
     .drop {
       position: absolute;
-      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.8));
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.85));
       width: 2px;
-      height: 30px;
+      height: 32px;
       animation: fall linear infinite;
     }
 
@@ -113,16 +156,16 @@
       100% { opacity: 1; transform: scale(1.3); }
     }
 
-    /* ☁️ MÂY CHUYỂN MÀU MƯỢT MÀ KHI ĐỔI THỜI TIẾT */
+    /* ☁️ MÂY CHUYỂN MÀU THEO THỜI TIẾT */
     .clouds-layer {
       position: fixed;
-      top: -10vh;
+      top: -5vh;
       left: -20vw;
       width: 140vw;
       height: 55vh;
-      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.7) 0%, transparent 50%),
-                  radial-gradient(circle at 60% 40%, rgba(255,255,255,0.6) 0%, transparent 55%),
-                  radial-gradient(circle at 85% 25%, rgba(255,255,255,0.65) 0%, transparent 50%);
+      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.85) 0%, transparent 50%),
+                  radial-gradient(circle at 60% 40%, rgba(255,255,255,0.75) 0%, transparent 55%),
+                  radial-gradient(circle at 85% 25%, rgba(255,255,255,0.8) 0%, transparent 50%);
       animation: cloudDrift 35s linear infinite alternate;
       pointer-events: none;
       z-index: 2;
@@ -130,18 +173,18 @@
       filter: brightness(1) drop-shadow(0 10px 15px rgba(0,0,0,0.1));
     }
 
-    /* Mây đen dày đặc che mặt trời khi mưa/bão */
+    /* Mây đen u ám khi Mưa/Bão */
     body.weather-rain .clouds-layer {
-      filter: brightness(0.35) contrast(1.3) drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+      filter: brightness(0.3) contrast(1.4) drop-shadow(0 15px 25px rgba(0,0,0,0.7));
     }
 
     body.weather-storm .clouds-layer {
-      filter: brightness(0.18) contrast(1.5) drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+      filter: brightness(0.12) contrast(1.7) drop-shadow(0 20px 30px rgba(0,0,0,0.9));
     }
 
     body.weather-night .clouds-layer {
-      filter: brightness(0.2) contrast(1.1);
-      opacity: 0.6;
+      filter: brightness(0.18) contrast(1.1);
+      opacity: 0.55;
     }
 
     @keyframes cloudDrift {
@@ -163,7 +206,7 @@
     .wind-streak {
       position: absolute;
       height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
       border-radius: 50%;
       filter: blur(1px);
       animation: windPass linear infinite;
@@ -176,7 +219,7 @@
       100% { transform: translateX(130vw) scaleY(1.3); opacity: 0; }
     }
 
-    /* 🍃 CHIẾC LÁ BỰ NGHỆ THUẬT (SÁNG TỐI RÕ NÉT) */
+    /* 🍃 CHIẾC LÁ BỰ BAY THEO GIÓ */
     .leaf-container {
       position: fixed;
       top: 0;
@@ -208,7 +251,7 @@
       }
     }
 
-    /* 🌳 CÂY BỰ CHÂN THẬT & 🌾 THẢM CỎ DÀY ĐẶC PHỦ 100% TOÀN MÀN HÌNH */
+    /* 🌳 CÂY BỰ & 🌾 THẢM CỎ DÀY PHỦ 100% TOÀN MÀN HÌNH */
     .nature-bottom {
       position: fixed;
       bottom: 0;
@@ -220,12 +263,11 @@
       overflow: hidden;
     }
 
-    /* CÂY BỰ TỈ MỈ BÊN TRÁI & PHẢI */
     .big-tree {
       position: absolute;
       bottom: -10px;
-      width: 200px;
-      height: 250px;
+      width: 210px;
+      height: 260px;
       filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
       transform-origin: bottom center;
       animation: treeSway 6s ease-in-out infinite alternate;
@@ -235,7 +277,7 @@
     .tree-right { right: -40px; transform: scaleX(-1); }
 
     body.weather-storm .big-tree {
-      animation-duration: 2s !important;
+      animation-duration: 1.8s !important;
     }
 
     @keyframes treeSway {
@@ -243,13 +285,12 @@
       100% { transform: rotate(2.5deg); }
     }
 
-    /* THẢM CỎ KHỔNG LỒ PHỦ TOÀN BỘ CHÂN TRANG */
     .grass-wrapper {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 120px;
+      height: 125px;
       display: flex;
     }
 
@@ -263,7 +304,7 @@
 
     .grass-layer-back {
       fill: #15803d;
-      opacity: 0.85;
+      opacity: 0.88;
       animation-duration: 5s;
       animation-delay: -1s;
     }
@@ -281,7 +322,6 @@
     body.weather-night .grass-layer-front { fill: #052e16; }
     body.weather-night .grass-layer-back { fill: #022c22; }
 
-    /* CỎ THỔI MẠNH KHI CÓ MƯA & BÃO */
     body.weather-storm .grass-svg {
       animation: stormGrassSway 0.7s ease-in-out infinite alternate !important;
     }
@@ -299,10 +339,78 @@
       100% { transform: skewX(16deg) scaleY(1.05); }
     }
 
-    /* 🔳 Ô VUÔNG TRẠNG THÁI THỜI TIẾT (KHÔNG CHO BẤM) */
+    /* ⏱️ KHUNG ĐẾM NGƯỢC THỜI TIẾT TIẾP THEO (TINH GỌN: BIỂU TƯỢNG + THỜI GIAN) */
+    .next-weather-widget {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-radius: 16px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      user-select: none;
+    }
+
+    .next-weather-icon {
+      font-size: 1.5rem;
+    }
+
+    .next-weather-timer {
+      font-family: monospace;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #86efac;
+      letter-spacing: 1px;
+    }
+
+    /* 🔊 NÚT ÂM THANH TRÊN MÀN HÌNH */
+    .audio-toggle-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-radius: 16px;
+      padding: 8px 14px;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .audio-toggle-btn:hover {
+      transform: scale(1.05);
+      background: rgba(34, 197, 94, 0.4);
+    }
+
+    /* 📱 KHUNG CHÍNH (MAIN WRAPPER) */
+    .wrapper {
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* 🔳 Ô TRẠNG THÁI THỜI TIẾT HIỆN TẠI */
     .weather-status-box {
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       background: rgba(255, 255, 255, 0.22);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -316,15 +424,6 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
       user-select: none;
       pointer-events: none;
-    }
-
-    /* 📱 KHUNG CHÍNH (MAIN WRAPPER) */
-    .wrapper {
-      width: 100%;
-      max-width: 450px;
-      text-align: center;
-      position: relative;
-      z-index: 10;
     }
 
     .title {
@@ -356,7 +455,7 @@
       text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    /* 🗂️ TAB NAVIGATION (ĐÃ FIX BẤM MƯỢT MÀ 100%) */
+    /* 🗂️ TAB NAVIGATION (CHUYỂN TAB 100% MƯỢT MÀ) */
     .nav-tabs {
       display: flex;
       gap: 8px;
@@ -393,7 +492,7 @@
 
     /* 🎴 CARD NỘI DUNG */
     .card {
-      background: rgba(15, 23, 42, 0.5);
+      background: rgba(15, 23, 42, 0.52);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -484,12 +583,8 @@
       background: linear-gradient(135deg, #4ade80, #22c55e) !important;
     }
 
-    .box-btn:active {
-      transform: scale(0.92);
-    }
-
     .script-text {
-      background: rgba(15, 23, 42, 0.82);
+      background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(134, 239, 172, 0.35);
       border-radius: 8px;
       padding: 10px;
@@ -508,7 +603,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.18);
     }
 
-    /* 🔖 THẺ VERSION (DỄ CHỈNH SỬA Ở GÓC PHẢI MÀN HÌNH) */
+    /* 🔖 THẺ VERSION Ở GÓC MÀN HÌNH */
     .version-tag {
       position: fixed;
       bottom: 12px;
@@ -529,6 +624,10 @@
 </head>
 <body class="weather-sunny">
 
+  <div class="sun-element"></div>
+
+  <div class="moon-element"></div>
+
   <div class="lightning-flash" id="flash-overlay"></div>
 
   <div class="stars-container" id="stars"></div>
@@ -541,500 +640,16 @@
 
   <div class="leaf-container" id="leaf-box"></div>
 
+  <div class="next-weather-widget">
+    <span class="next-weather-icon" id="next-icon">🌧️</span>
+    <span class="next-weather-timer" id="next-timer">02:00</span>
+  </div>
+
+  <button class="audio-toggle-btn" id="audio-btn" onclick="toggleAudioSystem()">
+    <span id="audio-icon">🔇</span> <span id="audio-text">Bật Âm Thanh</span>
+  </button>
+
   <div class="nature-bottom">
     <svg class="big-tree tree-left" viewBox="0 0 100 140">
       <path d="M 42 140 L 58 140 L 54 90 L 85 75 C 100 40 85 10 50 5 C 15 10 0 40 15 75 L 46 90 Z" fill="#14532d"/>
-      <path d="M 50 5 C 25 15 15 40 25 70 C 35 50 60 40 50 5 Z" fill="#22c55e" opacity="0.4"/>
-      <path d="M 50 25 C 70 35 80 55 70 75 C 60 60 40 50 50 25 Z" fill="#15803d" opacity="0.6"/>
-    </svg>
-
-    <svg class="big-tree tree-right" viewBox="0 0 100 140">
-      <path d="M 42 140 L 58 140 L 54 90 L 85 75 C 100 40 85 10 50 5 C 15 10 0 40 15 75 L 46 90 Z" fill="#14532d"/>
-      <path d="M 50 5 C 25 15 15 40 25 70 C 35 50 60 40 50 5 Z" fill="#22c55e" opacity="0.4"/>
-      <path d="M 50 25 C 70 35 80 55 70 75 C 60 60 40 50 50 25 Z" fill="#15803d" opacity="0.6"/>
-    </svg>
-
-    <div class="grass-wrapper">
-      <svg class="grass-svg grass-layer-back" id="grass-back-svg" preserveAspectRatio="none" viewBox="0 0 1000 100"></svg>
-      <svg class="grass-svg grass-layer-front" id="grass-front-svg" preserveAspectRatio="none" viewBox="0 0 1000 100" style="position: absolute; top:0; left:0;"></svg>
-    </div>
-  </div>
-
-  <div class="wrapper">
-    <div class="weather-status-box" id="status-box">☀️</div>
-
-    <h1 class="title">SKIBIDI HUB</h1>
-    <p class="subtitle">Quick and simple sharing service</p>
-
-    <div class="nav-tabs">
-      <button class="nav-btn active" onclick="switchTab('tab-link', this)">Link</button>
-      <button class="nav-btn" onclick="switchTab('tab-script', this)">Script</button>
-      <button class="nav-btn" onclick="switchTab('tab-apk', this)">APK</button>
-      <button class="nav-btn" onclick="switchTab('tab-ios', this)">iOS</button>
-    </div>
-
-    <div class="card">
-
-      <div id="tab-link" class="tab-content active">
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Bypass Key Delta</span>
-            <a href="https://baconbypass.xyz" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Clone Tab Delta Roblox Global ( Anya )</span>
-            <a href="https://gofile.io/d/CQWaqp" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Clone Tab Delta Roblox VN ( Anya )</span>
-            <a href="https://gofile.io/d/94VEHn" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Clone Tab Roblox Delta VN ( Zam )</span>
-            <a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Clone Tab Roblox Delta Global ( Zam )</span>
-            <a href="https://gofile.io/d/p0Mww1" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-      </div>
-
-      <div id="tab-script" class="tab-content">
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Speed X Hub</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">UB Hub</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Axon Hub</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua"))()</div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Teddy Hub</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()</div>
-        </div>
-      </div>
-
-      <div id="tab-apk" class="tab-content">
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Delta Cilent</span>
-            <a href="https://delta-executor.com/" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Apollon Cilent MCPE 26.33 64Bit</span>
-            <a href="https://www.mediafire.com/file/ukf42zfius5t4ww/MCPE_Apollon_Client_1.26.33_v6.2_64Bit.apk/file?dkey=5pq3f8xi8dg&r=520" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">APK Pure</span>
-            <a href="https://m.apkpure.com/vn/" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">1.1.1.1 WARP VPN</span>
-            <a href="https://one.one.one.one/" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Roblox Global Ios</span>
-            <a href="https://apps.apple.com/us/app/roblox/id431946152" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Roblox Global Android</span>
-            <a href="https://www.roblox.com/vi/download" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Roblox VN Ios</span>
-            <a href="https://apps.apple.com/vn/app/roblox-vn/id6474715805" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Roblox VN Android</span>
-            <a href="https://play.google.com/store/apps/details?id=com.roblox.client.vnggames" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-      </div>
-
-      <div id="tab-ios" class="tab-content">
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Delta Ios</span>
-            <a href="https://delta-executor.com/" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-footer">
-        Protected by DVMinh
-      </div>
-
-    </div>
-  </div>
-
-  <div class="version-tag" id="version-display">Version 2.1</div>
-
-  <script>
-    // 🌾 1. TẠO THẢM CỎ SVG PHỦ KÍN 100% CHIỀU RỘNG CHÂN TRANG
-    function generateDenseGrassSVG(svgId, isBack) {
-      const svg = document.getElementById(svgId);
-      if (!svg) return;
-      let pathD = "M 0 100 L 0 " + (isBack ? "30" : "40");
       
-      const bladeCount = 120; // Số lượng ngọn cỏ nối tiếp nhau
-      const step = 1000 / bladeCount;
-
-      for (let i = 0; i <= bladeCount; i++) {
-        const x = i * step;
-        const h = isBack ? (Math.random() * 35 + 15) : (Math.random() * 40 + 25);
-        const curve = (Math.random() * 8 - 4);
-        pathD += ` Q ${x + curve} ${h} ${x + step/2} ${h + 15}`;
-      }
-
-      pathD += " L 1000 100 Z";
-      svg.innerHTML = `<path d="${pathD}" />`;
-    }
-
-    generateDenseGrassSVG('grass-back-svg', true);
-    generateDenseGrassSVG('grass-front-svg', false);
-
-    // 🔊 2. ÂM THANH SỐNG ĐỘNG (BẤM BẤT KỲ ĐÂU ĐỂ TỰ ĐỘNG BẬT)
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-    function unlockAudio() {
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-    }
-    window.addEventListener('click', unlockAudio);
-    window.addEventListener('touchstart', unlockAudio);
-
-    function playClickSound() {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.08);
-    }
-
-    function playThunderSound() {
-      if (audioCtx.state !== 'running') return;
-      const bufferSize = audioCtx.sampleRate * 1.5;
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(280, audioCtx.currentTime);
-      filter.frequency.linearRampToValueAtTime(70, audioCtx.currentTime + 1.2);
-
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.45, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.3);
-
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(audioCtx.destination);
-      noise.start();
-    }
-
-    function playBirdChirp() {
-      if (audioCtx.state !== 'running' || currentMode !== 'SUNNY') return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(2200 + Math.random() * 800, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(3600 + Math.random() * 400, audioCtx.currentTime + 0.12);
-
-      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.12);
-    }
-    setInterval(playBirdChirp, 3000);
-
-    function playCricketSound() {
-      if (audioCtx.state !== 'running' || currentMode !== 'NIGHT') return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(4600, audioCtx.currentTime);
-
-      gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.05);
-    }
-    setInterval(playCricketSound, 1800);
-
-    // 🌟 3. SAO BAN ĐÊM
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 50; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.width = (Math.random() * 3 + 1) + 'px';
-      star.style.height = star.style.width;
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.animationDelay = Math.random() * 2 + 's';
-      starsContainer.appendChild(star);
-    }
-
-    // 🌧️ 4. HẠT MƯA RƠI
-    const rainBox = document.getElementById('rain-box');
-    for (let i = 0; i < 70; i++) {
-      const drop = document.createElement('div');
-      drop.classList.add('drop');
-      drop.style.left = Math.random() * 100 + 'vw';
-      drop.style.animationDuration = (Math.random() * 0.4 + 0.4) + 's';
-      drop.style.animationDelay = Math.random() * 2 + 's';
-      rainBox.appendChild(drop);
-    }
-
-    // 🌤️ 5. QUẢN LÝ THỜI TIẾT TỰ ĐỘNG (40% BÃO, 50% MƯA, 10% SÁNG)
-    let currentMode = 'SUNNY';
-    const statusBox = document.getElementById('status-box');
-
-    function applyRandomWeather() {
-      const body = document.body;
-      const rand = Math.random() * 100;
-
-      body.className = '';
-      rainBox.style.display = 'none';
-
-      if (rand < 40) {
-        // 🌩️ BÃO (40%)
-        currentMode = 'STORM';
-        body.classList.add('weather-storm');
-        statusBox.innerText = '🌩️';
-        rainBox.style.display = 'block';
-      } else if (rand < 90) {
-        // 🌧️ MƯA (50%)
-        currentMode = 'RAIN';
-        body.classList.add('weather-rain');
-        statusBox.innerText = '🌧️';
-        rainBox.style.display = 'block';
-      } else {
-        // ☀️ SÁNG (10%)
-        currentMode = 'SUNNY';
-        body.classList.add('weather-sunny');
-        statusBox.innerText = '☀️';
-      }
-    }
-
-    let isNight = false;
-    function mainWeatherCycle() {
-      if (isNight) {
-        currentMode = 'NIGHT';
-        document.body.className = 'weather-night';
-        statusBox.innerText = '🌙';
-        rainBox.style.display = 'none';
-        isNight = false;
-      } else {
-        applyRandomWeather();
-        isNight = true;
-      }
-    }
-
-    applyRandomWeather();
-    setInterval(mainWeatherCycle, 120000); // Đổi thời tiết mỗi 2 phút
-
-    // Hiệu ứng Sấm Sét
-    const flashOverlay = document.getElementById('flash-overlay');
-    function triggerLightning() {
-      if (currentMode !== 'STORM') return;
-      flashOverlay.style.opacity = '1';
-      playThunderSound();
-      setTimeout(() => { flashOverlay.style.opacity = '0'; }, 90);
-      
-      setTimeout(() => {
-        flashOverlay.style.opacity = '0.75';
-        setTimeout(() => { flashOverlay.style.opacity = '0'; }, 70);
-      }, 160);
-    }
-    setInterval(triggerLightning, 6500);
-
-    // 🍃 6. VẼ CHIẾC LÁ BỰ CÓ ĐỘ SÁNG TỐI CHÂN THẬT
-    function createCustomLeafSVG() {
-      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svg.setAttribute("viewBox", "0 0 100 100");
-      svg.setAttribute("width", "42"); // Lá bự hơn
-      svg.setAttribute("height", "42");
-
-      svg.innerHTML = `
-        <defs>
-          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#bbf7d0"/>
-            <stop offset="45%" stop-color="#22c55e"/>
-            <stop offset="100%" stop-color="#14532d"/>
-          </linearGradient>
-          <linearGradient id="leafShade" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/>
-            <stop offset="50%" stop-color="rgba(0,0,0,0)"/>
-            <stop offset="100%" stop-color="rgba(0,0,0,0.35)"/>
-          </linearGradient>
-        </defs>
-        <path d="M 50 5 C 20 35 15 70 50 95 C 85 70 80 35 50 5 Z" fill="url(#leafGrad)" />
-        <path d="M 50 5 C 20 35 15 70 50 95 Z" fill="url(#leafShade)" />
-        <path d="M 50 5 L 50 95" stroke="#166534" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M 50 25 Q 35 35 25 32 M 50 48 Q 30 58 20 53 M 50 70 Q 35 78 28 74" stroke="#15803d" stroke-width="1.5" fill="none"/>
-        <path d="M 50 25 Q 65 35 75 32 M 50 48 Q 70 58 80 53 M 50 70 Q 65 78 72 74" stroke="#16a34a" stroke-width="1.5" fill="none"/>
-      `;
-      return svg;
-    }
-
-    const leafBox = document.getElementById('leaf-box');
-
-    function createChillLeaf() {
-      if (currentMode === 'NIGHT') return; // Ban đêm không rơi lá
-
-      const leafWrap = document.createElement('div');
-      leafWrap.classList.add('chill-leaf-item');
-      leafWrap.appendChild(createCustomLeafSVG());
-
-      leafWrap.style.left = (Math.random() * 25 - 10) + 'vw';
-      leafWrap.style.top = (Math.random() * 20 - 10) + 'vh';
-
-      let duration = Math.random() * 4 + 6;
-      if (currentMode === 'STORM' || currentMode === 'RAIN') {
-        duration = Math.random() * 2 + 3; // Mưa bão lá bay dồn dập
-      }
-
-      leafWrap.style.animationDuration = duration + 's';
-      leafBox.appendChild(leafWrap);
-
-      setTimeout(() => { leafWrap.remove(); }, duration * 1000);
-    }
-    setInterval(createChillLeaf, 900);
-
-    // 💨 7. LUỒNG GIÓ THỔI
-    const windBox = document.getElementById('wind-box');
-    function createWindStreak() {
-      const wind = document.createElement('div');
-      wind.classList.add('wind-streak');
-      wind.style.top = (Math.random() * 85) + 'vh';
-      wind.style.width = (Math.random() * 180 + 120) + 'px';
-
-      let duration = Math.random() * 3 + 3.5;
-      if (currentMode === 'STORM') duration = Math.random() * 1.2 + 1.5;
-
-      wind.style.animationDuration = duration + 's';
-      windBox.appendChild(wind);
-
-      setTimeout(() => wind.remove(), duration * 1000);
-    }
-    setInterval(createWindStreak, 1100);
-
-    // 🗂️ 8. SỬA HOÀN TOÀN LỖI CHUYỂN TAB (SCRIPT, APK, IOS...)
-    function switchTab(tabId, btnElement) {
-      playClickSound();
-
-      // Ẩn tất cả tab
-      const allTabs = document.querySelectorAll('.tab-content');
-      allTabs.forEach(tab => {
-        tab.classList.remove('active');
-      });
-
-      // Bỏ active tất cả nút
-      const allBtns = document.querySelectorAll('.nav-btn');
-      allBtns.forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      // Bật tab được chọn
-      const selectedTab = document.getElementById(tabId);
-      if (selectedTab) {
-        selectedTab.classList.add('active');
-      }
-
-      // Active nút được bấm
-      if (btnElement) {
-        btnElement.classList.add('active');
-      }
-    }
-
-    // 📋 9. SAO CHÉP CODE SCRIPT
-    function copyScriptCode(btn) {
-      playClickSound();
-      const box = btn.closest('.box');
-      const scriptText = box.querySelector('.script-text').innerText;
-      navigator.clipboard.writeText(scriptText);
-
-      const oldText = btn.innerText;
-      btn.innerText = 'COPIED!';
-      btn.style.background = 'linear-gradient(135deg, #166534, #14532d)';
-
-      setTimeout(() => {
-        btn.innerText = oldText;
-        btn.style.background = '';
-      }, 1500);
-    }
-  </script>
-</body>
-</html>
