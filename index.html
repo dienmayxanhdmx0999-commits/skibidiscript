@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SKIBIDI HUB - NEW MUSIC MODEL [ BIG UPDATE ] v4.7</title>
+  <title>SKIBIDI HUB - Time Update , Sound ( v5.2 )</title>
   <style>
     * {
       box-sizing: border-box;
@@ -26,7 +26,7 @@
       transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1), color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 🚀 ÉP XUNG GPU TỐI ƯU 144 FPS */
+    /* 🚀 TỐI ƯU GPU 144 FPS */
     .sun-element, .moon-element, .clouds-layer, .drop, .wind-streak, 
     .chill-leaf-item, .big-tree, .grass-svg, .glass-card, .flying-bird {
       will-change: transform, opacity;
@@ -101,7 +101,7 @@
       transform: scale(1) translateZ(0);
     }
 
-    /* 🌧️ HẠT MƯA RƠI CHUẨN VẬT LÝ THEO CHIỀU NGHIÊNG */
+    /* 🌧️ HẠT MƯA RƠI */
     .rain-container {
       position: fixed;
       top: 0;
@@ -119,7 +119,6 @@
       transform-origin: top left;
     }
 
-    /* Mưa vừa: Nghiêng -15 độ, rơi chéo đúng -15 độ */
     body.weather-rain .drop {
       width: 1.8px;
       height: 38px;
@@ -132,7 +131,6 @@
       100% { transform: translate(25vw, 105vh) rotate(-15deg) translateZ(0); opacity: 0.15; }
     }
 
-    /* Bão lớn: Nghiêng -28 độ, hạt mưa dài & rơi nhanh chéo chuẩn góc */
     body.weather-storm .drop {
       width: 2.2px;
       height: 52px;
@@ -170,7 +168,7 @@
       100% { opacity: 1; transform: scale(1.3); }
     }
 
-    /* ☁️ MÂY RIÊNG BIỆT CHO TỪNG THỜI TIẾT */
+    /* ☁️ MÂY */
     .clouds-layer {
       position: fixed;
       top: -5vh;
@@ -188,21 +186,18 @@
                   radial-gradient(circle at 65% 40%, rgba(255,255,255,0.6) 0%, transparent 55%),
                   radial-gradient(circle at 85% 25%, rgba(255,255,255,0.65) 0%, transparent 50%);
       opacity: 0.85;
-      filter: none;
     }
 
     body.weather-rain .clouds-layer {
       background: radial-gradient(circle at 30% 30%, rgba(71, 85, 105, 0.8) 0%, transparent 55%),
                   radial-gradient(circle at 70% 45%, rgba(51, 65, 85, 0.85) 0%, transparent 60%);
       opacity: 0.95;
-      filter: contrast(1.2);
     }
 
     body.weather-storm .clouds-layer {
       background: radial-gradient(circle at 25% 25%, rgba(15, 23, 42, 0.95) 0%, transparent 60%),
                   radial-gradient(circle at 75% 35%, rgba(30, 41, 59, 0.95) 0%, transparent 65%);
       opacity: 1;
-      filter: contrast(1.5) brightness(0.7);
       animation-duration: 18s;
     }
 
@@ -217,7 +212,7 @@
       100% { transform: translateX(-15%) translateZ(0); }
     }
 
-    /* 💨 LUỒNG GIÓ ĐỘNG THEO CẤP ĐỘ */
+    /* 💨 GIÓ THỔI */
     .wind-container {
       position: fixed;
       top: 0;
@@ -243,7 +238,7 @@
       100% { transform: translateX(130vw) translateZ(0); opacity: 0; }
     }
 
-    /* 🦅 CHIM BAY NGANG BẦU TRỜI */
+    /* 🦅 CHIM BAY NGANG */
     .bird-fly-container {
       position: fixed;
       top: 0;
@@ -372,60 +367,75 @@
       100% { transform: skewX(5deg) translateZ(0); }
     }
 
-    /* ⏱️ WIDGET ĐẾM NGƯỢC THỜI TIẾT */
-    .next-weather-widget {
+    /* 🚀 THANH HEADER TOP-LEFT (CẢ NÚT ÂM THANH VÀ KHUNG UPDATE IN IN) */
+    .top-left-bar {
       position: fixed;
       top: 14px;
       left: 14px;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 14px;
-      padding: 6px 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       z-index: 100;
-      user-select: none;
     }
 
-    .next-weather-icon { font-size: 1.1rem; }
-    .next-weather-timer {
-      font-family: monospace;
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    /* 🔊 NÚT ÂM THANH */
+    /* 🔊 NÚT BẬT/TẮT ÂM THANH */
     .audio-toggle-btn {
-      position: fixed;
-      bottom: 14px;
-      left: 14px;
-      width: 42px;
-      height: 42px;
-      background: rgba(255, 255, 255, 0.12);
+      width: 38px;
+      height: 38px;
+      background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 12px;
       color: #ffffff;
       font-size: 1.1rem;
       cursor: pointer;
-      z-index: 100;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+      flex-shrink: 0;
     }
 
     .audio-toggle-btn:hover {
-      transform: scale(1.1) translateZ(0);
-      background: rgba(34, 197, 94, 0.4);
+      transform: scale(1.08) translateZ(0);
+      background: rgba(34, 197, 94, 0.45);
     }
 
-    /* 📱 KHUNG CHÍNH (SKIBIDI HUB) GLASS UI */
+    /* ⏱️ WIDGET ĐẾM NGƯỢC UPDATE VERSION */
+    .update-countdown-widget {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+      height: 38px;
+    }
+
+    .update-icon { font-size: 1rem; }
+    .update-text {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .update-timer {
+      font-family: monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #4ade80;
+    }
+
+    /* 📱 KHUNG CHÍNH GLASS UI */
     .glass-card {
       position: relative;
       z-index: 20;
@@ -465,7 +475,7 @@
       user-select: none;
     }
 
-    /* ✨ CHỮ TIÊU ĐỀ: VIỀN TRẮNG - RUỘT TRONG SUỐT */
+    /* ✨ CHỮ TIÊU ĐỀ */
     .title {
       font-size: 2.3rem;
       font-weight: 900;
@@ -521,7 +531,7 @@
       box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
     }
 
-    /* 🎴 DANH SÁCH ITEM BÊN TRONG TAB */
+    /* 🎴 CONTENT WRAPPER */
     .tab-content-wrapper {
       flex: 1;
       overflow: hidden;
@@ -661,14 +671,17 @@
 
   <div class="leaf-container" id="leaf-box"></div>
 
-  <div class="next-weather-widget">
-    <span class="next-weather-icon" id="next-icon">🌧️</span>
-    <span class="next-weather-timer" id="next-timer">05:00</span>
-  </div>
+  <div class="top-left-bar">
+    <button class="audio-toggle-btn" id="audio-btn" onclick="toggleAudioSystem()" title="Bật/Tắt Âm Thanh">
+      <span id="audio-icon">🔇</span>
+    </button>
 
-  <button class="audio-toggle-btn" id="audio-btn" onclick="toggleAudioSystem()" title="Bật/Tắt Âm Thanh">
-    <span id="audio-icon">🔇</span>
-  </button>
+    <div class="update-countdown-widget">
+      <span class="update-icon">⚡</span>
+      <span class="update-text" id="update-label-text">UPDATE VERSION 5.0 IN</span>
+      <span class="update-timer" id="update-timer-text">10:00:00</span>
+    </div>
+  </div>
 
   <div class="nature-bottom">
     <svg class="big-tree tree-left" viewBox="0 0 160 220">
@@ -879,9 +892,62 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
   </div>
 
-  <div class="version-tag">Version 4.7 ( UPD Music , Model , UI , Animal )</div>
+  <div class="version-tag">Version 5.2 ( UPD Time Update )</div>
 
   <script>
+    // ==========================================
+    // ⚙️ CẤU HÌNH THỜI GIAN UPDATE TẠI ĐÂY
+    // ==========================================
+    const UPDATE_VERSION_NAME = "UPDATE VERSION 5.0 IN"; // Tên hiển thị phiên bản
+    const COUNTDOWN_HOURS = 10; // Số giờ đếm ngược (VD: 10 giờ)
+    // ==========================================
+
+    let totalUpdateSeconds = COUNTDOWN_HOURS * 3600;
+
+    function initUpdateTimer() {
+      const savedTimer = localStorage.getItem('skibidi_update_timer');
+      const savedTime = localStorage.getItem('skibidi_update_saved_time');
+
+      if (savedTimer && savedTime) {
+        const elapsed = Math.floor((Date.now() - parseInt(savedTime)) / 1000);
+        totalUpdateSeconds = Math.max(0, parseInt(savedTimer) - elapsed);
+      } else {
+        localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
+        localStorage.setItem('skibidi_update_saved_time', Date.now());
+      }
+    }
+
+    function startUpdateCountdown() {
+      const labelEl = document.getElementById('update-label-text');
+      const timerEl = document.getElementById('update-timer-text');
+      labelEl.innerText = UPDATE_VERSION_NAME;
+
+      initUpdateTimer();
+
+      setInterval(() => {
+        if (totalUpdateSeconds > 0) {
+          totalUpdateSeconds--;
+          localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
+          localStorage.setItem('skibidi_update_saved_time', Date.now());
+
+          const hrs = Math.floor(totalUpdateSeconds / 3600);
+          const mins = Math.floor((totalUpdateSeconds % 3600) / 60);
+          const secs = totalUpdateSeconds % 60;
+
+          const hStr = hrs.toString().padStart(2, '0');
+          const mStr = mins.toString().padStart(2, '0');
+          const sStr = secs.toString().padStart(2, '0');
+
+          timerEl.innerText = `${hStr}:${mStr}:${sStr}`;
+        } else {
+          labelEl.innerText = "UPDATING NOW...";
+          timerEl.innerText = "";
+        }
+      }, 1000);
+    }
+
+    startUpdateCountdown();
+
     // 🌾 1. TẠO THẢM CỎ SVG DENSE
     function generateDenseGrassSVG(svgId, isBack) {
       const svg = document.getElementById(svgId);
@@ -904,7 +970,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     generateDenseGrassSVG('grass-back-svg', true);
     generateDenseGrassSVG('grass-front-svg', false);
 
-    // 🔊 2. HỆ THỐNG ÂM THANH LẬP TRÌNH WEB AUDIO API (ĐA DẠNG)
+    // 🔊 2. HỆ THỐNG ÂM THANH LẬP TRÌNH WEB AUDIO API
     let audioCtx = null;
     let isAudioEnabled = false;
     let windFilter = null;
@@ -1080,7 +1146,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }
     }, 2400);
 
-    // 🌩️ TIẾNG SẤM BÃO VÂN RỀN (KHÔNG CHỚP MÀN HÌNH)
+    // 🌩️ TIẾNG SẤM BÃO
     function playThunderSound() {
       if (!isAudioEnabled || !audioCtx || currentMode !== 'STORM') return;
       const now = audioCtx.currentTime;
@@ -1157,7 +1223,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       bird.classList.add('flying-bird');
       bird.style.top = (Math.random() * 30 + 5) + 'vh';
 
-      let duration = Math.random() * 4 + 7; // 7-11s bay qua
+      let duration = Math.random() * 4 + 7;
       bird.style.animationDuration = duration + 's';
 
       bird.innerHTML = `
@@ -1174,9 +1240,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       if (Math.random() < 0.6) spawnFlyingBird();
     }, 10000);
 
-    // 🌤️ 6. LỊCH CHUYỂN ĐỔI THỜI TIẾT + LƯU TRẠNG THÁI LIÊN TỤC
+    // 🌤️ 6. THỜI TIẾT
     const modes = ['SUNNY', 'RAIN', 'STORM', 'NIGHT'];
-    const modeIcons = { 'SUNNY': '☀️', 'RAIN': '🌧️', 'STORM': '🌩️', 'NIGHT': '🌙' };
     const weatherDurations = { 'SUNNY': 300, 'RAIN': 300, 'STORM': 600, 'NIGHT': 300 };
 
     let currentMode = 'SUNNY';
@@ -1184,8 +1249,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     let timeRemaining = weatherDurations[currentMode];
 
     const statusBox = document.getElementById('status-box');
-    const nextIconEl = document.getElementById('next-icon');
-    const nextTimerEl = document.getElementById('next-timer');
 
     function applyWeatherMode(mode) {
       currentMode = mode;
@@ -1216,67 +1279,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       return candidates[Math.floor(Math.random() * candidates.length)];
     }
 
-    function saveWeatherState() {
-      localStorage.setItem('skibidi_weather_data', JSON.stringify({
-        currentMode: currentMode,
-        nextMode: nextMode,
-        timeRemaining: timeRemaining,
-        savedAt: Date.now()
-      }));
-    }
-
-    function loadWeatherState() {
-      const saved = localStorage.getItem('skibidi_weather_data');
-      if (saved) {
-        try {
-          const data = JSON.parse(saved);
-          const elapsedSeconds = Math.floor((Date.now() - data.savedAt) / 1000);
-          
-          let rem = data.timeRemaining - elapsedSeconds;
-          let cMode = data.currentMode;
-          let nMode = data.nextMode;
-
-          while (rem <= 0) {
-            cMode = nMode;
-            const candidates = modes.filter(m => m !== cMode);
-            nMode = candidates[Math.floor(Math.random() * candidates.length)];
-            rem += weatherDurations[cMode];
-          }
-
-          currentMode = cMode;
-          nextMode = nMode;
-          timeRemaining = rem;
-        } catch(e) {
-          currentMode = 'SUNNY';
-          nextMode = getRandomNextMode();
-          timeRemaining = weatherDurations[currentMode];
-        }
-      } else {
-        currentMode = 'SUNNY';
-        nextMode = getRandomNextMode();
-        timeRemaining = weatherDurations[currentMode];
-      }
-    }
-
-    loadWeatherState();
-    applyWeatherMode(currentMode);
-    nextIconEl.innerText = modeIcons[nextMode];
-
     setInterval(() => {
       timeRemaining--;
       if (timeRemaining <= 0) {
         applyWeatherMode(nextMode);
         nextMode = getRandomNextMode();
-        nextIconEl.innerText = modeIcons[nextMode];
         timeRemaining = weatherDurations[currentMode];
       }
-
-      saveWeatherState();
-
-      const mins = Math.floor(timeRemaining / 60);
-      const secs = timeRemaining % 60;
-      nextTimerEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }, 1000);
+
+    applyWeatherMode(currentMode);
 
     // 🍃 7. LÁ BAY
     function createCustomLeafSVG() {
@@ -1324,7 +1336,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       wind.style.width = (Math.random() * 160 + 90) + 'px';
 
       let duration = Math.random() * 3 + 3.5;
-      if (currentMode === 'STORM') duration = Math.random() * 0.8 + 1.2; // Gió bão rất nhanh
+      if (currentMode === 'STORM') duration = Math.random() * 0.8 + 1.2;
       else if (currentMode === 'RAIN') duration = Math.random() * 1.5 + 2.0;
 
       wind.style.animationDuration = duration + 's';
@@ -1332,12 +1344,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       setTimeout(() => wind.remove(), duration * 1000);
     }
 
-    setInterval(() => {
-      const interval = currentMode === 'STORM' ? 400 : (currentMode === 'RAIN' ? 800 : 1300);
-      createWindStreak();
-    }, 800);
+    setInterval(createWindStreak, 800);
 
-    // 🗂️ 9. CHUYỂN TAB VÀ LƯU TAB ĐANG MỞ
+    // 🗂️ 9. CHUYỂN TAB VÀ LƯU TAB
     function switchTab(tabId, btnElement, playSound = true) {
       if (playSound) playClickSound();
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -1367,7 +1376,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }, 1500);
     }
 
-    // 🚀 11. TỰ ĐỘNG KHÔI PHỤC KHI KHỞI ĐỘNG
+    // 🚀 11. KHỞI ĐỘNG
     window.addEventListener('DOMContentLoaded', () => {
       const savedTab = localStorage.getItem('skibidi_active_tab');
       if (savedTab) {
