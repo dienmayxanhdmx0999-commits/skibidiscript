@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SKIBIDI HUB - Ultimate Weather Experience (v2.1)</title>
+  <title>SKIBIDI HUB - Fixed & Upgraded (v2.1)</title>
   <style>
     * {
       box-sizing: border-box;
@@ -19,47 +19,50 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      overflow-x: hidden;
+      overflow: hidden;
       position: relative;
-      transition: background 2.5s ease, color 2.5s ease;
+      transition: background 2s ease, color 2s ease;
     }
 
-    /* 🌤️ CÁC TRẠNG THÁI THỜI TIẾT TỰ ĐỘNG */
+    /* ☀️ TRỜI NẮNG / SÁNG */
     body.weather-sunny {
-      background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 40%, #4ade80 75%, #15803d 100%);
+      background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 45%, #4ade80 80%, #15803d 100%);
       color: #ffffff;
     }
 
+    /* 🌧️ TRỜI MƯA */
     body.weather-rain {
-      background: linear-gradient(180deg, #64748b 0%, #94a3b8 40%, #22c55e 80%, #14532d 100%);
+      background: linear-gradient(180deg, #475569 0%, #64748b 45%, #166534 85%, #14532d 100%);
       color: #f8fafc;
     }
 
+    /* 🌩️ TRỜI BÃO (TỐI U ÁM) */
     body.weather-storm {
-      background: linear-gradient(180deg, #0f172a 0%, #1e293b 40%, #064e3b 80%, #022c22 100%);
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 45%, #064e3b 85%, #022c22 100%);
       color: #f1f5f9;
     }
 
+    /* 🌙 BAN ĐÊM */
     body.weather-night {
-      background: linear-gradient(180deg, #030712 0%, #0f172a 45%, #064e3b 80%, #022c22 100%);
+      background: linear-gradient(180deg, #020617 0%, #0f172a 50%, #064e3b 85%, #022c22 100%);
       color: #cbd5e1;
     }
 
-    /* ⚡ HIỆU ỨNG ÁNH SẤM SÉT KHI BÃO */
+    /* ⚡ SẤM SÉT KHI BÃO */
     .lightning-flash {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       pointer-events: none;
       z-index: 90;
       opacity: 0;
       transition: opacity 0.05s ease-out;
     }
 
-    /* 🌧️ HẠT MƯA RƠI */
+    /* 🌧️ MƯA RƠI */
     .rain-container {
       position: fixed;
       top: 0;
@@ -73,19 +76,19 @@
 
     .drop {
       position: absolute;
-      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.7));
-      width: 1.5px;
-      height: 25px;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.8));
+      width: 2px;
+      height: 30px;
       animation: fall linear infinite;
     }
 
     @keyframes fall {
-      0% { transform: translateY(-30px) rotate(12deg); opacity: 0; }
-      20% { opacity: 0.8; }
-      100% { transform: translateY(105vh) rotate(12deg); opacity: 0.2; }
+      0% { transform: translateY(-40px) rotate(15deg); opacity: 0; }
+      20% { opacity: 0.9; }
+      100% { transform: translateY(105vh) rotate(15deg); opacity: 0.1; }
     }
 
-    /* 🌟 SAO BAN ĐÊM */
+    /* 🌟 SAO ĐÊM */
     .stars-container {
       position: fixed;
       top: 0;
@@ -110,31 +113,43 @@
       100% { opacity: 1; transform: scale(1.3); }
     }
 
-    /* ☁️ MÂY DÀY ĐẶC */
+    /* ☁️ MÂY CHUYỂN MÀU MƯỢT MÀ KHI ĐỔI THỜI TIẾT */
     .clouds-layer {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 250%;
-      height: 45vh;
-      background: radial-gradient(circle at 15% 25%, rgba(255,255,255,0.3) 0%, transparent 40%),
-                  radial-gradient(circle at 55% 30%, rgba(255,255,255,0.25) 0%, transparent 45%),
-                  radial-gradient(circle at 85% 20%, rgba(255,255,255,0.3) 0%, transparent 40%);
-      animation: cloudMove 40s linear infinite alternate;
+      top: -10vh;
+      left: -20vw;
+      width: 140vw;
+      height: 55vh;
+      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.7) 0%, transparent 50%),
+                  radial-gradient(circle at 60% 40%, rgba(255,255,255,0.6) 0%, transparent 55%),
+                  radial-gradient(circle at 85% 25%, rgba(255,255,255,0.65) 0%, transparent 50%);
+      animation: cloudDrift 35s linear infinite alternate;
       pointer-events: none;
       z-index: 2;
-      transition: filter 2s ease;
-    }
-    body.weather-storm .clouds-layer, body.weather-rain .clouds-layer {
-      filter: brightness(0.5) contrast(1.2);
+      transition: filter 2s ease, opacity 2s ease;
+      filter: brightness(1) drop-shadow(0 10px 15px rgba(0,0,0,0.1));
     }
 
-    @keyframes cloudMove {
+    /* Mây đen dày đặc che mặt trời khi mưa/bão */
+    body.weather-rain .clouds-layer {
+      filter: brightness(0.35) contrast(1.3) drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+    }
+
+    body.weather-storm .clouds-layer {
+      filter: brightness(0.18) contrast(1.5) drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+    }
+
+    body.weather-night .clouds-layer {
+      filter: brightness(0.2) contrast(1.1);
+      opacity: 0.6;
+    }
+
+    @keyframes cloudDrift {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-40%); }
+      100% { transform: translateX(-15%); }
     }
 
-    /* 💨 LUỒNG GIÓ THỔI CHÂN THẬT (GLOW + BLUR) */
+    /* 💨 LUỒNG GIÓ THỔI */
     .wind-container {
       position: fixed;
       top: 0;
@@ -148,20 +163,20 @@
     .wind-streak {
       position: absolute;
       height: 3px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
       border-radius: 50%;
       filter: blur(1px);
       animation: windPass linear infinite;
     }
 
     @keyframes windPass {
-      0% { transform: translateX(-25vw) scaleY(0.8); opacity: 0; }
+      0% { transform: translateX(-30vw) scaleY(0.8); opacity: 0; }
       30% { opacity: 0.8; }
       70% { opacity: 0.8; }
-      100% { transform: translateX(125vw) scaleY(1.2); opacity: 0; }
+      100% { transform: translateX(130vw) scaleY(1.3); opacity: 0; }
     }
 
-    /* 🍃 LÁ CÂY VẼ BẰNG SVG SÁNG TỐI RÕ NÉT */
+    /* 🍃 CHIẾC LÁ BỰ NGHỆ THUẬT (SÁNG TỐI RÕ NÉT) */
     .leaf-container {
       position: fixed;
       top: 0;
@@ -175,99 +190,132 @@
     .chill-leaf-item {
       position: absolute;
       user-select: none;
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
       animation: leafDrift ease-in-out infinite;
     }
 
     @keyframes leafDrift {
       0% {
-        transform: translate(-10vw, -10vh) rotate(0deg) scale(0.9);
+        transform: translate(-10vw, -5vh) rotate(0deg) scale(0.9);
         opacity: 0;
       }
       15% { opacity: 1; }
-      50% { transform: translate(45vw, 40vh) rotate(190deg) scale(1.1); }
+      50% { transform: translate(45vw, 40vh) rotate(200deg) scale(1.15); }
       85% { opacity: 1; }
       100% {
-        transform: translate(110vw, 95vh) rotate(380deg) scale(0.8);
+        transform: translate(110vw, 95vh) rotate(400deg) scale(0.85);
         opacity: 0;
       }
     }
 
-    /* 🌳 CÂY CỐI & 🌾 THẢM CỎ DÀY ĐẶC DƯỚI DÁY WEB */
+    /* 🌳 CÂY BỰ CHÂN THẬT & 🌾 THẢM CỎ DÀY ĐẶC PHỦ 100% TOÀN MÀN HÌNH */
     .nature-bottom {
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 100%;
-      height: 110px;
+      width: 100vw;
+      height: 160px;
       pointer-events: none;
       z-index: 7;
       overflow: hidden;
     }
 
-    /* SVG Cỏ nhiều lớp */
-    .grass-layer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 80px;
-      fill: #15803d;
-      transform-origin: bottom center;
-      animation: grassSway 3.5s ease-in-out infinite alternate;
-      transition: fill 2s ease;
-    }
-    .grass-back {
-      fill: #166534;
-      height: 95px;
-      animation-duration: 4.8s;
-      animation-delay: -1s;
-      opacity: 0.8;
-    }
-    body.weather-night .grass-layer { fill: #052e16; }
-    body.weather-night .grass-back { fill: #022c22; }
-
-    @keyframes grassSway {
-      0% { transform: skewX(-4deg); }
-      100% { transform: skewX(6deg); }
-    }
-
-    /* Bóng cây bên trái & phải */
-    .tree-silhouette {
+    /* CÂY BỰ TỈ MỈ BÊN TRÁI & PHẢI */
+    .big-tree {
       position: absolute;
       bottom: -10px;
-      width: 120px;
-      height: 160px;
-      fill: #14532d;
+      width: 200px;
+      height: 250px;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
       transform-origin: bottom center;
       animation: treeSway 6s ease-in-out infinite alternate;
-      transition: fill 2s ease;
+      transition: filter 2s ease;
     }
-    .tree-left { left: -20px; }
-    .tree-right { right: -20px; transform: scaleX(-1); }
-    body.weather-night .tree-silhouette { fill: #022c22; }
+    .tree-left { left: -40px; }
+    .tree-right { right: -40px; transform: scaleX(-1); }
+
+    body.weather-storm .big-tree {
+      animation-duration: 2s !important;
+    }
 
     @keyframes treeSway {
-      0% { transform: rotate(-2deg); }
-      100% { transform: rotate(3deg); }
+      0% { transform: rotate(-1.5deg); }
+      100% { transform: rotate(2.5deg); }
     }
 
-    /* 🔳 Ô VUÔNG HIỂN THỊ TRẠNG THÁI THỜI TIẾT (KHÔNG CHO BẤM) */
+    /* THẢM CỎ KHỔNG LỒ PHỦ TOÀN BỘ CHÂN TRANG */
+    .grass-wrapper {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      display: flex;
+    }
+
+    .grass-svg {
+      width: 100%;
+      height: 100%;
+      transform-origin: bottom center;
+      animation: grassSway 4s ease-in-out infinite alternate;
+      transition: fill 2s ease;
+    }
+
+    .grass-layer-back {
+      fill: #15803d;
+      opacity: 0.85;
+      animation-duration: 5s;
+      animation-delay: -1s;
+    }
+
+    .grass-layer-front {
+      fill: #22c55e;
+    }
+
+    body.weather-rain .grass-layer-front { fill: #16a34a; }
+    body.weather-rain .grass-layer-back { fill: #15803d; }
+
+    body.weather-storm .grass-layer-front { fill: #14532d; }
+    body.weather-storm .grass-layer-back { fill: #064e3b; }
+
+    body.weather-night .grass-layer-front { fill: #052e16; }
+    body.weather-night .grass-layer-back { fill: #022c22; }
+
+    /* CỎ THỔI MẠNH KHI CÓ MƯA & BÃO */
+    body.weather-storm .grass-svg {
+      animation: stormGrassSway 0.7s ease-in-out infinite alternate !important;
+    }
+    body.weather-rain .grass-svg {
+      animation: stormGrassSway 1.6s ease-in-out infinite alternate !important;
+    }
+
+    @keyframes grassSway {
+      0% { transform: skewX(-3deg); }
+      100% { transform: skewX(5deg); }
+    }
+
+    @keyframes stormGrassSway {
+      0% { transform: skewX(-14deg) scaleY(0.95); }
+      100% { transform: skewX(16deg) scaleY(1.05); }
+    }
+
+    /* 🔳 Ô VUÔNG TRẠNG THÁI THỜI TIẾT (KHÔNG CHO BẤM) */
     .weather-status-box {
-      width: 52px;
-      height: 52px;
-      background: rgba(255, 255, 255, 0.2);
+      width: 56px;
+      height: 56px;
+      background: rgba(255, 255, 255, 0.22);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1.5px solid rgba(255, 255, 255, 0.4);
-      border-radius: 16px;
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-radius: 18px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.8rem;
-      margin: 0 auto 16px auto;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      font-size: 2rem;
+      margin: 0 auto 14px auto;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
       user-select: none;
-      pointer-events: none; /* Khóa tương tác bấm */
+      pointer-events: none;
     }
 
     /* 📱 KHUNG CHÍNH (MAIN WRAPPER) */
@@ -289,7 +337,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: textShimmer 5s ease infinite;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
       text-transform: uppercase;
     }
 
@@ -300,15 +348,15 @@
     }
 
     .subtitle {
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(255, 255, 255, 0.95);
       font-size: 0.88rem;
       margin-bottom: 16px;
       letter-spacing: 0.5px;
-      font-weight: 500;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    /* 🗂️ TAB NAVIGATION */
+    /* 🗂️ TAB NAVIGATION (ĐÃ FIX BẤM MƯỢT MÀ 100%) */
     .nav-tabs {
       display: flex;
       gap: 8px;
@@ -318,41 +366,41 @@
     .nav-btn {
       flex: 1;
       padding: 12px 0;
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 14px;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     }
 
     .nav-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.32);
       transform: translateY(-2px);
     }
 
     .nav-btn.active {
       background: linear-gradient(135deg, #22c55e, #15803d) !important;
       color: #ffffff !important;
-      border-color: rgba(255, 255, 255, 0.6) !important;
+      border-color: rgba(255, 255, 255, 0.7) !important;
       box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
     }
 
-    /* 🎴 CARD MỤC CHÍNH */
+    /* 🎴 CARD NỘI DUNG */
     .card {
-      background: rgba(15, 23, 42, 0.45);
+      background: rgba(15, 23, 42, 0.5);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 24px;
       padding: 20px;
       text-align: left;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
       height: 450px;
       display: flex;
       flex-direction: column;
@@ -369,34 +417,34 @@
     }
 
     .tab-content::-webkit-scrollbar { width: 5px; }
-    .tab-content::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.15); border-radius: 10px; }
-    .tab-content::-webkit-scrollbar-thumb { background: rgba(134, 239, 172, 0.6); border-radius: 10px; }
+    .tab-content::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+    .tab-content::-webkit-scrollbar-thumb { background: rgba(134, 239, 172, 0.7); border-radius: 10px; }
 
     .tab-content.active {
-      display: flex;
-      animation: smoothTabIn 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex !important;
+      animation: smoothTabIn 0.3s ease-out;
     }
 
     @keyframes smoothTabIn {
-      from { opacity: 0; transform: translateY(10px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* CÁC Ô MỤC ITEM */
+    /* 📦 Ô CHỨA MỤC LINK & SCRIPT */
     .box {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.14);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 14px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.2s ease;
     }
 
     .box:hover {
-      border-color: rgba(255, 255, 255, 0.5);
+      border-color: rgba(255, 255, 255, 0.55);
       background: rgba(255, 255, 255, 0.22);
       transform: translateY(-2px);
     }
@@ -412,13 +460,13 @@
       font-size: 0.9rem;
       font-weight: 600;
       color: #ffffff !important;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
     }
 
     .box-btn {
       background: linear-gradient(135deg, #22c55e, #16a34a) !important;
       color: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 10px;
       padding: 8px 16px;
       font-size: 0.8rem;
@@ -427,7 +475,7 @@
       cursor: pointer;
       text-align: center;
       white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       transition: all 0.2s ease;
     }
 
@@ -438,12 +486,11 @@
 
     .box-btn:active {
       transform: scale(0.92);
-      background: linear-gradient(135deg, #15803d, #166534) !important;
     }
 
     .script-text {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(134, 239, 172, 0.3);
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid rgba(134, 239, 172, 0.35);
       border-radius: 8px;
       padding: 10px;
       font-family: monospace;
@@ -456,24 +503,24 @@
     .card-footer {
       text-align: center;
       font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.85);
       padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
     }
 
-    /* 🔖 CHỮ VERSION HIỂN THỊ DỄ CHỈNH SỬA Ở GÓC PHẢI DƯỚI WEB */
+    /* 🔖 THẺ VERSION (DỄ CHỈNH SỬA Ở GÓC PHẢI MÀN HÌNH) */
     .version-tag {
       position: fixed;
       bottom: 12px;
       right: 16px;
       font-size: 0.75rem;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.85);
-      background: rgba(0, 0, 0, 0.35);
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(8px);
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       z-index: 100;
       pointer-events: none;
       letter-spacing: 0.5px;
@@ -495,18 +542,22 @@
   <div class="leaf-container" id="leaf-box"></div>
 
   <div class="nature-bottom">
-    <svg class="tree-silhouette tree-left" viewBox="0 0 100 120">
-      <path d="M 45 120 L 55 120 L 52 80 L 75 70 C 90 50 80 20 50 10 C 20 20 10 50 25 70 L 48 80 Z" />
+    <svg class="big-tree tree-left" viewBox="0 0 100 140">
+      <path d="M 42 140 L 58 140 L 54 90 L 85 75 C 100 40 85 10 50 5 C 15 10 0 40 15 75 L 46 90 Z" fill="#14532d"/>
+      <path d="M 50 5 C 25 15 15 40 25 70 C 35 50 60 40 50 5 Z" fill="#22c55e" opacity="0.4"/>
+      <path d="M 50 25 C 70 35 80 55 70 75 C 60 60 40 50 50 25 Z" fill="#15803d" opacity="0.6"/>
     </svg>
-    <svg class="tree-silhouette tree-right" viewBox="0 0 100 120">
-      <path d="M 45 120 L 55 120 L 52 80 L 75 70 C 90 50 80 20 50 10 C 20 20 10 50 25 70 L 48 80 Z" />
+
+    <svg class="big-tree tree-right" viewBox="0 0 100 140">
+      <path d="M 42 140 L 58 140 L 54 90 L 85 75 C 100 40 85 10 50 5 C 15 10 0 40 15 75 L 46 90 Z" fill="#14532d"/>
+      <path d="M 50 5 C 25 15 15 40 25 70 C 35 50 60 40 50 5 Z" fill="#22c55e" opacity="0.4"/>
+      <path d="M 50 25 C 70 35 80 55 70 75 C 60 60 40 50 50 25 Z" fill="#15803d" opacity="0.6"/>
     </svg>
-    <svg class="grass-layer grass-back" viewBox="0 0 1200 100" preserveAspectRatio="none">
-      <path d="M0,100 L0,40 Q15,10 30,50 Q45,0 60,40 Q75,10 90,50 Q105,0 120,40 Q135,10 150,50 L1200,50 L1200,100 Z" />
-    </svg>
-    <svg class="grass-layer" viewBox="0 0 1200 100" preserveAspectRatio="none">
-      <path d="M0,100 L0,50 Q10,20 20,60 Q30,10 40,50 Q50,20 60,60 Q70,0 80,50 Q90,20 100,60 Q110,10 120,50 L1200,50 L1200,100 Z" />
-    </svg>
+
+    <div class="grass-wrapper">
+      <svg class="grass-svg grass-layer-back" id="grass-back-svg" preserveAspectRatio="none" viewBox="0 0 1000 100"></svg>
+      <svg class="grass-svg grass-layer-front" id="grass-front-svg" preserveAspectRatio="none" viewBox="0 0 1000 100" style="position: absolute; top:0; left:0;"></svg>
+    </div>
   </div>
 
   <div class="wrapper">
@@ -516,10 +567,10 @@
     <p class="subtitle">Quick and simple sharing service</p>
 
     <div class="nav-tabs">
-      <button class="nav-btn active" onclick="showTab('tab-link', this)">Link</button>
-      <button class="nav-btn" onclick="showTab('tab-script', this)">Script</button>
-      <button class="nav-btn" onclick="showTab('tab-apk', this)">APK</button>
-      <button class="nav-btn" onclick="showTab('tab-ios', this)">iOS</button>
+      <button class="nav-btn active" onclick="switchTab('tab-link', this)">Link</button>
+      <button class="nav-btn" onclick="switchTab('tab-script', this)">Script</button>
+      <button class="nav-btn" onclick="switchTab('tab-apk', this)">APK</button>
+      <button class="nav-btn" onclick="switchTab('tab-ios', this)">iOS</button>
     </div>
 
     <div class="card">
@@ -565,7 +616,7 @@
         <div class="box">
           <div class="box-header">
             <span class="box-title">Speed X Hub</span>
-            <button class="box-btn" onclick="copyCode(this)">Copy</button>
+            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
           </div>
           <div class="script-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
         </div>
@@ -573,7 +624,7 @@
         <div class="box">
           <div class="box-header">
             <span class="box-title">UB Hub</span>
-            <button class="box-btn" onclick="copyCode(this)">Copy</button>
+            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
           </div>
           <div class="script-text">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
         </div>
@@ -581,7 +632,7 @@
         <div class="box">
           <div class="box-header">
             <span class="box-title">Axon Hub</span>
-            <button class="box-btn" onclick="copyCode(this)">Copy</button>
+            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
           </div>
           <div class="script-text">loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua"))()</div>
         </div>
@@ -589,7 +640,7 @@
         <div class="box">
           <div class="box-header">
             <span class="box-title">Teddy Hub</span>
-            <button class="box-btn" onclick="copyCode(this)">Copy</button>
+            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
           </div>
           <div class="script-text">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()</div>
@@ -670,20 +721,43 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     </div>
   </div>
 
-  <div class="version-tag" id="web-version">Version 2.1</div>
+  <div class="version-tag" id="version-display">Version 2.1</div>
 
   <script>
-    // 🔊 1. HỆ THỐNG ÂM THANH SỐNG ĐỘNG (WEB AUDIO API TỰ ĐỘNG TỔNG HỢP)
+    // 🌾 1. TẠO THẢM CỎ SVG PHỦ KÍN 100% CHIỀU RỘNG CHÂN TRANG
+    function generateDenseGrassSVG(svgId, isBack) {
+      const svg = document.getElementById(svgId);
+      if (!svg) return;
+      let pathD = "M 0 100 L 0 " + (isBack ? "30" : "40");
+      
+      const bladeCount = 120; // Số lượng ngọn cỏ nối tiếp nhau
+      const step = 1000 / bladeCount;
+
+      for (let i = 0; i <= bladeCount; i++) {
+        const x = i * step;
+        const h = isBack ? (Math.random() * 35 + 15) : (Math.random() * 40 + 25);
+        const curve = (Math.random() * 8 - 4);
+        pathD += ` Q ${x + curve} ${h} ${x + step/2} ${h + 15}`;
+      }
+
+      pathD += " L 1000 100 Z";
+      svg.innerHTML = `<path d="${pathD}" />`;
+    }
+
+    generateDenseGrassSVG('grass-back-svg', true);
+    generateDenseGrassSVG('grass-front-svg', false);
+
+    // 🔊 2. ÂM THANH SỐNG ĐỘNG (BẤM BẤT KỲ ĐÂU ĐỂ TỰ ĐỘNG BẬT)
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    function initAudioOnInteraction() {
+    function unlockAudio() {
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
     }
-    document.addEventListener('click', initAudioOnInteraction, { once: true });
+    window.addEventListener('click', unlockAudio);
+    window.addEventListener('touchstart', unlockAudio);
 
-    // Tiếng Click Nút
     function playClickSound() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
@@ -699,7 +773,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       osc.stop(audioCtx.currentTime + 0.08);
     }
 
-    // Tiếng Sấm Sét
     function playThunderSound() {
       if (audioCtx.state !== 'running') return;
       const bufferSize = audioCtx.sampleRate * 1.5;
@@ -712,12 +785,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       noise.buffer = buffer;
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(300, audioCtx.currentTime);
-      filter.frequency.linearRampToValueAtTime(80, audioCtx.currentTime + 1.2);
+      filter.frequency.setValueAtTime(280, audioCtx.currentTime);
+      filter.frequency.linearRampToValueAtTime(70, audioCtx.currentTime + 1.2);
 
       const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.4);
+      gain.gain.setValueAtTime(0.45, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.3);
 
       noise.connect(filter);
       filter.connect(gain);
@@ -725,46 +798,44 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       noise.start();
     }
 
-    // Tiếng Chim Hót Ban Ngày
     function playBirdChirp() {
       if (audioCtx.state !== 'running' || currentMode !== 'SUNNY') return;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(2000 + Math.random() * 1000, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(3500 + Math.random() * 500, audioCtx.currentTime + 0.15);
+      osc.frequency.setValueAtTime(2200 + Math.random() * 800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(3600 + Math.random() * 400, audioCtx.currentTime + 0.12);
 
-      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.15);
+      osc.stop(audioCtx.currentTime + 0.12);
     }
-    setInterval(playBirdChirp, 3500);
+    setInterval(playBirdChirp, 3000);
 
-    // Tiếng Dế Kêu Ban Đêm
     function playCricketSound() {
       if (audioCtx.state !== 'running' || currentMode !== 'NIGHT') return;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(4500, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(4600, audioCtx.currentTime);
 
       gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.06);
+      osc.stop(audioCtx.currentTime + 0.05);
     }
-    setInterval(playCricketSound, 2000);
+    setInterval(playCricketSound, 1800);
 
-    // 2. SINH SAO BAN ĐÊM TỰ ĐỘNG
+    // 🌟 3. SAO BAN ĐÊM
     const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
       star.style.width = (Math.random() * 3 + 1) + 'px';
@@ -775,112 +846,98 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       starsContainer.appendChild(star);
     }
 
-    // 3. SINH MƯA
+    // 🌧️ 4. HẠT MƯA RƠI
     const rainBox = document.getElementById('rain-box');
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 70; i++) {
       const drop = document.createElement('div');
       drop.classList.add('drop');
       drop.style.left = Math.random() * 100 + 'vw';
-      drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+      drop.style.animationDuration = (Math.random() * 0.4 + 0.4) + 's';
       drop.style.animationDelay = Math.random() * 2 + 's';
       rainBox.appendChild(drop);
     }
 
-    // 4. QUẢN LÝ THỜI TIẾT TỰ ĐỘNG VỚI TỈ LỆ NGẪU NHIÊN
-    // 40% Bão, 50% Mưa, 10% Sáng (Hoặc Ban Đêm theo chu kỳ)
-    let currentMode = 'SUNNY'; // SUNNY, RAIN, STORM, NIGHT
+    // 🌤️ 5. QUẢN LÝ THỜI TIẾT TỰ ĐỘNG (40% BÃO, 50% MƯA, 10% SÁNG)
+    let currentMode = 'SUNNY';
     const statusBox = document.getElementById('status-box');
 
     function applyRandomWeather() {
       const body = document.body;
-      const rand = Math.random() * 100; // 0 - 100
+      const rand = Math.random() * 100;
 
-      // Reset các lớp thời tiết
       body.className = '';
       rainBox.style.display = 'none';
 
       if (rand < 40) {
-        // 🌩️ 40% TỈ LỆ XUẤT HIỆN BÃO
+        // 🌩️ BÃO (40%)
         currentMode = 'STORM';
         body.classList.add('weather-storm');
         statusBox.innerText = '🌩️';
         rainBox.style.display = 'block';
-        triggerLightning();
       } else if (rand < 90) {
-        // 🌧️ 50% TỈ LỆ XUẤT HIỆN MƯA (40% - 90%)
+        // 🌧️ MƯA (50%)
         currentMode = 'RAIN';
         body.classList.add('weather-rain');
         statusBox.innerText = '🌧️';
         rainBox.style.display = 'block';
       } else {
-        // ☀️ 10% TRỜI NẮNG / SÁNG
+        // ☀️ SÁNG (10%)
         currentMode = 'SUNNY';
         body.classList.add('weather-sunny');
         statusBox.innerText = '☀️';
       }
     }
 
-    // Chuyển Ban Đêm / Ban Ngày xen kẽ mỗi 3 phút
     let isNight = false;
     function mainWeatherCycle() {
       if (isNight) {
-        // Chuyển sang Ban Đêm
         currentMode = 'NIGHT';
         document.body.className = 'weather-night';
         statusBox.innerText = '🌙';
         rainBox.style.display = 'none';
         isNight = false;
       } else {
-        // Chuyển sang thời tiết Ban Ngày (Ngẫu nhiên Bão, Mưa, Nắng)
         applyRandomWeather();
         isNight = true;
       }
     }
 
-    // Khởi chạy trạng thái đầu tiên
     applyRandomWeather();
-    // Thay đổi trạng thái tự động mỗi 2.5 phút
-    setInterval(mainWeatherCycle, 150000);
+    setInterval(mainWeatherCycle, 120000); // Đổi thời tiết mỗi 2 phút
 
-    // Hiệu ứng Chớp Sấm Sét khi Bão
+    // Hiệu ứng Sấm Sét
     const flashOverlay = document.getElementById('flash-overlay');
     function triggerLightning() {
       if (currentMode !== 'STORM') return;
+      flashOverlay.style.opacity = '1';
+      playThunderSound();
+      setTimeout(() => { flashOverlay.style.opacity = '0'; }, 90);
       
       setTimeout(() => {
-        if (currentMode === 'STORM') {
-          flashOverlay.style.opacity = '1';
-          playThunderSound();
-          setTimeout(() => { flashOverlay.style.opacity = '0'; }, 100);
-          
-          // Chớp thêm phát thứ 2
-          setTimeout(() => {
-            flashOverlay.style.opacity = '0.8';
-            setTimeout(() => { flashOverlay.style.opacity = '0'; }, 80);
-          }, 180);
-        }
-      }, Math.random() * 6000 + 2000);
+        flashOverlay.style.opacity = '0.75';
+        setTimeout(() => { flashOverlay.style.opacity = '0'; }, 70);
+      }, 160);
     }
-    setInterval(triggerLightning, 7000);
+    setInterval(triggerLightning, 6500);
 
-    // 5. CHIẾC LÁ 🍃 SVG VẼ TỈ MỈ (BỰ HƠN & BẠN CÓ THỂ CHỈNH MÃ NÀY)
+    // 🍃 6. VẼ CHIẾC LÁ BỰ CÓ ĐỘ SÁNG TỐI CHÂN THẬT
     function createCustomLeafSVG() {
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svg.setAttribute("viewBox", "0 0 100 100");
-      svg.setAttribute("width", "38"); // Độ bự của chiếc lá
-      svg.setAttribute("height", "38");
+      svg.setAttribute("width", "42"); // Lá bự hơn
+      svg.setAttribute("height", "42");
 
       svg.innerHTML = `
         <defs>
           <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#a7f3d0"/>
-            <stop offset="40%" stop-color="#22c55e"/>
+            <stop offset="0%" stop-color="#bbf7d0"/>
+            <stop offset="45%" stop-color="#22c55e"/>
             <stop offset="100%" stop-color="#14532d"/>
           </linearGradient>
           <linearGradient id="leafShade" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
-            <stop offset="60%" stop-color="rgba(0,0,0,0)"/>
-            <stop offset="100%" stop-color="rgba(0,0,0,0.3)"/>
+            <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/>
+            <stop offset="50%" stop-color="rgba(0,0,0,0)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0.35)"/>
           </linearGradient>
         </defs>
         <path d="M 50 5 C 20 35 15 70 50 95 C 85 70 80 35 50 5 Z" fill="url(#leafGrad)" />
@@ -895,12 +952,89 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     const leafBox = document.getElementById('leaf-box');
 
     function createChillLeaf() {
-      // KHI TỐI (NIGHT): LÁ KHÔNG RƠI
-      if (currentMode === 'NIGHT') return;
+      if (currentMode === 'NIGHT') return; // Ban đêm không rơi lá
 
       const leafWrap = document.createElement('div');
       leafWrap.classList.add('chill-leaf-item');
       leafWrap.appendChild(createCustomLeafSVG());
 
-      // Vị trí xuất hiện ngẫu nhiên
-      leafWrap.style.left = (Math.random() * 20 - 1
+      leafWrap.style.left = (Math.random() * 25 - 10) + 'vw';
+      leafWrap.style.top = (Math.random() * 20 - 10) + 'vh';
+
+      let duration = Math.random() * 4 + 6;
+      if (currentMode === 'STORM' || currentMode === 'RAIN') {
+        duration = Math.random() * 2 + 3; // Mưa bão lá bay dồn dập
+      }
+
+      leafWrap.style.animationDuration = duration + 's';
+      leafBox.appendChild(leafWrap);
+
+      setTimeout(() => { leafWrap.remove(); }, duration * 1000);
+    }
+    setInterval(createChillLeaf, 900);
+
+    // 💨 7. LUỒNG GIÓ THỔI
+    const windBox = document.getElementById('wind-box');
+    function createWindStreak() {
+      const wind = document.createElement('div');
+      wind.classList.add('wind-streak');
+      wind.style.top = (Math.random() * 85) + 'vh';
+      wind.style.width = (Math.random() * 180 + 120) + 'px';
+
+      let duration = Math.random() * 3 + 3.5;
+      if (currentMode === 'STORM') duration = Math.random() * 1.2 + 1.5;
+
+      wind.style.animationDuration = duration + 's';
+      windBox.appendChild(wind);
+
+      setTimeout(() => wind.remove(), duration * 1000);
+    }
+    setInterval(createWindStreak, 1100);
+
+    // 🗂️ 8. SỬA HOÀN TOÀN LỖI CHUYỂN TAB (SCRIPT, APK, IOS...)
+    function switchTab(tabId, btnElement) {
+      playClickSound();
+
+      // Ẩn tất cả tab
+      const allTabs = document.querySelectorAll('.tab-content');
+      allTabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // Bỏ active tất cả nút
+      const allBtns = document.querySelectorAll('.nav-btn');
+      allBtns.forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Bật tab được chọn
+      const selectedTab = document.getElementById(tabId);
+      if (selectedTab) {
+        selectedTab.classList.add('active');
+      }
+
+      // Active nút được bấm
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+    }
+
+    // 📋 9. SAO CHÉP CODE SCRIPT
+    function copyScriptCode(btn) {
+      playClickSound();
+      const box = btn.closest('.box');
+      const scriptText = box.querySelector('.script-text').innerText;
+      navigator.clipboard.writeText(scriptText);
+
+      const oldText = btn.innerText;
+      btn.innerText = 'COPIED!';
+      btn.style.background = 'linear-gradient(135deg, #166534, #14532d)';
+
+      setTimeout(() => {
+        btn.innerText = oldText;
+        btn.style.background = '';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
