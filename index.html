@@ -899,10 +899,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     // ⚙️ CẤU HÌNH THỜI GIAN UPDATE TẠI ĐÂY
     // ==========================================
     const UPDATE_VERSION_NAME = "UPDATE VERSION 5.0 IN"; // Tên hiển thị phiên bản
-    const COUNTDOWN_HOURS = 2; // Số giờ đếm ngược (VD: 10 giờ)
+    const COUNTDOWN_HOURS = 2; // Số giờ đếm ngược (VD: 2 giờ)
     // ==========================================
-
-    let totalUpdateSeconds = COUNTDOWN_HOURS * 3600;
 
     function initUpdateTimer() {
       const savedTimer = localStorage.getItem('skibidi_update_timer');
