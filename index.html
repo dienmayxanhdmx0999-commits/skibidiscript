@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SKIBIDI HUB - Fixed Weather & Audio (v3.0)</title>
+  <title>SKIBIDI HUB - Glass Transparent UI (v3.1)</title>
   <style>
     * {
       box-sizing: border-box;
@@ -173,7 +173,6 @@
       filter: brightness(1) drop-shadow(0 10px 15px rgba(0,0,0,0.1));
     }
 
-    /* Mây đen u ám khi Mưa/Bão */
     body.weather-rain .clouds-layer {
       filter: brightness(0.3) contrast(1.4) drop-shadow(0 15px 25px rgba(0,0,0,0.7));
     }
@@ -339,46 +338,46 @@
       100% { transform: skewX(16deg) scaleY(1.05); }
     }
 
-    /* ⏱️ KHUNG ĐẾM NGƯỢC THỜI TIẾT TIẾP THEO (TINH GỌN: BIỂU TƯỢNG + THỜI GIAN) */
+    /* ⏱️ KHUNG ĐẾM NGƯỢC THỜI TIẾT TIẾP THEO IN TỰ NHIÊN */
     .next-weather-widget {
       position: fixed;
       top: 18px;
       left: 18px;
-      background: rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      background: rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 16px;
       padding: 6px 14px;
       display: flex;
       align-items: center;
       gap: 8px;
       z-index: 100;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       user-select: none;
     }
 
     .next-weather-icon {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
 
     .next-weather-timer {
       font-family: monospace;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 800;
-      color: #86efac;
+      color: #ffffff;
       letter-spacing: 1px;
     }
 
-    /* 🔊 NÚT ÂM THANH TRÊN MÀN HÌNH */
+    /* 🔊 NÚT ÂM THANH TRONG SUỐT */
     .audio-toggle-btn {
       position: fixed;
       top: 18px;
       right: 18px;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      background: rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 16px;
       padding: 8px 14px;
       color: #ffffff;
@@ -389,16 +388,17 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       transition: all 0.2s ease;
     }
 
     .audio-toggle-btn:hover {
       transform: scale(1.05);
-      background: rgba(34, 197, 94, 0.4);
+      background: rgba(34, 197, 94, 0.35);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
-    /* 📱 KHUNG CHÍNH (MAIN WRAPPER) */
+    /* 📱 KHUNG CHÍNH (MAIN WRAPPER) - HOÀN TOÀN TRONG SUỐT */
     .wrapper {
       width: 100%;
       max-width: 450px;
@@ -411,17 +411,17 @@
     .weather-status-box {
       width: 58px;
       height: 58px;
-      background: rgba(255, 255, 255, 0.22);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 18px;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 2rem;
-      margin: 0 auto 14px auto;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      margin: 0 auto 12px auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
       user-select: none;
       pointer-events: none;
     }
@@ -430,13 +430,13 @@
       font-size: 2.8rem;
       font-weight: 900;
       letter-spacing: 2px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       background: linear-gradient(90deg, #ffffff, #86efac, #f0fdf4, #4ade80, #ffffff);
       background-size: 300% 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: textShimmer 5s ease infinite;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
       text-transform: uppercase;
     }
 
@@ -449,13 +449,13 @@
     .subtitle {
       color: rgba(255, 255, 255, 0.95);
       font-size: 0.88rem;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       letter-spacing: 0.5px;
       font-weight: 600;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
     }
 
-    /* 🗂️ TAB NAVIGATION (CHUYỂN TAB 100% MƯỢT MÀ) */
+    /* 🗂️ TAB NAVIGATION (TRONG SUỐT) */
     .nav-tabs {
       display: flex;
       gap: 8px;
@@ -464,43 +464,39 @@
 
     .nav-btn {
       flex: 1;
-      padding: 12px 0;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      padding: 10px 0;
+      background: rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 14px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     }
 
     .nav-btn:hover {
-      background: rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.25);
       transform: translateY(-2px);
     }
 
     .nav-btn.active {
-      background: linear-gradient(135deg, #22c55e, #15803d) !important;
+      background: rgba(34, 197, 94, 0.7) !important;
       color: #ffffff !important;
-      border-color: rgba(255, 255, 255, 0.7) !important;
-      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+      border-color: rgba(255, 255, 255, 0.6) !important;
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
     }
 
-    /* 🎴 CARD NỘI DUNG */
+    /* 🎴 CARD NỘI DUNG - XÓA VIỀN BẢO PHỦ OUTSIDE, LÀM TRONG SUỐT HOÀN TOÀN */
     .card {
-      background: rgba(15, 23, 42, 0.52);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 24px;
-      padding: 20px;
+      background: transparent;
+      border: none;
+      padding: 0;
       text-align: left;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-      height: 450px;
+      box-shadow: none;
+      height: 440px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -509,15 +505,15 @@
     .tab-content {
       display: none;
       flex-direction: column;
-      gap: 12px;
-      height: 370px;
+      gap: 10px;
+      height: 380px;
       overflow-y: auto;
       padding-right: 6px;
     }
 
-    .tab-content::-webkit-scrollbar { width: 5px; }
-    .tab-content::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
-    .tab-content::-webkit-scrollbar-thumb { background: rgba(134, 239, 172, 0.7); border-radius: 10px; }
+    .tab-content::-webkit-scrollbar { width: 4px; }
+    .tab-content::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
+    .tab-content::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.5); border-radius: 10px; }
 
     .tab-content.active {
       display: flex !important;
@@ -529,23 +525,26 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 📦 Ô CHỨA MỤC LINK & SCRIPT */
+    /* 📦 Ô CHỨA MỤC LINK & SCRIPT - TRONG SUỐT SANG TRỌNG (GLASSMORPHISM) */
     .box {
-      background: rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 14px;
-      padding: 14px;
+      background: rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 16px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      transition: all 0.2s ease;
+      gap: 8px;
+      transition: all 0.25 ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
     }
 
     .box:hover {
-      border-color: rgba(255, 255, 255, 0.55);
-      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
       transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
     .box-header {
@@ -556,40 +555,40 @@
     }
 
     .box-title {
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.88rem;
+      font-weight: 700;
       color: #ffffff !important;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     }
 
     .box-btn {
-      background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+      background: rgba(34, 197, 94, 0.8) !important;
       color: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 10px;
-      padding: 8px 16px;
-      font-size: 0.8rem;
+      padding: 6px 14px;
+      font-size: 0.78rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
       text-align: center;
       white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       transition: all 0.2s ease;
     }
 
     .box-btn:hover {
       transform: scale(1.05);
-      background: linear-gradient(135deg, #4ade80, #22c55e) !important;
+      background: rgba(74, 222, 128, 0.9) !important;
     }
 
     .script-text {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(134, 239, 172, 0.35);
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 8px;
-      padding: 10px;
+      padding: 8px 10px;
       font-family: monospace;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: #86efac;
       word-break: break-all;
       user-select: all;
@@ -598,9 +597,10 @@
     .card-footer {
       text-align: center;
       font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.85);
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
       padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.7);
     }
 
     /* 🔖 THẺ VERSION Ở GÓC MÀN HÌNH */
@@ -611,11 +611,11 @@
       font-size: 0.75rem;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.9);
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(8px);
       padding: 4px 12px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       z-index: 100;
       pointer-events: none;
       letter-spacing: 0.5px;
@@ -652,4 +652,597 @@
   <div class="nature-bottom">
     <svg class="big-tree tree-left" viewBox="0 0 100 140">
       <path d="M 42 140 L 58 140 L 54 90 L 85 75 C 100 40 85 10 50 5 C 15 10 0 40 15 75 L 46 90 Z" fill="#14532d"/>
+      <path d="M 50 5 C 25 15 15 40 25 70 C 35 50 60 40 50 5 Z" fill="#22c55e" opacity="0.4"/>
+      <path d="M 50 25 C 70 35 80 55 70 75 C 60 60 40 50 50 25 Z" fill="#15803d" opacity="0.6"/>
+    </svg>
+
+    <svg class="big-tree tree-right" viewBox="0 0 100 140">
+      <path d="M 42 140 L 58 140 L 54 90 L 85 75 C 100 40 85 10 50 5 C 15 10 0 40 15 75 L 46 90 Z" fill="#14532d"/>
+      <path d="M 50 5 C 25 15 15 40 25 70 C 35 50 60 40 50 5 Z" fill="#22c55e" opacity="0.4"/>
+      <path d="M 50 25 C 70 35 80 55 70 75 C 60 60 40 50 50 25 Z" fill="#15803d" opacity="0.6"/>
+    </svg>
+
+    <div class="grass-wrapper">
+      <svg class="grass-svg grass-layer-back" id="grass-back-svg" preserveAspectRatio="none" viewBox="0 0 1000 100"></svg>
+      <svg class="grass-svg grass-layer-front" id="grass-front-svg" preserveAspectRatio="none" viewBox="0 0 1000 100" style="position: absolute; top:0; left:0;"></svg>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="weather-status-box" id="status-box">☀️</div>
+
+    <h1 class="title">SKIBIDI HUB</h1>
+    <p class="subtitle">Quick and simple sharing service</p>
+
+    <div class="nav-tabs">
+      <button class="nav-btn active" onclick="switchTab('tab-link', this)">Link</button>
+      <button class="nav-btn" onclick="switchTab('tab-script', this)">Script</button>
+      <button class="nav-btn" onclick="switchTab('tab-apk', this)">APK</button>
+      <button class="nav-btn" onclick="switchTab('tab-ios', this)">iOS</button>
+    </div>
+
+    <div class="card">
+
+      <div id="tab-link" class="tab-content active">
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Bypass Key Delta</span>
+            <a href="https://baconbypass.xyz" target="_blank" class="box-btn">Access</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Clone Tab Delta Roblox Global ( Anya )</span>
+            <a href="https://gofile.io/d/CQWaqp" target="_blank" class="box-btn">Access</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Clone Tab Delta Roblox VN ( Anya )</span>
+            <a href="https://gofile.io/d/94VEHn" target="_blank" class="box-btn">Access</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Clone Tab Roblox Delta VN ( Zam )</span>
+            <a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-btn">Access</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Clone Tab Roblox Delta Global ( Zam )</span>
+            <a href="https://gofile.io/d/p0Mww1" target="_blank" class="box-btn">Access</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-script" class="tab-content">
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Speed X Hub</span>
+            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+          </div>
+          <div class="script-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">UB Hub</span>
+            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+          </div>
+          <div class="script-text">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Axon Hub</span>
+            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+          </div>
+          <div class="script-text">loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua"))()</div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Teddy Hub</span>
+            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+          </div>
+          <div class="script-text">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()</div>
+        </div>
+      </div>
+
+      <div id="tab-apk" class="tab-content">
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Delta Cilent</span>
+            <a href="https://delta-executor.com/" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Apollon Cilent MCPE 26.33 64Bit</span>
+            <a href="https://www.mediafire.com/file/ukf42zfius5t4ww/MCPE_Apollon_Client_1.26.33_v6.2_64Bit.apk/file?dkey=5pq3f8xi8dg&r=520" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">APK Pure</span>
+            <a href="https://m.apkpure.com/vn/" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">1.1.1.1 WARP VPN</span>
+            <a href="https://one.one.one.one/" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Roblox Global Ios</span>
+            <a href="https://apps.apple.com/us/app/roblox/id431946152" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Roblox Global Android</span>
+            <a href="https://www.roblox.com/vi/download" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Roblox VN Ios</span>
+            <a href="https://apps.apple.com/vn/app/roblox-vn/id6474715805" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Roblox VN Android</span>
+            <a href="https://play.google.com/store/apps/details?id=com.roblox.client.vnggames" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-ios" class="tab-content">
+        <div class="box">
+          <div class="box-header">
+            <span class="box-title">Delta Ios</span>
+            <a href="https://delta-executor.com/" target="_blank" class="box-btn">Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        Protected by DVMinh
+      </div>
+
+    </div>
+  </div>
+
+  <div class="version-tag">Version 3.1</div>
+
+  <script>
+    // 🌾 1. THẢM CỎ SVG PHỦ 100% CHÂN TRANG
+    function generateDenseGrassSVG(svgId, isBack) {
+      const svg = document.getElementById(svgId);
+      if (!svg) return;
+      let pathD = "M 0 100 L 0 " + (isBack ? "30" : "40");
       
+      const bladeCount = 130;
+      const step = 1000 / bladeCount;
+
+      for (let i = 0; i <= bladeCount; i++) {
+        const x = i * step;
+        const h = isBack ? (Math.random() * 35 + 15) : (Math.random() * 40 + 25);
+        const curve = (Math.random() * 8 - 4);
+        pathD += ` Q ${x + curve} ${h} ${x + step/2} ${h + 15}`;
+      }
+
+      pathD += " L 1000 100 Z";
+      svg.innerHTML = `<path d="${pathD}" />`;
+    }
+
+    generateDenseGrassSVG('grass-back-svg', true);
+    generateDenseGrassSVG('grass-front-svg', false);
+
+    // 🔊 2. ÂM THANH SỐNG ĐỘNG (WEB AUDIO ENGINE)
+    let audioCtx = null;
+    let isAudioEnabled = false;
+    let windGain = null;
+    let rainGain = null;
+
+    function initAudioEngine() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        setupContinuousSoundNodes();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleAudioSystem() {
+      initAudioEngine();
+      isAudioEnabled = !isAudioEnabled;
+      const btnText = document.getElementById('audio-text');
+      const btnIcon = document.getElementById('audio-icon');
+
+      if (isAudioEnabled) {
+        btnText.innerText = "Âm Thanh: Bật";
+        btnIcon.innerText = "🔊";
+        playClickSound();
+        updateSoundVolumes();
+      } else {
+        btnText.innerText = "Bật Âm Thanh";
+        btnIcon.innerText = "🔇";
+        silenceAllSounds();
+      }
+    }
+
+    window.addEventListener('click', () => {
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }, { once: true });
+
+    function setupContinuousSoundNodes() {
+      const bufferSize = audioCtx.sampleRate * 2;
+      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+
+      // Gió
+      const windNoise = audioCtx.createBufferSource();
+      windNoise.buffer = noiseBuffer;
+      windNoise.loop = true;
+
+      const windFilter = audioCtx.createBiquadFilter();
+      windFilter.type = 'lowpass';
+      windFilter.frequency.value = 350;
+
+      windGain = audioCtx.createGain();
+      windGain.gain.value = 0;
+
+      windNoise.connect(windFilter);
+      windFilter.connect(windGain);
+      windGain.connect(audioCtx.destination);
+      windNoise.start();
+
+      // Mưa
+      const rainNoise = audioCtx.createBufferSource();
+      rainNoise.buffer = noiseBuffer;
+      rainNoise.loop = true;
+
+      const rainFilter = audioCtx.createBiquadFilter();
+      rainFilter.type = 'lowpass';
+      rainFilter.frequency.value = 1200;
+
+      rainGain = audioCtx.createGain();
+      rainGain.gain.value = 0;
+
+      rainNoise.connect(rainFilter);
+      rainFilter.connect(rainGain);
+      rainGain.connect(audioCtx.destination);
+      rainNoise.start();
+    }
+
+    function silenceAllSounds() {
+      if (windGain) windGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.2);
+      if (rainGain) rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.2);
+    }
+
+    function updateSoundVolumes() {
+      if (!isAudioEnabled || !audioCtx) return;
+
+      if (currentMode === 'SUNNY') {
+        windGain.gain.setTargetAtTime(0.08, audioCtx.currentTime, 0.3);
+        rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.3);
+      } else if (currentMode === 'NIGHT') {
+        windGain.gain.setTargetAtTime(0.05, audioCtx.currentTime, 0.3);
+        rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.3);
+      } else if (currentMode === 'RAIN') {
+        windGain.gain.setTargetAtTime(0.12, audioCtx.currentTime, 0.3);
+        rainGain.gain.setTargetAtTime(0.2, audioCtx.currentTime, 0.3);
+      } else if (currentMode === 'STORM') {
+        windGain.gain.setTargetAtTime(0.28, audioCtx.currentTime, 0.3);
+        rainGain.gain.setTargetAtTime(0.35, audioCtx.currentTime, 0.3);
+      }
+    }
+
+    // Tiếng Lá xột xoạc
+    function playRustlingLeafSound() {
+      if (!isAudioEnabled || !audioCtx || audioCtx.state !== 'running') return;
+      if (currentMode === 'NIGHT') return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(150 + Math.random() * 200, audioCtx.currentTime);
+
+      gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.15);
+    }
+    setInterval(playRustlingLeafSound, 2200);
+
+    // Tiếng Côn Trùng Ban Đêm
+    function playCricketNightSound() {
+      if (!isAudioEnabled || !audioCtx || currentMode !== 'NIGHT') return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(4500 + Math.random() * 300, audioCtx.currentTime);
+
+      gain.gain.setValueAtTime(0.025, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.06);
+    }
+    setInterval(playCricketNightSound, 1500);
+
+    // Tiếng Sấm Sét
+    function playThunderSound() {
+      if (!isAudioEnabled || !audioCtx) return;
+      const bufferSize = audioCtx.sampleRate * 1.5;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(250, audioCtx.currentTime);
+      filter.frequency.linearRampToValueAtTime(60, audioCtx.currentTime + 1.2);
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.3);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+      noise.start();
+    }
+
+    function playClickSound() {
+      if (!isAudioEnabled || !audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.08);
+    }
+
+    // 🌟 3. SAO BAN ĐÊM
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.width = (Math.random() * 3 + 1) + 'px';
+      star.style.height = star.style.width;
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 2 + 's';
+      starsContainer.appendChild(star);
+    }
+
+    // 🌧️ 4. MƯA RƠI
+    const rainBox = document.getElementById('rain-box');
+    for (let i = 0; i < 70; i++) {
+      const drop = document.createElement('div');
+      drop.classList.add('drop');
+      drop.style.left = Math.random() * 100 + 'vw';
+      drop.style.animationDuration = (Math.random() * 0.4 + 0.4) + 's';
+      drop.style.animationDelay = Math.random() * 2 + 's';
+      rainBox.appendChild(drop);
+    }
+
+    // 🌤️ 5. QUẢN LÝ THỜI TIẾT & ĐẾM NGƯỢC THỜI GIAN
+    const modes = ['SUNNY', 'RAIN', 'STORM', 'NIGHT'];
+    const modeIcons = {
+      'SUNNY': '☀️',
+      'RAIN': '🌧️',
+      'STORM': '🌩️',
+      'NIGHT': '🌙'
+    };
+
+    let currentMode = 'SUNNY';
+    let nextMode = 'RAIN';
+    let timeRemaining = 120; // 2 Phút mỗi chu kỳ
+
+    const statusBox = document.getElementById('status-box');
+    const nextIconEl = document.getElementById('next-icon');
+    const nextTimerEl = document.getElementById('next-timer');
+
+    function applyWeatherMode(mode) {
+      currentMode = mode;
+      const body = document.body;
+      body.className = '';
+      rainBox.style.display = 'none';
+
+      if (mode === 'SUNNY') {
+        body.classList.add('weather-sunny');
+        statusBox.innerText = '☀️';
+      } else if (mode === 'RAIN') {
+        body.classList.add('weather-rain');
+        statusBox.innerText = '🌧️';
+        rainBox.style.display = 'block';
+      } else if (mode === 'STORM') {
+        body.classList.add('weather-storm');
+        statusBox.innerText = '🌩️';
+        rainBox.style.display = 'block';
+      } else if (mode === 'NIGHT') {
+        body.classList.add('weather-night');
+        statusBox.innerText = '🌙';
+      }
+
+      updateSoundVolumes();
+    }
+
+    function getRandomNextMode() {
+      const candidates = modes.filter(m => m !== currentMode);
+      return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    applyWeatherMode('SUNNY');
+    nextMode = getRandomNextMode();
+    nextIconEl.innerText = modeIcons[nextMode];
+
+    setInterval(() => {
+      timeRemaining--;
+
+      if (timeRemaining <= 0) {
+        applyWeatherMode(nextMode);
+        nextMode = getRandomNextMode();
+        nextIconEl.innerText = modeIcons[nextMode];
+        timeRemaining = 120;
+      }
+
+      const mins = Math.floor(timeRemaining / 60);
+      const secs = timeRemaining % 60;
+      nextTimerEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }, 1000);
+
+    // Hiệu ứng Sấm Sét
+    const flashOverlay = document.getElementById('flash-overlay');
+    function triggerLightning() {
+      if (currentMode !== 'STORM') return;
+      flashOverlay.style.opacity = '1';
+      playThunderSound();
+      setTimeout(() => { flashOverlay.style.opacity = '0'; }, 90);
+      
+      setTimeout(() => {
+        flashOverlay.style.opacity = '0.75';
+        setTimeout(() => { flashOverlay.style.opacity = '0'; }, 70);
+      }, 160);
+    }
+    setInterval(triggerLightning, 6500);
+
+    // 🍃 6. VẼ CHIẾC LÁ BỰ THỔI BAY
+    function createCustomLeafSVG() {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 100 100");
+      svg.setAttribute("width", "42");
+      svg.setAttribute("height", "42");
+
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#bbf7d0"/>
+            <stop offset="45%" stop-color="#22c55e"/>
+            <stop offset="100%" stop-color="#14532d"/>
+          </linearGradient>
+        </defs>
+        <path d="M 50 5 C 20 35 15 70 50 95 C 85 70 80 35 50 5 Z" fill="url(#leafGrad)" />
+        <path d="M 50 5 L 50 95" stroke="#166534" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 50 25 Q 35 35 25 32 M 50 48 Q 30 58 20 53 M 50 70 Q 35 78 28 74" stroke="#15803d" stroke-width="1.5" fill="none"/>
+        <path d="M 50 25 Q 65 35 75 32 M 50 48 Q 70 58 80 53 M 50 70 Q 65 78 72 74" stroke="#16a34a" stroke-width="1.5" fill="none"/>
+      `;
+      return svg;
+    }
+
+    const leafBox = document.getElementById('leaf-box');
+
+    function createChillLeaf() {
+      if (currentMode === 'NIGHT') return;
+
+      const leafWrap = document.createElement('div');
+      leafWrap.classList.add('chill-leaf-item');
+      leafWrap.appendChild(createCustomLeafSVG());
+
+      leafWrap.style.left = (Math.random() * 25 - 10) + 'vw';
+      leafWrap.style.top = (Math.random() * 20 - 10) + 'vh';
+
+      let duration = Math.random() * 4 + 6;
+      if (currentMode === 'STORM' || currentMode === 'RAIN') {
+        duration = Math.random() * 2 + 3;
+      }
+
+      leafWrap.style.animationDuration = duration + 's';
+      leafBox.appendChild(leafWrap);
+
+      setTimeout(() => { leafWrap.remove(); }, duration * 1000);
+    }
+    setInterval(createChillLeaf, 950);
+
+    // 💨 7. LUỒNG GIÓ THỔI
+    const windBox = document.getElementById('wind-box');
+    function createWindStreak() {
+      const wind = document.createElement('div');
+      wind.classList.add('wind-streak');
+      wind.style.top = (Math.random() * 85) + 'vh';
+      wind.style.width = (Math.random() * 180 + 120) + 'px';
+
+      let duration = Math.random() * 3 + 3.5;
+      if (currentMode === 'STORM') duration = Math.random() * 1.2 + 1.5;
+
+      wind.style.animationDuration = duration + 's';
+      windBox.appendChild(wind);
+
+      setTimeout(() => wind.remove(), duration * 1000);
+    }
+    setInterval(createWindStreak, 1100);
+
+    // 🗂️ 8. CHUYỂN TAB
+    function switchTab(tabId, btnElement) {
+      playClickSound();
+
+      const allTabs = document.querySelectorAll('.tab-content');
+      allTabs.forEach(tab => tab.classList.remove('active'));
+
+      const allBtns = document.querySelectorAll('.nav-btn');
+      allBtns.forEach(btn => btn.classList.remove('active'));
+
+      const selectedTab = document.getElementById(tabId);
+      if (selectedTab) selectedTab.classList.add('active');
+
+      if (btnElement) btnElement.classList.add('active');
+    }
+
+    // 📋 9. SAO CHÉP CODE SCRIPT
+    function copyScriptCode(btn) {
+      playClickSound();
+      const box = btn.closest('.box');
+      const scriptText = box.querySelector('.script-text').innerText;
+      navigator.clipboard.writeText(scriptText);
+
+      const oldText = btn.innerText;
+      btn.innerText = 'COPIED!';
+      btn.style.background = 'rgba(22, 101, 52, 0.9)';
+
+      setTimeout(() => {
+        btn.innerText = oldText;
+        btn.style.background = '';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
