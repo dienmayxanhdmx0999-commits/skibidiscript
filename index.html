@@ -898,24 +898,33 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     // ==========================================
     // ⚙️ CẤU HÌNH THỜI GIAN UPDATE TẠI ĐÂY
     // ==========================================
-        const UPDATE_VERSION_NAME = "UPDATE VERSION 5.0 IN"; // Tên hiển thị phiên bản
-    const COUNTDOWN_HOURS = 2; // Đã đặt là 2 giờ
+            const UPDATE_VERSION_NAME = "UPDATE VERSION 5.0 IN"; // Tên hiển thị phiên bản
+    const COUNTDOWN_HOURS = 2; // Số giờ đếm ngược
     // ==========================================
 
     let totalUpdateSeconds = COUNTDOWN_HOURS * 3600;
 
     function initUpdateTimer() {
-      // Xóa dữ liệu cũ trong localStorage để bắt đầu đếm lại đúng 2 tiếng từ đầu (tùy chọn)
-      localStorage.removeItem('skibidi_update_timer');
-      localStorage.removeItem('skibidi_update_saved_time');
+      const savedTimer = localStorage.getItem('skibidi_update_timer');
+      const savedTime = localStorage.getItem('skibidi_update_saved_time');
 
-      localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
-      localStorage.setItem('skibidi_update_saved_time', Date.now());
+      if (savedTimer && savedTime) {
+        // Tính số giây đã trôi qua kể từ lần lưu trước
+        const elapsed = Math.floor((Date.now() - parseInt(savedTime)) / 1000);
+        // Trừ đi số giây đã trôi qua để lấy thời gian thực tế còn lại
+        totalUpdateSeconds = Math.max(0, parseInt(savedTimer) - elapsed);
+      } else {
+        // Nếu chưa lưu lần nào, khởi tạo giá trị ban đầu và mốc thời gian hiện tại
+        localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
+        localStorage.setItem('skibidi_update_saved_time', Date.now());
+      }
     }
 
     function startUpdateCountdown() {
       const labelEl = document.getElementById('update-label-text');
       const timerEl = document.getElementById('update-timer-text');
+      if (!labelEl || !timerEl) return;
+      
       labelEl.innerText = UPDATE_VERSION_NAME;
 
       initUpdateTimer();
@@ -923,6 +932,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       const timerInterval = setInterval(() => {
         if (totalUpdateSeconds > 0) {
           totalUpdateSeconds--;
+          // Cập nhật lại thời gian mới nhất vào localStorage mỗi giây
           localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
           localStorage.setItem('skibidi_update_saved_time', Date.now());
 
@@ -930,20 +940,19 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
           const mins = Math.floor((totalUpdateSeconds % 3600) / 60);
           const secs = totalUpdateSeconds % 60;
 
-          const hStr = hrs.toString().padStart(2, '0');
-          const mStr = mins.toString().padStart(2, '0');
-          const sStr = secs.toString().padStart(2, '0');
-
-          timerEl.innerText = `${hStr}:${mStr}:${sStr}`;
+          timerEl.innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         } else {
           labelEl.innerText = "UPDATING NOW...";
           timerEl.innerText = "";
+          localStorage.removeItem('skibidi_update_timer');
+          localStorage.removeItem('skibidi_update_saved_time');
           clearInterval(timerInterval);
         }
       }, 1000);
     }
 
     startUpdateCountdown();
+
 
 
     // 🌾 1. TẠO THẢM CỎ SVG DENSE
