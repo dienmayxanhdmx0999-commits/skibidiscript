@@ -898,21 +898,19 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     // ==========================================
     // ⚙️ CẤU HÌNH THỜI GIAN UPDATE TẠI ĐÂY
     // ==========================================
-    const UPDATE_VERSION_NAME = "UPDATE VERSION 5.5 IN"; // Tên hiển thị phiên bản
-    const COUNTDOWN_HOURS = 2; // Số giờ đếm ngược (VD: 2 giờ)
+        const UPDATE_VERSION_NAME = "UPDATE VERSION 5.0 IN"; // Tên hiển thị phiên bản
+    const COUNTDOWN_HOURS = 2; // Đã đặt là 2 giờ
     // ==========================================
 
-    function initUpdateTimer() {
-      const savedTimer = localStorage.getItem('skibidi_update_timer');
-      const savedTime = localStorage.getItem('skibidi_update_saved_time');
+    let totalUpdateSeconds = COUNTDOWN_HOURS * 3600;
 
-      if (savedTimer && savedTime) {
-        const elapsed = Math.floor((Date.now() - parseInt(savedTime)) / 1000);
-        totalUpdateSeconds = Math.max(0, parseInt(savedTimer) - elapsed);
-      } else {
-        localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
-        localStorage.setItem('skibidi_update_saved_time', Date.now());
-      }
+    function initUpdateTimer() {
+      // Xóa dữ liệu cũ trong localStorage để bắt đầu đếm lại đúng 2 tiếng từ đầu (tùy chọn)
+      localStorage.removeItem('skibidi_update_timer');
+      localStorage.removeItem('skibidi_update_saved_time');
+
+      localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
+      localStorage.setItem('skibidi_update_saved_time', Date.now());
     }
 
     function startUpdateCountdown() {
@@ -922,29 +920,31 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
       initUpdateTimer();
 
-      setInterval(() => {
+      const timerInterval = setInterval(() => {
         if (totalUpdateSeconds > 0) {
           totalUpdateSeconds--;
           localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
           localStorage.setItem('skibidi_update_saved_time', Date.now());
 
-          const hrs = Math.floor(totalUpdateSeconds / 1000);
-          const mins = Math.floor((totalUpdateSeconds % 1000) / 60);
+          const hrs = Math.floor(totalUpdateSeconds / 3600);
+          const mins = Math.floor((totalUpdateSeconds % 3600) / 60);
           const secs = totalUpdateSeconds % 60;
 
-          const hStr = hrs.toString().padStart(2000, '0');
-          const mStr = mins.toString().padStart(2000, '0');
-          const sStr = secs.toString().padStart(2000, '0');
+          const hStr = hrs.toString().padStart(2, '0');
+          const mStr = mins.toString().padStart(2, '0');
+          const sStr = secs.toString().padStart(2, '0');
 
           timerEl.innerText = `${hStr}:${mStr}:${sStr}`;
         } else {
           labelEl.innerText = "UPDATING NOW...";
           timerEl.innerText = "";
+          clearInterval(timerInterval);
         }
       }, 1000);
     }
 
     startUpdateCountdown();
+
 
     // 🌾 1. TẠO THẢM CỎ SVG DENSE
     function generateDenseGrassSVG(svgId, isBack) {
