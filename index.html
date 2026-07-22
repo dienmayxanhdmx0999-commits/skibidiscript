@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SKIBIDI HUB - NEW UPDATE v3.6</title>
+  <title>SKIBIDI HUB - 144FPS Dynamic Weather & Audio</title>
   <style>
     * {
       box-sizing: border-box;
@@ -26,9 +26,9 @@
       transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1), color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 🏎️ TỐI ƯU PHẦN CỨNG GPU CHO TẤT CẢ PHÂN CẢNH ĐỘNG (144 FPS) */
+    /* 🚀 ÉP XUNG GPU TỐI ƯU 144 FPS */
     .sun-element, .moon-element, .clouds-layer, .drop, .wind-streak, 
-    .chill-leaf-item, .big-tree, .grass-svg, .glass-card, .lightning-flash {
+    .chill-leaf-item, .big-tree, .grass-svg, .glass-card, .flying-bird {
       will-change: transform, opacity;
       transform: translateZ(0);
       backface-visibility: hidden;
@@ -101,21 +101,7 @@
       transform: scale(1) translateZ(0);
     }
 
-    /* ⚡ SẤM SÉT KHI BÃO */
-    .lightning-flash {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(255, 255, 255, 0.95);
-      pointer-events: none;
-      z-index: 90;
-      opacity: 0;
-      transition: opacity 0.04s ease-out;
-    }
-
-    /* 🌧️ MƯA RƠI */
+    /* 🌧️ HẠT MƯA RƠI CHUẨN VẬT LÝ THEO CHIỀU NGHIÊNG */
     .rain-container {
       position: fixed;
       top: 0;
@@ -129,16 +115,34 @@
 
     .drop {
       position: absolute;
-      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.9));
-      width: 2px;
-      height: 36px;
-      animation: fall linear infinite;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.85));
+      transform-origin: top left;
     }
 
-    @keyframes fall {
-      0% { transform: translateY(-40px) rotate(15deg) translateZ(0); opacity: 0; }
-      20% { opacity: 0.95; }
-      100% { transform: translateY(105vh) rotate(15deg) translateZ(0); opacity: 0.1; }
+    /* Mưa vừa: Nghiêng -15 độ, rơi chéo đúng -15 độ */
+    body.weather-rain .drop {
+      width: 1.8px;
+      height: 38px;
+      animation: fallRain linear infinite;
+    }
+
+    @keyframes fallRain {
+      0% { transform: translate(0, -50px) rotate(-15deg) translateZ(0); opacity: 0; }
+      20% { opacity: 0.85; }
+      100% { transform: translate(25vw, 105vh) rotate(-15deg) translateZ(0); opacity: 0.15; }
+    }
+
+    /* Bão lớn: Nghiêng -28 độ, hạt mưa dài & rơi nhanh chéo chuẩn góc */
+    body.weather-storm .drop {
+      width: 2.2px;
+      height: 52px;
+      animation: fallStorm linear infinite;
+    }
+
+    @keyframes fallStorm {
+      0% { transform: translate(0, -60px) rotate(-28deg) translateZ(0); opacity: 0; }
+      15% { opacity: 0.95; }
+      100% { transform: translate(45vw, 105vh) rotate(-28deg) translateZ(0); opacity: 0.1; }
     }
 
     /* 🌟 SAO ĐÊM */
@@ -166,32 +170,54 @@
       100% { opacity: 1; transform: scale(1.3); }
     }
 
-    /* ☁️ MÂY NỀN TRONG SUỐT */
+    /* ☁️ MÂY RIÊNG BIỆT CHO TỪNG THỜI TIẾT */
     .clouds-layer {
       position: fixed;
       top: -5vh;
       left: -20vw;
       width: 140vw;
       height: 50vh;
-      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 50%),
-                  radial-gradient(circle at 60% 40%, rgba(255,255,255,0.5) 0%, transparent 55%),
-                  radial-gradient(circle at 85% 25%, rgba(255,255,255,0.55) 0%, transparent 50%);
-      animation: cloudDrift 35s linear infinite alternate;
       pointer-events: none;
       z-index: 2;
-      transition: filter 1.5s ease, opacity 1.5s ease;
+      transition: all 1.5s ease;
+      animation: cloudDrift 35s linear infinite alternate;
     }
 
-    body.weather-rain .clouds-layer { filter: brightness(0.4) contrast(1.2); }
-    body.weather-storm .clouds-layer { filter: brightness(0.2) contrast(1.5); }
-    body.weather-night .clouds-layer { filter: brightness(0.2); opacity: 0.4; }
+    body.weather-sunny .clouds-layer {
+      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.7) 0%, transparent 50%),
+                  radial-gradient(circle at 65% 40%, rgba(255,255,255,0.6) 0%, transparent 55%),
+                  radial-gradient(circle at 85% 25%, rgba(255,255,255,0.65) 0%, transparent 50%);
+      opacity: 0.85;
+      filter: none;
+    }
+
+    body.weather-rain .clouds-layer {
+      background: radial-gradient(circle at 30% 30%, rgba(71, 85, 105, 0.8) 0%, transparent 55%),
+                  radial-gradient(circle at 70% 45%, rgba(51, 65, 85, 0.85) 0%, transparent 60%);
+      opacity: 0.95;
+      filter: contrast(1.2);
+    }
+
+    body.weather-storm .clouds-layer {
+      background: radial-gradient(circle at 25% 25%, rgba(15, 23, 42, 0.95) 0%, transparent 60%),
+                  radial-gradient(circle at 75% 35%, rgba(30, 41, 59, 0.95) 0%, transparent 65%);
+      opacity: 1;
+      filter: contrast(1.5) brightness(0.7);
+      animation-duration: 18s;
+    }
+
+    body.weather-night .clouds-layer {
+      background: radial-gradient(circle at 40% 30%, rgba(30, 41, 59, 0.5) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 40%, rgba(15, 23, 42, 0.6) 0%, transparent 55%);
+      opacity: 0.5;
+    }
 
     @keyframes cloudDrift {
       0% { transform: translateX(0) translateZ(0); }
       100% { transform: translateX(-15%) translateZ(0); }
     }
 
-    /* 💨 GIÓ NỀN */
+    /* 💨 LUỒNG GIÓ ĐỘNG THEO CẤP ĐỘ */
     .wind-container {
       position: fixed;
       top: 0;
@@ -205,19 +231,62 @@
     .wind-streak {
       position: absolute;
       height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
       border-radius: 50%;
-      filter: blur(1px);
+      filter: blur(0.8px);
       animation: windPass linear infinite;
     }
 
     @keyframes windPass {
       0% { transform: translateX(-30vw) translateZ(0); opacity: 0; }
-      50% { opacity: 0.8; }
+      50% { opacity: 0.85; }
       100% { transform: translateX(130vw) translateZ(0); opacity: 0; }
     }
 
-    /* 🍃 LÁ BAY NỀN */
+    /* 🦅 CHIM BAY NGANG BẦU TRỜI */
+    .bird-fly-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 45vh;
+      pointer-events: none;
+      z-index: 4;
+      overflow: hidden;
+    }
+
+    .flying-bird {
+      position: absolute;
+      width: 32px;
+      height: 22px;
+      animation: flyAcrossSky linear forwards;
+    }
+
+    .flying-bird svg {
+      width: 100%;
+      height: 100%;
+      fill: rgba(255, 255, 255, 0.85);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    body.weather-night .flying-bird svg { fill: rgba(148, 163, 184, 0.6); }
+
+    .wing {
+      transform-origin: center;
+      animation: flapWings 0.28s ease-in-out infinite alternate;
+    }
+
+    @keyframes flapWings {
+      0% { transform: scaleY(1); }
+      100% { transform: scaleY(-0.5); }
+    }
+
+    @keyframes flyAcrossSky {
+      0% { transform: translate(-50px, 0) scale(0.8) translateZ(0); }
+      100% { transform: translate(110vw, -30px) scale(1.1) translateZ(0); }
+    }
+
+    /* 🍃 LÁ BAY */
     .leaf-container {
       position: fixed;
       top: 0;
@@ -241,7 +310,7 @@
       100% { transform: translate(110vw, 95vh) rotate(360deg) translateZ(0); opacity: 0; }
     }
 
-    /* 🌳 KHU VỰC CÂY & CỎ TRỌN VẸN 100% */
+    /* 🌳 CÂY VÀ CỎ DƯỚI ĐÁY */
     .nature-bottom {
       position: fixed;
       bottom: 0;
@@ -266,9 +335,8 @@
     .tree-left { left: -10px; }
     .tree-right { right: -10px; transform: scaleX(-1) translateZ(0); }
 
-    body.weather-storm .big-tree {
-      animation-duration: 1.5s !important;
-    }
+    body.weather-rain .big-tree { animation-duration: 3s; }
+    body.weather-storm .big-tree { animation-duration: 1.2s !important; }
 
     @keyframes treeSway {
       0% { transform: rotate(-2.5deg) translateZ(0); }
@@ -357,7 +425,7 @@
       background: rgba(34, 197, 94, 0.4);
     }
 
-    /* 📱 KHUNG CHÍNH (SKIBIDI HUB) - TRONG SUỐT VỚI GPU RENDER */
+    /* 📱 KHUNG CHÍNH (SKIBIDI HUB) GLASS UI */
     .glass-card {
       position: relative;
       z-index: 20;
@@ -581,18 +649,15 @@
 <body class="weather-sunny">
 
   <div class="sun-element"></div>
-
   <div class="moon-element"></div>
 
-  <div class="lightning-flash" id="flash-overlay"></div>
-
   <div class="stars-container" id="stars"></div>
-
   <div class="clouds-layer"></div>
 
   <div class="rain-container" id="rain-box"></div>
-
   <div class="wind-container" id="wind-box"></div>
+
+  <div class="bird-fly-container" id="bird-box"></div>
 
   <div class="leaf-container" id="leaf-box"></div>
 
@@ -622,7 +687,6 @@
           <stop offset="100%" stop-color="#16a34a"/>
         </linearGradient>
       </defs>
-
       <path d="M 72 220 C 72 165, 68 135, 62 105 C 62 105, 96 120, 102 105 C 92 135, 86 165, 86 220 Z" fill="url(#trunkGrad)"/>
       <circle cx="80" cy="110" r="54" fill="#052e16" opacity="0.6"/>
       <circle cx="48" cy="98" r="42" fill="#052e16" opacity="0.6"/>
@@ -645,7 +709,6 @@
           <stop offset="100%" stop-color="#14532d"/>
         </linearGradient>
       </defs>
-
       <path d="M 72 220 C 72 165, 68 135, 62 105 C 62 105, 96 120, 102 105 C 92 135, 86 165, 86 220 Z" fill="url(#trunkGrad)"/>
       <circle cx="80" cy="110" r="54" fill="#052e16" opacity="0.6"/>
       <circle cx="48" cy="98" r="42" fill="#052e16" opacity="0.6"/>
@@ -684,46 +747,39 @@
     <div class="tab-content-wrapper">
 
       <div id="tab-link" class="tab-content active">
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Bypass Key Delta</span>
             <a href="https://baconbypass.xyz" target="_blank" class="box-btn">Access</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Clone Tab Delta Roblox Global ( Anya )</span>
             <a href="https://gofile.io/d/CQWaqp" target="_blank" class="box-btn">Access</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Clone Tab Delta Roblox VN ( Anya )</span>
             <a href="https://gofile.io/d/94VEHn" target="_blank" class="box-btn">Access</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Clone Tab Roblox Delta VN ( Zam )</span>
             <a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-btn">Access</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Clone Tab Roblox Delta Global ( Zam )</span>
             <a href="https://gofile.io/d/p0Mww1" target="_blank" class="box-btn">Access</a>
           </div>
         </div>
-
       </div>
 
       <div id="tab-script" class="tab-content">
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Speed X Hub</span>
@@ -731,7 +787,6 @@
           </div>
           <div class="script-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">UB Hub</span>
@@ -739,7 +794,6 @@
           </div>
           <div class="script-text">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Axon Hub</span>
@@ -747,7 +801,6 @@
           </div>
           <div class="script-text">loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua"))()</div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Teddy Hub</span>
@@ -756,78 +809,66 @@
           <div class="script-text">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()</div>
         </div>
-
       </div>
 
       <div id="tab-apk" class="tab-content">
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Delta Cilent</span>
             <a href="https://delta-executor.com/" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Apollon Cilent MCPE 26.33 64Bit</span>
             <a href="https://www.mediafire.com/file/ukf42zfius5t4ww/MCPE_Apollon_Client_1.26.33_v6.2_64Bit.apk/file?dkey=5pq3f8xi8dg&r=520" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">APK Pure</span>
             <a href="https://m.apkpure.com/vn/" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">1.1.1.1 WARP VPN</span>
             <a href="https://one.one.one.one/" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Roblox Global Android</span>
             <a href="https://www.roblox.com/vi/download" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Roblox VN Android</span>
             <a href="https://play.google.com/store/apps/details?id=com.roblox.client.vnggames" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
       </div>
 
       <div id="tab-ios" class="tab-content">
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Delta Ios</span>
             <a href="https://delta-executor.com/" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Roblox Global Ios</span>
             <a href="https://apps.apple.com/us/app/roblox/id431946152" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Roblox VN Ios</span>
             <a href="https://apps.apple.com/vn/app/roblox-vn/id6474715805" target="_blank" class="box-btn">Download</a>
           </div>
         </div>
-
       </div>
 
     </div>
@@ -838,7 +879,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
   </div>
 
-  <div class="version-tag">Version 3.6 New</div>
+  <div class="version-tag">Version 4.0 (Enhanced Weather)</div>
 
   <script>
     // 🌾 1. TẠO THẢM CỎ SVG DENSE
@@ -863,10 +904,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     generateDenseGrassSVG('grass-back-svg', true);
     generateDenseGrassSVG('grass-front-svg', false);
 
-    // 🔊 2. ÂM THANH NỀN SỐNG ĐỘNG
+    // 🔊 2. HỆ THỐNG ÂM THANH LẬP TRÌNH WEB AUDIO API (ĐA DẠNG)
     let audioCtx = null;
     let isAudioEnabled = false;
+    let windFilter = null;
     let windGain = null;
+    let rainFilter = null;
     let rainGain = null;
 
     function initAudioEngine() {
@@ -910,14 +953,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         output[i] = Math.random() * 2 - 1;
       }
 
-      // Gió
+      // Gió nền
       const windNoise = audioCtx.createBufferSource();
       windNoise.buffer = noiseBuffer;
       windNoise.loop = true;
 
-      const windFilter = audioCtx.createBiquadFilter();
+      windFilter = audioCtx.createBiquadFilter();
       windFilter.type = 'lowpass';
-      windFilter.frequency.value = 350;
+      windFilter.frequency.value = 300;
 
       windGain = audioCtx.createGain();
       windGain.gain.value = 0;
@@ -927,14 +970,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       windGain.connect(audioCtx.destination);
       windNoise.start();
 
-      // Mưa
+      // Mưa nền
       const rainNoise = audioCtx.createBufferSource();
       rainNoise.buffer = noiseBuffer;
       rainNoise.loop = true;
 
-      const rainFilter = audioCtx.createBiquadFilter();
+      rainFilter = audioCtx.createBiquadFilter();
       rainFilter.type = 'lowpass';
-      rainFilter.frequency.value = 1200;
+      rainFilter.frequency.value = 1100;
 
       rainGain = audioCtx.createGain();
       rainGain.gain.value = 0;
@@ -954,23 +997,94 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       if (!isAudioEnabled || !audioCtx) return;
 
       if (currentMode === 'SUNNY') {
-        windGain.gain.setTargetAtTime(0.08, audioCtx.currentTime, 0.3);
+        windFilter.frequency.setTargetAtTime(250, audioCtx.currentTime, 0.5);
+        windGain.gain.setTargetAtTime(0.03, audioCtx.currentTime, 0.5);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.3);
       } else if (currentMode === 'NIGHT') {
-        windGain.gain.setTargetAtTime(0.05, audioCtx.currentTime, 0.3);
+        windFilter.frequency.setTargetAtTime(200, audioCtx.currentTime, 0.5);
+        windGain.gain.setTargetAtTime(0.05, audioCtx.currentTime, 0.5);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.3);
       } else if (currentMode === 'RAIN') {
-        windGain.gain.setTargetAtTime(0.12, audioCtx.currentTime, 0.3);
-        rainGain.gain.setTargetAtTime(0.2, audioCtx.currentTime, 0.3);
+        windFilter.frequency.setTargetAtTime(500, audioCtx.currentTime, 0.5);
+        windGain.gain.setTargetAtTime(0.16, audioCtx.currentTime, 0.5);
+        rainGain.gain.setTargetAtTime(0.22, audioCtx.currentTime, 0.5);
       } else if (currentMode === 'STORM') {
-        windGain.gain.setTargetAtTime(0.28, audioCtx.currentTime, 0.3);
-        rainGain.gain.setTargetAtTime(0.35, audioCtx.currentTime, 0.3);
+        windFilter.frequency.setTargetAtTime(850, audioCtx.currentTime, 0.5);
+        windGain.gain.setTargetAtTime(0.38, audioCtx.currentTime, 0.5);
+        rainGain.gain.setTargetAtTime(0.35, audioCtx.currentTime, 0.5);
       }
     }
 
+    // 🕊️ THỜI TIẾT BAN NGÀY: TIẾNG CHIM HÓT LẢNH LÓT
+    function playBirdChirp() {
+      if (!isAudioEnabled || !audioCtx || currentMode !== 'SUNNY') return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      
+      const startFreq = 2600 + Math.random() * 800;
+      const midFreq = startFreq + 900;
+      const endFreq = startFreq - 200;
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(startFreq, now);
+      osc.frequency.exponentialRampToValueAtTime(midFreq, now + 0.05);
+      osc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.12);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.06, now + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.14);
+    }
+
+    setInterval(() => {
+      if (currentMode === 'SUNNY' && isAudioEnabled && Math.random() < 0.65) {
+        playBirdChirp();
+        setTimeout(() => { if (Math.random() < 0.7) playBirdChirp(); }, 160);
+        setTimeout(() => { if (Math.random() < 0.4) playBirdChirp(); }, 320);
+      }
+    }, 3200);
+
+    // 🦗 THỜI TIẾT BAN ĐÊM: TIẾNG DẾ KÊU RẢ RÍCH
+    function playCricketChirp() {
+      if (!isAudioEnabled || !audioCtx || currentMode !== 'NIGHT') return;
+      const now = audioCtx.currentTime;
+      const pulses = 3 + Math.floor(Math.random() * 3);
+
+      for (let i = 0; i < pulses; i++) {
+        const pTime = now + (i * 0.045);
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(4600 + Math.random() * 250, pTime);
+
+        gain.gain.setValueAtTime(0, pTime);
+        gain.gain.linearRampToValueAtTime(0.025, pTime + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, pTime + 0.032);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(pTime);
+        osc.stop(pTime + 0.035);
+      }
+    }
+
+    setInterval(() => {
+      if (currentMode === 'NIGHT' && isAudioEnabled && Math.random() < 0.7) {
+        playCricketChirp();
+      }
+    }, 2400);
+
+    // 🌩️ TIẾNG SẤM BÃO VÂN RỀN (KHÔNG CHỚP MÀN HÌNH)
     function playThunderSound() {
-      if (!isAudioEnabled || !audioCtx) return;
-      const bufferSize = audioCtx.sampleRate * 1.5;
+      if (!isAudioEnabled || !audioCtx || currentMode !== 'STORM') return;
+      const now = audioCtx.currentTime;
+      const bufferSize = audioCtx.sampleRate * 2.5;
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
@@ -980,18 +1094,22 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(250, audioCtx.currentTime);
-      filter.frequency.linearRampToValueAtTime(60, audioCtx.currentTime + 1.2);
+      filter.frequency.setValueAtTime(280, now);
+      filter.frequency.exponentialRampToValueAtTime(45, now + 2.0);
 
       const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.3);
+      gain.gain.setValueAtTime(0.45, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 2.2);
 
       noise.connect(filter);
       filter.connect(gain);
       gain.connect(audioCtx.destination);
-      noise.start();
+      noise.start(now);
     }
+
+    setInterval(() => {
+      if (currentMode === 'STORM') playThunderSound();
+    }, 6500);
 
     function playClickSound() {
       if (!isAudioEnabled || !audioCtx) return;
@@ -1021,18 +1139,42 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       starsContainer.appendChild(star);
     }
 
-    // 🌧️ 4. HẠT MƯA (TỐI ƯU 144 FPS)
+    // 🌧️ 4. HẠT MƯA
     const rainBox = document.getElementById('rain-box');
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 65; i++) {
       const drop = document.createElement('div');
       drop.classList.add('drop');
-      drop.style.left = Math.random() * 100 + 'vw';
-      drop.style.animationDuration = (Math.random() * 0.4 + 0.4) + 's';
+      drop.style.left = (Math.random() * 120 - 20) + 'vw';
+      drop.style.animationDuration = (Math.random() * 0.35 + 0.4) + 's';
       drop.style.animationDelay = Math.random() * 2 + 's';
       rainBox.appendChild(drop);
     }
 
-    // 🌤️ 5. LỊCH CHUYỂN ĐỔI THỜI TIẾT + LƯU TRẠNG THÁI LIÊN TỤC (PERSISTENCE)
+    // 🦅 5. CHIM BAY NGANG MÀN HÌNH
+    const birdBox = document.getElementById('bird-box');
+    function spawnFlyingBird() {
+      const bird = document.createElement('div');
+      bird.classList.add('flying-bird');
+      bird.style.top = (Math.random() * 30 + 5) + 'vh';
+
+      let duration = Math.random() * 4 + 7; // 7-11s bay qua
+      bird.style.animationDuration = duration + 's';
+
+      bird.innerHTML = `
+        <svg viewBox="0 0 100 60">
+          <path class="wing" d="M 0 30 Q 30 0 50 30 Q 70 0 100 30 Q 65 20 50 45 Q 35 20 0 30 Z" />
+        </svg>
+      `;
+
+      birdBox.appendChild(bird);
+      setTimeout(() => bird.remove(), duration * 1000);
+    }
+
+    setInterval(() => {
+      if (Math.random() < 0.6) spawnFlyingBird();
+    }, 10000);
+
+    // 🌤️ 6. LỊCH CHUYỂN ĐỔI THỜI TIẾT + LƯU TRẠNG THÁI LIÊN TỤC
     const modes = ['SUNNY', 'RAIN', 'STORM', 'NIGHT'];
     const modeIcons = { 'SUNNY': '☀️', 'RAIN': '🌧️', 'STORM': '🌩️', 'NIGHT': '🌙' };
     const weatherDurations = { 'SUNNY': 300, 'RAIN': 300, 'STORM': 600, 'NIGHT': 300 };
@@ -1074,7 +1216,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       return candidates[Math.floor(Math.random() * candidates.length)];
     }
 
-    // 💾 LƯU & KHÔI PHỤC TRẠNG THÁI LẦN TRƯỚC
     function saveWeatherState() {
       localStorage.setItem('skibidi_weather_data', JSON.stringify({
         currentMode: currentMode,
@@ -1095,7 +1236,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
           let cMode = data.currentMode;
           let nMode = data.nextMode;
 
-          // Nếu thời gian đi vắng vượt quá thời lượng thời tiết, tự tính toán chuyển tiếp tiếp theo
           while (rem <= 0) {
             cMode = nMode;
             const candidates = modes.filter(m => m !== cMode);
@@ -1122,7 +1262,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     applyWeatherMode(currentMode);
     nextIconEl.innerText = modeIcons[nextMode];
 
-    // ⏱️ VÒNG LẶP THỜI GIAN THỰC CHUẨN XÁC KHI RỜI / VÀO WEB
     setInterval(() => {
       timeRemaining--;
       if (timeRemaining <= 0) {
@@ -1139,16 +1278,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       nextTimerEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }, 1000);
 
-    const flashOverlay = document.getElementById('flash-overlay');
-    function triggerLightning() {
-      if (currentMode !== 'STORM') return;
-      flashOverlay.style.opacity = '1';
-      playThunderSound();
-      setTimeout(() => { flashOverlay.style.opacity = '0'; }, 90);
-    }
-    setInterval(triggerLightning, 6500);
-
-    // 🍃 6. LÁ BAY TỐI ƯU MƯỢT 144 FPS
+    // 🍃 7. LÁ BAY
     function createCustomLeafSVG() {
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svg.setAttribute("viewBox", "0 0 100 100");
@@ -1177,32 +1307,37 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       leafWrap.style.top = (Math.random() * 20 - 10) + 'vh';
 
       let duration = Math.random() * 4 + 6;
-      if (currentMode === 'STORM' || currentMode === 'RAIN') duration = Math.random() * 2 + 3;
+      if (currentMode === 'STORM' || currentMode === 'RAIN') duration = Math.random() * 2 + 2.5;
 
       leafWrap.style.animationDuration = duration + 's';
       leafBox.appendChild(leafWrap);
       setTimeout(() => { leafWrap.remove(); }, duration * 1000);
     }
-    setInterval(createChillLeaf, 1200);
+    setInterval(createChillLeaf, 1100);
 
-    // 💨 7. LUỒNG GIÓ
+    // 💨 8. LUỒNG GIÓ THỔI
     const windBox = document.getElementById('wind-box');
     function createWindStreak() {
       const wind = document.createElement('div');
       wind.classList.add('wind-streak');
       wind.style.top = (Math.random() * 85) + 'vh';
-      wind.style.width = (Math.random() * 150 + 80) + 'px';
+      wind.style.width = (Math.random() * 160 + 90) + 'px';
 
       let duration = Math.random() * 3 + 3.5;
-      if (currentMode === 'STORM') duration = Math.random() * 1.2 + 1.5;
+      if (currentMode === 'STORM') duration = Math.random() * 0.8 + 1.2; // Gió bão rất nhanh
+      else if (currentMode === 'RAIN') duration = Math.random() * 1.5 + 2.0;
 
       wind.style.animationDuration = duration + 's';
       windBox.appendChild(wind);
       setTimeout(() => wind.remove(), duration * 1000);
     }
-    setInterval(createWindStreak, 1300);
 
-    // 🗂️ 8. CHUYỂN TAB VÀ LƯU TAB ĐANG MỞ
+    setInterval(() => {
+      const interval = currentMode === 'STORM' ? 400 : (currentMode === 'RAIN' ? 800 : 1300);
+      createWindStreak();
+    }, 800);
+
+    // 🗂️ 9. CHUYỂN TAB VÀ LƯU TAB ĐANG MỞ
     function switchTab(tabId, btnElement, playSound = true) {
       if (playSound) playClickSound();
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -1215,7 +1350,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       localStorage.setItem('skibidi_active_tab', tabId);
     }
 
-    // 📋 9. COPY CODE SCRIPT
+    // 📋 10. COPY CODE SCRIPT
     function copyScriptCode(btn) {
       playClickSound();
       const box = btn.closest('.box');
@@ -1232,16 +1367,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }, 1500);
     }
 
-    // 🚀 10. AUTO RESTORE TRẠNG THÁI TAB VÀ ÂM THANH KHI TẢI TRANG
+    // 🚀 11. TỰ ĐỘNG KHÔI PHỤC KHI KHỞI ĐỘNG
     window.addEventListener('DOMContentLoaded', () => {
-      // Restore Tab
       const savedTab = localStorage.getItem('skibidi_active_tab');
       if (savedTab) {
         const targetBtn = document.querySelector(`button[onclick*="'${savedTab}'"]`);
         if (targetBtn) switchTab(savedTab, targetBtn, false);
       }
 
-      // Restore Audio setting
       const savedAudio = localStorage.getItem('skibidi_audio');
       if (savedAudio === '1') {
         isAudioEnabled = true;
