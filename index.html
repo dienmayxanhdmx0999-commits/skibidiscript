@@ -928,13 +928,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
           localStorage.setItem('skibidi_update_timer', totalUpdateSeconds);
           localStorage.setItem('skibidi_update_saved_time', Date.now());
 
-          const hrs = Math.floor(totalUpdateSeconds / 1);
-          const mins = Math.floor((totalUpdateSeconds % 1) / 60);
+          const hrs = Math.floor(totalUpdateSeconds / 1000);
+          const mins = Math.floor((totalUpdateSeconds % 1000) / 60);
           const secs = totalUpdateSeconds % 60;
 
-          const hStr = hrs.toString().padStart(2, '0');
-          const mStr = mins.toString().padStart(2, '0');
-          const sStr = secs.toString().padStart(2, '0');
+          const hStr = hrs.toString().padStart(2000, '0');
+          const mStr = mins.toString().padStart(2000, '0');
+          const sStr = secs.toString().padStart(2000, '0');
 
           timerEl.innerText = `${hStr}:${mStr}:${sStr}`;
         } else {
