@@ -13,7 +13,7 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #2a080c 0%, #090203 60%, #000000 100%);
+      background: radial-gradient(circle at top, #14281d 0%, #1a120c 55%, #050805 100%);
       color: #ffffff;
       display: flex;
       justify-content: center;
@@ -21,76 +21,119 @@
       min-height: 100vh;
       padding: 20px;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Hiệu ứng lá rơi */
+    .leaf {
+      position: fixed;
+      top: -10%;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear infinite;
+      opacity: 0.7;
+      font-size: 1.2rem;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(50vh) rotate(180deg) translateX(30px);
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg) translateX(-20px);
+        opacity: 0.2;
+      }
     }
 
     .wrapper {
       width: 100%;
-      max-width: 430px;
+      max-width: 440px;
       text-align: center;
+      position: relative;
+      z-index: 10;
     }
 
+    /* Tiêu đề Skibidi Hub phóng to + Animation màu xanh lá - trắng - đen */
     .title {
-      font-size: 2.3rem;
+      font-size: 2.8rem;
       font-weight: 900;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       margin-bottom: 6px;
-      background: linear-gradient(90deg, #ff4d4d, #dc2626, #991b1b, #ff4d4d);
+      background: linear-gradient(90deg, #22c55e, #ffffff, #15803d, #ffffff, #22c55e);
       background-size: 300% 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: redGradient 5s ease infinite;
-      filter: drop-shadow(0 2px 12px rgba(220, 38, 38, 0.4));
+      animation: greenShimmer 4s linear infinite;
+      filter: drop-shadow(0 2px 14px rgba(34, 197, 94, 0.45));
+      text-transform: uppercase;
+    }
+
+    @keyframes greenShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .subtitle {
-      color: #a1a1aa;
+      color: #a7f3d0;
       font-size: 0.85rem;
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
+      margin-bottom: 22px;
+      letter-spacing: 0.6px;
+      opacity: 0.85;
     }
 
+    /* Tabs phong cách Liquid Glass */
     .nav-tabs {
       display: flex;
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .nav-btn {
       flex: 1;
-      padding: 11px 0;
-      background: rgba(20, 8, 10, 0.7);
-      backdrop-filter: blur(10px);
-      color: #a1a1aa;
-      border: 1px solid rgba(220, 38, 38, 0.15);
-      border-radius: 12px;
-      font-size: 0.85rem;
+      padding: 12px 0;
+      background: rgba(35, 23, 16, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #d1d5db;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 14px;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
     }
 
     .nav-btn:hover {
       color: #ffffff;
-      border-color: rgba(220, 38, 38, 0.5);
-      background: rgba(40, 12, 16, 0.8);
+      border-color: rgba(34, 197, 94, 0.5);
+      background: rgba(45, 30, 20, 0.65);
     }
 
     .nav-btn.active {
-      background: linear-gradient(135deg, #dc2626, #991b1b);
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.85), rgba(21, 128, 61, 0.9));
       color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 4px 18px rgba(220, 38, 38, 0.45);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.3);
     }
 
+    /* Main Card Liquid Glass */
     .card {
-      background: rgba(15, 6, 8, 0.75);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(220, 38, 38, 0.2);
-      border-radius: 20px;
-      padding: 18px;
+      background: rgba(20, 15, 12, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      border-radius: 24px;
+      padding: 20px;
       text-align: left;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(220, 38, 38, 0.1);
-      height: 440px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      height: 460px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -100,35 +143,36 @@
       display: none;
       flex-direction: column;
       gap: 12px;
-      height: 370px;
+      height: 380px;
       overflow-y: auto;
       padding-right: 6px;
     }
 
+    /* Scrollbar */
     .tab-content::-webkit-scrollbar {
       width: 5px;
     }
     .tab-content::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(0, 0, 0, 0.2);
       border-radius: 10px;
     }
     .tab-content::-webkit-scrollbar-thumb {
-      background: rgba(220, 38, 38, 0.4);
+      background: rgba(34, 197, 94, 0.4);
       border-radius: 10px;
     }
     .tab-content::-webkit-scrollbar-thumb:hover {
-      background: rgba(220, 38, 38, 0.8);
+      background: rgba(34, 197, 94, 0.8);
     }
 
     .tab-content.active {
       display: flex;
-      animation: smoothSlideIn 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      animation: smoothSlideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     @keyframes smoothSlideIn {
       from {
         opacity: 0;
-        transform: translateY(12px) scale(0.98);
+        transform: translateY(10px) scale(0.98);
       }
       to {
         opacity: 1;
@@ -136,23 +180,25 @@
       }
     }
 
+    /* Box Item */
     .box {
-      background: rgba(26, 10, 13, 0.6);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(220, 38, 38, 0.12);
-      border-radius: 12px;
+      background: rgba(35, 25, 18, 0.55);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(34, 197, 94, 0.18);
+      border-radius: 14px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
       transition: all 0.25s ease;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
     }
 
     .box:hover {
-      border-color: rgba(220, 38, 38, 0.4);
-      background: rgba(35, 12, 16, 0.7);
+      border-color: rgba(34, 197, 94, 0.5);
+      background: rgba(45, 32, 22, 0.75);
       transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.15);
+      box-shadow: 0 6px 18px rgba(34, 197, 94, 0.15);
     }
 
     .box-header {
@@ -163,66 +209,62 @@
     }
 
     .box-title {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      color: #f4f4f5;
+      color: #f3f4f6;
     }
 
+    /* Nút bấm hiệu ứng Xanh Lá */
     .box-btn {
-      background: linear-gradient(135deg, #ef4444, #b91c1c, #991b1b, #ef4444);
-      background-size: 300% 300%;
-      animation: redGradient 4s ease infinite;
+      background: linear-gradient(135deg, #22c55e, #16a34a, #15803d);
       color: #ffffff;
       border: none;
-      border-radius: 8px;
+      border-radius: 9px;
       padding: 8px 16px;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
       text-align: center;
       white-space: nowrap;
-      box-shadow: 0 3px 12px rgba(220, 38, 38, 0.35);
+      box-shadow: 0 3px 12px rgba(34, 197, 94, 0.35);
       transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
     }
 
     .box-btn:hover {
       transform: scale(1.06);
-      box-shadow: 0 5px 18px rgba(239, 68, 68, 0.55);
+      box-shadow: 0 5px 20px rgba(34, 197, 94, 0.6);
     }
 
     .box-btn:active {
       transform: scale(0.95);
     }
 
-    @keyframes redGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     .script-text {
-      background: rgba(10, 4, 5, 0.85);
-      border: 1px solid rgba(220, 38, 38, 0.15);
+      background: rgba(10, 15, 12, 0.85);
+      border: 1px solid rgba(34, 197, 94, 0.2);
       border-radius: 8px;
       padding: 10px;
       font-family: monospace;
       font-size: 0.76rem;
-      color: #fca5a5;
+      color: #86efac;
       word-break: break-all;
       user-select: all;
     }
 
     .card-footer {
       text-align: center;
-      font-size: 0.72rem;
-      color: #71717a;
+      font-size: 0.75rem;
+      color: #9ca3af;
       padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
   </style>
 </head>
 <body>
+
+  <!-- Hiệu ứng lá rơi -->
+  <div id="leaf-container"></div>
 
   <div class="wrapper">
     <h1 class="title">SKIBIDI HUB</h1>
@@ -303,8 +345,6 @@
           <div class="script-text">loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua"))()</div>
         </div>
 
-        
-
         <div class="box">
           <div class="box-header">
             <span class="box-title">Teddy Hub</span>
@@ -324,7 +364,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
           </div>
         </div>
 
-        <div id="tab-apk" class="tab-content">
         <div class="box">
           <div class="box-header">
             <span class="box-title">Apollon Cilent MCPE 26.33 64Bit</span>
@@ -393,15 +432,19 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
   </div>
 
   <script>
+    // Chuyển Tab
     function showTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
       
       const targetTab = document.getElementById(tabId);
-      targetTab.classList.add('active');
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
       btn.classList.add('active');
     }
 
+    // Sao chép code
     function copyCode(btn) {
       const box = btn.closest('.box');
       const scriptText = box.querySelector('.script-text').innerText;
@@ -410,15 +453,34 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       
       const oldText = btn.innerText;
       btn.innerText = 'SUCCESS';
-      btn.style.background = '#16a34a';
-      btn.style.animation = 'none';
+      btn.style.background = '#15803d';
       
       setTimeout(() => {
         btn.innerText = oldText;
         btn.style.background = '';
-        btn.style.animation = '';
       }, 1500);
     }
+
+    // Tạo lá rơi động
+    const leafContainer = document.getElementById('leaf-container');
+    const leafIcons = ['🍃', '🍂', '🌿'];
+
+    function createLeaf() {
+      const leaf = document.createElement('div');
+      leaf.classList.add('leaf');
+      leaf.innerText = leafIcons[Math.floor(Math.random() * leafIcons.length)];
+      leaf.style.left = Math.random() * 100 + 'vw';
+      leaf.style.animationDuration = (Math.random() * 4 + 6) + 's';
+      leaf.style.fontSize = (Math.random() * 0.6 + 0.9) + 'rem';
+      
+      leafContainer.appendChild(leaf);
+
+      setTimeout(() => {
+        leaf.remove();
+      }, 10000);
+    }
+
+    setInterval(createLeaf, 700);
   </script>
 </body>
 </html>
