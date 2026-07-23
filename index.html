@@ -1181,58 +1181,237 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       startWeatherMelodyLoop();
     }
 
-    // 🎼 4. DANH SÁCH GIAI ĐIỆU VUI TƯƠI HỒN NHIÊN CHO 5 LOẠI THỜI TIẾT
+    // 🎼 4. GIAI ĐIỆU BẢN NHẠC DÀI 30 GIÂY VỚI LẶP LẠI MƯỢT MÀ
 
-    // ☀️ NẮNG: Điệu nhảy bình minh hân hoan (C Major)
+    // ☀️ NẮNG: Vũ điệu bình minh hân hoan (C Major Sunshine - 30s)
     const melodySunny = [
-      { note: 523.25, duration: 0.22, type: 'sine' },  // C5
-      { note: 659.25, duration: 0.22, type: 'sine' },  // E5
-      { note: 783.99, duration: 0.22, type: 'sine' },  // G5
-      { note: 1046.50, duration: 0.44, type: 'sine' }, // C6
-      { note: 880.00, duration: 0.22, type: 'sine' },  // A5
-      { note: 1046.50, duration: 0.44, type: 'sine' }, // C6
+      { note: 523.25, duration: 0.50, type: 'sine' },  // C5
+      { note: 659.25, duration: 0.50, type: 'sine' },  // E5
+      { note: 783.99, duration: 0.50, type: 'sine' },  // G5
+      { note: 1046.50, duration: 1.00, type: 'sine' }, // C6
+      { note: 987.77, duration: 0.50, type: 'sine' },  // B5
+      { note: 783.99, duration: 0.50, type: 'sine' },  // G5
+      { note: 880.00, duration: 0.50, type: 'sine' },  // A5
+      { note: 783.99, duration: 1.00, type: 'sine' },  // G5
+
+      { note: 659.25, duration: 0.50, type: 'sine' },  // E5
+      { note: 698.46, duration: 0.50, type: 'sine' },  // F5
+      { note: 783.99, duration: 0.75, type: 'sine' },  // G5
+      { note: 659.25, duration: 0.25, type: 'sine' },  // E5
+      { note: 523.25, duration: 0.50, type: 'sine' },  // C5
+      { note: 587.33, duration: 0.50, type: 'sine' },  // D5
+      { note: 659.25, duration: 1.00, type: 'sine' },  // E5
+
+      { note: 698.46, duration: 0.50, type: 'sine' },  // F5
+      { note: 659.25, duration: 0.50, type: 'sine' },  // E5
+      { note: 587.33, duration: 0.75, type: 'sine' },  // D5
+      { note: 523.25, duration: 0.25, type: 'sine' },  // C5
+      { note: 493.88, duration: 0.50, type: 'sine' },  // B4
+      { note: 523.25, duration: 0.50, type: 'sine' },  // C5
+      { note: 587.33, duration: 1.00, type: 'sine' },  // D5
+
+      { note: 783.99, duration: 0.50, type: 'sine' },  // G5
+      { note: 880.00, duration: 0.50, type: 'sine' },  // A5
+      { note: 1046.50, duration: 0.75, type: 'sine' }, // C6
+      { note: 987.77, duration: 0.25, type: 'sine' },  // B5
+      { note: 880.00, duration: 0.50, type: 'sine' },  // A5
+      { note: 783.99, duration: 0.50, type: 'sine' },  // G5
+      { note: 659.25, duration: 1.00, type: 'sine' },  // E5
+
+      { note: 880.00, duration: 0.50, type: 'sine' },  // A5
+      { note: 783.99, duration: 0.50, type: 'sine' },  // G5
+      { note: 698.46, duration: 0.50, type: 'sine' },  // F5
+      { note: 659.25, duration: 0.50, type: 'sine' },  // E5
+      { note: 587.33, duration: 0.50, type: 'sine' },  // D5
+      { note: 659.25, duration: 0.50, type: 'sine' },  // E5
+      { note: 523.25, duration: 1.00, type: 'sine' },  // C5
+
+      { note: 587.33, duration: 0.50, type: 'sine' },  // D5
+      { note: 659.25, duration: 0.50, type: 'sine' },  // E5
+      { note: 698.46, duration: 0.75, type: 'sine' },  // F5
+      { note: 783.99, duration: 0.25, type: 'sine' },  // G5
+      { note: 880.00, duration: 0.50, type: 'sine' },  // A5
+      { note: 987.77, duration: 0.50, type: 'sine' },  // B5
+      { note: 1046.50, duration: 1.50, type: 'sine' }, // C6
+
+      { note: 783.99, duration: 0.50, type: 'sine' },  // G5
+      { note: 659.25, duration: 0.50, type: 'sine' },  // E5
+      { note: 587.33, duration: 0.50, type: 'sine' },  // D5
+      { note: 523.25, duration: 2.00, type: 'sine' }   // C5
     ];
 
-    // 🌅 HOÀNG HÔN: Điệu ru ấm áp ngọt ngào (F Major Sweet)
+    // 🌅 HOÀNG HÔN: Khúc ru ấm áp ngọt ngào (F Major Sunset - 30s)
     const melodySunset = [
-      { note: 698.46, duration: 0.35, type: 'triangle' }, // F5
-      { note: 880.00, duration: 0.35, type: 'triangle' }, // A5
-      { note: 783.99, duration: 0.35, type: 'triangle' }, // G5
-      { note: 659.25, duration: 0.35, type: 'triangle' }, // E5
-      { note: 587.33, duration: 0.70, type: 'triangle' }, // D5
-    ];
-
-    // 🌙 BAN ĐÊM: Hộp nhạc giấc mơ ngôi sao (Sparkling Music Box)
-    const melodyNight = [
-      { note: 1046.50, duration: 0.30, type: 'sine' }, // C6
-      { note: 1318.51, duration: 0.30, type: 'sine' }, // E6
-      { note: 1567.98, duration: 0.30, type: 'sine' }, // G6
-      { note: 1318.51, duration: 0.30, type: 'sine' }, // E6
-      { note: 1174.66, duration: 0.60, type: 'sine' }, // D6
-    ];
-
-    // 🌧️ TRỜI MƯA: Tiếng giọt mưa hồn nhiên (Playful Raindrop Staccato)
-    const melodyRain = [
-      { note: 587.33, duration: 0.20, type: 'sine' }, // D5
-      { note: 783.99, duration: 0.20, type: 'sine' }, // G5
-      { note: 880.00, duration: 0.20, type: 'sine' }, // A5
-      { note: 1174.66, duration: 0.30, type: 'sine' },// D6
-      { note: 880.00, duration: 0.20, type: 'sine' }, // A5
-      { note: 783.99, duration: 0.40, type: 'sine' }, // G5
-    ];
-
-    // 🌩️ TRỜI BÃO: Giai điệu phiêu lưu dũng cảm
-    const melodyStorm = [
-      { note: 440.00, duration: 0.25, type: 'triangle' }, // A4
-      { note: 523.25, duration: 0.25, type: 'triangle' }, // C5
-      { note: 659.25, duration: 0.25, type: 'triangle' }, // E5
-      { note: 783.99, duration: 0.35, type: 'triangle' }, // G5
+      { note: 698.46, duration: 1.00, type: 'triangle' }, // F5
+      { note: 880.00, duration: 1.00, type: 'triangle' }, // A5
+      { note: 1046.50, duration: 1.50, type: 'triangle' },// C6
       { note: 880.00, duration: 0.50, type: 'triangle' }, // A5
+
+      { note: 783.99, duration: 1.00, type: 'triangle' }, // G5
+      { note: 659.25, duration: 1.00, type: 'triangle' }, // E5
+      { note: 587.33, duration: 1.50, type: 'triangle' }, // D5
+      { note: 659.25, duration: 0.50, type: 'triangle' }, // E5
+
+      { note: 523.25, duration: 1.00, type: 'triangle' }, // C5
+      { note: 698.46, duration: 1.00, type: 'triangle' }, // F5
+      { note: 880.00, duration: 1.50, type: 'triangle' }, // A5
+      { note: 698.46, duration: 0.50, type: 'triangle' }, // F5
+
+      { note: 783.99, duration: 1.00, type: 'triangle' }, // G5
+      { note: 880.00, duration: 1.00, type: 'triangle' }, // A5
+      { note: 932.33, duration: 1.50, type: 'triangle' }, // Bb5
+      { note: 880.00, duration: 0.50, type: 'triangle' }, // A5
+
+      { note: 1046.50, duration: 1.00, type: 'triangle' },// C6
+      { note: 880.00, duration: 1.00, type: 'triangle' }, // A5
+      { note: 698.46, duration: 1.50, type: 'triangle' }, // F5
+      { note: 587.33, duration: 0.50, type: 'triangle' }, // D5
+
+      { note: 783.99, duration: 1.00, type: 'triangle' }, // G5
+      { note: 698.46, duration: 1.00, type: 'triangle' }, // F5
+      { note: 659.25, duration: 1.50, type: 'triangle' }, // E5
+      { note: 587.33, duration: 0.50, type: 'triangle' }, // D5
+
+      { note: 523.25, duration: 1.00, type: 'triangle' }, // C5
+      { note: 587.33, duration: 1.00, type: 'triangle' }, // D5
+      { note: 698.46, duration: 2.00, type: 'triangle' }, // F5
+      { note: 698.46, duration: 2.00, type: 'triangle' }  // F5
+    ];
+
+    // 🌙 BAN ĐÊM: Hộp nhạc giấc mơ ngôi sao (Sparkling Lullaby - 30s)
+    const melodyNight = [
+      { note: 659.25, duration: 0.80, type: 'sine' },  // E5
+      { note: 783.99, duration: 0.80, type: 'sine' },  // G5
+      { note: 987.77, duration: 1.20, type: 'sine' },  // B5
+      { note: 1318.51, duration: 1.20, type: 'sine' }, // E6
+
+      { note: 1174.66, duration: 0.80, type: 'sine' }, // D6
+      { note: 987.77, duration: 0.80, type: 'sine' },  // B5
+      { note: 783.99, duration: 1.20, type: 'sine' },  // G5
+      { note: 739.99, duration: 1.20, type: 'sine' },  // F#5
+
+      { note: 659.25, duration: 0.80, type: 'sine' },  // E5
+      { note: 987.77, duration: 0.80, type: 'sine' },  // B5
+      { note: 1174.66, duration: 1.20, type: 'sine' }, // D6
+      { note: 987.77, duration: 1.20, type: 'sine' },  // B5
+
+      { note: 783.99, duration: 0.80, type: 'sine' },  // G5
+      { note: 880.00, duration: 0.80, type: 'sine' },  // A5
+      { note: 987.77, duration: 1.20, type: 'sine' },  // B5
+      { note: 783.99, duration: 1.20, type: 'sine' },  // G5
+
+      { note: 1318.51, duration: 0.80, type: 'sine' }, // E6
+      { note: 1174.66, duration: 0.80, type: 'sine' }, // D6
+      { note: 987.77, duration: 1.20, type: 'sine' },  // B5
+      { note: 783.99, duration: 1.20, type: 'sine' },  // G5
+
+      { note: 880.00, duration: 0.80, type: 'sine' },  // A5
+      { note: 987.77, duration: 0.80, type: 'sine' },  // B5
+      { note: 783.99, duration: 1.20, type: 'sine' },  // G5
+      { note: 659.25, duration: 1.20, type: 'sine' },  // E5
+
+      { note: 587.33, duration: 0.80, type: 'sine' },  // D5
+      { note: 659.25, duration: 0.80, type: 'sine' },  // E5
+      { note: 783.99, duration: 1.40, type: 'sine' },  // G5
+      { note: 659.25, duration: 3.00, type: 'sine' }   // E5
+    ];
+
+    // 🌧️ TRỜI MƯA: Giọt mưa thu trong trẻo (Rainy Melody - 30s)
+    const melodyRain = [
+      { note: 880.00, duration: 0.40, type: 'sine' },  // A5
+      { note: 1046.50, duration: 0.40, type: 'sine' }, // C6
+      { note: 1318.51, duration: 0.80, type: 'sine' }, // E6
+      { note: 1174.66, duration: 0.40, type: 'sine' }, // D6
+      { note: 1046.50, duration: 0.40, type: 'sine' }, // C6
+      { note: 987.77, duration: 0.80, type: 'sine' },  // B5
+      { note: 880.00, duration: 0.80, type: 'sine' },  // A5
+
+      { note: 783.99, duration: 0.40, type: 'sine' },  // G5
+      { note: 987.77, duration: 0.40, type: 'sine' },  // B5
+      { note: 1174.66, duration: 0.80, type: 'sine' }, // D6
+      { note: 1046.50, duration: 0.40, type: 'sine' }, // C6
+      { note: 987.77, duration: 0.40, type: 'sine' },  // B5
+      { note: 880.00, duration: 0.80, type: 'sine' },  // A5
+      { note: 783.99, duration: 0.80, type: 'sine' },  // G5
+
+      { note: 698.46, duration: 0.40, type: 'sine' },  // F5
+      { note: 880.00, duration: 0.40, type: 'sine' },  // A5
+      { note: 1046.50, duration: 0.80, type: 'sine' }, // C6
+      { note: 987.77, duration: 0.40, type: 'sine' },  // B5
+      { note: 880.00, duration: 0.40, type: 'sine' },  // A5
+      { note: 783.99, duration: 0.80, type: 'sine' },  // G5
+      { note: 698.46, duration: 0.80, type: 'sine' },  // F5
+
+      { note: 659.25, duration: 0.40, type: 'sine' },  // E5
+      { note: 783.99, duration: 0.40, type: 'sine' },  // G5
+      { note: 987.77, duration: 0.80, type: 'sine' },  // B5
+      { note: 880.00, duration: 0.40, type: 'sine' },  // A5
+      { note: 783.99, duration: 0.40, type: 'sine' },  // G5
+      { note: 698.46, duration: 0.80, type: 'sine' },  // F5
+      { note: 659.25, duration: 0.80, type: 'sine' },  // E5
+
+      { note: 880.00, duration: 0.50, type: 'sine' },  // A5
+      { note: 987.77, duration: 0.50, type: 'sine' },  // B5
+      { note: 1046.50, duration: 1.00, type: 'sine' }, // C6
+      { note: 1174.66, duration: 0.50, type: 'sine' }, // D6
+      { note: 1318.51, duration: 0.50, type: 'sine' }, // E6
+      { note: 1046.50, duration: 1.00, type: 'sine' }, // C6
+
+      { note: 1174.66, duration: 0.50, type: 'sine' }, // D6
+      { note: 1046.50, duration: 0.50, type: 'sine' }, // C6
+      { note: 987.77, duration: 1.00, type: 'sine' },  // B5
+      { note: 880.00, duration: 0.50, type: 'sine' },  // A5
+      { note: 783.99, duration: 0.50, type: 'sine' },  // G5
+      { note: 659.25, duration: 1.00, type: 'sine' },  // E5
+
+      { note: 698.46, duration: 0.50, type: 'sine' },  // F5
+      { note: 783.99, duration: 0.50, type: 'sine' },  // G5
+      { note: 880.00, duration: 1.00, type: 'sine' },  // A5
+      { note: 659.25, duration: 1.00, type: 'sine' },  // E5
+      { note: 880.00, duration: 3.00, type: 'sine' }   // A5
+    ];
+
+    // 🌩️ TRỜI BÃO: Giai điệu phiêu lưu dũng cảm (Epic Storm - 30s)
+    const melodyStorm = [
+      { note: 293.66, duration: 0.60, type: 'triangle' }, // D4
+      { note: 349.23, duration: 0.60, type: 'triangle' }, // F4
+      { note: 440.00, duration: 1.20, type: 'triangle' }, // A4
+      { note: 587.33, duration: 1.60, type: 'triangle' }, // D5
+
+      { note: 523.25, duration: 0.60, type: 'triangle' }, // C5
+      { note: 440.00, duration: 0.60, type: 'triangle' }, // A4
+      { note: 349.23, duration: 1.20, type: 'triangle' }, // F4
+      { note: 392.00, duration: 1.60, type: 'triangle' }, // G4
+
+      { note: 466.16, duration: 0.60, type: 'triangle' }, // Bb4
+      { note: 440.00, duration: 0.60, type: 'triangle' }, // A4
+      { note: 392.00, duration: 1.20, type: 'triangle' }, // G4
+      { note: 440.00, duration: 1.60, type: 'triangle' }, // A4
+
+      { note: 587.33, duration: 0.60, type: 'triangle' }, // D5
+      { note: 698.46, duration: 0.60, type: 'triangle' }, // F5
+      { note: 659.25, duration: 1.20, type: 'triangle' }, // E5
+      { note: 523.25, duration: 1.60, type: 'triangle' }, // C5
+
+      { note: 440.00, duration: 0.60, type: 'triangle' }, // A4
+      { note: 587.33, duration: 0.60, type: 'triangle' }, // D5
+      { note: 698.46, duration: 1.20, type: 'triangle' }, // F5
+      { note: 880.00, duration: 1.60, type: 'triangle' }, // A5
+
+      { note: 783.99, duration: 0.60, type: 'triangle' }, // G5
+      { note: 698.46, duration: 0.60, type: 'triangle' }, // F5
+      { note: 659.25, duration: 1.20, type: 'triangle' }, // E5
+      { note: 587.33, duration: 1.60, type: 'triangle' }, // D5
+
+      { note: 466.16, duration: 0.60, type: 'triangle' }, // Bb4
+      { note: 523.25, duration: 0.60, type: 'triangle' }, // C5
+      { note: 587.33, duration: 1.80, type: 'triangle' }, // D5
+      { note: 293.66, duration: 3.00, type: 'triangle' }  // D4
     ];
 
     function playMelodySequence(melodyArray) {
       if (!audioCtx || !melodyArray) return;
-      let startTime = audioCtx.currentTime + 0.1;
+      let startTime = audioCtx.currentTime + 0.05;
 
       melodyArray.forEach((item) => {
         const osc = audioCtx.createOscillator();
@@ -1241,9 +1420,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         osc.type = item.type || 'sine';
         osc.frequency.setValueAtTime(item.note, startTime);
 
+        const attackTime = 0.08;
+        const releaseTime = Math.min(0.25, item.duration * 0.4);
+
         gain.gain.setValueAtTime(0, startTime);
-        gain.gain.linearRampToValueAtTime(0.05, startTime + 0.04);
-        gain.gain.exponentialRampToValueAtTime(0.001, startTime + item.duration);
+        gain.gain.linearRampToValueAtTime(0.045, startTime + attackTime);
+        gain.gain.setValueAtTime(0.045, startTime + item.duration - releaseTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + item.duration);
 
         osc.connect(gain);
         gain.connect(masterGain);
@@ -1256,11 +1439,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     }
 
     function getMelodyDuration(melodyArray) {
-      if (!melodyArray) return 2;
+      if (!melodyArray) return 30;
       return melodyArray.reduce((acc, item) => acc + (item.duration || 0), 0);
     }
 
-    // FIX NỐI TIẾP GIAI ĐIỆU LẶP LẠI KHÔNG BỊ NGẮT QUÃNG HOẶC BIẾN MẤT
+    // VÒNG LẶP GIAI ĐIỆU MƯỢT MA KHÔNG BỊ TẮT HOẶC NGẮT NỐT
     function startWeatherMelodyLoop() {
       stopWeatherMelodyLoop();
 
@@ -1275,8 +1458,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         if (currentMelody) {
           playMelodySequence(currentMelody);
           const duration = getMelodyDuration(currentMelody);
-          // Tự động lặp lại liên tục sau khi hát xong giai điệu (+0.6s nghỉ giữa các lần lặp)
-          weatherMelodyTimer = setTimeout(loop, (duration + 0.6) * 1000);
+          // Tự động nối tiếp bản nhạc lặp lại mượt mà ngay khi vừa kết thúc 30s
+          weatherMelodyTimer = setTimeout(loop, duration * 1000);
         }
       }
 
