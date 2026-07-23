@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SKIBIDI HUB - ULTIMATE UPDATE v6.9</title>
+  <title>SKIBIDI HUB - FIX ANYTHING v7.1</title>
   <style>
     * {
       box-sizing: border-box;
@@ -26,7 +26,7 @@
       transition: background 2s cubic-bezier(0.4, 0, 0.2, 1), color 2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 🚀 TỐI ƯU GPU & RENDERING PERFORMANCE */
+    /* 🚀 TỐI ƯU GPU PERFORMANCE */
     .sun-element, .moon-element, .clouds-layer, .drop, .wind-streak, 
     .chill-leaf-item, .big-tree, .grass-svg, .glass-card, .flying-bird, .moving-cloud {
       will-change: transform, opacity;
@@ -180,24 +180,13 @@
       100% { opacity: 1; transform: scale(1.3); }
     }
 
-    /* ☁️ MÂY TRÔI & MÂY NỀN */
-    .clouds-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 50vh;
-      pointer-events: none;
-      z-index: 2;
-      transition: opacity 1.5s ease;
-    }
-
+    /* ☁️ MÂY TRÔI DỰNG BẰNG VECTOR (ĐẬM & TRÔI TỪ TỪ) */
     .moving-clouds-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
-      height: 40vh;
+      height: 55vh;
       pointer-events: none;
       z-index: 2;
       overflow: hidden;
@@ -205,64 +194,35 @@
 
     .moving-cloud {
       position: absolute;
-      background: rgba(255, 255, 255, 0.35);
-      border-radius: 100px;
+      fill: rgba(255, 255, 255, 0.85);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
       animation: cloudFly linear infinite;
+      transition: fill 1.5s ease, opacity 1.5s ease;
     }
 
-    .moving-cloud::before, .moving-cloud::after {
-      content: '';
-      position: absolute;
-      background: inherit;
-      border-radius: 50%;
+    body.weather-sunny .moving-cloud {
+      fill: rgba(255, 255, 255, 0.88);
     }
 
-    .moving-cloud::before {
-      width: 40%;
-      height: 80%;
-      top: -40%;
-      left: 15%;
+    body.weather-sunset .moving-cloud {
+      fill: rgba(253, 186, 116, 0.85);
     }
 
-    .moving-cloud::after {
-      width: 50%;
-      height: 90%;
-      top: -50%;
-      right: 15%;
+    body.weather-rain .moving-cloud {
+      fill: rgba(100, 116, 139, 0.88);
+    }
+
+    body.weather-storm .moving-cloud {
+      fill: rgba(51, 65, 85, 0.92);
+    }
+
+    body.weather-night .moving-cloud {
+      fill: rgba(30, 41, 59, 0.75);
     }
 
     @keyframes cloudFly {
-      0% { transform: translateX(-200px); }
+      0% { transform: translateX(-280px); }
       100% { transform: translateX(105vw); }
-    }
-
-    body.weather-sunny .clouds-layer {
-      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.5) 0%, transparent 40%),
-                  radial-gradient(circle at 85% 25%, rgba(255,255,255,0.45) 0%, transparent 40%);
-      opacity: 0.85;
-    }
-
-    body.weather-sunset .clouds-layer {
-      background: radial-gradient(circle at 20% 30%, rgba(253, 186, 116, 0.5) 0%, transparent 40%),
-                  radial-gradient(circle at 65% 40%, rgba(249, 115, 22, 0.4) 0%, transparent 45%);
-      opacity: 0.9;
-    }
-
-    body.weather-rain .clouds-layer {
-      background: radial-gradient(circle at 30% 30%, rgba(71, 85, 105, 0.7) 0%, transparent 45%),
-                  radial-gradient(circle at 70% 45%, rgba(51, 65, 85, 0.75) 0%, transparent 50%);
-      opacity: 0.95;
-    }
-
-    body.weather-storm .clouds-layer {
-      background: radial-gradient(circle at 25% 25%, rgba(15, 23, 42, 0.9) 0%, transparent 50%),
-                  radial-gradient(circle at 75% 35%, rgba(30, 41, 59, 0.9) 0%, transparent 55%);
-      opacity: 1;
-    }
-
-    body.weather-night .clouds-layer {
-      background: radial-gradient(circle at 40% 30%, rgba(30, 41, 59, 0.4) 0%, transparent 40%);
-      opacity: 0.5;
     }
 
     /* 💨 GIÓ THỔI */
@@ -432,8 +392,8 @@
     }
 
     .weather-countdown-widget {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 12px;
       padding: 6px 12px;
       display: flex;
@@ -441,7 +401,7 @@
       gap: 8px;
       user-select: none;
       height: 40px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .weather-cd-text {
@@ -456,9 +416,12 @@
       gap: 6px;
     }
 
-    .weather-cd-text svg {
-      width: 18px;
-      height: 18px;
+    .weather-cd-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .weather-cd-timer {
@@ -479,8 +442,8 @@
     .menu-hamburger-btn {
       width: 40px;
       height: 40px;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 12px;
       cursor: pointer;
       display: flex;
@@ -488,13 +451,13 @@
       justify-content: center;
       align-items: center;
       gap: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       transition: transform 0.2s ease, background 0.2s ease;
     }
 
     .menu-hamburger-btn:hover {
       transform: scale(1.05);
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0, 0, 0, 0.45);
     }
 
     .menu-hamburger-btn span {
@@ -510,11 +473,11 @@
       top: 50px;
       right: 0;
       width: 230px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      background: rgba(15, 23, 42, 0.94);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
       border-radius: 16px;
       padding: 14px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
       display: none;
       flex-direction: column;
       gap: 10px;
@@ -553,7 +516,6 @@
       border-radius: 5px;
       background: rgba(255, 255, 255, 0.25);
       outline: none;
-      transition: background 0.2s;
     }
 
     .volume-slider::-webkit-slider-thumb {
@@ -567,18 +529,18 @@
       box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
     }
 
-    /* 📱 KHUNG CHÍNH (ĐÃ XÓA MỜ BACKDROP-FILTER NỀN TRONG SUỐT NHÌN RÕ PHONG CẢNH) */
+    /* 📱 KHUNG CHÍNH (THIẾT KẾ PHONG CẢNH NHÌN XUYÊN THẤU) */
     .glass-card {
       position: relative;
       z-index: 20;
       width: 100%;
       max-width: 410px;
       max-height: calc(100vh - 50px);
-      background: rgba(0, 0, 0, 0.12); /* Giữ cực mỏng nhẹ để nhìn rõ phong cảnh */
-      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
       border-radius: 24px;
       padding: 18px 16px 14px 16px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -591,32 +553,36 @@
       align-items: center;
     }
 
+    /* ☀️ FIX LỖI ICON KHUNG TRẠNG THÁI */
     .weather-status-box {
-      width: 48px;
-      height: 48px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 14px;
+      width: 52px;
+      height: 52px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      border-radius: 16px;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 8px;
       margin-bottom: 8px;
       user-select: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .weather-status-box svg {
-      width: 28px;
-      height: 28px;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
 
     .title-box {
-      background: rgba(0, 0, 0, 0.2);
-      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
       border-radius: 20px;
       padding: 6px 22px;
       display: inline-block;
       margin-bottom: 6px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .title {
@@ -641,10 +607,10 @@
     .nav-tabs {
       display: flex;
       gap: 6px;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.3);
       padding: 4px;
       border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.35);
     }
 
     .nav-btn {
@@ -657,7 +623,7 @@
       font-size: 0.85rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+      transition: background 0.2s ease, color 0.2s ease;
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
 
@@ -705,10 +671,9 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Đã xóa bỏ blur ở các mục con box */
     .box {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 14px;
       padding: 10px 12px;
       display: flex;
@@ -718,8 +683,8 @@
     }
 
     .box:hover {
-      border-color: rgba(255, 255, 255, 0.6);
-      background: rgba(0, 0, 0, 0.35);
+      border-color: rgba(255, 255, 255, 0.65);
+      background: rgba(0, 0, 0, 0.4);
     }
 
     .box-header {
@@ -751,7 +716,7 @@
       cursor: pointer;
       text-align: center;
       white-space: nowrap;
-      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+      transition: transform 0.15s ease, background 0.2s ease;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
@@ -761,7 +726,7 @@
     }
 
     .script-text {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 6px;
       padding: 6px 8px;
@@ -787,10 +752,10 @@
       font-size: 0.72rem;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.95);
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0, 0, 0, 0.4);
       padding: 4px 10px;
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       z-index: 100;
       pointer-events: none;
     }
@@ -802,7 +767,6 @@
   <div class="moon-element"></div>
 
   <div class="stars-container" id="stars"></div>
-  <div class="clouds-layer"></div>
   <div class="moving-clouds-container" id="moving-clouds"></div>
 
   <div class="rain-container" id="rain-box"></div>
@@ -813,7 +777,10 @@
 
   <div class="top-left-bar">
     <div class="weather-countdown-widget">
-      <span class="weather-cd-text" id="weather-next-name"></span>
+      <span class="weather-cd-text">
+        <span class="weather-cd-icon" id="weather-next-icon"></span>
+        <span id="weather-next-name">--</span>
+      </span>
       <span class="weather-cd-timer" id="weather-timer-text">--:--</span>
     </div>
   </div>
@@ -905,7 +872,7 @@
         <h1 class="title">SKIBIDI HUB</h1>
       </div>
 
-      <p class="subtitle">WEB SHARE SCRIPT LINK - AND MORE</p>
+      <p class="subtitle">TIME UPDATE ( 9:00 PM , PRI , 24/7 2026 )</p>
     </div>
 
     <div class="nav-tabs">
@@ -1050,7 +1017,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
   </div>
 
-  <div class="version-tag">Version 6.9 ( Optimized & Synced )</div>
+  <div class="version-tag">Version 7.1 ( Fix Lỗi )</div>
 
   <script>
     // 🌾 1. TẠO THẢM CỎ SVG
@@ -1075,20 +1042,31 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     generateDenseGrassSVG('grass-back-svg', true);
     generateDenseGrassSVG('grass-front-svg', false);
 
-    // ☁️ 2. TẠO CÁC ĐÁM MÂY TRÔI DỘNG
+    // ☁️ 2. CẢI TIẾN MÂY: TRÔI TỪ TỪ & ĐẬM NÉT (DÙNG VECTOR CLOUD)
     const movingCloudsContainer = document.getElementById('moving-clouds');
+    
+    function createCloudSVG() {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 200 100");
+      svg.classList.add("moving-cloud");
+      svg.innerHTML = `<path d="M 30 75 Q 10 75 10 55 C 10 35 35 30 45 35 C 55 15 90 15 110 30 C 125 15 160 20 165 40 C 185 40 190 60 175 75 Z" />`;
+      return svg;
+    }
+
     function initClouds() {
-      for (let i = 0; i < 5; i++) {
-        const cloud = document.createElement('div');
-        cloud.classList.add('moving-cloud');
-        const w = Math.random() * 100 + 120;
-        const h = w * 0.35;
+      movingCloudsContainer.innerHTML = '';
+      for (let i = 0; i < 6; i++) {
+        const cloud = createCloudSVG();
+        const w = Math.random() * 110 + 160;
         cloud.style.width = w + 'px';
-        cloud.style.height = h + 'px';
-        cloud.style.top = (Math.random() * 25 + 2) + 'vh';
-        cloud.style.animationDuration = (Math.random() * 20 + 25) + 's';
-        cloud.style.animationDelay = (Math.random() * -30) + 's';
-        cloud.style.opacity = (Math.random() * 0.4 + 0.3).toString();
+        cloud.style.height = (w * 0.5) + 'px';
+        cloud.style.top = (Math.random() * 28 + 2) + 'vh';
+        
+        // TRÔI TỪ TỪ: Thời gian từ 45s - 80s
+        const duration = Math.random() * 35 + 45;
+        cloud.style.animationDuration = duration + 's';
+        cloud.style.animationDelay = (Math.random() * -60) + 's';
+        
         movingCloudsContainer.appendChild(cloud);
       }
     }
@@ -1211,19 +1189,19 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }
     }
 
-    // 🎼 ÂM THANH "MORNING MOOD" CHUẨN ĐOẠN GIAI ĐIỆU CỔ ĐIỂN (EDVARD GRIEG)
+    // 🎼 ÂM THANH MORNING MOOD
     const morningMoodMelody = [
-      { note: 659.25, duration: 0.35 }, // E5
-      { note: 587.33, duration: 0.35 }, // D5
-      { note: 523.25, duration: 0.35 }, // C5
-      { note: 392.00, duration: 0.35 }, // G4
-      { note: 523.25, duration: 0.35 }, // C5
-      { note: 587.33, duration: 0.35 }, // D5
-      { note: 659.25, duration: 0.35 }, // E5
-      { note: 783.99, duration: 0.35 }, // G5
-      { note: 659.25, duration: 0.35 }, // E5
-      { note: 587.33, duration: 0.35 }, // D5
-      { note: 523.25, duration: 0.70 }, // C5
+      { note: 659.25, duration: 0.35 },
+      { note: 587.33, duration: 0.35 },
+      { note: 523.25, duration: 0.35 },
+      { note: 392.00, duration: 0.35 },
+      { note: 523.25, duration: 0.35 },
+      { note: 587.33, duration: 0.35 },
+      { note: 659.25, duration: 0.35 },
+      { note: 783.99, duration: 0.35 },
+      { note: 659.25, duration: 0.35 },
+      { note: 587.33, duration: 0.35 },
+      { note: 523.25, duration: 0.70 },
     ];
 
     function playMorningMoodTheme() {
@@ -1266,7 +1244,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }
     }
 
-    // 🍃 TIẾNG GIÓ VÀ LÁ RƠI
     function playLeafWindWhoosh() {
       if (!audioCtx) return;
       const now = audioCtx.currentTime;
@@ -1288,7 +1265,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       osc.stop(now + 0.82);
     }
 
-    // 🕊️ TIẾNG CHIM HÓT BAN NGÀY
     function playBirdChirp() {
       if (!audioCtx || (currentMode !== 'SUNNY' && currentMode !== 'SUNSET')) return;
       const now = audioCtx.currentTime;
@@ -1321,7 +1297,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }
     }, 3200);
 
-    // 🦗 TIẾNG DẾ ĐÊM
     function playCricketChirp() {
       if (!audioCtx || currentMode !== 'NIGHT') return;
       const now = audioCtx.currentTime;
@@ -1352,7 +1327,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }
     }, 2400);
 
-    // 🌩️ TIẾNG SẤM BÃO
     function playThunderSound() {
       if (!audioCtx || currentMode !== 'STORM') return;
       const now = audioCtx.currentTime;
@@ -1446,17 +1420,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       if (Math.random() < 0.6) spawnFlyingBird();
     }, 10000);
 
-    // 🌤️ 7. ICON ĐỒ HỌA
+    // 🌤️ 7. ICON ĐỒ HỌA HOÀN CHỈNH (FIX LỖI HIỂN THỊ ICON)
     const svgIcons = {
-      SUNNY: `<svg viewBox="0 0 24 24" fill="#facc15"><circle cx="12" cy="12" r="5"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" stroke="#facc15" stroke-width="2" stroke-linecap="round"/></svg>`,
-      SUNSET: `<svg viewBox="0 0 24 24" fill="#f97316"><path d="M12 4a7 7 0 00-7 7h14a7 7 0 00-7-7z"/><path d="M2 17h20M4 21h16" stroke="#f97316" stroke-width="2" stroke-linecap="round"/></svg>`,
-      RAIN: `<svg viewBox="0 0 24 24" fill="#94a3b8"><path d="M4 14.5A4.5 4.5 0 008.5 19h7a3.5 3.5 0 00.5-6.96A5 5 0 006.2 10.2 4.5 4.5 0 004 14.5z"/><path d="M8 21l-1 2m5-2l-1 2m5-2l-1 2" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/></svg>`,
-      STORM: `<svg viewBox="0 0 24 24" fill="#475569"><path d="M4 13.5A4.5 4.5 0 008.5 18h7a3.5 3.5 0 00.5-6.96A5 5 0 006.2 9.2 4.5 4.5 0 004 13.5z"/><path d="M13 14l-3 4h3l-1 4" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-      NIGHT: `<svg viewBox="0 0 24 24" fill="#fef08a"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`
+      SUNNY: `<svg viewBox="0 0 24 24" width="100%" height="100%"><circle cx="12" cy="12" r="5" fill="#facc15"/><g stroke="#facc15" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.07" x2="5.64" y2="17.66"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g></svg>`,
+      SUNSET: `<svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M12 4a7 7 0 00-7 7h14a7 7 0 00-7-7z" fill="#f97316"/><line x1="2" y1="16" x2="22" y2="16" stroke="#f97316" stroke-width="2.5" stroke-linecap="round"/><line x1="5" y1="20" x2="19" y2="20" stroke="#fb923c" stroke-width="2" stroke-linecap="round"/></svg>`,
+      RAIN: `<svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M19.35 10.04A7.5 7.5 0 005.02 12A4.5 4.5 0 006 20h13a4 4 0 00.35-7.96z" fill="#94a3b8"/><line x1="8" y1="18" x2="6" y2="23" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="18" x2="10" y2="23" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="18" x2="14" y2="23" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/></svg>`,
+      STORM: `<svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M19.35 10.04A7.5 7.5 0 005.02 12A4.5 4.5 0 006 18h13a4 4 0 00.35-7.96z" fill="#475569"/><polygon points="13,11 9,17 12,17 10,23 16,15 13,15" fill="#facc15" stroke="#fef08a" stroke-width="0.5"/></svg>`,
+      NIGHT: `<svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="#fef08a" filter="drop-shadow(0 0 4px rgba(254,240,138,0.8))"/></svg>`
     };
 
-    // 🌐 8. THUẬT TOÁN ĐỒNG BỘ THỜI TIẾT THEO MỐC THỜI GIAN THỰC SERVER / UTC EPOCH TIME
-    // Toàn bộ các máy truy cập web sẽ hiển thị cùng 1 trạng thái, cùng 1 đếm ngược
+    // 🌐 8. THUẬT TOÁN ĐỒNG BỘ THỜI TIẾT THEO MỐC THỜI GIAN THỰC SERVER
     const weatherTimeline = [
       { mode: 'SUNNY', duration: 600 },
       { mode: 'SUNSET', duration: 180 },
@@ -1477,6 +1450,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
     let currentMode = '';
     const statusBox = document.getElementById('status-box');
+    const weatherNextIconEl = document.getElementById('weather-next-icon');
     const weatherNextNameEl = document.getElementById('weather-next-name');
     const weatherTimerTextEl = document.getElementById('weather-timer-text');
 
@@ -1527,8 +1501,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
       applyWeatherMode(activeWeather);
 
-      if (weatherNextNameEl && weatherTimerTextEl) {
-        weatherNextNameEl.innerHTML = `${svgIcons[nextWeather] || ''} <span>${weatherNames[nextWeather]}</span>`;
+      if (weatherNextIconEl && weatherNextNameEl && weatherTimerTextEl) {
+        weatherNextIconEl.innerHTML = svgIcons[nextWeather] || '';
+        weatherNextNameEl.innerText = weatherNames[nextWeather];
         const mins = Math.floor(timeRemainingInCurrent / 60);
         const secs = timeRemainingInCurrent % 60;
         weatherTimerTextEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
