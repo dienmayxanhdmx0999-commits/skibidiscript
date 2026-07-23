@@ -378,9 +378,7 @@
     }
 
     .weather-countdown-widget {
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.25);
       border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 12px;
       padding: 6px 12px;
@@ -429,9 +427,7 @@
     .menu-hamburger-btn {
       width: 40px;
       height: 40px;
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.25);
       border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 12px;
       cursor: pointer;
@@ -461,9 +457,7 @@
       top: 50px;
       right: 0;
       width: 230px;
-      background: rgba(15, 23, 42, 0.94);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.9);
       border: 1.5px solid rgba(255, 255, 255, 0.35);
       border-radius: 16px;
       padding: 14px;
@@ -519,20 +513,20 @@
       box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
     }
 
-    /* 📱 KHUNG CHÍNH CARD GLASS */
+    /* 📱 KHUNG CHÍNH CARD GLASS - ĐÃ FIX KHÔNG MỜ NỀN */
     .glass-card {
       position: relative;
       z-index: 20;
       width: 100%;
       max-width: 410px;
       max-height: calc(100vh - 50px);
-      background: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      background: rgba(0, 0, 0, 0.18);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
       border-radius: 24px;
       padding: 18px 16px 14px 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -548,8 +542,8 @@
     .weather-status-box {
       width: 52px;
       height: 52px;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      background: rgba(0, 0, 0, 0.2);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
       border-radius: 16px;
       display: flex;
       justify-content: center;
@@ -557,7 +551,7 @@
       padding: 8px;
       margin-bottom: 8px;
       user-select: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .weather-status-box svg {
@@ -567,13 +561,13 @@
     }
 
     .title-box {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      background: rgba(0, 0, 0, 0.2);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
       border-radius: 20px;
       padding: 6px 22px;
       display: inline-block;
       margin-bottom: 6px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     }
 
     .title {
@@ -594,14 +588,14 @@
       text-shadow: 0 1px 4px rgba(0,0,0,0.7);
     }
 
-    /* 🗂️ TAB BUTTONS & SIÊU ANIMATION MƯỢT */
+    /* 🗂️ TAB BUTTONS & ANIMATION MƯỢT */
     .nav-tabs {
       display: flex;
       gap: 6px;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.25);
       padding: 4px;
       border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       position: relative;
     }
 
@@ -635,7 +629,7 @@
       box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
     }
 
-    /* 🎴 CONTENT WRAPPER & CHUYỂN TAB CỰC MƯỢT */
+    /* 🎴 CONTENT WRAPPER */
     .tab-content-wrapper {
       flex: 1;
       overflow: hidden;
@@ -668,8 +662,8 @@
     }
 
     .box {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 14px;
       padding: 10px 12px;
       display: flex;
@@ -680,7 +674,7 @@
 
     .box:hover {
       border-color: rgba(255, 255, 255, 0.65);
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.35);
       transform: translate3d(0, -1px, 0);
     }
 
@@ -727,8 +721,8 @@
     }
 
     .script-text {
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 6px;
       padding: 6px 8px;
       font-family: monospace;
@@ -753,9 +747,7 @@
       font-size: 0.72rem;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.95);
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.3);
       padding: 4px 10px;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -1074,7 +1066,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     }
     initClouds();
 
-    // 🔊 3. BỘ MÁY ÂM THANH WEB AUDIO API (NHẠC VUI TƯƠI HỒN NHIÊN CHO TỪNG THỜI TIẾT)
+    // 🔊 3. BỘ MÁY ÂM THANH WEB AUDIO API (NHẠC VUI TƯƠI LẶP LIÊN TỤC THEO THỜI TIẾT)
     let audioCtx = null;
     let masterGain = null;
     let masterVolume = 0.5;
@@ -1229,7 +1221,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       { note: 783.99, duration: 0.40, type: 'sine' }, // G5
     ];
 
-    // 🌩️ TRỜI BÃO: Giai điệu phiêu lưu dũng cảm, tươi vui xóa tan u tối
+    // 🌩️ TRỜI BÃO: Giai điệu phiêu lưu dũng cảm
     const melodyStorm = [
       { note: 440.00, duration: 0.25, type: 'triangle' }, // A4
       { note: 523.25, duration: 0.25, type: 'triangle' }, // C5
@@ -1263,25 +1255,37 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       });
     }
 
-    function triggerWeatherMelody() {
-      if (currentMode === 'SUNNY') playMelodySequence(melodySunny);
-      else if (currentMode === 'SUNSET') playMelodySequence(melodySunset);
-      else if (currentMode === 'NIGHT') playMelodySequence(melodyNight);
-      else if (currentMode === 'RAIN') playMelodySequence(melodyRain);
-      else if (currentMode === 'STORM') playMelodySequence(melodyStorm);
+    function getMelodyDuration(melodyArray) {
+      if (!melodyArray) return 2;
+      return melodyArray.reduce((acc, item) => acc + (item.duration || 0), 0);
     }
 
+    // FIX NỐI TIẾP GIAI ĐIỆU LẶP LẠI KHÔNG BỊ NGẮT QUÃNG HOẶC BIẾN MẤT
     function startWeatherMelodyLoop() {
       stopWeatherMelodyLoop();
-      triggerWeatherMelody();
-      weatherMelodyTimer = setInterval(() => {
-        triggerWeatherMelody();
-      }, 10000);
+
+      function loop() {
+        let currentMelody = null;
+        if (currentMode === 'SUNNY') currentMelody = melodySunny;
+        else if (currentMode === 'SUNSET') currentMelody = melodySunset;
+        else if (currentMode === 'NIGHT') currentMelody = melodyNight;
+        else if (currentMode === 'RAIN') currentMelody = melodyRain;
+        else if (currentMode === 'STORM') currentMelody = melodyStorm;
+
+        if (currentMelody) {
+          playMelodySequence(currentMelody);
+          const duration = getMelodyDuration(currentMelody);
+          // Tự động lặp lại liên tục sau khi hát xong giai điệu (+0.6s nghỉ giữa các lần lặp)
+          weatherMelodyTimer = setTimeout(loop, (duration + 0.6) * 1000);
+        }
+      }
+
+      loop();
     }
 
     function stopWeatherMelodyLoop() {
       if (weatherMelodyTimer) {
-        clearInterval(weatherMelodyTimer);
+        clearTimeout(weatherMelodyTimer);
         weatherMelodyTimer = null;
       }
     }
