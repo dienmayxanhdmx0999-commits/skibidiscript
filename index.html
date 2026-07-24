@@ -46,10 +46,10 @@
       transition: opacity 0.05s ease-out;
     }
 
-    /* 🚀 TỐI ƯU HÓA PHẦN CỨNG GPU */
+    /* 🚀 TỐI ƯU HÓA GPU */
     .sun-element, .moon-element, .drop, .wind-streak, 
     .chill-leaf-item, .big-tree, .grass-svg, .glass-card, 
-    .flying-bird, .moving-cloud, .star, .hill-path {
+    .flying-bird, .moving-cloud, .star {
       will-change: transform, opacity;
       backface-visibility: hidden;
       transform: translateZ(0);
@@ -137,7 +137,7 @@
       transform: translate3d(0,0,0);
     }
 
-    /* 🌧️ HẠT MƯA RƠI */
+    /* 🌧️ HẠT MƯA */
     .rain-container {
       position: fixed;
       top: 0;
@@ -260,7 +260,7 @@
       100% { transform: translate3d(130vw, 0, 0); opacity: 0; }
     }
 
-    /* 🦅 CHIM BAY VÀ CHIM ĐẬU */
+    /* 🦅 CHIM BAY (FIXED Z-INDEX & POSITIONING) */
     .bird-fly-container {
       position: fixed;
       top: 0;
@@ -268,29 +268,29 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 4;
+      z-index: 10;
       overflow: hidden;
     }
 
     .flying-bird {
       position: absolute;
-      width: 32px;
-      height: 22px;
-      transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 36px;
+      height: 24px;
+      transition: top 1.8s ease-in-out, left 5.5s linear, transform 1.2s ease;
     }
 
     .flying-bird svg {
       width: 100%;
       height: 100%;
-      fill: rgba(255, 255, 255, 0.92);
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      fill: rgba(255, 255, 255, 0.95);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
     }
 
     body.weather-night .flying-bird svg { fill: rgba(148, 163, 184, 0.6); }
 
     .wing {
       transform-origin: center;
-      animation: flapWings 0.22s ease-in-out infinite alternate;
+      animation: flapWings 0.2s ease-in-out infinite alternate;
     }
 
     .flying-bird.perched .wing {
@@ -299,7 +299,7 @@
 
     @keyframes flapWings {
       0% { transform: scaleY(1); }
-      100% { transform: scaleY(-0.4); }
+      100% { transform: scaleY(-0.5); }
     }
 
     /* 🍃 LÁ BAY */
@@ -326,13 +326,13 @@
       100% { transform: translate3d(110vw, 95vh, 0) rotate(360deg); opacity: 0; }
     }
 
-    /* 🏞️ ĐỒI XANH, CÂY VÀ CỎ DƯỚI ĐÁY */
+    /* 🏞️ PHONG CẢNH CÂY VÀ ĐỒI XANH */
     .nature-bottom {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100vw;
-      height: 250px;
+      height: 260px;
       pointer-events: none;
       z-index: 2;
       overflow: visible;
@@ -369,23 +369,23 @@
       position: absolute;
       bottom: 15px;
       width: 100%;
-      height: 200px;
+      height: 210px;
       z-index: 2;
     }
 
     .big-tree {
       position: absolute;
       bottom: 0;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
       transform-origin: bottom center;
       animation: treeSway 5s ease-in-out infinite alternate;
       transition: filter 1.5s ease;
     }
 
-    .tree-1 { left: -15px; width: 145px; height: 210px; }
-    .tree-2 { left: 90px; width: 110px; height: 160px; animation-duration: 4.2s; }
-    .tree-3 { right: -15px; width: 150px; height: 215px; transform: scaleX(-1); }
-    .tree-4 { right: 95px; width: 105px; height: 155px; transform: scaleX(-1); animation-duration: 4.7s; }
+    .tree-1 { left: -10px; width: 150px; height: 220px; }
+    .tree-2 { left: 95px; width: 115px; height: 165px; animation-duration: 4.2s; }
+    .tree-3 { right: -10px; width: 155px; height: 225px; transform: scaleX(-1); }
+    .tree-4 { right: 100px; width: 110px; height: 160px; transform: scaleX(-1); animation-duration: 4.7s; }
 
     body.weather-rain .big-tree { animation-duration: 2.8s; }
     body.weather-storm .big-tree { animation-duration: 1.1s !important; }
@@ -426,7 +426,7 @@
       100% { transform: skewX(5deg); }
     }
 
-    /* 🚀 HEADER BAR */
+    /* 🚀 HEADER BAR & WIDGET */
     .top-left-bar {
       position: fixed;
       top: 14px;
@@ -438,18 +438,18 @@
     }
 
     .weather-countdown-widget {
-      background: rgba(15, 23, 42, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-radius: 14px;
-      padding: 6px 12px;
+      padding: 6px 14px;
       display: flex;
       align-items: center;
       gap: 8px;
       user-select: none;
       height: 42px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     }
 
     .weather-cd-text {
@@ -470,6 +470,11 @@
       justify-content: center;
     }
 
+    .weather-cd-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
     .weather-cd-timer {
       font-family: monospace;
       font-size: 0.92rem;
@@ -477,7 +482,7 @@
       color: #4ade80;
     }
 
-    /* ☰ MENU & POPUP ÂM THANH */
+    /* ☰ MENU & AUDIO POPUP */
     .top-right-bar {
       position: fixed;
       top: 14px;
@@ -488,10 +493,10 @@
     .menu-hamburger-btn {
       width: 42px;
       height: 42px;
-      background: rgba(15, 23, 42, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-radius: 14px;
       cursor: pointer;
       display: flex;
@@ -499,7 +504,7 @@
       justify-content: center;
       align-items: center;
       gap: 4px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
     }
 
@@ -519,13 +524,13 @@
       top: 50px;
       right: 0;
       width: 230px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1.5px solid rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-radius: 18px;
       padding: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       display: none;
       flex-direction: column;
       gap: 10px;
@@ -577,26 +582,22 @@
       box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
     }
 
-    /* 📱 KHUNG CHÍNH GLASS CARD - ĐÃ FIX TRONG SUỐT NHÌN XUYÊN PHONG CẢNH */
+    /* 📱 GIAO DIỆN CHÍNH - HOÀN TOÀN TRONG SUỐT (FRAMELESS & CLEAR VIEW) */
     .glass-card {
       position: relative;
       z-index: 20;
       width: 100%;
       max-width: 410px;
-      max-height: calc(100vh - 40px);
       margin: 0 auto;
-      background: rgba(15, 23, 42, 0.15); /* Làm cực mỏng để thấy phong cảnh */
-      backdrop-filter: blur(5px); /* Giảm mờ để không bị che cây cối đồi núi */
-      -webkit-backdrop-filter: blur(5px);
-      border: 1.5px solid rgba(255, 255, 255, 0.35);
-      border-radius: 28px;
-      padding: 18px 16px 14px 16px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+      background: transparent; /* Xóa khung che phủ */
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      padding: 10px 8px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       text-align: center;
-      transition: background 0.3s ease, backdrop-filter 0.3s ease;
     }
 
     .card-header {
@@ -605,35 +606,35 @@
       align-items: center;
     }
 
+    /* FIX ICON KHÔNG BỊ Ô VUÔNG VÀ CĂN GIỮA */
     .weather-status-box {
       width: 58px;
       height: 58px;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1.5px solid rgba(255, 255, 255, 0.45);
-      border-radius: 18px;
+      background: transparent;
+      border: none;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       user-select: none;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     }
 
     .weather-status-box svg {
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
     }
 
     .title-box {
-      background: rgba(0, 0, 0, 0.2);
-      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-radius: 20px;
-      padding: 6px 22px;
+      padding: 6px 24px;
       display: inline-block;
       margin-bottom: 6px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .title {
@@ -650,19 +651,20 @@
       color: #ffffff;
       font-size: 0.82rem;
       letter-spacing: 0.5px;
-      font-weight: 700;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+      font-weight: 800;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.8);
     }
 
-    /* 🗂️ FIX LỖI HIỂN THỊ NỀN XANH Ở CÁC TAB */
+    /* 🗂️ HOẠT HỌA CHUYỂN TAB MƯỢT MÀ KHÔNG BỊ GIẬT */
     .nav-tabs {
       display: flex;
       gap: 6px;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       padding: 5px;
       border-radius: 16px;
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
-      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .nav-btn {
@@ -677,7 +679,6 @@
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      z-index: 1;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -685,14 +686,13 @@
 
     .nav-btn:hover {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .nav-btn:active {
       transform: scale(0.95);
     }
 
-    /* HIỂN THỊ Ô NỀN XANH CHUẨN KHÔNG LỖI */
     .nav-btn.active {
       background: #22c55e !important;
       color: #ffffff !important;
@@ -700,27 +700,31 @@
       box-shadow: 0 4px 15px rgba(34, 197, 94, 0.6) !important;
     }
 
-    /* 🎴 CONTENT WRAPPER */
+    /* 🎴 KHU VỰC TAB HÀM LƯỢNG NỘI DUNG */
     .tab-content-wrapper {
-      flex: 1;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
       position: relative;
-      min-height: 220px;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      min-height: 250px;
     }
 
     .tab-content {
-      display: none;
+      grid-area: 1 / 1 / 2 / 2;
+      display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       max-height: 320px;
       overflow-y: auto;
       padding-right: 4px;
       text-align: left;
       opacity: 0;
-      transform: translate3d(0, 10px, 0);
-      transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      visibility: hidden;
+      transform: translate3d(0, 12px, 0);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.35s ease;
+      pointer-events: none;
     }
 
     .tab-content::-webkit-scrollbar { width: 4px; }
@@ -728,25 +732,29 @@
     .tab-content::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.4); border-radius: 10px; }
 
     .tab-content.active {
-      display: flex !important;
-      opacity: 1 !important;
-      transform: translate3d(0, 0, 0) !important;
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(0, 0, 0);
+      pointer-events: auto;
     }
 
     .box {
-      background: rgba(0, 0, 0, 0.22);
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 14px;
-      padding: 10px 12px;
+      border-radius: 16px;
+      padding: 11px 14px;
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
     }
 
     .box:hover {
       border-color: rgba(255, 255, 255, 0.6);
-      background: rgba(0, 0, 0, 0.32);
+      background: rgba(15, 23, 42, 0.65);
       transform: translate3d(0, -2px, 0);
     }
 
@@ -767,7 +775,6 @@
       text-overflow: ellipsis;
     }
 
-    /* FIX NÚT TRONG CÁC Ô LINK / SCRIPT / APK / IOS */
     .box-btn {
       background: #22c55e !important;
       color: #ffffff !important;
@@ -795,10 +802,10 @@
     }
 
     .script-text {
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 6px;
-      padding: 6px 8px;
+      border-radius: 8px;
+      padding: 6px 10px;
       font-family: monospace;
       font-size: 0.72rem;
       color: #86efac;
@@ -807,10 +814,10 @@
     }
 
     .card-footer {
-      font-size: 0.72rem;
-      font-weight: 700;
+      font-size: 0.75rem;
+      font-weight: 800;
       color: rgba(255, 255, 255, 0.95);
-      text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
       padding-top: 4px;
     }
 
@@ -821,10 +828,11 @@
       font-size: 0.72rem;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.95);
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
       padding: 4px 10px;
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       z-index: 100;
       pointer-events: none;
     }
@@ -883,48 +891,51 @@
       </svg>
     </div>
 
+    <!-- CÂY ĐƯỢC FIX LỖI TÁN LÁ VÀ PHÂN NHÁNH CÀNH TỰ NHIÊN -->
     <div class="tree-group">
       <svg class="big-tree tree-1" viewBox="0 0 160 220">
         <defs>
-          <linearGradient id="trunkGrad1" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#2a1a0a"/>
-            <stop offset="100%" stop-color="#4a2e18"/>
+          <linearGradient id="trunkGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1c1007"/>
+            <stop offset="100%" stop-color="#3d2413"/>
           </linearGradient>
-          <linearGradient id="foliageGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+          <linearGradient id="foliageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#4ade80"/>
             <stop offset="50%" stop-color="#22c55e"/>
-            <stop offset="100%" stop-color="#15803d"/>
+            <stop offset="100%" stop-color="#14532d"/>
           </linearGradient>
         </defs>
-        <path d="M 72 220 C 72 165, 68 135, 62 105 C 55 85, 35 70, 20 65 L 25 58 C 42 65, 58 82, 65 98 C 72 80, 90 65, 115 50 L 118 58 C 96 70, 80 85, 76 105 L 86 220 Z" fill="url(#trunkGrad1)"/>
-        <circle cx="80" cy="110" r="54" fill="#052e16" opacity="0.6"/>
-        <circle cx="45" cy="95" r="42" fill="url(#foliageGrad1)"/>
-        <circle cx="115" cy="95" r="42" fill="url(#foliageGrad1)"/>
-        <circle cx="80" cy="55" r="46" fill="url(#foliageGrad1)"/>
-        <circle cx="80" cy="40" r="28" fill="#bbf7d0" opacity="0.8"/>
+        <!-- Cành thân cây rõ ràng -->
+        <path d="M 72 220 L 74 130 C 74 110, 50 85, 30 75 L 34 68 C 58 78, 76 100, 78 115 C 82 95, 102 75, 125 60 L 128 67 C 108 80, 86 98, 84 125 L 86 220 Z" fill="url(#trunkGrad)"/>
+        <!-- Tán lá chuẩn không đốm trắng -->
+        <circle cx="80" cy="100" r="50" fill="url(#foliageGrad)"/>
+        <circle cx="45" cy="85" r="38" fill="url(#foliageGrad)"/>
+        <circle cx="115" cy="85" r="38" fill="url(#foliageGrad)"/>
+        <circle cx="80" cy="50" r="42" fill="url(#foliageGrad)"/>
       </svg>
 
       <svg class="big-tree tree-2" viewBox="0 0 160 220">
-        <path d="M 75 220 C 75 160, 70 120, 65 90 C 60 75, 40 60, 30 55 L 34 48 C 48 55, 62 70, 68 85 C 75 70, 92 55, 110 42 L 114 48 C 98 60, 82 72, 78 92 L 85 220 Z" fill="url(#trunkGrad1)"/>
-        <circle cx="80" cy="95" r="48" fill="url(#foliageGrad1)"/>
-        <circle cx="48" cy="85" r="36" fill="url(#foliageGrad1)"/>
-        <circle cx="112" cy="85" r="36" fill="url(#foliageGrad1)"/>
-        <circle cx="80" cy="50" r="38" fill="url(#foliageGrad1)"/>
+        <path d="M 74 220 L 76 125 C 76 105, 52 82, 32 72 L 36 65 C 60 75, 78 95, 80 110 C 84 92, 102 72, 122 58 L 125 65 C 107 77, 88 94, 86 120 L 88 220 Z" fill="url(#trunkGrad)"/>
+        <circle cx="80" cy="95" r="46" fill="url(#foliageGrad)"/>
+        <circle cx="48" cy="80" r="34" fill="url(#foliageGrad)"/>
+        <circle cx="112" cy="80" r="34" fill="url(#foliageGrad)"/>
+        <circle cx="80" cy="48" r="36" fill="url(#foliageGrad)"/>
       </svg>
 
       <svg class="big-tree tree-3" viewBox="0 0 160 220">
-        <path d="M 72 220 C 72 165, 68 135, 62 105 C 55 85, 35 70, 20 65 L 25 58 C 42 65, 58 82, 65 98 C 72 80, 90 65, 115 50 L 118 58 C 96 70, 80 85, 76 105 L 86 220 Z" fill="url(#trunkGrad1)"/>
-        <circle cx="80" cy="110" r="54" fill="#052e16" opacity="0.6"/>
-        <circle cx="45" cy="95" r="42" fill="url(#foliageGrad1)"/>
-        <circle cx="115" cy="95" r="42" fill="url(#foliageGrad1)"/>
-        <circle cx="80" cy="55" r="46" fill="url(#foliageGrad1)"/>
+        <path d="M 72 220 L 74 130 C 74 110, 50 85, 30 75 L 34 68 C 58 78, 76 100, 78 115 C 82 95, 102 75, 125 60 L 128 67 C 108 80, 86 98, 84 125 L 86 220 Z" fill="url(#trunkGrad)"/>
+        <circle cx="80" cy="100" r="50" fill="url(#foliageGrad)"/>
+        <circle cx="45" cy="85" r="38" fill="url(#foliageGrad)"/>
+        <circle cx="115" cy="85" r="38" fill="url(#foliageGrad)"/>
+        <circle cx="80" cy="50" r="42" fill="url(#foliageGrad)"/>
       </svg>
 
       <svg class="big-tree tree-4" viewBox="0 0 160 220">
-        <path d="M 75 220 C 75 160, 70 120, 65 90 C 60 75, 40 60, 30 55 L 34 48 C 48 55, 62 70, 68 85 C 75 70, 92 55, 110 42 L 114 48 C 98 60, 82 72, 78 92 L 85 220 Z" fill="url(#trunkGrad1)"/>
-        <circle cx="80" cy="95" r="48" fill="url(#foliageGrad1)"/>
-        <circle cx="48" cy="85" r="36" fill="url(#foliageGrad1)"/>
-        <circle cx="112" cy="85" r="36" fill="url(#foliageGrad1)"/>
+        <path d="M 74 220 L 76 125 C 76 105, 52 82, 32 72 L 36 65 C 60 75, 78 95, 80 110 C 84 92, 102 72, 122 58 L 125 65 C 107 77, 88 94, 86 120 L 88 220 Z" fill="url(#trunkGrad)"/>
+        <circle cx="80" cy="95" r="46" fill="url(#foliageGrad)"/>
+        <circle cx="48" cy="80" r="34" fill="url(#foliageGrad)"/>
+        <circle cx="112" cy="80" r="34" fill="url(#foliageGrad)"/>
+        <circle cx="80" cy="48" r="36" fill="url(#foliageGrad)"/>
       </svg>
     </div>
 
@@ -934,6 +945,7 @@
     </div>
   </div>
 
+  <!-- FRAMELESS CARD CONTAINER -->
   <div class="glass-card">
     
     <div class="card-header">
@@ -1097,7 +1109,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
   <div class="version-tag">Version 7.5</div>
 
   <script>
-    // 🌾 1. TẠO CỎ SVG
+    // 🌾 1. CỎ DẦY TRỰC QUAN SVG
     function generateDenseGrassSVG(svgId, isBack) {
       const svg = document.getElementById(svgId);
       if (!svg) return;
@@ -1119,7 +1131,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     generateDenseGrassSVG('grass-back-svg', true);
     generateDenseGrassSVG('grass-front-svg', false);
 
-    // ☁️ 2. MÂY TRÔI
+    // ☁️ 2. MÂY TRÔI VỚI HIỆU ỨNG THỜI TIẾT
     const movingCloudsContainer = document.getElementById('moving-clouds');
     
     function createCloudSVG() {
@@ -1150,7 +1162,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }
     }
 
-    // 🔊 3. HỆ THỐNG ÂM THANH AMBIENT MỚI (TRONG TRẺO - DÀI - NHẸ NHÀNG - TỰ NHIÊN)
+    // 🔊 3. AUDIO ENGINE HOÀN TRỈNH & NÂNG CẤP TIẾNG DẾ ĐÊM
     let audioCtx = null;
     let masterGain = null;
     let masterVolume = 0.5;
@@ -1159,6 +1171,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     let rainGain = null;
     let ambientPadGain = null;
     let weatherMelodyTimer = null;
+    let cricketTimer = null;
     let activeOscillators = [];
 
     function initAudioEngine() {
@@ -1186,10 +1199,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         stopWeatherMelodyLoop();
+        stopCricketLoop();
         if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
       } else {
         if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
         startWeatherMelodyLoop();
+        if (currentMode === 'NIGHT') startCricketLoop();
       }
     });
 
@@ -1216,7 +1231,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         output[i] = Math.random() * 2 - 1;
       }
 
-      // 🍃 GIÓ TỰ NHIÊN VỚI LOWPASS FILTER SÂU (ÊM ÁI)
+      // 🍃 GIÓ TỰ NHIÊN
       const windNoise = audioCtx.createBufferSource();
       windNoise.buffer = noiseBuffer;
       windNoise.loop = true;
@@ -1233,7 +1248,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       windGain.connect(masterGain);
       windNoise.start();
 
-      // 🌧️ MƯA DỊU NHẸ
+      // 🌧️ MƯA RƠI
       const rainNoise = audioCtx.createBufferSource();
       rainNoise.buffer = noiseBuffer;
       rainNoise.loop = true;
@@ -1250,9 +1265,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       rainGain.connect(masterGain);
       rainNoise.start();
 
-      // 🎹 AMBIENT CHORD PAD (NGÂN DÀI VÀ TRONG TRẺO)
+      // 🎹 AMBIENT CHORD PAD
       ambientPadGain = audioCtx.createGain();
-      ambientPadGain.gain.value = 0.03;
+      ambientPadGain.gain.value = 0.035;
       ambientPadGain.connect(masterGain);
 
       updateSoundVolumes();
@@ -1265,33 +1280,84 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         windFilter.frequency.setTargetAtTime(220, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.02, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
+        stopCricketLoop();
       } else if (currentMode === 'SUNSET') {
         windFilter.frequency.setTargetAtTime(180, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.025, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
+        stopCricketLoop();
       } else if (currentMode === 'NIGHT') {
         windFilter.frequency.setTargetAtTime(150, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.015, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
+        startCricketLoop(); // BẬT TIẾNG DẾ BAN ĐÊM
       } else if (currentMode === 'RAIN') {
         windFilter.frequency.setTargetAtTime(500, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.08, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0.12, audioCtx.currentTime, 0.8);
+        stopCricketLoop();
       } else if (currentMode === 'STORM') {
         windFilter.frequency.setTargetAtTime(850, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.18, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0.22, audioCtx.currentTime, 0.8);
+        stopCricketLoop();
       }
 
       startWeatherMelodyLoop();
     }
 
-    // 🎼 ÂM TẦN TRONG TRẺO - NGÂN DÀI MANG CẢM GIÁC THƯ GIÃN
-    const chordSunny = [523.25, 659.25, 783.99, 1046.50]; // C Major 7
-    const chordSunset = [349.23, 440.00, 523.25, 659.25]; // F Major 7
-    const chordNight = [440.00, 523.25, 659.25, 783.99];  // A Minor 7
-    const chordRain = [392.00, 466.16, 587.33, 698.46];   // G Minor 7
-    const chordStorm = [220.00, 261.63, 329.63, 392.00];  // Low D/A Deep
+    // 🦗 ÂM THANH TIẾNG DẾ BAN ĐÊM (CRICKET SYNTHESIZER)
+    function playCricketChirp() {
+      if (!audioCtx || currentMode !== 'NIGHT') return;
+
+      const now = audioCtx.currentTime;
+      const pulses = 3 + Math.floor(Math.random() * 2);
+      const freq = 4500 + Math.random() * 300;
+
+      for (let i = 0; i < pulses; i++) {
+        const startTime = now + i * 0.05;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, startTime);
+
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(0.015, startTime + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.035);
+
+        osc.connect(gain);
+        gain.connect(masterGain);
+
+        osc.start(startTime);
+        osc.stop(startTime + 0.04);
+      }
+    }
+
+    function startCricketLoop() {
+      stopCricketLoop();
+      function cricketCycle() {
+        if (currentMode === 'NIGHT') {
+          playCricketChirp();
+          cricketTimer = setTimeout(cricketCycle, 800 + Math.random() * 2500);
+        }
+      }
+      cricketCycle();
+    }
+
+    function stopCricketLoop() {
+      if (cricketTimer) {
+        clearTimeout(cricketTimer);
+        cricketTimer = null;
+      }
+    }
+
+    // 🎼 HỢP ÂM CÁC THỜI TIẾT
+    const chordSunny = [523.25, 659.25, 783.99, 1046.50]; 
+    const chordSunset = [349.23, 440.00, 523.25, 659.25]; 
+    const chordNight = [440.00, 523.25, 659.25, 783.99];  
+    const chordRain = [392.00, 466.16, 587.33, 698.46];   
+    const chordStorm = [220.00, 261.63, 329.63, 392.00];  
 
     function playAmbientChord(freqs, duration = 12) {
       if (!audioCtx) return;
@@ -1304,12 +1370,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
-        const attack = 3.0 + idx * 0.5; // Ngân lên mượt từ từ
-        const release = 4.0;
+        const attack = 2.5 + idx * 0.4;
+        const release = 3.5;
 
         gain.gain.setValueAtTime(0, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + attack);
-        gain.gain.setValueAtTime(0.015, audioCtx.currentTime + duration - release);
+        gain.gain.linearRampToValueAtTime(0.018, audioCtx.currentTime + attack);
+        gain.gain.setValueAtTime(0.018, audioCtx.currentTime + duration - release);
         gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
 
         osc.connect(gain);
@@ -1339,8 +1405,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         else if (currentMode === 'RAIN') currentChord = chordRain;
         else if (currentMode === 'STORM') currentChord = chordStorm;
 
-        playAmbientChord(currentChord, 14);
-        weatherMelodyTimer = setTimeout(loop, 12000);
+        playAmbientChord(currentChord, 13);
+        weatherMelodyTimer = setTimeout(loop, 11500);
       }
 
       loop();
@@ -1354,7 +1420,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       stopAllMelodies();
     }
 
-    // 🐦 ÂM THANH TIẾNG CHIM HÓT LÍU LO DỊU NHẸ
+    // 🐦 ÂM THANH TIẾNG CHIM HÓT LÍU LO
     function playBirdChirpSound() {
       if (!audioCtx || currentMode === 'NIGHT' || currentMode === 'STORM') return;
       
@@ -1378,12 +1444,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       osc.stop(now + 0.3);
     }
 
-    // 🍃 ÂM THANH LÁ XẠC XÀO KHI BAY
+    // 🍃 ÂM THANH LÁ BAY XẠC XÀO
     function playLeafRustleSound() {
       if (!audioCtx || currentMode === 'NIGHT') return;
 
       const now = audioCtx.currentTime;
-      const bufferSize = audioCtx.sampleRate * 0.4;
+      const bufferSize = audioCtx.sampleRate * 0.35;
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
@@ -1398,8 +1464,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
       const gain = audioCtx.createGain();
       gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.015, now + 0.15);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.38);
+      gain.gain.linearRampToValueAtTime(0.015, now + 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
 
       noise.connect(filter);
       filter.connect(gain);
@@ -1408,7 +1474,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       noise.start(now);
     }
 
-    // ⚡ SẤM NỔ BÃO
+    // ⚡ SẤM BÃO
     function triggerLightningAndThunder() {
       if (currentMode !== 'STORM') return;
       
@@ -1464,7 +1530,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       osc.stop(audioCtx.currentTime + 0.07);
     }
 
-    // 🌟 5. SAO BAN ĐÊM
+    // 🌟 5. SAO ĐÊM
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 40; i++) {
       const star = document.createElement('div');
@@ -1488,15 +1554,15 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       rainBox.appendChild(drop);
     }
 
-    // 🦅 7. CHIM BAY & TIẾNG CHIM
+    // 🦅 7. CHIM BAY (ĐÃ FIX LỖI KHÔNG XUẤT HIỆN)
     const birdBox = document.getElementById('bird-box');
     function spawnFlyingBird() {
       if (currentMode === 'NIGHT' || currentMode === 'STORM') return;
 
       const bird = document.createElement('div');
       bird.classList.add('flying-bird');
-      bird.style.left = '-40px';
-      bird.style.top = (Math.random() * 25 + 5) + 'vh';
+      bird.style.left = '-50px';
+      bird.style.top = (Math.random() * 22 + 8) + 'vh';
 
       bird.innerHTML = `
         <svg viewBox="0 0 100 60">
@@ -1505,47 +1571,32 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       `;
 
       birdBox.appendChild(bird);
-      playBirdChirpSound(); // Phát âm thanh chim hót khi chim xuất hiện
+      playBirdChirpSound();
 
-      const willPerch = Math.random() < 0.45;
-      if (willPerch) {
-        setTimeout(() => {
-          bird.classList.add('perched');
-          bird.style.top = '78vh';
-          bird.style.left = (Math.random() * 20 + 5) + 'vw';
-          playBirdChirpSound();
+      requestAnimationFrame(() => {
+        bird.style.left = '110vw';
+        bird.style.top = (Math.random() * 25 + 5) + 'vh';
+      });
 
-          setTimeout(() => {
-            bird.classList.remove('perched');
-            bird.style.top = (Math.random() * 20 + 5) + 'vh';
-            bird.style.left = '110vw';
-            playBirdChirpSound();
-            setTimeout(() => bird.remove(), 4000);
-          }, 3500);
-        }, 2000);
-      } else {
-        setTimeout(() => {
-          bird.style.left = '110vw';
-          bird.style.top = (Math.random() * 30 + 5) + 'vh';
-          setTimeout(() => bird.remove(), 6000);
-        }, 50);
-      }
+      setTimeout(() => {
+        bird.remove();
+      }, 5800);
     }
 
     setInterval(() => {
-      if (Math.random() < 0.6) spawnFlyingBird();
-    }, 7500);
+      if (Math.random() < 0.7) spawnFlyingBird();
+    }, 5000);
 
-    // 🌤️ 8. ICON THỜI TIẾT
+    // 🌤️ 8. ICON THỜI TIẾT CĂN GIỮA CHUẨN
     const svgIcons = {
-      SUNNY: `<svg viewBox="0 0 64 64" width="100%" height="100%"><defs><radialGradient id="sunG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff59d"/><stop offset="100%" stop-color="#f57f17"/></radialGradient></defs><circle cx="32" cy="32" r="16" fill="url(#sunG)" filter="drop-shadow(0 0 8px #f57f17)"/><g stroke="#fbc02d" stroke-width="3.5" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="10"/><line x1="32" y1="54" x2="32" y2="60"/><line x1="4" y1="32" x2="10" y2="32"/><line x1="54" y1="32" x2="60" y2="32"/><line x1="12.2" y1="12.2" x2="16.5" y2="16.5"/><line x1="47.5" y1="47.5" x2="51.8" y2="51.8"/><line x1="12.2" y1="51.8" x2="16.5" y2="47.5"/><line x1="47.5" y1="16.5" x2="51.8" y2="12.2"/></g></svg>`,
-      SUNSET: `<svg viewBox="0 0 64 64" width="100%" height="100%"><path d="M12 38 a20 20 0 0 1 40 0 Z" fill="#ff7043"/><line x1="6" y1="44" x2="58" y2="44" stroke="#ff7043" stroke-width="4" stroke-linecap="round"/><line x1="14" y1="52" x2="50" y2="52" stroke="#ffb74d" stroke-width="3.5" stroke-linecap="round"/></svg>`,
-      RAIN: `<svg viewBox="0 0 64 64" width="100%" height="100%"><path d="M46 36 A12 12 0 0 0 24.5 28 A16 16 0 0 0 8 42 a10 10 0 0 0 10 10 h28 a10 10 0 0 0 0-20 Z" fill="#90a4ae"/><line x1="20" y1="54" x2="16" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="54" x2="28" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/><line x1="44" y1="54" x2="40" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/></svg>`,
-      STORM: `<svg viewBox="0 0 64 64" width="100%" height="100%"><path d="M46 32 A12 12 0 0 0 24.5 24 A16 16 0 0 0 8 38 a10 10 0 0 0 10 10 h28 a10 10 0 0 0 0-20 Z" fill="#455a64"/><polygon points="34,36 24,48 31,48 26,60 40,44 32,44" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1"/></svg>`,
-      NIGHT: `<svg viewBox="0 0 64 64" width="100%" height="100%"><path d="M48 38 A20 20 0 1 1 26 16 A16 16 0 0 0 48 38 Z" fill="#fff176" filter="drop-shadow(0 0 10px #fbc02d)"/></svg>`
+      SUNNY: `<svg viewBox="0 0 64 64"><defs><radialGradient id="sunG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff59d"/><stop offset="100%" stop-color="#f57f17"/></radialGradient></defs><circle cx="32" cy="32" r="16" fill="url(#sunG)" filter="drop-shadow(0 0 8px #f57f17)"/><g stroke="#fbc02d" stroke-width="3.5" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="10"/><line x1="32" y1="54" x2="32" y2="60"/><line x1="4" y1="32" x2="10" y2="32"/><line x1="54" y1="32" x2="60" y2="32"/><line x1="12.2" y1="12.2" x2="16.5" y2="16.5"/><line x1="47.5" y1="47.5" x2="51.8" y2="51.8"/><line x1="12.2" y1="51.8" x2="16.5" y2="47.5"/><line x1="47.5" y1="16.5" x2="51.8" y2="12.2"/></g></svg>`,
+      SUNSET: `<svg viewBox="0 0 64 64"><path d="M12 38 a20 20 0 0 1 40 0 Z" fill="#ff7043"/><line x1="6" y1="44" x2="58" y2="44" stroke="#ff7043" stroke-width="4" stroke-linecap="round"/><line x1="14" y1="52" x2="50" y2="52" stroke="#ffb74d" stroke-width="3.5" stroke-linecap="round"/></svg>`,
+      RAIN: `<svg viewBox="0 0 64 64"><path d="M46 36 A12 12 0 0 0 24.5 28 A16 16 0 0 0 8 42 a10 10 0 0 0 10 10 h28 a10 10 0 0 0 0-20 Z" fill="#90a4ae"/><line x1="20" y1="54" x2="16" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="54" x2="28" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/><line x1="44" y1="54" x2="40" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/></svg>`,
+      STORM: `<svg viewBox="0 0 64 64"><path d="M46 32 A12 12 0 0 0 24.5 24 A16 16 0 0 0 8 38 a10 10 0 0 0 10 10 h28 a10 10 0 0 0 0-20 Z" fill="#455a64"/><polygon points="34,36 24,48 31,48 26,60 40,44 32,44" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1"/></svg>`,
+      NIGHT: `<svg viewBox="0 0 64 64"><path d="M48 38 A20 20 0 1 1 26 16 A16 16 0 0 0 48 38 Z" fill="#fff176" filter="drop-shadow(0 0 10px #fbc02d)"/></svg>`
     };
 
-    // 🌐 9. ĐỒNG BỘ THỜI TIẾT
+    // 🌐 9. ĐỒNG BỘ MẬT ĐỘ THỜI TIẾT
     const weatherTimeline = [
       { mode: 'SUNNY', duration: 600 },
       { mode: 'SUNSET', duration: 180 },
@@ -1630,12 +1681,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     setInterval(updateSyncedWeather, 1000);
     updateSyncedWeather();
 
-    // 🍃 10. LÁ BAY & TIẾNG LÁ XẠC XÀO
+    // 🍃 10. LÁ BAY & ÂM THANH
     function createCustomLeafSVG() {
       const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       svg.setAttribute("viewBox", "0 0 100 100");
-      svg.setAttribute("width", "32");
-      svg.setAttribute("height", "32");
+      svg.setAttribute("width", "30");
+      svg.setAttribute("height", "30");
       svg.innerHTML = `
         <defs>
           <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1663,11 +1714,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
       leafWrap.style.animationDuration = duration + 's';
       leafBox.appendChild(leafWrap);
-      playLeafRustleSound(); // Âm thanh xạc xào dịu nhẹ khi lá rơi
+      playLeafRustleSound();
 
       setTimeout(() => { leafWrap.remove(); }, duration * 1000);
     }
-    setInterval(createChillLeaf, 1600);
+    setInterval(createChillLeaf, 1800);
 
     // 💨 11. GIÓ THỔI
     const windBox = document.getElementById('wind-box');
@@ -1687,7 +1738,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
     setInterval(createWindStreak, 900);
 
-    // 🗂️ 12. CHUYỂN TAB MƯỢT MA & FIX LỖI HIỂN THỊ NỀN NÚT
+    // 🗂️ 12. CHUYỂN TAB MƯỢT MÀ VỚI CSS GRID FIX
     function switchTab(tabId, btnElement, playSound = true) {
       if (playSound) playClickSound();
 
@@ -1698,25 +1749,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       if (btnElement) btnElement.classList.add('active');
 
       tabs.forEach(tab => {
-        if (tab.classList.contains('active')) {
-          tab.style.opacity = '0';
-          tab.style.transform = 'translate3d(0, 10px, 0)';
-          setTimeout(() => {
-            tab.classList.remove('active');
-          }, 150);
+        if (tab.id === tabId) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
         }
       });
-
-      setTimeout(() => {
-        const selectedTab = document.getElementById(tabId);
-        if (selectedTab) {
-          selectedTab.classList.add('active');
-          requestAnimationFrame(() => {
-            selectedTab.style.opacity = '1';
-            selectedTab.style.transform = 'translate3d(0, 0, 0)';
-          });
-        }
-      }, 150);
 
       localStorage.setItem('skibidi_active_tab', tabId);
     }
