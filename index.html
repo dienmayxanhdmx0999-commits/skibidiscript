@@ -32,7 +32,7 @@
       transition: background 1.5s ease, color 1.5s ease;
     }
 
-    /* ⚡ SÉT ĐÁNH KHI BÃO */
+    /* ⚡ SẤM SÉT */
     #lightning-flash {
       position: fixed;
       top: 0;
@@ -46,7 +46,7 @@
       transition: opacity 0.05s ease-out;
     }
 
-    /* 🌪️ LỚP PHỦ TỐI MÀN HÌNH KHI BÃO DỮ DỘI */
+    /* 🌪️ TỐI MÀN HÌNH KHI BÃO */
     #storm-darkness {
       position: fixed;
       top: 0;
@@ -64,7 +64,7 @@
       opacity: 1;
     }
 
-    /* 🚀 TỐI ƯU HÓA GPU */
+    /* 🚀 GPU OPTIMIZATION */
     .sun-element, .moon-element, .drop, .wind-streak, 
     .chill-leaf-item, .big-tree, .grass-svg, .glass-card, 
     .flying-bird, .moving-cloud, .star, .mountain-svg {
@@ -73,7 +73,7 @@
       transform: translateZ(0);
     }
 
-    /* ☀️ TRỜI NẮNG */
+    /* ☀️ NẮNG */
     body.weather-sunny {
       background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 40%, #4ade80 75%, #15803d 100%);
       color: #ffffff;
@@ -85,19 +85,19 @@
       color: #fff7ed;
     }
 
-    /* 🌧️ TRỜI MƯA */
+    /* 🌧️ MƯA */
     body.weather-rain {
       background: linear-gradient(180deg, #334155 0%, #475569 50%, #166534 85%, #14532d 100%);
       color: #f8fafc;
     }
 
-    /* 🌩️ TRỜI BÃO DỮ DỘI (TỐI SẦM MÀN HÌNH) */
+    /* 🌩️ BÃO */
     body.weather-storm {
       background: linear-gradient(180deg, #020617 0%, #0f172a 45%, #022c22 80%, #011710 100%);
       color: #f1f5f9;
     }
 
-    /* 🌙 BAN ĐÊM */
+    /* 🌙 ĐÊM */
     body.weather-night {
       background: linear-gradient(180deg, #020617 0%, #0f172a 50%, #064e3b 85%, #022c22 100%);
       color: #cbd5e1;
@@ -164,7 +164,6 @@
       height: 100vh;
       pointer-events: none;
       z-index: 3;
-      display: none;
     }
 
     .drop {
@@ -253,7 +252,7 @@
       100% { transform: translate3d(105vw, 0, 0); }
     }
 
-    /* 💨 GIÓ THỔI */
+    /* 💨 GIÓ THỔI HIỆN RÕ RÀNG */
     .wind-container {
       position: fixed;
       top: 0;
@@ -261,62 +260,24 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 2;
+      z-index: 3;
     }
 
     .wind-streak {
       position: absolute;
       height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
       border-radius: 50%;
       animation: windPass linear infinite;
     }
 
     @keyframes windPass {
-      0% { transform: translate3d(-30vw, 0, 0); opacity: 0; }
-      50% { opacity: 0.9; }
-      100% { transform: translate3d(130vw, 0, 0); opacity: 0; }
+      0% { transform: translate3d(-40vw, 0, 0); opacity: 0; }
+      50% { opacity: 0.85; }
+      100% { transform: translate3d(120vw, 0, 0); opacity: 0; }
     }
 
-    /* 🦅 CHIM BAY THÊM NHIỀU CẢNH BÀY DÀN */
-    .bird-fly-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 10;
-      overflow: hidden;
-    }
-
-    .flying-bird {
-      position: absolute;
-      width: 38px;
-      height: 26px;
-      transition: top 2.2s ease-in-out, left 5.5s linear, transform 1.2s ease;
-    }
-
-    .flying-bird svg {
-      width: 100%;
-      height: 100%;
-      fill: rgba(255, 255, 255, 0.95);
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
-    }
-
-    body.weather-night .flying-bird svg { fill: rgba(148, 163, 184, 0.6); }
-
-    .wing {
-      transform-origin: center;
-      animation: flapWings 0.18s ease-in-out infinite alternate;
-    }
-
-    @keyframes flapWings {
-      0% { transform: scaleY(1); }
-      100% { transform: scaleY(-0.5); }
-    }
-
-    /* 🍃 LÁ BAY */
+    /* 🍃 LÁ CÂY BAY ĐIỀU CHỈNH HOẠT HỌA */
     .leaf-container {
       position: fixed;
       top: 0;
@@ -340,7 +301,7 @@
       100% { transform: translate3d(110vw, 95vh, 0) rotate(360deg); opacity: 0; }
     }
 
-    /* 🏞️ PHONG CẢNH NÚI PHÍA XA + ĐỒI CAO + CÂY CAO NỔI BẬT */
+    /* 🏞️ PHONG CẢNH NÚI PHÍA XA + ĐỒI CAO */
     .nature-bottom {
       position: fixed;
       bottom: 0;
@@ -352,7 +313,6 @@
       overflow: visible;
     }
 
-    /* ⛰️ NHỮNG NGỌN NÚI PHÍA XA */
     .mountains-wrapper {
       position: absolute;
       bottom: 90px;
@@ -380,7 +340,6 @@
     body.weather-night .mountain-back { fill: #022c22; }
     body.weather-night .mountain-front { fill: #032e19; }
 
-    /* ⛰️ CÁC ĐỒI CAO CAO + CÂY PHÍA XA */
     .hills-wrapper {
       position: absolute;
       bottom: 30px;
@@ -416,7 +375,7 @@
       z-index: 2;
     }
 
-    /* 🌲 CÂY ĐƯỢC NÂNG CAO LÊN & THÊM CÁC NGỌN CÀNH CÀNH NHÁNH CHI TIẾT */
+    /* 🌲 SỬA LỖI CÀNH CÂY - BAO BỌC LÁ ĐẦY ĐẶN CHE CÁC ĐẦU CÀNH */
     .big-tree {
       position: absolute;
       bottom: 0;
@@ -470,7 +429,7 @@
       100% { transform: skewX(5deg); }
     }
 
-    /* 🚀 HEADER BAR & WIDGET */
+    /* 🚀 HEADER BAR */
     .top-left-bar {
       position: fixed;
       top: 14px;
@@ -506,19 +465,6 @@
       gap: 6px;
     }
 
-    .weather-cd-icon {
-      width: 22px;
-      height: 22px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .weather-cd-icon svg {
-      width: 100%;
-      height: 100%;
-    }
-
     .weather-cd-timer {
       font-family: monospace;
       font-size: 0.92rem;
@@ -526,7 +472,6 @@
       color: #4ade80;
     }
 
-    /* ☰ MENU & AUDIO POPUP */
     .top-right-bar {
       position: fixed;
       top: 14px;
@@ -549,13 +494,10 @@
       align-items: center;
       gap: 4px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .menu-hamburger-btn:active {
-      transform: scale(0.92);
-    }
-
+    .menu-hamburger-btn:active { transform: scale(0.92); }
     .menu-hamburger-btn span {
       width: 20px;
       height: 2px;
@@ -578,18 +520,9 @@
       display: none;
       flex-direction: column;
       gap: 10px;
-      transform-origin: top right;
-      animation: popupSlide 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .audio-popup.show {
-      display: flex;
-    }
-
-    @keyframes popupSlide {
-      from { opacity: 0; transform: scale(0.85); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    .audio-popup.show { display: flex; }
 
     .popup-title {
       font-size: 0.82rem;
@@ -623,27 +556,83 @@
       border-radius: 50%;
       background: #4ade80;
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
     }
 
-    /* 📱 GIAO DIỆN CHÍNH - BỎ MỜ ĐỂ THẤY PHONG CẢNH + BỔ SUNG VIỀN NGOÀI SANG TRỌNG */
-    .glass-card {
+    /* 📦 MAIN CONTAINER & MỤC HỖ TRỢ NẰM NGOÀI TRÊN KHUNG */
+    .main-wrapper {
       position: relative;
       z-index: 20;
       width: 100%;
       max-width: 410px;
       margin: 0 auto;
-      background: rgba(0, 0, 0, 0.15); /* Nền cực nhẹ để không che phong cảnh */
-      backdrop-filter: none; /* KHÔNG MỜ ĐỂ THẤY PHÍA SAU */
-      -webkit-backdrop-filter: none;
-      border: 1.5px solid rgba(255, 255, 255, 0.35); /* VIỀN BAO PHỦ SANG TRỌNG */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* 💙 MỤC HỖ TRỢ NHỎ NẰM NGOÀI TRÊN CÙNG SANH TRỌNG */
+    .support-top-badge {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1.5px solid #0068FF;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 8px 14px;
+      box-shadow: 0 6px 20px rgba(0, 104, 255, 0.25);
+    }
+
+    .support-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .support-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .support-text-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .support-text-sub {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .support-btn {
+      background: #0068FF;
+      color: #ffffff;
+      border: 1px solid #38bdf8;
+      border-radius: 10px;
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    .support-btn:active { transform: scale(0.95); }
+
+    /* 📱 GIAO DIỆN CHÍNH */
+    .glass-card {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
       border-radius: 28px;
       padding: 18px 14px;
       display: flex;
       flex-direction: column;
       gap: 14px;
       text-align: center;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(255, 255, 255, 0.05);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
     }
 
     .card-header {
@@ -652,27 +641,23 @@
       align-items: center;
     }
 
-    /* 🟢 Ô TRÒN BAO BỌC ICON THỜI TIẾT THẨM MỸ */
     .weather-status-box {
       width: 68px;
       height: 68px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.15);
       border: 1.5px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.2);
       display: flex;
       justify-content: center;
       align-items: center;
       margin-bottom: 10px;
       user-select: none;
       padding: 10px;
-      transition: all 0.3s ease;
     }
 
     .weather-status-box svg {
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
     }
 
     .title-box {
@@ -684,7 +669,6 @@
       padding: 6px 24px;
       display: inline-block;
       margin-bottom: 6px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .title {
@@ -692,7 +676,6 @@
       font-weight: 900;
       letter-spacing: 2px;
       color: #ffffff;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
       text-transform: uppercase;
       line-height: 1.1;
     }
@@ -702,7 +685,6 @@
       font-size: 0.82rem;
       letter-spacing: 0.5px;
       font-weight: 800;
-      text-shadow: 0 1px 5px rgba(0,0,0,0.8);
     }
 
     /* 🗂️ NAV TABS */
@@ -727,20 +709,7 @@
       font-size: 0.85rem;
       font-weight: 800;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav-btn:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .nav-btn:active {
-      transform: scale(0.95);
+      transition: all 0.25s ease;
     }
 
     .nav-btn.active {
@@ -750,7 +719,6 @@
       box-shadow: 0 4px 15px rgba(34, 197, 94, 0.6) !important;
     }
 
-    /* 🎴 KHU VỰC TAB HÀM LƯỢNG NỘI DUNG */
     .tab-content-wrapper {
       position: relative;
       display: grid;
@@ -771,14 +739,11 @@
       opacity: 0;
       visibility: hidden;
       transform: translate3d(0, 12px, 0);
-      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
-                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                  visibility 0.35s ease;
+      transition: all 0.35s ease;
       pointer-events: none;
     }
 
     .tab-content::-webkit-scrollbar { width: 4px; }
-    .tab-content::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
     .tab-content::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.4); border-radius: 10px; }
 
     .tab-content.active {
@@ -798,14 +763,6 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
-    }
-
-    .box:hover {
-      border-color: rgba(255, 255, 255, 0.6);
-      background: rgba(15, 23, 42, 0.7);
-      transform: translate3d(0, -2px, 0);
     }
 
     .box-header {
@@ -819,7 +776,6 @@
       font-size: 0.85rem;
       font-weight: 700;
       color: #ffffff;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -835,20 +791,6 @@
       font-weight: 800;
       text-decoration: none;
       cursor: pointer;
-      text-align: center;
-      white-space: nowrap;
-      transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background 0.2s ease;
-      box-shadow: 0 3px 10px rgba(34, 197, 94, 0.4);
-      display: inline-block;
-    }
-
-    .box-btn:hover {
-      transform: scale(1.05);
-      background: #4ade80 !important;
-    }
-
-    .box-btn:active {
-      transform: scale(0.95);
     }
 
     .script-text {
@@ -867,7 +809,6 @@
       font-size: 0.75rem;
       font-weight: 800;
       color: rgba(255, 255, 255, 0.95);
-      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
       padding-top: 4px;
     }
 
@@ -884,7 +825,6 @@
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.25);
       z-index: 100;
-      pointer-events: none;
     }
   </style>
 </head>
@@ -902,13 +842,13 @@
   <div class="rain-container" id="rain-box"></div>
   <div class="wind-container" id="wind-box"></div>
 
-  <div class="bird-fly-container" id="bird-box"></div>
   <div class="leaf-container" id="leaf-box"></div>
 
+  <!-- HEADER COUNTER -->
   <div class="top-left-bar">
     <div class="weather-countdown-widget">
       <span class="weather-cd-text">
-        <span class="weather-cd-icon" id="weather-next-icon"></span>
+        <span id="weather-next-icon">☀️</span>
         <span id="weather-next-name">--</span>
       </span>
       <span class="weather-cd-timer" id="weather-timer-text">--:--</span>
@@ -916,7 +856,7 @@
   </div>
 
   <div class="top-right-bar">
-    <button class="menu-hamburger-btn" onclick="toggleAudioPopup()" aria-label="Audio Menu">
+    <button class="menu-hamburger-btn" onclick="toggleAudioPopup()">
       <span></span>
       <span></span>
       <span></span>
@@ -928,14 +868,13 @@
         <span id="volume-value-text" style="color: #4ade80;">80%</span>
       </div>
       <div class="volume-slider-container">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="#ffffff"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
         <input type="range" class="volume-slider" id="volume-range" min="0" max="100" value="80" oninput="changeMasterVolume(this.value)">
       </div>
     </div>
   </div>
 
+  <!-- PHONG CẢNH NỀN -->
   <div class="nature-bottom">
-    <!-- ⛰️ CÁC NGỌN NÚI PHÍA XA HÙNG VĨ -->
     <div class="mountains-wrapper">
       <svg class="mountain-svg" viewBox="0 0 1200 250" preserveAspectRatio="none">
         <path class="mountain-back" d="M 0 250 L 0 110 L 140 45 L 310 135 L 480 20 L 660 125 L 830 35 L 1010 115 L 1200 50 L 1200 250 Z" />
@@ -943,24 +882,14 @@
       </svg>
     </div>
 
-    <!-- ⛰️ ĐỒI CAO CAO + CÂY PHÍA XA -->
     <div class="hills-wrapper">
       <svg class="hill-svg" viewBox="0 0 1200 220" preserveAspectRatio="none">
         <path class="hill-back" d="M 0 220 L 0 50 Q 220 10 480 60 T 960 30 Q 1100 15 1200 40 L 1200 220 Z" />
-        <!-- Các cây nhỏ phía xa trên đỉnh đồi -->
-        <g class="distant-trees" fill="#14532d" opacity="0.6">
-          <polygon points="120,60 125,40 130,60" />
-          <polygon points="128,58 133,35 138,58" />
-          <polygon points="420,70 425,48 430,70" />
-          <polygon points="427,68 432,42 437,68" />
-          <polygon points="780,48 785,28 790,48" />
-          <polygon points="900,42 905,22 910,42" />
-        </g>
         <path class="hill-front" d="M 0 220 L 0 100 Q 180 50 420 95 T 880 70 Q 1060 50 1200 90 L 1200 220 Z" />
       </svg>
     </div>
 
-    <!-- 🌲 CÂY XANH ĐƯỢC TĂNG CHIỀU CAO & THÊM CÁC NGỌN CÀNH SINH ĐỘNG -->
+    <!-- CÂY CÓ LÁ CHE PHỦ KHÔNG CÒN LỖI CÀNH TRƠ -->
     <div class="tree-group">
       <svg class="big-tree tree-1" viewBox="0 0 180 290">
         <defs>
@@ -974,9 +903,12 @@
             <stop offset="100%" stop-color="#14532d"/>
           </linearGradient>
         </defs>
-        <!-- Thân cây & các ngọn cành vươn ra -->
+        <!-- Thân cây -->
         <path d="M 82 290 L 85 140 C 85 110, 50 80, 20 65 L 25 57 C 58 72 82 100 85 120 L 87 85 L 60 50 L 66 45 L 89 75 C 92 50 115 30 145 15 L 149 22 C 122 36 98 58 93 125 L 96 290 Z" fill="url(#trunkGrad)"/>
-        <!-- Tán lá nhiều ngọn xanh mướt -->
+        <!-- Tán lá che kín tất cả các cành cây -->
+        <circle cx="20" cy="62" r="28" fill="url(#foliageGrad)"/>
+        <circle cx="62" cy="48" r="32" fill="url(#foliageGrad)"/>
+        <circle cx="145" cy="18" r="28" fill="url(#foliageGrad)"/>
         <circle cx="90" cy="120" r="58" fill="url(#foliageGrad)"/>
         <circle cx="45" cy="100" r="44" fill="url(#foliageGrad)"/>
         <circle cx="135" cy="100" r="44" fill="url(#foliageGrad)"/>
@@ -986,6 +918,9 @@
 
       <svg class="big-tree tree-2" viewBox="0 0 160 230">
         <path d="M 74 230 L 76 115 C 76 95, 48 72, 28 60 L 33 53 C 58 65 78 88 80 105 L 82 70 L 60 40 L 65 35 L 84 62 C 88 45 108 28 132 15 L 135 22 C 113 34 92 52 88 108 L 90 230 Z" fill="url(#trunkGrad)"/>
+        <circle cx="28" cy="58" r="24" fill="url(#foliageGrad)"/>
+        <circle cx="62" cy="38" r="26" fill="url(#foliageGrad)"/>
+        <circle cx="132" cy="18" r="22" fill="url(#foliageGrad)"/>
         <circle cx="80" cy="95" r="48" fill="url(#foliageGrad)"/>
         <circle cx="45" cy="80" r="36" fill="url(#foliageGrad)"/>
         <circle cx="115" cy="80" r="36" fill="url(#foliageGrad)"/>
@@ -995,6 +930,9 @@
 
       <svg class="big-tree tree-3" viewBox="0 0 180 290">
         <path d="M 82 290 L 85 140 C 85 110, 50 80, 20 65 L 25 57 C 58 72 82 100 85 120 L 87 85 L 60 50 L 66 45 L 89 75 C 92 50 115 30 145 15 L 149 22 C 122 36 98 58 93 125 L 96 290 Z" fill="url(#trunkGrad)"/>
+        <circle cx="20" cy="62" r="28" fill="url(#foliageGrad)"/>
+        <circle cx="62" cy="48" r="32" fill="url(#foliageGrad)"/>
+        <circle cx="145" cy="18" r="28" fill="url(#foliageGrad)"/>
         <circle cx="90" cy="120" r="58" fill="url(#foliageGrad)"/>
         <circle cx="45" cy="100" r="44" fill="url(#foliageGrad)"/>
         <circle cx="135" cy="100" r="44" fill="url(#foliageGrad)"/>
@@ -1004,6 +942,9 @@
 
       <svg class="big-tree tree-4" viewBox="0 0 160 230">
         <path d="M 74 230 L 76 115 C 76 95, 48 72, 28 60 L 33 53 C 58 65 78 88 80 105 L 82 70 L 60 40 L 65 35 L 84 62 C 88 45 108 28 132 15 L 135 22 C 113 34 92 52 88 108 L 90 230 Z" fill="url(#trunkGrad)"/>
+        <circle cx="28" cy="58" r="24" fill="url(#foliageGrad)"/>
+        <circle cx="62" cy="38" r="26" fill="url(#foliageGrad)"/>
+        <circle cx="132" cy="18" r="22" fill="url(#foliageGrad)"/>
         <circle cx="80" cy="95" r="48" fill="url(#foliageGrad)"/>
         <circle cx="45" cy="80" r="36" fill="url(#foliageGrad)"/>
         <circle cx="115" cy="80" r="36" fill="url(#foliageGrad)"/>
@@ -1018,235 +959,233 @@
     </div>
   </div>
 
-  <!-- BẢNG ĐIỀU HƯỚNG CHÍNH - KHUNG TRONG SUỐT CÓ VIỀN BAO PHỦ ĐẸP MẮT -->
-  <div class="glass-card">
+  <!-- CONTAINER CHÍNH BAO GỒM MỤC HỖ TRỢ PHÍA TRÊN BÊN NGOÀI KHUNG -->
+  <div class="main-wrapper">
     
-    <div class="card-header">
-      <!-- Ô TRÒN BỌC ICON THỜI TIẾT THẨM MỸ -->
-      <div class="weather-status-box" id="status-box"></div>
-      
-      <div class="title-box">
-        <h1 class="title">SKIBIDI HUB</h1>
+    <!-- 💙 MỤC HỖ TRỢ NẰM NGOÀI BÊN TRÊN KHUNG CHÍNH -->
+    <div class="support-top-badge">
+      <div class="support-inner">
+        <div class="support-info">
+          <svg width="26" height="26" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" fill="#0068FF"/>
+            <path d="M14 16.5C14 15.1193 15.1193 14 16.5 14H31.5C32.8807 14 34 15.1193 34 16.5V27.5C34 28.8807 32.8807 30 31.5 30H20.5L15 34.5V30H16.5C15.1193 30 14 28.8807 14 27.5V16.5Z" fill="white"/>
+            <text x="24" y="24" font-size="10" font-weight="900" fill="#0068FF" text-anchor="middle" dominant-baseline="central">Zalo</text>
+          </svg>
+          <div>
+            <span class="support-text-title">Hỗ Trợ : </span>
+            <span class="support-text-sub">Admin Skibidi Hub</span>
+          </div>
+        </div>
+        <a href="https://zalo.me" target="_blank" class="support-btn">Liên Hệ</a>
+      </div>
+    </div>
+
+    <!-- KHUNG ĐIỀU HƯỚNG BÊN DƯỚI -->
+    <div class="glass-card">
+      <div class="card-header">
+        <div class="weather-status-box" id="status-box"></div>
+        <div class="title-box">
+          <h1 class="title">SKIBIDI HUB</h1>
+        </div>
+        <p class="subtitle">UPDATE IN 10:00 PM TODAY!</p>
       </div>
 
-      <p class="subtitle">UPDATE IN 10:00 PM TODAY!</p>
-    </div>
+      <div class="nav-tabs">
+        <button class="nav-btn active" onclick="switchTab('tab-link', this)">Link</button>
+        <button class="nav-btn" onclick="switchTab('tab-script', this)">Script</button>
+        <button class="nav-btn" onclick="switchTab('tab-apk', this)">APK</button>
+        <button class="nav-btn" onclick="switchTab('tab-ios', this)">iOS</button>
+      </div>
 
-    <div class="nav-tabs">
-      <button class="nav-btn active" onclick="switchTab('tab-link', this)">Link</button>
-      <button class="nav-btn" onclick="switchTab('tab-script', this)">Script</button>
-      <button class="nav-btn" onclick="switchTab('tab-apk', this)">APK</button>
-      <button class="nav-btn" onclick="switchTab('tab-ios', this)">iOS</button>
-    </div>
+      <div class="tab-content-wrapper">
 
-    <div class="tab-content-wrapper">
-
-      <div id="tab-link" class="tab-content active">
-        <!-- 💙 MỤC HỖ TRỢ CÓ LOGO ZALO LỚN & ĐẸP NỔI BẬT -->
-        <div class="box" style="border: 1.5px solid #0068FF; background: rgba(0, 104, 255, 0.15);">
-          <div class="box-header">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
-                <circle cx="24" cy="24" r="22" fill="#0068FF"/>
-                <path d="M14 16.5C14 15.1193 15.1193 14 16.5 14H31.5C32.8807 14 34 15.1193 34 16.5V27.5C34 28.8807 32.8807 30 31.5 30H20.5L15 34.5V30H16.5C15.1193 30 14 28.8807 14 27.5V16.5Z" fill="white"/>
-                <text x="24" y="24" font-size="10" font-weight="900" fill="#0068FF" text-anchor="middle" dominant-baseline="central">Zalo</text>
-              </svg>
-              <div>
-                <span class="box-title" style="font-size: 0.92rem; color: #ffffff;">Hỗ Trợ : </span>
-                <span style="font-size: 0.8rem; color: #38bdf8; font-weight: 700;">Admin Skibidi Hub</span>
-              </div>
+        <div id="tab-link" class="tab-content active">
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Bypass Key Delta</span>
+              <a href="https://baconbypass.xyz" target="_blank" class="box-btn">Access</a>
             </div>
-            <a href="https://zalo.me" target="_blank" class="box-btn" style="background: #0068FF !important; border-color: #38bdf8 !important;">Liên Hệ</a>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">CTDelta RobloxGlobal ( Anya )</span>
+              <a href="https://gofile.io/d/CQWaqp" target="_blank" class="box-btn">Access</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">CTArceusX RobloxGlobal ( Zam )</span>
+              <a href="https://gofile.io/d/3PdBKU" target="_blank" class="box-btn">Access</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Kasumi Store</span>
+              <a href="https://gofile.io/d/v3Q6Ig" target="_blank" class="box-btn">Access</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Video Hướng Dẫn Setup Tool</span>
+              <a href="https://youtu.be/Rr_f41gwhHI?si=4JtwB60oweKiigHK" target="_blank" class="box-btn">Access</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Tài Nguyên File Tiện Lợi</span>
+              <a href="https://gofile.io/d/w9cKYp" target="_blank" class="box-btn">Access</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">CTRoblox Delta VN ( Zam )</span>
+              <a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-btn">Access</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">CTRoblox Delta Global ( Zam )</span>
+              <a href="https://gofile.io/d/p0Mww1" target="_blank" class="box-btn">Access</a>
+            </div>
           </div>
         </div>
 
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Bypass Key Delta</span>
-            <a href="https://baconbypass.xyz" target="_blank" class="box-btn">Access</a>
+        <div id="tab-script" class="tab-content">
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Speed X Hub</span>
+              <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+            </div>
+            <div class="script-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
           </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">CTDelta RobloxGlobal ( Anya )</span>
-            <a href="https://gofile.io/d/CQWaqp" target="_blank" class="box-btn">Access</a>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">UB Hub</span>
+              <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+            </div>
+            <div class="script-text">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
           </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">CTArceusX RobloxGlobal ( Zam )</span>
-            <a href="https://gofile.io/d/3PdBKU" target="_blank" class="box-btn">Access</a>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Lệnh Tool Rejoin</span>
+              <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+            </div>
+            <div class="script-text">Thay đổi repository Termux : termux-change-repo | Cài đặt tool : . <(curl https://raw.githubusercontent.com/zam2109/Toolrejoin/refs/heads/main/Setubtoolrejoin) | Chạy Tool : su -c "export PATH=$PATH:/data/data/com.termux/files/usr/bin && export TERM=xterm-256color && cd /sdcard/Download && python zamtoolrejoinnewtool.py"</div>
           </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Kasumi Store</span>
-            <a href="https://gofile.io/d/v3Q6Ig" target="_blank" class="box-btn">Access</a>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Axon Hub</span>
+              <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+            </div>
+            <div class="script-text">loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua"))()</div>
           </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Video Hướng Dẫn Setup Tool</span>
-            <a href="https://youtu.be/Rr_f41gwhHI?si=4JtwB60oweKiigHK" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Tài Nguyên File Tiện Lợi</span>
-            <a href="https://gofile.io/d/w9cKYp" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">CTRoblox Delta VN ( Zam )</span>
-            <a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">CTRoblox Delta Global ( Zam )</span>
-            <a href="https://gofile.io/d/p0Mww1" target="_blank" class="box-btn">Access</a>
-          </div>
-        </div>
-      </div>
-
-      <div id="tab-script" class="tab-content">
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Speed X Hub</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">UB Hub</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Lệnh Tool Rejoin</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">Thay đổi repository Termux : termux-change-repo |
-          Cài đặt tool : . <(curl https://raw.githubusercontent.com/zam2109/Toolrejoin/refs/heads/main/Setubtoolrejoin) |
-         Chạy Tool : su -c "export PATH=$PATH:/data/data/com.termux/files/usr/bin && export TERM=xterm-256color && cd /sdcard/Download && python zamtoolrejoinnewtool.py" </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Axon Hub</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/97c3f6db55a2cf72141537a85458e5a7.lua"))()</div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Teddy Hub</span>
-            <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
-          </div>
-          <div class="script-text">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Teddy Hub</span>
+              <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
+            </div>
+            <div class="script-text">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()</div>
+          </div>
         </div>
+
+        <div id="tab-apk" class="tab-content">
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Delta Client</span>
+              <a href="https://deltaexploits.gg/" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Apollon Client MCPE 26.33 64Bit</span>
+              <a href="https://www.mediafire.com/file/r5wbto86b5p4etq/MCPE_Apollon_Client_1.26.33_v6.2_64Bit.apk/file" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Delta Roblox VNG APK </span>
+              <a href="https://zufile.com/download/file/1223/rBkPh5Rqc3" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">APK Pure</span>
+              <a href="https://m.apkpure.com/vn/" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">1.1.1.1 WARP VPN</span>
+              <a href="https://one.one.one.one/" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">3C CPU MANANER ( Ép Xung Máy )</span>
+              <a href="https://3c-cpu-manager-root.vi.softonic.com/android" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Roblox Global Android</span>
+              <a href="https://www.roblox.com/vi/download" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Termux APK</span>
+              <a href="https://termux.vi.softonic.com/android" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Zarchiver APK</span>
+              <a href="https://zarchiver.en.softonic.com/android" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Roblox VN Android</span>
+              <a href="https://play.google.com/store/apps/details?id=com.roblox.client.vnggames" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-ios" class="tab-content">
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Delta iOS</span>
+              <a href="https://deltaexploits.gg/" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Roblox Global iOS</span>
+              <a href="https://apps.apple.com/us/app/roblox/id431946152" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-header">
+              <span class="box-title">Roblox VN iOS</span>
+              <a href="https://apps.apple.com/vn/app/roblox-vn/id6474715805" target="_blank" class="box-btn">Download</a>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div id="tab-apk" class="tab-content">
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Delta Client</span>
-            <a href="https://deltaexploits.gg/" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Apollon Client MCPE 26.33 64Bit</span>
-            <a href="https://www.mediafire.com/file/r5wbto86b5p4etq/MCPE_Apollon_Client_1.26.33_v6.2_64Bit.apk/file" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Delta Roblox VNG APK </span>
-            <a href="https://zufile.com/download/file/1223/rBkPh5Rqc3" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">APK Pure</span>
-            <a href="https://m.apkpure.com/vn/" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">1.1.1.1 WARP VPN</span>
-            <a href="https://one.one.one.one/" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">3C CPU MANANER ( Ép Xung Máy )</span>
-            <a href="https://3c-cpu-manager-root.vi.softonic.com/android" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Roblox Global Android</span>
-            <a href="https://www.roblox.com/vi/download" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Termux APK</span>
-            <a href="https://termux.vi.softonic.com/android" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Zarchiver APK</span>
-            <a href="https://zarchiver.en.softonic.com/android?psafe_param=1&utm_source=SEM&utm_medium=paid&utm_campaign=EN_VN_DSA_MB_General_HUF&gad_source=1&gad_campaignid=21778506476&gclid=Cj0KCQjw4JbTBhCoARIsALWUaBvI5lFLWkVglhwSJlYpghAhDpgq86tiMUW41AoEal7O19szh4gZumsaAolcEALw_wcB" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Roblox VN Android</span>
-            <a href="https://play.google.com/store/apps/details?id=com.roblox.client.vnggames" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-      </div>
-
-      <div id="tab-ios" class="tab-content">
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Delta iOS</span>
-            <a href="https://deltaexploits.gg/" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Roblox Global iOS</span>
-            <a href="https://apps.apple.com/us/app/roblox/id431946152" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="box-header">
-            <span class="box-title">Roblox VN iOS</span>
-            <a href="https://apps.apple.com/vn/app/roblox-vn/id6474715805" target="_blank" class="box-btn">Download</a>
-          </div>
-        </div>
+      <div class="card-footer">
+        Protected by DVMinh
       </div>
 
     </div>
-
-    <div class="card-footer">
-      Protected by DVMinh
-    </div>
-
   </div>
 
   <div class="version-tag">Version 8.0</div>
 
   <script>
-    // 🌾 1. CỎ DẦY TRỰC QUAN SVG
+    // 🌾 1. KHỞI TẠO CỎ DẦY SVG
     function generateDenseGrassSVG(svgId, isBack) {
       const svg = document.getElementById(svgId);
       if (!svg) return;
@@ -1268,7 +1207,44 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     generateDenseGrassSVG('grass-back-svg', true);
     generateDenseGrassSVG('grass-front-svg', false);
 
-    // ☁️ 2. MÂY TRÔI VỚI HIỆU ỨNG THỜI TIẾT
+    // 💨 2. TẠO LÁ BAY VÀ GIÓ THỔI ĐIỀU CHỈNH CHUẨN ĐẸP
+    function initWindAndLeaves() {
+      const windContainer = document.getElementById('wind-box');
+      const leafContainer = document.getElementById('leaf-box');
+
+      if (windContainer) {
+        windContainer.innerHTML = '';
+        for (let i = 0; i < 12; i++) {
+          const streak = document.createElement('div');
+          streak.classList.add('wind-streak');
+          streak.style.top = (Math.random() * 85) + 'vh';
+          streak.style.width = (Math.random() * 140 + 80) + 'px';
+          streak.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+          streak.style.animationDelay = (Math.random() * 4) + 's';
+          windContainer.appendChild(streak);
+        }
+      }
+
+      if (leafContainer) {
+        leafContainer.innerHTML = '';
+        const leafColors = ['#4ade80', '#22c55e', '#15803d', '#fb923c', '#ea580c'];
+        for (let i = 0; i < 14; i++) {
+          const leaf = document.createElement('div');
+          leaf.classList.add('chill-leaf-item');
+          const color = leafColors[Math.floor(Math.random() * leafColors.length)];
+          leaf.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="${color}"><path d="M17 8C8 10 5.9 16.17 3.83 12 11 12 11 8 11s0 7 2 7 7-3.83 7-7c0-.55-.45-1-1-1z"/></svg>`;
+          leaf.style.left = (Math.random() * 100) + 'vw';
+          leaf.style.top = '-30px';
+          leaf.style.animationDuration = (Math.random() * 5 + 5) + 's';
+          leaf.style.animationDelay = (Math.random() * 6) + 's';
+          leafContainer.appendChild(leaf);
+        }
+      }
+    }
+
+    initWindAndLeaves();
+
+    // ☁️ 3. MÂY TRÔI
     const movingCloudsContainer = document.getElementById('moving-clouds');
     
     function createCloudSVG() {
@@ -1280,38 +1256,86 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     }
 
     function initClouds() {
+      if (!movingCloudsContainer) return;
       movingCloudsContainer.innerHTML = '';
-      const cloudCount = currentMode === 'STORM' ? 14 : 6;
+      const cloudCount = currentMode === 'STORM' ? 12 : 6;
       for (let i = 0; i < cloudCount; i++) {
         const cloud = createCloudSVG();
         const w = Math.random() * 110 + 160;
         cloud.style.width = w + 'px';
         cloud.style.height = (w * 0.5) + 'px';
         cloud.style.top = (Math.random() * 32 + 2) + 'vh';
-        
         let duration = Math.random() * 35 + 45;
         if (currentMode === 'STORM') duration = Math.random() * 10 + 12;
-        
         cloud.style.animationDuration = duration + 's';
         cloud.style.animationDelay = (Math.random() * -60) + 's';
-        
         movingCloudsContainer.appendChild(cloud);
       }
     }
 
-    // 🔊 3. AUDIO ENGINE - TỐI ƯU & NÂNG CAO CHẤT LƯỢNG ÂM THANH
+    // 🕒 4. HỆ THỐNG THỜI TIẾT ĐỒNG BỘ THỜI GIAN CHUẨN TOÀN CẦU (UTC EPOCH)
+    // Tổng chu kỳ 20 phút (1200 giây). Mọi trình duyệt/thiết bị đều chạy đồng nhất!
+    const WEATHER_SCHEDULE = [
+      { mode: 'SUNNY', duration: 360, name: 'Trời Nắng', icon: '☀️', svg: '<svg viewBox="0 0 24 24" fill="#facc15"><circle cx="12" cy="12" r="5"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" stroke="#facc15" stroke-width="2" stroke-linecap="round"/></svg>' },
+      { mode: 'SUNSET', duration: 180, name: 'Hoàng Hôn', icon: '🌅', svg: '<svg viewBox="0 0 24 24" fill="#f97316"><circle cx="12" cy="10" r="4"/><path d="M12 18H2m20 0h-8M4.93 14.93l1.41-1.41m11.32 0l1.41 1.41" stroke="#f97316" stroke-width="2" stroke-linecap="round"/></svg>' },
+      { mode: 'NIGHT', duration: 360, name: 'Ban Đêm', icon: '🌙', svg: '<svg viewBox="0 0 24 24" fill="#fef08a"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>' },
+      { mode: 'RAIN', duration: 180, name: 'Trời Mưa', icon: '🌧️', svg: '<svg viewBox="0 0 24 24" fill="#38bdf8"><path d="M19 11a4 4 0 00-4-4 6 6 0 00-11 2 4 4 0 000 8h15a3 3 0 000-6z"/><path d="M8 19v2m4-2v2m4-2v2" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/></svg>' },
+      { mode: 'STORM', duration: 120, name: 'Bão Dữ Dội', icon: '🌩️', svg: '<svg viewBox="0 0 24 24" fill="#e2e8f0"><path d="M19 10a4 4 0 00-4-4 6 6 0 00-11 2 4 4 0 000 8h15a3 3 0 000-6z"/><path d="M13 14l-3 4h3l-1 4" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' }
+    ];
+
+    const TOTAL_CYCLE = WEATHER_SCHEDULE.reduce((acc, s) => acc + s.duration, 0);
+    let currentMode = 'SUNNY';
+
+    function updateGlobalWeatherSync() {
+      const nowSeconds = Math.floor(Date.now() / 1000);
+      let offset = nowSeconds % TOTAL_CYCLE;
+
+      let accumulated = 0;
+      for (let i = 0; i < WEATHER_SCHEDULE.length; i++) {
+        const stage = WEATHER_SCHEDULE[i];
+        if (offset < accumulated + stage.duration) {
+          const remaining = (accumulated + stage.duration) - offset;
+          const nextStage = WEATHER_SCHEDULE[(i + 1) % WEATHER_SCHEDULE.length];
+
+          // Chuyển đổi Mode nếu khác mode hiện tại
+          if (currentMode !== stage.mode) {
+            currentMode = stage.mode;
+            document.body.className = 'weather-' + stage.mode.toLowerCase();
+            const statusBox = document.getElementById('status-box');
+            if (statusBox) statusBox.innerHTML = stage.svg;
+            initClouds();
+            updateSoundVolumes();
+          }
+
+          // Cập nhật đếm ngược
+          const m = Math.floor(remaining / 60).toString().padStart(2, '0');
+          const s = (remaining % 60).toString().padStart(2, '0');
+
+          const timerText = document.getElementById('weather-timer-text');
+          const nextName = document.getElementById('weather-next-name');
+          const nextIcon = document.getElementById('weather-next-icon');
+
+          if (timerText) timerText.innerText = `${m}:${s}`;
+          if (nextName) nextName.innerText = nextStage.name;
+          if (nextIcon) nextIcon.innerText = nextStage.icon;
+
+          break;
+        }
+        accumulated += stage.duration;
+      }
+    }
+
+    setInterval(updateGlobalWeatherSync, 1000);
+    updateGlobalWeatherSync();
+
+    // 🔊 5. AUDIO ENGINE
     let audioCtx = null;
     let masterGain = null;
-    let masterVolume = 0.8; // 🔊 TĂNG MẶC ĐỊNH LÊN 80% LỚN HƠN THÍCH HỢP
+    let masterVolume = 0.8;
     let windFilter = null;
     let windGain = null;
     let rainGain = null;
-    let ambientPadGain = null;
-    let weatherMelodyTimer = null;
-    let cricketTimer = null;
-    let activeOscillators = [];
 
-    // 🔄 KHÔI PHỤC ÂM LƯỢNG TỪ LOCALSTORAGE KHI RESET WEB ĐỂ KHÔNG BỊ QUAY VỀ 50%
     function loadSavedVolume() {
       const savedVol = localStorage.getItem('skibidi_volume');
       const volRange = document.getElementById('volume-range');
@@ -1321,13 +1345,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         masterVolume = parseInt(savedVol, 10) / 100;
         if (volRange) volRange.value = savedVol;
         if (volText) volText.innerText = savedVol + '%';
-      } else {
-        masterVolume = 0.8; // 80%
-        if (volRange) volRange.value = 80;
-        if (volText) volText.innerText = '80%';
-      }
-      if (masterGain && audioCtx) {
-        masterGain.gain.setValueAtTime(masterVolume, audioCtx.currentTime);
       }
     }
 
@@ -1337,59 +1354,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
           audioCtx = new (window.AudioContext || window.webkitAudioContext)();
           masterGain = audioCtx.createGain();
           loadSavedVolume();
+          masterGain.gain.setValueAtTime(masterVolume, audioCtx.currentTime);
           masterGain.connect(audioCtx.destination);
           setupContinuousSoundNodes();
-        } catch (e) {
-          console.log("AudioContext initialised", e);
-        }
+        } catch (e) {}
       }
       if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
-    }
-
-    /* ⚡ PHÁT ÂM THANH NGAY KHI VÀO TRANG MÀ KHÔNG CẦN CHỜ BẤM VÀO MÀN HÌNH */
-    function autoStartAudio() {
-      initAudioEngine();
-      if (audioCtx) {
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        updateSoundVolumes();
-      }
-    }
-
-    window.addEventListener('load', autoStartAudio);
-    document.addEventListener('DOMContentLoaded', autoStartAudio);
-    setTimeout(autoStartAudio, 150);
-
-    ['click', 'touchstart', 'keydown', 'scroll'].forEach(evt => {
-      window.addEventListener(evt, () => initAudioEngine(), { once: true });
-    });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stopWeatherMelodyLoop();
-        stopCricketLoop();
-        if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
-      } else {
-        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-        updateSoundVolumes();
-      }
-    });
-
-    function toggleAudioPopup() {
-      initAudioEngine();
-      document.getElementById('audio-popup').classList.toggle('show');
-    }
-
-    function changeMasterVolume(val) {
-      masterVolume = val / 100;
-      document.getElementById('volume-value-text').innerText = val + '%';
-      if (masterGain && audioCtx) {
-        masterGain.gain.setTargetAtTime(masterVolume, audioCtx.currentTime, 0.05);
-      }
-      localStorage.setItem('skibidi_volume', val); // 💾 LƯU LẠI ÂM LƯỢNG KHI BẠN CHỈNH
     }
 
     function setupContinuousSoundNodes() {
@@ -1397,11 +1369,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       const bufferSize = audioCtx.sampleRate * 3;
       const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const output = noiseBuffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        output[i] = Math.random() * 2 - 1;
-      }
+      for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
 
-      // 🍃 GIÓ THỔI ĐƯỢC TĂNG ÂM LƯỢNG VÀ NÂNG CAO TẦN SỐ
       const windNoise = audioCtx.createBufferSource();
       windNoise.buffer = noiseBuffer;
       windNoise.loop = true;
@@ -1411,14 +1380,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       windFilter.frequency.value = 280;
 
       windGain = audioCtx.createGain();
-      windGain.gain.value = 0.04;
+      windGain.gain.value = 0.05;
 
       windNoise.connect(windFilter);
       windFilter.connect(windGain);
       windGain.connect(masterGain);
       windNoise.start();
 
-      // 🌧️ TIẾNG MƯA
       const rainNoise = audioCtx.createBufferSource();
       rainNoise.buffer = noiseBuffer;
       rainNoise.loop = true;
@@ -1435,430 +1403,86 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       rainGain.connect(masterGain);
       rainNoise.start();
 
-      // 🎹 NHẠC NỀN HOÀN TẤT VỚI DẢI ÂM CAO HƠN CỰC CHILL
-      ambientPadGain = audioCtx.createGain();
-      ambientPadGain.gain.value = 0.06;
-      ambientPadGain.connect(masterGain);
-
       updateSoundVolumes();
     }
 
-    /* 🔊 CẬP NHẬT ÂM THANH THEO BẢN NÂNG CAO */
     function updateSoundVolumes() {
       if (!audioCtx || !windFilter || !rainGain) return;
-
-      if (currentMode === 'SUNNY') {
-        windFilter.frequency.setTargetAtTime(250, audioCtx.currentTime, 1.0);
-        windGain.gain.setTargetAtTime(0.035, audioCtx.currentTime, 1.0);
-        rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
-        stopCricketLoop();
-        startWeatherMelodyLoop();
-      } else if (currentMode === 'SUNSET') {
-        windFilter.frequency.setTargetAtTime(200, audioCtx.currentTime, 1.0);
+      if (currentMode === 'SUNNY' || currentMode === 'SUNSET') {
+        windFilter.frequency.setTargetAtTime(300, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.04, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
-        stopCricketLoop();
-        startWeatherMelodyLoop();
       } else if (currentMode === 'NIGHT') {
-        windFilter.frequency.setTargetAtTime(180, audioCtx.currentTime, 1.0);
-        windGain.gain.setTargetAtTime(0.025, audioCtx.currentTime, 1.0);
+        windFilter.frequency.setTargetAtTime(200, audioCtx.currentTime, 1.0);
+        windGain.gain.setTargetAtTime(0.03, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
-        startCricketLoop();
-        startWeatherMelodyLoop();
       } else if (currentMode === 'RAIN') {
         windFilter.frequency.setTargetAtTime(700, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.18, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0.25, audioCtx.currentTime, 0.8);
-        stopCricketLoop();
-        stopWeatherMelodyLoop();
       } else if (currentMode === 'STORM') {
         windFilter.frequency.setTargetAtTime(1400, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.35, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0.4, audioCtx.currentTime, 0.8);
-        stopCricketLoop();
-        stopWeatherMelodyLoop();
       }
     }
 
-    // 🦗 TIẾNG DẾ ĐÊM
-    function playCricketChirp() {
-      if (!audioCtx || currentMode !== 'NIGHT') return;
+    ['click', 'touchstart', 'keydown', 'scroll'].forEach(evt => {
+      window.addEventListener(evt, () => initAudioEngine(), { once: true });
+    });
 
-      const now = audioCtx.currentTime;
-      const pulses = 3 + Math.floor(Math.random() * 2);
-      const freq = 4500 + Math.random() * 300;
+    function toggleAudioPopup() {
+      initAudioEngine();
+      document.getElementById('audio-popup').classList.toggle('show');
+    }
 
-      for (let i = 0; i < pulses; i++) {
-        const startTime = now + i * 0.05;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, startTime);
-
-        gain.gain.setValueAtTime(0, startTime);
-        gain.gain.linearRampToValueAtTime(0.025, startTime + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.035);
-
-        osc.connect(gain);
-        gain.connect(masterGain);
-
-        osc.start(startTime);
-        osc.stop(startTime + 0.04);
+    function changeMasterVolume(val) {
+      masterVolume = val / 100;
+      document.getElementById('volume-value-text').innerText = val + '%';
+      if (masterGain && audioCtx) {
+        masterGain.gain.setTargetAtTime(masterVolume, audioCtx.currentTime, 0.05);
       }
+      localStorage.setItem('skibidi_volume', val);
     }
 
-    function startCricketLoop() {
-      stopCricketLoop();
-      function cricketCycle() {
-        if (currentMode === 'NIGHT') {
-          playCricketChirp();
-          cricketTimer = setTimeout(cricketCycle, 800 + Math.random() * 2500);
-        }
-      }
-      cricketCycle();
-    }
-
-    function stopCricketLoop() {
-      if (cricketTimer) {
-        clearTimeout(cricketTimer);
-        cricketTimer = null;
-      }
-    }
-
-    // 🎼 HỢP ÂM NHẠC NỀN AMBIENT
-    const chordSunny = [523.25, 659.25, 783.99, 1046.50]; 
-    const chordSunset = [349.23, 440.00, 523.25, 659.25]; 
-    const chordNight = [440.00, 523.25, 659.25, 783.99];  
-
-    function playAmbientChord(freqs, duration = 12) {
-      if (!audioCtx) return;
-      stopAllMelodies();
-
-      freqs.forEach((freq, idx) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-        const attack = 2.5 + idx * 0.4;
-        const release = 3.5;
-
-        gain.gain.setValueAtTime(0, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.028, audioCtx.currentTime + attack);
-        gain.gain.setValueAtTime(0.028, audioCtx.currentTime + duration - release);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-
-        osc.connect(gain);
-        gain.connect(ambientPadGain);
-
-        osc.start(audioCtx.currentTime);
-        osc.stop(audioCtx.currentTime + duration);
-
-        activeOscillators.push(osc);
-      });
-    }
-
-    function stopAllMelodies() {
-      activeOscillators.forEach(osc => {
-        try { osc.stop(); osc.disconnect(); } catch (e) {}
-      });
-      activeOscillators = [];
-    }
-
-    function startWeatherMelodyLoop() {
-      stopWeatherMelodyLoop();
-
-      if (currentMode === 'RAIN' || currentMode === 'STORM') return;
-
-      function loop() {
-        let currentChord = chordSunny;
-        if (currentMode === 'SUNSET') currentChord = chordSunset;
-        else if (currentMode === 'NIGHT') currentChord = chordNight;
-
-        playAmbientChord(currentChord, 13);
-        weatherMelodyTimer = setTimeout(loop, 11500);
-      }
-
-      loop();
-    }
-
-    function stopWeatherMelodyLoop() {
-      if (weatherMelodyTimer) {
-        clearTimeout(weatherMelodyTimer);
-        weatherMelodyTimer = null;
-      }
-      stopAllMelodies();
-    }
-
-    // 🐦 TIẾNG CHIM HÓT LÍU LO THƯỜNG XUYÊN HƠN
-    function playBirdChirpSound() {
-      if (!audioCtx || currentMode === 'NIGHT' || currentMode === 'STORM') return;
-      
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(2200 + Math.random() * 400, now);
-      osc.frequency.exponentialRampToValueAtTime(3200 + Math.random() * 300, now + 0.12);
-      osc.frequency.exponentialRampToValueAtTime(2400 + Math.random() * 200, now + 0.25);
-
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.035, now + 0.05);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
-
-      osc.connect(gain);
-      gain.connect(masterGain);
-
-      osc.start(now);
-      osc.stop(now + 0.3);
-    }
-
-    // ⚡🔊 TIẾNG SẤM SÉT RẦM RẦM KHI BÃO DỮ DỘI
-    function triggerLightningAndThunder() {
-      if (currentMode !== 'STORM') return;
-      
-      const flash = document.getElementById('lightning-flash');
-      if (flash) {
-        flash.style.opacity = '1';
-        setTimeout(() => { flash.style.opacity = '0'; }, 50);
-        setTimeout(() => { flash.style.opacity = '0.85'; }, 110);
-        setTimeout(() => { flash.style.opacity = '0'; }, 180);
-      }
-
-      if (!audioCtx) return;
-      const now = audioCtx.currentTime;
-
-      const osc = audioCtx.createOscillator();
-      const oscGain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(90, now);
-      osc.frequency.exponentialRampToValueAtTime(25, now + 2.2);
-
-      const oscFilter = audioCtx.createBiquadFilter();
-      oscFilter.type = 'lowpass';
-      oscFilter.frequency.value = 180;
-
-      oscGain.gain.setValueAtTime(0.45, now);
-      oscGain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
-
-      osc.connect(oscFilter);
-      oscFilter.connect(oscGain);
-      oscGain.connect(masterGain);
-
-      const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2.5, audioCtx.sampleRate);
-      const data = noiseBuffer.getChannelData(0);
-      for (let i = 0; i < noiseBuffer.length; i++) data[i] = Math.random() * 2 - 1;
-
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = noiseBuffer;
-
-      const noiseFilter = audioCtx.createBiquadFilter();
-      noiseFilter.type = 'lowpass';
-      noiseFilter.frequency.setValueAtTime(450, now);
-      noiseFilter.frequency.exponentialRampToValueAtTime(50, now + 2.0);
-
-      const noiseGain = audioCtx.createGain();
-      noiseGain.gain.setValueAtTime(0.4, now);
-      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 2.3);
-
-      noise.connect(noiseFilter);
-      noiseFilter.connect(noiseGain);
-      noiseGain.connect(masterGain);
-
-      osc.start(now);
-      noise.start(now);
-      osc.stop(now + 2.6);
-      noise.stop(now + 2.6);
-    }
-
-    setInterval(() => {
-      if (currentMode === 'STORM' && Math.random() < 0.65) triggerLightningAndThunder();
-    }, 4500);
-
-    function playClickSound() {
-      if (!audioCtx) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(650, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.06);
-      gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + 0.06);
-      osc.connect(gain);
-      gain.connect(masterGain);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.07);
-    }
-
-    // 🌟 5. SAO ĐÊM
+    // 🌟 6. SAO ĐÊM
     const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 40; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.width = (Math.random() * 3 + 1) + 'px';
-      star.style.height = star.style.width;
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.animationDelay = Math.random() * 2 + 's';
-      starsContainer.appendChild(star);
-    }
-
-    // 🌧️ 6. HẠT MƯA
-    const rainBox = document.getElementById('rain-box');
-    for (let i = 0; i < 75; i++) {
-      const drop = document.createElement('div');
-      drop.classList.add('drop');
-      drop.style.left = (Math.random() * 120 - 20) + 'vw';
-      drop.style.animationDuration = (Math.random() * 0.35 + 0.38) + 's';
-      drop.style.animationDelay = Math.random() * 2 + 's';
-      rainBox.appendChild(drop);
-    }
-
-    // 🦅 7. CHIM BAY THÊM TẦN SUẤT XUẤT HIỆN DÀY ĐẶC & BÀY ĐÀN
-    const birdBox = document.getElementById('bird-box');
-    function spawnFlyingBird() {
-      if (currentMode === 'NIGHT' || currentMode === 'STORM') return;
-
-      const birdCount = Math.floor(Math.random() * 3) + 1;
-      for (let i = 0; i < birdCount; i++) {
-        setTimeout(() => {
-          const bird = document.createElement('div');
-          bird.classList.add('flying-bird');
-          bird.style.left = '-50px';
-          bird.style.top = (Math.random() * 26 + 6) + 'vh';
-
-          bird.innerHTML = `
-            <svg viewBox="0 0 100 60">
-              <path class="wing" d="M 0 30 Q 30 0 50 30 Q 70 0 100 30 Q 65 20 50 45 Q 35 20 0 30 Z" />
-            </svg>
-          `;
-
-          birdBox.appendChild(bird);
-          playBirdChirpSound();
-
-          requestAnimationFrame(() => {
-            bird.style.left = '110vw';
-            bird.style.top = (Math.random() * 30 + 4) + 'vh';
-          });
-
-          setTimeout(() => { bird.remove(); }, 5800);
-        }, i * 400);
+    if (starsContainer) {
+      for (let i = 0; i < 40; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.width = (Math.random() * 3 + 1) + 'px';
+        star.style.height = star.style.width;
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        starsContainer.appendChild(star);
       }
     }
 
-    setInterval(() => {
-      if (Math.random() < 0.8) spawnFlyingBird();
-    }, 2800);
-
-    // 🌤️ 8. ICON THỜI TIẾT
-    const svgIcons = {
-      SUNNY: `<svg viewBox="0 0 64 64"><defs><radialGradient id="sunG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff59d"/><stop offset="100%" stop-color="#f57f17"/></radialGradient></defs><circle cx="32" cy="32" r="16" fill="url(#sunG)" filter="drop-shadow(0 0 8px #f57f17)"/><g stroke="#fbc02d" stroke-width="3.5" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="10"/><line x1="32" y1="54" x2="32" y2="60"/><line x1="4" y1="32" x2="10" y2="32"/><line x1="54" y1="32" x2="60" y2="32"/><line x1="12.2" y1="12.2" x2="16.5" y2="16.5"/><line x1="47.5" y1="47.5" x2="51.8" y2="51.8"/><line x1="12.2" y1="51.8" x2="16.5" y2="47.5"/><line x1="47.5" y1="16.5" x2="51.8" y2="12.2"/></g></svg>`,
-      SUNSET: `<svg viewBox="0 0 64 64"><path d="M12 38 a20 20 0 0 1 40 0 Z" fill="#ff7043"/><line x1="6" y1="44" x2="58" y2="44" stroke="#ff7043" stroke-width="4" stroke-linecap="round"/><line x1="14" y1="52" x2="50" y2="52" stroke="#ffb74d" stroke-width="3.5" stroke-linecap="round"/></svg>`,
-      RAIN: `<svg viewBox="0 0 64 64"><path d="M46 36 A12 12 0 0 0 24.5 28 A16 16 0 0 0 8 42 a10 10 0 0 0 10 10 h28 a10 10 0 0 0 0-20 Z" fill="#90a4ae"/><line x1="20" y1="54" x2="16" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="54" x2="28" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/><line x1="44" y1="54" x2="40" y2="62" stroke="#29b6f6" stroke-width="3" stroke-linecap="round"/></svg>`,
-      STORM: `<svg viewBox="0 0 64 64"><path d="M46 32 A12 12 0 0 0 24.5 24 A16 16 0 0 0 8 38 a10 10 0 0 0 10 10 h28 a10 10 0 0 0 0-20 Z" fill="#455a64"/><polygon points="34,36 24,48 31,48 26,60 40,44 32,44" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1"/></svg>`,
-      NIGHT: `<svg viewBox="0 0 64 64"><path d="M48 38 A20 20 0 1 1 26 16 A16 16 0 0 0 48 38 Z" fill="#fff176" filter="drop-shadow(0 0 10px #fbc02d)"/></svg>`
-    };
-
-    // 🌐 9. LỊCH TRÌNH THỜI TIẾT
-    const weatherTimeline = [
-      { mode: 'SUNNY', duration: 600 },
-      { mode: 'SUNSET', duration: 180 },
-      { mode: 'NIGHT', duration: 600 },
-      { mode: 'RAIN', duration: 600 },
-      { mode: 'STORM', duration: 300 }
-    ];
-
-    const weatherNames = { 
-      'SUNNY': 'Nắng trong',
-      'SUNSET': 'Hoàng hôn',
-      'RAIN': 'Trời mưa',
-      'STORM': 'Bão tố',
-      'NIGHT': 'Ban đêm'
-    };
-
-    let currentModeIndex = 0;
-    let currentMode = weatherTimeline[0].mode;
-    let modeTimeRemaining = weatherTimeline[0].duration;
-
-    function setWeatherMode(mode) {
-      currentMode = mode;
-      document.body.className = 'weather-' + mode.toLowerCase();
-
-      const statusBox = document.getElementById('status-box');
-      const nextIcon = document.getElementById('weather-next-icon');
-      const nextName = document.getElementById('weather-next-name');
-
-      if (statusBox) statusBox.innerHTML = svgIcons[mode] || '';
-
-      const nextIndex = (currentModeIndex + 1) % weatherTimeline.length;
-      const nextMode = weatherTimeline[nextIndex].mode;
-      if (nextIcon) nextIcon.innerHTML = svgIcons[nextMode] || '';
-      if (nextName) nextName.innerText = weatherNames[nextMode] || '--';
-
-      const rainBox = document.getElementById('rain-box');
-      if (rainBox) {
-        rainBox.style.display = (mode === 'RAIN' || mode === 'STORM') ? 'block' : 'none';
-      }
-
-      initClouds();
-      updateSoundVolumes();
-    }
-
-    function updateWeatherTimer() {
-      modeTimeRemaining--;
-      if (modeTimeRemaining <= 0) {
-        currentModeIndex = (currentModeIndex + 1) % weatherTimeline.length;
-        currentMode = weatherTimeline[currentModeIndex].mode;
-        modeTimeRemaining = weatherTimeline[currentModeIndex].duration;
-        setWeatherMode(currentMode);
-      }
-
-      const mins = Math.floor(modeTimeRemaining / 60);
-      const secs = modeTimeRemaining % 60;
-      const timerText = document.getElementById('weather-timer-text');
-      if (timerText) {
-        timerText.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-      }
-    }
-
-    setInterval(updateWeatherTimer, 1000);
-    setWeatherMode(currentMode);
-
-    // 🔀 CHUYỂN TAB & COPY SCRIPT CODE
+    // 🗂️ 7. CHUYỂN TAB & COPY CODE
     function switchTab(tabId, btn) {
-      playClickSound();
-      const tabs = document.querySelectorAll('.tab-content');
-      tabs.forEach(tab => tab.classList.remove('active'));
-
-      const targetTab = document.getElementById(tabId);
-      if (targetTab) targetTab.classList.add('active');
-
-      const btns = document.querySelectorAll('.nav-btn');
-      btns.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
       if (btn) btn.classList.add('active');
     }
 
     function copyScriptCode(btn) {
-      playClickSound();
       const box = btn.closest('.box');
-      if (!box) return;
-      const scriptText = box.querySelector('.script-text');
-      if (!scriptText) return;
-
-      navigator.clipboard.writeText(scriptText.innerText.trim()).then(() => {
-        const originalText = btn.innerText;
-        btn.innerText = 'Copied!';
-        btn.style.background = '#4ade80';
-        setTimeout(() => {
-          btn.innerText = originalText;
-          btn.style.background = '#22c55e';
-        }, 1800);
-      }).catch(err => {
-        console.error('Copy failed', err);
-      });
+      const scriptText = box ? box.querySelector('.script-text') : null;
+      if (scriptText) {
+        navigator.clipboard.writeText(scriptText.innerText.trim()).then(() => {
+          const oldText = btn.innerText;
+          btn.innerText = 'Copied!';
+          btn.style.background = '#38bdf8';
+          setTimeout(() => {
+            btn.innerText = oldText;
+            btn.style.background = '#22c55e';
+          }, 1500);
+        });
+      }
     }
   </script>
 </body>
