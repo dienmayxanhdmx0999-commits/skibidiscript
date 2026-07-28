@@ -91,7 +91,7 @@
       color: #f8fafc;
     }
 
-    /* 🌩️ TRỜI BÃO DỮ DỘI (TỐI SẦM MÀN HÌNH) */
+    /* 🌩️ TRỜI BÃO DỮ DỘI */
     body.weather-storm {
       background: linear-gradient(180deg, #020617 0%, #0f172a 45%, #022c22 80%, #011710 100%);
       color: #f1f5f9;
@@ -596,17 +596,17 @@
       box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
     }
 
-    /* 📱 GIAO DIỆN CHÍNH - BỎ MỜ ĐỂ THẤY PHONG CẢNH + BỔ SUNG VIỀN NGOÀI SANG TRỌNG */
+    /* 📱 GIAO DIỆN CHÍNH */
     .glass-card {
       position: relative;
       z-index: 20;
       width: 100%;
       max-width: 410px;
       margin: 0 auto;
-      background: rgba(0, 0, 0, 0.15); /* Nền cực nhẹ để không che phong cảnh */
-      backdrop-filter: none; /* KHÔNG MỜ ĐỂ THẤY PHÍA SAU */
+      background: rgba(0, 0, 0, 0.15);
+      backdrop-filter: none;
       -webkit-backdrop-filter: none;
-      border: 1.5px solid rgba(255, 255, 255, 0.35); /* VIỀN BAO PHỦ SANG TRỌNG */
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
       border-radius: 28px;
       padding: 18px 14px;
       display: flex;
@@ -622,7 +622,6 @@
       align-items: center;
     }
 
-    /* 🟢 BỔ SUNG Ô TRÒN BAO BỌC ICON THỜI TIẾT THẨM MỸ */
     .weather-status-box {
       width: 68px;
       height: 68px;
@@ -720,7 +719,7 @@
       box-shadow: 0 4px 15px rgba(34, 197, 94, 0.6) !important;
     }
 
-    /* 🎴 KHU VỰC TAB HÀM LƯỢNG NỘI DUNG */
+    /* 🎴 KHU VỰC TAB */
     .tab-content-wrapper {
       position: relative;
       display: grid;
@@ -964,11 +963,10 @@
     </div>
   </div>
 
-  <!-- BẢNG ĐIỀU HƯỚNG CHÍNH - KHUNG TRONG SUỐT CÓ VIỀN BAO PHỦ ĐẸP MẮT -->
+  <!-- BẢNG ĐIỀU HƯỚNG CHÍNH -->
   <div class="glass-card">
     
     <div class="card-header">
-      <!-- Ô TRÒN BỌC ICON THỜI TIẾT THẨM MỸ -->
       <div class="weather-status-box" id="status-box"></div>
       
       <div class="title-box">
@@ -1337,7 +1335,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       updateSoundVolumes();
     }
 
-    /* 🔊 CẬP NHẬT ÂM THANH THEO BẢN YÊU CẦU CỦA BẠN */
     function updateSoundVolumes() {
       if (!audioCtx || !windFilter || !rainGain) return;
 
@@ -1346,31 +1343,31 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         windGain.gain.setTargetAtTime(0.02, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
         stopCricketLoop();
-        startWeatherMelodyLoop(); // BẬT NHẠC NỀN
+        startWeatherMelodyLoop();
       } else if (currentMode === 'SUNSET') {
         windFilter.frequency.setTargetAtTime(180, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.025, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
         stopCricketLoop();
-        startWeatherMelodyLoop(); // BẬT NHẠC NỀN
+        startWeatherMelodyLoop();
       } else if (currentMode === 'NIGHT') {
         windFilter.frequency.setTargetAtTime(150, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.015, audioCtx.currentTime, 1.0);
         rainGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.5);
-        startCricketLoop();        // BẬT TIẾNG DẾ
-        startWeatherMelodyLoop();  // BẬT NHẠC BAN ĐÊM
+        startCricketLoop();
+        startWeatherMelodyLoop();
       } else if (currentMode === 'RAIN') {
-        windFilter.frequency.setTargetAtTime(600, audioCtx.currentTime, 1.0); // Gió ríu riết
+        windFilter.frequency.setTargetAtTime(600, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.12, audioCtx.currentTime, 1.0);
-        rainGain.gain.setTargetAtTime(0.16, audioCtx.currentTime, 0.8);  // Tiếng mưa rơi
+        rainGain.gain.setTargetAtTime(0.16, audioCtx.currentTime, 0.8);
         stopCricketLoop();
-        stopWeatherMelodyLoop();   // TẮT NHẠC NỀN TRỜI MƯA
+        stopWeatherMelodyLoop();
       } else if (currentMode === 'STORM') {
-        windFilter.frequency.setTargetAtTime(1200, audioCtx.currentTime, 1.0); // Gió hú rất mạnh
+        windFilter.frequency.setTargetAtTime(1200, audioCtx.currentTime, 1.0);
         windGain.gain.setTargetAtTime(0.25, audioCtx.currentTime, 1.0);
-        rainGain.gain.setTargetAtTime(0.3, audioCtx.currentTime, 0.8);   // Mưa bão dữ dội
+        rainGain.gain.setTargetAtTime(0.3, audioCtx.currentTime, 0.8);
         stopCricketLoop();
-        stopWeatherMelodyLoop();   // TẮT NHẠC NỀN TRỜI BÃO
+        stopWeatherMelodyLoop();
       }
     }
 
@@ -1464,7 +1461,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     function startWeatherMelodyLoop() {
       stopWeatherMelodyLoop();
 
-      if (currentMode === 'RAIN' || currentMode === 'STORM') return; // Không phát nhạc khi mưa/bão
+      if (currentMode === 'RAIN' || currentMode === 'STORM') return;
 
       function loop() {
         let currentChord = chordSunny;
@@ -1510,37 +1507,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       osc.stop(now + 0.3);
     }
 
-    // 🍃 TIẾNG LÁ BAY XẠC XÀO
-    function playLeafRustleSound() {
-      if (!audioCtx || currentMode === 'NIGHT') return;
-
-      const now = audioCtx.currentTime;
-      const bufferSize = audioCtx.sampleRate * 0.35;
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
-
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.value = 1800 + Math.random() * 600;
-      filter.Q.value = 3.0;
-
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(currentMode === 'STORM' ? 0.03 : 0.015, now + 0.12);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
-
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(masterGain);
-
-      noise.start(now);
-    }
-
-    // ⚡🔊 TIẾNG SẤM SÉT RẦM RẦM KHI BÃO DỮ DỘI
+    // ⚡🔊 TIẾNG SẤM SÉT RẦM RẦM KHI BÃO
     function triggerLightningAndThunder() {
       if (currentMode !== 'STORM') return;
       
@@ -1555,7 +1522,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       if (!audioCtx) return;
       const now = audioCtx.currentTime;
 
-      // 💥 Tiếng Sấm Trầm Rầm Rầm (Sub-bass rumble)
       const osc = audioCtx.createOscillator();
       const oscGain = audioCtx.createGain();
       osc.type = 'sawtooth';
@@ -1573,7 +1539,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       oscFilter.connect(oscGain);
       oscGain.connect(masterGain);
 
-      // 🌩️ Tiếng Nổ Sét
       const noiseBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2.5, audioCtx.sampleRate);
       const data = noiseBuffer.getChannelData(0);
       for (let i = 0; i < noiseBuffer.length; i++) data[i] = Math.random() * 2 - 1;
@@ -1683,7 +1648,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       NIGHT: `<svg viewBox="0 0 64 64"><path d="M48 38 A20 20 0 1 1 26 16 A16 16 0 0 0 48 38 Z" fill="#fff176" filter="drop-shadow(0 0 10px #fbc02d)"/></svg>`
     };
 
-    // 🌐 9. LỊCH TRÌNH THỜI TIẾT
+    // 🌐 9. LỊCH TRÌNH THỜI TIẾT & BỘ ĐẾM GIỜ
     const weatherTimeline = [
       { mode: 'SUNNY', duration: 600 },
       { mode: 'SUNSET', duration: 180 },
@@ -1708,189 +1673,85 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     const weatherNextNameEl = document.getElementById('weather-next-name');
     const weatherTimerTextEl = document.getElementById('weather-timer-text');
 
-    function applyWeatherMode(mode) {
-      if (currentMode === mode) return;
-      currentMode = mode;
-      document.body.className = '';
-      rainBox.style.display = 'none';
+    function updateWeatherCycle() {
+      const now = Math.floor(Date.now() / 1000);
+      const cycleTime = now % totalCycleDuration;
 
-      if (mode === 'SUNNY') {
-        document.body.classList.add('weather-sunny');
-      } else if (mode === 'SUNSET') {
-        document.body.classList.add('weather-sunset');
-      } else if (mode === 'RAIN') {
-        document.body.classList.add('weather-rain');
-        rainBox.style.display = 'block';
-      } else if (mode === 'STORM') {
-        document.body.classList.add('weather-storm');
-        rainBox.style.display = 'block';
-      } else if (mode === 'NIGHT') {
-        document.body.classList.add('weather-night');
-      }
-
-      statusBox.innerHTML = svgIcons[mode];
-      initClouds();
-      updateSoundVolumes();
-    }
-
-    function updateSyncedWeather() {
-      const nowSeconds = Math.floor(Date.now() / 1000);
-      const cycleOffset = nowSeconds % totalCycleDuration;
-
-      let accumulated = 0;
+      let elapsedTime = 0;
       let activeIndex = 0;
-      let timeRemainingInCurrent = 0;
 
       for (let i = 0; i < weatherTimeline.length; i++) {
-        accumulated += weatherTimeline[i].duration;
-        if (cycleOffset < accumulated) {
+        if (cycleTime < elapsedTime + weatherTimeline[i].duration) {
           activeIndex = i;
-          timeRemainingInCurrent = accumulated - cycleOffset;
           break;
         }
+        elapsedTime += weatherTimeline[i].duration;
       }
 
-      const activeWeather = weatherTimeline[activeIndex].mode;
+      const activeItem = weatherTimeline[activeIndex];
+      const remainingTime = (elapsedTime + activeItem.duration) - cycleTime;
+
       const nextIndex = (activeIndex + 1) % weatherTimeline.length;
-      const nextWeather = weatherTimeline[nextIndex].mode;
+      const nextItem = weatherTimeline[nextIndex];
 
-      applyWeatherMode(activeWeather);
+      if (currentMode !== activeItem.mode) {
+        currentMode = activeItem.mode;
+        document.body.className = 'weather-' + currentMode.toLowerCase();
+        
+        if (statusBox) statusBox.innerHTML = svgIcons[currentMode] || '';
+        if (weatherNextIconEl) weatherNextIconEl.innerHTML = svgIcons[nextItem.mode] || '';
+        if (weatherNextNameEl) weatherNextNameEl.innerText = weatherNames[currentMode] || currentMode;
 
-      if (weatherNextIconEl && weatherNextNameEl && weatherTimerTextEl) {
-        weatherNextIconEl.innerHTML = svgIcons[nextWeather] || '';
-        weatherNextNameEl.innerText = weatherNames[nextWeather];
-        const mins = Math.floor(timeRemainingInCurrent / 60);
-        const secs = timeRemainingInCurrent % 60;
-        weatherTimerTextEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        if (rainBox) {
+          rainBox.style.display = (currentMode === 'RAIN' || currentMode === 'STORM') ? 'block' : 'none';
+        }
+
+        initClouds();
+        updateSoundVolumes();
+      }
+
+      const minutes = Math.floor(remainingTime / 60);
+      const seconds = remainingTime % 60;
+      if (weatherTimerTextEl) {
+        weatherTimerTextEl.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
       }
     }
 
-    setInterval(updateSyncedWeather, 1000);
-    updateSyncedWeather();
+    setInterval(updateWeatherCycle, 1000);
+    updateWeatherCycle();
 
-    // 🍃 10. LÁ BAY
-    function createCustomLeafSVG() {
-      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      svg.setAttribute("viewBox", "0 0 100 100");
-      svg.setAttribute("width", "30");
-      svg.setAttribute("height", "30");
-      svg.innerHTML = `
-        <defs>
-          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#bbf7d0"/>
-            <stop offset="100%" stop-color="#15803d"/>
-          </linearGradient>
-        </defs>
-        <path d="M 50 5 C 20 35 15 70 50 95 C 85 70 80 35 50 5 Z" fill="url(#leafGrad)" />
-        <path d="M 50 5 L 50 95" stroke="#166534" stroke-width="2"/>
-      `;
-      return svg;
-    }
-
-    const leafBox = document.getElementById('leaf-box');
-    function createChillLeaf() {
-      if (currentMode === 'NIGHT') return;
-      const leafWrap = document.createElement('div');
-      leafWrap.classList.add('chill-leaf-item');
-      leafWrap.appendChild(createCustomLeafSVG());
-      leafWrap.style.left = (Math.random() * 25 - 10) + 'vw';
-      leafWrap.style.top = (Math.random() * 20 - 10) + 'vh';
-
-      let duration = Math.random() * 4 + 6;
-      if (currentMode === 'STORM' || currentMode === 'RAIN') duration = Math.random() * 2 + 2.0;
-
-      leafWrap.style.animationDuration = duration + 's';
-      leafBox.appendChild(leafWrap);
-      playLeafRustleSound();
-
-      setTimeout(() => { leafWrap.remove(); }, duration * 1000);
-    }
-    setInterval(createChillLeaf, 1500);
-
-    // 💨 11. GIÓ THỔI
-    const windBox = document.getElementById('wind-box');
-    function createWindStreak() {
-      const wind = document.createElement('div');
-      wind.classList.add('wind-streak');
-      wind.style.top = (Math.random() * 85) + 'vh';
-      wind.style.width = (Math.random() * 160 + 90) + 'px';
-
-      let duration = Math.random() * 3 + 3.5;
-      if (currentMode === 'STORM') duration = Math.random() * 0.7 + 0.9;
-
-      wind.style.animationDuration = duration + 's';
-      windBox.appendChild(wind);
-      setTimeout(() => wind.remove(), duration * 1000);
-    }
-
-    setInterval(createWindStreak, 700);
-
-    // 🗂️ 12. CHUYỂN TAB MƯỢT MÀ
-    function switchTab(tabId, btnElement, playSound = true) {
-      if (playSound) playClickSound();
-
+    // 🗂️ 10. CHUYỂN TAB VÀ SAO CHÉP SCRIPT
+    function switchTab(tabId, btn) {
+      playClickSound();
       const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      
       const btns = document.querySelectorAll('.nav-btn');
+      btns.forEach(b => b.classList.remove('active'));
 
-      btns.forEach(btn => btn.classList.remove('active'));
-      if (btnElement) btnElement.classList.add('active');
-
-      tabs.forEach(tab => {
-        if (tab.id === tabId) {
-          tab.classList.add('active');
-        } else {
-          tab.classList.remove('active');
-        }
-      });
-
-      localStorage.setItem('skibidi_active_tab', tabId);
+      const activeTab = document.getElementById(tabId);
+      if (activeTab) activeTab.classList.add('active');
+      if (btn) btn.classList.add('active');
     }
 
-    // 📋 13. COPY CODE SCRIPT
     function copyScriptCode(btn) {
       playClickSound();
       const box = btn.closest('.box');
-      const scriptText = box.querySelector('.script-text').innerText;
-
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(scriptText);
-      } else {
-        const textArea = document.createElement("textarea");
-        textArea.value = scriptText;
-        textArea.style.position = "fixed";
-        textArea.style.left = "-999999px";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
+      const scriptText = box ? box.querySelector('.script-text') : null;
+      if (scriptText) {
+        navigator.clipboard.writeText(scriptText.innerText.trim()).then(() => {
+          const originalText = btn.innerText;
+          btn.innerText = 'Copied!';
+          btn.style.background = '#16a34a';
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = '#22c55e';
+          }, 1500);
+        }).catch(() => {
+          alert('Chép mã thất bại, vui lòng chép thủ công!');
+        });
       }
-
-      const oldText = btn.innerText;
-      btn.innerText = 'COPIED!';
-      btn.style.background = '#15803d !important';
-
-      setTimeout(() => {
-        btn.innerText = oldText;
-        btn.style.background = '';
-      }, 1500);
     }
-
-    // 🚀 14. KHỞI ĐỘNG GIAO DIỆN
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTab = localStorage.getItem('skibidi_active_tab');
-      if (savedTab) {
-        const targetBtn = document.querySelector(`button[onclick*="'${savedTab}'"]`);
-        if (targetBtn) switchTab(savedTab, targetBtn, false);
-      }
-
-      const savedVol = localStorage.getItem('skibidi_volume');
-      if (savedVol !== null) {
-        masterVolume = savedVol / 100;
-        document.getElementById('volume-range').value = savedVol;
-        document.getElementById('volume-value-text').innerText = savedVol + '%';
-      }
-    });
   </script>
 </body>
 </html>
