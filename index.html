@@ -1742,13 +1742,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         navigator.clipboard.writeText(scriptText.innerText.trim()).then(() => {
           const originalText = btn.innerText;
           btn.innerText = 'Copied!';
-          btn.style.background = '#16a34a';
           setTimeout(() => {
             btn.innerText = originalText;
-            btn.style.background = '#22c55e';
-          }, 1500);
-        }).catch(() => {
-          alert('Chép mã thất bại, vui lòng chép thủ công!');
+          }, 2000);
+        }).catch(err => {
+          console.error('Lỗi khi sao chép:', err);
         });
       }
     }
