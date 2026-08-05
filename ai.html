@@ -3,26 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>NOXGPT</title>
 
 <link rel="stylesheet" href="ai.css">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
+<div id="particles"></div>
 
 <div class="sidebar">
 
 <div class="logo">
-<div class="icon">N</div>
-<div>
-<h2>NOXGPT</h2>
-<p>Cyber AI</p>
-</div>
+<div class="logoGlow"></div>
+<h1>NOXGPT</h1>
+<p>CYBER AI</p>
 </div>
 
-<button class="newchat" onclick="location.reload()">
-+ Cuộc trò chuyện mới
+<button class="newChat">
+＋ New Chat
 </button>
+
+<div class="history" id="history">
+
+</div>
 
 </div>
 
@@ -30,42 +38,69 @@
 
 <div class="topbar">
 
-<h1>NOXGPT</h1>
+<div class="status">
 
-<span class="online">
-● ONLINE
-</span>
+<span class="dot"></span>
+
+ONLINE
 
 </div>
 
-<div id="chatBox" class="chat">
+<div class="model">
+
+GPT-5
+
+</div>
+
+</div>
+
+<div id="chat" class="chat">
 
 <div class="welcome">
 
-<h2>Xin chào 👋</h2>
+<h2>NOXGPT</h2>
 
-<p>Hôm nay bạn muốn hỏi gì?</p>
+<p>Cyber Intelligence</p>
 
 </div>
+
+</div>
+
+<div id="thinking" class="thinking hidden">
+
+<div class="loader">
+
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+AI đang suy nghĩ...
 
 </div>
 
 <div class="inputBox">
 
-<textarea
+<input
 id="prompt"
+type="text"
 placeholder="Nhập tin nhắn..."
-rows="1"></textarea>
+>
 
 <button onclick="sendMessage()">
 
-➤
+➜
 
 </button>
 
 </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/common.min.js"></script>
 
 <script src="ai.js"></script>
 
