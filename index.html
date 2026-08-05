@@ -193,15 +193,15 @@
       transform: translate3d(0,0,0);
     }
 
-    /* 🌧️ HẠT MƯA ĐƯỢC TẠO ĐỘNG */
+    /* 🌧️ HẠT MƯA BAO PHỦ TOÀN MÀN HÌNH */
     .rain-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: -15vh;
+      left: -20vw;
+      width: 140vw;
+      height: 130vh;
       pointer-events: none;
-      z-index: 3;
+      z-index: 80;
       display: none;
       overflow: hidden;
     }
@@ -212,33 +212,33 @@
 
     .drop {
       position: absolute;
-      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.85));
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.9));
       transform-origin: top left;
       border-radius: 2px;
     }
 
     body.weather-rain .drop {
-      width: 1.8px;
-      height: 45px;
+      width: 2px;
+      height: 50px;
       animation: fallRain linear infinite;
     }
 
     @keyframes fallRain {
       0% { transform: translate3d(0, -60px, 0) rotate(-15deg); opacity: 0; }
-      20% { opacity: 0.85; }
-      100% { transform: translate3d(20vw, 105vh, 0) rotate(-15deg); opacity: 0.15; }
+      20% { opacity: 0.9; }
+      100% { transform: translate3d(25vw, 125vh, 0) rotate(-15deg); opacity: 0.2; }
     }
 
     body.weather-storm .drop {
-      width: 2.8px;
-      height: 75px;
+      width: 3px;
+      height: 80px;
       animation: fallStorm linear infinite;
     }
 
     @keyframes fallStorm {
       0% { transform: translate3d(0, -80px, 0) rotate(-30deg); opacity: 0; }
-      15% { opacity: 0.95; }
-      100% { transform: translate3d(50vw, 105vh, 0) rotate(-30deg); opacity: 0.1; }
+      15% { opacity: 1; }
+      100% { transform: translate3d(55vw, 125vh, 0) rotate(-30deg); opacity: 0.15; }
     }
 
     /* 🌟 SAO ĐÊM */
@@ -297,7 +297,7 @@
       100% { transform: translate3d(108vw, 0, 0); }
     }
 
-    /* 🏔️ PHONG CẢNH NÚI & CÂY TRẢI RỘNG */
+    /* 🏔️ PHONG CẢNH NÚI & RỪNG CÂY THÔNG */
     .nature-bottom {
       position: fixed;
       bottom: 0;
@@ -385,8 +385,8 @@
     }
 
     @keyframes treeSwaySoft {
-      0% { transform: rotate(-1.8deg); }
-      100% { transform: rotate(2.2deg); }
+      0% { transform: rotate(-1.5deg); }
+      100% { transform: rotate(1.8deg); }
     }
 
     body.weather-rain .nature-tree { animation-duration: 3s; }
@@ -423,7 +423,7 @@
       100% { transform: skewX(4.5deg); }
     }
 
-    /* 💬 NÚT ZALO & AI */
+    /* 💬 NÚT ZALO & AI (ĐÃ CHỈNH NHỎ VÀ THÊM LOGO) */
     .bottom-floating-buttons {
       position: fixed;
       bottom: 18px;
@@ -431,12 +431,12 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .zalo-icon-btn {
-      width: 44px;
-      height: 44px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: rgba(15, 23, 42, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.35);
@@ -452,20 +452,21 @@
 
     .zalo-icon-btn:hover {
       transform: translateY(-3px) scale(1.1);
-      background: rgba(0, 104, 255, 0.85);
+      background: #0068FF;
       border-color: #ffffff;
       box-shadow: 0 8px 25px rgba(0, 104, 255, 0.6);
     }
 
     .zalo-icon-img {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
     }
 
+    /* 🤖 AI TOOL NHỎ GỌN TRÔI NỔI */
     .ai-icon-btn {
-      height: 44px;
-      padding: 0 16px;
-      border-radius: 22px;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 17px;
       background: rgba(15, 23, 42, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.35);
       backdrop-filter: blur(12px);
@@ -473,7 +474,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
       text-decoration: none;
       position: relative;
@@ -485,9 +486,9 @@
       content: '';
       position: absolute;
       inset: -2px;
-      border-radius: 24px;
-      padding: 2px;
-      background: linear-gradient(90deg, #ff007f, #7928ca, #00dfd8, #ff007f);
+      border-radius: 19px;
+      padding: 1.5px;
+      background: linear-gradient(90deg, #38bdf8, #c026d3, #facc15, #38bdf8);
       background-size: 300% 100%;
       animation: rainbowGlow 4s linear infinite;
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -502,20 +503,20 @@
     }
 
     .ai-icon-btn:hover {
-      transform: translateY(-3px) scale(1.08);
+      transform: translateY(-2px) scale(1.05);
       background: rgba(15, 23, 42, 0.8);
-      box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5);
+      box-shadow: 0 8px 22px rgba(236, 72, 153, 0.5);
     }
 
     .ai-sparkle-icon {
-      width: 18px;
-      height: 18px;
+      width: 14px;
+      height: 14px;
     }
 
     .ai-rainbow-text {
-      font-weight: 900;
-      font-size: 0.92rem;
-      letter-spacing: 1.2px;
+      font-weight: 800;
+      font-size: 0.76rem;
+      letter-spacing: 0.8px;
       background: linear-gradient(90deg, #38bdf8, #c026d3, #f43f5e, #facc15);
       background-size: 200% auto;
       -webkit-background-clip: text;
@@ -544,28 +545,28 @@
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-radius: 16px;
-      padding: 6px 16px;
+      padding: 6px 14px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       user-select: none;
-      height: 44px;
+      height: 40px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
 
     .weather-cd-text {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #ffffff;
       white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .weather-cd-icon {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -575,7 +576,7 @@
 
     .weather-cd-timer {
       font-family: monospace;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 800;
       color: #4ade80;
     }
@@ -589,13 +590,13 @@
     }
 
     .menu-hamburger-btn {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       background: rgba(15, 23, 42, 0.35);
       border: 1px solid rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border-radius: 16px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -613,7 +614,7 @@
     }
 
     .menu-hamburger-btn span {
-      width: 20px;
+      width: 18px;
       height: 2px;
       background-color: #ffffff;
       border-radius: 2px;
@@ -621,19 +622,19 @@
 
     .audio-popup {
       position: absolute;
-      top: 54px;
+      top: 50px;
       right: 0;
-      width: 240px;
-      background: rgba(15, 23, 42, 0.75);
+      width: 230px;
+      background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-radius: 20px;
-      padding: 16px;
+      border-radius: 18px;
+      padding: 14px;
       box-shadow: 0 14px 40px rgba(0,0,0,0.45);
       display: none;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       transform-origin: top right;
       animation: popupSlide 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -646,7 +647,7 @@
     }
 
     .popup-title {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 800;
       color: #ffffff;
       display: flex;
@@ -715,7 +716,7 @@
       align-items: center;
       margin-bottom: 12px;
       user-select: none;
-      padding: 12px;
+      padding: 10px;
       transition: all 0.4s ease;
     }
 
@@ -1007,15 +1008,18 @@
 
   <div id="audio-toast">🔊 Chạm vào màn hình để mở âm thanh thiên nhiên</div>
 
-  <!-- 💬 NÚT ZALO & AI BÊN GÓC TRÁI DƯỚI -->
+  <!-- 💬 NÚT ZALO LỚN & AI TOOL NHỎ BÊN GÓC DƯỚI -->
   <div class="bottom-floating-buttons">
     <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" rel="noopener noreferrer" class="zalo-icon-btn" title="Nhóm Hỗ Trợ Zalo">
+      <!-- LOGO CÔNG TY ZALO CHUẨN HD -->
       <svg class="zalo-icon-img" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M438.5 250C438.5 354.106 354.106 438.5 250 438.5C210.669 438.5 174.407 426.47 144.381 405.819L61.5 438.5L94.9754 357.653C72.1895 326.702 58.5 288.75 58.5 250C58.5 145.894 142.894 61.5 250 61.5C354.106 61.5 438.5 145.894 438.5 250Z" fill="#0068FF"/>
-        <path d="M150 180H350V210L230 310H350V340H150V310L270 210H150V180Z" fill="white"/>
+        <circle cx="250" cy="250" r="250" fill="#0068FF"/>
+        <path d="M361.5 292.8C353 325 316.5 352 270 352C208.5 352 158 304 158 245C158 186 208.5 138 270 138C325 138 370 178 370 231C370 252 363.5 272 361.5 292.8Z" fill="#0068FF"/>
+        <path d="M152 172H348V200L222 300H348V330H152V302L278 202H152V172Z" fill="white"/>
       </svg>
     </a>
 
+    <!-- NÚT AI TOOL NHỎ GỌN -->
     <a href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/ai.html" target="_blank" rel="noopener noreferrer" class="ai-icon-btn" title="Hệ Thống AI Smart">
       <svg class="ai-sparkle-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="url(#aiSparkleGrad)"/>
@@ -1079,6 +1083,7 @@
       </svg>
     </div>
 
+    <!-- KHU RỪNG THÔNG TOÀN BỘ -->
     <div class="forest-container" id="forest-box"></div>
 
     <div class="grass-wrapper">
@@ -1178,7 +1183,7 @@
             <span class="box-title">Lệnh Tool Rejoin</span>
             <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
           </div>
-          <div class="script-text">Thay đổi repository Termux : termux-change-repo | Cài đặt tool : . &lt;(curl https://raw.githubusercontent.com/zam2109/Toolrejoin/refs/heads/main/Setubtoolrejoin) | Chạy Tool : su -c "export PATH=$PATH:/data/data/com.termux/files/usr/bin &amp;&amp; export TERM=xterm-256color &amp;&amp; cd /sdcard/Download &amp;&amp; python zamtoolrejoinnewtool.py"</div>
+          <div class="script-text">Thay đổi repository Termux : termux-change-repo | Cài đặt tool : . <(curl https://raw.githubusercontent.com/zam2109/Toolrejoin/refs/heads/main/Setubtoolrejoin) | Chạy Tool : su -c "export PATH=$PATH:/data/data/com.termux/files/usr/bin && export TERM=xterm-256color && cd /sdcard/Download && python zamtoolrejoinnewtool.py"</div>
         </div>
         <div class="box">
           <div class="box-header">
@@ -1334,124 +1339,74 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       });
     }
 
-    // 🌤️ THỜI TIẾT ĐỒNG BỘ THỜI GIAN THỰC UNIX
+    // 🌤️ BẢNG MÀU & ICON THỜI TIẾT ĐÃ FIX NÉT CHUẨN
     const weatherModes = ['SUNNY', 'SUNSET', 'NIGHT', 'RAIN', 'STORM'];
-    const MODE_DURATION = 45; 
-    const TOTAL_CYCLE = MODE_DURATION * weatherModes.length; 
+    const MODE_DURATION = 600; // ⏱️ TĂNG LÊN 10 PHÚT (600 GIÂY) MỖI TRẠNG THÁI THỜI TIẾT
 
     let currentMode = 'SUNNY';
 
     const weatherNames = {
-      SUNNY: 'Nắng Đẹp',
+      SUNNY: 'Trời Sáng',
       SUNSET: 'Hoàng Hôn',
       NIGHT: 'Ban Đêm',
       RAIN: 'Mưa Rào',
       STORM: 'Bão Dữ Dội'
     };
 
+    // 🎨 FIX LOGO TRỜI SÁNG & HOÀNG HÔN SẮC NÉT
     const svgIcons = {
-      SUNNY: `<svg viewBox="0 0 64 64"><defs><radialGradient id="sunG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff59d"/><stop offset="100%" stop-color="#f57f17"/></radialGradient></defs><circle cx="32" cy="32" r="16" fill="url(#sunG)" filter="drop-shadow(0 0 8px #f57f17)"/><g stroke="#fbc02d" stroke-width="3.5" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="10"/><line x1="32" y1="54" x2="32" y2="60"/><line x1="4" y1="32" x2="10" y2="32"/><line x1="54" y1="32" x2="60" y2="32"/><line x1="12" y1="12" x2="16" y2="16"/><line x1="48" y1="48" x2="52" y2="52"/><line x1="12" y1="52" x2="16" y2="48"/><line x1="48" y1="16" x2="52" y2="12"/></g></svg>`,
-      SUNSET: `<svg viewBox="0 0 64 64"><circle cx="32" cy="38" r="14" fill="#fb923c"/><path d="M 8 44 L 56 44 M 14 50 L 50 50 M 20 56 L 44 56" stroke="#ffedd5" stroke-width="3" stroke-linecap="round"/></svg>`,
+      SUNNY: `<svg viewBox="0 0 64 64"><defs><radialGradient id="sunG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff59d"/><stop offset="100%" stop-color="#f57f17"/></radialGradient></defs><circle cx="32" cy="32" r="16" fill="url(#sunG)" filter="drop-shadow(0 0 10px #f57f17)"/><g stroke="#fbc02d" stroke-width="3.5" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="10"/><line x1="32" y1="54" x2="32" y2="60"/><line x1="4" y1="32" x2="10" y2="32"/><line x1="54" y1="32" x2="60" y2="32"/><line x1="12" y1="12" x2="16" y2="16"/><line x1="48" y1="48" x2="52" y2="52"/><line x1="12" y1="52" x2="16" y2="48"/><line x1="48" y1="16" x2="52" y2="12"/></g></svg>`,
+      SUNSET: `<svg viewBox="0 0 64 64"><defs><linearGradient id="sunsetG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffedd5"/><stop offset="100%" stop-color="#ea580c"/></linearGradient></defs><path d="M 10 42 L 54 42 M 16 48 L 48 48 M 22 54 L 42 54" stroke="#ffedd5" stroke-width="3" stroke-linecap="round"/><path d="M 20 36 A 12 12 0 0 1 44 36 Z" fill="url(#sunsetG)" filter="drop-shadow(0 0 8px #f97316)"/></svg>`,
       NIGHT: `<svg viewBox="0 0 64 64"><path d="M 38 12 C 24 12 14 22 14 36 C 14 50 24 54 38 54 C 28 48 26 34 34 22 C 38 16 44 14 44 14 C 42 12 40 12 38 12 Z" fill="#fef08a" filter="drop-shadow(0 0 8px #facc15)"/></svg>`,
       RAIN: `<svg viewBox="0 0 64 64"><path d="M 18 36 C 12 36 10 26 18 22 C 20 14 34 12 40 18 C 48 16 52 24 48 30 C 54 34 50 40 42 40 Z" fill="#94a3b8"/><line x1="22" y1="44" x2="18" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="44" x2="28" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="44" x2="38" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/></svg>`,
       STORM: `<svg viewBox="0 0 64 64"><path d="M 18 32 C 12 32 10 22 18 18 C 20 10 34 8 40 14 C 48 12 52 20 48 26 C 54 30 50 36 42 36 Z" fill="#334155"/><polygon points="32,34 24,46 30,46 26,58 38,44 32,44" fill="#facc15" filter="drop-shadow(0 0 6px #facc15)"/></svg>`
     };
 
-    // 🌲 TẠO KHU RỪNG
+    // 🌲 TẠO RỪNG CÂY THÔNG TỰ NHIÊN (ĐÃ XÓA MẪU CÂY TRÒN CHỒNG LỚP XẤU)
     function generateForest() {
       const container = document.getElementById('forest-box');
       if (!container) return;
       container.innerHTML = '';
 
-      const treeConfigs = [
-        { left: '-2%', width: '160px', height: '280px', animDur: '5.2s', zIndex: 3, flip: false, type: 1 },
-        { left: '8%', width: '100px', height: '170px', animDur: '4.5s', zIndex: 1, flip: true, type: 2 },
-        { left: '17%', width: '140px', height: '230px', animDur: '5.8s', zIndex: 2, flip: false, type: 3 },
-        { left: '28%', width: '80px', height: '140px', animDur: '4.2s', zIndex: 1, flip: true, type: 2 },
-        { left: '38%', width: '120px', height: '200px', animDur: '6.0s', zIndex: 2, flip: false, type: 1 },
-        { left: '48%', width: '90px', height: '150px', animDur: '4.8s', zIndex: 1, flip: true, type: 3 },
-        { left: '57%', width: '150px', height: '250px', animDur: '5.5s', zIndex: 3, flip: false, type: 1 },
-        { left: '68%', width: '105px', height: '180px', animDur: '4.4s', zIndex: 2, flip: true, type: 2 },
-        { left: '78%', width: '135px', height: '220px', animDur: '5.1s', zIndex: 2, flip: false, type: 3 },
-        { left: '86%', width: '85px', height: '145px', animDur: '4.1s', zIndex: 1, flip: true, type: 2 },
-        { left: '92%', width: '165px', height: '290px', animDur: '6.2s', zIndex: 3, flip: false, type: 1 },
-      ];
-
-      treeConfigs.forEach((cfg, idx) => {
+      const treeCount = 16;
+      for (let i = 0; i < treeCount; i++) {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("viewBox", "0 0 180 300");
+        svg.setAttribute("viewBox", "0 0 100 200");
         svg.classList.add("nature-tree");
-        svg.style.left = cfg.left;
-        svg.style.width = cfg.width;
-        svg.style.height = cfg.height;
-        svg.style.animationDuration = cfg.animDur;
-        svg.style.zIndex = cfg.zIndex;
-        if (cfg.flip) svg.style.transform = "scaleX(-1)";
+        
+        const leftPos = (i * 6.5) - 2 + (Math.random() * 2 - 1);
+        const height = Math.floor(Math.random() * 90 + 150);
+        const width = Math.floor(height * 0.55);
+        const animDur = (4.0 + Math.random() * 2.5).toFixed(1);
+        const zIndex = Math.floor(Math.random() * 3) + 1;
+        const flip = Math.random() > 0.5;
 
-        let innerSVG = '';
-        if (cfg.type === 1) {
-          innerSVG = `
-            <defs>
-              <linearGradient id="trunkG1_${idx}" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#2a1810"/>
-                <stop offset="50%" stop-color="#4e2f1d"/>
-                <stop offset="100%" stop-color="#190e09"/>
-              </linearGradient>
-              <radialGradient id="foliageG1_${idx}" cx="40%" cy="30%" r="70%">
-                <stop offset="0%" stop-color="#86efac"/>
-                <stop offset="40%" stop-color="#22c55e"/>
-                <stop offset="85%" stop-color="#15803d"/>
-                <stop offset="100%" stop-color="#052e16"/>
-              </radialGradient>
-            </defs>
-            <path d="M 80 300 L 82 170 Q 82 130 45 95 L 53 88 Q 88 120 92 165 Q 105 125 140 90 L 148 98 Q 108 135 98 170 L 100 300 Z" fill="url(#trunkG1_${idx})"/>
-            <circle cx="90" cy="110" r="58" fill="url(#foliageG1_${idx})"/>
-            <circle cx="45" cy="90" r="45" fill="url(#foliageG1_${idx})"/>
-            <circle cx="135" cy="95" r="45" fill="url(#foliageG1_${idx})"/>
-            <circle cx="90" cy="55" r="50" fill="url(#foliageG1_${idx})"/>
-            <circle cx="60" cy="40" r="35" fill="url(#foliageG1_${idx})"/>
-            <circle cx="120" cy="40" r="35" fill="url(#foliageG1_${idx})"/>
-          `;
-        } else if (cfg.type === 2) {
-          innerSVG = `
-            <defs>
-              <linearGradient id="trunkG2_${idx}" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#3d2413"/>
-                <stop offset="100%" stop-color="#1a0e07"/>
-              </linearGradient>
-              <linearGradient id="foliageG2_${idx}" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#4ade80"/>
-                <stop offset="50%" stop-color="#16a34a"/>
-                <stop offset="100%" stop-color="#064e3b"/>
-              </linearGradient>
-            </defs>
-            <rect x="82" y="120" width="16" height="180" rx="3" fill="url(#trunkG2_${idx})"/>
-            <path d="M 90 20 L 145 80 L 125 80 L 160 140 L 135 140 L 170 200 L 10 200 L 45 140 L 20 140 L 55 80 L 35 80 Z" fill="url(#foliageG2_${idx})"/>
-          `;
-        } else {
-          innerSVG = `
-            <defs>
-              <linearGradient id="trunkG3_${idx}" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#271c14"/>
-                <stop offset="100%" stop-color="#4a3222"/>
-              </linearGradient>
-              <radialGradient id="foliageG3_${idx}" cx="50%" cy="40%" r="60%">
-                <stop offset="0%" stop-color="#a7f3d0"/>
-                <stop offset="50%" stop-color="#10b981"/>
-                <stop offset="100%" stop-color="#047857"/>
-              </radialGradient>
-            </defs>
-            <path d="M 85 300 Q 88 190 60 130 L 72 125 Q 98 185 97 300 Z" fill="url(#trunkG3_${idx})"/>
-            <path d="M 68 140 Q 30 110 20 80 L 28 76 Q 38 102 72 132 Z" fill="url(#trunkG3_${idx})"/>
-            <circle cx="90" cy="90" r="62" fill="url(#foliageG3_${idx})"/>
-            <circle cx="40" cy="80" r="40" fill="url(#foliageG3_${idx})"/>
-            <circle cx="130" cy="80" r="42" fill="url(#foliageG3_${idx})"/>
-          `;
-        }
+        svg.style.left = leftPos + '%';
+        svg.style.width = width + 'px';
+        svg.style.height = height + 'px';
+        svg.style.animationDuration = animDur + 's';
+        svg.style.zIndex = zIndex;
+        if (flip) svg.style.transform = "scaleX(-1)";
 
-        svg.innerHTML = innerSVG;
+        // CẤU TRÚC SVG CÂY THÔNG CHUẨN
+        svg.innerHTML = `
+          <defs>
+            <linearGradient id="pineTrunk_${i}" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1f110a"/>
+              <stop offset="50%" stop-color="#3d2413"/>
+              <stop offset="100%" stop-color="#120904"/>
+            </linearGradient>
+            <linearGradient id="pineLeaves_${i}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4ade80"/>
+              <stop offset="45%" stop-color="#16a34a"/>
+              <stop offset="100%" stop-color="#052e16"/>
+            </linearGradient>
+          </defs>
+          <rect x="45" y="130" width="10" height="70" rx="2" fill="url(#pineTrunk_${i})"/>
+          <path d="M 50 15 L 82 65 L 70 65 L 90 110 L 76 110 L 96 155 L 4 155 L 24 110 L 10 110 L 30 65 L 18 65 Z" fill="url(#pineLeaves_${i})"/>
+        `;
         container.appendChild(svg);
-      });
+      }
     }
 
     generateForest();
@@ -1509,15 +1464,15 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       }
     }
 
-    // 🌧️ HẠT MƯA
+    // 🌧️ HẠT MƯA ĐÃ FIX BAO PHỦ TOÀN MÀN HÌNH
     function updateRainParticles(mode) {
       const rainBox = document.getElementById('rain-box');
       if (!rainBox) return;
       rainBox.innerHTML = '';
 
       let dropCount = 0;
-      if (mode === 'RAIN') dropCount = 90;
-      else if (mode === 'STORM') dropCount = 160;
+      if (mode === 'RAIN') dropCount = 110;
+      else if (mode === 'STORM') dropCount = 180;
 
       if (dropCount === 0) return;
 
@@ -1525,7 +1480,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       for (let i = 0; i < dropCount; i++) {
         const drop = document.createElement('div');
         drop.className = 'drop';
-        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.left = (Math.random() * 140 - 20) + 'vw';
         drop.style.top = (Math.random() * -20) + 'vh';
         drop.style.animationDelay = (Math.random() * 2) + 's';
         drop.style.animationDuration = (mode === 'STORM' ? (0.4 + Math.random() * 0.3) : (0.7 + Math.random() * 0.4)) + 's';
@@ -1535,7 +1490,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       rainBox.appendChild(fragment);
     }
 
-    // ⏱️ ĐỒNG BỘ THỜI TIẾT UNIX
+    // ⏱️ THỜI TIẾT ĐỔI NGẪU NHIÊN CỐ ĐỊNH MỖI 10 PHÚT
     function applyWeatherMode(mode) {
       document.body.className = 'weather-' + mode.toLowerCase();
       const statusBox = document.getElementById('status-box');
@@ -1546,20 +1501,24 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       updateSoundVolumes();
     }
 
+    function getDeterministicRandomWeather(blockIndex) {
+      const seed = Math.sin(blockIndex * 9999) * 10000;
+      const rand = seed - Math.floor(seed);
+      return weatherModes[Math.floor(rand * weatherModes.length)];
+    }
+
     function updateSyncedWeather() {
       const nowSec = Math.floor(Date.now() / 1000);
-      const cyclePos = nowSec % TOTAL_CYCLE;
-      const modeIdx = Math.floor(cyclePos / MODE_DURATION);
-      const remainingSec = MODE_DURATION - (cyclePos % MODE_DURATION);
+      const currentBlock = Math.floor(nowSec / MODE_DURATION);
+      const remainingSec = MODE_DURATION - (nowSec % MODE_DURATION);
 
-      const newMode = weatherModes[modeIdx];
+      const newMode = getDeterministicRandomWeather(currentBlock);
       if (currentMode !== newMode) {
         currentMode = newMode;
         applyWeatherMode(currentMode);
       }
 
-      const nextIdx = (modeIdx + 1) % weatherModes.length;
-      const nextMode = weatherModes[nextIdx];
+      const nextBlockMode = getDeterministicRandomWeather(currentBlock + 1);
 
       const timerElem = document.getElementById('weather-timer-text');
       const nextNameElem = document.getElementById('weather-next-name');
@@ -1570,14 +1529,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         const s = (remainingSec % 60).toString().padStart(2, '0');
         timerElem.innerText = `${m}:${s}`;
       }
-      if (nextNameElem) nextNameElem.innerText = weatherNames[nextMode];
-      if (nextIconElem) nextIconElem.innerHTML = svgIcons[nextMode];
+      if (nextNameElem) nextNameElem.innerText = weatherNames[nextBlockMode];
+      if (nextIconElem) nextIconElem.innerHTML = svgIcons[nextBlockMode];
     }
 
     setInterval(updateSyncedWeather, 1000);
     updateSyncedWeather();
 
-    // 🔊 AUDIO ENGINE - TẠO ÂM THANH SỐNG ĐỘNG BẰNG WEB AUDIO API
+    // 🔊 AUDIO ENGINE - ĐÃ FIX TOÀN BỘ HỆ THỐNG ÂM THANH NỀN WEB
     let audioCtx = null;
     let masterGain = null;
     let masterVolume = 0.85;
@@ -1650,7 +1609,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         output[i] = Math.random() * 2 - 1;
       }
 
-      // 🌬️ GIÓ THỔI
+      // 🌬️ TIẾNG GIÓ THỔI NỀN
       const windNoise = audioCtx.createBufferSource();
       windNoise.buffer = noiseBuffer;
       windNoise.loop = true;
@@ -1667,7 +1626,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       windGain.connect(masterGain);
       windNoise.start();
 
-      // 🌧️ TIẾNG MƯA
+      // 🌧️ TIẾNG MƯA RÀO NỀN
       const rainNoise = audioCtx.createBufferSource();
       rainNoise.buffer = noiseBuffer;
       rainNoise.loop = true;
@@ -1685,7 +1644,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       rainNoise.start();
     }
 
-    // 🐦 TIẾNG CHIM HÓT
+    // 🐦 TIẾNG CHIM HÓT BAN NGÀY
     function playBirdChirp() {
       if (!audioCtx || audioCtx.state !== 'running') return;
       const osc = audioCtx.createOscillator();
@@ -1718,7 +1677,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       if (birdTimer) { clearInterval(birdTimer); birdTimer = null; }
     }
 
-    // 🦗 TIẾNG DẾ KÊU
+    // 🦗 TIẾNG DẾ KÊU BAN ĐÊM (HOÀN THIỆN ĐẦY ĐỦ)
     function playCricketChirp() {
       if (!audioCtx || audioCtx.state !== 'running') return;
       const osc = audioCtx.createOscillator();
@@ -1731,7 +1690,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       gain.gain.setValueAtTime(0.001, now);
       gain.gain.linearRampToValueAtTime(0.03, now + 0.02);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-      
+
       osc.connect(gain);
       gain.connect(masterGain);
       osc.start(now);
@@ -1741,116 +1700,89 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     function startCricketLoop() {
       if (cricketTimer) return;
       cricketTimer = setInterval(() => {
-        if (Math.random() < 0.7) {
-          playCricketChirp();
-          setTimeout(playCricketChirp, 80);
-          setTimeout(playCricketChirp, 160);
-        }
-      }, 1500);
+        if (Math.random() < 0.7) playCricketChirp();
+      }, 1800);
     }
 
     function stopCricketLoop() {
       if (cricketTimer) { clearInterval(cricketTimer); cricketTimer = null; }
     }
 
-    // ⚡ SẤM SÉT (THUNDER)
-    function triggerThunder() {
-      if (!audioCtx || audioCtx.state !== 'running' || currentMode !== 'STORM') return;
-
+    // ⚡ TIẾNG SẤM SÉT KHI BÃO DỮ DỘI
+    function playThunderSound() {
+      if (!audioCtx || audioCtx.state !== 'running') return;
+      
       const flash = document.getElementById('lightning-flash');
-      const boltSvg = document.getElementById('lightning-svg-bolt');
-      const boltPath = document.getElementById('bolt-path');
-
-      if (flash && boltSvg && boltPath) {
-        const startX = Math.random() * 800 + 100;
-        let d = `M ${startX} 0 `;
-        let currX = startX;
-        let currY = 0;
-        for (let i = 0; i < 8; i++) {
-          currY += Math.random() * 80 + 60;
-          currX += (Math.random() - 0.5) * 160;
-          d += `L ${currX} ${currY} `;
-        }
-        boltPath.setAttribute('d', d);
-
-        flash.style.opacity = '0.95';
-        boltSvg.style.opacity = '1';
-
-        setTimeout(() => {
-          flash.style.opacity = '0';
-          boltSvg.style.opacity = '0';
-        }, 120);
-
-        const now = audioCtx.currentTime;
-        const bufferSize = audioCtx.sampleRate * 2;
-        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const output = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          output[i] = Math.random() * 2 - 1;
-        }
-
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = noiseBuffer;
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(120, now);
-        filter.frequency.linearRampToValueAtTime(30, now + 1.8);
-
-        const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.3 * masterVolume, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        noise.start(now);
-        noise.stop(now + 1.8);
+      if (flash) {
+        flash.style.opacity = '0.9';
+        setTimeout(() => { flash.style.opacity = '0'; }, 100);
       }
+
+      const bufferSize = audioCtx.sampleRate * 2;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(120, audioCtx.currentTime);
+
+      const gain = audioCtx.createGain();
+      const now = audioCtx.currentTime;
+      gain.gain.setValueAtTime(0.4, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(masterGain);
+      noise.start(now);
+      noise.stop(now + 1.8);
     }
 
     function startThunderLoop() {
       if (thunderTimer) return;
       thunderTimer = setInterval(() => {
-        if (currentMode === 'STORM' && Math.random() < 0.4) {
-          triggerThunder();
-        }
-      }, 5000);
+        if (Math.random() < 0.4) playThunderSound();
+      }, 6000);
     }
 
     function stopThunderLoop() {
       if (thunderTimer) { clearInterval(thunderTimer); thunderTimer = null; }
     }
 
-    // 🎛️ CẬP NHẬT ÂM LƯỢNG KHI THỜI TIẾT THAY ĐỔI
+    // 🔄 ĐỒNG BỘ ÂM THANH THEO CÁC CHẾ ĐỘ THỜI TIẾT
     function updateSoundVolumes() {
       if (!audioCtx) return;
-
       const now = audioCtx.currentTime;
 
-      stopBirdLoop();
-      stopCricketLoop();
-      stopThunderLoop();
-
-      if (currentMode === 'SUNNY') {
-        if (windGain) windGain.gain.setTargetAtTime(0.02, now, 0.5);
+      if (currentMode === 'SUNNY' || currentMode === 'SUNSET') {
         if (rainGain) rainGain.gain.setTargetAtTime(0, now, 0.5);
-        startBirdLoop();
-      } else if (currentMode === 'SUNSET') {
         if (windGain) windGain.gain.setTargetAtTime(0.03, now, 0.5);
-        if (rainGain) rainGain.gain.setTargetAtTime(0, now, 0.5);
         startBirdLoop();
+        stopCricketLoop();
+        stopThunderLoop();
       } else if (currentMode === 'NIGHT') {
-        if (windGain) windGain.gain.setTargetAtTime(0.02, now, 0.5);
         if (rainGain) rainGain.gain.setTargetAtTime(0, now, 0.5);
+        if (windGain) windGain.gain.setTargetAtTime(0.02, now, 0.5);
+        stopBirdLoop();
         startCricketLoop();
+        stopThunderLoop();
       } else if (currentMode === 'RAIN') {
-        if (windGain) windGain.gain.setTargetAtTime(0.06, now, 0.5);
         if (rainGain) rainGain.gain.setTargetAtTime(0.12, now, 0.5);
+        if (windGain) windGain.gain.setTargetAtTime(0.08, now, 0.5);
+        stopBirdLoop();
+        stopCricketLoop();
+        stopThunderLoop();
       } else if (currentMode === 'STORM') {
-        if (windGain) windGain.gain.setTargetAtTime(0.15, now, 0.5);
         if (rainGain) rainGain.gain.setTargetAtTime(0.25, now, 0.5);
+        if (windGain) windGain.gain.setTargetAtTime(0.18, now, 0.5);
+        stopBirdLoop();
+        stopCricketLoop();
         startThunderLoop();
       }
     }
