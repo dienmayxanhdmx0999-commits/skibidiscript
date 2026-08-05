@@ -79,11 +79,35 @@ box-shadow:0 0 12px #ff330055;
 }
 
 .bottom{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
 display:flex;
 padding:15px;
-gap:10px;
 background:#111;
 border-top:2px solid #ff3300;
+gap:10px;
+}
+
+textarea{
+flex:1;
+height:55px;
+background:#1a1a1a;
+color:#fff;
+border:1px solid #ff3300;
+border-radius:10px;
+padding:12px;
+font-size:16px;
+}
+
+button{
+width:90px;
+height:55px;
+background:#ff3300;
+color:#fff;
+border:none;
+border-radius:10px;
 }
 
 textarea{
@@ -110,4 +134,16 @@ box-shadow:0 0 15px #ff3300;
 
 button:hover{
 background:#ff5500;
+}
+.chat{
+padding:20px;
+padding-bottom:100px;
+overflow-y:auto;
+height:calc(100vh - 140px);
+}
+
+.message{
+display:block;
+width:fit-content;
+max-width:80%;
 }
