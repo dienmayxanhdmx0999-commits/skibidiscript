@@ -1,4 +1,8 @@
+const API_KEY = "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";
+const MODEL = "openai/gpt-4o-mini";
+
 const chatBox = document.getElementById("chatBox");
+const input = document.getElementById("prompt");
 
 function addMessage(text, type) {
     const div = document.createElement("div");
@@ -9,14 +13,8 @@ function addMessage(text, type) {
 }
 
 async function sendMessage() {
-    const apiKey = document.getElementById("apiKey").value.trim();
-    const input = document.getElementById("prompt");
-    const text = input.value.trim();
 
-    if (!apiKey) {
-        alert("Nhập API Key");
-        return;
-    }
+    const text = input.value.trim();
 
     if (!text) return;
 
@@ -24,36 +22,61 @@ async function sendMessage() {
     input.value = "";
 
     try {
+
         const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+
             method: "POST",
+
             headers: {
-                "Authorization": `Bearer ${apiKey}`,
+                "Authorization": `Bearer ${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}`,
                 "Content-Type": "application/json",
                 "HTTP-Referer": "https://dienmayxanhdmx0999-commits.github.io/skibidiscript/",
-                "X-Title": "Skibidi AI"
+                "X-Title": "NOXGPT"
             },
+
             body: JSON.stringify({
-                model: "openai/gpt-4o-mini",
+
+                model: MODEL,
+
                 messages: [
+
+                    {
+                        role: "system",
+                        content: "Bạn là NOXGPT, một AI thông minh, trả lời bằng TIẾNG ANH trừ khi người dùng yêu cầu ngôn ngữ khác."
+                    },
+
                     {
                         role: "user",
                         content: text
                     }
+
                 ]
+
             })
+
         });
 
         const data = await res.json();
 
         if (data.error) {
-            addMessage("Lỗi: " + data.error.message, "ai");
+            addMessage(data.error.message, "ai");
             return;
         }
 
         addMessage(data.choices[0].message.content, "ai");
 
-    } catch (err) {
-        addMessage("Không thể kết nối API", "ai");
-        console.log(err);
+    } catch (e) {
+
+        addMessage("Không thể kết nối tới máy chủ.", "ai");
+        console.log(e);
+
     }
+
 }
+
+input.addEventListener("keydown", function(e){
+    if(e.key==="Enter" && !e.shiftKey){
+        e.preventDefault();
+        sendMessage();
+    }
+});
