@@ -1178,7 +1178,7 @@
             <span class="box-title">Lệnh Tool Rejoin</span>
             <button class="box-btn" onclick="copyScriptCode(this)">Copy</button>
           </div>
-          <div class="script-text">Thay đổi repository Termux : termux-change-repo | Cài đặt tool : . <(curl https://raw.githubusercontent.com/zam2109/Toolrejoin/refs/heads/main/Setubtoolrejoin) | Chạy Tool : su -c "export PATH=$PATH:/data/data/com.termux/files/usr/bin && export TERM=xterm-256color && cd /sdcard/Download && python zamtoolrejoinnewtool.py"</div>
+          <div class="script-text">Thay đổi repository Termux : termux-change-repo | Cài đặt tool : . &lt;(curl https://raw.githubusercontent.com/zam2109/Toolrejoin/refs/heads/main/Setubtoolrejoin) | Chạy Tool : su -c "export PATH=$PATH:/data/data/com.termux/files/usr/bin &amp;&amp; export TERM=xterm-256color &amp;&amp; cd /sdcard/Download &amp;&amp; python zamtoolrejoinnewtool.py"</div>
         </div>
         <div class="box">
           <div class="box-header">
@@ -1535,7 +1535,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       rainBox.appendChild(fragment);
     }
 
-    // ⏱️ ĐỒNG BỘ THỜI TIẾT UNX
+    // ⏱️ ĐỒNG BỘ THỜI TIẾT UNIX
     function applyWeatherMode(mode) {
       document.body.className = 'weather-' + mode.toLowerCase();
       const statusBox = document.getElementById('status-box');
@@ -1577,13 +1577,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     setInterval(updateSyncedWeather, 1000);
     updateSyncedWeather();
 
-    // 🔊 AUDIO ENGINE - SỬA TOÀN BỘ LỖI MẤT ÂM THANH
+    // 🔊 AUDIO ENGINE - TẠO ÂM THANH SỐNG ĐỘNG BẰNG WEB AUDIO API
     let audioCtx = null;
     let masterGain = null;
     let masterVolume = 0.85;
     let windFilter = null, windGain = null;
     let rainGain = null;
-    let weatherMelodyTimer = null, cricketTimer = null, birdTimer = null, thunderTimer = null;
+    let cricketTimer = null, birdTimer = null, thunderTimer = null;
     let hasUserInteracted = false;
 
     function initAudioEngine() {
@@ -1743,80 +1743,45 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       cricketTimer = setInterval(() => {
         if (Math.random() < 0.7) {
           playCricketChirp();
-          setTimeout(playCricketChirp, 100);
+          setTimeout(playCricketChirp, 80);
+          setTimeout(playCricketChirp, 160);
         }
-      }, 2500);
+      }, 1500);
     }
 
     function stopCricketLoop() {
       if (cricketTimer) { clearInterval(cricketTimer); cricketTimer = null; }
     }
 
-    // 🎵 GIAI ĐIỆU THIỀN ĐỊNH
-    const pentatonicNotes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
-    function playMelodyNote() {
-      if (!audioCtx || audioCtx.state !== 'running') return;
-      const note = pentatonicNotes[Math.floor(Math.random() * pentatonicNotes.length)];
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      
-      const now = audioCtx.currentTime;
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(note, now);
-      
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.04, now + 0.5);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
-      
-      osc.connect(gain);
-      gain.connect(masterGain);
-      osc.start(now);
-      osc.stop(now + 3.1);
-    }
-
-    function startWeatherMelodyLoop() {
-      if (weatherMelodyTimer) return;
-      weatherMelodyTimer = setInterval(() => {
-        if (Math.random() < 0.5) playMelodyNote();
-      }, 4000);
-    }
-
-    function stopWeatherMelodyLoop() {
-      if (weatherMelodyTimer) { clearInterval(weatherMelodyTimer); weatherMelodyTimer = null; }
-    }
-
-    // ⚡ SẤM SÉT VÀ TẠO ÂM THANH SẤM
+    // ⚡ SẤM SÉT (THUNDER)
     function triggerThunder() {
-      if (currentMode !== 'STORM') return;
-      
-      // Chớp sáng màn hình
+      if (!audioCtx || audioCtx.state !== 'running' || currentMode !== 'STORM') return;
+
       const flash = document.getElementById('lightning-flash');
-      const bolt = document.getElementById('lightning-svg-bolt');
+      const boltSvg = document.getElementById('lightning-svg-bolt');
       const boltPath = document.getElementById('bolt-path');
-      
-      if (flash && bolt && boltPath) {
-        // Vẽ đường sét ngẫu nhiên
-        let startX = 200 + Math.random() * 600;
-        let d = `M ${startX} 0`;
-        let curX = startX, curY = 0;
-        while (curY < 800) {
-          curX += (Math.random() - 0.5) * 120;
-          curY += 40 + Math.random() * 60;
-          d += ` L ${curX} ${curY}`;
+
+      if (flash && boltSvg && boltPath) {
+        const startX = Math.random() * 800 + 100;
+        let d = `M ${startX} 0 `;
+        let currX = startX;
+        let currY = 0;
+        for (let i = 0; i < 8; i++) {
+          currY += Math.random() * 80 + 60;
+          currX += (Math.random() - 0.5) * 160;
+          d += `L ${currX} ${currY} `;
         }
         boltPath.setAttribute('d', d);
 
-        flash.style.opacity = '0.9';
-        bolt.style.opacity = '1';
-        
+        flash.style.opacity = '0.95';
+        boltSvg.style.opacity = '1';
+
         setTimeout(() => {
           flash.style.opacity = '0';
-          bolt.style.opacity = '0';
+          boltSvg.style.opacity = '0';
         }, 120);
-      }
 
-      // Tiếng sấm rền
-      if (audioCtx && audioCtx.state === 'running') {
+        const now = audioCtx.currentTime;
         const bufferSize = audioCtx.sampleRate * 2;
         const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const output = noiseBuffer.getChannelData(0);
@@ -1824,31 +1789,33 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
           output[i] = Math.random() * 2 - 1;
         }
 
-        const thunderSrc = audioCtx.createBufferSource();
-        thunderSrc.buffer = noiseBuffer;
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = noiseBuffer;
 
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(160, audioCtx.currentTime);
+        filter.frequency.setValueAtTime(120, now);
+        filter.frequency.linearRampToValueAtTime(30, now + 1.8);
 
         const gain = audioCtx.createGain();
-        const now = audioCtx.currentTime;
-        gain.gain.setValueAtTime(0.01, now);
-        gain.gain.linearRampToValueAtTime(0.3, now + 0.1);
+        gain.gain.setValueAtTime(0.3 * masterVolume, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
 
-        thunderSrc.connect(filter);
+        noise.connect(filter);
         filter.connect(gain);
-        gain.connect(masterGain);
+        gain.connect(audioCtx.destination);
 
-        thunderSrc.start(now);
+        noise.start(now);
+        noise.stop(now + 1.8);
       }
     }
 
     function startThunderLoop() {
       if (thunderTimer) return;
       thunderTimer = setInterval(() => {
-        if (Math.random() < 0.45) triggerThunder();
+        if (currentMode === 'STORM' && Math.random() < 0.4) {
+          triggerThunder();
+        }
       }, 5000);
     }
 
@@ -1856,51 +1823,34 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       if (thunderTimer) { clearInterval(thunderTimer); thunderTimer = null; }
     }
 
-    // 🎛️ CẬP NHẬT ÂM THANH THEO THỜI TIẾT
+    // 🎛️ CẬP NHẬT ÂM LƯỢNG KHI THỜI TIẾT THAY ĐỔI
     function updateSoundVolumes() {
-      if (!audioCtx || !windFilter || !rainGain) return;
+      if (!audioCtx) return;
 
       const now = audioCtx.currentTime;
 
+      stopBirdLoop();
+      stopCricketLoop();
+      stopThunderLoop();
+
       if (currentMode === 'SUNNY') {
-        windFilter.frequency.setTargetAtTime(220, now, 1.0);
-        windGain.gain.setTargetAtTime(0.03, now, 1.0);
-        rainGain.gain.setTargetAtTime(0, now, 0.5);
-        stopCricketLoop();
-        stopThunderLoop();
+        if (windGain) windGain.gain.setTargetAtTime(0.02, now, 0.5);
+        if (rainGain) rainGain.gain.setTargetAtTime(0, now, 0.5);
         startBirdLoop();
-        startWeatherMelodyLoop();
       } else if (currentMode === 'SUNSET') {
-        windFilter.frequency.setTargetAtTime(180, now, 1.0);
-        windGain.gain.setTargetAtTime(0.035, now, 1.0);
-        rainGain.gain.setTargetAtTime(0, now, 0.5);
-        stopCricketLoop();
-        stopThunderLoop();
+        if (windGain) windGain.gain.setTargetAtTime(0.03, now, 0.5);
+        if (rainGain) rainGain.gain.setTargetAtTime(0, now, 0.5);
         startBirdLoop();
-        startWeatherMelodyLoop();
       } else if (currentMode === 'NIGHT') {
-        windFilter.frequency.setTargetAtTime(150, now, 1.0);
-        windGain.gain.setTargetAtTime(0.025, now, 1.0);
-        rainGain.gain.setTargetAtTime(0, now, 0.5);
-        stopBirdLoop();
-        stopThunderLoop();
+        if (windGain) windGain.gain.setTargetAtTime(0.02, now, 0.5);
+        if (rainGain) rainGain.gain.setTargetAtTime(0, now, 0.5);
         startCricketLoop();
-        startWeatherMelodyLoop();
       } else if (currentMode === 'RAIN') {
-        windFilter.frequency.setTargetAtTime(600, now, 1.0);
-        windGain.gain.setTargetAtTime(0.18, now, 1.0);
-        rainGain.gain.setTargetAtTime(0.22, now, 0.8);
-        stopCricketLoop();
-        stopBirdLoop();
-        stopThunderLoop();
-        stopWeatherMelodyLoop();
+        if (windGain) windGain.gain.setTargetAtTime(0.06, now, 0.5);
+        if (rainGain) rainGain.gain.setTargetAtTime(0.12, now, 0.5);
       } else if (currentMode === 'STORM') {
-        windFilter.frequency.setTargetAtTime(1200, now, 1.0);
-        windGain.gain.setTargetAtTime(0.35, now, 1.0);
-        rainGain.gain.setTargetAtTime(0.4, now, 0.8);
-        stopCricketLoop();
-        stopBirdLoop();
-        stopWeatherMelodyLoop();
+        if (windGain) windGain.gain.setTargetAtTime(0.15, now, 0.5);
+        if (rainGain) rainGain.gain.setTargetAtTime(0.25, now, 0.5);
         startThunderLoop();
       }
     }
