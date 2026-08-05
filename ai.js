@@ -1,87 +1,143 @@
-const API_KEY = "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";
-const MODEL = "openai/gpt-4o-mini";
+const API_KEY="sk-jbmG2MMDa70u525sxLLtCbCrirkBuXu9tV0MmL7qj6n7sFEp";
+const MODEL="openai/gpt-4o-mini";
 
-const chatBox = document.getElementById("chatBox");
-const input = document.getElementById("prompt");
+const chat=document.getElementById("chat");
+const input=document.getElementById("prompt");
+const thinking=document.getElementById("thinking");
 
-function addMessage(text, type) {
-    const div = document.createElement("div");
-    div.className = "message " + type;
-    div.textContent = text;
-    chatBox.appendChild(div);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+let history=[];
 
-async function sendMessage() {
+function bubble(text,type){
 
-    const text = input.value.trim();
-    if (!text) return;
+const div=document.createElement("div");
 
-    document.querySelector(".welcome")?.remove();
+div.className="message "+type;
 
-    addMessage(text, "user");
-    input.value = "";
+chat.appendChild(div);
 
-    try {
+if(type==="ai"){
 
-        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+let i=0;
 
-            method: "POST",
+const timer=setInterval(()=>{
 
-            headers: {
-                "Authorization": `Bearer ${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}`,
-                "Content-Type": "application/json",
-                "HTTP-Referer": "https://dienmayxanhdmx0999-commits.github.io/skibidiscript/",
-                "X-Title": "NOXGPT"
-            },
+div.innerHTML=marked.parse(text.substring(0,i));
 
-            body: JSON.stringify({
+chat.scrollTop=chat.scrollHeight;
 
-                model: MODEL,
+i++;
 
-                messages: [
+if(i>text.length){
 
-                    {
-                        role: "system",
-                        content: "Bạn là NOXGPT. Luôn trả lời bằng tiếng Việt trừ khi người dùng yêu cầu ngôn ngữ khác."
-                    },
+clearInterval(timer);
 
-                    {
-                        role: "user",
-                        content: text
-                    }
-
-                ]
-
-            })
-
-        });
-
-        const data = await response.json();
-
-        if (data.error) {
-            addMessage("❌ " + data.error.message, "ai");
-            return;
-        }
-
-        addMessage(data.choices[0].message.content, "ai");
-
-    } catch (err) {
-
-        console.log(err);
-        addMessage("❌ Không thể kết nối đến OpenRouter.", "ai");
-
-    }
+document.querySelectorAll("pre code").forEach(el=>hljs.highlightElement(el));
 
 }
 
-input.addEventListener("keydown", function(e){
+},8);
 
-    if(e.key==="Enter" && !e.shiftKey){
+}else{
 
-        e.preventDefault();
-        sendMessage();
+div.innerText=text;
 
-    }
+}
+
+chat.scrollTop=chat.scrollHeight;
+
+}
+
+async function sendMessage(){
+
+const text=input.value.trim();
+
+if(!text)return;
+
+document.querySelector(".welcome")?.remove();
+
+bubble(text,"user");
+
+history.push({
+role:"user",
+content:text
+});
+
+input.value="";
+
+thinking.classList.remove("hidden");
+
+try{
+
+const res=await fetch("https://apihub.agnes-ai.com/v1",{
+
+method:"POST",
+
+headers:{
+
+Authorization:`Bearer ${sk-jbmG2MMDa70u525sxLLtCbCrirkBuXu9tV0MmL7qj6n7sFEp}`,
+
+"Content-Type":"application/json",
+
+"HTTP-Referer":"https://dienmayxanhdmx0999-commits.github.io/skibidiscript/",
+
+"X-Title":"NOXGPT"
+
+},
+
+body:JSON.stringify({
+
+model:MODEL,
+
+messages:history
+
+})
+
+});
+
+const data=await res.json();
+
+thinking.classList.add("hidden");
+
+if(data.error){
+
+bubble(data.error.message,"ai");
+
+return;
+
+}
+
+const reply=data.choices[0].message.content;
+
+history.push({
+
+role:"assistant",
+
+content:reply
+
+});
+
+bubble(reply,"ai");
+
+}catch(e){
+
+thinking.classList.add("hidden");
+
+bubble("Không thể kết nối tới AI.","ai");
+
+console.log(e);
+
+}
+
+}
+
+input.addEventListener("keydown",e=>{
+
+if(e.key==="Enter"){
+
+e.preventDefault();
+
+sendMessage();
+
+}
 
 });
