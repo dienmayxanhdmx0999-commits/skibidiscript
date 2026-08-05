@@ -1,108 +1,265 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
 
-<title>NOXGPT</title>
+body{
+background:#070707;
+overflow:hidden;
+display:flex;
+height:100vh;
+color:white;
+}
 
-<link rel="stylesheet" href="ai.css">
+#particles{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,#ff550015,transparent 40%),
+radial-gradient(circle at bottom,#ff220010,transparent 40%);
+z-index:-1;
+animation:bg 8s linear infinite alternate;
+}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
+@keyframes bg{
+0%{filter:hue-rotate(0deg);}
+100%{filter:hue-rotate(25deg);}
+}
 
-<body>
+.sidebar{
+width:270px;
+background:#0d0d0d;
+border-right:1px solid #ff330055;
+display:flex;
+flex-direction:column;
+padding:20px;
+}
 
-<div id="particles"></div>
+.logo{
+position:relative;
+text-align:center;
+margin-bottom:30px;
+}
 
-<div class="sidebar">
+.logoGlow{
+position:absolute;
+width:140px;
+height:140px;
+left:50%;
+top:-35px;
+transform:translateX(-50%);
+background:#ff3300;
+filter:blur(70px);
+opacity:.25;
+animation:glow 3s infinite alternate;
+}
 
-<div class="logo">
-<div class="logoGlow"></div>
-<h1>NOXGPT</h1>
-<p>CYBER AI</p>
-</div>
+@keyframes glow{
+from{opacity:.2;}
+to{opacity:.5;}
+}
 
-<button class="newChat">
-＋ New Chat
-</button>
+.logo h1{
+font-family:Orbitron;
+font-size:36px;
+color:#ff5a00;
+text-shadow:0 0 20px #ff3300;
+}
 
-<div class="history" id="history">
+.logo p{
+color:#999;
+letter-spacing:3px;
+}
 
-</div>
+.newChat{
+margin-top:15px;
+height:50px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#ff3300,#ff7700);
+color:white;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 20px #ff330055;
+}
 
-</div>
+.history{
+margin-top:25px;
+overflow:auto;
+flex:1;
+}
 
-<div class="main">
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+}
 
-<div class="topbar">
+.topbar{
+height:70px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 30px;
+border-bottom:1px solid #ff330040;
+background:#111;
+backdrop-filter:blur(20px);
+}
 
-<div class="status">
+.dot{
+width:10px;
+height:10px;
+background:#00ff66;
+border-radius:50%;
+display:inline-block;
+margin-right:8px;
+box-shadow:0 0 10px #00ff66;
+}
 
-<span class="dot"></span>
+.chat{
+flex:1;
+overflow:auto;
+padding:30px;
+}
 
-ONLINE
+.welcome{
+margin-top:15vh;
+text-align:center;
+opacity:.8;
+}
 
-</div>
+.welcome h2{
+font-size:55px;
+font-family:Orbitron;
+color:#ff5500;
+text-shadow:0 0 20px #ff3300;
+}
 
-<div class="model">
+.message{
+max-width:78%;
+padding:16px;
+border-radius:18px;
+margin:18px 0;
+animation:show .25s;
+white-space:pre-wrap;
+line-height:1.7;
+}
 
-GPT-5
+@keyframes show{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
 
-</div>
+.user{
+margin-left:auto;
+background:#ff4400;
+box-shadow:0 0 18px #ff330055;
+}
 
-</div>
+.ai{
+background:#151515;
+border:1px solid #ff330055;
+backdrop-filter:blur(20px);
+}
 
-<div id="chat" class="chat">
+.inputBox{
+padding:20px;
+display:flex;
+gap:12px;
+background:#101010;
+border-top:1px solid #ff330044;
+}
 
-<div class="welcome">
+input{
+flex:1;
+height:58px;
+background:#181818;
+border:1px solid #ff330055;
+border-radius:15px;
+padding:18px;
+color:white;
+font-size:16px;
+outline:none;
+}
 
-<h2>NOXGPT</h2>
+button{
+width:70px;
+border:none;
+border-radius:15px;
+background:linear-gradient(90deg,#ff3300,#ff7700);
+color:white;
+font-size:22px;
+cursor:pointer;
+box-shadow:0 0 15px #ff330055;
+}
 
-<p>Cyber Intelligence</p>
+.thinking{
+padding:10px 25px;
+display:flex;
+align-items:center;
+gap:15px;
+}
 
-</div>
+.loader{
+display:flex;
+gap:6px;
+}
 
-</div>
+.loader span{
+width:9px;
+height:9px;
+border-radius:50%;
+background:#ff5500;
+animation:bounce 1s infinite;
+}
 
-<div id="thinking" class="thinking hidden">
+.loader span:nth-child(2){
+animation-delay:.2s;
+}
 
-<div class="loader">
+.loader span:nth-child(3){
+animation-delay:.4s;
+}
 
-<span></span>
-<span></span>
-<span></span>
+@keyframes bounce{
+50%{
+transform:translateY(-8px);
+}
+}
 
-</div>
+.hidden{
+display:none;
+}
 
-AI đang suy nghĩ...
+::-webkit-scrollbar{
+width:8px;
+}
 
-</div>
+::-webkit-scrollbar-thumb{
+background:#ff4400;
+border-radius:20px;
+}
 
-<div class="inputBox">
+@media(max-width:900px){
 
-<input
-id="prompt"
-type="text"
-placeholder="Nhập tin nhắn..."
->
+.sidebar{
+display:none;
+}
 
-<button onclick="sendMessage()">
+.welcome h2{
+font-size:38px;
+}
 
-➜
+.message{
+max-width:92%;
+}
 
-</button>
-
-</div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/common.min.js"></script>
-
-<script src="ai.js"></script>
-
-</body>
-</html>
+}
