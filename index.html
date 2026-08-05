@@ -99,35 +99,35 @@
       color: #cbd5e1;
     }
 
-    /* 🌿 CÀNH CÂY VỚI LÁ THẬT SẮC NÉT Ở GÓC TRÊN */
+    /* 🌿 CÀNH CÂY TỰ NHIÊN TINH TẾ Ở CÁC GÓC */
     .top-branch {
       position: fixed;
-      top: -10px;
+      top: 0;
       z-index: 10;
       pointer-events: none;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));
+      max-width: 45vw;
     }
     .top-branch-left {
-      left: -20px;
-      width: 320px;
+      left: 0;
+      width: 260px;
       transform-origin: top left;
       animation: branchSwayLeft 7s ease-in-out infinite alternate;
     }
     .top-branch-right {
-      right: -20px;
-      width: 300px;
-      transform: scaleX(-1);
+      right: 0;
+      width: 260px;
       transform-origin: top right;
       animation: branchSwayRight 8s ease-in-out infinite alternate;
     }
 
     @keyframes branchSwayLeft {
       0% { transform: rotate(0deg) translateY(0); }
-      100% { transform: rotate(3deg) translateY(6px); }
+      100% { transform: rotate(2.5deg) translateY(5px); }
     }
     @keyframes branchSwayRight {
-      0% { transform: scaleX(-1) rotate(0deg) translateY(0); }
-      100% { transform: scaleX(-1) rotate(-3deg) translateY(7px); }
+      0% { transform: rotate(0deg) translateY(0); }
+      100% { transform: rotate(-2.5deg) translateY(6px); }
     }
 
     /* ☀️ MẶT TRỜI & MẶT TRĂNG */
@@ -738,7 +738,7 @@
       max-width: 420px;
       margin: 60px auto 20px auto;
       background: rgba(15, 23, 42, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-radius: 24px;
@@ -780,8 +780,8 @@
     }
 
     .title-box {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
       padding: 5px 22px;
       display: inline-block;
@@ -812,10 +812,10 @@
     .nav-tabs {
       display: flex;
       gap: 6px;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.35);
       padding: 5px;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       position: relative;
       z-index: 60;
     }
@@ -850,7 +850,7 @@
       box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5) !important;
     }
 
-    /* 🎴 TABS CONTENT HIỂN THỊ HOÀN HẢO */
+    /* 🎴 TABS CONTENT HIỂN THỊ TINH TẾ - XÓA BỎ KHUNG THÔ DẦY */
     .tab-content-wrapper {
       position: relative;
       width: 100%;
@@ -860,7 +860,7 @@
     .tab-content {
       display: none;
       flex-direction: column;
-      gap: 10px;
+      gap: 2px;
       max-height: 300px;
       overflow-y: auto;
       padding-right: 4px;
@@ -875,22 +875,26 @@
       display: flex !important;
     }
 
-    /* ✨ ĐÃ XÓA KHUNG BAO PHỦ DẦY - CHỈ GIỮ LẠI PHÂN TÁCH TINH TẾ */
+    /* ✨ CÁC MỤC DANH SÁCH: SẠCH SẼ, SẮC NÉT, KHÔNG CÓ KHUNG VIỀN DẦY MẤT THẨM MỸ */
     .box {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.03);
       border: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 10px;
-      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px 8px;
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .box:last-child {
+      border-bottom: none;
     }
 
     .box:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(2px);
     }
 
     .box-header {
@@ -928,15 +932,15 @@
     }
 
     .box-btn:hover {
-      transform: scale(1.06);
+      transform: scale(1.05);
       background: #4ade80 !important;
       box-shadow: 0 6px 16px rgba(74, 222, 128, 0.6);
     }
 
     .script-text {
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
       padding: 6px 10px;
       font-family: monospace;
       font-size: 0.7rem;
@@ -1001,43 +1005,60 @@
   <div id="lightning-flash"></div>
   <div id="storm-darkness"></div>
 
-  <!-- 🌿 CÀNH CÂY LÁ THẬT -->
-  <svg class="top-branch top-branch-left" viewBox="0 0 350 220" preserveAspectRatio="none">
+  <!-- 🌿 CÀNH CÂY ĐƯỢC CHỈNH LẠI CHUẨN ĐẸP LỌC MÀU TỰ NHIÊN -->
+  <svg class="top-branch top-branch-left" viewBox="0 0 350 200" preserveAspectRatio="none">
     <defs>
-      <linearGradient id="woodGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#2d1810"/>
-        <stop offset="100%" stop-color="#0f0704"/>
+      <linearGradient id="woodGradL" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#3a1e14"/>
+        <stop offset="100%" stop-color="#120805"/>
       </linearGradient>
-      <linearGradient id="leafGradReal1" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id="leafGradL1" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#86efac"/>
         <stop offset="50%" stop-color="#22c55e"/>
         <stop offset="100%" stop-color="#14532d"/>
       </linearGradient>
-      <linearGradient id="leafGradReal2" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id="leafGradL2" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stop-color="#4ade80"/>
         <stop offset="100%" stop-color="#052e16"/>
       </linearGradient>
     </defs>
-    <path d="M 0 0 Q 120 40 220 25 T 330 90" stroke="url(#woodGrad)" stroke-width="8" fill="none" stroke-linecap="round"/>
-    <path d="M 90 30 Q 150 75 220 85" stroke="url(#woodGrad)" stroke-width="4.5" fill="none" stroke-linecap="round"/>
-    <path d="M 180 30 Q 230 55 280 40" stroke="url(#woodGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 0 0 Q 120 35 220 20 T 330 80" stroke="url(#woodGradL)" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M 90 25 Q 150 65 220 75" stroke="url(#woodGradL)" stroke-width="4" fill="none" stroke-linecap="round"/>
     
-    <g fill="url(#leafGradReal1)">
-      <path d="M 220 25 C 200 -5, 170 10, 180 35 C 160 30, 150 60, 175 70 C 190 85, 220 80, 225 55 C 240 50, 245 20, 220 25 Z"/>
-      <path d="M 330 90 C 310 65, 280 75, 290 100 C 270 100, 260 125, 285 135 C 300 145, 330 140, 335 115 C 350 110, 355 80, 330 90 Z"/>
+    <g fill="url(#leafGradL1)">
+      <path d="M 220 20 C 200 -10, 170 5, 180 30 C 160 25, 150 55, 175 65 C 190 80, 220 75, 225 50 Z"/>
+      <path d="M 330 80 C 310 55, 280 65, 290 90 C 270 90, 260 115, 285 125 C 300 135, 330 130, 335 105 Z"/>
     </g>
-    <g fill="url(#leafGradReal2)">
-      <path d="M 150 65 C 130 45, 110 55, 120 75 C 100 80, 95 100, 115 110 C 130 120, 155 110, 160 90 C 170 85, 170 60, 150 65 Z"/>
-      <path d="M 270 38 C 250 20, 230 30, 240 48 C 225 50, 220 70, 238 78 C 250 85, 275 80, 278 62 C 290 55, 288 35, 270 38 Z"/>
+    <g fill="url(#leafGradL2)">
+      <path d="M 150 60 C 130 40, 110 50, 120 70 C 100 75, 95 95, 115 105 C 130 115, 155 105, 160 85 Z"/>
     </g>
   </svg>
 
-  <svg class="top-branch top-branch-right" viewBox="0 0 350 220" preserveAspectRatio="none">
-    <path d="M 0 0 Q 120 40 220 25 T 330 90" stroke="url(#woodGrad)" stroke-width="8" fill="none" stroke-linecap="round"/>
-    <path d="M 90 30 Q 150 75 220 85" stroke="url(#woodGrad)" stroke-width="4.5" fill="none" stroke-linecap="round"/>
-    <g fill="url(#leafGradReal1)">
-      <path d="M 220 25 C 200 -5, 170 10, 180 35 C 160 30, 150 60, 175 70 C 190 85, 220 80, 225 55 C 240 50, 245 20, 220 25 Z"/>
-      <path d="M 330 90 C 310 65, 280 75, 290 100 C 270 100, 260 125, 285 135 C 300 145, 330 140, 335 115 C 350 110, 355 80, 330 90 Z"/>
+  <svg class="top-branch top-branch-right" viewBox="0 0 350 200" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="woodGradR" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3a1e14"/>
+        <stop offset="100%" stop-color="#120805"/>
+      </linearGradient>
+      <linearGradient id="leafGradR1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#86efac"/>
+        <stop offset="50%" stop-color="#22c55e"/>
+        <stop offset="100%" stop-color="#14532d"/>
+      </linearGradient>
+      <linearGradient id="leafGradR2" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#4ade80"/>
+        <stop offset="100%" stop-color="#052e16"/>
+      </linearGradient>
+    </defs>
+    <path d="M 350 0 Q 230 35 130 20 T 20 80" stroke="url(#woodGradR)" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M 260 25 Q 200 65 130 75" stroke="url(#woodGradR)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    
+    <g fill="url(#leafGradR1)">
+      <path d="M 130 20 C 150 -10, 180 5, 170 30 C 190 25, 200 55, 175 65 C 160 80, 130 75, 125 50 Z"/>
+      <path d="M 20 80 C 40 55, 70 65, 60 90 C 80 90, 90 115, 65 125 C 50 135, 20 130, 15 105 Z"/>
+    </g>
+    <g fill="url(#leafGradR2)">
+      <path d="M 200 60 C 220 40, 240 50, 230 70 C 250 75, 255 95, 235 105 C 220 115, 195 105, 190 85 Z"/>
     </g>
   </svg>
 
@@ -1049,7 +1070,7 @@
   <div class="wind-container" id="wind-box"></div>
   <div class="rain-container" id="rain-box"></div>
 
-  <div id="audio-toast">🔊 Nhấp vào màn hình để bật âm thanh tự nhiên</div>
+  <div id="audio-toast">🔊 Chạm vào màn hình để bật âm thanh thiên nhiên</div>
 
   <!-- 💬 NÚT ZALO & AI TOOL BÊN GÓC DƯỚI -->
   <div class="bottom-floating-buttons">
@@ -1348,11 +1369,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
   <div class="version-tag">Version 9.0</div>
 
   <script>
-    // 🔀 HÀM CHUYỂN TAB CỰC NHẠY & MƯỢT MÀ
+    // 🔀 HÀM CHUYỂN TAB CỰC NHẠY
     function switchTab(tabId, btn) {
-      if (typeof initAudioEngine === 'function') {
-        initAudioEngine();
-      }
+      initAudioEngine();
 
       const contents = document.querySelectorAll('.tab-content');
       contents.forEach(content => {
@@ -1376,9 +1395,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
     // 📋 HÀM COPY SCRIPT
     function copyScriptCode(btn) {
-      if (typeof initAudioEngine === 'function') {
-        initAudioEngine();
-      }
+      initAudioEngine();
       const parentBox = btn.closest('.box');
       if (!parentBox) return;
       const scriptElem = parentBox.querySelector('.script-text');
@@ -1563,13 +1580,40 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       rainBox.appendChild(fragment);
     }
 
-    // 🔊 ÂM THANH SYSTEM (ĐÃ FIX ĐẦY ĐỦ HÀM KHÔNG CÒN LỖI CRASH)
+    // 🔊 ÂM THANH SYSTEM HOÀN HẢO (SỬA TRIỆT ĐỂ LỖI MẤT TIẾNG KHÔNG HOẠT ĐỘNG)
     let audioCtx = null;
     let masterGain = null;
     let masterVolume = 0.85;
     let isSoundMuted = false;
     let windGain = null, rainGain = null;
     let hasUserInteracted = false;
+
+    function initAudioEngine() {
+      if (!audioCtx) {
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
+          audioCtx = new AudioContextClass();
+          masterGain = audioCtx.createGain();
+          masterGain.gain.setValueAtTime(isSoundMuted ? 0 : masterVolume, audioCtx.currentTime);
+          masterGain.connect(audioCtx.destination);
+          setupContinuousSoundNodes();
+        } catch (e) {
+          console.error('Lỗi khởi tạo âm thanh:', e);
+        }
+      }
+      
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      if (!hasUserInteracted) {
+        hasUserInteracted = true;
+        hideAudioToast();
+      }
+      
+      updateSoundVolumes();
+    }
 
     function updateSoundVolumes() {
       if (!audioCtx || isSoundMuted) return;
@@ -1579,14 +1623,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         let targetRain = 0;
         if (currentMode === 'RAIN') targetRain = 0.08 * masterVolume;
         else if (currentMode === 'STORM') targetRain = 0.15 * masterVolume;
-        rainGain.gain.setTargetAtTime(targetRain, now, 0.5);
+        rainGain.gain.setTargetAtTime(targetRain, now, 0.2);
       }
       
       if (windGain) {
         let targetWind = 0.03 * masterVolume;
         if (currentMode === 'STORM') targetWind = 0.12 * masterVolume;
         else if (currentMode === 'SUNNY') targetWind = 0.02 * masterVolume;
-        windGain.gain.setTargetAtTime(targetWind, now, 0.5);
+        windGain.gain.setTargetAtTime(targetWind, now, 0.2);
       }
     }
 
@@ -1635,30 +1679,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
     setInterval(updateSyncedWeather, 1000);
     updateSyncedWeather();
 
-    function initAudioEngine() {
-      if (!audioCtx) {
-        try {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          if (!AudioContextClass) return;
-          audioCtx = new AudioContextClass();
-          masterGain = audioCtx.createGain();
-          masterGain.gain.value = masterVolume;
-          masterGain.connect(audioCtx.destination);
-          setupContinuousSoundNodes();
-        } catch (e) {
-          console.error('Audio initialization error:', e);
-        }
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-      if (!hasUserInteracted) {
-        hasUserInteracted = true;
-        hideAudioToast();
-      }
-      updateSoundVolumes();
-    }
-
     function showAudioToast() {
       const toast = document.getElementById('audio-toast');
       if (toast) toast.classList.add('show');
@@ -1671,12 +1691,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
 
     setTimeout(() => {
       if (!hasUserInteracted) showAudioToast();
-    }, 1200);
+    }, 1000);
 
-    ['click', 'touchstart', 'keydown'].forEach(evt => {
+    // Bắt sự kiện kích hoạt âm thanh trên mọi tương tác của người dùng
+    ['pointerdown', 'click', 'touchstart', 'keydown'].forEach(evt => {
       window.addEventListener(evt, () => {
         initAudioEngine();
-      }, { once: true });
+      }, { passive: true });
     });
 
     function toggleSoundMaster() {
@@ -1686,13 +1707,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       const btnIcon = document.getElementById('sound-btn-icon');
 
       if (isSoundMuted) {
-        if (masterGain) masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        if (masterGain && audioCtx) masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
         btn.classList.add('muted');
         btnIcon.innerText = '🔇';
       } else {
-        if (masterGain) masterGain.gain.setValueAtTime(masterVolume, audioCtx.currentTime);
+        if (masterGain && audioCtx) masterGain.gain.setValueAtTime(masterVolume, audioCtx.currentTime);
         btn.classList.remove('muted');
         btnIcon.innerText = '🔊';
+        updateSoundVolumes();
       }
     }
 
@@ -1707,48 +1729,55 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
       if (masterGain && audioCtx && !isSoundMuted) {
         masterGain.gain.setTargetAtTime(masterVolume, audioCtx.currentTime, 0.05);
       }
+      updateSoundVolumes();
     }
 
     function setupContinuousSoundNodes() {
       if (!audioCtx) return;
-      const bufferSize = audioCtx.sampleRate * 3;
-      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        output[i] = Math.random() * 2 - 1;
+      try {
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+
+        // Tạo tiếng gió
+        const windNoise = audioCtx.createBufferSource();
+        windNoise.buffer = noiseBuffer;
+        windNoise.loop = true;
+
+        const windFilter = audioCtx.createBiquadFilter();
+        windFilter.type = 'lowpass';
+        windFilter.frequency.value = 260;
+
+        windGain = audioCtx.createGain();
+        windGain.gain.value = 0.02;
+
+        windNoise.connect(windFilter);
+        windFilter.connect(windGain);
+        windGain.connect(masterGain);
+        windNoise.start();
+
+        // Tạo tiếng mưa
+        const rainNoise = audioCtx.createBufferSource();
+        rainNoise.buffer = noiseBuffer;
+        rainNoise.loop = true;
+
+        const rainFilter = audioCtx.createBiquadFilter();
+        rainFilter.type = 'lowpass';
+        rainFilter.frequency.value = 900;
+
+        rainGain = audioCtx.createGain();
+        rainGain.gain.value = 0;
+
+        rainNoise.connect(rainFilter);
+        rainFilter.connect(rainGain);
+        rainGain.connect(masterGain);
+        rainNoise.start();
+      } catch (e) {
+        console.error('Audio noise node setup failed:', e);
       }
-
-      const windNoise = audioCtx.createBufferSource();
-      windNoise.buffer = noiseBuffer;
-      windNoise.loop = true;
-
-      const windFilter = audioCtx.createBiquadFilter();
-      windFilter.type = 'lowpass';
-      windFilter.frequency.value = 240;
-
-      windGain = audioCtx.createGain();
-      windGain.gain.value = 0.04;
-
-      windNoise.connect(windFilter);
-      windFilter.connect(windGain);
-      windGain.connect(masterGain);
-      windNoise.start();
-
-      const rainNoise = audioCtx.createBufferSource();
-      rainNoise.buffer = noiseBuffer;
-      rainNoise.loop = true;
-
-      const rainFilter = audioCtx.createBiquadFilter();
-      rainFilter.type = 'lowpass';
-      rainFilter.frequency.value = 1000;
-
-      rainGain = audioCtx.createGain();
-      rainGain.gain.value = 0;
-
-      rainNoise.connect(rainFilter);
-      rainFilter.connect(rainGain);
-      rainGain.connect(masterGain);
-      rainNoise.start();
     }
 
     function playBirdChirp() {
@@ -1758,28 +1787,28 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepza
         const gain = audioCtx.createGain();
         
         const now = audioCtx.currentTime;
-        const freq = 2000 + Math.random() * 1500;
+        const freq = 2200 + Math.random() * 1200;
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, now);
-        osc.frequency.exponentialRampToValueAtTime(freq + 800, now + 0.1);
+        osc.frequency.exponentialRampToValueAtTime(freq + 700, now + 0.1);
         
-        gain.gain.setValueAtTime(0.01, now);
-        gain.gain.linearRampToValueAtTime(0.08 * masterVolume, now + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.06 * masterVolume, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
         
         osc.connect(gain);
         gain.connect(masterGain);
         
         osc.start(now);
-        osc.stop(now + 0.25);
+        osc.stop(now + 0.22);
       } catch(e) {}
     }
 
     setInterval(() => {
-      if (currentMode === 'SUNNY' && Math.random() < 0.4) {
+      if (currentMode === 'SUNNY' && Math.random() < 0.45) {
         playBirdChirp();
       }
-    }, 3500);
+    }, 3200);
   </script>
 </body>
 </html>
