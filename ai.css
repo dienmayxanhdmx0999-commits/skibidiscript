@@ -1,176 +1,108 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-body{
-background:#0a0a0a;
-color:#fff;
-display:flex;
-height:100vh;
-overflow:hidden;
-}
+<title>NOXGPT</title>
 
-.sidebar{
-width:260px;
-background:#111;
-border-right:2px solid #ff3300;
-display:flex;
-flex-direction:column;
-padding:20px;
-box-shadow:0 0 30px #ff330033;
-}
+<link rel="stylesheet" href="ai.css">
 
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:30px;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
 
-.icon{
-width:55px;
-height:55px;
-border-radius:15px;
-background:#ff3300;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:28px;
-font-weight:bold;
-box-shadow:0 0 20px #ff3300;
-}
+<body>
 
-.logo h2{
-color:#ff4d00;
-}
+<div id="particles"></div>
 
-.logo p{
-font-size:12px;
-color:#888;
-}
+<div class="sidebar">
 
-.newchat{
-height:48px;
-border:none;
-border-radius:12px;
-background:#ff3300;
-color:#fff;
-font-size:16px;
-cursor:pointer;
-box-shadow:0 0 20px #ff3300;
-margin-bottom:20px;
-}
+<div class="logo">
+<div class="logoGlow"></div>
+<h1>NOXGPT</h1>
+<p>CYBER AI</p>
+</div>
 
-.main{
-flex:1;
-display:flex;
-flex-direction:column;
-background:#090909;
-}
+<button class="newChat">
+＋ New Chat
+</button>
 
-.topbar{
-height:70px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 25px;
-border-bottom:2px solid #ff3300;
-background:#101010;
-}
+<div class="history" id="history">
 
-.online{
-color:#ff5500;
-font-weight:bold;
-}
+</div>
 
-.chat{
-flex:1;
-overflow-y:auto;
-padding:25px;
-}
+</div>
 
-.welcome{
-text-align:center;
-margin-top:120px;
-color:#999;
-}
+<div class="main">
 
-.message{
-max-width:75%;
-padding:14px;
-margin:14px 0;
-border-radius:15px;
-line-height:1.5;
-white-space:pre-wrap;
-}
+<div class="topbar">
 
-.user{
-margin-left:auto;
-background:#ff3300;
-box-shadow:0 0 20px #ff330055;
-}
+<div class="status">
 
-.ai{
-background:#1b1b1b;
-border:1px solid #ff3300;
-}
+<span class="dot"></span>
 
-.inputBox{
-display:flex;
-gap:10px;
-padding:18px;
-background:#111;
-border-top:2px solid #ff3300;
-}
+ONLINE
 
-textarea{
-flex:1;
-height:60px;
-resize:none;
-background:#1a1a1a;
-border:1px solid #ff3300;
-border-radius:15px;
-padding:15px;
-color:#fff;
-outline:none;
-font-size:15px;
-}
+</div>
 
-button{
-width:65px;
-border:none;
-border-radius:15px;
-background:#ff3300;
-color:#fff;
-font-size:22px;
-cursor:pointer;
-box-shadow:0 0 20px #ff3300;
-}
+<div class="model">
 
-button:hover{
-background:#ff5500;
-}
+GPT-5
 
-::-webkit-scrollbar{
-width:8px;
-}
+</div>
 
-::-webkit-scrollbar-thumb{
-background:#ff3300;
-border-radius:10px;
-}
+</div>
 
-@media(max-width:768px){
+<div id="chat" class="chat">
 
-.sidebar{
-display:none;
-}
+<div class="welcome">
 
-.message{
-max-width:90%;
-}
+<h2>NOXGPT</h2>
 
-}
+<p>Cyber Intelligence</p>
+
+</div>
+
+</div>
+
+<div id="thinking" class="thinking hidden">
+
+<div class="loader">
+
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+AI đang suy nghĩ...
+
+</div>
+
+<div class="inputBox">
+
+<input
+id="prompt"
+type="text"
+placeholder="Nhập tin nhắn..."
+>
+
+<button onclick="sendMessage()">
+
+➜
+
+</button>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/common.min.js"></script>
+
+<script src="ai.js"></script>
+
+</body>
+</html>
