@@ -7,7 +7,7 @@ const input = document.getElementById("prompt");
 function addMessage(text, type) {
     const div = document.createElement("div");
     div.className = "message " + type;
-    div.innerText = text;
+    div.textContent = text;
     chatBox.appendChild(div);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
@@ -15,15 +15,16 @@ function addMessage(text, type) {
 async function sendMessage() {
 
     const text = input.value.trim();
-
     if (!text) return;
+
+    document.querySelector(".welcome")?.remove();
 
     addMessage(text, "user");
     input.value = "";
 
     try {
 
-        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 
             method: "POST",
 
@@ -42,7 +43,7 @@ async function sendMessage() {
 
                     {
                         role: "system",
-                        content: "Bạn là NOXGPT, một AI thông minh, trả lời bằng TIẾNG ANH trừ khi người dùng yêu cầu ngôn ngữ khác."
+                        content: "Bạn là NOXGPT. Luôn trả lời bằng tiếng Việt trừ khi người dùng yêu cầu ngôn ngữ khác."
                     },
 
                     {
@@ -56,27 +57,31 @@ async function sendMessage() {
 
         });
 
-        const data = await res.json();
+        const data = await response.json();
 
         if (data.error) {
-            addMessage(data.error.message, "ai");
+            addMessage("❌ " + data.error.message, "ai");
             return;
         }
 
         addMessage(data.choices[0].message.content, "ai");
 
-    } catch (e) {
+    } catch (err) {
 
-        addMessage("Không thể kết nối tới máy chủ.", "ai");
-        console.log(e);
+        console.log(err);
+        addMessage("❌ Không thể kết nối đến OpenRouter.", "ai");
 
     }
 
 }
 
 input.addEventListener("keydown", function(e){
+
     if(e.key==="Enter" && !e.shiftKey){
+
         e.preventDefault();
         sendMessage();
+
     }
+
 });
