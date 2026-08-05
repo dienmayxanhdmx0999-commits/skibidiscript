@@ -41,14 +41,14 @@
     }
     #storm-darkness {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.4); pointer-events: none; z-index: 3;
+      background: rgba(0, 0, 0, 0.45); pointer-events: none; z-index: 3;
       opacity: 0; transition: opacity 1.8s ease;
     }
     body.weather-storm #storm-darkness { opacity: 1; }
 
     #snow-fog {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(203, 213, 225, 0.3) 100%);
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(203, 213, 225, 0.35) 100%);
       pointer-events: none; z-index: 4; opacity: 0; transition: opacity 1.8s ease;
     }
     body.weather-blizzard #snow-fog { opacity: 1; }
@@ -105,12 +105,12 @@
 
     /* ☁️ MÂY, SAO, MƯA, TUYẾT, LÁ, CHIM */
     .rain-container, .snow-container, .stars-container, .moving-clouds-container, .birds-container, .leaves-container {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; overflow: hidden;
     }
     .moving-clouds-container { z-index: 2; height: 50vh; }
     .stars-container { z-index: 1; opacity: 0; transition: opacity 1.8s ease; height: 60vh; }
     body.weather-night .stars-container, body.weather-night-rain .stars-container { opacity: 1; }
-    .birds-container { z-index: 4; }
+    .birds-container { z-index: 7; overflow: hidden; }
     .leaves-container { z-index: 11; overflow: hidden; }
     
     .moving-cloud {
@@ -129,42 +129,80 @@
 
     @keyframes cloudFly { 0% { transform: translateX(-250px); } 100% { transform: translateX(110vw); } }
 
-    /* 🦅 CHIM BAY & 🍂 LÁ RƠI */
-    .bird { position: absolute; fill: #1e293b; opacity: 0.7; }
-    body.weather-sunset .bird { fill: #4c1d95; opacity: 0.8; }
+    /* 🦅 FIX CHIM BAY MƯỢT MÀ BAO PHỦ MÀN HÌNH */
+    .bird {
+      position: absolute;
+      fill: #0f172a;
+      opacity: 0.85;
+      animation: flyBird linear infinite;
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+    }
+    body.weather-sunset .bird { fill: #3b0764; }
+    body.weather-night .bird, body.weather-night-rain .bird { fill: #cbd5e1; }
+    
+    @keyframes flyBird {
+      0% { transform: translate3d(-100px, 0, 0) scale(0.8); }
+      50% { transform: translate3d(50vw, -30px, 0) scale(1.1); }
+      100% { transform: translate3d(115vw, 10px, 0) scale(0.8); }
+    }
 
-    .leaf { position: absolute; fill: #4ade80; opacity: 0.8; animation: fallLeaf linear infinite; }
+    /* 🍂 LÁ RƠI */
+    .leaf { position: absolute; fill: #4ade80; opacity: 0.85; animation: fallLeaf linear infinite; }
     body.weather-sunset .leaf { fill: #f97316; }
+    body.weather-snow .leaf, body.weather-blizzard .leaf { fill: #94a3b8; }
     @keyframes fallLeaf {
       0% { transform: translate3d(0, -20px, 0) rotate(0deg); opacity: 0;}
       10% { opacity: 1; }
-      100% { transform: translate3d(-100px, 100vh, 0) rotate(360deg); opacity: 0;}
+      100% { transform: translate3d(-120px, 105vh, 0) rotate(360deg); opacity: 0;}
     }
 
-    /* 🌧️ MƯA & ❄️ TUYẾT */
-    .rain-container { z-index: 5; display: none; top: -20vh; height: 120vh;}
+    /* 🌧️ FIX MƯA BAO PHỦ TOÀN BỘ MÀN HÌNH */
+    .rain-container { z-index: 8; display: none; }
     body.weather-rain .rain-container, body.weather-night-rain .rain-container, body.weather-storm .rain-container { display: block; }
-    .drop { position: absolute; background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.8)); border-radius: 2px; }
-    body.weather-rain .drop, body.weather-night-rain .drop { width: 2px; height: 40px; animation: fallRain linear infinite; }
-    body.weather-storm .drop { width: 3px; height: 60px; animation: fallStorm linear infinite; }
-    @keyframes fallRain { 0% { transform: translate(0, -50px) rotate(-10deg); opacity:0;} 20% {opacity:1;} 100% { transform: translate(15vw, 120vh) rotate(-10deg); opacity:0; } }
-    @keyframes fallStorm { 0% { transform: translate(0, -50px) rotate(-25deg); opacity:0;} 20% {opacity:1;} 100% { transform: translate(40vw, 120vh) rotate(-25deg); opacity:0; } }
+    
+    .drop {
+      position: absolute;
+      top: -80px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255, 255, 255, 0.95));
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    body.weather-rain .drop, body.weather-night-rain .drop {
+      width: 2px; height: 50px;
+      animation: fallRain linear infinite;
+    }
+    body.weather-storm .drop {
+      width: 3px; height: 75px;
+      animation: fallStorm linear infinite;
+    }
 
-    .snow-container { z-index: 6; display: none; top: -10vh; height: 110vh; }
+    @keyframes fallRain {
+      0% { transform: translate3d(0, 0, 0) rotate(-15deg); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translate3d(30vw, 115vh, 0) rotate(-15deg); opacity: 0.1; }
+    }
+    @keyframes fallStorm {
+      0% { transform: translate3d(0, 0, 0) rotate(-28deg); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translate3d(60vw, 115vh, 0) rotate(-28deg); opacity: 0.1; }
+    }
+
+    /* ❄️ TUYẾT BAO PHỦ TOÀN BỘ MÀN HÌNH */
+    .snow-container { z-index: 8; display: none; }
     body.weather-snow .snow-container, body.weather-blizzard .snow-container { display: block; }
-    .snowflake { position: absolute; background: #ffffff; border-radius: 50%; opacity: 0.9; }
+    .snowflake { position: absolute; top: -20px; background: #ffffff; border-radius: 50%; opacity: 0.9; }
     body.weather-snow .snowflake { animation: fallSnow linear infinite; }
     body.weather-blizzard .snowflake { animation: fallBlizzard linear infinite; }
 
     @keyframes fallSnow {
-      0% { transform: translate(0, -10px) rotate(0deg); opacity: 0; }
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
       10% { opacity: 1; }
-      100% { transform: translate(30px, 105vh) rotate(360deg); opacity: 0.2; }
+      100% { transform: translate3d(40px, 110vh, 0) rotate(360deg); opacity: 0.2; }
     }
     @keyframes fallBlizzard {
-      0% { transform: translate(0, -10px); opacity: 0; }
+      0% { transform: translate3d(0, 0, 0); opacity: 0; }
       10% { opacity: 1; }
-      100% { transform: translate(50vw, 105vh); opacity: 0.3; }
+      100% { transform: translate3d(60vw, 110vh, 0); opacity: 0.3; }
     }
 
     /* 🏔️ NÚI VÀ ĐẤT PHONG CÁCH CARTOON */
@@ -217,13 +255,15 @@
       95% { transform: translateY(0) scaleY(0.9); }
     }
 
-    .forest-container { position: absolute; bottom: 0; width: 100%; height: 280px; z-index: 2; }
+    /* 🌳 FIX LỖI CÂY ĐẸP HƠN RỰC RỠ HOẠT HÌNH */
+    .forest-container { position: absolute; bottom: 0; width: 100%; height: 280px; z-index: 2; pointer-events: none; }
     .nature-tree {
-      position: absolute; bottom: 0; transform-origin: bottom center;
+      position: absolute; bottom: 10px; transform-origin: bottom center;
       animation: treeSwaySoft 4s ease-in-out infinite alternate;
-      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.35));
+      transition: filter 1.5s ease;
     }
-    @keyframes treeSwaySoft { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }
+    @keyframes treeSwaySoft { 0% { transform: rotate(-2.5deg); } 100% { transform: rotate(2.5deg); } }
 
     /* 📢 MARQUEE THÔNG BÁO CHẠY TỰ ĐỘNG THỜI GIAN */
     .marquee-wrapper {
@@ -279,13 +319,14 @@
     .volume-slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 8px; background: rgba(255,255,255,0.2); }
     .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #38bdf8; cursor: pointer; border: 2px solid #fff;}
 
-    /* Dự báo thời tiết */
+    /* FIX ICON THỜI TIẾT DỰ BÁO SCALING */
     .weather-forecast-box {
       background: rgba(255,255,255,0.08); border-radius: 16px; padding: 12px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .wf-info { display: flex; align-items: center; gap: 10px; }
-    .wf-icon { width: 34px; height: 34px; }
+    .wf-info { display: flex; align-items: center; gap: 12px; }
+    .wf-icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .wf-icon svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
     .wf-text { font-size: 0.85rem; font-weight: 800; color: #fff; }
     .wf-sub { font-size: 0.75rem; color: #4ade80; font-weight: 800; }
 
@@ -308,12 +349,12 @@
 
     .card-header { display: flex; flex-direction: column; align-items: center; }
     .weather-status-box {
-      width: 80px; height: 80px; border-radius: 24px; background: rgba(255,255,255,0.2);
+      width: 84px; height: 84px; border-radius: 24px; background: rgba(255,255,255,0.2);
       backdrop-filter: blur(8px); border: 1.5px solid rgba(255,255,255,0.4);
       box-shadow: 0 8px 20px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center;
       margin-bottom: 12px; padding: 10px;
     }
-    .weather-status-box svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
+    .weather-status-box svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
     
     .title { font-size: 2.2rem; font-weight: 900; color: #ffffff; text-shadow: 0 3px 10px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.4); margin-bottom: 8px; }
     
@@ -369,7 +410,7 @@
     .open-web-utils-btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 30px rgba(34, 197, 94, 0.6); }
     .open-web-utils-btn:active { transform: translateY(2px); }
 
-    /* 🧰 POPUP MODAL TIỆN ÍCH WEB (GOM TẤT CẢ LINK, SCRIPT, APK, IOS VÀO ĐÂY) */
+    /* 🧰 POPUP MODAL TIỆN ÍCH WEB */
     .web-utils-modal {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(2, 6, 23, 0.75); backdrop-filter: blur(15px);
@@ -550,13 +591,13 @@
     </div>
   </div>
 
-  <!-- BẢNG GIAO DIỆN CHÍNH (HOÀN TOÀN TRONG SUỐT CHO THẤY NỀN PHÍA SAU) -->
+  <!-- BẢNG GIAO DIỆN CHÍNH -->
   <div class="glass-card">
     <div class="card-header">
       <div class="weather-status-box" id="status-box"></div>
       <h1 class="title">SKIBIDI HUB</h1>
       
-      <!-- Bảng thông báo hệ thống (Ban đầu DÀI, khi bấm Tiện Ích Web sẽ KÉO NGẮN LẠI) -->
+      <!-- Bảng thông báo hệ thống -->
       <div class="notice-board" id="main-notice-board" onclick="toggleNoticeBoard()">
         <h3>
           <span>THÔNG BÁO TỪ AD</span>
@@ -573,7 +614,7 @@
     </div>
   </div>
 
-  <!--  POPUP MODAL TIỆN ÍCH WEB (Chứa tất cả các mục Link, Script, APK, iOS) -->
+  <!-- POPUP MODAL TIỆN ÍCH WEB -->
   <div class="web-utils-modal" id="web-utils-modal">
     <div class="web-utils-container">
       <div class="modal-header">
@@ -634,13 +675,13 @@
   <div class="version-tag">Version 10.0 ULTRA - DVMinh</div>
 
   <script>
-    // 🎨 BỘ ICON SVG CARTOON CAO CẤP SẮC NÉT
+    // 🎨 FIX VÀ TỐI ƯU CÁC ICON SVG THỜI TIẾT ĐẸP VÀ RÕ NÉT
     const svgIcons = {
       SUNNY: `<svg viewBox="0 0 64 64"><defs><radialGradient id="sunGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#facc15"/></radialGradient></defs><circle cx="32" cy="32" r="16" fill="url(#sunGlow)" stroke="#ca8a04" stroke-width="2.5"/><g stroke="#facc15" stroke-width="4" stroke-linecap="round"><line x1="32" y1="6" x2="32" y2="12"/><line x1="32" y1="52" x2="32" y2="58"/><line x1="6" y1="32" x2="12" y2="32"/><line x1="52" y1="32" x2="58" y2="32"/><line x1="14" y1="14" x2="18" y2="18"/><line x1="46" y1="46" x2="50" y2="50"/><line x1="14" y1="50" x2="18" y2="46"/><line x1="46" y1="14" x2="50" y2="18"/></g></svg>`,
-      SUNSET: `<svg viewBox="0 0 64 64"><path d="M 8 46 L 56 46" stroke="#f97316" stroke-width="4" stroke-linecap="round"/><path d="M 18 38 A 14 14 0 0 1 46 38 Z" fill="#facc15" stroke="#ea580c" stroke-width="2.5"/></svg>`,
-      NIGHT: `<svg viewBox="0 0 64 64"><path d="M 38 14 C 24 14 16 26 16 38 C 16 48 24 54 38 54 C 28 48 26 36 34 24 C 36 20 40 16 40 16 Z" fill="#fef08a" stroke="#ca8a04" stroke-width="2.5"/></svg>`,
-      RAIN: `<svg viewBox="0 0 64 64"><path d="M 18 36 C 12 36 10 26 18 22 C 20 14 34 12 40 18 C 48 16 52 24 48 30 C 54 34 50 40 42 40 Z" fill="#94a3b8" stroke="#475569" stroke-width="2.5"/><line x1="22" y1="44" x2="18" y2="54" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="44" x2="28" y2="54" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="44" x2="38" y2="54" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/></svg>`,
-      NIGHT_RAIN: `<svg viewBox="0 0 64 64"><path d="M 18 36 C 12 36 10 26 18 22 C 20 14 34 12 40 18 C 48 16 52 24 48 30 C 54 34 50 40 42 40 Z" fill="#475569" stroke="#1e293b" stroke-width="2.5"/><line x1="22" y1="44" x2="18" y2="54" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="44" x2="28" y2="54" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/></svg>`,
+      SUNSET: `<svg viewBox="0 0 64 64"><path d="M 8 48 L 56 48" stroke="#f97316" stroke-width="4" stroke-linecap="round"/><path d="M 18 42 A 14 14 0 0 1 46 42 Z" fill="#facc15" stroke="#ea580c" stroke-width="2.5"/><line x1="32" y1="16" x2="32" y2="22" stroke="#fdba74" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="22" x2="22" y2="26" stroke="#fdba74" stroke-width="3" stroke-linecap="round"/><line x1="46" y1="22" x2="42" y2="26" stroke="#fdba74" stroke-width="3" stroke-linecap="round"/></svg>`,
+      NIGHT: `<svg viewBox="0 0 64 64"><path d="M 38 12 C 24 12 14 24 14 38 C 14 50 24 56 38 56 C 26 50 24 36 34 22 C 36 18 40 14 40 14 Z" fill="#fef08a" stroke="#ca8a04" stroke-width="2.5"/><circle cx="48" cy="20" r="2" fill="#fff"/><circle cx="54" cy="32" r="1.5" fill="#fff"/></svg>`,
+      RAIN: `<svg viewBox="0 0 64 64"><path d="M 18 36 C 12 36 10 26 18 22 C 20 14 34 12 40 18 C 48 16 52 24 48 30 C 54 34 50 40 42 40 Z" fill="#94a3b8" stroke="#475569" stroke-width="2.5"/><line x1="22" y1="44" x2="16" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="44" x2="26" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="44" x2="36" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/></svg>`,
+      NIGHT_RAIN: `<svg viewBox="0 0 64 64"><path d="M 18 36 C 12 36 10 26 18 22 C 20 14 34 12 40 18 C 48 16 52 24 48 30 C 54 34 50 40 42 40 Z" fill="#475569" stroke="#1e293b" stroke-width="2.5"/><line x1="22" y1="44" x2="16" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="44" x2="26" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="44" x2="36" y2="56" stroke="#38bdf8" stroke-width="3" stroke-linecap="round"/></svg>`,
       STORM: `<svg viewBox="0 0 64 64"><path d="M 18 32 C 12 32 10 22 18 18 C 20 10 34 8 40 14 C 48 12 52 20 48 26 C 54 30 50 36 42 36 Z" fill="#334155" stroke="#0f172a" stroke-width="2.5"/><polygon points="32,30 22,44 30,44 24,58 40,40 32,40" fill="#facc15" stroke="#ca8a04" stroke-width="2"/></svg>`,
       SNOW: `<svg viewBox="0 0 64 64"><path d="M 18 32 C 12 32 10 22 18 18 C 20 10 34 8 40 14 C 48 12 52 20 48 26 C 54 30 50 36 42 36 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/><circle cx="22" cy="44" r="3" fill="#fff"/><circle cx="32" cy="50" r="4" fill="#fff"/><circle cx="42" cy="44" r="3" fill="#fff"/></svg>`,
       BLIZZARD: `<svg viewBox="0 0 64 64"><path d="M 18 28 C 12 28 10 18 18 14 C 20 6 34 4 40 10 C 48 8 52 16 48 22 C 54 26 50 32 42 32 Z" fill="#64748b" stroke="#334155" stroke-width="2"/><line x1="10" y1="40" x2="38" y2="40" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="48" x2="52" y2="48" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>`
@@ -655,11 +696,12 @@
     let currentMode = 'SUNNY';
     let previousMode = 'SUNNY';
 
-    // 🔊 BỘ ÂM THANH CHUẨN WEB AUDIO API (ĐÃ FIX TRIỆT ĐỂ LỖI KHÔNG NGHE ĐƯỢC)
+    // 🔊 AN TOÀN ÂM THANH - FIX TRIỆT ĐỂ LỖI KHI ĐỔI THỜI TIẾT
     let audioCtx = null;
     let isMuted = false;
     let masterGain = null;
     let rainGain = null, windGain = null;
+    let rainSource = null, windSource = null;
 
     function initAudioEngine() {
       if(audioCtx) return;
@@ -670,141 +712,188 @@
         masterGain.gain.setValueAtTime(0.85, audioCtx.currentTime);
         masterGain.connect(audioCtx.destination);
         createAmbientSounds();
-      } catch(e) { console.log('Audio Error:', e); }
+      } catch(e) { console.log('Audio Init Error:', e); }
     }
 
     function createAmbientSounds() {
       if(!audioCtx) return;
-      const bufferSize = audioCtx.sampleRate * 2;
-      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
+      try {
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
 
-      const whiteNoise = audioCtx.createBufferSource();
-      whiteNoise.buffer = noiseBuffer;
-      whiteNoise.loop = true;
+        rainSource = audioCtx.createBufferSource();
+        rainSource.buffer = noiseBuffer;
+        rainSource.loop = true;
 
-      const rainFilter = audioCtx.createBiquadFilter();
-      rainFilter.type = 'lowpass';
-      rainFilter.frequency.setValueAtTime(1000, audioCtx.currentTime);
+        const rainFilter = audioCtx.createBiquadFilter();
+        rainFilter.type = 'lowpass';
+        rainFilter.frequency.setValueAtTime(1000, audioCtx.currentTime);
 
-      rainGain = audioCtx.createGain();
-      rainGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        rainGain = audioCtx.createGain();
+        rainGain.gain.setValueAtTime(0, audioCtx.currentTime);
 
-      whiteNoise.connect(rainFilter);
-      rainFilter.connect(rainGain);
-      rainGain.connect(masterGain);
-      whiteNoise.start();
+        rainSource.connect(rainFilter);
+        rainFilter.connect(rainGain);
+        rainGain.connect(masterGain);
+        rainSource.start();
 
-      const windNoise = audioCtx.createBufferSource();
-      windNoise.buffer = noiseBuffer;
-      windNoise.loop = true;
+        windSource = audioCtx.createBufferSource();
+        windSource.buffer = noiseBuffer;
+        windSource.loop = true;
 
-      const windFilter = audioCtx.createBiquadFilter();
-      windFilter.type = 'bandpass';
-      windFilter.frequency.setValueAtTime(400, audioCtx.currentTime);
-      windFilter.Q.setValueAtTime(3, audioCtx.currentTime);
+        const windFilter = audioCtx.createBiquadFilter();
+        windFilter.type = 'bandpass';
+        windFilter.frequency.setValueAtTime(400, audioCtx.currentTime);
+        windFilter.Q.setValueAtTime(3, audioCtx.currentTime);
 
-      windGain = audioCtx.createGain();
-      windGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        windGain = audioCtx.createGain();
+        windGain.gain.setValueAtTime(0, audioCtx.currentTime);
 
-      windNoise.connect(windFilter);
-      windFilter.connect(windGain);
-      windGain.connect(masterGain);
-      windNoise.start();
+        windSource.connect(windFilter);
+        windFilter.connect(windGain);
+        windGain.connect(masterGain);
+        windSource.start();
+      } catch(e) { console.log('Ambient audio error:', e); }
+    }
+
+    function setNodeGain(gainNode, targetVal, fadeTime = 1) {
+      if(!audioCtx || !gainNode || audioCtx.state !== 'running') return;
+      try {
+        gainNode.gain.linearRampToValueAtTime(targetVal, audioCtx.currentTime + fadeTime);
+      } catch(e) { console.log(e); }
     }
 
     function playBirdChirp() {
-      if(!audioCtx || isMuted) return;
+      if(!audioCtx || isMuted || audioCtx.state !== 'running') return;
       if(['STORM', 'BLIZZARD', 'RAIN', 'NIGHT_RAIN'].includes(currentMode)) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      const now = audioCtx.currentTime;
-      osc.frequency.setValueAtTime(1800, now);
-      osc.frequency.exponentialRampToValueAtTime(2600, now + 0.1);
-      osc.frequency.exponentialRampToValueAtTime(2000, now + 0.25);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
-      osc.connect(gain); gain.connect(masterGain);
-      osc.start(now); osc.stop(now + 0.3);
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        const now = audioCtx.currentTime;
+        osc.frequency.setValueAtTime(1800, now);
+        osc.frequency.exponentialRampToValueAtTime(2600, now + 0.1);
+        osc.frequency.exponentialRampToValueAtTime(2000, now + 0.25);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+        osc.connect(gain); gain.connect(masterGain);
+        osc.start(now); osc.stop(now + 0.3);
+      } catch(e) {}
     }
 
     function playFrogCroak() {
-      if(!audioCtx || isMuted) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      const now = audioCtx.currentTime;
-      osc.frequency.setValueAtTime(220, now);
-      osc.frequency.linearRampToValueAtTime(120, now + 0.18);
-      gain.gain.setValueAtTime(0.2, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
-      osc.connect(gain); gain.connect(masterGain);
-      osc.start(now); osc.stop(now + 0.2);
+      if(!audioCtx || isMuted || audioCtx.state !== 'running') return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        const now = audioCtx.currentTime;
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.linearRampToValueAtTime(120, now + 0.18);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        osc.connect(gain); gain.connect(masterGain);
+        osc.start(now); osc.stop(now + 0.2);
+      } catch(e) {}
     }
 
     function playThunderSound() {
-      if(!audioCtx || isMuted) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'triangle';
-      const now = audioCtx.currentTime;
-      osc.frequency.setValueAtTime(100, now);
-      osc.frequency.exponentialRampToValueAtTime(30, now + 1.2);
-      gain.gain.setValueAtTime(0.5, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
-      osc.connect(gain); gain.connect(masterGain);
-      osc.start(now); osc.stop(now + 1.5);
+      if(!audioCtx || isMuted || audioCtx.state !== 'running') return;
+      try {
+        const now = audioCtx.currentTime;
+        // Tiếng sấm trầm sống động dùng noise + osc
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(120, now);
+        osc.frequency.exponentialRampToValueAtTime(25, now + 1.4);
+        gain.gain.setValueAtTime(0.5, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+        osc.connect(gain); gain.connect(masterGain);
+        osc.start(now); osc.stop(now + 1.5);
+      } catch(e) {}
     }
 
     function updateAudioForWeather(mode) {
-      if(!audioCtx) return;
-      const now = audioCtx.currentTime;
+      if(!audioCtx || audioCtx.state !== 'running') return;
       if(['RAIN', 'NIGHT_RAIN'].includes(mode)) {
-        rainGain.gain.setTargetAtTime(0.25, now, 1);
-        windGain.gain.setTargetAtTime(0.05, now, 1);
+        setNodeGain(rainGain, 0.25);
+        setNodeGain(windGain, 0.05);
       } else if(mode === 'STORM') {
-        rainGain.gain.setTargetAtTime(0.5, now, 1);
-        windGain.gain.setTargetAtTime(0.3, now, 1);
+        setNodeGain(rainGain, 0.5);
+        setNodeGain(windGain, 0.3);
       } else if(mode === 'BLIZZARD') {
-        rainGain.gain.setTargetAtTime(0, now, 1);
-        windGain.gain.setTargetAtTime(0.45, now, 1);
+        setNodeGain(rainGain, 0);
+        setNodeGain(windGain, 0.45);
       } else if(mode === 'SNOW') {
-        rainGain.gain.setTargetAtTime(0, now, 1);
-        windGain.gain.setTargetAtTime(0.1, now, 1);
+        setNodeGain(rainGain, 0);
+        setNodeGain(windGain, 0.1);
       } else {
-        rainGain.gain.setTargetAtTime(0, now, 1);
-        windGain.gain.setTargetAtTime(0, now, 1);
+        setNodeGain(rainGain, 0);
+        setNodeGain(windGain, 0);
       }
     }
 
-    window.addEventListener('click', unlockAudio);
-    window.addEventListener('touchstart', unlockAudio);
     function unlockAudio() {
       initAudioEngine();
       if(audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
+        audioCtx.resume().then(() => {
+          updateAudioForWeather(currentMode);
+        });
       }
     }
 
-    // 🌳 RỪNG CÂY HOẠT HÌNH
+    ['click', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, unlockAudio, { once: false });
+    });
+
+    // 🌳 FIX LỖI CÂY HOẠT HÌNH RỰC RỠ, NỔI BẬT & ĐẸP MẮT
     function generateForest() {
       const container = document.getElementById('forest-box');
       container.innerHTML = '';
-      for (let i = 0; i < 15; i++) {
+      const totalTrees = 16;
+      
+      for (let i = 0; i < totalTrees; i++) {
         let tree = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        tree.setAttribute("viewBox", "0 0 100 200");
+        tree.setAttribute("viewBox", "0 0 100 180");
         tree.className.baseVal = "nature-tree";
-        tree.style.left = (i * 6.5 + Math.random()*2) + '%';
-        tree.style.width = (40 + Math.random()*30) + 'px';
-        tree.style.height = (80 + Math.random()*60) + 'px';
-        tree.style.animationDelay = -Math.random()*5 + 's';
+        
+        let leftPos = (i * (100 / totalTrees)) + (Math.random() * 2 - 1);
+        tree.style.left = leftPos + '%';
+        tree.style.width = (45 + Math.random() * 35) + 'px';
+        tree.style.height = (90 + Math.random() * 70) + 'px';
+        tree.style.animationDelay = -Math.random() * 5 + 's';
         tree.style.zIndex = Math.floor(Math.random() * 3);
-        tree.innerHTML = `
-          <rect x="45" y="140" width="10" height="60" rx="3" fill="#451a03"/>
-          <path d="M50,20 L85,75 L70,75 L95,130 L5,130 L30,75 L15,75 Z" fill="#166534" stroke="#14532d" stroke-width="2" stroke-linejoin="round"/>
-        `;
+
+        const isRoundTree = i % 2 === 0;
+        
+        if (isRoundTree) {
+          // Cây vòm tròn sinh động
+          tree.innerHTML = `
+            <!-- Thân cây -->
+            <rect x="42" y="110" width="16" height="70" rx="4" fill="#5c2c16" />
+            <path d="M42,130 Q30,120 20,135" stroke="#3e1d0e" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M58,125 Q70,115 80,128" stroke="#3e1d0e" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <!-- Tán lá layered -->
+            <circle cx="50" cy="95" r="38" fill="#14532d" />
+            <circle cx="35" cy="70" r="30" fill="#166534" />
+            <circle cx="65" cy="70" r="30" fill="#15803d" />
+            <circle cx="50" cy="50" r="32" fill="#22c55e" />
+            <circle cx="42" cy="42" r="18" fill="#4ade80" opacity="0.6"/>
+          `;
+        } else {
+          // Cây thông Noel tán đa tầng
+          tree.innerHTML = `
+            <!-- Thân cây -->
+            <rect x="43" y="120" width="14" height="60" rx="3" fill="#451a03"/>
+            <!-- Tán thông tầng -->
+            <path d="M50,15 L88,65 L72,65 L94,110 L6,110 L28,65 L12,65 Z" fill="#166534"/>
+            <path d="M50,15 L88,65 L70,65 L88,100 L12,100 L30,65 L12,65 Z" fill="#22c55e" opacity="0.85"/>
+            <path d="M50,15 L78,55 L62,55 L75,85 L25,85 L38,55 L22,55 Z" fill="#4ade80" opacity="0.5"/>
+          `;
+        }
         container.appendChild(tree);
       }
     }
@@ -813,78 +902,80 @@
     function initClouds() {
       const box = document.getElementById('moving-clouds');
       box.innerHTML = '';
-      let count = ['STORM', 'BLIZZARD'].includes(currentMode) ? 9 : 4;
+      let count = ['STORM', 'BLIZZARD'].includes(currentMode) ? 9 : 5;
       for(let i=0; i<count; i++){
         let c = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         c.setAttribute("viewBox", "0 0 200 100");
         c.className.baseVal = "moving-cloud";
-        c.style.width = (150 + Math.random()*100) + 'px';
-        c.style.top = (Math.random()*30) + 'vh';
-        c.style.animationDuration = (currentMode==='BLIZZARD' ? (10 + Math.random()*10) : (30 + Math.random()*40)) + 's';
-        c.style.animationDelay = -(Math.random()*50) + 's';
+        c.style.width = (140 + Math.random()*110) + 'px';
+        c.style.top = (Math.random()*32) + 'vh';
+        c.style.animationDuration = (currentMode==='BLIZZARD' ? (10 + Math.random()*10) : (25 + Math.random()*35)) + 's';
+        c.style.animationDelay = -(Math.random()*40) + 's';
         c.innerHTML = `<path d="M40,60 Q20,60 20,40 Q20,20 40,20 Q50,5 70,5 Q100,5 110,25 Q130,10 150,25 Q170,25 170,45 Q170,60 150,60 Z"/>`;
         box.appendChild(c);
       }
     }
 
-    // 🦅 CHIM & LÁ RƠI
+    // 🦅 FIX CHIM BAY CÓ TỐC ĐỘ, ĐIỂM XUẤT PHÁT VÀ QUỸ ĐẠO MƯỢT MÀ
     function spawnNatureElements() {
       const birdBox = document.getElementById('birds-box');
       birdBox.innerHTML = '';
       if(['SUNNY', 'SUNSET', 'SNOW'].includes(currentMode)) {
-        for(let i=0; i<3; i++){
+        for(let i=0; i<4; i++){
           let bird = document.createElementNS("http://www.w3.org/2000/svg", "svg");
           bird.setAttribute("viewBox", "0 0 50 50");
           bird.className.baseVal = "bird";
-          bird.style.width = (20 + Math.random()*15) + 'px';
-          bird.style.top = (10 + Math.random()*20) + 'vh';
-          bird.style.animationDelay = (i * 4 + Math.random()*2) + 's';
-          bird.innerHTML = `<path d="M 10 25 Q 25 15 25 25 Q 25 15 40 25 Q 25 20 25 30 Q 25 20 10 25 Z"/>`;
+          bird.style.width = (22 + Math.random()*14) + 'px';
+          bird.style.top = (6 + Math.random()*28) + 'vh';
+          bird.style.animationDuration = (12 + Math.random()*10) + 's';
+          bird.style.animationDelay = (i * 3 + Math.random()*2) + 's';
+          bird.innerHTML = `<path d="M 5 25 Q 25 10 25 25 Q 25 10 45 25 Q 25 18 25 32 Q 25 18 5 25 Z"/>`;
           birdBox.appendChild(bird);
         }
       }
 
       const leafBox = document.getElementById('leaves-box');
       leafBox.innerHTML = '';
-      for(let i=0; i<8; i++){
+      for(let i=0; i<10; i++){
         let leaf = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         leaf.setAttribute("viewBox", "0 0 30 30");
         leaf.className.baseVal = "leaf";
-        leaf.style.width = '15px';
+        leaf.style.width = '14px';
         leaf.style.left = (Math.random()*100) + 'vw';
-        leaf.style.animationDuration = (5 + Math.random()*5) + 's';
-        leaf.style.animationDelay = (Math.random()*10) + 's';
+        leaf.style.animationDuration = (5 + Math.random()*6) + 's';
+        leaf.style.animationDelay = (Math.random()*8) + 's';
         leaf.innerHTML = `<path d="M 15 0 C 30 0 30 15 15 30 C 0 15 0 0 15 0 Z"/>`;
         leafBox.appendChild(leaf);
       }
     }
 
-    // 🌧️ MƯA
+    // 🌧️ FIX MƯA PHỦ RỘNG TOÀN MÀN HÌNH KHÔNG BỊ TRỐNG
     function initRain() {
       const box = document.getElementById('rain-box');
       box.innerHTML = '';
-      let count = ['RAIN', 'NIGHT_RAIN'].includes(currentMode) ? 60 : (currentMode === 'STORM' ? 120 : 0);
+      let count = ['RAIN', 'NIGHT_RAIN'].includes(currentMode) ? 75 : (currentMode === 'STORM' ? 140 : 0);
       for(let i=0; i<count; i++){
         let r = document.createElement('div');
         r.className = 'drop';
-        r.style.left = (Math.random()*120 - 10) + 'vw';
-        r.style.animationDuration = (0.5 + Math.random()*0.3) + 's';
+        // Phủ từ -20vw tới 120vw để mưa nghiêng bao phủ tràn màn hình
+        r.style.left = (Math.random() * 140 - 20) + 'vw';
+        r.style.animationDuration = (0.45 + Math.random()*0.3) + 's';
         r.style.animationDelay = (Math.random()*2) + 's';
         box.appendChild(r);
       }
     }
 
-    // ❄️ TUYẾT
+    // ❄️ TUYẾT PHỦ TOÀN MÀN HÌNH
     function initSnow() {
       const box = document.getElementById('snow-box');
       box.innerHTML = '';
-      let count = currentMode === 'SNOW' ? 50 : (currentMode === 'BLIZZARD' ? 130 : 0);
+      let count = currentMode === 'SNOW' ? 60 : (currentMode === 'BLIZZARD' ? 140 : 0);
       for(let i=0; i<count; i++){
         let s = document.createElement('div');
         s.className = 'snowflake';
         let size = (3 + Math.random()*5) + 'px';
         s.style.width = size; s.style.height = size;
-        s.style.left = (Math.random()*120 - 10) + 'vw';
+        s.style.left = (Math.random() * 140 - 20) + 'vw';
         s.style.animationDuration = (currentMode==='BLIZZARD' ? (1 + Math.random()*1.5) : (4 + Math.random()*4)) + 's';
         s.style.animationDelay = (Math.random()*3) + 's';
         box.appendChild(s);
@@ -962,7 +1053,7 @@
       document.getElementById('wf-next-name').innerText = weatherNames[nextMode];
     }
 
-    // ⏱️ ĐỒNG BỘ THỜI GIAN 30 SÂY TỰ ĐỘNG LƯỚT SÁNG THÔNG BÁO TỰ ĐỘNG
+    // ⏱️ ĐỒNG BỘ THỜI GIAN 30 GIÂY TỰ ĐỘNG LƯỚT SÁNG THÔNG BÁO
     setInterval(() => {
       const nb = document.getElementById('main-notice-board');
       nb.style.borderColor = '#facc15';
@@ -1004,7 +1095,7 @@
 
     //  BẬT MỞ / ĐÓNG MODAL TIỆN ÍCH WEB
     function openWebUtilsModal() {
-      collapseNoticeBoard(); // Kéo ngắn thông báo mượt mà khi mở tiện ích web
+      collapseNoticeBoard();
       const modal = document.getElementById('web-utils-modal');
       modal.classList.add('active');
     }
@@ -1041,18 +1132,18 @@
       if(isMuted) {
         btn.innerText = ' Âm thanh OFF';
         btn.classList.add('muted');
-        if(masterGain) masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        if(masterGain && audioCtx) masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
       } else {
         btn.innerText = ' Âm thanh ON';
         btn.classList.remove('muted');
         const val = document.getElementById('volume-range').value / 100;
-        if(masterGain) masterGain.gain.setValueAtTime(val, audioCtx.currentTime);
+        if(masterGain && audioCtx) masterGain.gain.setValueAtTime(val, audioCtx.currentTime);
       }
     }
 
     function updateMasterVolume(val) {
       document.getElementById('volume-text').innerText = val + '%';
-      if(masterGain && !isMuted) {
+      if(masterGain && !isMuted && audioCtx) {
         masterGain.gain.setValueAtTime(val / 100, audioCtx.currentTime);
       }
     }
