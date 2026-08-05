@@ -2,25 +2,55 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NOXGPT</title>
-<link rel="stylesheet" href="ai.css">
-</head>
 
+<link rel="stylesheet" href="ai.css">
+
+</head>
 <body>
 
-<div class="bg"></div>
+<div class="sidebar">
 
-<div class="app">
-
-<div class="header">
-<div class="logo">NOXGPT</div>
-<div class="status">● ONLINE</div>
+<div class="logo">
+<div class="icon">N</div>
+<div>
+<h2>NOXGPT</h2>
+<p>Cyber AI</p>
+</div>
 </div>
 
-<div id="chatBox" class="chat"></div>
+<button class="newchat" onclick="location.reload()">
++ Cuộc trò chuyện mới
+</button>
 
-<div class="bottom">
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<h1>NOXGPT</h1>
+
+<span class="online">
+● ONLINE
+</span>
+
+</div>
+
+<div id="chatBox" class="chat">
+
+<div class="welcome">
+
+<h2>Xin chào 👋</h2>
+
+<p>Hôm nay bạn muốn hỏi gì?</p>
+
+</div>
+
+</div>
+
+<div class="inputBox">
 
 <textarea
 id="prompt"
@@ -28,7 +58,9 @@ placeholder="Nhập tin nhắn..."
 rows="1"></textarea>
 
 <button onclick="sendMessage()">
-Gửi
+
+➤
+
 </button>
 
 </div>
