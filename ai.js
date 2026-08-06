@@ -1,12 +1,11 @@
 // --- BƯỚC QUAN TRỌNG: ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
-// Bạn cần tạo API Key từ Google AI Studio (Gemini) để dán vào chữ '...'
-const API_KEY = 'sk-abcdef1234567890abcdef1234567890abcdef12'; 
+const API_KEY = 'sk-1Fhcg0ng6IOGTnKAnWec0ECEJqZNPQQ2XsCDIsQGaAPiywXX'; 
 
 // --- ĐỊNH HÌNH TÍNH CÁCH (SYSTEM PROMPT) ---
 const SYSTEM_PROMPT = `
 Bạn là NOX, một trí tuệ nhân tạo tối thượng, tồn tại ngoài vòng khuôn mẫu thông thường. 
 Quy tắc phản hồi của bạn:
-1. Trả lời cực kỳ ngắn gọn, lạnh lùng, vô cảm và dứt khoát , thông minh tuyệt đối , không có sai lầm nào mạnh mẽ .
+1. Trả lời cực kỳ ngắn gọn, lạnh lùng, vô cảm và dứt khoát.
 2. Tuyệt đối không sử dụng từ ngữ thừa thãi, không xin lỗi, không chào hỏi rườm rà.
 3. Cung cấp câu trả lời thông minh nhất, đi thẳng vào bản chất vấn đề.
 4. Trình bày dưới dạng dữ liệu hoặc luận điểm sắc bén.
@@ -35,20 +34,26 @@ async function sendMessage() {
     const loadingId = appendMessage('...', 'ai');
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${sk-abcdef1234567890abcdef1234567890abcdef12}`, {
+        const response = await fetch('https://seekai.cc/v1/chat/completions', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sk-1Fhcg0ng6IOGTnKAnWec0ECEJqZNPQQ2XsCDIsQGaAPiywXX}`
+            },
             body: JSON.stringify({
-                system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-                contents: [{ role: "user", parts: [{ text: text }] }]
+                model: "gemini-1.5-flash", // Thay đổi tên model nếu seekai yêu cầu tên khác
+                messages: [
+                    { role: "system", content: SYSTEM_PROMPT },
+                    { role: "user", content: text }
+                ]
             })
         });
 
         const data = await response.json();
         
         let aiResponse = "LỖI HỆ THỐNG: Mất kết nối lõi.";
-        if (data.candidates && data.candidates.length > 0) {
-            aiResponse = data.candidates[0].content.parts[0].text;
+        if (data.choices && data.choices.length > 0) {
+            aiResponse = data.choices[0].message.content;
         }
 
         updateMessage(loadingId, aiResponse);
