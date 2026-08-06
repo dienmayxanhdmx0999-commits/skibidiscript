@@ -1061,35 +1061,37 @@
     // ⏱️ ĐỒNG BỘ THỜI GIAN 30 GIÂY TỰ ĐỘNG LƯỚT SÁNG THÔNG BÁO
     setInterval(() => {
       const nb = document.getElementById('main-notice-board');
-      nb.style.borderColor = '#facc15';
-      nb.style.boxShadow = '0 0 25px rgba(250, 204, 21, 0.6)';
-      setTimeout(() => {
-        nb.style.borderColor = 'rgba(255, 255, 255, 0.35)';
-        nb.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4)';
-      }, 1500);
+      if(nb) {
+        nb.style.borderColor = '#facc15';
+        nb.style.boxShadow = '0 0 25px rgba(250, 204, 21, 0.6)';
+        setTimeout(() => {
+          nb.style.borderColor = 'rgba(255, 255, 255, 0.35)';
+          nb.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4)';
+        }, 1500);
+      }
     }, 30000);
 
     // 🎛️ BỔ SUNG CÁC HÀM XỬ LÝ GIAO DIỆN & TƯƠNG TÁC NGƯỜI DÙNG
 
-    // 1. Co / Mở rộng bảng thông báo
+    // 1. Co/Mở Bảng Thông Báo
     function toggleNoticeBoard() {
-      const nb = document.getElementById('main-notice-board');
+      const board = document.getElementById('main-notice-board');
       const badge = document.getElementById('notice-badge');
-      nb.classList.toggle('collapsed');
-      if (nb.classList.contains('collapsed')) {
+      board.classList.toggle('collapsed');
+      if (board.classList.contains('collapsed')) {
         badge.innerText = 'Mở Rộng';
       } else {
         badge.innerText = 'Thu Gọn';
       }
     }
 
-    // 2. Mở / Đóng Menu Mục lục góc trái
+    // 2. Bật/Tắt Menu Mục Lục Trái
     function toggleMenuDrawer() {
       const drawer = document.getElementById('menu-drawer');
       drawer.classList.toggle('show');
     }
 
-    // 3. Mở / Đóng Modal Tiện ích Web
+    // 3. Mở & Đóng Modal Tiện Ích
     function openWebUtilsModal() {
       const modal = document.getElementById('web-utils-modal');
       modal.classList.add('active');
@@ -1100,62 +1102,73 @@
       modal.classList.remove('active');
     }
 
-    // 4. Chuyển Tab trong Popup Tiện ích Web
-    function switchTab(tabId, btn) {
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
+    // 4. Chuyển Tab Trong Modal
+    function switchTab(tabId, btnElement) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      const buttons = document.querySelectorAll('.nav-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
       document.getElementById(tabId).classList.add('active');
+      btnElement.classList.add('active');
     }
 
-    // 5. Sao chép Script vào Bộ nhớ tạm (Clipboard)
+    // 5. Sao Chép Mã Script
     function copyCode(btn) {
-      const codeText = btn.parentElement.nextElementSibling.innerText;
-      navigator.clipboard.writeText(codeText).then(() => {
+      const box = btn.closest('.box');
+      const text = box.querySelector('.script-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
         const originalText = btn.innerText;
-        btn.innerText = 'Copied! ✓';
+        btn.innerText = 'Copied! ✅';
+        btn.style.background = '#22c55e';
         setTimeout(() => {
           btn.innerText = originalText;
+          btn.style.background = '#a855f7';
         }, 2000);
       }).catch(err => {
-        console.error('Không thể sao chép: ', err);
+        console.error('Lỗi khi sao chép:', err);
       });
     }
 
-    // 6. Điều khiển Bật / Tắt Âm thanh
+    // 6. Bật/Tắt & Điều Chỉnh Âm Thanh
     function toggleMasterSound() {
-      isMuted = !isMuted;
       const btn = document.getElementById('sound-toggle-btn');
+      isMuted = !isMuted;
       if (isMuted) {
-        if (masterGain && audioCtx) masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
         btn.innerText = 'Âm thanh: OFF';
         btn.classList.add('muted');
+        if (masterGain && audioCtx) masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
       } else {
-        const vol = document.getElementById('volume-range').value / 100;
-        if (masterGain && audioCtx) masterGain.gain.setValueAtTime(vol, audioCtx.currentTime);
         btn.innerText = 'Âm thanh: ON';
         btn.classList.remove('muted');
+        const vol = document.getElementById('volume-range').value / 100;
+        if (masterGain && audioCtx) masterGain.gain.setValueAtTime(vol * 0.85, audioCtx.currentTime);
       }
     }
 
-    // 7. Thay đổi Âm lượng (Slider)
     function updateMasterVolume(val) {
       document.getElementById('volume-text').innerText = val + '%';
-      if (masterGain && audioCtx && !isMuted) {
-        masterGain.gain.setValueAtTime(val / 100, audioCtx.currentTime);
+      if (masterGain && !isMuted && audioCtx && audioCtx.state === 'running') {
+        masterGain.gain.setValueAtTime((val / 100) * 0.85, audioCtx.currentTime);
       }
     }
 
-    // 🚀 KHỞI CHẠY TRANG WEB
+    // Khởi chạy khi load trang hoàn tất
     window.addEventListener('DOMContentLoaded', () => {
       generateForest();
       checkWeatherLoop();
       setInterval(checkWeatherLoop, 1000);
-      
-      // Tiếng chim hót ngẫu nhiên khi trời đẹp
-      setInterval(() => {
-        if (Math.random() < 0.35) playBirdChirp();
-      }, 7000);
+      setInterval(playBirdChirp, 10000);
+    });
+
+    // Tự động đóng menu khi bấm ra ngoài
+    document.addEventListener('click', (e) => {
+      const drawer = document.getElementById('menu-drawer');
+      const menuBtn = document.querySelector('.menu-toc-btn');
+      if (drawer.classList.contains('show') && !drawer.contains(e.target) && !menuBtn.contains(e.target)) {
+        drawer.classList.remove('show');
+      }
     });
   </script>
 </body>
