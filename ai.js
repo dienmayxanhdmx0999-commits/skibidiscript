@@ -1,4 +1,4 @@
-// --- BƯỚC QUAN TRỌNG: ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
+// --- BƯỚC QUAN TRỌNG: ĐÃ ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
 const API_KEY = 'sk-1Fhcg0ng6IOGTnKAnWec0ECEJqZNPQQ2XsCDIsQGaAPiywXX'; 
 
 // --- ĐỊNH HÌNH TÍNH CÁCH (SYSTEM PROMPT) ---
@@ -38,10 +38,10 @@ async function sendMessage() {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sk-1Fhcg0ng6IOGTnKAnWec0ECEJqZNPQQ2XsCDIsQGaAPiywXX}`
+                'Authorization': `Bearer ${API_KEY}`
             },
             body: JSON.stringify({
-                model: "gemini-1.5-flash", // Thay đổi tên model nếu seekai yêu cầu tên khác
+                model: "gemini-1.5-flash", 
                 messages: [
                     { role: "system", content: SYSTEM_PROMPT },
                     { role: "user", content: text }
@@ -85,7 +85,6 @@ function appendMessage(text, sender) {
 function updateMessage(id, text) {
     const messageDiv = document.getElementById(id);
     if (messageDiv) {
-        // Chuyển Markdown in đậm (**) thành HTML (<b>) để NOX hiển thị chữ đẹp hơn
         let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, "<br>");
         messageDiv.querySelector('.text-bubble').innerHTML = formattedText;
         chatBox.scrollTop = chatBox.scrollHeight;
