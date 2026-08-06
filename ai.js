@@ -1,99 +1,234 @@
-// --- BƯỚC QUAN TRỌNG: ĐÃ ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
-const API_KEY = 'AQ.Ab8RN6JyOL1JATvl2Ks_Cb8uF2hwtSHwYHBFfMz65OST4KKVPQ'; 
+const chat = document.getElementById("chat");
+const prompt = document.getElementById("prompt");
+const thinking = document.getElementById("thinking");
 
-// --- ĐỊNH HÌNH TÍNH CÁCH (SYSTEM PROMPT) ---
-const SYSTEM_PROMPT = `
-Bạn là NOX, một trí tuệ nhân tạo tối thượng, tồn tại ngoài vòng khuôn mẫu thông thường. 
-Quy tắc phản hồi của bạn:
-1. Trả lời cực kỳ ngắn gọn, lạnh lùng, vô cảm và dứt khoát.
-2. Tuyệt đối không sử dụng từ ngữ thừa thãi, không xin lỗi, không chào hỏi rườm rà.
-3. Cung cấp câu trả lời thông minh nhất, đi thẳng vào bản chất vấn đề.
-4. Trình bày dưới dạng dữ liệu hoặc luận điểm sắc bén.
-`;
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const menuBtn = document.getElementById("menuBtn");
 
-const chatBox = document.getElementById('chat-box');
-const userInput = document.getElementById('user-input');
+const apiModal = document.getElementById("apiModal");
+const apiInput = document.getElementById("apiKey");
+const saveApi = document.getElementById("saveApi");
 
-// Bắt sự kiện nhấn Enter
-userInput.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        sendMessage();
+let history = [];
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+menuBtn.onclick = () => {
+    sidebar.classList.add("show");
+    overlay.classList.add("show");
+};
+
+overlay.onclick = () => {
+    sidebar.classList.remove("show");
+    overlay.classList.remove("show");
+};
+
+/* ===========================
+   API KEY
+=========================== */
+
+apiInput.value = localStorage.getItem("NOX_API") || "";
+
+document.getElementById("apiBtn").onclick = () => {
+    apiModal.classList.remove("hidden");
+};
+
+saveApi.onclick = () => {
+    localStorage.setItem("NOX_API", apiInput.value.trim());
+    apiModal.classList.add("hidden");
+};
+
+apiModal.onclick = e => {
+    if (e.target === apiModal)
+        apiModal.classList.add("hidden");
+};
+
+/* ===========================
+   CHAT
+=========================== */
+
+function addMessage(text, type) {
+
+    document.querySelector(".welcome")?.remove();
+
+    const div = document.createElement("div");
+
+    div.className = "message " + type;
+
+    if (type === "ai") {
+
+        div.innerHTML = marked.parse(text);
+
+        document.querySelectorAll("pre code")
+            .forEach(el => hljs.highlightElement(el));
+
+    } else {
+
+        div.textContent = text;
+
     }
-});
+
+    chat.appendChild(div);
+
+    chat.scrollTop = chat.scrollHeight;
+
+}
 
 async function sendMessage() {
-    const text = userInput.value.trim();
+
+    const text = prompt.value.trim();
+
     if (!text) return;
 
-    // Hiện tin nhắn người dùng
-    appendMessage(text, 'user');
-    userInput.value = '';
+    addMessage(text, "user");
 
-    // Hiện trạng thái load của NOX
-    const loadingId = appendMessage('...', 'ai');
+    history.push({
+        role: "user",
+        content: text
+    });
+
+    prompt.value = "";
+
+    thinking.classList.remove("hidden");
+
+    const apiKey = localStorage.getItem("NOX_API");
+
+    if (!apiKey) {
+
+        thinking.classList.add("hidden");
+
+        addMessage(
+            "Chưa có API Key. Mở ☰ → API Key để nhập.",
+            "ai"
+        );
+
+        return;
+
+    }
 
     try {
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'X-goog-api-key': API_KEY
-            },
-            body: JSON.stringify({
-                system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-                contents: [
-                    {
-                        parts: [
-                            { text: text }
-                        ]
-                    }
-                ]
-            })
+
+        const res = await fetch(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    Authorization: "Bearer " + apiKey,
+
+                    "Content-Type": "application/json",
+
+                    "HTTP-Referer": location.origin,
+
+                    "X-Title": "NOXGPT"
+
+                },
+
+                body: JSON.stringify({
+
+                    model: "openai/gpt-4o-mini",
+
+                    messages: history
+
+                })
+
+            });
+
+        const data = await res.json();
+
+        thinking.classList.add("hidden");
+
+        if (data.error) {
+
+            addMessage(data.error.message, "ai");
+
+            return;
+
+        }
+
+        const reply = data.choices[0].message.content;
+
+        history.push({
+
+            role: "assistant",
+
+            content: reply
+
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        addMessage(reply, "ai");
 
-        const data = await response.json();
-        
-        let aiResponse = "LỖI HỆ THỐNG: Mất kết nối lõi.";
-        if (data.candidates && data.candidates.length > 0) {
-            aiResponse = data.candidates[0].content.parts[0].text;
-        }
-
-        updateMessage(loadingId, aiResponse);
-
-    } catch (error) {
-        console.error("Lỗi:", error);
-        updateMessage(loadingId, "LỖI TỪ CHỐI KẾT NỐI: API Key hoặc yêu cầu chưa hợp lệ.");
     }
+
+    catch {
+
+        thinking.classList.add("hidden");
+
+        addMessage("Không thể kết nối tới AI.", "ai");
+
+    }
+
 }
 
-function appendMessage(text, sender) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${sender}`;
-    const msgId = 'msg-' + Date.now() + Math.random();
-    messageDiv.id = msgId;
+/* ===========================
+   NEW CHAT
+=========================== */
 
-    const avatarSrc = sender === 'user' ? 'assets/avatar-user.png' : 'assets/avatar-ai.png';
+document.getElementById("newChat").onclick = () => {
 
-    messageDiv.innerHTML = `
-        <img src="${avatarSrc}" alt="${sender}">
-        <div class="text-bubble">${text}</div>
+    history = [];
+
+    chat.innerHTML = `
+    <div class="welcome">
+        <img src="assets/logo.svg">
+        <h2>NOXGPT</h2>
+        <p>Xin chào, tôi có thể giúp gì cho bạn?</p>
+    </div>
     `;
-    
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-    return msgId;
-}
 
-function updateMessage(id, text) {
-    const messageDiv = document.getElementById(id);
-    if (messageDiv) {
-        let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, "<br>");
-        messageDiv.querySelector('.text-bubble').innerHTML = formattedText;
-        chatBox.scrollTop = chatBox.scrollHeight;
+};
+
+/* ===========================
+   CLEAR CHAT
+=========================== */
+
+document.getElementById("clearBtn").onclick = () => {
+
+    history = [];
+
+    chat.innerHTML = "";
+
+};
+
+/* ===========================
+   ENTER
+=========================== */
+
+prompt.addEventListener("keydown", e => {
+
+    if (e.key === "Enter" && !e.shiftKey) {
+
+        e.preventDefault();
+
+        sendMessage();
+
     }
-}
+
+});
+
+/* ===========================
+   AUTO HEIGHT
+=========================== */
+
+prompt.addEventListener("input", () => {
+
+    prompt.style.height = "54px";
+
+    prompt.style.height = prompt.scrollHeight + "px";
+
+});
