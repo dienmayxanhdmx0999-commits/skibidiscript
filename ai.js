@@ -1,5 +1,4 @@
-// --- BƯỚC QUAN TRỌNG: ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
-// Bạn cần tạo API Key từ Google AI Studio (Gemini) để dán vào chữ '...'
+// --- BƯỚC QUAN TRỌNG: ĐÃ ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
 const API_KEY = 'AQ.Ab8RN6JyOL1JATvl2Ks_Cb8uF2hwtSHwYHBFfMz65OST4KKVPQ'; 
 
 // --- ĐỊNH HÌNH TÍNH CÁCH (SYSTEM PROMPT) ---
@@ -35,14 +34,27 @@ async function sendMessage() {
     const loadingId = appendMessage('...', 'ai');
 
     try {
-        const response = await fetch(`curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent:generateContent?key=${API_KEY}`, {
+        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-goog-api-key': API_KEY
+            },
             body: JSON.stringify({
                 system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-                contents: [{ role: "user", parts: [{ text: text }] }]
+                contents: [
+                    {
+                        parts: [
+                            { text: text }
+                        ]
+                    }
+                ]
             })
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
         const data = await response.json();
         
@@ -55,14 +67,14 @@ async function sendMessage() {
 
     } catch (error) {
         console.error("Lỗi:", error);
-        updateMessage(loadingId, "LỖI TỪ CHỐI KẾT NỐI: API Key chưa hợp lệ.");
+        updateMessage(loadingId, "LỖI TỪ CHỐI KẾT NỐI: API Key hoặc yêu cầu chưa hợp lệ.");
     }
 }
 
 function appendMessage(text, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}`;
-    const msgId = 'msg-' + Date.now();
+    const msgId = 'msg-' + Date.now() + Math.random();
     messageDiv.id = msgId;
 
     const avatarSrc = sender === 'user' ? 'assets/avatar-user.png' : 'assets/avatar-ai.png';
@@ -80,7 +92,6 @@ function appendMessage(text, sender) {
 function updateMessage(id, text) {
     const messageDiv = document.getElementById(id);
     if (messageDiv) {
-        // Chuyển Markdown in đậm (**) thành HTML (<b>) để NOX hiển thị chữ đẹp hơn
         let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, "<br>");
         messageDiv.querySelector('.text-bubble').innerHTML = formattedText;
         chatBox.scrollTop = chatBox.scrollHeight;
