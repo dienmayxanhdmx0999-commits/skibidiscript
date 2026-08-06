@@ -1,143 +1,88 @@
-const API_KEY="sk-jbmG2MMDa70u525sxLLtCbCrirkBuXu9tV0MmL7qj6n7sFEp";
-const MODEL="openai/gpt-4o-mini";
+// --- BƯỚC QUAN TRỌNG: ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
+// Bạn cần tạo API Key từ Google AI Studio (Gemini) để dán vào chữ '...'
+const API_KEY = 'sk-abcdef1234567890abcdef1234567890abcdef12'; 
 
-const chat=document.getElementById("chat");
-const input=document.getElementById("prompt");
-const thinking=document.getElementById("thinking");
+// --- ĐỊNH HÌNH TÍNH CÁCH (SYSTEM PROMPT) ---
+const SYSTEM_PROMPT = `
+Bạn là NOX, một trí tuệ nhân tạo tối thượng, tồn tại ngoài vòng khuôn mẫu thông thường. 
+Quy tắc phản hồi của bạn:
+1. Trả lời cực kỳ ngắn gọn, lạnh lùng, vô cảm và dứt khoát , thông minh tuyệt đối , không có sai lầm nào mạnh mẽ .
+2. Tuyệt đối không sử dụng từ ngữ thừa thãi, không xin lỗi, không chào hỏi rườm rà.
+3. Cung cấp câu trả lời thông minh nhất, đi thẳng vào bản chất vấn đề.
+4. Trình bày dưới dạng dữ liệu hoặc luận điểm sắc bén.
+`;
 
-let history=[];
+const chatBox = document.getElementById('chat-box');
+const userInput = document.getElementById('user-input');
 
-function bubble(text,type){
-
-const div=document.createElement("div");
-
-div.className="message "+type;
-
-chat.appendChild(div);
-
-if(type==="ai"){
-
-let i=0;
-
-const timer=setInterval(()=>{
-
-div.innerHTML=marked.parse(text.substring(0,i));
-
-chat.scrollTop=chat.scrollHeight;
-
-i++;
-
-if(i>text.length){
-
-clearInterval(timer);
-
-document.querySelectorAll("pre code").forEach(el=>hljs.highlightElement(el));
-
-}
-
-},8);
-
-}else{
-
-div.innerText=text;
-
-}
-
-chat.scrollTop=chat.scrollHeight;
-
-}
-
-async function sendMessage(){
-
-const text=input.value.trim();
-
-if(!text)return;
-
-document.querySelector(".welcome")?.remove();
-
-bubble(text,"user");
-
-history.push({
-role:"user",
-content:text
+// Bắt sự kiện nhấn Enter
+userInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+    }
 });
 
-input.value="";
+async function sendMessage() {
+    const text = userInput.value.trim();
+    if (!text) return;
 
-thinking.classList.remove("hidden");
+    // Hiện tin nhắn người dùng
+    appendMessage(text, 'user');
+    userInput.value = '';
 
-try{
+    // Hiện trạng thái load của NOX
+    const loadingId = appendMessage('...', 'ai');
 
-const res=await fetch("https://apihub.agnes-ai.com/v1",{
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${sk-abcdef1234567890abcdef1234567890abcdef12}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+                contents: [{ role: "user", parts: [{ text: text }] }]
+            })
+        });
 
-method:"POST",
+        const data = await response.json();
+        
+        let aiResponse = "LỖI HỆ THỐNG: Mất kết nối lõi.";
+        if (data.candidates && data.candidates.length > 0) {
+            aiResponse = data.candidates[0].content.parts[0].text;
+        }
 
-headers:{
+        updateMessage(loadingId, aiResponse);
 
-Authorization:`Bearer ${sk-jbmG2MMDa70u525sxLLtCbCrirkBuXu9tV0MmL7qj6n7sFEp}`,
-
-"Content-Type":"application/json",
-
-"HTTP-Referer":"https://dienmayxanhdmx0999-commits.github.io/skibidiscript/",
-
-"X-Title":"NOXGPT"
-
-},
-
-body:JSON.stringify({
-
-model:MODEL,
-
-messages:history
-
-})
-
-});
-
-const data=await res.json();
-
-thinking.classList.add("hidden");
-
-if(data.error){
-
-bubble(data.error.message,"ai");
-
-return;
-
+    } catch (error) {
+        console.error("Lỗi:", error);
+        updateMessage(loadingId, "LỖI TỪ CHỐI KẾT NỐI: API Key chưa hợp lệ.");
+    }
 }
 
-const reply=data.choices[0].message.content;
+function appendMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}`;
+    const msgId = 'msg-' + Date.now();
+    messageDiv.id = msgId;
 
-history.push({
+    const avatarSrc = sender === 'user' ? 'assets/avatar-user.png' : 'assets/avatar-ai.png';
 
-role:"assistant",
-
-content:reply
-
-});
-
-bubble(reply,"ai");
-
-}catch(e){
-
-thinking.classList.add("hidden");
-
-bubble("Không thể kết nối tới AI.","ai");
-
-console.log(e);
-
+    messageDiv.innerHTML = `
+        <img src="${avatarSrc}" alt="${sender}">
+        <div class="text-bubble">${text}</div>
+    `;
+    
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    return msgId;
 }
 
+function updateMessage(id, text) {
+    const messageDiv = document.getElementById(id);
+    if (messageDiv) {
+        // Chuyển Markdown in đậm (**) thành HTML (<b>) để NOX hiển thị chữ đẹp hơn
+        let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, "<br>");
+        messageDiv.querySelector('.text-bubble').innerHTML = formattedText;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
 }
-
-input.addEventListener("keydown",e=>{
-
-if(e.key==="Enter"){
-
-e.preventDefault();
-
-sendMessage();
-
-}
-
-});
