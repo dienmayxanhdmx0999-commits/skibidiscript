@@ -1,34 +1,164 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOX GPT - Lõi Trí Tuệ</title>
-    <!-- Liên kết đến file CSS của bạn -->
-    <link rel="stylesheet" href="ai.css">
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<title>NOXGPT</title>
+
+<link rel="stylesheet" href="ai.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 
-    <div class="header">
-        <img src="assets/logo.svg" alt="NOX Logo">
-        <h1>NOX_GPT // Core</h1>
-    </div>
+<!-- Sidebar -->
 
-    <div class="chat-container" id="chat-box">
-        <!-- Tin nhắn khởi động -->
-        <div class="message ai">
-            <img src="assets/avatar-ai.png" alt="NOX">
-            <div class="text-bubble">Hệ thống kích hoạt. Tôi là NOX. Yêu cầu của bạn là gì?</div>
-        </div>
-    </div>
+<div id="sidebar" class="sidebar">
 
-    <div class="input-area">
-        <input type="text" id="user-input" placeholder="Nhập dữ liệu..." autocomplete="off">
-        <button onclick="sendMessage()">Gửi</button>
-    </div>
+<div class="sidebar-header">
 
-    <!-- Liên kết đến file JS của bạn -->
-    <script src="ai.js"></script>
+<img src="assets/logo.svg">
+
+<span>NOXGPT</span>
+
+</div>
+
+<button id="newChat">New Chat</button>
+
+<button id="apiBtn">API Key</button>
+
+<button id="modelBtn">Model</button>
+
+<button id="clearBtn">Clear Chat</button>
+
+<button id="aboutBtn">About</button>
+
+</div>
+
+<!-- Overlay -->
+
+<div id="overlay"></div>
+
+<!-- Main -->
+
+<div class="main">
+
+<header>
+
+<button id="menuBtn">
+
+☰
+
+</button>
+
+<div class="brand">
+
+<img src="assets/logo.svg">
+
+<div>
+
+<h1>NOXGPT</h1>
+
+<p>AI Assistant</p>
+
+</div>
+
+</div>
+
+</header>
+
+<div id="chat" class="chat">
+
+<div class="welcome">
+
+<img src="assets/logo.svg">
+
+<h2>NOXGPT</h2>
+
+<p>Xin chào, tôi có thể giúp gì cho bạn?</p>
+
+</div>
+
+</div>
+
+<div id="thinking" class="thinking hidden">
+
+<span></span>
+
+<span></span>
+
+<span></span>
+
+</div>
+
+<footer>
+
+<button id="attach">
+
++</button>
+
+<textarea
+
+id="prompt"
+
+rows="1"
+
+placeholder="Nhập tin nhắn..."></textarea>
+
+<button
+
+id="send"
+
+onclick="sendMessage()">
+
+➜
+
+</button>
+
+</footer>
+
+</div>
+
+<!-- API KEY -->
+
+<div id="apiModal" class="modal hidden">
+
+<div class="modal-box">
+
+<h3>API Key</h3>
+
+<input
+
+type="password"
+
+id="apiKey"
+
+placeholder="Nhập API Key">
+
+<button id="saveApi">
+
+Lưu
+
+</button>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/common.min.js"></script>
+
+<script src="ai.js"></script>
 
 </body>
+
 </html>
