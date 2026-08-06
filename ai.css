@@ -1,265 +1,145 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+/* Màu chủ đạo NOX */
+:root {
+    --nox-red: #FF4500;
+    --nox-dark: #121212;
+    --nox-glow: 0 0 10px #FF4500, 0 0 20px #8B0000;
 }
 
-body{
-background:#070707;
-overflow:hidden;
-display:flex;
-height:100vh;
-color:white;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background-image: url('assets/bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-color: var(--nox-dark);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-#particles{
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top,#ff550015,transparent 40%),
-radial-gradient(circle at bottom,#ff220010,transparent 40%);
-z-index:-1;
-animation:bg 8s linear infinite alternate;
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.85);
+    border-bottom: 2px solid var(--nox-red);
+    box-shadow: var(--nox-glow);
 }
 
-@keyframes bg{
-0%{filter:hue-rotate(0deg);}
-100%{filter:hue-rotate(25deg);}
+.header img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    filter: drop-shadow(0 0 5px var(--nox-red));
 }
 
-.sidebar{
-width:270px;
-background:#0d0d0d;
-border-right:1px solid #ff330055;
-display:flex;
-flex-direction:column;
-padding:20px;
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: var(--nox-red);
+    text-shadow: var(--nox-glow);
+    letter-spacing: 2px;
 }
 
-.logo{
-position:relative;
-text-align:center;
-margin-bottom:30px;
+/* Khung Chat */
+.chat-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.65);
 }
 
-.logoGlow{
-position:absolute;
-width:140px;
-height:140px;
-left:50%;
-top:-35px;
-transform:translateX(-50%);
-background:#ff3300;
-filter:blur(70px);
-opacity:.25;
-animation:glow 3s infinite alternate;
+.message {
+    display: flex;
+    align-items: flex-start;
+    max-width: 85%;
 }
 
-@keyframes glow{
-from{opacity:.2;}
-to{opacity:.5;}
+.message.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
 }
 
-.logo h1{
-font-family:Orbitron;
-font-size:36px;
-color:#ff5a00;
-text-shadow:0 0 20px #ff3300;
+.message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid var(--nox-red);
 }
 
-.logo p{
-color:#999;
-letter-spacing:3px;
+.message.user img {
+    margin-left: 10px;
 }
 
-.newChat{
-margin-top:15px;
-height:50px;
-border:none;
-border-radius:14px;
-background:linear-gradient(90deg,#ff3300,#ff7700);
-color:white;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 0 20px #ff330055;
+.message.ai img {
+    margin-right: 10px;
+    box-shadow: var(--nox-glow);
 }
 
-.history{
-margin-top:25px;
-overflow:auto;
-flex:1;
+.text-bubble {
+    padding: 12px 15px;
+    border-radius: 4px;
+    line-height: 1.5;
+    font-size: 15px;
 }
 
-.main{
-flex:1;
-display:flex;
-flex-direction:column;
+.message.user .text-bubble {
+    background: #2a2a2a;
+    border: 1px solid #555;
 }
 
-.topbar{
-height:70px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 30px;
-border-bottom:1px solid #ff330040;
-background:#111;
-backdrop-filter:blur(20px);
+.message.ai .text-bubble {
+    background: rgba(255, 69, 0, 0.1);
+    border: 1px solid var(--nox-red);
+    color: #ffcccc;
+    box-shadow: inset 0 0 10px rgba(255, 69, 0, 0.2);
 }
 
-.dot{
-width:10px;
-height:10px;
-background:#00ff66;
-border-radius:50%;
-display:inline-block;
-margin-right:8px;
-box-shadow:0 0 10px #00ff66;
+/* Khu vực nhập liệu */
+.input-area {
+    display: flex;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.9);
+    border-top: 1px solid var(--nox-red);
 }
 
-.chat{
-flex:1;
-overflow:auto;
-padding:30px;
+.input-area input {
+    flex: 1;
+    padding: 12px;
+    background: #000;
+    border: 1px solid var(--nox-red);
+    color: var(--nox-red);
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
 }
 
-.welcome{
-margin-top:15vh;
-text-align:center;
-opacity:.8;
+.input-area input:focus {
+    box-shadow: inset 0 0 10px rgba(255, 69, 0, 0.5);
 }
 
-.welcome h2{
-font-size:55px;
-font-family:Orbitron;
-color:#ff5500;
-text-shadow:0 0 20px #ff3300;
+.input-area button {
+    background: var(--nox-red);
+    color: #000;
+    border: none;
+    padding: 0 25px;
+    margin-left: 10px;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.2s;
 }
 
-.message{
-max-width:78%;
-padding:16px;
-border-radius:18px;
-margin:18px 0;
-animation:show .25s;
-white-space:pre-wrap;
-line-height:1.7;
-}
-
-@keyframes show{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:none;
-}
-}
-
-.user{
-margin-left:auto;
-background:#ff4400;
-box-shadow:0 0 18px #ff330055;
-}
-
-.ai{
-background:#151515;
-border:1px solid #ff330055;
-backdrop-filter:blur(20px);
-}
-
-.inputBox{
-padding:20px;
-display:flex;
-gap:12px;
-background:#101010;
-border-top:1px solid #ff330044;
-}
-
-input{
-flex:1;
-height:58px;
-background:#181818;
-border:1px solid #ff330055;
-border-radius:15px;
-padding:18px;
-color:white;
-font-size:16px;
-outline:none;
-}
-
-button{
-width:70px;
-border:none;
-border-radius:15px;
-background:linear-gradient(90deg,#ff3300,#ff7700);
-color:white;
-font-size:22px;
-cursor:pointer;
-box-shadow:0 0 15px #ff330055;
-}
-
-.thinking{
-padding:10px 25px;
-display:flex;
-align-items:center;
-gap:15px;
-}
-
-.loader{
-display:flex;
-gap:6px;
-}
-
-.loader span{
-width:9px;
-height:9px;
-border-radius:50%;
-background:#ff5500;
-animation:bounce 1s infinite;
-}
-
-.loader span:nth-child(2){
-animation-delay:.2s;
-}
-
-.loader span:nth-child(3){
-animation-delay:.4s;
-}
-
-@keyframes bounce{
-50%{
-transform:translateY(-8px);
-}
-}
-
-.hidden{
-display:none;
-}
-
-::-webkit-scrollbar{
-width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-background:#ff4400;
-border-radius:20px;
-}
-
-@media(max-width:900px){
-
-.sidebar{
-display:none;
-}
-
-.welcome h2{
-font-size:38px;
-}
-
-.message{
-max-width:92%;
-}
-
+.input-area button:hover {
+    background: #fff;
+    color: var(--nox-red);
+    box-shadow: var(--nox-glow);
 }
