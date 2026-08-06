@@ -1,106 +1,136 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 512 512">
 
 <defs>
 
-<linearGradient id="fire" x1="0%" y1="0%" x2="100%" y2="100%">
-<stop offset="0%" stop-color="#ff1a1a"/>
-<stop offset="100%" stop-color="#ff7b00"/>
+<linearGradient id="fire"
+x1="0%" y1="0%"
+x2="100%" y2="100%">
+
+<stop offset="0%" stop-color="#ff0000">
+<animate attributeName="stop-color"
+values="#ff0000;#ff5500;#ff0000"
+dur="2s"
+repeatCount="indefinite"/>
+</stop>
+
+<stop offset="100%" stop-color="#ff9900">
+<animate attributeName="stop-color"
+values="#ff9900;#ff3300;#ff9900"
+dur="2s"
+repeatCount="indefinite"/>
+</stop>
+
 </linearGradient>
 
-<filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-<feGaussianBlur stdDeviation="8" result="blur"/>
+<radialGradient id="bg">
+
+<stop offset="0%"
+stop-color="#140000"/>
+
+<stop offset="100%"
+stop-color="#050505"/>
+
+</radialGradient>
+
+<filter id="glow"
+x="-50%"
+y="-50%"
+width="200%"
+height="200%">
+
+<feGaussianBlur
+stdDeviation="8"
+result="blur"/>
+
 <feMerge>
+
 <feMergeNode in="blur"/>
+
 <feMergeNode in="SourceGraphic"/>
+
 </feMerge>
+
+</filter>
+
+<filter id="bigGlow">
+
+<feGaussianBlur
+stdDeviation="20"
+result="blur"/>
+
+<feColorMatrix
+type="matrix"
+
+values="1 0 0 0 0
+0 0.4 0 0 0
+0 0 0 0 0
+0 0 0 1 0"/>
+
 </filter>
 
 </defs>
 
-<rect width="512" height="512" fill="#050505"/>
+<rect
+width="512"
+height="512"
+fill="url(#bg)"/>
 
-<!-- Sừng -->
-<path d="M125 150
-C90 60 170 35 205 120"
+<circle
+cx="256"
+cy="256"
+r="190"
+
 fill="none"
-stroke="url(#fire)"
-stroke-width="14"
-stroke-linecap="round"
-filter="url(#glow)"/>
 
-<path d="M387 150
-C422 60 342 35 307 120"
+stroke="url(#fire)"
+
+stroke-width="2"
+
+opacity=".18"
+
+filter="url(#bigGlow)">
+
+<animate
+
+attributeName="r"
+
+values="180;200;180"
+
+dur="3s"
+
+repeatCount="indefinite"/>
+
+</circle>
+
+<circle
+
+cx="256"
+
+cy="256"
+
+r="170"
+
 fill="none"
-stroke="url(#fire)"
-stroke-width="14"
-stroke-linecap="round"
-filter="url(#glow)"/>
 
-<!-- Tam giác -->
-<polygon
-points="256,85 80,410 432,410"
-fill="#0a0a0a"
-stroke="url(#fire)"
-stroke-width="10"
-filter="url(#glow)"/>
+stroke="#ff2200"
 
-<!-- Chữ X -->
-<path
-d="M185 170
-L327 342
+stroke-width="1"
 
-M327 170
-L185 342"
-stroke="url(#fire)"
-stroke-width="28"
-stroke-linecap="round"
-filter="url(#glow)"/>
+opacity=".15">
 
-<!-- Mắt trái -->
-<path
-d="M155 250
-Q185 210 225 245"
-fill="none"
-stroke="url(#fire)"
-stroke-width="8"
-filter="url(#glow)"/>
+<animateTransform
 
-<ellipse
-cx="195"
-cy="255"
-rx="20"
-ry="10"
-fill="#fff"/>
+attributeName="transform"
 
-<!-- Mắt phải -->
-<path
-d="M287 245
-Q327 210 357 250"
-fill="none"
-stroke="url(#fire)"
-stroke-width="8"
-filter="url(#glow)"/>
+type="rotate"
 
-<ellipse
-cx="317"
-cy="255"
-rx="20"
-ry="10"
-fill="#fff"/>
+from="0 256 256"
 
-<!-- Đuôi -->
-<path
-d="M255 410
-C345 430 385 445 355 495"
-fill="none"
-stroke="url(#fire)"
-stroke-width="10"
-stroke-linecap="round"
-filter="url(#glow)"/>
+to="360 256 256"
 
-<polygon
-points="355,495 378,486 366,463"
-fill="url(#fire)"
-filter="url(#glow)"/>
+dur="30s"
 
-</svg>
+repeatCount="indefinite"/>
+
+</circle>
