@@ -45,9 +45,14 @@ async function sendMessage() {
                 messages: [
                     { role: "system", content: SYSTEM_PROMPT },
                     { role: "user", content: text }
-                ]
+                ],
+                stream: false
             })
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
         const data = await response.json();
         
@@ -60,14 +65,14 @@ async function sendMessage() {
 
     } catch (error) {
         console.error("Lỗi:", error);
-        updateMessage(loadingId, "LỖI TỪ CHỐI KẾT NỐI: API Key chưa hợp lệ.");
+        updateMessage(loadingId, "LỖI TỪ CHỐI KẾT NỐI: Không thể gửi yêu cầu đến máy chủ.");
     }
 }
 
 function appendMessage(text, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}`;
-    const msgId = 'msg-' + Date.now();
+    const msgId = 'msg-' + Date.now() + Math.random();
     messageDiv.id = msgId;
 
     const avatarSrc = sender === 'user' ? 'assets/avatar-user.png' : 'assets/avatar-ai.png';
