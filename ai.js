@@ -1,5 +1,6 @@
 // --- BƯỚC QUAN TRỌNG: ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
-const API_KEY = 'sk-1Fhcg0ng6IOGTnKAnWec0ECEJqZNPQQ2XsCDIsQGaAPiywXX'; 
+// Bạn cần tạo API Key từ Google AI Studio (Gemini) để dán vào chữ '...'
+const API_KEY = 'AQ.Ab8RN6JyOL1JATvl2Ks_Cb8uF2hwtSHwYHBFfMz65OST4KKVPQ'; 
 
 // --- ĐỊNH HÌNH TÍNH CÁCH (SYSTEM PROMPT) ---
 const SYSTEM_PROMPT = `
@@ -34,26 +35,20 @@ async function sendMessage() {
     const loadingId = appendMessage('...', 'ai');
 
     try {
-        const response = await fetch('https://seekai.cc/v1/chat/completions', {
+        const response = await fetch(`curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent:generateContent?key=${API_KEY}`, {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                model: "gemini-1.5-flash", // Thay đổi tên model nếu seekai yêu cầu tên khác
-                messages: [
-                    { role: "system", content: SYSTEM_PROMPT },
-                    { role: "user", content: text }
-                ]
+                system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+                contents: [{ role: "user", parts: [{ text: text }] }]
             })
         });
 
         const data = await response.json();
         
         let aiResponse = "LỖI HỆ THỐNG: Mất kết nối lõi.";
-        if (data.choices && data.choices.length > 0) {
-            aiResponse = data.choices[0].message.content;
+        if (data.candidates && data.candidates.length > 0) {
+            aiResponse = data.candidates[0].content.parts[0].text;
         }
 
         updateMessage(loadingId, aiResponse);
