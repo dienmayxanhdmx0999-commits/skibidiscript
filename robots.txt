@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://dienmayxanhdmx0999-commits.github.io/skibidiscript/sitemap.xml
