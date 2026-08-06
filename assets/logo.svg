@@ -134,3 +134,394 @@ dur="30s"
 repeatCount="indefinite"/>
 
 </circle>
+  <!-- DEMON TRIANGLE -->
+
+<polygon
+points="256,80 90,390 422,390"
+fill="#0b0000"
+stroke="url(#fire)"
+stroke-width="8"
+filter="url(#glow)"/>
+
+<!-- INNER TRIANGLE -->
+
+<polygon
+points="256,120 125,365 387,365"
+fill="none"
+stroke="#ff3300"
+stroke-width="2"
+opacity=".45"/>
+
+<!-- LEFT HORN -->
+
+<path
+d="M150 150
+C80 60 130 20 205 105
+C185 80 175 55 178 35"
+
+fill="none"
+
+stroke="url(#fire)"
+
+stroke-width="14"
+
+stroke-linecap="round"
+
+filter="url(#glow)"/>
+
+<!-- RIGHT HORN -->
+
+<path
+d="M362 150
+C432 60 382 20 307 105
+C327 80 337 55 334 35"
+
+fill="none"
+
+stroke="url(#fire)"
+
+stroke-width="14"
+
+stroke-linecap="round"
+
+filter="url(#glow)"/>
+
+<!-- LEFT EYE -->
+
+<path
+
+d="M165 220
+
+Q205 185 240 218"
+
+stroke="url(#fire)"
+
+stroke-width="10"
+
+fill="none"
+
+filter="url(#glow)"/>
+
+<ellipse
+
+cx="205"
+
+cy="222"
+
+rx="18"
+
+ry="7"
+
+fill="#ffffff">
+
+<animate
+
+attributeName="ry"
+
+values="7;1;7"
+
+dur="5s"
+
+repeatCount="indefinite"/>
+
+</ellipse>
+
+<!-- RIGHT EYE -->
+
+<path
+
+d="M272 218
+
+Q307 185 347 220"
+
+stroke="url(#fire)"
+
+stroke-width="10"
+
+fill="none"
+
+filter="url(#glow)"/>
+
+<ellipse
+
+cx="307"
+
+cy="222"
+
+rx="18"
+
+ry="7"
+
+fill="#ffffff">
+
+<animate
+
+attributeName="ry"
+
+values="7;1;7"
+
+dur="5s"
+
+repeatCount="indefinite"/>
+
+</ellipse>
+
+<!-- EVIL EYEBROWS -->
+
+<path
+
+d="M155 195 L235 170"
+
+stroke="#ff0000"
+
+stroke-width="8"
+
+stroke-linecap="round"/>
+
+<path
+
+d="M277 170 L357 195"
+
+stroke="#ff0000"
+
+stroke-width="8"
+
+stroke-linecap="round"/>
+  <!-- DEMON TRIANGLE -->
+
+<polygon
+points="256,80 90,390 422,390"
+fill="#0b0000"
+stroke="url(#fire)"
+stroke-width="8"
+filter="url(#glow)"/>
+
+<!-- INNER TRIANGLE -->
+
+<polygon
+points="256,120 125,365 387,365"
+fill="none"
+stroke="#ff3300"
+stroke-width="2"
+opacity=".45"/>
+
+<!-- LEFT HORN -->
+
+<path
+d="M150 150
+C80 60 130 20 205 105
+C185 80 175 55 178 35"
+
+fill="none"
+
+stroke="url(#fire)"
+
+stroke-width="14"
+
+stroke-linecap="round"
+
+filter="url(#glow)"/>
+
+<!-- RIGHT HORN -->
+
+<path
+d="M362 150
+C432 60 382 20 307 105
+C327 80 337 55 334 35"
+
+fill="none"
+
+stroke="url(#fire)"
+
+stroke-width="14"
+
+stroke-linecap="round"
+
+filter="url(#glow)"/>
+
+<!-- LEFT EYE -->
+
+<path
+
+d="M165 220
+
+Q205 185 240 218"
+
+stroke="url(#fire)"
+
+stroke-width="10"
+
+fill="none"
+
+filter="url(#glow)"/>
+
+<ellipse
+
+cx="205"
+
+cy="222"
+
+rx="18"
+
+ry="7"
+
+fill="#ffffff">
+
+<animate
+
+attributeName="ry"
+
+values="7;1;7"
+
+dur="5s"
+
+repeatCount="indefinite"/>
+
+</ellipse>
+
+<!-- RIGHT EYE -->
+
+<path
+
+d="M272 218
+
+Q307 185 347 220"
+
+stroke="url(#fire)"
+
+stroke-width="10"
+
+fill="none"
+
+filter="url(#glow)"/>
+
+<ellipse
+
+cx="307"
+
+cy="222"
+
+rx="18"
+
+ry="7"
+
+fill="#ffffff">
+
+<animate
+
+attributeName="ry"
+
+values="7;1;7"
+
+dur="5s"
+
+repeatCount="indefinite"/>
+
+</ellipse>
+
+<!-- EVIL EYEBROWS -->
+
+<path
+
+d="M155 195 L235 170"
+
+stroke="#ff0000"
+
+stroke-width="8"
+
+stroke-linecap="round"/>
+
+<path
+
+d="M277 170 L357 195"
+
+stroke="#ff0000"
+
+stroke-width="8"
+
+stroke-linecap="round"/>
+  <!-- RED AURA -->
+
+<circle
+cx="256"
+cy="256"
+r="175"
+fill="none"
+stroke="#ff3300"
+stroke-width="2"
+opacity=".15">
+
+<animate
+attributeName="r"
+values="170;180;170"
+dur="2.5s"
+repeatCount="indefinite"/>
+
+<animate
+attributeName="opacity"
+values=".10;.25;.10"
+dur="2.5s"
+repeatCount="indefinite"/>
+
+</circle>
+
+<!-- ENERGY SPARKS -->
+
+<circle cx="120" cy="180" r="2" fill="#ff5500">
+<animate attributeName="opacity"
+values="0;1;0"
+dur="1.2s"
+repeatCount="indefinite"/>
+</circle>
+
+<circle cx="392" cy="210" r="2" fill="#ff5500">
+<animate attributeName="opacity"
+values="0;1;0"
+dur="1.6s"
+repeatCount="indefinite"/>
+</circle>
+
+<circle cx="170" cy="380" r="2" fill="#ff7700">
+<animate attributeName="opacity"
+values="0;1;0"
+dur="1.4s"
+repeatCount="indefinite"/>
+</circle>
+
+<circle cx="345" cy="360" r="2" fill="#ff2200">
+<animate attributeName="opacity"
+values="0;1;0"
+dur="1.8s"
+repeatCount="indefinite"/>
+</circle>
+
+<!-- TRIANGLE GLOW -->
+
+<polygon
+points="256,80 90,390 422,390"
+fill="none"
+stroke="#ff5500"
+stroke-width="3"
+opacity=".25"
+filter="url(#bigGlow)">
+
+<animate
+attributeName="opacity"
+values=".15;.45;.15"
+dur="2s"
+repeatCount="indefinite"/>
+
+</polygon>
+
+<!-- X FLASH -->
+
+<animate
+xlink:href="#fire"
+attributeName="gradientTransform"
+type="rotate"
+from="0 .5 .5"
+to="360 .5 .5"
+dur="8s"
+repeatCount="indefinite"/>
+
+</svg>
