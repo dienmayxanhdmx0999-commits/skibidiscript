@@ -1,105 +1,39 @@
-#  NOXGPT
+# NOXGPT
 
-<p align="center">
-  <img src="assets/logo.svg" width="150">
-</p>
+NOXGPT là giao diện AI hiện đại được xây dựng bằng HTML, CSS và JavaScript.
 
-<h2 align="center">NOXGPT</h2>
+## Tính năng
 
-<p align="center">
-AI Chat hiện đại với giao diện LED đỏ/cam lấy cảm hứng từ các công cụ AI chuyên nghiệp.
-</p>
+- Giao diện tối giản
+- LED đỏ nhẹ
+- Responsive
+- Sidebar
+- API Key
+- Markdown
+- Highlight Code
+- Copy Code
+- Typing Effect
+- New Chat
+- Auto Scroll
 
----
-
-##  Tính năng
-
--  Chat AI thông minh
--  Hiệu ứng AI đang suy nghĩ
--  Giao diện LED đỏ/cam
--  Dark Mode
--  Tối ưu điện thoại
--  Hiệu ứng gõ chữ
--  Hỗ trợ Avatar
--  Markdown
--  Copy Code
--  Lưu lịch sử chat
--  Responsive
-
----
-
-##  Cấu trúc Project
-
-```
-/
-│
-├── index.html
-├── ai.html
-├── ai.css
-├── ai.js
-├── README.md
-│
-└── assets
-    ├── logo.svg
-    ├── avatar-ai.png
-    ├── avatar-user.png
-    └── bg.webp
-```
-
----
-
-##  Cài đặt
-
-Clone project
-
-```bash
-git clone https://github.com/dienmayxanhdmx0999-commits/skibidiscript.git
-```
-
-Mở
+## Cấu trúc
 
 ```
 ai.html
+ai.css
+ai.js
+manifest.json
+robots.txt
+sitemap.xml
+assets/
 ```
 
-hoặc
+## Chạy
 
-```
-index.html
-```
+Mở:
 
----
+https://dienmayxanhdmx0999-commits.github.io/skibidiscript/ai.html
 
-##  Giao diện
+## Tác giả
 
-- Dark Theme
-- Orange Neon
-- Smooth Animation
-- Typing Effect
-- Thinking Animation
-- AI Avatar
-- User Avatar
-
----
-
-##  Phiên bản
-
-NOXGPT v1.0
-
----
-
-## Developer
-
-DVMinh
-
----
-
-##  Lưu ý
-
-Không đưa API Key lên GitHub nếu repository để Public.
-
----
-
-<p align="center">
-Made by DVMinh
-</p>
+NOXGPT
