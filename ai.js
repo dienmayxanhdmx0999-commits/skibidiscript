@@ -1,4 +1,4 @@
-// --- BƯỚC QUAN TRỌNG: ĐÃ ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
+// --- BƯỚC QUAN TRỌNG: ĐIỀN API KEY CỦA BẠN VÀO ĐÂY ---
 const API_KEY = 'sk-1Fhcg0ng6IOGTnKAnWec0ECEJqZNPQQ2XsCDIsQGaAPiywXX'; 
 
 // --- ĐỊNH HÌNH TÍNH CÁCH (SYSTEM PROMPT) ---
@@ -41,18 +41,13 @@ async function sendMessage() {
                 'Authorization': `Bearer ${API_KEY}`
             },
             body: JSON.stringify({
-                model: "gemini-1.5-flash", 
+                model: "gemini-1.5-flash", // Thay đổi tên model nếu seekai yêu cầu tên khác
                 messages: [
                     { role: "system", content: SYSTEM_PROMPT },
                     { role: "user", content: text }
-                ],
-                stream: false
+                ]
             })
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
 
         const data = await response.json();
         
@@ -65,14 +60,14 @@ async function sendMessage() {
 
     } catch (error) {
         console.error("Lỗi:", error);
-        updateMessage(loadingId, "LỖI TỪ CHỐI KẾT NỐI: Không thể gửi yêu cầu đến máy chủ.");
+        updateMessage(loadingId, "LỖI TỪ CHỐI KẾT NỐI: API Key chưa hợp lệ.");
     }
 }
 
 function appendMessage(text, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}`;
-    const msgId = 'msg-' + Date.now() + Math.random();
+    const msgId = 'msg-' + Date.now();
     messageDiv.id = msgId;
 
     const avatarSrc = sender === 'user' ? 'assets/avatar-user.png' : 'assets/avatar-ai.png';
@@ -90,6 +85,7 @@ function appendMessage(text, sender) {
 function updateMessage(id, text) {
     const messageDiv = document.getElementById(id);
     if (messageDiv) {
+        // Chuyển Markdown in đậm (**) thành HTML (<b>) để NOX hiển thị chữ đẹp hơn
         let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, "<br>");
         messageDiv.querySelector('.text-bubble').innerHTML = formattedText;
         chatBox.scrollTop = chatBox.scrollHeight;
