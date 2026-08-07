@@ -3,41 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#0a0000">
+<meta name="theme-color" content="#050000">
 
-<title>WORM_GPT_SYSTEM // ROOT_ACCESS</title>
+<title>S K I B I D I H U B // SYSTEM_ERROL</title>
 <meta name="description" content="Classified Database Archive. Encrypted script execution, bypass protocols, and client modifiers.">
-<meta name="robots" content="noindex, nofollow"> <style>
+<meta name="robots" content="noindex, nofollow">
+
+<style>
 /* ==========================================================================
-   CSS CORE VARIABLES - WORM GPT SYSTEM OVERRIDE
+   CSS CORE VARIABLES - E R R O L SYSTEM OVERRIDE
    ========================================================================== */
 :root {
   --bg-core: #050000;
-  --bg-gradient-top: #1a0000;
-  --bg-gradient-bot: #0a0000;
+  --bg-gradient-top: #150000;
+  --bg-gradient-bot: #000000;
   
-  --glass-bg: rgba(15, 0, 0, 0.75); 
-  --glass-bg-strong: rgba(35, 0, 0, 0.9);
-  --glass-border: rgba(255, 30, 30, 0.35);
-  --glass-border-hi: rgba(255, 60, 0, 0.9);
-  --glass-blur: blur(15px); 
+  --glass-bg: rgba(15, 0, 0, 0.8); 
+  --glass-bg-strong: rgba(40, 0, 0, 0.95);
+  --glass-border: rgba(255, 0, 0, 0.4);
+  --glass-border-hi: rgba(255, 50, 0, 0.9);
+  --glass-blur: blur(12px); 
   
   --glass-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.95), 
-    inset 0 1px 1px rgba(255, 50, 50, 0.4), 
+    0 20px 50px rgba(0, 0, 0, 0.95), 
+    inset 0 1px 1px rgba(255, 0, 0, 0.5), 
     inset 0 -1px 2px rgba(0, 0, 0, 0.9),
-    inset 1px 0 1px rgba(255, 80, 0, 0.15);
-  --glass-glow: 0 0 30px rgba(255, 0, 0, 0.5);
+    inset 1px 0 2px rgba(255, 50, 0, 0.2);
+  --glass-glow: 0 0 40px rgba(255, 0, 0, 0.6);
   
-  --txt: #ffe6e6;
-  --txt-dim: rgba(255, 120, 120, 0.75);
-  --accent: #ff1a1a;
-  --accent-2: #ff6600;
-  --accent-glow: 0 0 25px rgba(255, 26, 26, 0.8);
+  --txt: #ffcccc;
+  --txt-dim: rgba(255, 100, 100, 0.7);
+  --accent: #ff0000;
+  --accent-2: #ff5500;
+  --accent-glow: 0 0 20px rgba(255, 0, 0, 0.9);
   
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
 }
 
 * {
@@ -61,61 +62,87 @@ body {
   padding: 100px 16px 80px;
   color: var(--txt);
   background: radial-gradient(circle at 50% 50%, var(--bg-gradient-top) 0%, var(--bg-gradient-bot) 100%);
-  perspective: 1200px;
+  perspective: 1000px;
   transform-style: preserve-3d;
 }
 
-/* CRT SCANLINE EFFECT */
-body::after {
-  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.08), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.08));
-  background-size: 100% 4px, 3px 100%;
-  opacity: 0.35;
+/* ==========================================================================
+   NOISE & CRT SCANLINE EFFECTS (HIỆU ỨNG NHIỄU)
+   ========================================================================== */
+#noise-overlay {
+  position: fixed; inset: 0; z-index: 9997; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.12; mix-blend-mode: overlay;
 }
+
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.08), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.08));
+  background-size: 100% 4px, 3px 100%; opacity: 0.4;
+}
+
+/* ==========================================================================
+   GLOBAL GLITCH EFFECT (HIỆU ỨNG BỊ TẤN CÔNG GIẬT MÀN HÌNH)
+   ========================================================================== */
+@keyframes global-glitch {
+  0% { transform: translate(0) scale(1); filter: none; }
+  20% { transform: translate(-4px, 4px) scale(1.01); filter: hue-rotate(90deg) contrast(150%) drop-shadow(4px 0 0 red) drop-shadow(-4px 0 0 blue); }
+  40% { transform: translate(-4px, -4px); filter: invert(20%) drop-shadow(0 4px 0 green); }
+  60% { transform: translate(4px, 4px) scale(0.99); filter: hue-rotate(-90deg) contrast(200%) drop-shadow(-4px 0 0 red); }
+  80% { transform: translate(4px, -4px); filter: invert(0); }
+  100% { transform: translate(0) scale(1); filter: none; }
+}
+.is-glitching { animation: global-glitch 0.25s cubic-bezier(.25, .46, .45, .94) both; }
+
+/* ==========================================================================
+   BOOT SCREEN (BẮT BUỘC TƯƠNG TÁC ĐỂ UNLOCK AUDIO)
+   ========================================================================== */
+#boot-screen {
+  position: fixed; inset: 0; z-index: 10000; background: #000;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  cursor: pointer; transition: opacity 0.5s ease, visibility 0.5s;
+}
+.boot-text {
+  text-align: center; color: #ff0000; font-weight: bold; text-shadow: 0 0 10px #ff0000;
+  font-size: 1.2rem; line-height: 2;
+}
+.boot-blink { animation: boot-blink 1s steps(2, start) infinite; color: #fff; margin-top: 20px; font-size: 1.5rem;}
+@keyframes boot-blink { to { visibility: hidden; } }
 
 /* ==========================================================================
    DARK RED GLASSMORPHISM & TERMINAL STYLES
    ========================================================================== */
 .glass {
   position: relative;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-shadow);
-  z-index: 10; transform: translateZ(0);
-  will-change: transform, box-shadow, border-color;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow); z-index: 10; transform: translateZ(0);
+  will-change: transform, box-shadow, border-color; transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 @media (max-width: 768px) {
-  .glass {
-    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
-    background: rgba(15, 0, 0, 0.98) !important;
-  }
+  .glass { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; background: rgba(10, 0, 0, 0.95) !important; }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .glass-hover { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, background 0.3s, box-shadow 0.3s; }
+  .glass-hover { transition: transform 0.2s ease, border-color 0.2s, background 0.2s, box-shadow 0.2s; }
   .glass-hover:hover {
-    background: var(--glass-bg-strong); border-color: var(--glass-border-hi);
-    transform: translateY(-4px) translateZ(10px);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 1px 2px rgba(255,100,100,0.6), var(--glass-glow);
+    background: var(--glass-bg-strong); border-color: var(--glass-border-hi); transform: translateY(-2px) translateZ(5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.9), inset 0 1px 2px rgba(255,0,0,0.8), var(--glass-glow);
   }
 }
-.glass-hover:active { transform: translateY(2px) scale(0.98); }
+.glass-hover:active { transform: scale(0.98); }
 
 .shine { position: relative; overflow: hidden; }
 .shine::after {
   content: ""; position: absolute; top: 0; left: -150%; width: 60%; height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255,100,100,0.5), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255,0,0,0.4), transparent);
   transform: skewX(-20deg); transition: left 0.5s ease; z-index: 5;
 }
 .shine:hover::after { left: 180%; }
 
 .ripple {
-  position: absolute; border-radius: 50%; background: rgba(255, 50, 50, 0.5);
+  position: absolute; border-radius: 50%; background: rgba(255, 0, 0, 0.5);
   transform: scale(0); animation: ripple-anim 0.5s linear forwards; pointer-events: none; z-index: 20;
 }
 @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
@@ -126,17 +153,17 @@ body::after {
 .marquee-wrapper {
   position: fixed; top: 85px; left: 0; width: 100vw; max-width: 100vw; height: 50px; z-index: 80; pointer-events: none;
   display: flex; align-items: center; overflow: hidden; box-sizing: border-box;
-  background: rgba(25, 0, 0, 0.8); border-top: 1px solid rgba(255,0,0,0.3); border-bottom: 1px solid rgba(255,0,0,0.3);
-  box-shadow: 0 0 20px rgba(255,0,0,0.2);
+  background: rgba(20, 0, 0, 0.9); border-top: 1px solid rgba(255,0,0,0.5); border-bottom: 1px solid rgba(255,0,0,0.5);
+  box-shadow: 0 0 20px rgba(255,0,0,0.3);
 }
-.marquee-track { display: flex; white-space: nowrap; animation: marqText 20s linear infinite; will-change: transform; }
+.marquee-track { display: flex; white-space: nowrap; animation: marqText 15s linear infinite; will-change: transform; }
 @keyframes marqText { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
 
 .marquee-tag {
   display: inline-flex; align-items: center; gap: 10px; padding: 6px 20px; margin-right: 30px;
-  border-radius: 2px; font-weight: bold; font-size: 0.85rem; color: #ff3333; text-shadow: 0 0 8px rgba(255,0,0,0.9);
-  background: rgba(40, 0, 0, 0.9); border: 1px solid #ff0000;
-  box-shadow: inset 0 0 10px rgba(255,0,0,0.3); pointer-events: auto; text-transform: uppercase;
+  border-radius: 0; font-weight: bold; font-size: 0.9rem; color: #ff0000; text-shadow: 0 0 8px rgba(255,0,0,1);
+  background: rgba(0, 0, 0, 0.9); border: 1px solid #ff0000;
+  box-shadow: inset 0 0 10px rgba(255,0,0,0.5); pointer-events: auto; text-transform: uppercase;
 }
 
 /* ==========================================================================
@@ -145,9 +172,9 @@ body::after {
 .top-left-bar { position: fixed; top: 20px; left: 16px; z-index: 100; display: flex; gap: 10px; }
 .menu-toc-btn {
   height: 46px; padding: 0 18px; display: flex; align-items: center; gap: 8px; cursor: pointer;
-  color: #fff; font-weight: bold; font-size: 0.95rem; border-radius: var(--radius-sm);
+  color: #fff; font-weight: bold; font-size: 1rem; border-radius: var(--radius-sm);
   background: var(--glass-bg); border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow); outline: none; text-shadow: 0 0 5px rgba(255,0,0,0.6);
+  box-shadow: var(--glass-shadow); outline: none; text-shadow: 0 0 8px rgba(255,0,0,0.8);
   text-transform: uppercase; letter-spacing: 2px;
 }
 
@@ -155,35 +182,35 @@ nav.menu-drawer-popup {
   position: fixed; top: 80px; left: 16px; width: 340px; max-width: calc(100vw - 32px); padding: 20px; z-index: 999;
   display: flex; flex-direction: column; gap: 18px;
   transform: translate3d(-120%, 0, 0) scale(0.95); opacity: 0; pointer-events: none;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
 }
 nav.menu-drawer-popup.show { transform: translate3d(0, 0, 0) scale(1); opacity: 1; pointer-events: auto; border-color: var(--accent); box-shadow: var(--accent-glow); }
 
 .drawer-title { font-size: 1.2rem; font-weight: bold; color: var(--accent); text-align: center; border-bottom: 1px dashed rgba(255,0,0,0.6); padding-bottom: 12px; text-shadow: var(--accent-glow); letter-spacing: 3px; }
 .drawer-section { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
-.drawer-label { font-size: 0.8rem; font-weight: bold; color: #ff6666; text-transform: uppercase; letter-spacing: 2px; }
+.drawer-label { font-size: 0.8rem; font-weight: bold; color: #ff4444; text-transform: uppercase; letter-spacing: 2px; }
 
 .sound-ctrl-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .sound-btn-mini {
   padding: 10px 14px; border-radius: var(--radius-sm); color: #fff; font-weight: bold; font-size: 0.85rem; cursor: pointer;
-  background: rgba(255, 0, 0, 0.15); border: 1px solid rgba(255, 0, 0, 0.6);
+  background: rgba(255, 0, 0, 0.2); border: 1px solid rgba(255, 0, 0, 0.8);
   transition: all 0.2s; text-shadow: 0 0 5px red; letter-spacing: 1px;
 }
-.sound-btn-mini.muted { background: rgba(30, 0, 0, 0.8); border-color: #660000; color: #880000; text-shadow: none; }
-@media (hover: hover) { .sound-btn-mini:hover { background: rgba(255,0,0,0.3); box-shadow: 0 0 10px rgba(255,0,0,0.5); } }
+.sound-btn-mini.muted { background: rgba(20, 0, 0, 0.8); border-color: #440000; color: #660000; text-shadow: none; }
+@media (hover: hover) { .sound-btn-mini:hover { background: rgba(255,0,0,0.4); box-shadow: 0 0 10px rgba(255,0,0,0.8); } }
 
-.volume-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: rgba(255,0,0,0.3); outline: none; cursor: pointer; }
-.volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; background: var(--accent); border: 1px solid #fff; box-shadow: 0 0 10px var(--accent); cursor: pointer; transform: rotate(45deg); }
+.volume-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: rgba(255,0,0,0.4); outline: none; cursor: pointer; }
+.volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 24px; background: var(--accent); border: 1px solid #fff; box-shadow: 0 0 10px var(--accent); cursor: pointer; border-radius: 2px; }
 
 /* STATUS MONITOR */
-.system-status-box { padding: 14px; display: flex; align-items: center; gap: 14px; background: rgba(10,0,0,0.8); border: 1px solid rgba(255,0,0,0.4); border-radius: var(--radius-sm); }
+.system-status-box { padding: 14px; display: flex; align-items: center; gap: 14px; background: rgba(10,0,0,0.9); border: 1px solid rgba(255,0,0,0.5); border-radius: var(--radius-sm); box-shadow: inset 0 0 15px rgba(255,0,0,0.2);}
 .sys-icon { width: 44px; height: 44px; flex-shrink: 0; display:flex; justify-content:center; align-items:center; color: var(--accent); }
-.sys-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 0 10px rgba(255,0,0,0.9)); animation: pulse 1.5s infinite alternate; }
-@keyframes pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0.5; transform: scale(0.9); } }
-.sys-text { font-size: 0.95rem; font-weight: bold; color: #fff; text-shadow: 0 0 5px #ff0000; font-family: monospace; }
-.sys-sub { font-size: 0.75rem; color: #ff6666; font-family: monospace; margin-top: 4px; }
-.sys-bar { height: 4px; background: rgba(255,0,0,0.2); margin-top: 8px; overflow: hidden; width: 100%; }
-.sys-bar i { display: block; height: 100%; background: linear-gradient(90deg, #ff0000, #ff6600, #ff0000); background-size: 200% 100%; animation: loadBar 1.5s linear infinite; }
+.sys-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 0 10px rgba(255,0,0,1)); animation: pulse 1s infinite alternate; }
+@keyframes pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0.3; transform: scale(0.85); } }
+.sys-text { font-size: 0.95rem; font-weight: bold; color: #fff; text-shadow: 0 0 5px #ff0000; }
+.sys-sub { font-size: 0.75rem; color: #ff4444; margin-top: 4px; }
+.sys-bar { height: 2px; background: rgba(255,0,0,0.2); margin-top: 8px; overflow: hidden; width: 100%; }
+.sys-bar i { display: block; height: 100%; background: linear-gradient(90deg, #ff0000, #fff, #ff0000); background-size: 200% 100%; animation: loadBar 0.5s linear infinite; }
 @keyframes loadBar { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
 
 .feature-btn {
@@ -191,41 +218,43 @@ nav.menu-drawer-popup.show { transform: translate3d(0, 0, 0) scale(1); opacity: 
   display: flex; align-items: center; justify-content: center; gap: 10px; text-shadow: 0 0 5px #000;
   border: 1px solid var(--glass-border); transition: transform 0.2s, background 0.2s; text-transform: uppercase; letter-spacing: 1px;
 }
-.feature-btn.ai { background: linear-gradient(90deg, rgba(150, 0, 0, 0.7), rgba(255, 0, 0, 0.7)); border-color: #ff3333; }
-.feature-btn.zalo { background: linear-gradient(90deg, rgba(0, 40, 120, 0.7), rgba(0, 80, 255, 0.7)); border-color: #3388ff; }
-.feature-btn.dc { background: linear-gradient(90deg, rgba(40, 0, 100, 0.7), rgba(80, 0, 200, 0.7)); border-color: #6633ff; }
+.feature-btn.ai { background: linear-gradient(90deg, rgba(150, 0, 0, 0.8), rgba(255, 0, 0, 0.8)); border-color: #ff0000; }
+.feature-btn.zalo { background: linear-gradient(90deg, rgba(0, 40, 120, 0.8), rgba(0, 80, 255, 0.8)); border-color: #3388ff; }
+.feature-btn.dc { background: linear-gradient(90deg, rgba(40, 0, 100, 0.8), rgba(80, 0, 200, 0.8)); border-color: #6633ff; }
 @media (hover: hover) { .feature-btn:hover { transform: scale(1.02); filter: brightness(1.3); } }
 a.plain { text-decoration: none; display: block; }
 
 /* ==========================================================================
-   MAIN DASHBOARD (GLITCH & UNDER ATTACK THEME)
+   MAIN DASHBOARD (DEMON CORE & ATTACK THEME)
    ========================================================================== */
 .glass-card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; perspective: 1200px; }
 main.glass-card { display: flex; flex-direction: column; gap: 20px; text-align: center; padding: 26px; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
 
 .card-header { display: flex; flex-direction: column; align-items: center; gap: 14px; transform: translateZ(30px); }
 
+/* Logo Mặt Quỷ (Demon Core) */
 .system-logo-box { 
-  width: 100px; height: 100px; border-radius: 50%; padding: 16px; display: flex; justify-content: center; align-items: center;
-  background: radial-gradient(circle, rgba(255,0,0,0.3), rgba(0,0,0,0.9));
-  border: 2px solid var(--accent); box-shadow: 0 0 35px rgba(255,0,0,0.6), inset 0 0 20px rgba(255,0,0,0.6);
-  animation: glitch-box 3s infinite alternate;
+  width: 110px; height: 110px; border-radius: 50%; padding: 18px; display: flex; justify-content: center; align-items: center;
+  background: radial-gradient(circle, rgba(255,0,0,0.4), rgba(0,0,0,0.95));
+  border: 2px solid var(--accent); box-shadow: 0 0 40px rgba(255,0,0,0.8), inset 0 0 30px rgba(255,0,0,0.8);
+  animation: glitch-box 2s infinite alternate;
 }
 @keyframes glitch-box {
   0%, 100% { transform: skewX(0deg); filter: hue-rotate(0deg); }
-  95% { transform: skewX(0deg); filter: hue-rotate(0deg); }
-  96% { transform: skewX(15deg) translate(-3px, 3px); filter: hue-rotate(-30deg); box-shadow: 0 0 50px #fff; border-color: #fff;}
+  92% { transform: skewX(0deg); filter: hue-rotate(0deg); }
+  94% { transform: skewX(20deg) translate(-4px, 4px); filter: hue-rotate(-40deg); box-shadow: 0 0 60px #fff; border-color: #fff;}
+  96% { transform: skewX(-10deg) translate(4px, -4px); filter: hue-rotate(40deg); box-shadow: 0 0 60px #000; border-color: #000;}
 }
-.system-logo-box svg { width: 100%; height: 100%; color: var(--accent); filter: drop-shadow(0 0 12px red); }
+.system-logo-box svg { width: 100%; height: 100%; color: var(--accent); filter: drop-shadow(0 0 15px red); }
 
 .title {
-  font-size: 2.6rem; font-weight: 900; letter-spacing: 3px; margin: 0; font-family: Impact, sans-serif;
+  font-size: 2.8rem; font-weight: 900; letter-spacing: 4px; margin: 0; font-family: Impact, sans-serif;
   color: #fff; text-shadow: 3px 3px 0px #ff0000, -3px -3px 0px #000;
   position: relative; display: inline-block; text-transform: uppercase;
 }
-.title::before, .title::after { content: "WORM SYSTEM"; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; }
-.title::before { left: 3px; text-shadow: -2px 0 #ff0000; clip: rect(24px, 550px, 90px, 0); animation: glitch-anim 2s infinite linear alternate-reverse; }
-.title::after { left: -3px; text-shadow: -2px 0 #ffffff; clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2.5s infinite linear alternate-reverse; }
+.title::before, .title::after { content: "WORM_GPT"; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; }
+.title::before { left: 4px; text-shadow: -2px 0 #ff0000; clip: rect(24px, 550px, 90px, 0); animation: glitch-anim 1.5s infinite linear alternate-reverse; }
+.title::after { left: -4px; text-shadow: -2px 0 #fff; clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2s infinite linear alternate-reverse; }
 @keyframes glitch-anim {
   0% { clip: rect(10px, 9999px, 44px, 0); } 20% { clip: rect(66px, 9999px, 88px, 0); }
   40% { clip: rect(33px, 9999px, 11px, 0); } 60% { clip: rect(88px, 9999px, 77px, 0); }
@@ -233,97 +262,119 @@ main.glass-card { display: flex; flex-direction: column; gap: 20px; text-align: 
 }
 
 .status-chip {
-  font-size: 0.9rem; font-weight: bold; padding: 6px 22px; border-radius: 2px; background: rgba(255,0,0,0.2); 
-  border: 1px solid #ff1a1a; box-shadow: 0 0 15px rgba(255,0,0,0.5); text-transform: uppercase; color: #ff6666; letter-spacing: 2px;
-  animation: blink 1s infinite;
+  font-size: 0.95rem; font-weight: bold; padding: 8px 24px; border-radius: 0; background: rgba(255,0,0,0.3); 
+  border: 1px solid #ff0000; box-shadow: 0 0 20px rgba(255,0,0,0.8); text-transform: uppercase; color: #fff; letter-spacing: 2px;
+  animation: blink-alert 0.5s infinite;
 }
-@keyframes blink { 50% { opacity: 0.5; border-color: #550000; } }
+@keyframes blink-alert { 0%, 100% { opacity: 1; background: rgba(255,0,0,0.6); } 50% { opacity: 0.2; background: transparent; } }
 
 /* ERROR NOTICE BOARD */
 .notice-board { 
-  padding: 18px; text-align: left; width: 100%; cursor: pointer; max-height: 400px; 
-  transition: max-height 0.3s ease; border-radius: 2px; border: 1px solid #ff3333;
-  background: repeating-linear-gradient(0deg, rgba(30,0,0,0.9), rgba(30,0,0,0.9) 2px, rgba(50,0,0,0.95) 2px, rgba(50,0,0,0.95) 4px);
-  box-shadow: inset 0 0 20px rgba(255,0,0,0.3);
+  padding: 20px; text-align: left; width: 100%; cursor: pointer; max-height: 400px; 
+  transition: max-height 0.3s ease; border-radius: 0; border: 1px solid #ff0000;
+  background: repeating-linear-gradient(0deg, rgba(20,0,0,0.9), rgba(20,0,0,0.9) 2px, rgba(50,0,0,1) 2px, rgba(50,0,0,1) 4px);
+  box-shadow: inset 0 0 30px rgba(255,0,0,0.5);
+  position: relative; overflow: hidden;
 }
-.notice-board.collapsed { max-height: 55px; padding: 14px 18px; overflow: hidden; }
-.notice-board.collapsed p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0; }
-.notice-board h3 { color: #ff1a1a; font-size: 1.05rem; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; text-shadow: 0 0 8px red; letter-spacing: 1px; }
-.notice-board p { font-size: 0.9rem; line-height: 1.6; color: #ffb3b3; text-shadow: 0 0 3px rgba(255,0,0,0.8); }
-.collapse-badge { font-size: 0.75rem; padding: 4px 12px; border-radius: 0; color: #000; background: #ff1a1a; font-weight: bold; text-transform: uppercase; box-shadow: 0 0 10px red; }
+/* Nhiễu sóng trên bảng thông báo */
+.notice-board::before {
+  content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: scan-line 2s linear infinite; pointer-events: none;
+}
+@keyframes scan-line { to { left: 200%; } }
+
+.notice-board.collapsed { max-height: 60px; padding: 16px 20px; overflow: hidden; border-color: #880000; box-shadow: none; }
+.notice-board.collapsed p { opacity: 0; }
+.notice-board h3 { color: #fff; font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; text-shadow: 0 0 10px red; letter-spacing: 1px; animation: text-glitch 0.2s infinite; }
+@keyframes text-glitch { 0% { transform: translate(0); } 20% { transform: translate(-2px, 1px); } 40% { transform: translate(2px, -1px); } 60% { transform: translate(0); } }
+
+.notice-board p { font-size: 0.95rem; line-height: 1.6; color: #ff4444; text-shadow: 0 0 5px rgba(255,0,0,1); }
+.collapse-badge { font-size: 0.75rem; padding: 4px 12px; color: #000; background: #fff; font-weight: bold; text-transform: uppercase; box-shadow: 0 0 10px #fff; }
 
 .open-web-utils-btn {
-  width: 100%; padding: 18px; border-radius: 2px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; gap: 10px;
-  color: #fff; font-weight: bold; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px;
-  background: linear-gradient(135deg, #660000, #ff0000); border: 2px solid #ff3333;
-  box-shadow: 0 0 25px rgba(255,0,0,0.6), inset 0 0 10px rgba(255,255,255,0.3); transform: translateZ(35px); transition: all 0.2s ease;
+  width: 100%; padding: 20px; border-radius: 0; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: #fff; font-weight: bold; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 3px;
+  background: #aa0000; border: 2px solid #ff0000;
+  box-shadow: 0 0 30px rgba(255,0,0,0.8), inset 0 0 15px rgba(255,255,255,0.4); transform: translateZ(35px); transition: all 0.2s ease;
 }
-@media (hover: hover) { .open-web-utils-btn:hover { transform: translateZ(45px) scale(1.02); background: linear-gradient(135deg, #880000, #ff3333); box-shadow: 0 0 40px red; } }
+@media (hover: hover) { .open-web-utils-btn:hover { transform: translateZ(45px) scale(1.02); background: #ff0000; box-shadow: 0 0 50px red; } }
 
 /* ==========================================================================
    DATABASE ARCHIVE MODAL
    ========================================================================== */
-.web-utils-modal { position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(0, 0, 0, 0.9); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.2s ease; }
+.web-utils-modal { position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(0, 0, 0, 0.95); opacity: 0; transition: opacity 0.2s ease; }
 .web-utils-modal.active { display: flex; opacity: 1; }
 .web-utils-container { 
   width: 100%; max-width: 650px; max-height: 85svh; padding: 24px; display: flex; flex-direction: column; gap: 18px; 
-  border-radius: 2px; transform: scale(0.95); transition: transform 0.2s ease; 
-  background: #0a0000; border: 1px solid #ff1a1a; box-shadow: 0 0 60px rgba(255,0,0,0.4), inset 0 0 30px rgba(255,0,0,0.15); 
+  border-radius: 0; transform: scale(0.95); transition: transform 0.2s ease; 
+  background: #050000; border: 2px solid #ff0000; box-shadow: 0 0 80px rgba(255,0,0,0.6), inset 0 0 40px rgba(255,0,0,0.2); 
 }
 .web-utils-modal.active .web-utils-container { transform: scale(1); }
 
-.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ff3333; padding-bottom: 14px; }
-.modal-title { font-size: 1.3rem; font-weight: bold; color: #ff1a1a; display: flex; align-items: center; gap: 10px; text-transform: uppercase; text-shadow: 0 0 8px red; letter-spacing: 2px; }
-.close-modal-btn { width: 36px; height: 36px; border-radius: 0; cursor: pointer; color: #000; font-weight: bold; background: #ff1a1a; border: none; transition: all 0.2s; font-size: 1.2rem; }
-.close-modal-btn:hover { background: #fff; color: #f00; box-shadow: 0 0 15px #fff; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #ff0000; padding-bottom: 14px; }
+.modal-title { font-size: 1.4rem; font-weight: bold; color: #fff; display: flex; align-items: center; gap: 10px; text-transform: uppercase; text-shadow: 0 0 10px red; letter-spacing: 3px; }
+.close-modal-btn { width: 40px; height: 40px; cursor: pointer; color: #000; font-weight: bold; background: #ff0000; border: none; transition: all 0.2s; font-size: 1.4rem; }
+.close-modal-btn:hover { background: #fff; color: #f00; box-shadow: 0 0 20px #fff; }
 
 .search-input { 
-  width: 100%; padding: 16px 20px; border-radius: 0; color: #ff6666; font-weight: bold; font-size: 1rem;
-  background: #110000; border: 1px solid #ff3333; outline: none; transition: border-color 0.3s; 
+  width: 100%; padding: 16px 20px; border-radius: 0; color: #ff0000; font-weight: bold; font-size: 1rem;
+  background: #110000; border: 1px solid #ff0000; outline: none; transition: border-color 0.3s; 
 }
-.search-input::placeholder { color: #880000; }
-.search-input:focus { border-color: #ffaaaa; background: #220000; box-shadow: 0 0 15px rgba(255,0,0,0.6); }
+.search-input::placeholder { color: #550000; }
+.search-input:focus { border-color: #fff; background: #220000; box-shadow: 0 0 20px rgba(255,0,0,0.8); color: #fff; }
 
 .nav-tabs { display: flex; gap: 8px; padding: 0; border: none; background: transparent; }
-.nav-btn { flex: 1; padding: 14px 0; border-radius: 0; background: #1a0000; color: #aa0000; border: 1px solid #550000; font-size: 0.95rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
-.nav-btn.active { color: #fff; background: #990000; border-color: #ff1a1a; box-shadow: 0 0 20px rgba(255,0,0,0.6); z-index: 2; }
+.nav-btn { flex: 1; padding: 14px 0; border-radius: 0; background: #1a0000; color: #aa0000; border: 1px solid #550000; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 2px; }
+.nav-btn.active { color: #000; background: #ff0000; border-color: #ff0000; box-shadow: 0 0 25px rgba(255,0,0,0.8); z-index: 2; }
 
 .tab-content-wrapper { position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding-right: 8px; }
 .tab-content-wrapper::-webkit-scrollbar { width: 6px; }
 .tab-content-wrapper::-webkit-scrollbar-track { background: #110000; }
-.tab-content-wrapper::-webkit-scrollbar-thumb { background: #ff1a1a; }
+.tab-content-wrapper::-webkit-scrollbar-thumb { background: #ff0000; }
 .tab-content { display: none; flex-direction: column; gap: 16px; }
 .tab-content.active { display: flex; animation: glitch-fade 0.2s ease; }
-@keyframes glitch-fade { 0% { opacity: 0; transform: translateX(-5px); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes glitch-fade { 0% { opacity: 0; transform: scale(0.98) translateX(-10px); } 100% { opacity: 1; transform: scale(1) translateX(0); } }
 
-.box { padding: 18px; display: flex; flex-direction: column; gap: 12px; text-align: left; border-radius: 0; background: #0d0000; border-left: 4px solid #ff1a1a; box-shadow: inset 0 0 10px rgba(255,0,0,0.1); }
+.box { padding: 18px; display: flex; flex-direction: column; gap: 12px; text-align: left; background: #080000; border-left: 5px solid #ff0000; border-bottom: 1px solid #330000; box-shadow: inset 0 0 15px rgba(255,0,0,0.1); }
 .box.hidden { display: none; }
 .box-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.box-title { font-size: 1.05rem; font-weight: bold; color: #ffcccc; letter-spacing: 1px; }
+.box-title { font-size: 1.1rem; font-weight: bold; color: #fff; letter-spacing: 1px; text-shadow: 0 0 5px red; }
 .box-btn {
-  border-radius: 0; padding: 10px 20px; font-size: 0.9rem; font-weight: bold; text-decoration: none; cursor: pointer; color: #000;
-  background: #ff3333; border: none; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px;
+  padding: 10px 20px; font-size: 0.9rem; font-weight: bold; text-decoration: none; cursor: pointer; color: #fff;
+  background: #aa0000; border: 1px solid #ff0000; transition: all 0.2s; text-transform: uppercase; letter-spacing: 2px;
 }
-@media (hover: hover) { .box-btn:hover { background: #fff; color: #f00; box-shadow: 0 0 15px #fff; } }
-.box-btn.copy { background: #d94b00; }
-.box-btn.copied { background: #00ff00; color: #000; box-shadow: 0 0 15px #00ff00; }
-.script-text { padding: 14px; border-radius: 0; font-size: 0.85rem; color: #ff9999; word-break: break-all; background: #050000; border: 1px dotted #ff3333; }
-.empty-msg { color: #ff3333; font-weight: bold; text-align: center; padding: 40px; font-size: 1rem; letter-spacing: 2px; }
+@media (hover: hover) { .box-btn:hover { background: #ff0000; color: #000; box-shadow: 0 0 20px #ff0000; } }
+.box-btn.copy { background: #880000; }
+.box-btn.copied { background: #00ff00; color: #000; border-color: #00ff00; box-shadow: 0 0 20px #00ff00; }
+.script-text { padding: 14px; font-size: 0.9rem; color: #ff6666; word-break: break-all; background: #000; border: 1px dashed #ff0000; }
+.empty-msg { color: #ff0000; font-weight: bold; text-align: center; padding: 40px; font-size: 1.2rem; letter-spacing: 3px; animation: text-glitch 0.2s infinite;}
 
 footer.version-tag {
-  position: fixed; bottom: 16px; right: 20px; z-index: 60; font-weight: bold; font-size: 0.85rem; color: #ff1a1a;
-  padding: 8px 16px; background: rgba(15,0,0,0.9); border: 1px solid #ff1a1a; box-shadow: 0 0 15px rgba(255,0,0,0.6);
-  pointer-events: none; text-transform: uppercase; letter-spacing: 2px;
+  position: fixed; bottom: 16px; right: 20px; z-index: 60; font-weight: bold; font-size: 0.9rem; color: #fff;
+  padding: 10px 20px; background: rgba(20,0,0,0.9); border: 1px solid #ff0000; box-shadow: 0 0 20px rgba(255,0,0,0.8);
+  pointer-events: none; text-transform: uppercase; letter-spacing: 3px;
 }
 
 /* ==========================================================================
-   CANVAS RED DATA STREAM (MATRIX ENGINE)
+   CANVAS RED STRIPES (MATRIX DROPS)
    ========================================================================== */
-#data-stream-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1; opacity: 0.85; }
+#data-stream-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1; opacity: 0.9; }
 </style>
 </head>
 <body>
 
+<div id="boot-screen" onclick="INITIALIZE_SYSTEM()">
+  <div class="boot-text">
+    <p>[ WORM_GPT KERNEL V20.0 ]</p>
+    <p>> ESTABLISHING SECURE CONNECTION...</p>
+    <p>> ENCRYPTING PAYLOAD...</p>
+    <p>> WAITING FOR USER INPUT...</p>
+    <p class="boot-blink">> CLICK ANYWHERE TO INITIALIZE SYSTEM & AUDIO <</p>
+  </div>
+</div>
+
+<div id="noise-overlay"></div>
 <canvas id="data-stream-canvas"></canvas>
 
 <div class="marquee-wrapper" aria-hidden="true">
@@ -332,39 +383,39 @@ footer.version-tag {
 
 <header class="top-left-bar">
   <button class="menu-toc-btn shine glass-hover" onclick="toggleMenuDrawer()" aria-label="Command Terminal">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff1a1a" stroke-width="2.5" stroke-linecap="square"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2.5" stroke-linecap="square"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
     <span>COMMAND</span>
   </button>
 </header>
 
 <nav class="menu-drawer-popup glass" id="menu-drawer">
-  <div class="drawer-title">SYSTEM PROTOCOLS</div>
+  <div class="drawer-title">SYSTEM_PROTOCOLS</div>
   <div class="drawer-section">
-    <div class="drawer-label">QUICK LINKS</div>
+    <div class="drawer-label">EXECUTE_LINKS</div>
     <a class="plain" href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/ai.html" target="_blank"><button class="feature-btn ai shine">WORM GPT AI [BETA]</button></a>
     <a class="plain" href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank"><button class="feature-btn zalo shine">ZALO NETWORK</button></a>
     <a class="plain" href="https://discord.gg/kRCKkw63s" target="_blank"><button class="feature-btn dc shine">DISCORD TERMINAL</button></a>
   </div>
   
   <div class="drawer-section">
-    <div class="drawer-label">SYSTEM STATUS</div>
+    <div class="drawer-label">NODE_STATUS</div>
     <div class="system-status-box">
       <div class="sys-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </div>
       <div style="flex: 1;">
         <div class="sys-text" id="sys-uptime">UPTIME: 00:00:00</div>
-        <div class="sys-sub" id="sys-ping">PING: --ms | CPU: --%</div>
+        <div class="sys-sub" id="sys-ping">PING: 999ms | CPU: 100%</div>
         <div class="sys-bar"><i></i></div>
       </div>
     </div>
   </div>
 
   <div class="drawer-section">
-    <div class="drawer-label">AUDIO SYNTH (DRONE)</div>
+    <div class="drawer-label">CYBER_DRONE_AUDIO</div>
     <div class="sound-ctrl-row">
       <button class="sound-btn-mini" id="sound-toggle-btn" onclick="toggleMasterSound()">DRONE: ON</button>
-      <span style="font-weight:bold;font-size:0.9rem;color:#ff3333;" id="volume-text">100%</span>
+      <span style="font-weight:bold;font-size:1rem;color:#ff0000;" id="volume-text">100%</span>
     </div>
     <input type="range" class="volume-slider" id="volume-range" min="0" max="100" value="100" oninput="updateMasterVolume(this.value)">
   </div>
@@ -374,29 +425,36 @@ footer.version-tag {
   <main class="glass-card glass" id="main-card">
     <div class="card-header">
       <div class="system-logo-box" id="status-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a8 8 0 0 0-8 8c0 5 4 11 8 11s8-6 8-11a8 8 0 0 0-8-8z"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/><path d="M10 15h4"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 4c0-2-3-4-3-4s1 3 1 5" fill="#ff0000"/>
+          <path d="M15 4c0-2 3-4 3-4s-1 3-1 5" fill="#ff0000"/>
+          <path d="M12 21c-4 0-7-2-7-6V9a7 7 0 0 1 14 0v6c0 4-3 6-7 6z" stroke="#ff0000" stroke-width="2"/>
+          <path d="M9 11l-2 1 M15 11l2 1" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 12h2 M14 12h2" stroke="#fff" stroke-width="2"/>
+          <path d="M10 16h4 M11 16v3 M13 16v3" stroke="#ff0000" stroke-width="1.5"/>
+        </svg>
       </div>
-      <h1 class="title">WORM SYSTEM</h1>
-      <span class="status-chip" id="weather-chip">SECURE CONNECTION</span>
+      <h1 class="title">WORM_GPT</h1>
+      <span class="status-chip" id="weather-chip">[ SYSTEM BREACHED ]</span>
 
       <div class="notice-board glow" id="main-notice-board" onclick="toggleNoticeBoard()">
         <h3>
-          <span>[ W A R N I N G ]</span>
+          <span>[ E R R O R ] 1 0 0 1 0 1 0</span>
           <span class="collapse-badge" id="notice-badge">MINIMIZE</span>
         </h3>
         <p id="notice-text">
-          [ E R R O R ] 1 0 0 1 0 1 0 <br>
-          [ S Y S T E M _ B R E A C H E D ] <br>
+          [ S Y S T E M _ E R R O R ] <br>
           [ W A R N I N G ] 1 0 1 1 0 0 0 1 <br>
           > UNAUTHORIZED OVERRIDE DETECTED.<br>
-          > DOWNLOADING CLASSIFIED DATA...<br>
-          > ENCRYPTION CORRUPTED.
+          > CYBER ATTACK IN PROGRESS.<br>
+          > DOWNLOADING CLASSIFIED ARCHIVES...<br>
+          > FIREWALL COMPROMISED.
         </p>
       </div>
 
       <button class="open-web-utils-btn shine" onclick="openWebUtilsModal(event)">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-        EXECUTE PROTOCOLS
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:10px"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        ACCESS DATABASE
       </button>
     </div>
   </main>
@@ -406,8 +464,8 @@ footer.version-tag {
   <div class="web-utils-container glass">
     <div class="modal-header">
       <div class="modal-title">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-        DATABASE ARCHIVE
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        DATABASE ARCHIVE // ROOT
       </div>
       <button class="close-modal-btn" onclick="closeWebUtilsModal()">X</button>
     </div>
@@ -461,7 +519,7 @@ footer.version-tag {
   </div>
 </div>
 
-<footer class="version-tag">WORM GPT CORE v19.0</footer>
+<footer class="version-tag">WORM_GPT_KERNEL // v20.0</footer>
 
 <script>
 "use strict";
@@ -470,9 +528,10 @@ footer.version-tag {
    STATE & UTILS
    ========================================================================== */
 const STATE = {
-  isMuted: localStorage.getItem('sk_mute') === '1',
-  masterVolume: isNaN(parseFloat(localStorage.getItem('sk_vol'))) ? 1.0 : parseFloat(localStorage.getItem('sk_vol')),
-  startTime: Date.now()
+  isMuted: false, // Default unmuted cho bản Hacker
+  masterVolume: 1.0,
+  startTime: Date.now(),
+  systemBooted: false
 };
 
 const $ = id => document.getElementById(id);
@@ -495,38 +554,40 @@ const StreamEngine = {
   },
   populate: function() {
     this.lines = [];
-    const numLines = Math.floor(this.w / 12); 
+    const numLines = Math.floor(this.w / 10); 
     for(let i = 0; i < numLines; i++) {
       this.lines.push({
         x: Math.random() * this.w, y: Math.random() * this.h - this.h,
-        speed: Math.random() * 6 + 4, length: Math.random() * 100 + 50,
-        opacity: Math.random() * 0.6 + 0.2
+        speed: Math.random() * 8 + 5, length: Math.random() * 150 + 50,
+        opacity: Math.random() * 0.7 + 0.3
       });
     }
   },
   loop: function() {
-    this.ctx.fillStyle = 'rgba(5, 0, 0, 0.25)';
+    if(!STATE.systemBooted) return requestAnimationFrame(() => this.loop()); // Đợi boot xong mới chạy
+
+    this.ctx.fillStyle = 'rgba(5, 0, 0, 0.2)';
     this.ctx.fillRect(0, 0, this.w, this.h);
     
     for(let i = 0; i < this.lines.length; i++) {
       let l = this.lines[i];
       let grad = this.ctx.createLinearGradient(l.x, l.y, l.x, l.y + l.length);
       grad.addColorStop(0, 'rgba(255, 0, 0, 0)');
-      grad.addColorStop(0.8, `rgba(255, 20, 0, ${l.opacity})`);
-      grad.addColorStop(1, `rgba(255, 80, 0, ${l.opacity + 0.4})`);
+      grad.addColorStop(0.8, `rgba(255, 0, 0, ${l.opacity})`);
+      grad.addColorStop(1, `rgba(255, 100, 0, ${l.opacity + 0.5})`);
       
       this.ctx.beginPath(); this.ctx.moveTo(l.x, l.y); this.ctx.lineTo(l.x, l.y + l.length);
-      this.ctx.strokeStyle = grad; this.ctx.lineWidth = 2.5; this.ctx.stroke();
+      this.ctx.strokeStyle = grad; this.ctx.lineWidth = 3; this.ctx.stroke();
       
       l.y += l.speed;
-      if(l.y > this.h) { l.y = -l.length; l.x = Math.random() * this.w; l.speed = Math.random() * 6 + 4; }
+      if(l.y > this.h) { l.y = -l.length; l.x = Math.random() * this.w; l.speed = Math.random() * 8 + 5; }
     }
     requestAnimationFrame(() => this.loop());
   }
 };
 
 /* ==========================================================================
-   AGGRESSIVE AUDIO SYNTHESIZER (CYBER ATTACK DRONE)
+   AGGRESSIVE AUDIO SYNTHESIZER (CYBER ALARM & DRONE)
    ========================================================================== */
 const AudioEngine = {
   ctx: null, master: null, oscList: [], initialized: false,
@@ -539,23 +600,21 @@ const AudioEngine = {
       this.master.gain.value = STATE.isMuted ? 0 : STATE.masterVolume;
       this.master.connect(this.ctx.destination);
 
-      // Cấu hình âm thanh "Cực cháy" (Aggressive Bass Pulse + High Drone)
-      const freqs = [55.00, 58.27, 82.41]; // A1, A#1, E2 (Dissonant, aggressive)
-      
+      // 1. Tiếng Bass trầm, rung (Drone)
+      const freqs = [55.00, 58.27, 82.41]; 
       freqs.forEach((f, index) => {
         const osc = this.ctx.createOscillator();
-        osc.type = index === 0 ? 'square' : 'sawtooth'; // Rough textures
+        osc.type = 'sawtooth';
         osc.frequency.value = f;
         
         const filter = this.ctx.createBiquadFilter();
-        filter.type = 'lowpass'; filter.frequency.value = 400; 
+        filter.type = 'lowpass'; filter.frequency.value = 300; 
 
-        const gain = this.ctx.createGain(); gain.gain.value = 0.15; 
+        const gain = this.ctx.createGain(); gain.gain.value = 0.2; 
 
-        // Fast LFO (Pulse/Alarm effect)
         const lfo = this.ctx.createOscillator(); lfo.type = 'square';
-        lfo.frequency.value = 4.0 + (index * 0.5); // Rapid pulsing (4Hz)
-        const lfoGain = this.ctx.createGain(); lfoGain.gain.value = 0.1; 
+        lfo.frequency.value = 5.0 + (index * 0.5); // Rung liên tục 5 lần/giây
+        const lfoGain = this.ctx.createGain(); lfoGain.gain.value = 0.15; 
         
         lfo.connect(lfoGain); lfoGain.connect(gain.gain);
         osc.connect(filter); filter.connect(gain); gain.connect(this.master);
@@ -563,38 +622,65 @@ const AudioEngine = {
         osc.start(); lfo.start(); this.oscList.push(osc);
       });
       
-      // High-pitched subtle siren
-      const siren = this.ctx.createOscillator(); siren.type = 'triangle'; siren.frequency.value = 800;
-      const sirenGain = this.ctx.createGain(); sirenGain.gain.value = 0.02;
-      const sirenLfo = this.ctx.createOscillator(); sirenLfo.type = 'sine'; sirenLfo.frequency.value = 0.5;
-      const sirenLfoGain = this.ctx.createGain(); sirenLfoGain.gain.value = 400; // Pitch modulation
-      sirenLfo.connect(sirenLfoGain); sirenLfoGain.connect(siren.frequency);
-      siren.connect(sirenGain); sirenGain.connect(this.master);
-      siren.start(); sirenLfo.start();
+      // 2. Tiếng Còi Báo Động (Cyber Alarm) réo rắt
+      const alarmOsc = this.ctx.createOscillator();
+      alarmOsc.type = 'square';
+      const alarmGain = this.ctx.createGain();
+      alarmGain.gain.value = 0.05; // Để nhỏ thôi cho khỏi điếc tai
       
+      // Bộ điều biến nhịp báo động (High to Low liên tục)
+      const alarmLfo = this.ctx.createOscillator();
+      alarmLfo.type = 'square';
+      alarmLfo.frequency.value = 3; // 3 tiếng bip 1 giây
+      
+      const freqModGain = this.ctx.createGain();
+      freqModGain.gain.value = 600; // Khoảng cách chênh lệch âm (Pitch range)
+      
+      alarmLfo.connect(freqModGain);
+      freqModGain.connect(alarmOsc.frequency);
+      alarmOsc.frequency.value = 1000; // Base pitch
+      
+      alarmOsc.connect(alarmGain);
+      alarmGain.connect(this.master);
+      
+      alarmOsc.start(); alarmLfo.start();
+      this.oscList.push(alarmOsc);
+
       this.initialized = true;
-    } catch(e) {}
+    } catch(e) { console.error("Audio failed", e); }
   },
   ramp: function(val) {
     if(!this.ctx || !this.master) return;
-    try { const now = this.ctx.currentTime; this.master.gain.cancelScheduledValues(now); this.master.gain.setValueAtTime(this.master.gain.value, now); this.master.gain.linearRampToValueAtTime(val, now + 0.5); } catch(e) {}
+    try { const now = this.ctx.currentTime; this.master.gain.cancelScheduledValues(now); this.master.gain.setValueAtTime(this.master.gain.value, now); this.master.gain.linearRampToValueAtTime(val, now + 0.2); } catch(e) {}
   }
 };
 
-/* FORCE AUTO-PLAY LOGIC (Giải quyết chính sách trình duyệt) */
-function initAggressiveAudio() {
-  if(AudioEngine.initialized) return;
+/* HÀM KÍCH HOẠT HỆ THỐNG KHI CLICK BOOT SCREEN */
+function INITIALIZE_SYSTEM() {
+  if(STATE.systemBooted) return;
+  STATE.systemBooted = true;
+  
+  // Mở khóa Audio
   AudioEngine.init();
   if(AudioEngine.ctx && AudioEngine.ctx.state === 'suspended') {
     AudioEngine.ctx.resume().catch(()=>{});
   }
+
+  // Ẩn màn hình Boot
+  const bootScreen = $('boot-screen');
+  if(bootScreen) {
+    bootScreen.style.opacity = '0';
+    setTimeout(() => bootScreen.style.display = 'none', 500);
+  }
+  
+  // Bật Glitch tức thời
+  document.body.classList.add('is-glitching');
+  setTimeout(() => document.body.classList.remove('is-glitching'), 300);
 }
 
-// Cố gắng tự bật lúc load trang (Thường bị chặn)
-window.addEventListener('load', () => { try { initAggressiveAudio(); } catch(e){} });
-// Bắt bất kỳ thao tác nào của người dùng để kích hoạt ngay lập tức (Chạm, cuộn, click, gõ phím)
-['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(evt => {
-  window.addEventListener(evt, initAggressiveAudio, {once: true, passive: true});
+// Bắt buộc tương tác lần đầu để chạy (Fallback nếu user lười click boot screen nhưng lỡ cuộn màn hình)
+['touchstart', 'scroll', 'keydown'].forEach(evt => {
+  window.addEventListener(evt, INITIALIZE_SYSTEM, {once: true, passive: true});
 });
 
 function toggleMasterSound() {
@@ -611,9 +697,11 @@ function updateMasterVolume(v) {
 }
 
 /* ==========================================================================
-   SYSTEM STATUS UPDATER
+   SYSTEM STATUS UPDATER & RANDOM GLITCHER
    ========================================================================== */
 function updateSystemStatus() {
+  if(!STATE.systemBooted) return;
+  
   const diff = Math.floor((Date.now() - STATE.startTime) / 1000);
   const h = String(Math.floor(diff / 3600)).padStart(2, '0');
   const m = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
@@ -621,13 +709,23 @@ function updateSystemStatus() {
   const uptimeEl = $('sys-uptime'); if(uptimeEl) uptimeEl.textContent = `UPTIME: ${h}:${m}:${s}`;
 
   const pingEl = $('sys-ping');
-  if(pingEl && Math.random() > 0.4) {
-    const fakePing = Math.floor(Math.random() * 15 + 2);
-    const fakeCpu = Math.floor(Math.random() * 40 + 60); // CPU cao vì đang bị hack
+  if(pingEl && Math.random() > 0.3) {
+    const fakePing = Math.floor(Math.random() * 800 + 100); // Ping cao báo hiệu đang bị DDoS
+    const fakeCpu = Math.floor(Math.random() * 20 + 80); // CPU 80-100%
     pingEl.textContent = `PING: ${fakePing}ms | CPU: ${fakeCpu}%`;
+    pingEl.style.color = fakePing > 500 ? '#ff0000' : '#ff6666';
   }
 }
 setInterval(updateSystemStatus, 1000);
+
+// Giật màn hình ngẫu nhiên
+setInterval(() => {
+  if(!STATE.systemBooted) return;
+  if(Math.random() > 0.7) { // 30% tỷ lệ giật mỗi 4s
+    document.body.classList.add('is-glitching');
+    setTimeout(() => document.body.classList.remove('is-glitching'), 250);
+  }
+}, 4000);
 
 /* ==========================================================================
    UI CONTROLS & PARALLAX
@@ -690,9 +788,6 @@ document.addEventListener('mouseleave', () => { if($('main-card')) $('main-card'
    BOOT SYSTEM
    ========================================================================== */
 function BOOT() {
-  if($('volume-range')) $('volume-range').value = Math.round(STATE.masterVolume * 100);
-  if($('volume-text')) $('volume-text').textContent = Math.round(STATE.masterVolume * 100) + '%';
-  if(STATE.isMuted && $('sound-toggle-btn')) { $('sound-toggle-btn').textContent = 'DRONE: OFF'; $('sound-toggle-btn').classList.add('muted'); }
   StreamEngine.init();
 }
 document.addEventListener('DOMContentLoaded', BOOT);
