@@ -4,10 +4,52 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
-<title>SKIBIDI HUB - ULTRA PREMIUM AAA</title>
+
+<!-- ==========================================================================
+     SEO OPTIMIZATION & METADATA THẾ HỆ MỚI
+     ========================================================================== -->
+<title>SKIBIDI HUB - Premium Script & Web Utilities</title>
+<meta name="description" content="Skibidi Hub - Kho lưu trữ script game, tiện ích web, APK client, và công cụ Bypass Premium AAA. Giao diện tối ưu, không giật lag, hỗ trợ mọi thiết bị.">
+<meta name="keywords" content="Skibidi Hub, Roblox Script, Delta Bypass, Arceus X, Codex, Tiện ích web, APK Mod, Game Scripts, Web Utilities">
+<meta name="author" content="Senior Expert Developer">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="revisit-after" content="1 days">
+<link rel="canonical" href="https://noxcheaters-share.com/">
+
+<!-- Open Graph / Facebook / Zalo -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://noxcheaters-share.com/">
+<meta property="og:title" content="SKIBIDI HUB - Kho Tiện Ích Game & Script Premium">
+<meta property="og:description" content="Trải nghiệm kho tiện ích, script game Roblox siêu mượt với giao diện Glassmorphism và môi trường AAA.">
+<meta property="og:image" content="https://i.imgur.com/8Q5Zb2f.png"> <!-- Thay bằng link ảnh thumbnail thật của bạn -->
+<meta property="og:site_name" content="Skibidi Hub">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://noxcheaters-share.com/">
+<meta name="twitter:title" content="SKIBIDI HUB - Premium AAA Utilities">
+<meta name="twitter:description" content="Kho script, tiện ích web và APK siêu mượt, tối ưu hiệu năng 60FPS.">
+<meta name="twitter:image" content="https://i.imgur.com/8Q5Zb2f.png">
+
+<!-- JSON-LD Structured Data cho Google SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Skibidi Hub",
+  "url": "https://noxcheaters-share.com/",
+  "description": "Kho lưu trữ script game, tiện ích web, APK client, và công cụ Bypass chất lượng cao.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://noxcheaters-share.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 <style>
 /* ==========================================================================
-   CSS BIẾN TOÀN CỤC & TỐI ƯU HÓA HIỆU NĂNG
+   CSS BIẾN TOÀN CỤC & TỐI ƯU HÓA HIỆU NĂNG GPU
    ========================================================================== */
 :root {
   /* VISION OS GLASSMORPHISM VARIABLES */
@@ -15,13 +57,11 @@
   --glass-bg-strong: rgba(255, 255, 255, 0.15);
   --glass-border: rgba(255, 255, 255, 0.25);
   --glass-border-highlight: rgba(255, 255, 255, 0.6);
-  --glass-blur: blur(24px) saturate(200%);
+  --glass-blur: blur(20px) saturate(180%);
   --glass-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.4), 
+    0 25px 50px rgba(0, 0, 0, 0.35), 
     inset 0 1px 1px rgba(255, 255, 255, 0.6), 
-    inset 0 -1px 1px rgba(255, 255, 255, 0.1),
-    inset 1px 0 1px rgba(255, 255, 255, 0.2),
-    inset -1px 0 1px rgba(255, 255, 255, 0.2);
+    inset 0 -1px 1px rgba(255, 255, 255, 0.1);
   --glass-glow: 0 0 20px rgba(255, 255, 255, 0.1);
   
   /* COLORS */
@@ -51,14 +91,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  user-select: none; /* Tránh bôi đen text không cần thiết */
+  user-select: none;
 }
 
 html, body {
   width: 100%;
   height: 100%;
   background-color: #0f172a;
-  overflow: hidden; /* Cố định màn hình, dùng scroll nội bộ */
+  overflow: hidden; /* Ngăn chặn scroll mặc định của trình duyệt */
   overscroll-behavior: none;
 }
 
@@ -70,11 +110,11 @@ body {
   position: relative;
   color: var(--txt);
   transition: background 2.5s cubic-bezier(0.4, 0.0, 0.2, 1), color 2s ease;
-  perspective: 1200px; /* Cho hiệu ứng 3D Parallax */
+  perspective: 1200px; 
 }
 
 /* ==========================================================================
-   GLASSMORPHISM CAO CẤP (VISION OS STYLE)
+   GLASSMORPHISM CAO CẤP (VISION OS STYLE) - ĐÃ TỐI ƯU MOBILE
    ========================================================================== */
 .glass {
   position: relative;
@@ -86,8 +126,8 @@ body {
   box-shadow: var(--glass-shadow);
   overflow: hidden;
   z-index: 10;
-  transform: translateZ(0); /* Hardware acceleration */
-  will-change: transform, box-shadow;
+  transform: translateZ(0); /* Ép GPU render */
+  will-change: transform, box-shadow, background; /* Khai báo trước cho GPU */
 }
 
 /* Lớp khúc xạ & phản chiếu ánh sáng môi trường */
@@ -99,57 +139,59 @@ body {
   border-radius: inherit;
   background: radial-gradient(
     800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-    rgba(255,255,255,0.15), 
+    rgba(255,255,255,0.12), 
     transparent 40%
   ),
-  linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%);
+  linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.1) 100%);
   opacity: 0.9;
   z-index: 1;
   transition: background 0.3s ease;
 }
 
-/* Hiệu ứng viền phát sáng khi hover */
-.glass::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-    rgba(255,255,255,0.8), 
-    transparent 40%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 2;
-}
+/* Tối ưu hiệu ứng hover trên Mobile (Disable shadow nặng) */
+@media (hover: hover) and (pointer: fine) {
+  .glass::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+      rgba(255,255,255,0.7), 
+      transparent 40%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
+  }
 
-.glass-hover {
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-              border-color 0.4s ease, 
-              background 0.4s ease, 
-              box-shadow 0.4s ease,
-              filter 0.4s ease;
-}
+  .glass-hover {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                border-color 0.4s ease, 
+                background 0.4s ease, 
+                box-shadow 0.4s ease,
+                filter 0.4s ease;
+  }
 
-.glass-hover:hover {
-  background: var(--glass-bg-strong);
-  border-color: var(--glass-border-highlight);
-  transform: translateY(-5px) translateZ(10px);
-  box-shadow: 
-    0 25px 65px rgba(0,0,0,0.5), 
-    inset 0 2px 2px rgba(255,255,255,0.7),
-    var(--glass-glow);
-  filter: brightness(1.1);
-}
+  .glass-hover:hover {
+    background: var(--glass-bg-strong);
+    border-color: var(--glass-border-highlight);
+    transform: translateY(-5px) translateZ(10px);
+    box-shadow: 
+      0 20px 40px rgba(0,0,0,0.4), 
+      inset 0 2px 2px rgba(255,255,255,0.7),
+      var(--glass-glow);
+    filter: brightness(1.1);
+  }
 
-.glass-hover:hover::after {
-  opacity: 1;
+  .glass-hover:hover::after {
+    opacity: 1;
+  }
 }
 
 .glass-hover:active {
@@ -176,18 +218,18 @@ body {
 }
 .shine:hover::after {
   left: 180%;
-  transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hiệu ứng Ripple Click */
+/* Hiệu ứng Ripple Click (Tối ưu GPU) */
 .ripple {
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.4);
   transform: scale(0);
-  animation: ripple-anim 0.6s linear;
+  animation: ripple-anim 0.6s linear forwards;
   pointer-events: none;
   z-index: 10;
+  will-change: transform, opacity;
 }
 @keyframes ripple-anim {
   to { transform: scale(4); opacity: 0; }
@@ -237,28 +279,29 @@ body.weather-snow, body.weather-blizzard, body.weather-sunny {
   --txt: #ffffff;
 }
 
-/* Hiệu ứng sấm sét chớp màn hình */
+/* Hiệu ứng sấm sét chớp màn hình (GPU Optimized) */
 #lightning-flash {
-  position: fixed; inset: 0; background: #ffffff; opacity: 0; pointer-events: none; z-index: 95;
-  transition: opacity 0.05s ease-out; mix-blend-mode: overlay;
+  position: fixed; inset: -10vw; background: #ffffff; opacity: 0; pointer-events: none; z-index: 95;
+  transition: opacity 0.05s ease-out; mix-blend-mode: overlay; will-change: opacity;
 }
 /* Bóng tối bão táp */
 #storm-darkness {
-  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); pointer-events: none; z-index: 3;
-  opacity: 0; transition: opacity 2s ease;
+  position: fixed; inset: -10vw; background: rgba(0, 0, 0, 0.55); pointer-events: none; z-index: 3;
+  opacity: 0; transition: opacity 2s ease; will-change: opacity;
 }
 body.weather-storm #storm-darkness { opacity: 1; }
 /* Sương mù tuyết rơi */
 #snow-fog {
-  position: fixed; inset: 0; pointer-events: none; z-index: 4; opacity: 0; transition: opacity 2s ease;
+  position: fixed; inset: -10vw; pointer-events: none; z-index: 4; opacity: 0; transition: opacity 2s ease;
   background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(203,213,225,0.4) 100%);
+  will-change: opacity;
 }
 body.weather-blizzard #snow-fog { opacity: 1; }
 /* Sương mù mặt đất chung */
 #ground-mist {
-  position: fixed; bottom: 0; left: 0; width: 100vw; height: 40vh; pointer-events: none; z-index: 5;
+  position: fixed; bottom: -5vh; left: -5vw; width: 110vw; height: 45vh; pointer-events: none; z-index: 5;
   background: linear-gradient(0deg, var(--ambient-light) 0%, transparent 100%);
-  opacity: 0.6; mix-blend-mode: screen; transition: background 2s ease;
+  opacity: 0.6; mix-blend-mode: screen; transition: background 2s ease; will-change: background;
 }
 
 /* ==========================================================================
@@ -281,6 +324,7 @@ body.weather-blizzard #snow-fog { opacity: 1; }
   transition: opacity 2s ease, transform 2s ease;
   mask-image: linear-gradient(to bottom, black 20%, transparent 80%);
   -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 80%);
+  will-change: transform, opacity;
 }
 body.weather-sunny .god-rays { opacity: 1; transform: translateY(0); animation: rayShift 20s linear infinite alternate; }
 @keyframes rayShift { from { transform: scale(1.1) translateX(-2%); } to { transform: scale(1.1) translateX(2%); } }
@@ -303,7 +347,7 @@ body.weather-sunny .god-rays { opacity: 1; transform: translateY(0); animation: 
 .lens-flare {
   position: absolute; top: 12%; right: 18%; width: 300px; height: 3px;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-  transform: rotate(-45deg); opacity: 0; transition: opacity 2s ease;
+  transform: rotate(-45deg); opacity: 0; transition: opacity 2s ease; will-change: opacity;
 }
 
 body.weather-sunny .sun-element {
@@ -344,8 +388,8 @@ body.weather-storm .sun-element, body.weather-night .sun-element, body.weather-n
     0 0 100px 20px rgba(254, 240, 138, 0.2);
   opacity: 0; transform: translate3d(0, 80px, 0) scale(0.5);
   transition: all 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, opacity;
 }
-/* Các hố trên mặt trăng */
 .moon-crater {
   position: absolute; border-radius: 50%; background: rgba(0,0,0,0.15);
   box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2), 1px 1px 2px rgba(255,255,255,0.4);
@@ -361,38 +405,47 @@ body.weather-night-rain .moon-element {
 }
 
 /* ==========================================================================
-   CANVAS PARTICLE ENGINE (MƯA, TUYẾT, SAO, ĐOM ĐÓM) - FIX MEMORY LEAK
+   CANVAS PARTICLE ENGINE (MƯA, TUYẾT, SAO, ĐOM ĐÓM) - FIX LỖI FULL MÀN HÌNH & LAG
    ========================================================================== */
 #particle-canvas {
-  position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 6;
+  /* Vùng đệm tàng hình khổng lồ để khi thanh address bar điện thoại thu/mở không bị hụt viền */
+  position: fixed; 
+  top: -15vh; 
+  left: -10vw; 
+  width: 120vw; 
+  height: 130vh; 
+  pointer-events: none; 
+  z-index: 6;
+  transform: translateZ(0); /* Ép GPU chạy */
+  image-rendering: pixelated; /* Tối ưu cho hạt nhỏ */
 }
 
 /* ==========================================================================
    DOM ELEMENTS (MÂY, CHIM, LÁ BAY) - SỬ DỤNG OBJECT POOLING
    ========================================================================== */
-.fx-layer { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; overflow: hidden; }
+.fx-layer { position: fixed; inset: -10vw; width: 120vw; height: 120vh; pointer-events: none; overflow: hidden; }
 #moving-clouds { z-index: 2; height: 50vh; perspective: 500px; }
 #birds-box { z-index: 7; }
-#leaves-box { z-index: 12; } /* Lá bay cao hơn kính */
+#leaves-box { z-index: 12; }
 
 .moving-cloud {
   position: absolute; fill: #ffffff; 
-  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
-  will-change: transform, opacity;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+  will-change: transform, opacity, fill;
   transition: fill 2s ease, opacity 2s ease, filter 2s ease;
 }
 /* Màu mây theo thời tiết */
-body.weather-sunset .moving-cloud { fill: #ffedd5; opacity: 0.85; filter: drop-shadow(0 15px 25px rgba(234, 88, 12, 0.2)); }
+body.weather-sunset .moving-cloud { fill: #ffedd5; opacity: 0.85; filter: drop-shadow(0 10px 15px rgba(234, 88, 12, 0.15)); }
 body.weather-rain .moving-cloud, body.weather-night-rain .moving-cloud { fill: #64748b; opacity: 0.9; }
-body.weather-storm .moving-cloud { fill: #1e293b; opacity: 0.95; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
-body.weather-night .moving-cloud { fill: #0f172a; opacity: 0.5; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+body.weather-storm .moving-cloud { fill: #1e293b; opacity: 0.95; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4)); }
+body.weather-night .moving-cloud { fill: #0f172a; opacity: 0.5; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2)); }
 body.weather-snow .moving-cloud { fill: #f8fafc; opacity: 0.9; }
 body.weather-blizzard .moving-cloud { fill: #94a3b8; opacity: 0.95; }
 
 /* Chim bay */
 .bird {
   position: absolute; fill: #0f172a; opacity: 0.8;
-  filter: drop-shadow(0 5px 8px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
   will-change: transform; transition: fill 2s ease;
 }
 body.weather-sunset .bird { fill: #4c1d95; }
@@ -402,7 +455,7 @@ body.weather-night .bird, body.weather-night-rain .bird { fill: #cbd5e1; opacity
 .leaf {
   position: absolute; fill: #4ade80; opacity: 0;
   will-change: transform, opacity; transition: fill 2s ease;
-  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 body.weather-sunset .leaf { fill: #ea580c; }
 body.weather-snow .leaf, body.weather-blizzard .leaf { fill: #cbd5e1; }
@@ -412,12 +465,13 @@ body.weather-storm .leaf { fill: #166534; }
    MÔI TRƯỜNG THIÊN NHIÊN (6 LAYER NÚI, ĐỒI, CỎ, CÂY CỐI)
    ========================================================================== */
 .nature-bottom {
-  position: fixed; bottom: 0; left: 0; width: 100vw; height: 50vh; min-height: 400px;
+  position: fixed; bottom: 0; left: 0; width: 100vw; height: 50vh; min-height: 350px;
   pointer-events: none; z-index: 2; overflow: hidden;
-  transform-style: preserve-3d; /* Parallax 3D */
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 .nature-layer {
-  position: absolute; bottom: 0; left: -5%; width: 110%; /* Rộng hơn để parallax không hở viền */
+  position: absolute; bottom: -5%; left: -10%; width: 120%; /* Rộng hơn để bù đắp khi cuộn mobile */
   will-change: transform;
 }
 /* Núi 6 Lớp */
@@ -434,15 +488,14 @@ body.weather-storm .leaf { fill: #166534; }
 
 /* Cây cối Procedural */
 .forest-container {
-  position: absolute; bottom: 5%; left: -5%; width: 110%; height: 60%;
+  position: absolute; bottom: 2%; left: -5%; width: 110%; height: 60%;
   z-index: 8; transform: translateZ(30px) scale(1);
   display: flex; align-items: flex-end; justify-content: space-around;
 }
 .nature-tree-group {
   position: relative; transform-origin: bottom center;
-  /* Gió thổi đung đưa */
   animation: treeSway var(--wind-speed, 4s) ease-in-out infinite alternate;
-  filter: drop-shadow(0 15px 20px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
   will-change: transform;
 }
 @keyframes treeSway {
@@ -460,7 +513,7 @@ body.weather-storm .nature-tree-group {
 }
 
 /* SVG Transitions cho màu sắc núi đồi */
-.mountain-svg path, .hill-svg path, .grass-svg path { transition: fill 2.5s ease, opacity 2.5s ease; }
+.mountain-svg path, .hill-svg path, .grass-svg path { transition: fill 2.5s ease, opacity 2.5s ease; will-change: fill, opacity; }
 
 /* Bảng màu Núi - Lớp xa đến gần */
 .mt-6 { fill: #0c4a6e; opacity: 0.3; } .mt-5 { fill: #075985; opacity: 0.4; }
@@ -478,15 +531,16 @@ body.weather-rain .mt-3, body.weather-night-rain .mt-3 { fill: #475569; }
 body.weather-rain .mt-2, body.weather-night-rain .mt-2 { fill: #64748b; }
 body.weather-rain .mt-1, body.weather-night-rain .mt-1 { fill: #94a3b8; }
 
-body.weather-storm .mt-class { fill: #020617; } /* Xử lý bằng JS để ghi đè cấp độ đen */
+body.weather-storm .mt-class { fill: #020617; } 
 body.weather-night .mt-class { fill: #020617; }
 body.weather-snow .mt-class, body.weather-blizzard .mt-class { fill: #e2e8f0; }
 
 /* Ếch nhảy trong mưa (Đã tối ưu bóng và hình dáng) */
 .frog-container {
-  position: absolute; bottom: 8%; left: 18%; width: 60px; height: 60px; z-index: 10;
+  position: absolute; bottom: 8%; left: 18%; width: 50px; height: 50px; z-index: 10;
   opacity: 0; transform: translateY(30px) scale(0); transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  filter: drop-shadow(0 5px 8px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+  will-change: transform, opacity;
 }
 body.weather-rain .frog-container, body.weather-night-rain .frog-container, 
 body.weather-storm .frog-container, body.frog-active .frog-container {
@@ -508,16 +562,16 @@ body.weather-storm .frog-container, body.frog-active .frog-container {
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
-.marquee-track { display: flex; white-space: nowrap; animation: marq 30s linear infinite; will-change: transform; }
+.marquee-track { display: flex; white-space: nowrap; animation: marq 35s linear infinite; will-change: transform; }
 .marquee-track span.marquee-tag {
-  display: inline-flex; align-items: center; gap: 10px; padding: 8px 26px; margin-right: 50px;
-  border-radius: 25px; font-weight: 900; font-size: 0.95rem; color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-  background: linear-gradient(90deg, rgba(236,72,153,0.4), rgba(139,92,246,0.4));
-  border: 1px solid rgba(255,255,255,0.4);
-  -webkit-backdrop-filter: blur(16px) saturate(180%); backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.6);
-  pointer-events: auto; /* Cho phép click */
+  display: inline-flex; align-items: center; gap: 10px; padding: 8px 24px; margin-right: 40px;
+  border-radius: 25px; font-weight: 900; font-size: 0.9rem; color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  background: linear-gradient(90deg, rgba(236,72,153,0.3), rgba(139,92,246,0.3));
+  border: 1px solid rgba(255,255,255,0.3);
+  -webkit-backdrop-filter: blur(12px) saturate(150%); backdrop-filter: blur(12px) saturate(150%);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.4);
+  pointer-events: auto;
   transition: transform 0.3s ease;
 }
 .marquee-track span.marquee-tag:hover { transform: scale(1.05); cursor: pointer; }
@@ -526,283 +580,284 @@ body.weather-storm .frog-container, body.frog-active .frog-container {
 /* ==========================================================================
    UI CONTROLS (NÚT MỤC LỤC, NGĂN KÉO)
    ========================================================================== */
-.top-left-bar { position: fixed; top: 20px; left: 20px; z-index: 100; display: flex; gap: 12px; }
+header.top-left-bar { position: fixed; top: 20px; left: 16px; z-index: 100; display: flex; gap: 12px; }
 .menu-toc-btn {
-  height: 52px; padding: 0 22px; display: flex; align-items: center; gap: 10px; cursor: pointer;
-  color: #fff; font-weight: 900; font-size: 1rem; border-radius: 20px;
+  height: 48px; padding: 0 18px; display: flex; align-items: center; gap: 8px; cursor: pointer;
+  color: #fff; font-weight: 900; font-size: 0.95rem; border-radius: 20px;
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
   box-shadow: var(--glass-shadow); outline: none;
 }
-/* Hiệu ứng đàn hồi (Elastic) cho Menu Drawer */
-.menu-drawer-popup {
-  position: fixed; top: 85px; left: 20px; width: 340px; padding: 24px; z-index: 999;
-  display: flex; flex-direction: column; gap: 18px;
+
+/* Hiệu ứng đàn hồi cho Menu Drawer */
+nav.menu-drawer-popup {
+  position: fixed; top: 80px; left: 16px; width: 320px; max-width: calc(100vw - 32px); padding: 20px; z-index: 999;
+  display: flex; flex-direction: column; gap: 16px;
   transform: translateX(-120%) scale(0.9); opacity: 0; pointer-events: none;
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  will-change: transform, opacity;
 }
-.menu-drawer-popup.show {
+nav.menu-drawer-popup.show {
   transform: translateX(0) scale(1); opacity: 1; pointer-events: auto;
 }
 .drawer-title {
-  font-size: 1.2rem; font-weight: 900; color: var(--accent); text-align: center;
-  border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 12px;
+  font-size: 1.1rem; font-weight: 900; color: var(--accent); text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 10px;
   text-shadow: var(--accent-glow);
 }
-.drawer-section { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
-.drawer-label { font-size: 0.85rem; font-weight: 900; color: var(--txt-dim); text-transform: uppercase; letter-spacing: 1px; }
+.drawer-section { display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
+.drawer-label { font-size: 0.8rem; font-weight: 900; color: var(--txt-dim); text-transform: uppercase; letter-spacing: 1px; }
 
 /* Cài đặt âm thanh */
-.sound-ctrl-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sound-ctrl-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .sound-btn-mini {
-  padding: 10px 16px; border-radius: 14px; color: #fff; font-weight: 900; font-size: 0.85rem; cursor: pointer;
+  padding: 8px 14px; border-radius: 12px; color: #fff; font-weight: 900; font-size: 0.8rem; cursor: pointer;
   background: rgba(34,197,94,0.3); border: 1px solid rgba(134,239,172,0.6);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: all 0.3s;
-  box-shadow: 0 4px 15px rgba(34,197,94,0.2);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(34,197,94,0.1);
 }
-.sound-btn-mini.muted { background: rgba(239,68,68,0.3); border-color: rgba(252,165,165,0.6); box-shadow: 0 4px 15px rgba(239,68,68,0.2); }
-.sound-btn-mini:hover { transform: translateY(-2px); filter: brightness(1.2); }
+.sound-btn-mini.muted { background: rgba(239,68,68,0.3); border-color: rgba(252,165,165,0.6); box-shadow: 0 4px 10px rgba(239,68,68,0.1); }
+.sound-btn-mini:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
 .volume-slider {
-  -webkit-appearance: none; appearance: none; width: 100%; height: 10px; border-radius: 10px; 
-  background: rgba(255,255,255,0.15); box-shadow: inset 0 1px 3px rgba(0,0,0,0.5); cursor: pointer;
+  -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 8px; 
+  background: rgba(255,255,255,0.15); box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); cursor: pointer;
 }
 .volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
-  background: var(--accent); border: 3px solid #fff; box-shadow: 0 0 10px var(--accent); cursor: pointer;
+  -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--accent); border: 2px solid #fff; box-shadow: 0 0 8px var(--accent); cursor: pointer;
   transition: transform 0.2s;
 }
-.volume-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+.volume-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
 
 /* Dự báo thời tiết Panel */
-.weather-forecast-box { padding: 14px; display: flex; align-items: center; gap: 14px; }
-.wf-icon { width: 44px; height: 44px; flex-shrink: 0; }
-.wf-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
-.wf-text { font-size: 0.95rem; font-weight: 900; color: #fff; }
-.wf-sub { font-size: 0.8rem; color: #a7f3d0; font-weight: 800; margin-top: 2px; }
+.weather-forecast-box { padding: 12px; display: flex; align-items: center; gap: 12px; }
+.wf-icon { width: 40px; height: 40px; flex-shrink: 0; }
+.wf-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
+.wf-text { font-size: 0.9rem; font-weight: 900; color: #fff; }
+.wf-sub { font-size: 0.75rem; color: #a7f3d0; font-weight: 800; margin-top: 2px; }
 .wf-bar {
-  height: 6px; border-radius: 6px; background: rgba(255,255,255,0.15); margin-top: 10px; 
-  overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+  height: 5px; border-radius: 5px; background: rgba(255,255,255,0.15); margin-top: 8px; 
+  overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
 }
 .wf-bar i {
-  display: block; height: 100%; border-radius: 6px;
+  display: block; height: 100%; border-radius: 5px;
   background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent)); 
   background-size: 200% 100%; animation: gradientFlow 3s linear infinite;
-  transition: width 1s linear; box-shadow: 0 0 10px var(--accent);
+  transition: width 1s linear; box-shadow: 0 0 8px var(--accent);
 }
 @keyframes gradientFlow { 0% {background-position: 100% 0;} 100% {background-position: -100% 0;} }
 
 /* Nút liên kết */
 .feature-btn {
-  width: 100%; padding: 14px; border-radius: 16px; color: #fff; font-weight: 900; font-size: 0.95rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  width: 100%; padding: 12px; border-radius: 14px; color: #fff; font-weight: 900; font-size: 0.9rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
 }
-.feature-btn.ai { background: linear-gradient(90deg, rgba(217,70,239,0.4), rgba(56,189,248,0.4)); }
-.feature-btn.zalo { background: rgba(0,104,255,0.4); }
-.feature-btn.dc { background: rgba(88,101,242,0.4); }
-.feature-btn:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.15); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+.feature-btn.ai { background: linear-gradient(90deg, rgba(217,70,239,0.3), rgba(56,189,248,0.3)); }
+.feature-btn.zalo { background: rgba(0,104,255,0.3); }
+.feature-btn.dc { background: rgba(88,101,242,0.3); }
+.feature-btn:hover { transform: translateY(-2px) scale(1.01); filter: brightness(1.1); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 a.plain { text-decoration: none; display: block; }
 
 /* ==========================================================================
-   THẺ CHÍNH (MAIN CONTENT) - 3D TILT EFFECT
+   THẺ CHÍNH (MAIN CONTENT) - TỐI ƯU MOBILE 3D TILT
    ========================================================================== */
 .glass-card-wrapper {
-  position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto;
+  position: relative; z-index: 50; width: 100%; max-width: 480px; margin: 0 auto;
   perspective: 1000px;
 }
-.glass-card {
-  display: flex; flex-direction: column; gap: 20px; text-align: center; padding: 24px;
-  /* Tilt transform will be applied via JS */
-  transform-style: preserve-3d; transition: transform 0.1s ease-out;
+main.glass-card {
+  display: flex; flex-direction: column; gap: 18px; text-align: center; padding: 22px;
+  transform-style: preserve-3d; transition: transform 0.15s ease-out;
 }
 
-.card-header { display: flex; flex-direction: column; align-items: center; gap: 16px; transform: translateZ(30px); }
+.card-header { display: flex; flex-direction: column; align-items: center; gap: 14px; transform: translateZ(25px); }
 .weather-status-box { 
-  width: 100px; height: 100px; border-radius: 30px; padding: 16px; 
+  width: 90px; height: 90px; border-radius: 26px; padding: 14px; 
   display: flex; justify-content: center; align-items: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 2px 5px rgba(255,255,255,0.5);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2), inset 0 2px 4px rgba(255,255,255,0.4);
   animation: floatIcon 4s ease-in-out infinite;
 }
 @keyframes floatIcon {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-8px); }
 }
-.weather-status-box svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.5)); }
+.weather-status-box svg { width: 100%; height: 100%; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4)); }
 
 .title {
-  font-size: 2.8rem; font-weight: 900; letter-spacing: 2px;
+  font-size: 2.4rem; font-weight: 900; letter-spacing: 1.5px;
   background: linear-gradient(92deg, #ffffff, #38bdf8, #ffffff, #a855f7, #ffffff); 
   background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 4px 15px rgba(0,0,0,0.6)); animation: titleFlow 8s linear infinite;
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,0.5)); animation: titleFlow 8s linear infinite;
   margin: 0; padding: 0;
 }
-@keyframes titleFlow { to { background-position: 300% 0; } }
 
 .weather-chip {
-  font-size: 0.85rem; font-weight: 900; padding: 6px 20px; border-radius: 999px;
+  font-size: 0.8rem; font-weight: 900; padding: 5px 18px; border-radius: 999px;
   background: var(--glass-bg-strong); border: 1px solid var(--glass-border-highlight);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.4);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.3);
   text-transform: uppercase; letter-spacing: 1px; color: #bae6fd;
 }
 
 /* Bảng Thông Báo */
 .notice-board {
-  padding: 20px; text-align: left; width: 100%; cursor: pointer;
-  max-height: 400px; /* Limit height for transitions */
+  padding: 18px; text-align: left; width: 100%; cursor: pointer;
+  max-height: 400px;
   transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1), padding 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
-  transform: translateZ(20px);
+  transform: translateZ(15px);
 }
-.notice-board.collapsed { max-height: 64px; padding: 16px 20px; }
-.notice-board.collapsed p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.6; }
+.notice-board.collapsed { max-height: 60px; padding: 14px 18px; }
+.notice-board.collapsed p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.5; }
 .notice-board.glow { 
-  border-color: rgba(250, 204, 21, 0.9); 
-  box-shadow: 0 0 40px rgba(250, 204, 21, 0.5), inset 0 1px 2px rgba(255,255,255,0.8); 
+  border-color: rgba(250, 204, 21, 0.8); 
+  box-shadow: 0 0 30px rgba(250, 204, 21, 0.4), inset 0 1px 2px rgba(255,255,255,0.6); 
 }
 .notice-board h3 {
-  color: #fde047; font-size: 1.05rem; font-weight: 900; margin-bottom: 10px;
-  display: flex; align-items: center; justify-content: space-between; gap: 8px; position: relative; z-index: 1;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  color: #fde047; font-size: 0.95rem; font-weight: 900; margin-bottom: 8px;
+  display: flex; align-items: center; justify-content: space-between; gap: 6px; position: relative; z-index: 1;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
 }
 .notice-board p {
-  font-size: 0.9rem; font-weight: 800; line-height: 1.6; color: #f8fafc;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.9); position: relative; z-index: 1;
+  font-size: 0.85rem; font-weight: 800; line-height: 1.5; color: #f8fafc;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8); position: relative; z-index: 1;
   transition: opacity 0.3s;
 }
 .collapse-badge {
-  font-size: 0.75rem; padding: 4px 12px; border-radius: 12px; color: #fde047;
-  background: rgba(250, 204, 21, 0.2); border: 1px solid rgba(250, 204, 21, 0.5);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3); transition: all 0.3s;
+  font-size: 0.7rem; padding: 3px 10px; border-radius: 10px; color: #fde047;
+  background: rgba(250, 204, 21, 0.15); border: 1px solid rgba(250, 204, 21, 0.4);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: all 0.3s;
 }
-.notice-board:hover .collapse-badge { background: rgba(250, 204, 21, 0.4); }
 
 /* Nút Mở Tiện Ích */
 .open-web-utils-btn {
-  width: 100%; padding: 18px; border-radius: 24px; cursor: pointer; outline: none;
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  color: #fff; font-weight: 900; font-size: 1.2rem; text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-  background: linear-gradient(135deg, rgba(34,197,94,0.45), rgba(22,163,74,0.35));
-  border: 1px solid rgba(255,255,255,0.5);
+  width: 100%; padding: 16px; border-radius: 20px; cursor: pointer; outline: none;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: #fff; font-weight: 900; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, rgba(34,197,94,0.4), rgba(22,163,74,0.3));
+  border: 1px solid rgba(255,255,255,0.4);
   -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
-  box-shadow: 0 15px 40px rgba(34,197,94,0.4), inset 0 2px 3px rgba(255,255,255,0.6);
-  transform: translateZ(40px); /* Nổi lên nhất */
+  box-shadow: 0 10px 30px rgba(34,197,94,0.3), inset 0 2px 2px rgba(255,255,255,0.5);
+  transform: translateZ(30px);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .open-web-utils-btn:hover {
-  transform: translateZ(50px) translateY(-5px) scale(1.02);
-  box-shadow: 0 20px 50px rgba(34,197,94,0.6), inset 0 2px 3px rgba(255,255,255,0.8);
-  filter: brightness(1.2);
+  transform: translateZ(40px) translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(34,197,94,0.5), inset 0 2px 2px rgba(255,255,255,0.7);
+  filter: brightness(1.1);
 }
 
 /* ==========================================================================
-   MODAL TIỆN ÍCH (ULTRA BLUR BACKGROUND)
+   MODAL TIỆN ÍCH (ULTRA BLUR) - KHÔNG LỖI OVERFLOW MÀN HÌNH NHỎ
    ========================================================================== */
 .web-utils-modal {
-  position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 20px;
-  background: rgba(2, 6, 23, 0.65); -webkit-backdrop-filter: blur(20px) saturate(150%); backdrop-filter: blur(20px) saturate(150%);
+  position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px;
+  background: rgba(2, 6, 23, 0.5); -webkit-backdrop-filter: blur(16px) saturate(130%); backdrop-filter: blur(16px) saturate(130%);
   opacity: 0; transition: opacity 0.4s ease;
 }
 .web-utils-modal.active { display: flex; opacity: 1; }
 .web-utils-container {
-  width: 100%; max-width: 560px; max-height: 85svh; padding: 24px;
-  display: flex; flex-direction: column; gap: 18px; border-radius: 32px;
-  transform: scale(0.9) translateY(30px); 
+  width: 100%; max-width: 520px; max-height: 85svh; padding: 20px;
+  display: flex; flex-direction: column; gap: 16px; border-radius: 28px;
+  transform: scale(0.9) translateY(20px); 
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.8), inset 0 2px 3px rgba(255,255,255,0.3);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 2px 2px rgba(255,255,255,0.2);
 }
 .web-utils-modal.active .web-utils-container { transform: scale(1) translateY(0); }
 
 .modal-header {
   display: flex; justify-content: space-between; align-items: center;
-  border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 16px; position: relative; z-index: 1;
+  border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 14px; position: relative; z-index: 1;
 }
-.modal-title { font-size: 1.25rem; font-weight: 900; color: var(--accent); display: flex; align-items: center; gap: 10px; text-shadow: var(--accent-glow); }
+.modal-title { font-size: 1.15rem; font-weight: 900; color: var(--accent); display: flex; align-items: center; gap: 8px; text-shadow: var(--accent-glow); }
 .close-modal-btn {
-  width: 40px; height: 40px; border-radius: 50%; cursor: pointer; color: #fff; font-size: 1.2rem;
+  width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #fff; font-size: 1.1rem;
   display: flex; justify-content: center; align-items: center; outline: none;
-  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.close-modal-btn:hover { background: rgba(239,68,68,0.6); border-color: #fca5a5; transform: rotate(90deg) scale(1.1); box-shadow: 0 0 20px rgba(239,68,68,0.5); }
+.close-modal-btn:hover { background: rgba(239,68,68,0.5); border-color: #fca5a5; transform: rotate(90deg) scale(1.1); }
 
 /* Tìm kiếm */
 .search-wrap { position: relative; z-index: 1; }
 .search-input {
-  width: 100%; padding: 14px 18px; border-radius: 18px; color: #fff; font-weight: 800; font-size: 0.95rem;
+  width: 100%; padding: 12px 16px; border-radius: 16px; color: #fff; font-weight: 800; font-size: 0.9rem;
   background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); outline: none;
-  transition: all 0.3s; box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); outline: none;
+  transition: all 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 .search-input::placeholder { color: rgba(255,255,255,0.4); }
-.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(56,189,248,0.3), inset 0 2px 5px rgba(0,0,0,0.3); background: rgba(0,0,0,0.4); }
+.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56,189,248,0.2), inset 0 2px 4px rgba(0,0,0,0.2); background: rgba(0,0,0,0.3); }
 
 /* Tab Navigation */
 .nav-tabs {
-  display: flex; gap: 8px; padding: 8px; border-radius: 22px; position: relative; z-index: 1;
+  display: flex; gap: 6px; padding: 6px; border-radius: 20px; position: relative; z-index: 1;
   background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.15);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .nav-btn {
-  flex: 1; padding: 12px 0; border-radius: 16px; background: transparent; color: #94a3b8; border: none; outline: none;
-  font-size: 0.9rem; font-weight: 900; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  flex: 1; padding: 10px 0; border-radius: 14px; background: transparent; color: #94a3b8; border: none; outline: none;
+  font-size: 0.85rem; font-weight: 900; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.nav-btn:hover { color: #fff; background: rgba(255,255,255,0.05); }
 .nav-btn.active {
-  color: #fff; background: rgba(34,197,94,0.4); border: 1px solid rgba(134,239,172,0.6);
-  box-shadow: 0 8px 20px rgba(34,197,94,0.4), inset 0 1px 2px rgba(255,255,255,0.6);
-  transform: scale(1.05); z-index: 2;
+  color: #fff; background: rgba(34,197,94,0.35); border: 1px solid rgba(134,239,172,0.5);
+  box-shadow: 0 6px 15px rgba(34,197,94,0.3), inset 0 1px 1px rgba(255,255,255,0.5);
+  transform: scale(1.03); z-index: 2;
 }
 
-/* Tab Content - Custom Scrollbar */
-.tab-content-wrapper { position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding-right: 6px; z-index: 1; }
-.tab-content-wrapper::-webkit-scrollbar { width: 6px; }
-.tab-content-wrapper::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 10px; }
-.tab-content-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
-.tab-content-wrapper::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.5); }
-.tab-content { display: none; flex-direction: column; gap: 14px; padding: 4px; }
+/* Tab Content - Custom Scrollbar tối ưu */
+.tab-content-wrapper { position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; z-index: 1; }
+.tab-content-wrapper::-webkit-scrollbar { width: 5px; }
+.tab-content-wrapper::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 8px; }
+.tab-content-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 8px; }
+.tab-content-wrapper::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+.tab-content { display: none; flex-direction: column; gap: 12px; padding: 2px; }
 .tab-content.active { display: flex; animation: fadeScaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-@keyframes fadeScaleUp { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: none; } }
+@keyframes fadeScaleUp { from { opacity: 0; transform: translateY(15px) scale(0.96); } to { opacity: 1; transform: none; } }
 
 /* Boxes (Items trong modal) */
-.box { padding: 16px; display: flex; flex-direction: column; gap: 12px; text-align: left; border-radius: 20px; }
+.box { padding: 14px; display: flex; flex-direction: column; gap: 10px; text-align: left; border-radius: 18px; }
 .box.hidden { display: none; }
-.box-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; position: relative; z-index: 1; }
-.box-title { font-size: 1rem; font-weight: 900; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+.box-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; position: relative; z-index: 1; }
+.box-title { font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.7); }
 .box-btn {
-  border-radius: 14px; padding: 10px 20px; font-size: 0.85rem; font-weight: 900; text-decoration: none; cursor: pointer; color: #fff; outline: none;
-  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
-  background: rgba(59,130,246,0.5); border: 1px solid rgba(147,197,253,0.6);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 4px 15px rgba(59,130,246,0.3), inset 0 1px 1px rgba(255,255,255,0.4);
+  border-radius: 12px; padding: 8px 16px; font-size: 0.8rem; font-weight: 900; text-decoration: none; cursor: pointer; color: #fff; outline: none;
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  background: rgba(59,130,246,0.45); border: 1px solid rgba(147,197,253,0.5);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 3px 10px rgba(59,130,246,0.2), inset 0 1px 1px rgba(255,255,255,0.3);
 }
-.box-btn:hover { background: rgba(37,99,235,0.7); transform: scale(1.08) translateY(-2px); box-shadow: 0 8px 25px rgba(37,99,235,0.5); }
-.box-btn.copy { background: rgba(168,85,247,0.5); border-color: rgba(216,180,254,0.6); box-shadow: 0 4px 15px rgba(168,85,247,0.3); }
-.box-btn.copy:hover { background: rgba(147,51,234,0.7); box-shadow: 0 8px 25px rgba(147,51,234,0.5); }
-.box-btn.copied { background: rgba(34,197,94,0.6); border-color: #86efac; }
+.box-btn:hover { background: rgba(37,99,235,0.6); transform: scale(1.06) translateY(-1px); box-shadow: 0 6px 15px rgba(37,99,235,0.3); }
+.box-btn.copy { background: rgba(168,85,247,0.45); border-color: rgba(216,180,254,0.5); box-shadow: 0 3px 10px rgba(168,85,247,0.2); }
+.box-btn.copy:hover { background: rgba(147,51,234,0.6); box-shadow: 0 6px 15px rgba(147,51,234,0.3); }
+.box-btn.copied { background: rgba(34,197,94,0.5); border-color: #86efac; }
 .script-text {
-  padding: 12px; border-radius: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem;
+  padding: 10px; border-radius: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem;
   color: #bbf7d0; word-break: break-all; position: relative; z-index: 1;
-  background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
-  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.1); box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
 }
-.empty-msg { color: var(--txt-dim); font-weight: 800; text-align: center; padding: 30px; font-size: 0.95rem; }
+.empty-msg { color: var(--txt-dim); font-weight: 800; text-align: center; padding: 25px; font-size: 0.9rem; }
 
 /* Version Tag */
-.version-tag {
-  position: fixed; bottom: 16px; right: 20px; z-index: 60; font-weight: 900; font-size: 0.85rem; color: #fff;
-  padding: 8px 18px; border-radius: 16px; background: var(--glass-bg); border: 1px solid var(--glass-border);
-  -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px); box-shadow: var(--glass-shadow);
+footer.version-tag {
+  position: fixed; bottom: 12px; right: 16px; z-index: 60; font-weight: 900; font-size: 0.75rem; color: #fff;
+  padding: 6px 14px; border-radius: 14px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: var(--glass-shadow);
   pointer-events: none;
 }
 
-/* Mobile & Accessibility Tweak */
-@media (max-width: 480px) {
-  .title { font-size: 2.2rem; }
-  .menu-drawer-popup { width: calc(100vw - 40px); }
+/* RESPONSIVE & MOBILE TWEAKS (CHỐNG GIẬT LAG) */
+@media (max-width: 768px) {
+  .title { font-size: 2rem; }
+  nav.menu-drawer-popup { width: calc(100vw - 32px); }
   body { padding-top: 90px; }
+  /* Giảm đổ bóng để giảm tải GPU Mobile */
+  .glass { box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.4); }
 }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
@@ -810,7 +865,7 @@ a.plain { text-decoration: none; display: block; }
 </head>
 <body class="weather-sunny">
 
-<!-- EFFECTS LAYERS -->
+<!-- EFFECTS LAYERS (TẠO VÙNG ĐỆM CHỐNG HỤT VIỀN) -->
 <div id="lightning-flash"></div>
 <div id="storm-darkness"></div>
 <div id="snow-fog"></div>
@@ -833,8 +888,8 @@ a.plain { text-decoration: none; display: block; }
   </div>
 </div>
 
-<!-- CANVAS CHO HẠT MƯA, TUYẾT, SAO, ĐOM ĐÓM (SIÊU HIỆU NĂNG) -->
-<canvas id="particle-canvas"></canvas>
+<!-- CANVAS CHO HẠT MƯA, TUYẾT, SAO, ĐOM ĐÓM (VẼ BẰNG SỐ NGUYÊN SIÊU MƯỢT) -->
+<canvas id="particle-canvas" aria-label="Thời tiết hiệu ứng động" role="img"></canvas>
 
 <!-- CÁC LỚP DOM DÀNH CHO MÂY, CHIM, LÁ BAY -->
 <div class="fx-layer" id="moving-clouds"></div>
@@ -842,14 +897,14 @@ a.plain { text-decoration: none; display: block; }
 <div class="fx-layer" id="leaves-box"></div>
 
 <!-- MENU MỤC LỤC & ĐIỀU KHIỂN BÊN TRÁI -->
-<div class="top-left-bar">
-  <button class="menu-toc-btn shine glass-hover" onclick="toggleMenuDrawer()" aria-label="Mở mục lục">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
+<header class="top-left-bar">
+  <button class="menu-toc-btn shine glass-hover" onclick="toggleMenuDrawer()" aria-label="Mở Menu Điều Khiển">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
     <span>Mục Lục</span>
   </button>
-</div>
+</header>
 
-<div class="menu-drawer-popup glass" id="menu-drawer">
+<nav class="menu-drawer-popup glass" id="menu-drawer" aria-label="Trình đơn tùy chỉnh">
   <div class="drawer-title">TÙY CHỈNH HỆ THỐNG</div>
 
   <div class="drawer-section">
@@ -881,15 +936,14 @@ a.plain { text-decoration: none; display: block; }
     <div class="drawer-label">Cài Đặt Âm Thanh Không Gian (Spatial Audio)</div>
     <div class="sound-ctrl-row">
       <button class="sound-btn-mini" id="sound-toggle-btn" onclick="toggleMasterSound()">Âm thanh: ON</button>
-      <span style="font-weight:900;font-size:0.9rem;text-shadow:0 1px 2px #000;" id="volume-text">85%</span>
+      <span style="font-weight:900;font-size:0.85rem;text-shadow:0 1px 2px #000;" id="volume-text">85%</span>
     </div>
-    <input type="range" class="volume-slider" id="volume-range" min="0" max="100" value="85" oninput="updateMasterVolume(this.value)" aria-label="Âm lượng">
+    <input type="range" class="volume-slider" id="volume-range" min="0" max="100" value="85" oninput="updateMasterVolume(this.value)" aria-label="Thanh trượt âm lượng">
   </div>
-</div>
+</nav>
 
 <!-- MÔI TRƯỜNG THIÊN NHIÊN ĐA TẦNG (GAME ENVIRONMENT) -->
 <div class="nature-bottom" aria-hidden="true" id="nature-environment">
-  <!-- 6 Layer Núi -->
   <div class="nature-layer mountain-layer-6" id="layer-6"></div>
   <div class="nature-layer mountain-layer-5" id="layer-5"></div>
   <div class="nature-layer mountain-layer-4" id="layer-4"></div>
@@ -897,15 +951,11 @@ a.plain { text-decoration: none; display: block; }
   <div class="nature-layer mountain-layer-2" id="layer-2"></div>
   <div class="nature-layer mountain-layer-1" id="layer-1"></div>
   
-  <!-- Đồi & Đất -->
   <div class="nature-layer hills-wrapper" id="layer-hills"></div>
   
-  <!-- Rừng Cây Tự Sinh (Procedural Forest) -->
   <div class="forest-container" id="forest-box"></div>
   
-  <!-- Ếch -->
   <div class="frog-container" id="frog">
-    <!-- SVG Ếch giữ nguyên nâng cấp đường nét -->
     <svg viewBox="0 0 100 100">
       <path d="M50 10 Q80 10 90 40 Q50 30 10 40 Q20 10 50 10" fill="#4ade80" stroke="#14532d" stroke-width="4"/>
       <path d="M50 10 L50 60" stroke="#14532d" stroke-width="4" stroke-linecap="round"/>
@@ -913,12 +963,11 @@ a.plain { text-decoration: none; display: block; }
       <circle cx="35" cy="60" r="10" fill="#22c55e" stroke="#14532d" stroke-width="4"/>
       <circle cx="65" cy="60" r="10" fill="#22c55e" stroke="#14532d" stroke-width="4"/>
       <circle cx="35" cy="60" r="4" fill="#000"/><circle cx="65" cy="60" r="4" fill="#000"/>
-      <circle cx="37" cy="58" r="1.5" fill="#fff"/><circle cx="67" cy="58" r="1.5" fill="#fff"/> <!-- Bắt sáng mắt -->
+      <circle cx="37" cy="58" r="1.5" fill="#fff"/><circle cx="67" cy="58" r="1.5" fill="#fff"/> 
       <path d="M40 82 Q50 88 60 82" fill="none" stroke="#14532d" stroke-width="3" stroke-linecap="round"/>
     </svg>
   </div>
   
-  <!-- Cỏ -->
   <div class="nature-layer grass-wrapper" id="layer-grass"></div>
 </div>
 
@@ -932,29 +981,29 @@ a.plain { text-decoration: none; display: block; }
 
       <div class="notice-board glass glass-hover" id="main-notice-board" onclick="toggleNoticeBoard()">
         <h3>
-          <span><svg style="vertical-align:middle;margin-right:6px" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>THÔNG BÁO TỪ ADMIN</span>
+          <span><svg style="vertical-align:middle;margin-right:4px" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>THÔNG BÁO TỪ ADMIN</span>
           <span class="collapse-badge" id="notice-badge">Mở Rộng</span>
         </h3>
-        <p id="notice-text">WEB SẼ BẢO TRÌ TU SỬA THAY ĐỔI DIỆN MẠO TRONG VÒNG 1 THÁNG MỚI. NẾU AI CÓ Ý KIẾN, GÓP Ý, BÁO CÁO LỖI THÌ HÃY THAM GIA NGAY NHÓM DISCORD HOẶC ZALO ĐỂ ĐƯỢC HỖ TRỢ | Khi thấy web bảo trì mà muốn vào ngay, chỉ cần nhấn 10 lần vào màn hình để vào web phụ! | Web đã nâng cấp hệ thống âm thanh không gian (Spatial Audio) và hạt (Particle Engine) siêu mượt 60FPS.</p>
+        <p id="notice-text">WEB SẼ BẢO TRÌ TU SỬA THAY ĐỔI DIỆN MẠO TRONG VÒNG 1 THÁNG MỚI. NẾU AI CÓ Ý KIẾN, GÓP Ý, BÁO CÁO LỖI THÌ HÃY THAM GIA NGAY NHÓM DISCORD HOẶC ZALO ĐỂ ĐƯỢC HỖ TRỢ | Khi thấy web bảo trì mà muốn vào ngay, chỉ cần nhấn 10 lần vào màn hình để vào web phụ! | Web đã FIX hoàn toàn lỗi giật lag, đảm bảo hạt 100% full viền 60FPS.</p>
       </div>
 
       <button class="open-web-utils-btn shine" onclick="openWebUtilsModal(event)">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
         MỞ KHO TIỆN ÍCH WEB
       </button>
     </div>
   </main>
 </div>
 
-<!-- MODAL TIỆN ÍCH -->
+<!-- MODAL TIỆN ÍCH CHUYÊN NGHIỆP -->
 <div class="web-utils-modal" id="web-utils-modal" onclick="if(event.target===this)closeWebUtilsModal()">
   <div class="web-utils-container glass">
     <div class="modal-header">
       <div class="modal-title">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         TIỆN ÍCH HỆ THỐNG
       </div>
-      <button class="close-modal-btn" onclick="closeWebUtilsModal()" aria-label="Đóng">✕</button>
+      <button class="close-modal-btn" onclick="closeWebUtilsModal()" aria-label="Đóng tiện ích">✕</button>
     </div>
 
     <div class="search-wrap">
@@ -970,14 +1019,13 @@ a.plain { text-decoration: none; display: block; }
 
     <div class="tab-content-wrapper">
       <div id="tab-link" class="tab-content active">
-        <!-- Đã bổ sung hiệu ứng Ripple qua JS -->
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Bypass Key Delta</span><a href="https://baconbypass.xyz" target="_blank" rel="noopener" class="box-btn">Truy cập ngay</a></div></div>
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Kasumi Store VIP</span><a href="https://gofile.io/d/v3Q6Ig" target="_blank" rel="noopener" class="box-btn">Truy cập ngay</a></div></div>
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Clone Tab Delta VNG (Zam)</span><a href="https://gofile.io/d/S1FNjL" target="_blank" rel="noopener" class="box-btn">Truy cập ngay</a></div></div>
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Clone Tab Delta Global (Zam)</span><a href="https://gofile.io/d/p0Mww1" target="_blank" rel="noopener" class="box-btn">Truy cập ngay</a></div></div>
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Clone Tab ArceusX Global</span><a href="https://gofile.io/d/3PdBKU" target="_blank" rel="noopener" class="box-btn">Truy cập ngay</a></div></div>
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Clone Tab CodeX Global</span><a href="https://gofile.io/d/t6cUdc" target="_blank" rel="noopener" class="box-btn">Truy cập ngay</a></div></div>
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Kho Tài Nguyên APK Tổng Hợp</span><a href="https://gofile.io/d/w9cKYp" target="_blank" rel="noopener" class="box-btn">Truy cập ngay</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Bypass Key Delta</span><a href="https://baconbypass.xyz" target="_blank" rel="noopener" class="box-btn">Truy cập</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Kasumi Store VIP</span><a href="https://gofile.io/d/v3Q6Ig" target="_blank" rel="noopener" class="box-btn">Truy cập</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Clone Tab Delta VNG (Zam)</span><a href="https://gofile.io/d/S1FNjL" target="_blank" rel="noopener" class="box-btn">Truy cập</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Clone Tab Delta Global (Zam)</span><a href="https://gofile.io/d/p0Mww1" target="_blank" rel="noopener" class="box-btn">Truy cập</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Clone Tab ArceusX Global</span><a href="https://gofile.io/d/3PdBKU" target="_blank" rel="noopener" class="box-btn">Truy cập</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Clone Tab CodeX Global</span><a href="https://gofile.io/d/t6cUdc" target="_blank" rel="noopener" class="box-btn">Truy cập</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Kho Tài Nguyên APK</span><a href="https://gofile.io/d/w9cKYp" target="_blank" rel="noopener" class="box-btn">Truy cập</a></div></div>
         <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Tiện Ích Hanami Script</span><a href="https://gist.github.com/Hoangtiger2005/a4cf07f7cea143c735d802f38827563d/raw/script_hanami.user.js" target="_blank" rel="noopener" class="box-btn">Tải Script</a></div></div>
       </div>
 
@@ -1007,23 +1055,23 @@ a.plain { text-decoration: none; display: block; }
       </div>
 
       <div id="tab-ios" class="tab-content">
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Delta iOS (No Jailbreak)</span><a href="https://deltaexploits.gg/" target="_blank" rel="noopener" class="box-btn">Tải xuống qua Safari</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Delta iOS (No Jailbreak)</span><a href="https://deltaexploits.gg/" target="_blank" rel="noopener" class="box-btn">Tải Safari</a></div></div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="version-tag">Engine v12.0 Ultra Premium - Coded by Senior Expert</div>
+<footer class="version-tag">Engine v13.0 Ultimate Optimize - By Senior Expert</footer>
 
 <script>
 "use strict";
 
 /* ==========================================================================
-   KIẾN TRÚC LÕI & QUẢN LÝ TRẠNG THÁI (STATE MANAGEMENT)
+   KIẾN TRÚC LÕI & ROBUST STATE MANAGEMENT (CHỐNG LỖI)
    ========================================================================== */
 const STATE = {
   REDUCED_MOTION: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  PERF: Math.min(1, (window.innerWidth * window.innerHeight) / (1280 * 800)),
+  IS_MOBILE: window.innerWidth <= 768, // Cờ nhận diện thiết bị yếu
   currentMode: 'SUNNY',
   previousMode: 'SUNNY',
   CYCLE: 600, // 10 phút một chu kỳ thời tiết
@@ -1031,18 +1079,22 @@ const STATE = {
   birdInterval: null,
   noticeInterval: null,
   resizeTimeout: null,
+  isResizing: false,
   isMuted: localStorage.getItem('sk_mute') === '1',
   savedVol: isNaN(parseFloat(localStorage.getItem('sk_vol'))) ? 0.85 : parseFloat(localStorage.getItem('sk_vol')),
   mouseX: window.innerWidth / 2,
   mouseY: window.innerHeight / 2,
-  particles: [] // Lưu trữ hạt cho Canvas Engine
+  particles: []
 };
 
+// Hàm chọn DOM an toàn
 const $ = id => document.getElementById(id);
-const scalePerf = n => STATE.REDUCED_MOTION ? 0 : Math.max(8, Math.round(n * (0.5 + STATE.PERF * 0.8)));
+// Phân bổ tài nguyên hợp lý. Nếu là Mobile -> chia 2 hoặc 3 số lượng hạt để đạt 60FPS
+const getPerfFactor = () => STATE.REDUCED_MOTION ? 0 : (STATE.IS_MOBILE ? 0.4 : 1.0);
+const scalePerf = n => Math.max(8, Math.floor(n * getPerfFactor()));
 
 /* ==========================================================================
-   SVG ICON THỜI TIẾT (ĐÃ NÂNG CẤP VỚI SHADOW & GRADIENT)
+   SVG ICON THỜI TIẾT
    ========================================================================== */
 const svgIcons = {
   SUNNY: `<svg viewBox="0 0 64 64"><defs><radialGradient id="g1"><stop offset="0%" stop-color="#fff"/><stop offset="50%" stop-color="#fef08a"/><stop offset="100%" stop-color="#facc15"/></radialGradient></defs><circle cx="32" cy="32" r="16" fill="url(#g1)" stroke="#ca8a04" stroke-width="2" filter="drop-shadow(0 0 10px #facc15)"/><g stroke="#facc15" stroke-width="4" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="10"/><line x1="32" y1="54" x2="32" y2="60"/><line x1="4" y1="32" x2="10" y2="32"/><line x1="54" y1="32" x2="60" y2="32"/><line x1="12" y1="12" x2="16" y2="16"/><line x1="48" y1="48" x2="52" y2="52"/><line x1="12" y1="52" x2="16" y2="48"/><line x1="48" y1="12" x2="52" y2="16"/></g></svg>`,
@@ -1058,13 +1110,13 @@ const weatherNames = {SUNNY:'Trời Nắng ☀️',SUNSET:'Hoàng Hôn 🌅',NIG
 const OTHER_WEATHERS = ['SUNSET','RAIN','NIGHT','NIGHT_RAIN','STORM','SNOW','BLIZZARD'];
 
 /* ==========================================================================
-   HỆ THỐNG ÂM THANH KHÔNG GIAN (SPATIAL AUDIO ENGINE)
+   HỆ THỐNG ÂM THANH KHÔNG GIAN (PHÒNG THỦ LỖI AUTO-PLAY POLICY)
    ========================================================================== */
 const AUDIO = {
   ctx: null, master: null, rain: null, wind: null,
   init: function() {
-    if(this.ctx) return;
     try {
+      if(this.ctx) return;
       const AC = window.AudioContext || window.webkitAudioContext;
       if(!AC) return;
       this.ctx = new AC();
@@ -1072,7 +1124,6 @@ const AUDIO = {
       this.master.gain.value = STATE.isMuted ? 0 : STATE.savedVol;
       this.master.connect(this.ctx.destination);
 
-      // Tạo White Noise Buffer để mô phỏng mưa/gió
       const len = this.ctx.sampleRate * 2;
       const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
       const data = buf.getChannelData(0);
@@ -1087,7 +1138,7 @@ const AUDIO = {
       };
       this.rain = createSource('lowpass', 800);
       this.wind = createSource('bandpass', 350, 2);
-    } catch(e) { console.warn('Audio Init Failed:', e); }
+    } catch(e) { console.warn('Audio system skipped due to browser constraints.'); }
   },
   ramp: function(node, val, time = 1.5) {
     if(!this.ctx || !node) return;
@@ -1120,42 +1171,59 @@ const AUDIO = {
   playThunder: () => AUDIO.beep({type:'square', f0:150, f1:30, dur:2.0, vol:0.6, exp:true})
 };
 
-// Unlock Audio Context on first interaction
+// Mở khóa âm thanh an toàn qua Event interaction
 ['pointerdown','keydown','touchstart'].forEach(evt => window.addEventListener(evt, () => {
   AUDIO.init();
-  if(AUDIO.ctx && AUDIO.ctx.state === 'suspended') AUDIO.ctx.resume().then(() => AUDIO.updateForWeather(STATE.currentMode));
-  else AUDIO.updateForWeather(STATE.currentMode);
+  if(AUDIO.ctx && AUDIO.ctx.state === 'suspended') {
+    AUDIO.ctx.resume().then(() => AUDIO.updateForWeather(STATE.currentMode)).catch(()=>{});
+  } else {
+    AUDIO.updateForWeather(STATE.currentMode);
+  }
 }, {passive:true, once:true}));
 
 function toggleMasterSound() {
   STATE.isMuted = !STATE.isMuted; localStorage.setItem('sk_mute', STATE.isMuted ? '1' : '0');
   const b = $('sound-toggle-btn');
-  b.textContent = STATE.isMuted ? 'Âm thanh: OFF' : 'Âm thanh: ON';
-  b.classList.toggle('muted', STATE.isMuted);
+  if (b) {
+    b.textContent = STATE.isMuted ? 'Âm thanh: OFF' : 'Âm thanh: ON';
+    b.classList.toggle('muted', STATE.isMuted);
+  }
   AUDIO.ramp(AUDIO.master, STATE.isMuted ? 0 : STATE.savedVol, 0.5);
 }
+
 function updateMasterVolume(v) {
   STATE.savedVol = v / 100; localStorage.setItem('sk_vol', STATE.savedVol);
-  $('volume-text').textContent = v + '%';
+  const textEl = $('volume-text');
+  if (textEl) textEl.textContent = v + '%';
   if(!STATE.isMuted) AUDIO.ramp(AUDIO.master, STATE.savedVol, 0.2);
 }
 
 /* ==========================================================================
-   PARTICLE ENGINE (CANVAS MƯA/TUYẾT/SAO/ĐOM ĐÓM) - TỐI ƯU 60FPS
+   PARTICLE ENGINE CẢI TIẾN: GIẢI QUYẾT TRIỆT ĐỂ LỖI HỤT VIỀN VÀ LAG
    ========================================================================== */
 const CanvasEngine = {
   canvas: $('particle-canvas'),
-  ctx: $('particle-canvas').getContext('2d', {alpha: true}),
+  ctx: null,
   width: 0, height: 0,
+  dpr: window.devicePixelRatio || 1, // Giải quyết mờ nhòe trên điện thoại
   animationId: null,
   init: function() {
+    if (!this.canvas) return;
+    this.ctx = this.canvas.getContext('2d', {alpha: true, desynchronized: true});
     this.resize();
-    window.addEventListener('resize', () => this.resize());
     this.loop();
   },
   resize: function() {
-    this.width = window.innerWidth; this.height = window.innerHeight;
-    this.canvas.width = this.width; this.canvas.height = this.height;
+    if (!this.canvas) return;
+    // Bơm kích thước vượt chuẩn (120%) để triệt tiêu lỗi mất hạt khi Address bar thay đổi
+    this.width = window.innerWidth * 1.2; 
+    this.height = window.innerHeight * 1.3;
+    
+    // Áp dụng DPR để độ phân giải mịn mà không làm lag CSS scale
+    this.canvas.width = this.width * this.dpr; 
+    this.canvas.height = this.height * this.dpr;
+    this.ctx.scale(this.dpr, this.dpr);
+    
     this.populate();
   },
   populate: function() {
@@ -1163,20 +1231,21 @@ const CanvasEngine = {
     const mode = STATE.currentMode;
     let count = 0, type = '';
     
+    // Ép hạt giảm xuống rất thấp trên Mobile để chống lag
     if(mode === 'RAIN' || mode === 'NIGHT_RAIN') { count = scalePerf(150); type = 'rain'; }
-    else if(mode === 'STORM') { count = scalePerf(250); type = 'storm'; }
-    else if(mode === 'SNOW') { count = scalePerf(100); type = 'snow'; }
-    else if(mode === 'BLIZZARD') { count = scalePerf(200); type = 'blizzard'; }
-    else if(mode === 'NIGHT') { count = scalePerf(150); type = 'star'; }
-    else if(mode === 'SUNSET' || mode === 'SUNNY') { count = scalePerf(60); type = 'dust'; }
+    else if(mode === 'STORM') { count = scalePerf(220); type = 'storm'; }
+    else if(mode === 'SNOW') { count = scalePerf(90); type = 'snow'; }
+    else if(mode === 'BLIZZARD') { count = scalePerf(180); type = 'blizzard'; }
+    else if(mode === 'NIGHT') { count = scalePerf(120); type = 'star'; }
+    else if(mode === 'SUNSET' || mode === 'SUNNY') { count = scalePerf(40); type = 'dust'; }
 
     for(let i = 0; i < count; i++) {
       STATE.particles.push({
         x: Math.random() * this.width,
         y: Math.random() * this.height,
-        s: Math.random() * 3 + 1, // size
-        vx: (Math.random() - 0.5) * 2, // velocity x
-        vy: Math.random() * 5 + 2, // velocity y
+        s: Math.random() * 3 + 1,
+        vx: (Math.random() - 0.5) * 2,
+        vy: Math.random() * 5 + 2,
         opacity: Math.random() * 0.8 + 0.2,
         type: type,
         angle: Math.random() * Math.PI * 2,
@@ -1185,101 +1254,113 @@ const CanvasEngine = {
     }
   },
   loop: function() {
-    this.ctx.clearRect(0, 0, this.width, this.height);
-    const mode = STATE.currentMode;
-    
-    for(let i = 0; i < STATE.particles.length; i++) {
-      let p = STATE.particles[i];
+    try {
+      if(STATE.isResizing) {
+         this.animationId = requestAnimationFrame(() => this.loop());
+         return;
+      }
+
+      this.ctx.clearRect(0, 0, this.width, this.height);
+      const mode = STATE.currentMode;
       
-      if(p.type === 'rain' || p.type === 'storm') {
-        p.vy = p.type === 'storm' ? (Math.random()*10 + 15) : (Math.random()*8 + 10);
-        p.vx = p.type === 'storm' ? 8 : 2; // Gió thổi nghiêng
+      // Batch thao tác vẽ để giảm Context Switch
+      this.ctx.lineCap = "round";
+      
+      for(let i = 0; i < STATE.particles.length; i++) {
+        let p = STATE.particles[i];
         
-        this.ctx.beginPath();
-        this.ctx.moveTo(p.x, p.y);
-        this.ctx.lineTo(p.x + p.vx * 2, p.y + p.vy * 2);
-        this.ctx.strokeStyle = `rgba(255, 255, 255, ${p.opacity * 0.6})`;
-        this.ctx.lineWidth = p.type === 'storm' ? 2 : 1;
-        this.ctx.stroke();
-      } 
-      else if (p.type === 'snow' || p.type === 'blizzard') {
-        p.vy = p.type === 'blizzard' ? (Math.random()*4 + 4) : (Math.random()*2 + 1);
-        p.vx = p.type === 'blizzard' ? (Math.random()*8 + 4) : Math.sin(p.angle) * 1.5;
-        p.angle += p.spin;
-        
-        this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2);
-        this.ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-        this.ctx.shadowBlur = 5; this.ctx.shadowColor = '#fff';
-        this.ctx.fill();
-        this.ctx.shadowBlur = 0; // Reset
-      }
-      else if (p.type === 'star') {
-        // Sao nhấp nháy trên bầu trời
-        p.vx = 0; p.vy = 0;
-        let twinkle = Math.sin(Date.now() * 0.002 * p.s) * 0.5 + 0.5;
-        this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.s * 0.6, 0, Math.PI * 2);
-        this.ctx.fillStyle = `rgba(255, 255, 255, ${twinkle * p.opacity})`;
-        this.ctx.fill();
-        
-        // Thỉnh thoảng có sao băng
-        if(Math.random() < 0.0001) {
-          p.x = Math.random() * this.width; p.y = 0; p.vx = -15; p.vy = 15; p.type = 'meteor';
+        if(p.type === 'rain' || p.type === 'storm') {
+          p.vy = p.type === 'storm' ? (Math.random()*10 + 15) : (Math.random()*6 + 10);
+          p.vx = p.type === 'storm' ? 8 : 2; 
+          
+          this.ctx.beginPath();
+          // Fix siêu lag: Dùng tọa độ số nguyên (Math.floor) ép CPU không dùng Anti-Aliasing
+          this.ctx.moveTo(Math.floor(p.x), Math.floor(p.y));
+          this.ctx.lineTo(Math.floor(p.x + p.vx * 2), Math.floor(p.y + p.vy * 2));
+          this.ctx.strokeStyle = `rgba(255, 255, 255, ${p.opacity * 0.5})`;
+          this.ctx.lineWidth = p.type === 'storm' ? 2 : 1.5;
+          this.ctx.stroke();
+        } 
+        else if (p.type === 'snow' || p.type === 'blizzard') {
+          p.vy = p.type === 'blizzard' ? (Math.random()*5 + 5) : (Math.random()*2 + 1.5);
+          p.vx = p.type === 'blizzard' ? (Math.random()*8 + 4) : Math.sin(p.angle) * 1.5;
+          p.angle += p.spin;
+          
+          this.ctx.beginPath();
+          this.ctx.arc(Math.floor(p.x), Math.floor(p.y), p.s, 0, Math.PI * 2);
+          this.ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+          // Tắt blur shadow trên mobile cho snow để chống lag
+          if (!STATE.IS_MOBILE) {
+            this.ctx.shadowBlur = 5; this.ctx.shadowColor = '#fff';
+          }
+          this.ctx.fill();
+          this.ctx.shadowBlur = 0; 
+        }
+        else if (p.type === 'star') {
+          p.vx = 0; p.vy = 0;
+          let twinkle = Math.sin(Date.now() * 0.002 * p.s) * 0.5 + 0.5;
+          this.ctx.beginPath();
+          this.ctx.arc(Math.floor(p.x), Math.floor(p.y), p.s * 0.6, 0, Math.PI * 2);
+          this.ctx.fillStyle = `rgba(255, 255, 255, ${twinkle * p.opacity})`;
+          this.ctx.fill();
+          
+          if(Math.random() < 0.00005) {
+            p.x = Math.random() * this.width; p.y = 0; p.vx = -15; p.vy = 15; p.type = 'meteor';
+          }
+        }
+        else if (p.type === 'meteor') {
+          this.ctx.beginPath();
+          this.ctx.moveTo(Math.floor(p.x), Math.floor(p.y));
+          this.ctx.lineTo(Math.floor(p.x - p.vx*3), Math.floor(p.y - p.vy*3));
+          this.ctx.strokeStyle = `rgba(255,255,255, ${p.opacity})`;
+          this.ctx.lineWidth = 2; this.ctx.stroke();
+          if(p.y > this.height) { p.type = 'star'; p.vx=0; p.vy=0; }
+        }
+        else if (p.type === 'dust') {
+          p.vx = Math.sin(p.angle) * 0.5;
+          p.vy = Math.cos(p.angle) * 0.5 - 0.5; 
+          p.angle += p.spin;
+          let glow = Math.sin(Date.now() * 0.001 * p.s) * 0.5 + 0.5;
+          this.ctx.beginPath();
+          this.ctx.arc(Math.floor(p.x), Math.floor(p.y), p.s * 0.5, 0, Math.PI * 2);
+          this.ctx.fillStyle = (mode==='SUNSET') ? `rgba(250, 204, 21, ${glow*0.8})` : `rgba(255, 255, 255, ${glow*0.5})`;
+          this.ctx.fill();
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around thông minh - Tạo cảm giác liên tục
+        if(p.x > this.width || p.x < 0 || p.y > this.height || p.y < -50) {
+          if(p.type !== 'star' && p.type !== 'meteor') {
+            p.x = Math.random() * this.width;
+            p.y = -20; // Rớt từ ngoài màn hình vào
+          }
         }
       }
-      else if (p.type === 'meteor') {
-        this.ctx.beginPath();
-        this.ctx.moveTo(p.x, p.y);
-        this.ctx.lineTo(p.x - p.vx*3, p.y - p.vy*3);
-        this.ctx.strokeStyle = `rgba(255,255,255, ${p.opacity})`;
-        this.ctx.lineWidth = 2; this.ctx.stroke();
-        if(p.y > this.height) { p.type = 'star'; p.vx=0; p.vy=0; }
-      }
-      else if (p.type === 'dust') {
-        p.vx = Math.sin(p.angle) * 0.5;
-        p.vy = Math.cos(p.angle) * 0.5 - 0.5; // Bay lơ lửng lên
-        p.angle += p.spin;
-        let glow = Math.sin(Date.now() * 0.001 * p.s) * 0.5 + 0.5;
-        this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.s * 0.5, 0, Math.PI * 2);
-        this.ctx.fillStyle = (mode==='SUNSET') ? `rgba(250, 204, 21, ${glow*0.8})` : `rgba(255, 255, 255, ${glow*0.5})`;
-        this.ctx.fill();
-      }
-
-      // Cập nhật vị trí
-      p.x += p.vx;
-      p.y += p.vy;
-
-      // Wrap around màn hình
-      if(p.x > this.width || p.x < 0 || p.y > this.height || p.y < -50) {
-        if(p.type !== 'star' && p.type !== 'meteor') {
-          p.x = Math.random() * this.width;
-          p.y = -10;
-        }
-      }
+      this.animationId = requestAnimationFrame(() => this.loop());
+    } catch(err) {
+      console.warn('Canvas Error Suppressed: ', err);
     }
-    
-    this.animationId = requestAnimationFrame(() => this.loop());
   }
 };
 
 /* ==========================================================================
-   PROCEDURAL GENERATION - HỆ THỐNG SINH THÁI TỰ ĐỘNG (GAME ENVIRONMENT)
+   PROCEDURAL GENERATION - HỆ THỐNG SINH THÁI TỰ ĐỘNG (ĐÃ GIẢM TẢI MOBILE)
    ========================================================================== */
 const buildSVG = (vb, cls) => { const s = document.createElementNS('http://www.w3.org/2000/svg','svg'); s.setAttribute('viewBox', vb); s.setAttribute('class', cls); return s; };
 
-// Tạo 6 lớp núi SVG chi tiết
 function generateMountains() {
   const w = 1200, h = 300;
   for(let i=1; i<=6; i++) {
     const box = $(`layer-${i}`);
+    if(!box) continue;
     box.innerHTML = '';
     const svg = buildSVG(`0 0 ${w} ${h}`, 'mountain-svg');
     let pathStr = `M0 ${h} `;
     
-    // Thuật toán đồi núi nhấp nhô
-    let points = 6 + i*2; // Càng gần càng nhiều điểm gồ ghề
+    // Tối ưu thuật toán đồi núi
+    let points = STATE.IS_MOBILE ? (4 + i) : (6 + i*2); 
     let step = w / points;
     let currentY = h - (40 * i);
     
@@ -1296,31 +1377,30 @@ function generateMountains() {
   }
 }
 
-// Tạo thảm cỏ chi tiết
 function generateGrass() {
-  const box = $('layer-grass'); box.innerHTML = '';
+  const box = $('layer-grass'); if(!box) return;
+  box.innerHTML = '';
   const svg = buildSVG('0 0 1000 100', 'grass-svg');
-  // Sinh cỏ lởm chởm bằng Q Bezier Curves
+  // Giảm điểm cong trên mobile
+  const interval = STATE.IS_MOBILE ? 40 : 20;
+  
   let path1 = 'M0,100 L0,50 ';
-  for(let i=0; i<1000; i+=20) { path1 += `Q${i+10},${30 + Math.random()*20} ${i+20},50 `; }
+  for(let i=0; i<1000; i+=interval) { path1 += `Q${i+(interval/2)},${30 + Math.random()*20} ${i+interval},50 `; }
   path1 += 'L1000,100 Z';
   
   let path2 = 'M0,100 L0,70 ';
-  for(let i=0; i<1000; i+=15) { path2 += `Q${i+7.5},${50 + Math.random()*15} ${i+15},70 `; }
+  for(let i=0; i<1000; i+=interval*0.75) { path2 += `Q${i+(interval*0.375)},${50 + Math.random()*15} ${i+(interval*0.75)},70 `; }
   path2 += 'L1000,100 Z';
 
-  svg.innerHTML = `
-    <path class="mt-2" d="${path1}"/>
-    <path class="mt-1" d="${path2}"/>
-  `;
+  svg.innerHTML = `<path class="mt-2" d="${path1}"/><path class="mt-1" d="${path2}"/>`;
   box.appendChild(svg);
 }
 
-// Sinh rừng cây tự động bằng đệ quy (Fractal Tree Logic đơn giản hóa)
 function generateForest() {
-  const container = $('forest-box');
+  const container = $('forest-box'); if(!container) return;
   container.innerHTML = '';
-  const totalTrees = window.innerWidth < 600 ? 12 : 20;
+  // Mobile chỉ sinh 6-8 cây để mượt 60FPS
+  const totalTrees = STATE.IS_MOBILE ? 7 : (window.innerWidth < 600 ? 12 : 20);
   const frag = document.createDocumentFragment();
 
   for(let i=0; i<totalTrees; i++) {
@@ -1331,7 +1411,6 @@ function generateForest() {
     wrap.style.left = (i * (100/totalTrees) + (Math.random()*4 - 2)) + '%';
     wrap.style.zIndex = Math.floor(Math.random() * 4);
     
-    // Kích thước ngẫu nhiên
     let width = 60 + Math.random() * 60;
     let height = 120 + Math.random() * 100;
     wrap.style.width = width + 'px';
@@ -1339,8 +1418,6 @@ function generateForest() {
     wrap.style.animationDelay = (-Math.random() * 5) + 's';
 
     const svg = buildSVG(`0 0 100 200`, 'nature-tree');
-    
-    // Sinh màu lá theo style rừng hỗn hợp
     const isPine = Math.random() > 0.5;
     const trunkColor = '#3f1d0b';
     const trunkShadow = '#291206';
@@ -1348,31 +1425,27 @@ function generateForest() {
     let innerHTML = '';
     
     if (isPine) {
-      // Cây thông (Hình tam giác xếp chồng)
       innerHTML += `<rect x="44" y="140" width="12" height="60" rx="3" fill="${trunkColor}"/>`;
-      innerHTML += `<rect x="50" y="140" width="6" height="60" fill="${trunkShadow}"/>`; // Bóng thân
+      if(!STATE.IS_MOBILE) innerHTML += `<rect x="50" y="140" width="6" height="60" fill="${trunkShadow}"/>`;
       
-      const layers = 4;
+      const layers = STATE.IS_MOBILE ? 3 : 4;
       for(let j=0; j<layers; j++) {
-        let yTop = 20 + j*30;
-        let yBot = 90 + j*25;
-        let xWide = 20 - j*2;
+        let yTop = 20 + j*30; let yBot = 90 + j*25; let xWide = 20 - j*2;
         let color = ['#064e3b','#065f46','#047857','#10b981'][j%4];
-        innerHTML += `<path d="M50 ${yTop} L${100 - xWide} ${yBot} L${xWide} ${yBot} Z" fill="${color}" filter="drop-shadow(0 5px 5px rgba(0,0,0,0.3))"/>`;
+        let shadow = STATE.IS_MOBILE ? '' : 'filter="drop-shadow(0 5px 5px rgba(0,0,0,0.3))"';
+        innerHTML += `<path d="M50 ${yTop} L${100 - xWide} ${yBot} L${xWide} ${yBot} Z" fill="${color}" ${shadow}/>`;
       }
     } else {
-      // Cây tán rộng (Các cụm hình tròn)
       innerHTML += `<path d="M42 200 Q45 140 35 90 Q50 110 58 200 Z" fill="${trunkColor}"/>`;
-      // Cành
       innerHTML += `<path d="M45 130 Q25 110 15 80" stroke="${trunkColor}" stroke-width="6" fill="none" stroke-linecap="round"/>`;
       innerHTML += `<path d="M50 120 Q75 100 85 70" stroke="${trunkColor}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
       
-      // Các cụm lá
-      const clusters = [[50,60,35], [25,80,25], [75,70,30], [50,90,40], [35,50,20], [65,45,20]];
+      const clusters = STATE.IS_MOBILE ? [[50,60,35], [25,80,25], [75,70,30], [50,90,40]] : [[50,60,35], [25,80,25], [75,70,30], [50,90,40], [35,50,20], [65,45,20]];
       clusters.forEach(c => {
         let color = ['#166534', '#15803d', '#22c55e', '#4ade80'][Math.floor(Math.random()*4)];
-        innerHTML += `<circle cx="${c[0]}" cy="${c[1]}" r="${c[2]}" fill="${color}" filter="drop-shadow(0 5px 8px rgba(0,0,0,0.4))"/>`;
-        innerHTML += `<circle cx="${c[0]-c[2]*0.2}" cy="${c[1]-c[2]*0.2}" r="${c[2]*0.5}" fill="rgba(255,255,255,0.15)"/>`; // Highlight
+        let shadow = STATE.IS_MOBILE ? '' : 'filter="drop-shadow(0 5px 8px rgba(0,0,0,0.4))"';
+        innerHTML += `<circle cx="${c[0]}" cy="${c[1]}" r="${c[2]}" fill="${color}" ${shadow}/>`;
+        if(!STATE.IS_MOBILE) innerHTML += `<circle cx="${c[0]-c[2]*0.2}" cy="${c[1]-c[2]*0.2}" r="${c[2]*0.5}" fill="rgba(255,255,255,0.15)"/>`;
       });
     }
 
@@ -1383,11 +1456,9 @@ function generateForest() {
   container.appendChild(frag);
 }
 
-// Khởi tạo các đối tượng DOM bay lơ lửng (Mây, Chim, Lá)
 function populateDOMFX() {
-  // Mây
-  const cBox = $('moving-clouds'); cBox.innerHTML = '';
-  const cloudCount = scalePerf(['STORM','BLIZZARD'].includes(STATE.currentMode) ? 12 : 7);
+  const cBox = $('moving-clouds'); if(cBox) cBox.innerHTML = '';
+  const cloudCount = scalePerf(['STORM','BLIZZARD'].includes(STATE.currentMode) ? 8 : 4);
   for(let i=0; i<cloudCount; i++) {
     const c = buildSVG('0 0 200 100', 'moving-cloud');
     c.style.width = (150 + Math.random()*150) + 'px';
@@ -1395,41 +1466,36 @@ function populateDOMFX() {
     c.style.animation = `marq ${30 + Math.random()*50}s linear infinite`;
     c.style.animationDelay = (-Math.random()*60) + 's';
     c.innerHTML = '<path d="M40,60 Q20,60 20,40 Q20,20 40,20 Q50,5 70,5 Q100,5 110,25 Q130,10 150,25 Q170,25 170,45 Q170,60 150,60 Z"/>';
-    cBox.appendChild(c);
+    if(cBox) cBox.appendChild(c);
   }
   
-  // Chim
-  const bBox = $('birds-box'); bBox.innerHTML = '';
+  const bBox = $('birds-box'); if(bBox) bBox.innerHTML = '';
   if(['SUNNY','SUNSET','SNOW'].includes(STATE.currentMode)) {
-    for(let i=0; i<scalePerf(6); i++) {
+    for(let i=0; i<scalePerf(4); i++) {
       const b = buildSVG('0 0 50 50', 'bird');
       b.style.width = (15 + Math.random()*15) + 'px';
       b.style.top = (5 + Math.random()*25) + 'vh';
       b.style.animation = `marq ${15 + Math.random()*15}s linear infinite`;
       b.style.animationDelay = (-Math.random()*20) + 's';
-      // Anim bay đập cánh bằng scaleY xen kẽ trong CSS (có thể thêm nhưng để tối ưu ta chỉ bay lướt)
       b.innerHTML = '<path d="M5 25 Q25 10 25 25 Q25 10 45 25 Q25 18 25 32 Q25 18 5 25 Z"/>';
-      bBox.appendChild(b);
+      if(bBox) bBox.appendChild(b);
     }
   }
 
-  // Lá bay
-  const lBox = $('leaves-box'); lBox.innerHTML = '';
+  const lBox = $('leaves-box'); if(lBox) lBox.innerHTML = '';
   if(!['SNOW','BLIZZARD','RAIN','NIGHT_RAIN'].includes(STATE.currentMode)) {
-    for(let i=0; i<scalePerf(STATE.currentMode==='STORM' ? 25 : 12); i++) {
+    for(let i=0; i<scalePerf(STATE.currentMode==='STORM' ? 15 : 6); i++) {
       const l = buildSVG('0 0 30 30', 'leaf');
       l.style.width = '12px';
       l.style.left = (Math.random()*100) + 'vw';
-      // Tạo keyframe riêng cho lá rơi trong JS để tránh load CSS tĩnh
       l.style.animation = `fallLeaf ${4 + Math.random()*6}s linear infinite`;
       l.style.animationDelay = (Math.random()*10) + 's';
       l.innerHTML = '<path d="M15 0 C30 0 30 15 15 30 C0 15 0 0 15 0 Z"/>';
-      lBox.appendChild(l);
+      if(lBox) lBox.appendChild(l);
     }
   }
 }
 
-// Bổ sung keyframe động cho Lá
 if(!document.getElementById('dynamic-keyframes')) {
   const style = document.createElement('style');
   style.id = 'dynamic-keyframes';
@@ -1443,28 +1509,24 @@ if(!document.getElementById('dynamic-keyframes')) {
   document.head.appendChild(style);
 }
 
-
 /* ==========================================================================
    ENGINE THỜI TIẾT VÀ CHU KỲ (WEATHER SYSTEM)
    ========================================================================== */
 function setWeatherClass(mode) {
-  document.body.className = ''; // Xóa hết class cũ
+  document.body.className = ''; 
   document.body.classList.add('weather-' + mode.toLowerCase().replace(/_/g, '-'));
 }
 
 function applyWeather(mode) {
   STATE.previousMode = STATE.currentMode;
   STATE.currentMode = mode;
-  
   setWeatherClass(mode);
   
-  // UI Update
-  $('status-box').innerHTML = svgIcons[mode];
-  $('wf-current-icon').innerHTML = svgIcons[mode];
-  $('wf-current-name').textContent = weatherNames[mode];
-  $('weather-chip').textContent = weatherNames[mode];
+  if ($('status-box')) $('status-box').innerHTML = svgIcons[mode];
+  if ($('wf-current-icon')) $('wf-current-icon').innerHTML = svgIcons[mode];
+  if ($('wf-current-name')) $('wf-current-name').textContent = weatherNames[mode];
+  if ($('weather-chip')) $('weather-chip').textContent = weatherNames[mode];
 
-  // Kích hoạt Ếch nhảy nếu đổi từ mưa sang tạnh
   const wet = ['RAIN','NIGHT_RAIN','STORM'];
   if(wet.includes(STATE.previousMode) && ['NIGHT','SUNSET','SUNNY'].includes(mode)) {
     document.body.classList.add('frog-active');
@@ -1474,12 +1536,10 @@ function applyWeather(mode) {
     document.body.classList.remove('frog-active');
   }
 
-  // Khởi tạo lại Particle Canvas và DOM FX
   CanvasEngine.populate();
   populateDOMFX();
   AUDIO.updateForWeather(mode);
 
-  // Xử lý sấm sét bão
   clearTimeout(STATE.lightningTimer);
   STATE.lightningTimer = null;
   if(mode === 'STORM') triggerLightning();
@@ -1488,21 +1548,18 @@ function applyWeather(mode) {
 function triggerLightning() {
   if(STATE.currentMode !== 'STORM') return;
   const flash = $('lightning-flash');
-  
-  // Fake chớp sáng
-  flash.style.opacity = '0.9';
-  AUDIO.playThunder();
-  
-  setTimeout(() => flash.style.opacity = '0', 100);
-  setTimeout(() => {
-    flash.style.opacity = '0.6';
-    setTimeout(() => flash.style.opacity = '0', 80);
-  }, 250);
-  
+  if (flash) {
+    flash.style.opacity = '0.9';
+    AUDIO.playThunder();
+    setTimeout(() => flash.style.opacity = '0', 100);
+    setTimeout(() => {
+      flash.style.opacity = '0.6';
+      setTimeout(() => flash.style.opacity = '0', 80);
+    }, 250);
+  }
   STATE.lightningTimer = setTimeout(triggerLightning, 5000 + Math.random()*10000);
 }
 
-// Logic xoay vòng thời tiết
 const getModeForBlock = block => (block % 2 === 0) ? 'SUNNY' 
   : OTHER_WEATHERS[Math.floor(Math.abs(Math.sin(block * 123.456) * 1000)) % OTHER_WEATHERS.length];
 
@@ -1517,19 +1574,19 @@ function weatherLoop() {
   const mins = String(Math.floor(remain / 60)).padStart(2, '0');
   const secs = String(remain % 60).padStart(2, '0');
   
-  $('wf-timer-text').textContent = `${mins}:${secs}`;
-  $('wf-progress').style.width = (100 - (remain / STATE.CYCLE * 100)).toFixed(2) + '%';
-  $('wf-next-name').textContent = weatherNames[getModeForBlock(block + 1)];
+  if ($('wf-timer-text')) $('wf-timer-text').textContent = `${mins}:${secs}`;
+  if ($('wf-progress')) $('wf-progress').style.width = (100 - (remain / STATE.CYCLE * 100)).toFixed(2) + '%';
+  if ($('wf-next-name')) $('wf-next-name').textContent = weatherNames[getModeForBlock(block + 1)];
 }
 
 /* ==========================================================================
-   UI CONTROLS & EVENT LISTENERS & 3D PARALLAX
+   UI CONTROLS & EVENT LISTENERS
    ========================================================================== */
 function toggleNoticeBoard() {
   const board = $('main-notice-board');
   const badge = $('notice-badge');
+  if(!board || !badge) return;
   
-  // Ripple effect on click
   const ripple = document.createElement('div');
   ripple.className = 'ripple';
   ripple.style.left = '50%'; ripple.style.top = '50%';
@@ -1549,28 +1606,29 @@ function openWebUtilsModal(e) {
     setTimeout(()=>ripple.remove(), 600);
   }
   
-  $('main-notice-board').classList.add('collapsed');
-  $('notice-badge').textContent = 'Thu Gọn';
-  $('web-utils-modal').classList.add('active');
+  const nb = $('main-notice-board'); if (nb) nb.classList.add('collapsed');
+  const b = $('notice-badge'); if (b) b.textContent = 'Thu Gọn';
+  const modal = $('web-utils-modal'); if (modal) modal.classList.add('active');
 }
 
 function closeWebUtilsModal() {
-  $('web-utils-modal').classList.remove('active');
+  const modal = $('web-utils-modal');
+  if (modal) modal.classList.remove('active');
 }
 
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') {
     closeWebUtilsModal();
-    $('menu-drawer').classList.remove('show');
+    const md = $('menu-drawer'); if (md) md.classList.remove('show');
   }
 });
 
 function switchTab(id, btn) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-  $(id).classList.add('active');
+  const target = $(id); if (target) target.classList.add('active');
   if(btn) btn.classList.add('active');
-  filterBoxes($('util-search').value);
+  filterBoxes($('util-search') ? $('util-search').value : '');
 }
 
 function filterBoxes(query) {
@@ -1588,7 +1646,7 @@ function filterBoxes(query) {
       if(!msg) {
         msg = document.createElement('div');
         msg.className = 'empty-msg';
-        msg.textContent = 'Không tìm thấy tiện ích nào phù hợp với từ khóa 😢';
+        msg.textContent = 'Không tìm thấy tiện ích phù hợp 😢';
         tab.appendChild(msg);
       }
     } else if(msg) {
@@ -1598,7 +1656,12 @@ function filterBoxes(query) {
 }
 
 function copyCode(btn) {
-  const text = btn.closest('.box').querySelector('.script-text').innerText.trim();
+  const box = btn.closest('.box');
+  if(!box) return;
+  const scriptEl = box.querySelector('.script-text');
+  if(!scriptEl) return;
+  
+  const text = scriptEl.innerText.trim();
   const fallbackCopy = () => {
     const ta = document.createElement('textarea');
     ta.value = text;
@@ -1606,7 +1669,7 @@ function copyCode(btn) {
     document.body.appendChild(ta);
     ta.select();
     try { document.execCommand('copy'); onSuccess(); } 
-    catch(e) { prompt('Trình duyệt không hỗ trợ copy, hãy copy thủ công:', text); }
+    catch(e) { prompt('Hãy Copy bằng tay:', text); }
     ta.remove();
   };
   
@@ -1625,52 +1688,41 @@ function copyCode(btn) {
 }
 
 function toggleMenuDrawer() {
-  $('menu-drawer').classList.toggle('show');
+  const md = $('menu-drawer');
+  if (md) md.classList.toggle('show');
 }
 
-// Đóng Menu Drawer khi click ra ngoài
 document.addEventListener('pointerdown', e => {
   const drawer = $('menu-drawer');
-  if(drawer.classList.contains('show') && !drawer.contains(e.target) && !e.target.closest('.menu-toc-btn')) {
+  if(drawer && drawer.classList.contains('show') && !drawer.contains(e.target) && !e.target.closest('.menu-toc-btn')) {
     drawer.classList.remove('show');
   }
 });
 
-/* HIỆU ỨNG PARALLAX 3D CHO THE MAIN CARD VÀ MÔI TRƯỜNG */
+/* HIỆU ỨNG PARALLAX 3D (TẮT TRÊN MOBILE ĐỂ TỐI ƯU FPS) */
 document.addEventListener('mousemove', e => {
-  if(STATE.REDUCED_MOTION || window.innerWidth < 768) return;
+  if(STATE.REDUCED_MOTION || STATE.IS_MOBILE) return;
   
-  const x = e.clientX;
-  const y = e.clientY;
-  const cx = window.innerWidth / 2;
-  const cy = window.innerHeight / 2;
-  
-  // Lưu tọa độ để CSS cập nhật ánh sáng
+  const x = e.clientX, y = e.clientY, cx = window.innerWidth / 2, cy = window.innerHeight / 2;
   document.documentElement.style.setProperty('--mouse-x', x + 'px');
   document.documentElement.style.setProperty('--mouse-y', y + 'px');
 
-  // Tính góc nghiêng cho thẻ chính
-  const tiltX = ((y - cy) / cy) * -5; // Nghiêng max 5 độ
-  const tiltY = ((x - cx) / cx) * 5;
+  const tiltX = ((y - cy) / cy) * -4; 
+  const tiltY = ((x - cx) / cx) * 4;
   
   const card = $('main-card');
-  if(card) {
-    card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-  }
+  if(card) card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
   
-  // Parallax môi trường
   const env = $('nature-environment');
   if(env) {
-    const moveX = ((x - cx) / cx) * -10;
-    const moveY = ((y - cy) / cy) * -5;
+    const moveX = ((x - cx) / cx) * -8;
+    const moveY = ((y - cy) / cy) * -4;
     env.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
   }
 });
 
-// Reset tilt khi rời chuột
 document.addEventListener('mouseleave', () => {
-  const card = $('main-card');
-  const env = $('nature-environment');
+  const card = $('main-card'); const env = $('nature-environment');
   if(card) card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
   if(env) env.style.transform = `translateX(0px) translateY(0px)`;
 });
@@ -1680,22 +1732,19 @@ document.addEventListener('mouseleave', () => {
 clearInterval(STATE.noticeInterval);
 STATE.noticeInterval = setInterval(() => {
   const nb = $('main-notice-board');
-  nb.classList.add('glow');
-  setTimeout(() => nb.classList.remove('glow'), 3000);
-}, 25000); // 25s nháy 1 lần
+  if(nb) { nb.classList.add('glow'); setTimeout(() => nb.classList.remove('glow'), 3000); }
+}, 25000); 
 
 /* TIẾNG CHIM KÊU NGẪU NHIÊN */
 clearInterval(STATE.birdInterval);
-STATE.birdInterval = setInterval(() => {
-  if(Math.random() > 0.5) AUDIO.playChirp();
-}, 15000);
+STATE.birdInterval = setInterval(() => { if(Math.random() > 0.5) AUDIO.playChirp(); }, 15000);
 
 /* MARQUEE NHÂN BẢN LIỀN MẠCH */
 (function buildMarquee() {
-  const msg = '🌟 CHÀO MỪNG ĐẾN VỚI SKIBIDI HUB - KHO TIỆN ÍCH GAME ROBLOX SỐ 1 🌟 • SẮP TỚI WEB SẼ ĐỔI TÊN MIỀN THÀNH "noxcheaters-share.com" • WEB TIỆN LỢI ÍT NGƯỜI BIẾT ĐẾN, HÃY GIỚI THIỆU CHO BẠN BÈ NHÉ! 🚀 • THAM GIA DISCORD ĐỂ ĐƯỢC HỖ TRỢ TẬN TÌNH!';
+  const msg = '🌟 CHÀO MỪNG ĐẾN VỚI SKIBIDI HUB - KHO TIỆN ÍCH GAME SỐ 1 🌟 • SẮP TỚI WEB SẼ ĐỔI TÊN MIỀN THÀNH "noxcheaters-share.com" • WEB ĐÃ ĐƯỢC FIX LỖI 100% SIÊU MƯỢT! 🚀 • THAM GIA DISCORD NHÉ!';
   const t = $('marquee-track');
+  if(!t) return;
   t.innerHTML = '';
-  // Clone ra 2 thẻ để nối đuôi nhau chạy
   for(let i=0; i<2; i++) {
     const s = document.createElement('span');
     s.className = 'marquee-tag';
@@ -1704,49 +1753,45 @@ STATE.birdInterval = setInterval(() => {
   }
 })();
 
-/* RESIZE EVENT (DEBOUNCED) ĐỂ VẼ LẠI SVG */
+/* RESIZE EVENT DEBOUNCE - CHỐNG LAG RE-RENDER TRÊN MOBILE */
 window.addEventListener('resize', () => {
+  STATE.IS_MOBILE = window.innerWidth <= 768;
+  STATE.isResizing = true;
   clearTimeout(STATE.resizeTimeout);
   STATE.resizeTimeout = setTimeout(() => {
+    STATE.isResizing = false;
     generateMountains();
     generateGrass();
     generateForest();
     populateDOMFX();
-    // Canvas tự resize trong CanvasEngine
-  }, 500);
+    CanvasEngine.resize();
+  }, 400); // Đợi 400ms sau khi ngừng kéo mới render lại
 });
 
 /* ==========================================================================
    KHỞI ĐỘNG HỆ THỐNG TRUNG TÂM (SYSTEM BOOT)
    ========================================================================== */
 function BOOT() {
-  // Sync Audio UI
-  $('volume-range').value = Math.round(STATE.savedVol * 100);
-  $('volume-text').textContent = Math.round(STATE.savedVol * 100) + '%';
+  const vRange = $('volume-range'); if (vRange) vRange.value = Math.round(STATE.savedVol * 100);
+  const vText = $('volume-text'); if (vText) vText.textContent = Math.round(STATE.savedVol * 100) + '%';
   if(STATE.isMuted) {
     const btn = $('sound-toggle-btn');
-    btn.textContent = 'Âm thanh: OFF';
-    btn.classList.add('muted');
+    if(btn) { btn.textContent = 'Âm thanh: OFF'; btn.classList.add('muted'); }
   }
 
-  // Khởi tạo đồ họa SVG tĩnh
   generateMountains();
   generateGrass();
   generateForest();
   
-  // Khởi động Engine Hạt & DOM FX
   CanvasEngine.init();
   
-  // Đồng bộ Thời Tiết
   STATE.currentMode = getModeForBlock(Math.floor(Date.now() / 1000 / STATE.CYCLE));
   applyWeather(STATE.currentMode);
   
-  // Bật vòng lặp Loop
   weatherLoop();
   setInterval(weatherLoop, 1000);
 }
 
-// Khởi chạy khi DOM Ready
 document.addEventListener('DOMContentLoaded', BOOT);
 
 </script>
