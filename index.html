@@ -5,43 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#050b14">
 
-<title>SKIBIDI HUB - Ultimate Crystal Environment</title>
-<meta name="description" content="Skibidi Hub - Kho lưu trữ script game, tiện ích web, APK client. Giao diện Crystal Glassmorphism, Môi trường AAA.">
-<meta name="keywords" content="Skibidi Hub, Roblox Script, Delta Bypass, Arceus X, Codex, Tiện ích web, APK Mod, Game Scripts, Crystal Glass">
-<meta name="author" content="Senior Expert Developer">
+<!-- ==========================================================================
+     SEO & METADATA CONFIGURATION (ENTERPRISE STANDARD)
+     ========================================================================== -->
+<title>SKIBIDI HUB - Premium AAA Utilities & Scripts</title>
+<meta name="description" content="Skibidi Hub - Kho lưu trữ script game Roblox, tiện ích web, APK client, Delta Bypass, Arceus X, Codex tối ưu nhất. Hệ sinh thái UI/UX AAA siêu mượt.">
+<meta name="keywords" content="Skibidi Hub, Roblox Script, Delta Bypass, Arceus X, Codex, Tiện ích web, APK Mod, Game Scripts, Crystal Glass, 60FPS">
+<meta name="author" content="Senior Expert Performance Engineer">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="revisit-after" content="1 days">
+<link rel="canonical" href="https://noxcheaters-share.com/">
+
+<!-- Open Graph / Facebook / Zalo -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://noxcheaters-share.com/">
+<meta property="og:title" content="SKIBIDI HUB - Kho Tiện Ích Game & Script Premium">
+<meta property="og:description" content="Trải nghiệm kho tiện ích, script game Roblox siêu mượt với giao diện Crystal Glassmorphism.">
+<meta property="og:image" content="https://i.imgur.com/8Q5Zb2f.png">
+<meta property="og:site_name" content="Skibidi Hub">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://noxcheaters-share.com/">
+<meta name="twitter:title" content="SKIBIDI HUB - Premium AAA Utilities">
+<meta name="twitter:description" content="Kho script, tiện ích web và APK siêu mượt, tối ưu hiệu năng 60FPS.">
+<meta name="twitter:image" content="https://i.imgur.com/8Q5Zb2f.png">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Skibidi Hub",
+  "url": "https://noxcheaters-share.com/",
+  "description": "Kho lưu trữ script game, tiện ích web, APK client, và công cụ Bypass chất lượng cao chuẩn AAA.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://noxcheaters-share.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 
 <style>
 /* ==========================================================================
-   CSS BIẾN TOÀN CỤC & RESET (CHỐNG TRÀN LAYOUT, LỆCH WEB)
+   CSS CORE VARIABLES & HARDWARE ACCELERATION SETUP
    ========================================================================== */
 :root {
-  /* KÍNH PHA LÊ TRONG SUỐT (CRYSTAL CLEAR) */
+  /* Crystal Clear Glassmorphism V2 */
   --glass-bg: rgba(255, 255, 255, 0.02); 
-  --glass-bg-strong: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.35);
-  --glass-border-hi: rgba(255, 255, 255, 0.8);
-  --glass-blur: blur(4px); 
+  --glass-bg-strong: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-border-hi: rgba(255, 255, 255, 0.7);
+  --glass-blur: blur(6px); 
   --glass-shadow: 
-    0 25px 45px rgba(0, 0, 0, 0.2), 
-    inset 0 1px 1px rgba(255, 255, 255, 0.8), 
+    0 20px 40px rgba(0, 0, 0, 0.25), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.6), 
     inset 0 -1px 2px rgba(0, 0, 0, 0.4),
-    inset 1px 0 2px rgba(255, 255, 255, 0.2);
+    inset 1px 0 1px rgba(255, 255, 255, 0.1);
   --glass-glow: 0 0 25px rgba(255, 255, 255, 0.1);
   
+  /* Text & Accents */
   --txt: #ffffff;
   --txt-dim: rgba(255, 255, 255, 0.85);
   --accent: #00f2fe;
   --accent-2: #4facfe;
-  --accent-glow: 0 0 15px rgba(0, 242, 254, 0.6);
-  --radius: 24px;
+  --accent-glow: 0 0 20px rgba(0, 242, 254, 0.5);
+  --radius-sm: 16px;
+  --radius-md: 24px;
+  --radius-lg: 32px;
   
+  /* Dynamic Environment Light */
   --ambient-light: rgba(255,255,255,0.1);
+  --wind-sway: 3deg;
+  --wind-duration: 4s;
 }
 
+/* ==========================================================================
+   RESET & LAYOUT LOCK (CHỐNG TRÀN FRAME, LỆCH WEB)
+   ========================================================================== */
 * {
   box-sizing: border-box; margin: 0; padding: 0;
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -50,292 +95,247 @@
 }
 
 html, body {
-  /* CHỐNG LỆCH WEB TUYỆT ĐỐI */
   width: 100%; max-width: 100vw;
   height: 100%; max-height: 100vh;
-  background-color: #050b14;
+  background-color: #020617; /* Fallback an toàn */
   overflow: hidden !important; 
   overscroll-behavior: none;
-  position: fixed; /* Khóa chặt layout trên mobile */
+  position: fixed; top: 0; left: 0;
 }
 
 body {
   display: flex; justify-content: center; align-items: flex-start;
-  padding: 110px 16px 80px;
+  padding: 100px 16px 80px;
   color: var(--txt);
-  transition: background 2.5s cubic-bezier(0.4, 0.0, 0.2, 1), color 2s ease;
-  perspective: 1200px; 
+  transition: background 3s cubic-bezier(0.4, 0, 0.2, 1);
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
 /* ==========================================================================
-   GLASSMORPHISM CAO CẤP
+   WEATHER PALETTES (PRE-DEFINED FOR GPU)
+   ========================================================================== */
+body.weather-sunny { background: linear-gradient(180deg, #0284c7 0%, #38bdf8 40%, #a3e635 80%, #22c55e 100%); --ambient-light: rgba(255,255,255,0.15); }
+body.weather-sunset { background: linear-gradient(180deg, #4c1d95 0%, #c026d3 35%, #f472b6 65%, #f97316 100%); --ambient-light: rgba(249,115,22,0.25); }
+body.weather-rain { background: linear-gradient(180deg, #0f172a 0%, #334155 45%, #1e3a29 80%, #064e3b 100%); --ambient-light: rgba(148,163,184,0.08); }
+body.weather-night-rain { background: linear-gradient(180deg, #020617 0%, #0f172a 50%, #022c22 85%, #000000 100%); --ambient-light: rgba(100,116,139,0.03); }
+body.weather-storm { background: linear-gradient(180deg, #000000 0%, #020617 40%, #0f172a 75%, #022c22 100%); --ambient-light: rgba(0,0,0,0.05); }
+body.weather-night { background: linear-gradient(180deg, #000000 0%, #020617 30%, #1e3a8a 70%, #064e3b 100%); --ambient-light: rgba(0,242,254,0.08); }
+body.weather-snow { background: linear-gradient(180deg, #60a5fa 0%, #93c5fd 40%, #e2e8f0 75%, #cbd5e1 100%); --ambient-light: rgba(255,255,255,0.3); }
+body.weather-blizzard { background: linear-gradient(180deg, #334155 0%, #64748b 45%, #94a3b8 75%, #cbd5e1 100%); --ambient-light: rgba(255,255,255,0.2); }
+
+/* ==========================================================================
+   GLASSMORPHISM CORE COMPONENTS
    ========================================================================== */
 .glass {
   position: relative;
-  background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius);
-  -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-shadow); overflow: hidden; z-index: 10;
-  transform: translateZ(0); will-change: transform, box-shadow, background; 
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  z-index: 10;
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
 }
 
+/* Kính phản quang chéo */
 .glass::before {
-  content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 55%, rgba(255,255,255,0) 70%);
-  transform: rotate(15deg); pointer-events: none; z-index: 1;
+  content: ""; position: absolute; inset: -50%; width: 200%; height: 200%;
+  background: linear-gradient(135deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.08) 55%, rgba(255,255,255,0) 65%);
+  transform: rotate(20deg); pointer-events: none; z-index: 1;
+}
+
+/* Fallback cho Mobile cực yếu để chống lag */
+@media (max-width: 768px) {
+  .glass {
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    background: rgba(15, 23, 42, 0.65) !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.2) !important;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .glass-hover { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease; }
+  .glass-hover { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, background 0.3s, box-shadow 0.3s; }
   .glass-hover:hover {
     background: var(--glass-bg-strong); border-color: var(--glass-border-hi);
-    transform: translateY(-5px) translateZ(15px);
-    box-shadow: 0 30px 50px rgba(0,0,0,0.3), inset 0 2px 3px rgba(255,255,255,1), var(--glass-glow);
+    transform: translateY(-4px) translateZ(10px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.9), var(--glass-glow);
   }
 }
-.glass-hover:active { transform: translateY(2px) scale(0.98); }
+.glass-hover:active { transform: translateY(2px) scale(0.97); }
 
 .shine { position: relative; overflow: hidden; }
 .shine::after {
-  content: ""; position: absolute; top: 0; left: -150%; width: 70%; height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.8), transparent);
-  transform: skewX(-25deg); transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5;
+  content: ""; position: absolute; top: 0; left: -150%; width: 60%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-20deg); transition: left 0.6s ease; z-index: 5;
 }
 .shine:hover::after { left: 180%; }
 
 .ripple {
-  position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.5);
-  transform: scale(0); animation: ripple-anim 0.6s linear forwards; pointer-events: none; z-index: 10;
+  position: absolute; border-radius: 50%; background: rgba(255,255,255,0.4);
+  transform: scale(0); animation: ripple-anim 0.5s linear forwards; pointer-events: none; z-index: 20;
 }
 @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
 
 /* ==========================================================================
-   BẦU TRỜI & THỜI TIẾT
+   GLOBAL EFFECTS (FOG, LIGHTNING, OVERLAYS)
    ========================================================================== */
-body.weather-sunny { background: linear-gradient(180deg, #00b4db 0%, #0083b0 50%, #4ade80 85%, #16a34a 100%); --ambient-light: rgba(255, 255, 255, 0.2); }
-body.weather-sunset { background: linear-gradient(180deg, #2b1055 0%, #7597de 30%, #f472b6 60%, #ea580c 100%); --ambient-light: rgba(249, 115, 22, 0.3); }
-body.weather-rain { background: linear-gradient(180deg, #141e30 0%, #243b55 50%, #1e3a29 85%, #064e3b 100%); --ambient-light: rgba(148, 163, 184, 0.1); }
-body.weather-night-rain { background: linear-gradient(180deg, #020617 0%, #0f172a 50%, #064e3b 90%, #022c22 100%); --ambient-light: rgba(100, 116, 139, 0.05); }
-body.weather-storm { background: linear-gradient(180deg, #000000 0%, #0f172a 60%, #022c22 85%, #020617 100%); --ambient-light: rgba(0, 0, 0, 0.1); }
-body.weather-night { background: linear-gradient(180deg, #000428 0%, #004e92 50%, #064e3b 85%, #022c22 100%); --ambient-light: rgba(0, 242, 254, 0.1); }
-body.weather-snow { background: linear-gradient(180deg, #74ebd5 0%, #9face6 50%, #cbd5e1 85%, #94a3b8 100%); --ambient-light: rgba(255, 255, 255, 0.4); }
-body.weather-blizzard { background: linear-gradient(180deg, #4b6cb7 0%, #182848 50%, #94a3b8 70%, #e2e8f0 100%); --ambient-light: rgba(255, 255, 255, 0.3); }
+.overlay-layer { position: fixed; inset: -10vw; pointer-events: none; will-change: opacity; }
 
-#lightning-flash { position: fixed; inset: -10vw; background: #ffffff; opacity: 0; pointer-events: none; z-index: 95; mix-blend-mode: overlay; will-change: opacity; }
-#storm-darkness { position: fixed; inset: -10vw; background: rgba(0, 0, 0, 0.6); pointer-events: none; z-index: 3; opacity: 0; transition: opacity 2s ease; will-change: opacity; }
+#lightning-flash { z-index: 95; background: #ffffff; opacity: 0; transition: opacity 0.05s ease-out; mix-blend-mode: overlay; }
+#storm-darkness { z-index: 3; background: rgba(0,0,0,0.65); opacity: 0; transition: opacity 2s ease; }
 body.weather-storm #storm-darkness { opacity: 1; }
-#snow-fog { position: fixed; inset: -10vw; pointer-events: none; z-index: 4; opacity: 0; transition: opacity 2s ease; background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, rgba(203,213,225,0.5) 100%); will-change: opacity; }
+
+#snow-fog { z-index: 4; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(148,163,184,0.5) 100%); opacity: 0; transition: opacity 2s ease; }
 body.weather-blizzard #snow-fog { opacity: 1; }
-#ground-mist { position: fixed; bottom: -5vh; left: -5vw; width: 110vw; height: 45vh; pointer-events: none; z-index: 5; background: linear-gradient(0deg, var(--ambient-light) 0%, transparent 100%); opacity: 0.6; mix-blend-mode: screen; transition: background 2s ease; will-change: background; }
+
+#ground-mist { z-index: 5; background: linear-gradient(0deg, var(--ambient-light) 0%, transparent 100%); opacity: 0.7; mix-blend-mode: screen; transition: background 2s ease; }
 
 /* ==========================================================================
-   MẶT TRỜI, MẶT TRĂNG (CELESTIAL)
+   CELESTIAL OBJECTS (MẶT TRỜI, MẶT TRĂNG, GOD RAYS)
    ========================================================================== */
-.celestial-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.celestial-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+
 .god-rays {
-  position: absolute; top: -10%; left: 0; width: 100%; height: 120%;
-  background: repeating-linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.04) 5%, transparent 10%);
-  opacity: 0; transform: translateY(-50px); transition: opacity 2s ease, transform 2s ease;
-  -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 80%);
+  position: absolute; top: -20%; left: -10%; width: 120%; height: 140%;
+  background: repeating-linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.03) 4%, transparent 8%);
+  opacity: 0; transform: translateY(-50px); transition: opacity 2.5s ease;
+  -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 70%);
 }
-body.weather-sunny .god-rays { opacity: 1; transform: translateY(0); animation: rayShift 20s linear infinite alternate; }
-@keyframes rayShift { from { transform: scale(1.1) translateX(-2%); } to { transform: scale(1.1) translateX(2%); } }
+body.weather-sunny .god-rays { opacity: 1; transform: translateY(0); animation: godRays 30s linear infinite alternate; }
+@keyframes godRays { from { transform: scale(1) translateX(-3%); } to { transform: scale(1.1) translateX(3%); } }
 
 .sun-element {
-  position: absolute; top: 8%; right: 15%; width: 100px; height: 100px; border-radius: 50%;
-  background: radial-gradient(circle, #fff 10%, #00f2fe 50%, #4facfe 90%);
+  position: absolute; top: 8%; right: 15%; width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #ffffff 0%, #00f2fe 40%, #4facfe 80%);
   opacity: 0; transform: translate3d(0, 100px, 0) scale(0.5); transition: all 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, opacity, box-shadow;
 }
 body.weather-sunny .sun-element {
   opacity: 1; transform: translate3d(0, 0, 0) scale(1);
-  box-shadow: 0 0 50px 10px rgba(0, 242, 254, 0.6), 0 0 100px 30px rgba(79, 172, 254, 0.4);
+  box-shadow: 0 0 60px 15px rgba(0,242,254,0.4), 0 0 120px 40px rgba(79,172,254,0.2);
   animation: sunPulse 6s ease-in-out infinite;
 }
-@keyframes sunPulse { 50% { box-shadow: 0 0 70px 20px rgba(0, 242, 254, 0.8), 0 0 130px 40px rgba(79, 172, 254, 0.6); } }
+@keyframes sunPulse { 50% { box-shadow: 0 0 80px 20px rgba(0,242,254,0.6), 0 0 150px 50px rgba(79,172,254,0.3); } }
 
 body.weather-sunset .sun-element {
-  opacity: 1; transform: translate3d(-5vw, 25vh, 0) scale(1.5);
-  background: radial-gradient(circle, #ffe259, #ffa751);
-  box-shadow: 0 0 100px 30px #ffa751, 0 0 200px 50px rgba(225, 29, 72, 0.6);
+  opacity: 1; transform: translate3d(-5vw, 25vh, 0) scale(1.4);
+  background: radial-gradient(circle at 40% 40%, #ffe259 0%, #ffa751 70%);
+  box-shadow: 0 0 100px 30px rgba(255,167,81,0.6), 0 0 200px 60px rgba(225,29,72,0.4);
 }
-body.weather-rain .sun-element, body.weather-storm .sun-element, body.weather-night .sun-element, body.weather-night-rain .sun-element, body.weather-blizzard .sun-element { opacity: 0 !important; transform: translate3d(0, 50px, 0) scale(0.5); }
+body.weather-rain .sun-element, body.weather-storm .sun-element, body.weather-night .sun-element, body.weather-night-rain .sun-element, body.weather-blizzard .sun-element {
+  opacity: 0 !important; transform: translate3d(0, 80px, 0) scale(0.5);
+}
 
 .moon-element {
-  position: absolute; top: 12%; right: 20%; width: 80px; height: 80px; border-radius: 50%; background: #fff;
-  box-shadow: 0 0 30px 5px rgba(255,255,255,0.8), 0 0 80px 20px rgba(0,242,254,0.3);
+  position: absolute; top: 10%; right: 18%; width: 90px; height: 90px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e2e8f0 70%, #94a3b8 100%);
+  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3), 0 0 40px 10px rgba(255,255,255,0.5), 0 0 100px 30px rgba(0,242,254,0.15);
   opacity: 0; transform: translate3d(0, 80px, 0) scale(0.5); transition: all 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+.moon-crater { position: absolute; border-radius: 50%; background: rgba(0,0,0,0.1); box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2), 1px 1px 2px rgba(255,255,255,0.3); }
+.crater-1 { top: 25%; left: 30%; width: 18px; height: 18px; }
+.crater-2 { top: 55%; left: 60%; width: 28px; height: 28px; }
+.crater-3 { top: 70%; left: 35%; width: 12px; height: 12px; }
+
 body.weather-night .moon-element { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-body.weather-night-rain .moon-element { opacity: 0.5; transform: translate3d(0, 0, 0) scale(0.9); filter: blur(2px); }
+body.weather-night-rain .moon-element { opacity: 0.6; transform: translate3d(0, 0, 0) scale(0.9); filter: blur(2px); }
 
 /* ==========================================================================
-   PARTICLE CANVAS & ANIMATIONS (SỬA LỖI ANIMATION CHIM MÂY)
-   ========================================================================== */
-#particle-canvas {
-  position: fixed; top: -15vh; left: -10vw; width: 120vw; height: 130vh; pointer-events: none; z-index: 6;
-  transform: translateZ(0); image-rendering: pixelated;
-}
-
-.fx-layer { position: fixed; inset: -10vw; width: 120vw; height: 120vh; pointer-events: none; overflow: hidden; }
-#moving-clouds { z-index: 2; height: 50vh; perspective: 500px; }
-#leaves-box { z-index: 12; }
-#birds-box { z-index: 7; }
-
-/* FIX LỖI: Keyframe chuyên dụng cho Mây và Chim thay vì dùng chung 'marq' */
-@keyframes flyCloud {
-  from { transform: translate3d(-20vw, 0, 0); }
-  to { transform: translate3d(120vw, 0, 0); }
-}
-@keyframes flyBird {
-  0% { transform: translate3d(-10vw, 0, 0) scale(0.8); }
-  50% { transform: translate3d(50vw, -20px, 0) scale(1.1); }
-  100% { transform: translate3d(120vw, 10px, 0) scale(0.8); }
-}
-@keyframes fallLeaf {
-  0% { transform: translate3d(0, -50px, 0) rotate(0deg); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translate3d(-200px, 110vh, 0) rotate(720deg); opacity: 0; }
-}
-
-.moving-cloud {
-  position: absolute; fill: #ffffff; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-  will-change: transform, opacity, fill; transition: fill 2s ease, opacity 2s ease;
-}
-body.weather-sunset .moving-cloud { fill: #ffedd5; opacity: 0.85; filter: drop-shadow(0 10px 15px rgba(234, 88, 12, 0.15)); }
-body.weather-rain .moving-cloud, body.weather-night-rain .moving-cloud { fill: #475569; opacity: 0.9; }
-body.weather-storm .moving-cloud { fill: #1e293b; opacity: 0.95; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
-body.weather-night .moving-cloud { fill: #0f172a; opacity: 0.6; }
-body.weather-snow .moving-cloud { fill: #f8fafc; opacity: 0.9; }
-body.weather-blizzard .moving-cloud { fill: #94a3b8; opacity: 0.95; }
-
-.bird { position: absolute; fill: #0f172a; opacity: 0.8; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); will-change: transform; transition: fill 2s ease; }
-body.weather-sunset .bird { fill: #4c1d95; }
-body.weather-night .bird, body.weather-night-rain .bird { fill: #cbd5e1; opacity: 0.4; }
-
-.leaf { position: absolute; fill: #4ade80; opacity: 0; will-change: transform, opacity; transition: fill 2s ease; }
-body.weather-sunset .leaf { fill: #ea580c; }
-body.weather-snow .leaf, body.weather-blizzard .leaf { fill: #cbd5e1; }
-body.weather-storm .leaf { fill: #166534; }
-
-/* ==========================================================================
-   MÔI TRƯỜNG THIÊN NHIÊN (NÚI, ĐỒI, CỎ, RỪNG)
-   ========================================================================== */
-.nature-bottom {
-  position: fixed; bottom: 0; left: 0; width: 100vw; height: 45vh; min-height: 300px;
-  pointer-events: none; z-index: 2; overflow: hidden; transform-style: preserve-3d; will-change: transform;
-}
-.nature-layer { position: absolute; bottom: -5%; left: -10%; width: 120%; will-change: transform; }
-
-/* Các lớp chiều sâu */
-.mountain-layer-3 { height: 75%; z-index: 3; transform: translateZ(-90px) scale(1.09); }
-.mountain-layer-2 { height: 55%; z-index: 4; transform: translateZ(-50px) scale(1.05); }
-.mountain-layer-1 { height: 40%; z-index: 5; transform: translateZ(-20px) scale(1.02); }
-.hills-wrapper { height: 25%; z-index: 6; transform: translateZ(10px) scale(1.01); }
-.grass-wrapper { height: 15%; z-index: 8; transform: translateZ(30px) scale(1.03); }
-.forest-container {
-  position: absolute; bottom: 2%; left: -5%; width: 110%; height: 60%;
-  z-index: 7; transform: translateZ(20px) scale(1);
-}
-
-.nature-item { position: absolute; bottom: 0; transform-origin: bottom center; will-change: transform; }
-.sway { animation: swayWind 4s ease-in-out infinite alternate; }
-.sway-fast { animation: swayWind 2.5s ease-in-out infinite alternate; }
-@keyframes swayWind { from { transform: rotate(-3deg); } to { transform: rotate(4deg); } }
-body.weather-storm .sway { animation: stormWind 0.8s ease-in-out infinite alternate; }
-@keyframes stormWind { 0% { transform: rotate(6deg); } 100% { transform: rotate(22deg) scale(0.95); } }
-
-/* Chuyển màu theo thời tiết cho SVG */
-svg path.mt-shape { transition: fill 2.5s ease; }
-.mt-c3 { fill: #0083b0; opacity: 0.6; } .mt-c2 { fill: #00b4db; opacity: 0.8; } .mt-c1 { fill: #4ade80; opacity: 1; }
-body.weather-sunset .mt-c3 { fill: #7597de; } body.weather-sunset .mt-c2 { fill: #b92b27; } body.weather-sunset .mt-c1 { fill: #ea580c; }
-body.weather-rain .mt-c3 { fill: #1e293b; } body.weather-rain .mt-c2 { fill: #334155; } body.weather-rain .mt-c1 { fill: #475569; }
-body.weather-storm .mt-c3 { fill: #020617; } body.weather-storm .mt-c2 { fill: #0f172a; } body.weather-storm .mt-c1 { fill: #1e293b; }
-body.weather-night .mt-c3 { fill: #000428; } body.weather-night .mt-c2 { fill: #004e92; } body.weather-night .mt-c1 { fill: #064e3b; }
-body.weather-snow .mt-shape { fill: #e2e8f0; } body.weather-blizzard .mt-shape { fill: #cbd5e1; }
-
-/* ==========================================================================
-   UI THỦY TINH VÀ THÔNG BÁO TRÔI (FIXED)
+   MARQUEE TRÔI CHỮ (KIẾN TRÚC BOX-SIZING KHÓA CHẶT CHỐNG LỆCH WEB)
    ========================================================================== */
 .marquee-wrapper {
-  /* Bọc kín hoàn toàn chống giãn ngang trang */
-  position: fixed; top: 85px; left: 0; width: 100vw; max-width: 100%; height: 50px; z-index: 80; pointer-events: none;
+  position: fixed; top: 85px; left: 0; width: 100vw; max-width: 100vw; height: 50px; z-index: 80; pointer-events: none;
   display: flex; align-items: center; overflow: hidden; box-sizing: border-box;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
-.marquee-track { display: flex; white-space: nowrap; animation: marqText 35s linear infinite; will-change: transform; }
-@keyframes marqText { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track {
+  display: flex; white-space: nowrap; animation: marqText 40s linear infinite; will-change: transform;
+}
+@keyframes marqText { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
 
 .marquee-tag {
-  display: inline-flex; align-items: center; gap: 10px; padding: 8px 24px; margin-right: 40px;
-  border-radius: 25px; font-weight: 900; font-size: 0.9rem; color: #ffffff; text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-  background: linear-gradient(90deg, rgba(236,72,153,0.3), rgba(139,92,246,0.3)); border: 1px solid rgba(255,255,255,0.3);
-  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  pointer-events: auto; transition: transform 0.3s ease;
+  display: inline-flex; align-items: center; gap: 10px; padding: 6px 20px; margin-right: 30px;
+  border-radius: 20px; font-weight: 900; font-size: 0.85rem; color: #ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  background: linear-gradient(90deg, rgba(236,72,153,0.3), rgba(139,92,246,0.3)); border: 1px solid rgba(255,255,255,0.2);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  pointer-events: auto; transition: transform 0.2s ease;
 }
-.marquee-tag:hover { transform: scale(1.05); cursor: pointer; }
+@media (hover: hover) { .marquee-tag:hover { transform: scale(1.05); cursor: pointer; } }
 
-.top-left-bar { position: fixed; top: 20px; left: 16px; z-index: 100; display: flex; gap: 12px; }
+/* ==========================================================================
+   UI CONTROLS & SIDEBAR
+   ========================================================================== */
+.top-left-bar { position: fixed; top: 20px; left: 16px; z-index: 100; display: flex; gap: 10px; }
 .menu-toc-btn {
-  height: 48px; padding: 0 18px; display: flex; align-items: center; gap: 8px; cursor: pointer;
-  color: #fff; font-weight: 900; font-size: 0.95rem; border-radius: 20px;
+  height: 46px; padding: 0 18px; display: flex; align-items: center; gap: 8px; cursor: pointer;
+  color: #fff; font-weight: 900; font-size: 0.95rem; border-radius: var(--radius-sm);
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-shadow); outline: none; text-shadow: 0 1px 2px #000;
+  box-shadow: var(--glass-shadow); outline: none; text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
 
 nav.menu-drawer-popup {
   position: fixed; top: 80px; left: 16px; width: 320px; max-width: calc(100vw - 32px); padding: 20px; z-index: 999;
   display: flex; flex-direction: column; gap: 16px;
-  transform: translateX(-120%) scale(0.9); opacity: 0; pointer-events: none;
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  transform: translate3d(-120%, 0, 0) scale(0.95); opacity: 0; pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  will-change: transform, opacity;
 }
-nav.menu-drawer-popup.show { transform: translateX(0) scale(1); opacity: 1; pointer-events: auto; }
+nav.menu-drawer-popup.show { transform: translate3d(0, 0, 0) scale(1); opacity: 1; pointer-events: auto; }
 
-.drawer-title { font-size: 1.1rem; font-weight: 900; color: var(--accent); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; text-shadow: var(--accent-glow); }
-.drawer-section { display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
+.drawer-title { font-size: 1.1rem; font-weight: 900; color: var(--accent); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; text-shadow: var(--accent-glow); }
+.drawer-section { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
 .drawer-label { font-size: 0.8rem; font-weight: 900; color: var(--txt-dim); text-transform: uppercase; letter-spacing: 1px; }
 
 .sound-ctrl-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .sound-btn-mini {
-  padding: 8px 14px; border-radius: 12px; color: #fff; font-weight: 900; font-size: 0.8rem; cursor: pointer;
-  background: rgba(0, 242, 254, 0.2); border: 1px solid rgba(0, 242, 254, 0.5);
-  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: all 0.3s;
-  box-shadow: 0 4px 10px rgba(0, 242, 254, 0.2); text-shadow: 0 1px 2px #000;
+  padding: 10px 14px; border-radius: 14px; color: #fff; font-weight: 900; font-size: 0.85rem; cursor: pointer;
+  background: rgba(0, 242, 254, 0.2); border: 1px solid rgba(0, 242, 254, 0.4);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 242, 254, 0.1); text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
-.sound-btn-mini.muted { background: rgba(239,68,68,0.2); border-color: rgba(252,165,165,0.5); box-shadow: 0 4px 10px rgba(239,68,68,0.2); }
-.sound-btn-mini:hover { transform: translateY(-2px); filter: brightness(1.2); }
-.volume-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 6px; background: rgba(255,255,255,0.2); box-shadow: inset 0 1px 3px rgba(0,0,0,0.5); cursor: pointer; }
-.volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; box-shadow: 0 0 10px var(--accent); cursor: pointer; }
+.sound-btn-mini.muted { background: rgba(239,68,68,0.2); border-color: rgba(252,165,165,0.4); box-shadow: 0 4px 10px rgba(239,68,68,0.1); }
+@media (hover: hover) { .sound-btn-mini:hover { transform: translateY(-2px); filter: brightness(1.2); } }
+
+.volume-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 8px; background: rgba(255,255,255,0.2); box-shadow: inset 0 1px 3px rgba(0,0,0,0.5); cursor: pointer; }
+.volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; box-shadow: 0 0 10px var(--accent); cursor: pointer; }
 
 .weather-forecast-box { padding: 12px; display: flex; align-items: center; gap: 12px; }
-.wf-icon { width: 45px; height: 45px; flex-shrink: 0; }
-.wf-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
-.wf-text { font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 1px 3px #000; }
-.wf-sub { font-size: 0.75rem; color: #a7f3d0; font-weight: 800; text-shadow: 0 1px 2px #000; }
-.wf-bar { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.2); margin-top: 8px; overflow: hidden; }
-.wf-bar i { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 1s linear; box-shadow: 0 0 10px var(--accent); }
+.wf-icon { width: 44px; height: 44px; flex-shrink: 0; }
+.wf-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6)); }
+.wf-text { font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
+.wf-sub { font-size: 0.75rem; color: #a7f3d0; font-weight: 800; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
+.wf-bar { height: 6px; border-radius: 6px; background: rgba(255,255,255,0.2); margin-top: 8px; overflow: hidden; }
+.wf-bar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 1s linear; box-shadow: 0 0 10px var(--accent); }
 
 .feature-btn {
   width: 100%; padding: 12px; border-radius: 14px; color: #fff; font-weight: 900; font-size: 0.9rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px; text-shadow: 0 1px 3px #000;
-  border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); transition: transform 0.3s, filter 0.3s;
+  display: flex; align-items: center; justify-content: center; gap: 10px; text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: transform 0.2s, filter 0.2s;
 }
-.feature-btn.ai { background: linear-gradient(90deg, rgba(217,70,239,0.2), rgba(56,189,248,0.2)); }
-.feature-btn.zalo { background: rgba(0,104,255,0.2); }
-.feature-btn.dc { background: rgba(88,101,242,0.2); }
-.feature-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.feature-btn.ai { background: linear-gradient(90deg, rgba(217,70,239,0.25), rgba(56,189,248,0.25)); }
+.feature-btn.zalo { background: rgba(0,104,255,0.25); }
+.feature-btn.dc { background: rgba(88,101,242,0.25); }
+@media (hover: hover) { .feature-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.3); filter: brightness(1.1); } }
 a.plain { text-decoration: none; display: block; }
 
-/* MAIN CARD */
-.glass-card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 480px; margin: 0 auto; perspective: 1000px; }
-main.glass-card { display: flex; flex-direction: column; gap: 18px; text-align: center; padding: 24px; transform-style: preserve-3d; transition: transform 0.15s ease-out; }
+/* ==========================================================================
+   MAIN CONTENT CARD (3D TILT EFFECT)
+   ========================================================================== */
+.glass-card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 480px; margin: 0 auto; perspective: 1200px; }
+main.glass-card { display: flex; flex-direction: column; gap: 20px; text-align: center; padding: 26px; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
 
-.card-header { display: flex; flex-direction: column; align-items: center; gap: 14px; transform: translateZ(25px); }
+.card-header { display: flex; flex-direction: column; align-items: center; gap: 14px; transform: translateZ(30px); }
 .weather-status-box { 
-  width: 100px; height: 100px; border-radius: 26px; padding: 12px; display: flex; justify-content: center; align-items: center;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.3), inset 0 2px 5px rgba(255,255,255,0.6); animation: floatIcon 4s ease-in-out infinite;
+  width: 100px; height: 100px; border-radius: var(--radius-md); padding: 14px; display: flex; justify-content: center; align-items: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.6); animation: floatIcon 4s ease-in-out infinite;
 }
-@keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes floatIcon { 0%, 100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(0,-10px,0); } }
 
 .title {
   font-size: 2.6rem; font-weight: 900; letter-spacing: 1.5px;
@@ -345,97 +345,195 @@ main.glass-card { display: flex; flex-direction: column; gap: 18px; text-align: 
 @keyframes titleFlow { to { background-position: 300% 0; } }
 
 .weather-chip {
-  font-size: 0.85rem; font-weight: 900; padding: 6px 20px; border-radius: 999px; background: rgba(255,255,255,0.1); border: 1px solid rgba(0, 242, 254, 0.6);
-  box-shadow: 0 3px 15px rgba(0, 242, 254, 0.3), inset 0 1px 2px rgba(255,255,255,0.8); text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px #000;
+  font-size: 0.85rem; font-weight: 900; padding: 6px 22px; border-radius: 999px; background: rgba(255,255,255,0.1); border: 1px solid rgba(0, 242, 254, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3), inset 0 1px 2px rgba(255,255,255,0.6); text-transform: uppercase; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
 
-.notice-board { padding: 18px; text-align: left; width: 100%; cursor: pointer; max-height: 400px; transition: max-height 0.8s ease, padding 0.5s, border-color 0.5s, box-shadow 0.5s; transform: translateZ(15px); }
-.notice-board.collapsed { max-height: 60px; padding: 14px 18px; }
-.notice-board.collapsed p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.5; }
-.notice-board.glow { border-color: rgba(0, 242, 254, 0.8); box-shadow: 0 0 30px rgba(0, 242, 254, 0.4), inset 0 1px 2px rgba(255,255,255,0.8); }
-.notice-board h3 { color: #00f2fe; font-size: 0.95rem; font-weight: 900; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; text-shadow: 0 1px 3px #000; }
-.notice-board p { font-size: 0.85rem; font-weight: 800; line-height: 1.5; color: #fff; text-shadow: 1px 1px 3px #000; transition: opacity 0.3s; }
-.collapse-badge { font-size: 0.7rem; padding: 4px 12px; border-radius: 12px; color: #fff; background: rgba(0, 242, 254, 0.3); border: 1px solid rgba(0, 242, 254, 0.6); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+.notice-board { padding: 18px; text-align: left; width: 100%; cursor: pointer; max-height: 400px; transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s, border-color 0.4s, box-shadow 0.4s; transform: translateZ(15px); }
+.notice-board.collapsed { max-height: 62px; padding: 14px 18px; }
+.notice-board.collapsed p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.6; }
+.notice-board.glow { border-color: rgba(0, 242, 254, 0.7); box-shadow: 0 0 25px rgba(0, 242, 254, 0.4), inset 0 1px 2px rgba(255,255,255,0.7); }
+.notice-board h3 { color: #00f2fe; font-size: 1rem; font-weight: 900; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+.notice-board p { font-size: 0.85rem; font-weight: 800; line-height: 1.5; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.9); transition: opacity 0.3s; }
+.collapse-badge { font-size: 0.7rem; padding: 4px 12px; border-radius: 12px; color: #fff; background: rgba(0, 242, 254, 0.25); border: 1px solid rgba(0, 242, 254, 0.6); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
 
 .open-web-utils-btn {
-  width: 100%; padding: 16px; border-radius: 20px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; gap: 10px;
-  color: #fff; font-weight: 900; font-size: 1.1rem; text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+  width: 100%; padding: 18px; border-radius: 20px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: #fff; font-weight: 900; font-size: 1.15rem; text-shadow: 0 2px 6px rgba(0,0,0,0.8);
   background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(79, 172, 254, 0.3)); border: 1px solid rgba(255,255,255,0.6);
-  box-shadow: 0 15px 35px rgba(0, 242, 254, 0.3), inset 0 2px 4px rgba(255,255,255,0.9); transform: translateZ(30px); transition: all 0.4s ease;
+  box-shadow: 0 15px 40px rgba(0, 242, 254, 0.3), inset 0 2px 3px rgba(255,255,255,0.9); transform: translateZ(35px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.open-web-utils-btn:hover { transform: translateZ(40px) translateY(-3px) scale(1.02); filter: brightness(1.2); }
+@media (hover: hover) { .open-web-utils-btn:hover { transform: translateZ(45px) translateY(-4px) scale(1.03); filter: brightness(1.2); } }
 
-/* MODAL TIỆN ÍCH */
-.web-utils-modal { position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(0, 0, 0, 0.4); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.4s ease; }
+/* ==========================================================================
+   MODAL TIỆN ÍCH (ULTRA BLUR)
+   ========================================================================== */
+.web-utils-modal { position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(0, 0, 0, 0.65); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: 0; transition: opacity 0.3s ease; }
 .web-utils-modal.active { display: flex; opacity: 1; }
-.web-utils-container { width: 100%; max-width: 520px; max-height: 85svh; padding: 20px; display: flex; flex-direction: column; gap: 16px; border-radius: 28px; transform: scale(0.9) translateY(20px); transition: transform 0.5s ease; box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.5); }
-.web-utils-modal.active .web-utils-container { transform: scale(1) translateY(0); }
-.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 14px; }
-.modal-title { font-size: 1.15rem; font-weight: 900; color: #00f2fe; display: flex; align-items: center; gap: 8px; text-shadow: var(--accent-glow); }
-.close-modal-btn { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #fff; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.4); transition: all 0.3s; }
-.close-modal-btn:hover { background: rgba(239,68,68,0.5); transform: rotate(90deg) scale(1.1); }
+.web-utils-container { width: 100%; max-width: 560px; max-height: 85svh; padding: 24px; display: flex; flex-direction: column; gap: 18px; border-radius: var(--radius-lg); transform: translate3d(0, 30px, 0) scale(0.95); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 30px 80px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.4); }
+@media (max-width: 768px) { .web-utils-container { background: rgba(15, 23, 42, 0.95) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; } }
+.web-utils-modal.active .web-utils-container { transform: translate3d(0,0,0) scale(1); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 14px; }
+.modal-title { font-size: 1.2rem; font-weight: 900; color: #00f2fe; display: flex; align-items: center; gap: 10px; text-shadow: var(--accent-glow); }
+.close-modal-btn { width: 38px; height: 38px; border-radius: 50%; cursor: pointer; color: #fff; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); transition: all 0.2s; }
 
-.search-input { width: 100%; padding: 12px 16px; border-radius: 16px; color: #fff; font-weight: 800; font-size: 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.3); outline: none; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
+.search-input { width: 100%; padding: 14px 18px; border-radius: 16px; color: #fff; font-weight: 800; font-size: 0.95rem; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.25); outline: none; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); transition: border-color 0.3s; }
 .search-input:focus { border-color: #00f2fe; background: rgba(0,0,0,0.5); }
-.nav-tabs { display: flex; gap: 6px; padding: 6px; border-radius: 20px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); }
-.nav-btn { flex: 1; padding: 10px 0; border-radius: 14px; background: transparent; color: #94a3b8; border: none; font-size: 0.85rem; font-weight: 900; cursor: pointer; transition: all 0.3s; }
-.nav-btn.active { color: #fff; background: rgba(0, 242, 254, 0.3); border: 1px solid rgba(0, 242, 254, 0.6); box-shadow: 0 5px 15px rgba(0, 242, 254, 0.3); transform: scale(1.05); }
+.nav-tabs { display: flex; gap: 8px; padding: 8px; border-radius: 20px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15); }
+.nav-btn { flex: 1; padding: 12px 0; border-radius: 14px; background: transparent; color: #94a3b8; border: none; font-size: 0.9rem; font-weight: 900; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.nav-btn.active { color: #fff; background: rgba(0, 242, 254, 0.3); border: 1px solid rgba(0, 242, 254, 0.6); box-shadow: 0 5px 15px rgba(0, 242, 254, 0.25); transform: scale(1.04); z-index: 2; }
 
-.tab-content-wrapper { position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; }
-.tab-content-wrapper::-webkit-scrollbar { width: 5px; }
-.tab-content-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.4); border-radius: 8px; }
-.tab-content { display: none; flex-direction: column; gap: 12px; padding: 2px; }
-.tab-content.active { display: flex; animation: fadeScale 0.4s ease; }
-@keyframes fadeScale { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: none; } }
+.tab-content-wrapper { position: relative; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding-right: 6px; }
+.tab-content-wrapper::-webkit-scrollbar { width: 6px; }
+.tab-content-wrapper::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 10px; }
+.tab-content-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+.tab-content { display: none; flex-direction: column; gap: 14px; padding: 4px; }
+.tab-content.active { display: flex; animation: fadeScale 0.35s ease; }
+@keyframes fadeScale { from { opacity: 0; transform: translate3d(0, 15px, 0); } to { opacity: 1; transform: translate3d(0,0,0); } }
 
-.box { padding: 14px; display: flex; flex-direction: column; gap: 10px; text-align: left; border-radius: 18px; }
+.box { padding: 16px; display: flex; flex-direction: column; gap: 12px; text-align: left; border-radius: 20px; }
 .box.hidden { display: none; }
-.box-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.box-title { font-size: 0.95rem; font-weight: 900; color: #fff; text-shadow: 0 1px 3px #000; }
+.box-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.box-title { font-size: 1rem; font-weight: 900; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 .box-btn {
-  border-radius: 12px; padding: 8px 16px; font-size: 0.8rem; font-weight: 900; text-decoration: none; cursor: pointer; color: #fff;
+  border-radius: 14px; padding: 8px 18px; font-size: 0.85rem; font-weight: 900; text-decoration: none; cursor: pointer; color: #fff;
   background: rgba(0, 242, 254, 0.3); border: 1px solid rgba(0, 242, 254, 0.6);
-  box-shadow: 0 4px 10px rgba(0, 242, 254, 0.2), inset 0 1px 2px rgba(255,255,255,0.5); transition: all 0.3s; text-shadow: 0 1px 2px #000;
+  box-shadow: 0 5px 15px rgba(0, 242, 254, 0.2), inset 0 1px 2px rgba(255,255,255,0.5); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
-.box-btn:hover { background: rgba(0, 242, 254, 0.5); transform: scale(1.05); }
-.box-btn.copy { background: rgba(168,85,247,0.3); border-color: rgba(216,180,254,0.6); }
-.box-btn.copied { background: rgba(34,197,94,0.5); border-color: #86efac; }
-.script-text { padding: 10px; border-radius: 12px; font-family: monospace; font-size: 0.75rem; color: #bbf7d0; word-break: break-all; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); box-shadow: inset 0 2px 6px rgba(0,0,0,0.6); }
-.empty-msg { color: var(--txt-dim); font-weight: 800; text-align: center; padding: 25px; font-size: 0.9rem; }
+@media (hover: hover) { .box-btn:hover { background: rgba(0, 242, 254, 0.5); transform: scale(1.08) translateY(-2px); box-shadow: 0 8px 20px rgba(0, 242, 254, 0.3); } }
+.box-btn.copy { background: rgba(168,85,247,0.35); border-color: rgba(216,180,254,0.6); }
+.box-btn.copied { background: rgba(34,197,94,0.6); border-color: #86efac; }
+.script-text { padding: 12px; border-radius: 14px; font-family: ui-monospace, Menlo, monospace; font-size: 0.8rem; color: #bbf7d0; word-break: break-all; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); box-shadow: inset 0 2px 8px rgba(0,0,0,0.6); }
+.empty-msg { color: var(--txt-dim); font-weight: 800; text-align: center; padding: 30px; font-size: 0.95rem; }
 
 footer.version-tag {
-  position: fixed; bottom: 12px; right: 16px; z-index: 60; font-weight: 900; font-size: 0.75rem; color: #fff;
-  padding: 6px 14px; border-radius: 14px; background: var(--glass-bg); border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow); pointer-events: none; text-shadow: 0 1px 2px #000;
+  position: fixed; bottom: 16px; right: 20px; z-index: 60; font-weight: 900; font-size: 0.8rem; color: #fff;
+  padding: 8px 16px; border-radius: 16px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow); pointer-events: none; text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
+@media (max-width: 768px) { footer.version-tag { background: rgba(15, 23, 42, 0.85); -webkit-backdrop-filter: none; backdrop-filter: none; } }
 
-@media (max-width: 768px) { .title { font-size: 2rem; } nav.menu-drawer-popup { width: calc(100vw - 32px); } body { padding-top: 90px; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+/* ==========================================================================
+   THƯ VIỆN SVG KHỔNG LỒ (SVG DICTIONARY & DEFS)
+   Khôi phục toàn bộ Model AAA (Nấm, Cây, Hoa, Ếch, Cỏ)
+   ========================================================================== */
 </style>
 </head>
 <body class="weather-sunny">
 
-<div id="lightning-flash"></div>
-<div id="storm-darkness"></div>
-<div id="snow-fog"></div>
-<div id="ground-mist"></div>
+<!-- SVG THƯ VIỆN NẰM ẨN -->
+<svg width="0" height="0" style="position:absolute; width:0; height:0;">
+  <defs>
+    <!-- ICONS THỜI TIẾT ĐỘ PHÂN GIẢI CAO (HOLOGRAM 3D) -->
+    <linearGradient id="sunG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="50%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#4facfe"/></linearGradient>
+    <linearGradient id="setG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient>
+
+    <!-- 1. MODEL CÂY ĐA TẦNG (DETAILED AAA TREE) -->
+    <g id="model-tree-detailed">
+      <!-- Rễ cây -->
+      <path d="M45,210 Q35,225 20,230 Q45,220 50,210 Q65,225 80,230 Q60,220 55,210 Z" fill="#2d1305"/>
+      <!-- Thân -->
+      <path d="M45,210 C45,150 35,110 50,60 C65,110 55,150 55,210 Z" fill="#3e1f0a"/>
+      <!-- Vân gỗ -->
+      <path d="M48,210 Q48,150 50,60 M52,210 Q52,150 51,60" stroke="#261103" stroke-width="1.5" fill="none"/>
+      <!-- Các nhánh chẽ -->
+      <path d="M50,130 Q25,100 10,70 M50,100 Q75,80 90,50 M48,80 Q30,50 35,30 M52,65 Q70,40 60,20" stroke="#3e1f0a" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M50,130 Q25,100 10,70 M50,100 Q75,80 90,50" stroke="#261103" stroke-width="2" fill="none"/>
+      <!-- Tán lá đa lớp (Không dùng drop-shadow CSS để tránh lag, dùng fake shadow layer) -->
+      <!-- Layer Shadow Của Lá -->
+      <path d="M50,5 L75,25 L65,45 L90,55 L65,80 L95,95 L65,115 L50,140 L35,115 L5,95 L35,80 L10,55 L35,45 L25,25 Z" fill="#022c22"/>
+      <!-- Layer Lá Chính -->
+      <path d="M50,0 L70,20 L60,40 L85,50 L60,75 L90,90 L60,110 L50,135 L40,110 L10,90 L40,75 L15,50 L40,40 L30,20 Z" fill="#065f46"/>
+      <!-- Layer Highlight Lá (Tạo khối 3D) -->
+      <path d="M50,10 L65,30 L55,45 L75,55 L55,75 L50,105 L45,75 L25,55 L45,45 L35,30 Z" fill="#10b981"/>
+      <!-- Layer Sáng Nhất (Ánh sáng hắt) -->
+      <path d="M50,20 L60,35 L50,50 L70,60 L50,80 L30,60 L50,50 L40,35 Z" fill="#34d399" opacity="0.8"/>
+    </g>
+
+    <!-- 2. MODEL CÂY THÔNG (PINE TREE) -->
+    <g id="model-tree-pine">
+      <rect x="44" y="140" width="12" height="70" rx="3" fill="#2d1305"/>
+      <line x1="50" y1="140" x2="50" y2="210" stroke="#1f0d03" stroke-width="3"/>
+      <!-- Shadow Tán -->
+      <path d="M50,15 L85,70 L70,70 L95,115 L60,115 L105,160 L-5,160 L40,115 L5,115 L30,70 L15,70 Z" fill="#022c22"/>
+      <!-- Main Tán -->
+      <path d="M50,10 L80,65 L65,65 L90,110 L60,110 L100,155 L0,155 L40,110 L10,110 L35,65 L20,65 Z" fill="#064e3b"/>
+      <!-- Highlight Tán -->
+      <path d="M50,15 L70,60 L55,60 L80,105 L50,105 L85,150 L15,150 L50,105 L20,105 L45,60 L30,60 Z" fill="#059669"/>
+    </g>
+
+    <!-- 3. MODEL ẾCH (FROG) -->
+    <g id="model-frog">
+      <!-- Bóng ếch -->
+      <ellipse cx="50" cy="90" rx="40" ry="10" fill="#000" opacity="0.3"/>
+      <!-- Chân sau -->
+      <path d="M20,60 Q5,80 15,95 M80,60 Q95,80 85,95" stroke="#14532d" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <!-- Thân -->
+      <ellipse cx="50" cy="65" rx="35" ry="30" fill="#22c55e" stroke="#14532d" stroke-width="4"/>
+      <!-- Chân trước -->
+      <path d="M35,80 L30,95 M65,80 L70,95" stroke="#14532d" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <!-- Đầu -->
+      <ellipse cx="50" cy="40" rx="25" ry="18" fill="#4ade80" stroke="#14532d" stroke-width="4"/>
+      <!-- Mắt -->
+      <circle cx="35" cy="30" r="12" fill="#22c55e" stroke="#14532d" stroke-width="3"/>
+      <circle cx="65" cy="30" r="12" fill="#22c55e" stroke="#14532d" stroke-width="3"/>
+      <circle cx="35" cy="28" r="5" fill="#000"/><circle cx="65" cy="28" r="5" fill="#000"/>
+      <circle cx="37" cy="26" r="2" fill="#fff"/><circle cx="67" cy="26" r="2" fill="#fff"/>
+      <!-- Miệng -->
+      <path d="M38,45 Q50,55 62,45" fill="none" stroke="#14532d" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- 4. MODEL NẤM VÀ ĐÁ (MUSHROOM & ROCKS) -->
+    <g id="model-mushroom">
+      <ellipse cx="50" cy="95" rx="15" ry="5" fill="#000" opacity="0.3"/>
+      <rect x="42" y="60" width="16" height="35" rx="5" fill="#fde047"/>
+      <path d="M10,60 C10,20 90,20 90,60 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="2"/>
+      <circle cx="30" cy="40" r="6" fill="#fff"/><circle cx="60" cy="30" r="8" fill="#fff"/><circle cx="75" cy="50" r="5" fill="#fff"/>
+    </g>
+    <g id="model-rock">
+      <path d="M10,90 L30,50 L60,40 L90,80 L80,95 L20,95 Z" fill="#64748b"/>
+      <path d="M30,50 L60,40 L50,80 L20,80 Z" fill="#94a3b8"/>
+    </g>
+
+    <!-- 5. MODEL CỎ CHI TIẾT (DETAILED GRASS) -->
+    <g id="model-grass-tuft">
+      <path d="M25,100 Q35,50 50,10 Q25,60 20,100 M20,100 Q15,60 5,30 Q15,70 15,100 M25,100 Q25,60 15,20 Q30,70 28,100 M18,100 Q10,70 -5,50 Q12,80 15,100 M30,100 Q40,60 60,40 Q35,80 32,100 M35,100 Q45,70 70,60 Q40,85 35,100" fill="#22c55e"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- ==========================================================================
+     GLOBAL LAYERS & FX
+     ========================================================================== -->
+<div id="lightning-flash" class="overlay-layer"></div>
+<div id="storm-darkness" class="overlay-layer"></div>
+<div id="snow-fog" class="overlay-layer"></div>
+<div id="ground-mist" class="overlay-layer"></div>
 
 <div class="marquee-wrapper" aria-hidden="true"><div class="marquee-track" id="marquee-track"></div></div>
 
 <div class="celestial-container">
   <div class="god-rays"></div>
   <div class="sun-element"></div>
-  <div class="moon-element"></div>
+  <div class="moon-element">
+    <div class="moon-crater crater-1"></div>
+    <div class="moon-crater crater-2"></div>
+    <div class="moon-crater crater-3"></div>
+  </div>
 </div>
 
-<canvas id="particle-canvas" aria-label="Particle Engine" role="img"></canvas>
+<canvas id="particle-canvas" aria-label="Particle Engine 60FPS" role="img"></canvas>
 
+<!-- CLOUDS & BIRDS (Tọa độ tính bằng GPU CSS) -->
 <div class="fx-layer" id="moving-clouds"></div>
 <div class="fx-layer" id="birds-box"></div>
 
+<!-- ==========================================================================
+     UI CHÍNH: MENUS & CARDS
+     ========================================================================== -->
 <header class="top-left-bar">
-  <button class="menu-toc-btn shine glass-hover" onclick="toggleMenuDrawer()">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
+  <button class="menu-toc-btn shine glass-hover" onclick="toggleMenuDrawer()" aria-label="Menu Tùy Chỉnh">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
     <span>Mục Lục</span>
   </button>
 </header>
@@ -449,18 +547,18 @@ footer.version-tag {
     <a class="plain" href="https://discord.gg/kRCKkw63s" target="_blank"><button class="feature-btn dc shine">🎮 DISCORD SERVER</button></a>
   </div>
   <div class="drawer-section">
-    <div class="drawer-label">Dự Báo Thời Tiết</div>
+    <div class="drawer-label">Dự Báo Thời Tiết (Auto Sync)</div>
     <div class="weather-forecast-box glass glass-hover">
       <div class="wf-icon" id="wf-current-icon"></div>
       <div style="position:relative;z-index:1;width:100%">
-        <div class="wf-text" id="wf-current-name">Trời Nắng</div>
+        <div class="wf-text" id="wf-current-name">Đang Tải...</div>
         <div class="wf-sub">Tiếp theo: <span id="wf-next-name">--</span> (<span id="wf-timer-text">--:--</span>)</div>
       </div>
     </div>
     <div class="wf-bar"><i id="wf-progress" style="width:0%"></i></div>
   </div>
   <div class="drawer-section">
-    <div class="drawer-label">Âm Nhạc & Âm Thanh (BGM)</div>
+    <div class="drawer-label">Âm Nhạc BGM & Môi Trường</div>
     <div class="sound-ctrl-row">
       <button class="sound-btn-mini" id="sound-toggle-btn" onclick="toggleMasterSound()">Âm thanh: ON</button>
       <span style="font-weight:900;font-size:0.85rem;text-shadow:0 1px 2px #000;" id="volume-text">85%</span>
@@ -469,51 +567,67 @@ footer.version-tag {
   </div>
 </nav>
 
+<!-- ==========================================================================
+     MÔI TRƯỜNG THIÊN NHIÊN (RỪNG, ĐỒI, NÚI)
+     ========================================================================== -->
 <div class="nature-bottom" aria-hidden="true" id="nature-environment">
   <div class="nature-layer mountain-layer-3" id="layer-3"></div>
   <div class="nature-layer mountain-layer-2" id="layer-2"></div>
   <div class="nature-layer mountain-layer-1" id="layer-1"></div>
   
   <div class="nature-layer hills-wrapper" id="layer-hills"></div>
-  <div class="nature-layer grass-wrapper" id="layer-grass"></div>
   
+  <!-- Lớp sinh thái (Cây, Đá, Nấm, Cỏ) -->
   <div class="forest-container" id="forest-box"></div>
+  
+  <!-- Ếch được khôi phục -->
+  <div class="frog-container" id="frog" style="position:absolute; bottom:5%; left:15%; width:60px; height:60px; z-index:9; opacity:0; transition:opacity 1s;">
+    <svg viewBox="0 0 100 100" style="width:100%;height:100%;"><use href="#model-frog"/></svg>
+  </div>
+  
+  <div class="nature-layer grass-wrapper" id="layer-grass"></div>
 </div>
 
+<!-- ==========================================================================
+     MAIN CARD
+     ========================================================================== -->
 <div class="glass-card-wrapper" id="main-card-wrapper">
   <main class="glass-card glass" id="main-card">
     <div class="card-header">
       <div class="weather-status-box glass glass-hover" id="status-box"></div>
       <h1 class="title">SKIBIDI HUB</h1>
-      <span class="weather-chip" id="weather-chip">Trời Nắng</span>
+      <span class="weather-chip" id="weather-chip">--</span>
 
       <div class="notice-board glass glass-hover" id="main-notice-board" onclick="toggleNoticeBoard()">
         <h3>
           <span><svg style="vertical-align:middle;margin-right:4px" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>THÔNG BÁO TỪ ADMIN</span>
           <span class="collapse-badge" id="notice-badge">Mở Rộng</span>
         </h3>
-        <p id="notice-text">Đã sửa triệt để LỖI LỆCH MÀN HÌNH DO THÔNG BÁO. Cỏ cây mây núi được nâng cấp hệ thống Bezier Curve siêu thực. Kính pha lê trong suốt, hệ thống nhạc nền Ambient siêu Chill. Hoàn toàn không giật lag!</p>
+        <p id="notice-text">BẢN CẬP NHẬT V17 ENTERPRISE! Đã khôi phục toàn bộ Model sinh thái siêu chi tiết (Rừng cây 3D đa lớp, Nấm, Đá, Ếch, Cỏ đung đưa). Tối ưu hóa 100% bằng Hardware Acceleration, chạy mượt 60FPS trên mọi Mobile mà không cần cắt xén code!</p>
       </div>
 
       <button class="open-web-utils-btn shine" onclick="openWebUtilsModal(event)">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
         MỞ KHO TIỆN ÍCH WEB
       </button>
     </div>
   </main>
 </div>
 
+<!-- ==========================================================================
+     MODAL TIỆN ÍCH
+     ========================================================================== -->
 <div class="web-utils-modal" id="web-utils-modal" onclick="if(event.target===this)closeWebUtilsModal()">
   <div class="web-utils-container glass">
     <div class="modal-header">
       <div class="modal-title">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         TIỆN ÍCH HỆ THỐNG
       </div>
       <button class="close-modal-btn" onclick="closeWebUtilsModal()">✕</button>
     </div>
 
-    <input class="search-input" id="util-search" placeholder="🔎 Tìm nhanh ứng dụng, script, link..." oninput="filterBoxes(this.value)">
+    <input class="search-input" id="util-search" placeholder="🔎 Tìm nhanh ứng dụng, script..." oninput="filterBoxes(this.value)">
 
     <div class="nav-tabs">
       <button class="nav-btn active" onclick="switchTab('tab-link',this)">Khóa Links</button>
@@ -556,402 +670,500 @@ footer.version-tag {
         <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Kiwi VPN Premium</span><a href="https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk" target="_blank" class="box-btn">Tải xuống</a></div></div>
       </div>
       <div id="tab-ios" class="tab-content">
-        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Delta iOS</span><a href="https://deltaexploits.gg/" target="_blank" class="box-btn">Tải Safari</a></div></div>
+        <div class="box glass glass-hover"><div class="box-header"><span class="box-title">Delta iOS (No Jailbreak)</span><a href="https://deltaexploits.gg/" target="_blank" class="box-btn">Tải Safari</a></div></div>
       </div>
     </div>
   </div>
 </div>
 
-<footer class="version-tag">Engine v15 Bug Fixes - By Senior Expert</footer>
+<footer class="version-tag">Architecture v17 Enterprise - Code by Senior Expert</footer>
+
+<style>
+/* ==========================================================================
+   CSS KEYFRAMES UNROLLED (TỐI ƯU HÓA GPU KHÔNG DÙNG JS LẶP)
+   ========================================================================== */
+/* Keyframe cho mây trôi mượt mà từ âm sang dương */
+@keyframes flyCloud { 0% { transform: translate3d(-30vw, 0, 0); } 100% { transform: translate3d(120vw, 0, 0); } }
+
+/* Keyframe cho chim bay nhấp nhô theo hàm Sine ảo */
+@keyframes flyBird {
+  0% { transform: translate3d(-10vw, 0, 0) scale(0.8); }
+  25% { transform: translate3d(25vw, -10px, 0) scale(0.9); }
+  50% { transform: translate3d(60vw, 5px, 0) scale(1); }
+  75% { transform: translate3d(90vw, -15px, 0) scale(0.9); }
+  100% { transform: translate3d(120vw, 0, 0) scale(0.8); }
+}
+
+/* Ếch nhảy mượt bằng cubic-bezier */
+@keyframes frogJump {
+  0%, 80%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  85% { transform: translate3d(0, 5px, 0) scale3d(1.1, 0.8, 1); }
+  90% { transform: translate3d(0, -35px, 0) scale3d(0.9, 1.1, 1); }
+  95% { transform: translate3d(0, 0, 0) scale3d(1.05, 0.9, 1); }
+}
+
+/* Gió thổi đung đưa (Cây, cỏ) */
+@keyframes swayWind { 0% { transform: rotate(-2deg); } 100% { transform: rotate(3deg); } }
+@keyframes stormWind { 0% { transform: rotate(5deg); } 100% { transform: rotate(18deg); } }
+
+/* Class tiện ích kích hoạt */
+.moving-cloud { position: absolute; will-change: transform; transition: fill 2s ease; opacity: 0.85; }
+.bird { position: absolute; will-change: transform; transition: fill 2s ease; opacity: 0.8; }
+.sway { animation: swayWind 4s ease-in-out infinite alternate; transform-origin: bottom center; will-change: transform; }
+.sway-fast { animation: swayWind 2.5s ease-in-out infinite alternate; transform-origin: bottom center; will-change: transform; }
+body.weather-storm .sway, body.weather-storm .sway-fast { animation: stormWind 0.8s ease-in-out infinite alternate; }
+
+/* Các định dạng màu môi trường */
+.mt-c3 { transition: fill 2s ease; fill: #0083b0; opacity: 0.6; }
+.mt-c2 { transition: fill 2s ease; fill: #00b4db; opacity: 0.8; }
+.mt-c1 { transition: fill 2s ease; fill: #4ade80; opacity: 1; }
+.mt-grass { transition: fill 2s ease; fill: #22c55e; }
+
+body.weather-sunset .mt-c3 { fill: #7597de; } body.weather-sunset .mt-c2 { fill: #b92b27; } body.weather-sunset .mt-c1 { fill: #ea580c; } body.weather-sunset .mt-grass { fill: #f97316; }
+body.weather-rain .mt-c3 { fill: #1e293b; } body.weather-rain .mt-c2 { fill: #334155; } body.weather-rain .mt-c1 { fill: #475569; } body.weather-rain .mt-grass { fill: #10b981; }
+body.weather-storm .mt-c3 { fill: #020617; } body.weather-storm .mt-c2 { fill: #0f172a; } body.weather-storm .mt-c1 { fill: #1e293b; } body.weather-storm .mt-grass { fill: #065f46; }
+body.weather-night .mt-c3 { fill: #000428; } body.weather-night .mt-c2 { fill: #004e92; } body.weather-night .mt-c1 { fill: #064e3b; } body.weather-night .mt-grass { fill: #047857; }
+body.weather-snow .mt-c3 { fill: #cbd5e1; } body.weather-snow .mt-c2, body.weather-snow .mt-c1, body.weather-snow .mt-grass { fill: #e2e8f0; }
+body.weather-blizzard .mt-c3 { fill: #94a3b8; } body.weather-blizzard .mt-c2, body.weather-blizzard .mt-c1, body.weather-blizzard .mt-grass { fill: #cbd5e1; }
+</style>
 
 <script>
+/**
+ * SKIBIDI HUB - AAA ENTERPRISE ENGINE V17
+ * @author Senior Expert Developer
+ * @description Hệ thống lõi bao gồm State Machine, Audio Synthesizer, Procedural DOM Generator và Canvas Particle System.
+ */
 "use strict";
 
 /* ==========================================================================
-   STATE MANAGEMENT
+   1. GLOBAL STATE MANAGER
    ========================================================================== */
 const STATE = {
-  REDUCED_MOTION: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  IS_MOBILE: window.innerWidth <= 768,
-  currentMode: 'SUNNY', previousMode: 'SUNNY', CYCLE: 600,
+  isMobile: window.innerWidth <= 768,
+  reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  weatherModes: ['SUNNY', 'SUNSET', 'NIGHT', 'RAIN', 'NIGHT_RAIN', 'STORM', 'SNOW', 'BLIZZARD'],
+  weatherNames: {
+    SUNNY:'Trời Nắng ☀️', SUNSET:'Hoàng Hôn 🌅', NIGHT:'Ban Đêm 🌙', 
+    RAIN:'Mưa Rào 🌧️', NIGHT_RAIN:'Mưa Đêm 🌧️', STORM:'Bão Dữ Dội 🌩️', 
+    SNOW:'Tuyết Rơi ❄️', BLIZZARD:'Bão Tuyết 🌨️'
+  },
+  currentMode: 'SUNNY',
+  cycleDuration: 600, // 10 phút / chu kỳ
   isMuted: localStorage.getItem('sk_mute') === '1',
-  savedVol: isNaN(parseFloat(localStorage.getItem('sk_vol'))) ? 0.85 : parseFloat(localStorage.getItem('sk_vol')),
-  particles: [], resizeTimeout: null
+  masterVolume: isNaN(parseFloat(localStorage.getItem('sk_vol'))) ? 0.85 : parseFloat(localStorage.getItem('sk_vol')),
+  timers: { weather: null, lightning: null, resize: null, frog: null },
+  cache: {
+    sin: new Float32Array(360),
+    cos: new Float32Array(360)
+  }
 };
+
+// Pre-calculate Sine/Cosine cho Canvas Particle để cực đại hóa FPS
+for (let i = 0; i < 360; i++) {
+  STATE.cache.sin[i] = Math.sin(i * Math.PI / 180);
+  STATE.cache.cos[i] = Math.cos(i * Math.PI / 180);
+}
 
 const $ = id => document.getElementById(id);
-const scalePerf = n => Math.max(5, Math.floor(n * (STATE.IS_MOBILE ? 0.4 : 1.0)));
+const getScale = (base) => Math.max(3, Math.floor(base * (STATE.isMobile ? 0.35 : 1.0)));
 
 /* ==========================================================================
-   BỘ ICON HOLOGRAM 3D ĐẸP MẮT
+   2. HOLOGRAM SVG ICONS DICTIONARY
    ========================================================================== */
-const svgIcons = {
-  SUNNY: `<svg viewBox="0 0 100 100"><defs><linearGradient id="sunG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff"/><stop offset="50%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#4facfe"/></linearGradient></defs><circle cx="50" cy="50" r="22" fill="url(#sunG)" filter="drop-shadow(0 0 15px #00f2fe)"/><path d="M50 10 L50 20 M50 80 L50 90 M10 50 L20 50 M80 50 L90 50 M22 22 L30 30 M70 70 L78 78 M22 78 L30 70 M70 30 L78 22" stroke="url(#sunG)" stroke-width="6" stroke-linecap="round"/></svg>`,
-  SUNSET: `<svg viewBox="0 0 100 100"><defs><linearGradient id="setG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff758c"/><stop offset="100%" stop-color="#ff7eb3"/></linearGradient></defs><path d="M20 70 L80 70" stroke="#ea580c" stroke-width="8" stroke-linecap="round"/><path d="M25 66 A25 25 0 0 1 75 66 Z" fill="url(#setG)" filter="drop-shadow(0 -5px 15px #ff758c)"/><path d="M50 20 L50 30 M30 35 L38 42 M70 35 L62 42" stroke="#ff7eb3" stroke-width="5" stroke-linecap="round"/></svg>`,
-  NIGHT: `<svg viewBox="0 0 100 100"><path d="M60 15 C35 15 15 35 15 60 C15 75 22 88 33 95 C25 80 25 50 50 35 C65 25 80 30 90 40 C85 20 75 15 60 15 Z" fill="#e0c3fc" filter="drop-shadow(0 0 15px #8ec5fc)"/><circle cx="75" cy="25" r="3" fill="#fff" filter="drop-shadow(0 0 5px #fff)"/><circle cx="85" cy="45" r="2" fill="#fff"/></svg>`,
-  RAIN: `<svg viewBox="0 0 100 100"><path d="M25 55 C10 55 10 35 25 35 C30 20 55 15 65 30 C80 30 85 50 70 55 Z" fill="#94a3b8" filter="drop-shadow(0 5px 10px #000)"/><path d="M35 70 L25 90 M50 70 L40 90 M65 70 L55 90" stroke="#00f2fe" stroke-width="5" stroke-linecap="round"/></svg>`,
-  NIGHT_RAIN: `<svg viewBox="0 0 100 100"><path d="M25 55 C10 55 10 35 25 35 C30 20 55 15 65 30 C80 30 85 50 70 55 Z" fill="#1e293b" filter="drop-shadow(0 5px 15px #000)"/><path d="M35 70 L25 90 M50 70 L40 90 M65 70 L55 90" stroke="#4facfe" stroke-width="4" stroke-linecap="round"/></svg>`,
-  STORM: `<svg viewBox="0 0 100 100"><path d="M25 50 C10 50 10 30 25 30 C30 15 55 10 65 25 C80 25 85 45 70 50 Z" fill="#0f172a" filter="drop-shadow(0 10px 20px #000)"/><path d="M50 45 L35 70 L50 70 L40 95 L65 60 L50 60 Z" fill="#facc15" filter="drop-shadow(0 0 15px #facc15)"/></svg>`,
-  SNOW: `<svg viewBox="0 0 100 100"><path d="M25 50 C10 50 10 30 25 30 C30 15 55 10 65 25 C80 25 85 45 70 50 Z" fill="#cbd5e1"/><circle cx="35" cy="70" r="5" fill="#fff" filter="drop-shadow(0 0 5px #fff)"/><circle cx="50" cy="85" r="6" fill="#fff" filter="drop-shadow(0 0 5px #fff)"/><circle cx="65" cy="70" r="5" fill="#fff" filter="drop-shadow(0 0 5px #fff)"/></svg>`,
-  BLIZZARD: `<svg viewBox="0 0 100 100"><path d="M25 45 C10 45 10 25 25 25 C30 10 55 5 65 20 C80 20 85 40 70 45 Z" fill="#64748b" filter="drop-shadow(0 5px 15px #000)"/><path d="M10 65 L60 65 M25 80 L85 80" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg>`
+const ICONS = {
+  SUNNY: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="22" fill="url(#sunG)" filter="drop-shadow(0 0 15px rgba(0, 242, 254, 0.6))"/><path d="M50 10 L50 20 M50 80 L50 90 M10 50 L20 50 M80 50 L90 50 M22 22 L30 30 M70 70 L78 78 M22 78 L30 70 M70 30 L78 22" stroke="url(#sunG)" stroke-width="6" stroke-linecap="round"/></svg>`,
+  SUNSET: `<svg viewBox="0 0 100 100"><path d="M20 70 L80 70" stroke="#ea580c" stroke-width="8" stroke-linecap="round"/><path d="M25 66 A25 25 0 0 1 75 66 Z" fill="url(#setG)" filter="drop-shadow(0 -5px 15px rgba(255, 117, 140, 0.6))"/><path d="M50 20 L50 30 M30 35 L38 42 M70 35 L62 42" stroke="#ff7eb3" stroke-width="5" stroke-linecap="round"/></svg>`,
+  NIGHT: `<svg viewBox="0 0 100 100"><path d="M60 15 C35 15 15 35 15 60 C15 75 22 88 33 95 C25 80 25 50 50 35 C65 25 80 30 90 40 C85 20 75 15 60 15 Z" fill="#e0c3fc" filter="drop-shadow(0 0 15px rgba(142, 197, 252, 0.6))"/><circle cx="75" cy="25" r="3" fill="#fff" filter="drop-shadow(0 0 5px #fff)"/></svg>`,
+  RAIN: `<svg viewBox="0 0 100 100"><path d="M25 55 C10 55 10 35 25 35 C30 20 55 15 65 30 C80 30 85 50 70 55 Z" fill="#94a3b8" filter="drop-shadow(0 5px 10px rgba(0,0,0,0.5))"/><path d="M35 70 L25 90 M50 70 L40 90 M65 70 L55 90" stroke="#00f2fe" stroke-width="5" stroke-linecap="round"/></svg>`,
+  NIGHT_RAIN: `<svg viewBox="0 0 100 100"><path d="M25 55 C10 55 10 35 25 35 C30 20 55 15 65 30 C80 30 85 50 70 55 Z" fill="#1e293b" filter="drop-shadow(0 5px 15px rgba(0,0,0,0.7))"/><path d="M35 70 L25 90 M50 70 L40 90 M65 70 L55 90" stroke="#4facfe" stroke-width="4" stroke-linecap="round"/></svg>`,
+  STORM: `<svg viewBox="0 0 100 100"><path d="M25 50 C10 50 10 30 25 30 C30 15 55 10 65 25 C80 25 85 45 70 50 Z" fill="#0f172a" filter="drop-shadow(0 10px 20px rgba(0,0,0,0.8))"/><path d="M50 45 L35 70 L50 70 L40 95 L65 60 L50 60 Z" fill="#facc15" filter="drop-shadow(0 0 15px rgba(250, 204, 21, 0.6))"/></svg>`,
+  SNOW: `<svg viewBox="0 0 100 100"><path d="M25 50 C10 50 10 30 25 30 C30 15 55 10 65 25 C80 25 85 45 70 50 Z" fill="#cbd5e1"/><circle cx="35" cy="70" r="5" fill="#fff"/><circle cx="50" cy="85" r="6" fill="#fff"/><circle cx="65" cy="70" r="5" fill="#fff"/></svg>`,
+  BLIZZARD: `<svg viewBox="0 0 100 100"><path d="M25 45 C10 45 10 25 25 25 C30 10 55 5 65 20 C80 20 85 40 70 45 Z" fill="#64748b"/><path d="M10 65 L60 65 M25 80 L85 80" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg>`
 };
-const weatherNames = {SUNNY:'Trời Nắng ☀️',SUNSET:'Hoàng Hôn 🌅',NIGHT:'Ban Đêm 🌙',RAIN:'Mưa Rào 🌧️',NIGHT_RAIN:'Mưa Đêm 🌧️',STORM:'Bão Dữ Dội 🌩️',SNOW:'Tuyết Rơi ❄️',BLIZZARD:'Bão Tuyết 🌨️'};
-const OTHER_WEATHERS = ['SUNSET','RAIN','NIGHT','NIGHT_RAIN','STORM','SNOW','BLIZZARD'];
 
 /* ==========================================================================
-   HỆ THỐNG ÂM THANH (CHILL BGM & THỜI TIẾT TỔNG HỢP)
+   3. PROCEDURAL DOM ENGINE (SỬ DỤNG <USE> ĐỂ TỐI ƯU BỘ NHỚ)
+   Khôi phục toàn bộ hệ sinh thái Rừng, Núi, Cỏ, Nấm, Đá, Ếch.
    ========================================================================== */
-const AUDIO = {
-  ctx: null, master: null, rain: null, wind: null, bgmOsc: [],
+const DOMEngine = {
+  mountains: function() {
+    const w = 1200, h = 300;
+    for(let i=1; i<=3; i++) {
+      const box = $(`layer-${i}`); if(!box) continue; box.innerHTML = '';
+      let path = `M0 ${h} `; let freq = 2 + i*1.5; let amp = 40 + i*10; let curY = h - (50 * i);
+      for(let x=0; x<=w; x+=20) {
+        let y = curY + Math.sin(x/w * Math.PI * freq) * amp;
+        path += `L${x} ${y} `;
+      }
+      path += `L${w} ${h} Z`;
+      box.innerHTML = `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:100%;" preserveAspectRatio="none"><path class="mt-c${i}" d="${path}"/></svg>`;
+    }
+  },
+  grass: function() {
+    const box = $('layer-grass'); if(!box) return; box.innerHTML = '';
+    const total = STATE.isMobile ? 15 : 35;
+    const frag = document.createDocumentFragment();
+    
+    // Nền cỏ base
+    let base = document.createElement('div');
+    base.style.position = 'absolute'; base.style.bottom = '0'; base.style.width = '100%'; base.style.height = '40%';
+    base.innerHTML = `<svg viewBox="0 0 1200 100" preserveAspectRatio="none" style="width:100%;height:100%;"><path class="mt-c1" d="M0,50 Q300,30 600,60 T1200,50 L1200,100 L0,100 Z"/></svg>`;
+    frag.appendChild(base);
+
+    // Bụi cỏ chi tiết
+    for(let i=0; i<total; i++) {
+      let div = document.createElement('div');
+      div.className = `nature-item ${Math.random() > 0.5 ? 'sway' : 'sway-fast'}`;
+      div.style.left = `${Math.random() * 100}%`;
+      div.style.width = `${30 + Math.random()*20}px`; div.style.height = `${40 + Math.random()*20}px`;
+      div.innerHTML = `<svg viewBox="0 0 50 100" style="width:100%;height:100%; overflow:visible;"><use href="#model-grass-tuft" class="mt-grass"/></svg>`;
+      frag.appendChild(div);
+    }
+    box.appendChild(frag);
+  },
+  forestAndProps: function() {
+    const box = $('forest-box'); if(!box) return; box.innerHTML = '';
+    const totalTrees = STATE.isMobile ? 8 : 16;
+    const frag = document.createDocumentFragment();
+
+    for(let i=0; i<totalTrees; i++) {
+      let div = document.createElement('div');
+      div.className = 'nature-item sway';
+      div.style.left = `${(i * (100/totalTrees)) + (Math.random()*6 - 3)}%`;
+      div.style.zIndex = Math.floor(Math.random() * 5);
+      div.style.width = `${70 + Math.random()*60}px`;
+      div.style.height = `${140 + Math.random()*100}px`;
+      div.style.animationDelay = `${-Math.random() * 5}s`;
+      
+      let type = Math.random() > 0.5 ? '#model-tree-detailed' : '#model-tree-pine';
+      div.innerHTML = `<svg viewBox="0 0 100 240" style="width:100%;height:100%; overflow:visible;"><use href="${type}"/></svg>`;
+      frag.appendChild(div);
+      
+      // Thêm Nấm và Đá dưới gốc cây
+      if(!STATE.isMobile && Math.random() > 0.6) {
+        let prop = document.createElement('div');
+        prop.style.position = 'absolute'; prop.style.bottom = '-5px';
+        prop.style.left = `${Math.random()*100}%`;
+        prop.style.width = '30px'; prop.style.height = '30px';
+        let propType = Math.random() > 0.5 ? '#model-mushroom' : '#model-rock';
+        prop.innerHTML = `<svg viewBox="0 0 100 100" style="width:100%;height:100%;"><use href="${propType}"/></svg>`;
+        div.appendChild(prop);
+      }
+    }
+    box.appendChild(frag);
+  },
+  birdsAndClouds: function() {
+    const cBox = $('moving-clouds'), bBox = $('birds-box');
+    if(cBox) {
+      cBox.innerHTML = '';
+      const cCount = getScale(['STORM','BLIZZARD'].includes(STATE.currentMode) ? 8 : 4);
+      const cFrag = document.createDocumentFragment();
+      for(let i=0; i<cCount; i++) {
+        let c = document.createElement('div'); c.className = 'moving-cloud';
+        c.style.width = `${150 + Math.random()*200}px`; c.style.height = '100px'; c.style.top = `${Math.random()*40}vh`;
+        c.style.animation = `flyCloud ${40 + Math.random()*40}s linear infinite`; c.style.animationDelay = `${-Math.random()*50}s`;
+        c.innerHTML = `<svg viewBox="0 0 200 100"><path d="M40,60 Q20,60 20,40 Q20,20 40,20 Q50,5 70,5 Q100,5 110,25 Q130,10 150,25 Q170,25 170,45 Q170,60 150,60 Z"/></svg>`;
+        cFrag.appendChild(c);
+      }
+      cBox.appendChild(cFrag);
+    }
+    if(bBox) {
+      bBox.innerHTML = '';
+      if(['SUNNY','SUNSET','SNOW'].includes(STATE.currentMode)) {
+        const bCount = getScale(5);
+        const bFrag = document.createDocumentFragment();
+        for(let i=0; i<bCount; i++) {
+          let b = document.createElement('div'); b.className = 'bird';
+          b.style.width = `${15 + Math.random()*15}px`; b.style.height = '15px'; b.style.top = `${5 + Math.random()*30}vh`;
+          b.style.animation = `flyBird ${15 + Math.random()*15}s ease-in-out infinite`; b.style.animationDelay = `${-Math.random()*20}s`;
+          b.innerHTML = `<svg viewBox="0 0 50 50"><path d="M5 25 Q25 10 25 25 Q25 10 45 25 Q25 18 25 32 Q25 18 5 25 Z"/></svg>`;
+          bFrag.appendChild(b);
+        }
+        bBox.appendChild(bFrag);
+      }
+    }
+  },
+  updateAll: function() {
+    this.mountains(); this.grass(); this.forestAndProps(); this.birdsAndClouds();
+  }
+};
+
+/* ==========================================================================
+   4. SPATIAL AUDIO SYNTHESIZER (WEB AUDIO API)
+   ========================================================================== */
+const AudioEngine = {
+  ctx: null, master: null, rainGain: null, windGain: null, bgmOsc: [],
   init: function() {
     try {
       if(this.ctx) return;
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if(!AC) return;
+      const AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
       this.ctx = new AC();
-      this.master = this.ctx.createGain(); this.master.gain.value = STATE.isMuted ? 0 : STATE.savedVol;
+      this.master = this.ctx.createGain();
+      this.master.gain.value = STATE.isMuted ? 0 : STATE.masterVolume;
       this.master.connect(this.ctx.destination);
 
+      // Noise Buffer cho tiếng mưa/gió
       const len = this.ctx.sampleRate * 2; const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
       const data = buf.getChannelData(0); for(let i=0; i<len; i++) data[i] = Math.random() * 2 - 1;
 
-      const createNoise = (type, freq, q) => {
+      const makeNoise = (type, freq, q) => {
         const src = this.ctx.createBufferSource(); src.buffer = buf; src.loop = true;
         const filter = this.ctx.createBiquadFilter(); filter.type = type; filter.frequency.value = freq; if(q) filter.Q.value = q;
         const gain = this.ctx.createGain(); gain.gain.value = 0;
         src.connect(filter); filter.connect(gain); gain.connect(this.master); src.start(); return gain;
       };
-      this.rain = createNoise('lowpass', 800); this.wind = createNoise('bandpass', 350, 2);
+      this.rainGain = makeNoise('lowpass', 800); this.windGain = makeNoise('bandpass', 350, 2);
 
+      // Synthesizer tạo BGM Ambient (Hợp âm Cmaj9 chậm)
       const freqs = [130.81, 196.00, 246.94, 293.66];
       freqs.forEach((f, i) => {
         const osc = this.ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = f;
         const gain = this.ctx.createGain(); gain.gain.value = 0;
-        const lfo = this.ctx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 0.1 + (i*0.02);
+        const lfo = this.ctx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 0.05 + (i*0.01);
         const lfoGain = this.ctx.createGain(); lfoGain.gain.value = 0.05;
         lfo.connect(lfoGain); lfoGain.connect(gain.gain);
         osc.connect(gain); gain.connect(this.master); osc.start(); lfo.start(); this.bgmOsc.push(gain);
       });
-    } catch(e) {}
+    } catch(e) { console.warn("Audio Context Blocked."); }
   },
   ramp: function(node, val, time = 1.5) {
     if(!this.ctx || !node) return;
     try { const now = this.ctx.currentTime; node.gain.cancelScheduledValues(now); node.gain.setValueAtTime(node.gain.value, now); node.gain.linearRampToValueAtTime(val, now + time); } catch(e){}
   },
-  updateForWeather: function(mode) {
+  syncWeather: function(mode) {
     if(!this.ctx || this.ctx.state !== 'running') return;
     this.bgmOsc.forEach(g => this.ramp(g, 0.08, 3)); 
-    const map = { RAIN:[0.2, 0.05], NIGHT_RAIN:[0.2, 0.05], STORM:[0.4, 0.3], BLIZZARD:[0.05, 0.4], SNOW:[0, 0.1] };
-    const [r, w] = map[mode] || [0, 0]; this.ramp(this.rain, r); this.ramp(this.wind, w);
+    const map = { RAIN:[0.25, 0.05], NIGHT_RAIN:[0.25, 0.05], STORM:[0.5, 0.4], BLIZZARD:[0.05, 0.5], SNOW:[0, 0.15] };
+    const [r, w] = map[mode] || [0, 0]; this.ramp(this.rainGain, r); this.ramp(this.windGain, w);
   },
   playThunder: function() {
     if(!this.ctx || STATE.isMuted) return;
     try {
-      const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
-      osc.type = 'square'; osc.frequency.setValueAtTime(150, this.ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 2);
-      gain.gain.setValueAtTime(0.5, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 2.1);
-      osc.connect(gain); gain.connect(this.master); osc.start(); osc.stop(this.ctx.currentTime + 2.2);
+      const osc = this.ctx.createOscillator(), gain = this.ctx.createGain(), now = this.ctx.currentTime;
+      osc.type = 'square'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(30, now + 2);
+      gain.gain.setValueAtTime(0.6, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 2.1);
+      osc.connect(gain); gain.connect(this.master); osc.start(now); osc.stop(now + 2.2);
     } catch(e){}
   }
 };
 
-['pointerdown','keydown','touchstart'].forEach(evt => window.addEventListener(evt, () => {
-  AUDIO.init(); if(AUDIO.ctx && AUDIO.ctx.state === 'suspended') { AUDIO.ctx.resume().then(() => AUDIO.updateForWeather(STATE.currentMode)).catch(()=>{}); } else { AUDIO.updateForWeather(STATE.currentMode); }
-}, {passive:true, once:true}));
-
-function toggleMasterSound() {
-  STATE.isMuted = !STATE.isMuted; localStorage.setItem('sk_mute', STATE.isMuted ? '1' : '0');
-  const b = $('sound-toggle-btn'); if(b) { b.textContent = STATE.isMuted ? 'Âm thanh: OFF' : 'Âm thanh: ON'; b.classList.toggle('muted', STATE.isMuted); }
-  AUDIO.ramp(AUDIO.master, STATE.isMuted ? 0 : STATE.savedVol, 0.5);
-}
-function updateMasterVolume(v) { STATE.savedVol = v / 100; localStorage.setItem('sk_vol', STATE.savedVol); if ($('volume-text')) $('volume-text').textContent = v + '%'; if(!STATE.isMuted) AUDIO.ramp(AUDIO.master, STATE.savedVol, 0.2); }
-
 /* ==========================================================================
-   PARTICLE ENGINE (KHÔNG LAG - CHẶN DPR VÀ ÉP KIỂU SỐ NGUYÊN)
+   5. HARDWARE ACCELERATED CANVAS PARTICLE ENGINE
    ========================================================================== */
-const CanvasEngine = {
-  canvas: $('particle-canvas'), ctx: null, width: 0, height: 0, animationId: null,
-  dpr: Math.min(window.devicePixelRatio || 1, 1.5),
+const ParticleEngine = {
+  canvas: $('particle-canvas'), ctx: null, w: 0, h: 0, id: null,
+  dpr: 1, // Ép DPR=1 để tránh chết GPU trên điện thoại xịn
   init: function() {
-    if (!this.canvas) return; this.ctx = this.canvas.getContext('2d', {alpha: true, desynchronized: true}); this.resize(); this.loop();
+    if(!this.canvas) return; 
+    this.ctx = this.canvas.getContext('2d', {alpha: true, desynchronized: true});
+    this.resize(); this.loop();
   },
   resize: function() {
-    if (!this.canvas) return;
-    this.width = window.innerWidth * 1.2; this.height = window.innerHeight * 1.3;
-    this.canvas.width = this.width * this.dpr; this.canvas.height = this.height * this.dpr;
-    this.ctx.scale(this.dpr, this.dpr); this.populate();
+    if(!this.canvas) return;
+    this.dpr = STATE.isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+    this.w = window.innerWidth * 1.2; this.h = window.innerHeight * 1.3;
+    this.canvas.width = this.w * this.dpr; this.canvas.height = this.h * this.dpr;
+    this.ctx.scale(this.dpr, this.dpr);
+    this.populate();
   },
   populate: function() {
-    STATE.particles = []; const mode = STATE.currentMode; let count = 0, type = '';
-    if(mode === 'RAIN' || mode === 'NIGHT_RAIN') { count = scalePerf(120); type = 'rain'; }
-    else if(mode === 'STORM') { count = scalePerf(200); type = 'storm'; }
-    else if(mode === 'SNOW') { count = scalePerf(80); type = 'snow'; }
-    else if(mode === 'BLIZZARD') { count = scalePerf(150); type = 'blizzard'; }
-    else if(mode === 'NIGHT') { count = scalePerf(150); type = 'star'; } 
-    else if(mode === 'SUNSET' || mode === 'SUNNY') { count = scalePerf(30); type = 'dust'; }
+    STATE.particles = []; const m = STATE.currentMode; let c = 0, t = '';
+    
+    // Tối ưu số lượng hạt tùy phần cứng
+    if(m === 'RAIN' || m === 'NIGHT_RAIN') { c = getScale(150); t = 'rain'; }
+    else if(m === 'STORM') { c = getScale(250); t = 'storm'; }
+    else if(m === 'SNOW') { c = getScale(100); t = 'snow'; }
+    else if(m === 'BLIZZARD') { c = getScale(180); t = 'blizzard'; }
+    else if(m === 'NIGHT') { c = getScale(120); t = 'star'; } 
+    else if(m === 'SUNSET' || m === 'SUNNY') { c = getScale(40); t = 'dust'; }
 
-    for(let i = 0; i < count; i++) {
+    for(let i=0; i<c; i++) {
       STATE.particles.push({
-        x: Math.random() * this.width, y: Math.random() * this.height, s: Math.random() * 2.5 + 1,
-        vx: (Math.random() - 0.5) * 2, vy: Math.random() * 5 + 2, opacity: Math.random() * 0.8 + 0.2, type: type,
-        angle: Math.random() * Math.PI * 2, spin: (Math.random() - 0.5) * 0.1,
-        color: (type==='star') ? (Math.random()>0.5 ? '#fff' : (Math.random()>0.5 ? '#a5f3fc' : '#fef08a')) : '#fff'
+        x: Math.random() * this.w, y: Math.random() * this.h, s: Math.random() * 2.5 + 1,
+        vx: (Math.random() - 0.5) * 2, vy: Math.random() * 5 + 2, o: Math.random() * 0.8 + 0.2, t: t,
+        ang: Math.floor(Math.random() * 360), sp: Math.floor(Math.random() * 5) - 2,
+        col: (t==='star') ? (Math.random()>0.5 ? '#fff' : (Math.random()>0.5 ? '#a5f3fc' : '#fef08a')) : '#fff'
       });
     }
   },
   loop: function() {
-    this.ctx.clearRect(0, 0, this.width, this.height);
-    const mode = STATE.currentMode;
+    this.ctx.clearRect(0, 0, this.w, this.h);
     
-    for(let i = 0; i < STATE.particles.length; i++) {
-      let p = STATE.particles[i]; let x = p.x | 0, y = p.y | 0;
+    for(let i=0; i<STATE.particles.length; i++) {
+      let p = STATE.particles[i]; 
+      let x = p.x | 0, y = p.y | 0; // Bitwise ép kiểu số nguyên
       
-      if(p.type === 'rain' || p.type === 'storm') {
-        p.vy = p.type === 'storm' ? (Math.random()*8 + 15) : (Math.random()*5 + 10); p.vx = p.type === 'storm' ? 8 : 2; 
-        this.ctx.beginPath(); this.ctx.moveTo(x, y); this.ctx.lineTo(x + p.vx * 2, y + p.vy * 2);
-        this.ctx.strokeStyle = `rgba(255, 255, 255, ${p.opacity * 0.5})`; this.ctx.lineWidth = p.type === 'storm' ? 2 : 1; this.ctx.stroke();
+      if(p.t === 'rain' || p.t === 'storm') {
+        p.vy = p.t === 'storm' ? (Math.random()*8 + 15) : (Math.random()*5 + 10); p.vx = p.t === 'storm' ? 8 : 2; 
+        this.ctx.beginPath(); this.ctx.moveTo(x, y); this.ctx.lineTo(x + p.vx*2, y + p.vy*2);
+        this.ctx.strokeStyle = `rgba(255,255,255,${p.o*0.5})`; this.ctx.lineWidth = p.t === 'storm' ? 2 : 1; this.ctx.stroke();
       } 
-      else if (p.type === 'snow' || p.type === 'blizzard') {
-        p.vy = p.type === 'blizzard' ? (Math.random()*4 + 5) : (Math.random()*2 + 1); p.vx = p.type === 'blizzard' ? (Math.random()*6 + 4) : Math.sin(p.angle) * 1.5; p.angle += p.spin;
-        this.ctx.beginPath(); this.ctx.arc(x, y, p.s, 0, Math.PI * 2); this.ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`; this.ctx.fill();
+      else if (p.t === 'snow' || p.t === 'blizzard') {
+        p.vy = p.t === 'blizzard' ? (Math.random()*4 + 5) : (Math.random()*2 + 1); 
+        p.vx = p.t === 'blizzard' ? (Math.random()*6 + 4) : STATE.cache.sin[Math.abs(p.ang)%360] * 1.5; 
+        p.ang += p.sp;
+        this.ctx.beginPath(); this.ctx.arc(x, y, p.s, 0, 6.28); this.ctx.fillStyle = `rgba(255,255,255,${p.o})`; this.ctx.fill();
       }
-      else if (p.type === 'star') {
-        p.vx = 0; p.vy = 0; let twinkle = Math.sin(Date.now() * 0.002 * p.s) * 0.5 + 0.5;
-        this.ctx.beginPath(); this.ctx.arc(x, y, p.s * 0.6, 0, Math.PI * 2);
-        this.ctx.fillStyle = p.color; this.ctx.globalAlpha = twinkle * p.opacity; this.ctx.fill(); this.ctx.globalAlpha = 1;
-        
-        if(Math.random() < 0.0001) { p.x = Math.random() * this.width; p.y = 0; p.vx = -25; p.vy = 25; p.type = 'meteor'; }
+      else if (p.t === 'star') {
+        p.vx = 0; p.vy = 0; let tw = Math.sin(Date.now() * 0.002 * p.s) * 0.5 + 0.5;
+        this.ctx.beginPath(); this.ctx.arc(x, y, p.s*0.6, 0, 6.28);
+        this.ctx.fillStyle = p.col; this.ctx.globalAlpha = tw * p.o; this.ctx.fill(); this.ctx.globalAlpha = 1;
+        // Sinh sao băng
+        if(Math.random() < 0.00005) { p.x = Math.random() * this.w; p.y = 0; p.vx = -25; p.vy = 25; p.t = 'meteor'; }
       }
-      else if (p.type === 'meteor') {
+      else if (p.t === 'meteor') {
         let grad = this.ctx.createLinearGradient(x, y, x - p.vx*4, y - p.vy*4);
-        grad.addColorStop(0, `rgba(255,255,255, ${p.opacity})`); grad.addColorStop(1, `rgba(0,242,254, 0)`);
+        grad.addColorStop(0, `rgba(255,255,255,${p.o})`); grad.addColorStop(1, `rgba(0,242,254,0)`);
         this.ctx.beginPath(); this.ctx.moveTo(x, y); this.ctx.lineTo(x - p.vx*4, y - p.vy*4);
         this.ctx.strokeStyle = grad; this.ctx.lineWidth = 3; this.ctx.lineCap = "round"; this.ctx.stroke();
-        if(p.y > this.height) { p.type = 'star'; p.vx=0; p.vy=0; }
+        if(p.y > this.h) { p.t = 'star'; p.vx=0; p.vy=0; }
       }
-      else if (p.type === 'dust') {
-        p.vx = Math.sin(p.angle) * 0.5; p.vy = Math.cos(p.angle) * 0.5 - 0.5; p.angle += p.spin;
-        this.ctx.beginPath(); this.ctx.arc(x, y, p.s * 0.5, 0, Math.PI * 2);
-        this.ctx.fillStyle = (mode==='SUNSET') ? `rgba(250, 204, 21, ${p.opacity})` : `rgba(255, 255, 255, ${p.opacity*0.5})`; this.ctx.fill();
+      else if (p.t === 'dust') {
+        p.vx = STATE.cache.sin[Math.abs(p.ang)%360] * 0.5; p.vy = STATE.cache.cos[Math.abs(p.ang)%360] * 0.5 - 0.5; p.ang += p.sp;
+        this.ctx.beginPath(); this.ctx.arc(x, y, p.s*0.5, 0, 6.28);
+        this.ctx.fillStyle = STATE.currentMode === 'SUNSET' ? `rgba(250,204,21,${p.o})` : `rgba(255,255,255,${p.o*0.5})`; this.ctx.fill();
       }
 
       p.x += p.vx; p.y += p.vy;
-      if(p.x > this.width || p.x < 0 || p.y > this.height || p.y < -50) { if(p.type !== 'star' && p.type !== 'meteor') { p.x = Math.random() * this.width; p.y = -20; } }
+      if(p.x > this.w || p.x < 0 || p.y > this.h || p.y < -50) { if(p.t !== 'star' && p.t !== 'meteor') { p.x = Math.random() * this.w; p.y = -20; } }
     }
-    this.animationId = requestAnimationFrame(() => this.loop());
+    this.id = requestAnimationFrame(() => this.loop());
   }
 };
 
 /* ==========================================================================
-   PROCEDURAL GENERATION - HỆ THỐNG VẼ LẠI HOÀN TOÀN TỰ ĐỘNG
+   6. WEATHER SYSTEM MANAGER
    ========================================================================== */
-
-// 1. Núi: Dùng Sóng Sine Smooth
-function generateMountains() {
-  const w = 1200, h = 300;
-  for(let i=1; i<=3; i++) {
-    const box = $(`layer-${i}`); if(!box) continue; box.innerHTML = '';
-    let pathStr = `M0 ${h} `; let freq = 2 + i*1.5; let amp = 40 + i*10; let currentY = h - (50 * i);
-    for(let x=0; x<=w; x+=20) {
-      let y = currentY + Math.sin(x/w * Math.PI * freq) * amp;
-      pathStr += `L${x} ${y} `;
-    }
-    pathStr += `L${w} ${h} Z`;
-    box.innerHTML = `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:100%;"><path class="mt-c${i} mt-shape" d="${pathStr}"/></svg>`;
-  }
-}
-
-// 2. Cỏ: Lớp lớp uốn lượn
-function generateGrass() {
-  const box = $('layer-grass'); if(!box) return; box.innerHTML = '';
-  let path = `M0,100 `;
-  for(let x=0; x<=1200; x+=30) {
-    path += `Q${x+15},${30+Math.random()*30} ${x+30},100 `;
-  }
-  box.innerHTML = `<svg viewBox="0 0 1200 100" style="width:100%;height:100%;"><path class="mt-c1 mt-shape sway" d="${path}"/></svg>`;
-}
-
-// 3. Rừng cây: Vẽ cây hoàn toàn Inline tự động ngẫu nhiên
-function generateForest() {
-  const container = $('forest-box'); if(!container) return; container.innerHTML = '';
-  const totalTrees = STATE.IS_MOBILE ? 6 : 14;
-  const frag = document.createDocumentFragment();
-  for(let i=0; i<totalTrees; i++) {
-    const div = document.createElement('div');
-    div.className = 'nature-item sway';
-    div.style.left = (i * (100/totalTrees) + (Math.random()*4 - 2)) + '%';
-    div.style.zIndex = Math.floor(Math.random() * 4);
-    div.style.width = (70 + Math.random() * 50) + 'px';
-    div.style.height = (140 + Math.random() * 80) + 'px';
-    div.style.animationDelay = (-Math.random() * 5) + 's';
+const WeatherEngine = {
+  apply: function(mode) {
+    STATE.previousMode = STATE.currentMode; STATE.currentMode = mode;
+    document.body.className = `weather-${mode.toLowerCase().replace(/_/g, '-')}`;
     
-    const isPine = Math.random() > 0.5;
-    let svgStr = `<svg viewBox="0 0 100 220" style="width:100%;height:100%; overflow:visible;">`;
-    if(isPine) {
-      svgStr += `<rect x="46" y="140" width="8" height="60" rx="2" fill="#291206"/>`;
-      svgStr += `<path d="M50,20 L80,70 L65,70 L90,110 L60,110 L95,150 L5,150 L40,110 L10,110 L35,70 L20,70 Z" fill="#064e3b" filter="drop-shadow(0 5px 5px rgba(0,0,0,0.5))"/>`;
-      svgStr += `<path d="M50,25 L70,65 L55,65 L75,100 L45,100 L75,140 L25,140 L55,100 L25,100 L45,65 L30,65 Z" fill="#047857" opacity="0.8"/>`;
-    } else {
-      svgStr += `<path d="M48,200 C48,160 40,130 50,80 C60,130 52,160 52,200 Z" fill="#2d1305"/>`;
-      svgStr += `<path d="M50,140 Q30,110 20,80 M50,110 Q70,90 80,60 M48,90 Q35,60 40,40 M51,75 Q65,50 60,30" stroke="#3e1f0a" stroke-width="6" fill="none" stroke-linecap="round"/>`;
-      svgStr += `<path d="M50,10 L70,30 L60,50 L80,60 L60,80 L85,90 L60,110 L50,130 L40,110 L15,90 L40,80 L20,60 L40,50 L30,30 Z" fill="#0f5132" opacity="0.9" filter="drop-shadow(0 5px 5px rgba(0,0,0,0.5))"/>`;
-      svgStr += `<path d="M50,15 L65,35 L55,50 L75,60 L55,75 L50,100 L45,75 L25,60 L45,50 L35,35 Z" fill="#198754" opacity="0.8"/>`;
-      svgStr += `<path d="M50,25 L60,40 L50,55 L70,65 L50,80 L30,65 L50,55 L40,40 Z" fill="#4ade80" opacity="0.7"/>`;
-    }
-    svgStr += `</svg>`;
-    div.innerHTML = svgStr; frag.appendChild(div);
-  }
-  container.appendChild(frag);
-}
+    if($('status-box')) $('status-box').innerHTML = ICONS[mode];
+    if($('wf-current-icon')) $('wf-current-icon').innerHTML = ICONS[mode];
+    if($('wf-current-name')) $('wf-current-name').textContent = STATE.weatherNames[mode];
+    if($('weather-chip')) $('weather-chip').textContent = STATE.weatherNames[mode];
 
-// 4. Mây và Chim (Sử dụng Animation Đúng)
-function populateDOMFX() {
-  const cBox = $('moving-clouds'); if(cBox) cBox.innerHTML = '';
-  const cloudCount = scalePerf(['STORM','BLIZZARD'].includes(STATE.currentMode) ? 6 : 3);
-  for(let i=0; i<cloudCount; i++) {
-    const c = document.createElement('div'); c.className = 'moving-cloud';
-    c.style.width = (150 + Math.random()*150) + 'px'; c.style.height = '100px'; c.style.top = (Math.random()*35) + 'vh';
-    c.style.animation = `flyCloud ${30 + Math.random()*40}s linear infinite`; // FIX
-    c.style.animationDelay = (-Math.random()*40) + 's';
-    c.innerHTML = '<svg viewBox="0 0 200 100"><path d="M40,60 Q20,60 20,40 Q20,20 40,20 Q50,5 70,5 Q100,5 110,25 Q130,10 150,25 Q170,25 170,45 Q170,60 150,60 Z"/></svg>';
-    if(cBox) cBox.appendChild(c);
-  }
+    ParticleEngine.populate();
+    DOMEngine.birdsAndClouds();
+    AudioEngine.syncWeather(mode);
 
-  const bBox = $('birds-box'); if(bBox) bBox.innerHTML = '';
-  if(['SUNNY','SUNSET','SNOW'].includes(STATE.currentMode)) {
-    for(let i=0; i<scalePerf(4); i++) {
-      const b = document.createElement('div'); b.className = 'bird';
-      b.style.width = (15 + Math.random()*15) + 'px'; b.style.height = '15px'; b.style.top = (5 + Math.random()*25) + 'vh';
-      b.style.animation = `flyBird ${15 + Math.random()*10}s ease-in-out infinite`; // FIX
-      b.style.animationDelay = (-Math.random()*15) + 's';
-      b.innerHTML = '<svg viewBox="0 0 50 50"><path d="M5 25 Q25 10 25 25 Q25 10 45 25 Q25 18 25 32 Q25 18 5 25 Z"/></svg>';
-      if(bBox) bBox.appendChild(b);
+    // Kích hoạt ếch nhảy khi vừa tạnh mưa
+    const frog = $('frog');
+    if(frog) {
+      if(['RAIN','NIGHT_RAIN','STORM'].includes(STATE.previousMode) && !['RAIN','NIGHT_RAIN','STORM'].includes(mode)) {
+        frog.style.opacity = '1'; frog.style.animation = 'frogJump 3s ease-in-out infinite';
+        setTimeout(() => { frog.style.opacity = '0'; setTimeout(()=>frog.style.animation='', 1000); }, 15000);
+      }
     }
+
+    clearTimeout(STATE.timers.lightning);
+    if(mode === 'STORM') this.lightning();
+  },
+  lightning: function() {
+    if(STATE.currentMode !== 'STORM') return;
+    const f = $('lightning-flash');
+    if(f) {
+      f.style.opacity = '0.9'; AudioEngine.playThunder();
+      setTimeout(() => { f.style.opacity = '0'; }, 80);
+      setTimeout(() => { f.style.opacity = '0.6'; setTimeout(() => f.style.opacity = '0', 60); }, 200);
+    }
+    STATE.timers.lightning = setTimeout(() => this.lightning(), 5000 + Math.random()*8000);
+  },
+  loop: function() {
+    const now = Math.floor(Date.now() / 1000); const b = Math.floor(now / STATE.cycleDuration);
+    const mode = (b % 2 === 0) ? 'SUNNY' : STATE.weatherModes.filter(m=>m!=='SUNNY')[Math.floor(Math.abs(Math.sin(b * 123.456) * 1000)) % 7];
+    
+    if(STATE.currentMode !== mode) this.apply(mode);
+    
+    const rm = STATE.cycleDuration - (now % STATE.cycleDuration);
+    if($('wf-timer-text')) $('wf-timer-text').textContent = `${String(Math.floor(rm/60)).padStart(2,'0')}:${String(rm%60).padStart(2,'0')}`;
+    if($('wf-progress')) $('wf-progress').style.width = `${(100 - (rm/STATE.cycleDuration*100)).toFixed(2)}%`;
+    
+    const nextMode = ((b+1) % 2 === 0) ? 'SUNNY' : STATE.weatherModes.filter(m=>m!=='SUNNY')[Math.floor(Math.abs(Math.sin((b+1) * 123.456) * 1000)) % 7];
+    if($('wf-next-name')) $('wf-next-name').textContent = STATE.weatherNames[nextMode];
   }
-}
+};
 
 /* ==========================================================================
-   ENGINE THỜI TIẾT ĐỒNG BỘ
-   ========================================================================== */
-function setWeatherClass(mode) { document.body.className = ''; document.body.classList.add('weather-' + mode.toLowerCase().replace(/_/g, '-')); }
-
-function applyWeather(mode) {
-  STATE.previousMode = STATE.currentMode; STATE.currentMode = mode;
-  setWeatherClass(mode);
-  
-  if ($('status-box')) $('status-box').innerHTML = svgIcons[mode];
-  if ($('wf-current-icon')) $('wf-current-icon').innerHTML = svgIcons[mode];
-  if ($('wf-current-name')) $('wf-current-name').textContent = weatherNames[mode];
-  if ($('weather-chip')) $('weather-chip').textContent = weatherNames[mode];
-
-  CanvasEngine.populate(); populateDOMFX(); AUDIO.updateForWeather(mode);
-  clearTimeout(STATE.lightningTimer); STATE.lightningTimer = null; if(mode === 'STORM') triggerLightning();
-}
-
-function triggerLightning() {
-  if(STATE.currentMode !== 'STORM') return;
-  const flash = $('lightning-flash');
-  if (flash) {
-    flash.style.opacity = '0.9'; AUDIO.playThunder();
-    setTimeout(() => flash.style.opacity = '0', 100);
-    setTimeout(() => { flash.style.opacity = '0.6'; setTimeout(() => flash.style.opacity = '0', 80); }, 250);
-  }
-  STATE.lightningTimer = setTimeout(triggerLightning, 5000 + Math.random()*10000);
-}
-
-const getModeForBlock = block => (block % 2 === 0) ? 'SUNNY' : OTHER_WEATHERS[Math.floor(Math.abs(Math.sin(block * 123.456) * 1000)) % OTHER_WEATHERS.length];
-
-function weatherLoop() {
-  const now = Math.floor(Date.now() / 1000); const block = Math.floor(now / STATE.CYCLE);
-  const mode = getModeForBlock(block);
-  if(STATE.currentMode !== mode) applyWeather(mode);
-  const remain = STATE.CYCLE - (now % STATE.CYCLE);
-  if ($('wf-timer-text')) $('wf-timer-text').textContent = `${String(Math.floor(remain / 60)).padStart(2, '0')}:${String(remain % 60).padStart(2, '0')}`;
-  if ($('wf-progress')) $('wf-progress').style.width = (100 - (remain / STATE.CYCLE * 100)).toFixed(2) + '%';
-  if ($('wf-next-name')) $('wf-next-name').textContent = weatherNames[getModeForBlock(block + 1)];
-}
-
-/* ==========================================================================
-   UI CONTROLS VÀ TƯƠNG TÁC NGƯỜI DÙNG
+   7. UI CONTROLLERS & EVENT BINDINGS
    ========================================================================== */
 function toggleNoticeBoard() {
-  const board = $('main-notice-board'), badge = $('notice-badge'); if(!board || !badge) return;
-  const ripple = document.createElement('div'); ripple.className = 'ripple'; ripple.style.left = '50%'; ripple.style.top = '50%'; board.appendChild(ripple); setTimeout(()=>ripple.remove(), 600);
-  board.classList.toggle('collapsed'); badge.textContent = board.classList.contains('collapsed') ? 'Mở Rộng' : 'Thu Gọn';
+  const bd = $('main-notice-board'), bg = $('notice-badge'); if(!bd||!bg) return;
+  const rp = document.createElement('div'); rp.className = 'ripple'; rp.style.left = '50%'; rp.style.top = '50%'; bd.appendChild(rp); setTimeout(()=>rp.remove(),600);
+  bd.classList.toggle('collapsed'); bg.textContent = bd.classList.contains('collapsed') ? 'Mở Rộng' : 'Thu Gọn';
 }
 
 function openWebUtilsModal(e) {
-  if(e) { const btn = e.currentTarget, ripple = document.createElement('div'); ripple.className = 'ripple'; ripple.style.left = e.offsetX + 'px'; ripple.style.top = e.offsetY + 'px'; btn.appendChild(ripple); setTimeout(()=>ripple.remove(), 600); }
-  if($('main-notice-board')) $('main-notice-board').classList.add('collapsed');
-  if($('notice-badge')) $('notice-badge').textContent = 'Thu Gọn';
+  if(e) { const rp = document.createElement('div'); rp.className = 'ripple'; rp.style.left = e.offsetX+'px'; rp.style.top = e.offsetY+'px'; e.currentTarget.appendChild(rp); setTimeout(()=>rp.remove(),600); }
+  if($('main-notice-board')) $('main-notice-board').classList.add('collapsed'); if($('notice-badge')) $('notice-badge').textContent = 'Thu Gọn';
   if($('web-utils-modal')) $('web-utils-modal').classList.add('active');
 }
-
 function closeWebUtilsModal() { if($('web-utils-modal')) $('web-utils-modal').classList.remove('active'); }
-document.addEventListener('keydown', e => { if(e.key === 'Escape') { closeWebUtilsModal(); if($('menu-drawer')) $('menu-drawer').classList.remove('show'); } });
 
 function switchTab(id, btn) {
-  document.querySelectorAll('.tab-content, .nav-btn').forEach(el => el.classList.remove('active'));
-  if($(id)) $(id).classList.add('active'); if(btn) btn.classList.add('active');
-  filterBoxes($('util-search') ? $('util-search').value : '');
+  document.querySelectorAll('.tab-content, .nav-btn').forEach(e => e.classList.remove('active'));
+  if($(id)) $(id).classList.add('active'); if(btn) btn.classList.add('active'); filterBoxes($('util-search')?$('util-search').value:'');
 }
 
-function filterBoxes(query) {
-  const q = (query || '').trim().toLowerCase();
-  document.querySelectorAll('.tab-content').forEach(tab => {
-    let count = 0;
-    tab.querySelectorAll('.box').forEach(b => { const match = !q || b.textContent.toLowerCase().includes(q); b.classList.toggle('hidden', !match); if(match) count++; });
-    let msg = tab.querySelector('.empty-msg');
-    if(!count && q) { if(!msg) { msg = document.createElement('div'); msg.className = 'empty-msg'; msg.textContent = 'Không tìm thấy tiện ích phù hợp 😢'; tab.appendChild(msg); } } else if(msg) { msg.remove(); }
+function filterBoxes(q) {
+  q = (q||'').trim().toLowerCase();
+  document.querySelectorAll('.tab-content').forEach(t => {
+    let c = 0; t.querySelectorAll('.box').forEach(b => { const m = !q || b.textContent.toLowerCase().includes(q); b.classList.toggle('hidden',!m); if(m) c++; });
+    let msg = t.querySelector('.empty-msg');
+    if(!c && q) { if(!msg) { msg=document.createElement('div'); msg.className='empty-msg'; msg.textContent='Không tìm thấy dữ liệu.'; t.appendChild(msg); } } else if(msg) msg.remove();
   });
 }
 
 function copyCode(btn) {
-  const box = btn.closest('.box'); if(!box) return;
-  const scriptEl = box.querySelector('.script-text'); if(!scriptEl) return;
-  const text = scriptEl.innerText.trim();
-  const fallbackCopy = () => { const ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); onSuccess(); } catch(e) { prompt('Hãy Copy bằng tay:', text); } ta.remove(); };
-  const onSuccess = () => { const old = btn.textContent; btn.textContent = 'Đã Copy ✨'; btn.classList.add('copied'); setTimeout(() => { btn.textContent = old; btn.classList.remove('copied'); }, 2000); };
-  if(navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(onSuccess).catch(fallbackCopy); } else { fallbackCopy(); }
+  const b = btn.closest('.box'); if(!b) return; const s = b.querySelector('.script-text'); if(!s) return; const txt = s.innerText.trim();
+  const fb = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText='position:fixed;opacity:0;'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');ok();}catch(e){prompt('Copy thủ công:',txt);} ta.remove(); };
+  const ok = () => { const old = btn.textContent; btn.textContent='Đã Copy ✨'; btn.classList.add('copied'); setTimeout(()=>{btn.textContent=old;btn.classList.remove('copied');},2000); };
+  if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok).catch(fb); else fb();
 }
 
 function toggleMenuDrawer() { if($('menu-drawer')) $('menu-drawer').classList.toggle('show'); }
-document.addEventListener('pointerdown', e => {
-  const drawer = $('menu-drawer'); if(drawer && drawer.classList.contains('show') && !drawer.contains(e.target) && !e.target.closest('.menu-toc-btn')) { drawer.classList.remove('show'); }
-});
+function toggleMasterSound() {
+  STATE.isMuted = !STATE.isMuted; localStorage.setItem('sk_mute', STATE.isMuted?'1':'0');
+  const btn = $('sound-toggle-btn'); if(btn) { btn.textContent = STATE.isMuted ? 'Âm thanh: OFF' : 'Âm thanh: ON'; btn.classList.toggle('muted', STATE.isMuted); }
+  AudioEngine.ramp(AudioEngine.master, STATE.isMuted ? 0 : STATE.masterVolume, 0.5);
+}
+function updateMasterVolume(v) {
+  STATE.masterVolume = v/100; localStorage.setItem('sk_vol', STATE.masterVolume);
+  if($('volume-text')) $('volume-text').textContent = v+'%'; if(!STATE.isMuted) AudioEngine.ramp(AudioEngine.master, STATE.masterVolume, 0.2);
+}
 
-/* PARALLAX - 3D CARD */
+// BINDINGS
+document.addEventListener('keydown', e => { if(e.key === 'Escape') { closeWebUtilsModal(); if($('menu-drawer')) $('menu-drawer').classList.remove('show'); } });
+document.addEventListener('pointerdown', e => { const dr = $('menu-drawer'); if(dr && dr.classList.contains('show') && !dr.contains(e.target) && !e.target.closest('.menu-toc-btn')) dr.classList.remove('show'); });
 document.addEventListener('mousemove', e => {
-  if(STATE.REDUCED_MOTION || STATE.IS_MOBILE) return;
-  const x = e.clientX, y = e.clientY, cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-  const tiltX = ((y - cy) / cy) * -4, tiltY = ((x - cx) / cx) * 4;
-  if($('main-card')) $('main-card').style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  if(STATE.reducedMotion || STATE.isMobile) return;
+  const x = e.clientX, y = e.clientY, cx = window.innerWidth/2, cy = window.innerHeight/2;
+  const tx = ((y-cy)/cy) * -3, ty = ((x-cx)/cx) * 3;
+  if($('main-card')) $('main-card').style.transform = `perspective(1000px) rotateX(${tx}deg) rotateY(${ty}deg)`;
 });
 document.addEventListener('mouseleave', () => { if($('main-card')) $('main-card').style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`; });
-
-/* MARQUEE TEXT LOOP */
-(function buildMarquee() {
-  const msg = '🌟 WEB ĐÃ FIX LỖI LỆCH MÀN HÌNH HOÀN TOÀN 🌟 • CÂY CỎ MƯỢT MÀ • NHẠC CHILL, KHÔNG LAG • THAM GIA DISCORD NHÉ! 🚀';
-  const t = $('marquee-track'); if(!t) return; t.innerHTML = '';
-  for(let i=0; i<2; i++) { const s = document.createElement('span'); s.className = 'marquee-tag'; s.innerHTML = msg; t.appendChild(s); }
-})();
-
-/* DEBOUNCE RESIZE (Tối ưu vẽ lại cây cỏ khi xoay màn hình) */
 window.addEventListener('resize', () => {
-  STATE.IS_MOBILE = window.innerWidth <= 768; clearTimeout(STATE.resizeTimeout);
-  STATE.resizeTimeout = setTimeout(() => { generateMountains(); generateGrass(); generateForest(); CanvasEngine.resize(); populateDOMFX(); }, 400);
+  STATE.isMobile = window.innerWidth <= 768; clearTimeout(STATE.timers.resize);
+  STATE.timers.resize = setTimeout(() => { DOMEngine.updateAll(); ParticleEngine.resize(); }, 500);
 });
 
-/* BOOT SYSTEM */
+/* ==========================================================================
+   8. INITIALIZATION (BOOT SEQUENCE)
+   ========================================================================== */
 function BOOT() {
-  if($('volume-range')) $('volume-range').value = Math.round(STATE.savedVol * 100);
-  if($('volume-text')) $('volume-text').textContent = Math.round(STATE.savedVol * 100) + '%';
+  if($('volume-range')) $('volume-range').value = Math.round(STATE.masterVolume * 100);
+  if($('volume-text')) $('volume-text').textContent = Math.round(STATE.masterVolume * 100) + '%';
   if(STATE.isMuted && $('sound-toggle-btn')) { $('sound-toggle-btn').textContent = 'Âm thanh: OFF'; $('sound-toggle-btn').classList.add('muted'); }
 
-  generateMountains(); generateGrass(); generateForest();
-  CanvasEngine.init();
-  STATE.currentMode = getModeForBlock(Math.floor(Date.now() / 1000 / STATE.CYCLE)); applyWeather(STATE.currentMode);
-  weatherLoop(); setInterval(weatherLoop, 1000);
+  DOMEngine.updateAll();
+  ParticleEngine.init();
+  
+  const now = Math.floor(Date.now() / 1000); const b = Math.floor(now / STATE.cycleDuration);
+  STATE.currentMode = (b % 2 === 0) ? 'SUNNY' : STATE.weatherModes.filter(m=>m!=='SUNNY')[Math.floor(Math.abs(Math.sin(b * 123.456) * 1000)) % 7];
+  WeatherEngine.apply(STATE.currentMode);
+  
+  WeatherEngine.loop(); setInterval(() => WeatherEngine.loop(), 1000);
 }
 document.addEventListener('DOMContentLoaded', BOOT);
 
