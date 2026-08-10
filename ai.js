@@ -1,452 +1,791 @@
 /* =========================================================
-   NOXGPT // CORE
-   ai.js
+   NOXGPT // ai.js
+   Gemini client
    ========================================================= */
 
 "use strict";
 
 /* =========================================================
-   ELEMENTS
-========================================================= */
-
-const chat = document.getElementById("chat");
-const prompt = document.getElementById("prompt");
-const thinking = document.getElementById("thinking");
-
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
-const menuBtn = document.getElementById("menuBtn");
-
-const apiModal = document.getElementById("apiModal");
-const apiInput = document.getElementById("apiKey");
-const saveApi = document.getElementById("saveApi");
-const apiBtn = document.getElementById("apiBtn");
-
-const newChatBtn = document.getElementById("newChat");
-const clearBtn = document.getElementById("clearBtn");
-const modelBtn = document.getElementById("modelBtn");
-const aboutBtn = document.getElementById("aboutBtn");
-
-const sendBtn = document.getElementById("send");
-const attachBtn = document.getElementById("attach");
-
-
-/* =========================================================
    CONFIG
 ========================================================= */
 
-const STORAGE = {
-    API: "NOX_API",
-    HISTORY: "NOX_CHAT_HISTORY",
-    MODEL: "NOX_MODEL"
+const NOX_CONFIG = {
+    API_KEY: "YOUR_GEMINI_API_KEY",
+
+    MODEL: "gemini-2.5-flash",
+
+    API_URL:
+        "https://generativelanguage.googleapis.com/v1beta/models/",
+
+    MAX_HISTORY: 40,
+
+    TEMPERATURE: 0.7,
+
+    MAX_OUTPUT_TOKENS: 4096
 };
 
-const DEFAULT_MODEL = "openai/gpt-4o-mini";
+/* =========================================================
+   DOM
+========================================================= */
 
-let selectedModel =
-    localStorage.getItem(STORAGE.MODEL) || DEFAULT_MODEL;
+const chat =
+    document.getElementById("chat");
+
+const prompt =
+    document.getElementById("prompt");
+
+const thinking =
+    document.getElementById("thinking");
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const overlay =
+    document.getElementById("overlay");
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const newChat =
+    document.getElementById("newChat");
+
+const clearBtn =
+    document.getElementById("clearBtn");
+
+const sendBtn =
+    document.getElementById("send");
+
+const attachBtn =
+    document.getElementById("attach");
+
+/* =========================================================
+   STATE
+========================================================= */
 
 let history = [];
 
+let controller = null;
+
+let generating = false;
+
+let currentConversation = [];
+
+let uploadedFiles = [];
 
 /* =========================================================
-   SAFE HELPERS
+   STORAGE
 ========================================================= */
 
-function safeGet(key) {
+const STORAGE_KEY =
+    "NOXGPT_HISTORY";
+
+const SETTINGS_KEY =
+    "NOXGPT_SETTINGS";
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+function loadHistory() {
+
     try {
-        return localStorage.getItem(key);
+
+        const saved =
+            localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) return;
+
+        const parsed =
+            JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+
+            history = parsed;
+
+        }
+
     } catch (error) {
-        console.error("LocalStorage read error:", error);
-        return null;
+
+        console.warn(
+            "Không thể tải lịch sử:",
+            error
+        );
+
+        history = [];
+
     }
+
 }
 
-function safeSet(key, value) {
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveHistory() {
+
     try {
-        localStorage.setItem(key, value);
-        return true;
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(history)
+        );
+
     } catch (error) {
-        console.error("LocalStorage write error:", error);
-        return false;
+
+        console.warn(
+            "Không thể lưu lịch sử:",
+            error
+        );
+
     }
+
 }
 
-function safeRemove(key) {
-    try {
-        localStorage.removeItem(key);
-    } catch (error) {
-        console.error("LocalStorage remove error:", error);
+/* =========================================================
+   LIMIT HISTORY
+========================================================= */
+
+function limitHistory() {
+
+    if (
+        history.length >
+        NOX_CONFIG.MAX_HISTORY
+    ) {
+
+        history =
+            history.slice(
+                -NOX_CONFIG.MAX_HISTORY
+            );
+
     }
+
 }
 
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        String(text);
+
+    return div.innerHTML;
+
+}
+
+/* =========================================================
+   MARKDOWN
+========================================================= */
+
+function renderMarkdown(text) {
+
+    if (
+        typeof marked !== "undefined"
+    ) {
+
+        try {
+
+            return marked.parse(
+                String(text)
+            );
+
+        } catch {
+
+            return escapeHTML(text);
+
+        }
+
+    }
+
+    return escapeHTML(text)
+        .replace(/\n/g, "<br>");
+
+}
+
+/* =========================================================
+   HIGHLIGHT
+========================================================= */
+
+function highlightCode(container) {
+
+    if (
+        typeof hljs === "undefined"
+    ) {
+
+        return;
+
+    }
+
+    container
+        .querySelectorAll(
+            "pre code"
+        )
+        .forEach(code => {
+
+            try {
+
+                hljs.highlightElement(
+                    code
+                );
+
+            } catch {}
+
+        });
+
+}
+
+/* =========================================================
+   ADD MESSAGE
+========================================================= */
+
+function addMessage(
+    text,
+    type,
+    options = {}
+) {
+
+    if (!chat) return null;
+
+    document
+        .querySelector(".welcome")
+        ?.remove();
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        `message ${type}`;
+
+    wrapper.dataset.type =
+        type;
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "message-content";
+
+    if (type === "ai") {
+
+        content.innerHTML =
+            renderMarkdown(text);
+
+        highlightCode(
+            content
+        );
+
+    } else {
+
+        content.textContent =
+            text;
+
+    }
+
+    wrapper.appendChild(
+        content
+    );
+
+    if (
+        options.actions !== false
+    ) {
+
+        const actions =
+            createMessageActions(
+                text,
+                type
+            );
+
+        wrapper.appendChild(
+            actions
+        );
+
+    }
+
+    chat.appendChild(
+        wrapper
+    );
+
+    scrollToBottom();
+
+    return wrapper;
+
+}
+
+/* =========================================================
+   MESSAGE ACTIONS
+========================================================= */
+
+function createMessageActions(
+    text,
+    type
+) {
+
+    const actions =
+        document.createElement("div");
+
+    actions.className =
+        "message-actions";
+
+    const copy =
+        createActionButton(
+            "Copy"
+        );
+
+    copy.onclick =
+        () => copyText(text);
+
+    actions.appendChild(
+        copy
+    );
+
+    if (type === "ai") {
+
+        const regenerate =
+            createActionButton(
+                "Regenerate"
+            );
+
+        regenerate.onclick =
+            regenerateLastResponse;
+
+        actions.appendChild(
+            regenerate
+        );
+
+    }
+
+    return actions;
+
+}
+
+/* =========================================================
+   ACTION BUTTON
+========================================================= */
+
+function createActionButton(
+    label
+) {
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+    button.className =
+        "message-action";
+
+    button.type =
+        "button";
+
+    button.textContent =
+        label;
+
+    return button;
+
+}
+
+/* =========================================================
+   COPY
+========================================================= */
+
+async function copyText(text) {
+
+    try {
+
+        await navigator
+            .clipboard
+            .writeText(text);
+
+        showToast(
+            "Đã sao chép."
+        );
+
+    } catch {
+
+        const area =
+            document.createElement(
+                "textarea"
+            );
+
+        area.value =
+            text;
+
+        document.body.appendChild(
+            area
+        );
+
+        area.select();
+
+        document.execCommand(
+            "copy"
+        );
+
+        area.remove();
+
+        showToast(
+            "Đã sao chép."
+        );
+
+    }
+
+}
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollToBottom() {
+
+    if (!chat) return;
+
+    requestAnimationFrame(
+        () => {
+
+            chat.scrollTop =
+                chat.scrollHeight;
+
+        }
+    );
+
+}
+
+/* =========================================================
+   THINKING
+========================================================= */
+
+function setThinking(
+    value
+) {
+
+    generating =
+        Boolean(value);
+
+    if (!thinking) return;
+
+    thinking.classList.toggle(
+        "hidden",
+        !generating
+    );
+
+}
 
 /* =========================================================
    SIDEBAR
 ========================================================= */
 
 function openSidebar() {
-    if (sidebar) sidebar.classList.add("show");
-    if (overlay) overlay.classList.add("show");
-}
 
-function closeSidebar() {
-    if (sidebar) sidebar.classList.remove("show");
-    if (overlay) overlay.classList.remove("show");
-}
+    sidebar?.classList.add(
+        "show"
+    );
 
-if (menuBtn) {
-    menuBtn.addEventListener("click", () => {
-        if (sidebar && sidebar.classList.contains("show")) {
-            closeSidebar();
-        } else {
-            openSidebar();
-        }
-    });
-}
-
-if (overlay) {
-    overlay.addEventListener("click", closeSidebar);
-}
-
-
-/* =========================================================
-   API KEY
-========================================================= */
-
-function loadApiKey() {
-    if (!apiInput) return;
-
-    const saved = safeGet(STORAGE.API);
-
-    apiInput.value = saved || "";
-}
-
-loadApiKey();
-
-
-function openApiModal() {
-    if (!apiModal) return;
-
-    loadApiKey();
-
-    apiModal.classList.remove("hidden");
-
-    setTimeout(() => {
-        if (apiInput) {
-            apiInput.focus();
-            apiInput.select();
-        }
-    }, 50);
-}
-
-
-function closeApiModal() {
-    if (apiModal) {
-        apiModal.classList.add("hidden");
-    }
-}
-
-
-if (apiBtn) {
-    apiBtn.addEventListener("click", () => {
-        closeSidebar();
-        openApiModal();
-    });
-}
-
-
-if (saveApi) {
-    saveApi.addEventListener("click", saveApiKey);
-}
-
-
-function saveApiKey() {
-
-    if (!apiInput) return;
-
-    const key = apiInput.value.trim();
-
-    if (!key) {
-        safeRemove(STORAGE.API);
-        closeApiModal();
-
-        addMessage(
-            "API Key đã được xóa. Bạn vẫn có thể sử dụng chế độ NOXGPT Demo.",
-            "ai"
-        );
-
-        return;
-    }
-
-    const success = safeSet(STORAGE.API, key);
-
-    if (!success) {
-        alert("Không thể lưu API Key trên trình duyệt này.");
-        return;
-    }
-
-    const verify = safeGet(STORAGE.API);
-
-    if (verify === key) {
-        closeApiModal();
-
-        addMessage(
-            "API Key đã được lưu trên thiết bị này.",
-            "ai"
-        );
-    } else {
-        alert("Không thể xác nhận API Key.");
-    }
-}
-
-
-if (apiModal) {
-    apiModal.addEventListener("click", event => {
-        if (event.target === apiModal) {
-            closeApiModal();
-        }
-    });
-}
-
-
-/* =========================================================
-   ESC CLOSE MODAL
-========================================================= */
-
-document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
-
-        closeApiModal();
-        closeSidebar();
-
-    }
-
-});
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-function loadHistory() {
-
-    const saved = safeGet(STORAGE.HISTORY);
-
-    if (!saved) {
-        history = [];
-        return;
-    }
-
-    try {
-
-        const parsed = JSON.parse(saved);
-
-        if (Array.isArray(parsed)) {
-            history = parsed;
-        } else {
-            history = [];
-        }
-
-    } catch (error) {
-
-        console.error("History error:", error);
-        history = [];
-
-    }
-}
-
-
-function saveHistory() {
-
-    safeSet(
-        STORAGE.HISTORY,
-        JSON.stringify(history)
+    overlay?.classList.add(
+        "show"
     );
 
 }
 
+function closeSidebar() {
 
-loadHistory();
+    sidebar?.classList.remove(
+        "show"
+    );
 
+    overlay?.classList.remove(
+        "show"
+    );
+
+}
+
+menuBtn?.addEventListener(
+    "click",
+    openSidebar
+);
+
+overlay?.addEventListener(
+    "click",
+    closeSidebar
+);
 
 /* =========================================================
-   MESSAGE
+   NEW CHAT
 ========================================================= */
 
-function addMessage(text, type) {
+function startNewChat() {
 
-    if (!chat) return;
+    if (generating) {
 
-    const welcome = chat.querySelector(".welcome");
+        stopGeneration();
 
-    if (welcome) {
-        welcome.remove();
     }
 
-    const div = document.createElement("div");
+    history = [];
 
-    div.className = "message " + type;
+    currentConversation = [];
 
-    if (type === "ai") {
+    uploadedFiles = [];
 
-        if (window.marked) {
+    saveHistory();
 
-            try {
+    if (chat) {
 
-                div.innerHTML = marked.parse(String(text));
+        chat.innerHTML = `
+            <div class="welcome">
+                <div class="welcome-logo-wrap">
+                    <img
+                        class="welcome-logo"
+                        src="assets/logo.svg"
+                        alt="NOXGPT"
+                    >
+                </div>
 
-            } catch {
+                <h2>NOXGPT</h2>
 
-                div.textContent = text;
+                <p>
+                    Xin chào, tôi có thể giúp gì cho bạn?
+                </p>
+            </div>
+        `;
 
-            }
+    }
 
-        } else {
+    if (prompt) {
 
-            div.textContent = text;
+        prompt.value = "";
+
+        autoResize();
+
+    }
+
+    closeSidebar();
+
+}
+
+/* =========================================================
+   CLEAR CHAT
+========================================================= */
+
+function clearChat() {
+
+    history = [];
+
+    currentConversation = [];
+
+    saveHistory();
+
+    if (chat) {
+
+        chat.innerHTML = "";
+
+    }
+
+    closeSidebar();
+
+    showToast(
+        "Đã xóa cuộc trò chuyện."
+    );
+
+}
+
+/* =========================================================
+   STOP
+========================================================= */
+
+function stopGeneration() {
+
+    if (controller) {
+
+        try {
+
+            controller.abort();
+
+        } catch {}
+
+        controller = null;
+
+    }
+
+    setThinking(false);
+
+    showToast(
+        "Đã dừng tạo câu trả lời."
+    );
+
+}
+
+/* =========================================================
+   BUILD GEMINI CONTENT
+========================================================= */
+
+function buildContents() {
+
+    return history.map(
+        item => {
+
+            return {
+
+                role:
+                    item.role ===
+                    "assistant"
+                        ? "model"
+                        : "user",
+
+                parts: [
+                    {
+                        text:
+                            item.content
+                    }
+                ]
+
+            };
+
+        }
+    );
+
+}
+
+/* =========================================================
+   GEMINI REQUEST
+========================================================= */
+
+async function requestGemini() {
+
+    if (
+        !NOX_CONFIG.API_KEY ||
+        NOX_CONFIG.API_KEY ===
+            "YOUR_GEMINI_API_KEY"
+    ) {
+
+        throw new Error(
+            "Chưa cấu hình Gemini API key."
+        );
+
+    }
+
+    controller =
+        new AbortController();
+
+    const url =
+        NOX_CONFIG.API_URL +
+        encodeURIComponent(
+            NOX_CONFIG.MODEL
+        ) +
+        ":generateContent?key=" +
+        encodeURIComponent(
+            NOX_CONFIG.API_KEY
+        );
+
+    const body = {
+
+        contents:
+            buildContents(),
+
+        generationConfig: {
+
+            temperature:
+                NOX_CONFIG.TEMPERATURE,
+
+            maxOutputTokens:
+                NOX_CONFIG.MAX_OUTPUT_TOKENS
 
         }
 
-    } else {
+    };
 
-        div.textContent = text;
+    const response =
+        await fetch(
+            url,
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify(
+                        body
+                    ),
+
+                signal:
+                    controller.signal
+
+            }
+        );
+
+    if (!response.ok) {
+
+        let errorText =
+            "Gemini API error.";
+
+        try {
+
+            const errorData =
+                await response.json();
+
+            errorText =
+                errorData?.error?.message ||
+                errorText;
+
+        } catch {}
+
+        throw new Error(
+            errorText
+        );
 
     }
 
-    chat.appendChild(div);
-
-    highlightCode(div);
-
-    scrollChat();
+    return response.json();
 
 }
-
-
-function highlightCode(container) {
-
-    if (!container) return;
-
-    if (
-        window.hljs &&
-        typeof window.hljs.highlightElement === "function"
-    ) {
-
-        container
-            .querySelectorAll("pre code")
-            .forEach(code => {
-
-                try {
-                    window.hljs.highlightElement(code);
-                } catch (error) {
-                    console.error(error);
-                }
-
-            });
-
-    }
-
-}
-
-
-function scrollChat() {
-
-    if (!chat) return;
-
-    requestAnimationFrame(() => {
-        chat.scrollTop = chat.scrollHeight;
-    });
-
-}
-
 
 /* =========================================================
-   WELCOME
+   EXTRACT RESPONSE
 ========================================================= */
 
-function showWelcome() {
+function extractGeminiText(
+    data
+) {
 
-    if (!chat) return;
-
-    chat.innerHTML = `
-        <div class="welcome">
-            <img src="assets/logo.svg" alt="NOXGPT">
-            <h2>NOXGPT</h2>
-            <p>Xin chào, tôi có thể giúp gì cho bạn?</p>
-        </div>
-    `;
-
-}
-
-
-/* =========================================================
-   THINKING
-========================================================= */
-
-function setThinking(state) {
-
-    if (!thinking) return;
-
-    if (state) {
-        thinking.classList.remove("hidden");
-    } else {
-        thinking.classList.add("hidden");
-    }
-
-}
-
-
-/* =========================================================
-   DEMO MODE
-========================================================= */
-
-/*
-   Không có API Key thì GitHub Pages không thể tự gọi
-   một AI thật mà không có backend/API.
-
-   Vì vậy NOXGPT dùng Demo Mode thay vì báo lỗi.
-*/
-
-function demoResponse(text) {
-
-    const lower = text.toLowerCase();
+    const candidates =
+        data?.candidates;
 
     if (
-        lower.includes("xin chào") ||
-        lower.includes("hello") ||
-        lower.includes("hi")
+        !Array.isArray(candidates) ||
+        !candidates.length
     ) {
 
-        return "Xin chào. NOXGPT đang ở **Demo Mode**. Hãy nhập API Key trong ☰ → API Key để kết nối AI thật.";
+        return "";
 
     }
+
+    const parts =
+        candidates[0]
+            ?.content
+            ?.parts;
 
     if (
-        lower.includes("bạn là ai") ||
-        lower.includes("who are you")
+        !Array.isArray(parts)
     ) {
 
-        return "Tôi là **NOXGPT**, giao diện trợ lý AI của project này.";
+        return "";
 
     }
 
-    if (
-        lower.includes("giúp") ||
-        lower.includes("help")
-    ) {
+    return parts
+        .map(
+            part =>
+                part?.text || ""
+        )
+        .join("");
 
-        return "Tôi có thể hoạt động ở Demo Mode. Để nhận câu trả lời từ AI thật, hãy thêm API Key.";
-
-    }
-
-    return `NOXGPT Demo Mode đã nhận:
-
-> ${text}
-
-Để kết nối AI thật, mở **☰ → API Key** và nhập API Key của bạn.`;
 }
-
 
 /* =========================================================
    SEND MESSAGE
@@ -454,18 +793,29 @@ function demoResponse(text) {
 
 async function sendMessage() {
 
+    if (generating) return;
+
     if (!prompt) return;
 
-    const text = prompt.value.trim();
+    const text =
+        prompt.value.trim();
 
     if (!text) return;
 
-    addMessage(text, "user");
+    addMessage(
+        text,
+        "user"
+    );
 
     history.push({
+
         role: "user",
+
         content: text
+
     });
+
+    limitHistory();
 
     saveHistory();
 
@@ -475,179 +825,238 @@ async function sendMessage() {
 
     setThinking(true);
 
-    const apiKey = safeGet(STORAGE.API);
-
-    /*
-       Không có API → Demo Mode
-    */
-
-    if (!apiKey) {
-
-        await delay(350);
-
-        setThinking(false);
-
-        const reply = demoResponse(text);
-
-        addMessage(reply, "ai");
-
-        return;
-    }
-
-
-    /*
-       Có API → OpenRouter
-    */
-
     try {
 
-        const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-                method: "POST",
-
-                headers: {
-                    "Authorization": "Bearer " + apiKey,
-                    "Content-Type": "application/json",
-                    "HTTP-Referer": location.href,
-                    "X-Title": "NOXGPT"
-                },
-
-                body: JSON.stringify({
-                    model: selectedModel,
-                    messages: history
-                })
-            }
-        );
-
-
-        let data;
-
-        try {
-            data = await response.json();
-        } catch {
-            data = {};
-        }
-
-
-        setThinking(false);
-
-
-        if (!response.ok) {
-
-            const message =
-                data?.error?.message ||
-                `API Error ${response.status}`;
-
-            addMessage(
-                `**Lỗi API:** ${message}`,
-                "ai"
-            );
-
-            return;
-        }
-
-
-        if (
-            !data ||
-            !data.choices ||
-            !data.choices[0] ||
-            !data.choices[0].message
-        ) {
-
-            addMessage(
-                "API không trả về câu trả lời hợp lệ.",
-                "ai"
-            );
-
-            return;
-        }
-
+        const data =
+            await requestGemini();
 
         const reply =
-            data.choices[0].message.content ||
-            "AI không trả về nội dung.";
+            extractGeminiText(
+                data
+            );
 
+        if (!reply) {
+
+            throw new Error(
+                "Gemini không trả về nội dung."
+            );
+
+        }
 
         history.push({
-            role: "assistant",
-            content: reply
+
+            role:
+                "assistant",
+
+            content:
+                reply
+
         });
 
+        limitHistory();
+
         saveHistory();
-
-        addMessage(reply, "ai");
-
-
-    } catch (error) {
-
-        console.error("AI connection error:", error);
 
         setThinking(false);
 
         addMessage(
-            "Không thể kết nối tới AI. Kiểm tra Internet hoặc API Key.",
+            reply,
             "ai"
         );
+
+    } catch (error) {
+
+        setThinking(false);
+
+        if (
+            error?.name ===
+            "AbortError"
+        ) {
+
+            return;
+
+        }
+
+        addMessage(
+            "Lỗi: " +
+            (
+                error?.message ||
+                "Không thể kết nối Gemini."
+            ),
+            "ai"
+        );
+
+    } finally {
+
+        controller =
+            null;
+
+        setThinking(false);
 
     }
 
 }
 
-
 /* =========================================================
-   DELAY
+   REGENERATE
 ========================================================= */
 
-function delay(ms) {
+async function regenerateLastResponse() {
 
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
+    if (generating) return;
 
-}
+    if (
+        history.length === 0
+    ) {
 
+        return;
 
-/* =========================================================
-   SEND BUTTON
-========================================================= */
+    }
 
-if (sendBtn) {
+    const last =
+        history[
+            history.length - 1
+        ];
 
-    sendBtn.addEventListener("click", event => {
+    if (
+        last.role ===
+        "assistant"
+    ) {
 
-        event.preventDefault();
+        history.pop();
 
-        sendMessage();
+    }
 
-    });
+    const lastUser =
+        history[
+            history.length - 1
+        ];
 
-}
+    if (
+        !lastUser ||
+        lastUser.role !==
+            "user"
+    ) {
 
+        return;
 
-/* =========================================================
-   ENTER
-========================================================= */
+    }
 
-if (prompt) {
+    if (chat) {
 
-    prompt.addEventListener("keydown", event => {
+        const messages =
+            chat.querySelectorAll(
+                ".message.ai"
+            );
 
-        if (
-            event.key === "Enter" &&
-            !event.shiftKey
-        ) {
+        if (messages.length) {
 
-            event.preventDefault();
-
-            sendMessage();
+            messages[
+                messages.length - 1
+            ].remove();
 
         }
 
-    });
+    }
+
+    saveHistory();
+
+    setThinking(true);
+
+    try {
+
+        const data =
+            await requestGemini();
+
+        const reply =
+            extractGeminiText(
+                data
+            );
+
+        if (!reply) {
+
+            throw new Error(
+                "Không có phản hồi."
+            );
+
+        }
+
+        history.push({
+
+            role: "assistant",
+
+            content: reply
+
+        });
+
+        saveHistory();
+
+        addMessage(
+            reply,
+            "ai"
+        );
+
+    } catch (error) {
+
+        if (
+            error?.name !==
+            "AbortError"
+        ) {
+
+            addMessage(
+                error.message ||
+                    "Không thể tạo lại.",
+                "ai"
+            );
+
+        }
+
+    } finally {
+
+        setThinking(false);
+
+        controller = null;
+
+    }
 
 }
 
+/* =========================================================
+   EDIT LAST USER
+========================================================= */
+
+function editLastUser() {
+
+    for (
+        let i =
+            history.length - 1;
+        i >= 0;
+        i--
+    ) {
+
+        if (
+            history[i].role ===
+            "user"
+        ) {
+
+            if (prompt) {
+
+                prompt.value =
+                    history[i].content;
+
+                autoResize();
+
+                prompt.focus();
+
+            }
+
+            return;
+
+        }
+
+    }
+
+}
 
 /* =========================================================
    AUTO RESIZE
@@ -657,159 +1066,183 @@ function autoResize() {
 
     if (!prompt) return;
 
-    prompt.style.height = "auto";
+    prompt.style.height =
+        "auto";
 
-    const height =
-        Math.min(prompt.scrollHeight, 150);
-
-    prompt.style.height = height + "px";
+    prompt.style.height =
+        Math.min(
+            prompt.scrollHeight,
+            170
+        ) + "px";
 
 }
 
+/* =========================================================
+   ENTER
+========================================================= */
 
-if (prompt) {
+prompt?.addEventListener(
+    "keydown",
+    event => {
 
-    prompt.addEventListener(
-        "input",
-        autoResize
+        if (
+            event.key ===
+                "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+prompt?.addEventListener(
+    "input",
+    autoResize
+);
+
+/* =========================================================
+   SEND BUTTON
+========================================================= */
+
+sendBtn?.addEventListener(
+    "click",
+    sendMessage
+);
+
+/* =========================================================
+   NEW CHAT BUTTON
+========================================================= */
+
+newChat?.addEventListener(
+    "click",
+    startNewChat
+);
+
+/* =========================================================
+   CLEAR BUTTON
+========================================================= */
+
+clearBtn?.addEventListener(
+    "click",
+    clearChat
+);
+
+/* =========================================================
+   ATTACHMENT
+========================================================= */
+
+attachBtn?.addEventListener(
+    "click",
+    () => {
+
+        showToast(
+            "Chức năng file đang được chuẩn bị."
+        );
+
+    }
+);
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    message
+) {
+
+    let container =
+        document.querySelector(
+            ".toast-container"
+        );
+
+    if (!container) {
+
+        container =
+            document.createElement(
+                "div"
+            );
+
+        container.className =
+            "toast-container";
+
+        document.body.appendChild(
+            container
+        );
+
+    }
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+    toast.className =
+        "toast";
+
+    toast.textContent =
+        message;
+
+    container.appendChild(
+        toast
+    );
+
+    setTimeout(
+        () => {
+
+            toast.remove();
+
+        },
+        2500
     );
 
 }
 
-
 /* =========================================================
-   NEW CHAT
+   KEYBOARD SHORTCUTS
 ========================================================= */
 
-if (newChatBtn) {
+document.addEventListener(
+    "keydown",
+    event => {
 
-    newChatBtn.addEventListener("click", () => {
+        if (
+            event.key ===
+            "Escape"
+        ) {
 
-        history = [];
+            if (generating) {
 
-        safeRemove(STORAGE.HISTORY);
+                stopGeneration();
 
-        showWelcome();
+                return;
 
-        setThinking(false);
+            }
 
-        closeSidebar();
+            closeSidebar();
 
-        if (prompt) {
-            prompt.value = "";
-            autoResize();
         }
 
-    });
+        if (
+            (event.ctrlKey ||
+                event.metaKey) &&
+            event.key === "Enter"
+        ) {
 
-}
+            sendMessage();
 
-
-/* =========================================================
-   CLEAR CHAT
-========================================================= */
-
-if (clearBtn) {
-
-    clearBtn.addEventListener("click", () => {
-
-        history = [];
-
-        safeRemove(STORAGE.HISTORY);
-
-        if (chat) {
-            chat.innerHTML = "";
         }
 
-        closeSidebar();
-
-    });
-
-}
-
-
-/* =========================================================
-   MODEL
-========================================================= */
-
-if (modelBtn) {
-
-    modelBtn.addEventListener("click", () => {
-
-        const model = promptForModel();
-
-        if (!model) return;
-
-        selectedModel = model;
-
-        safeSet(
-            STORAGE.MODEL,
-            selectedModel
-        );
-
-        closeSidebar();
-
-        addMessage(
-            `Model hiện tại: **${selectedModel}**`,
-            "ai"
-        );
-
-    });
-
-}
-
-
-function promptForModel() {
-
-    const value = window.prompt(
-        "Nhập Model OpenRouter:",
-        selectedModel
-    );
-
-    if (!value) return null;
-
-    return value.trim();
-
-}
-
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-if (aboutBtn) {
-
-    aboutBtn.addEventListener("click", () => {
-
-        closeSidebar();
-
-        addMessage(
-            "**NOXGPT**\n\nAI Assistant interface.\n\nPhiên bản Core.",
-            "ai"
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   ATTACH
-========================================================= */
-
-if (attachBtn) {
-
-    attachBtn.addEventListener("click", () => {
-
-        addMessage(
-            "Tính năng đính kèm file đang được chuẩn bị.",
-            "ai"
-        );
-
-    });
-
-}
-
+    }
+);
 
 /* =========================================================
    LOAD SAVED CHAT
@@ -817,71 +1250,114 @@ if (attachBtn) {
 
 function restoreChat() {
 
-    if (!chat) return;
+    loadHistory();
 
-    if (!history.length) {
-        showWelcome();
+    if (
+        !history.length
+    ) {
+
         return;
+
     }
 
-    chat.innerHTML = "";
+    document
+        .querySelector(
+            ".welcome"
+        )
+        ?.remove();
 
-    history.forEach(message => {
-
-        if (
-            message &&
-            (message.role === "user" ||
-             message.role === "assistant")
-        ) {
+    history.forEach(
+        item => {
 
             addMessage(
-                message.content,
-                message.role === "assistant"
+                item.content,
+                item.role ===
+                    "assistant"
                     ? "ai"
-                    : "user"
+                    : "user",
+                {
+                    actions:
+                        true
+                }
             );
 
         }
-
-    });
+    );
 
 }
-
 
 /* =========================================================
    SERVICE WORKER
 ========================================================= */
 
-if ("serviceWorker" in navigator) {
+if (
+    "serviceWorker" in
+    navigator
+) {
 
-    window.addEventListener("load", () => {
+    window.addEventListener(
+        "load",
+        () => {
 
-        navigator.serviceWorker
-            .register("./sw.js")
-            .then(() => {
-                console.log("NOXGPT Service Worker ready.");
-            })
-            .catch(error => {
-                console.warn(
-                    "Service Worker error:",
-                    error
+            navigator.serviceWorker
+                .register(
+                    "./sw.js"
+                )
+                .catch(
+                    error => {
+
+                        console.warn(
+                            "Service worker:",
+                            error
+                        );
+
+                    }
                 );
-            });
 
-    });
+        }
+    );
 
 }
 
-
 /* =========================================================
-   START
+   STARTUP
 ========================================================= */
 
-restoreChat();
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-autoResize();
+        restoreChat();
 
-console.log(
-    "%cNOXGPT // CORE",
-    "color:#ff3333;font-size:18px;font-weight:bold"
+        autoResize();
+
+    }
 );
+
+/* =========================================================
+   GLOBAL API
+========================================================= */
+
+window.NOXGPT = {
+
+    sendMessage,
+
+    stopGeneration,
+
+    startNewChat,
+
+    clearChat,
+
+    regenerateLastResponse,
+
+    editLastUser,
+
+    copyText,
+
+    showToast
+
+};
+
+/* =========================================================
+   END
+========================================================= */
