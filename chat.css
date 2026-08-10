@@ -1,261 +1,120 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f0f2f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 16px;
-}
+  <!-- Ép trình duyệt luôn tải bản mới, không dùng bản cache cũ -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
-.chat-box {
-  width: 100%;
-  max-width: 440px;
-  height: 640px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-}
+  <!-- SEO -->
+  <title>NOX CHAT - Nhắn tin trực tuyến miễn phí</title>
+  <meta name="description" content="NOX CHAT - Phòng chat trực tuyến miễn phí, nhắn tin thời gian thực, đăng nhập bằng Google, gửi ảnh, trả lời và chia sẻ tin nhắn dễ dàng.">
+  <meta name="keywords" content="nox chat, chat online, nhắn tin trực tuyến, chat miễn phí, phòng chat, nox gpt">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/chat.html">
 
-header {
-  background: #0a0a0f;
-  color: #fff;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NOX CHAT - Nhắn tin trực tuyến">
+  <meta property="og:description" content="Phòng chat trực tuyến miễn phí, thời gian thực, đăng nhập bằng Google.">
+  <meta property="og:image" content="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/nox-logo.svg">
+  <meta property="og:url" content="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/chat.html">
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+  <link rel="icon" href="nox-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="chat.css?v=2">
+</head>
+<body>
 
-.brand .logo {
-  width: 28px;
-  height: 28px;
-}
+  <div class="chat-box">
 
-.brand-text {
-  font-weight: bold;
-  font-size: 15px;
-  letter-spacing: 1px;
-  color: #fff;
-}
+    <header>
+      <button id="menuBtn" class="icon-btn" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
 
-.brand-text span {
-  color: #ff3333;
-  text-shadow: 0 0 6px rgba(255,0,0,0.7);
-}
+      <div class="brand">
+        <img src="nox-logo.svg" alt="NOX CHAT" class="logo">
+        <span class="brand-text">NOX<span>CHAT</span></span>
+      </div>
 
-#authArea { display: flex; align-items: center; }
+      <div id="userChip" class="user-chip" style="display:none;">
+        <img id="userAvatar" src="" alt="">
+      </div>
+    </header>
 
-.google-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: #fff;
-  color: #333;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 11px;
-  cursor: pointer;
-}
+    <!-- Menu 3 gạch -->
+    <div id="sideMenu" class="side-menu">
+      <div class="side-menu-header">
+        <span>Menu</span>
+        <button id="closeMenuBtn">✕</button>
+      </div>
+      <a href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/ai.html" class="side-item">
+        <span class="side-icon nox-icon">N</span> NOX GPT
+      </a>
+      <a href="https://discord.gg/4GHRxf86U" target="_blank" rel="noopener" class="side-item">
+        <span class="side-icon discord-icon">D</span> Discord
+      </a>
+      <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" rel="noopener" class="side-item">
+        <span class="side-icon zalo-icon">Z</span> Zalo
+      </a>
+      <button id="logoutBtn" class="side-item side-logout">
+        <span class="side-icon logout-icon">⎋</span> Đăng xuất
+      </button>
+    </div>
+    <div id="menuOverlay" class="menu-overlay" style="display:none;"></div>
 
-.user-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 20px;
-  padding: 3px 8px 3px 3px;
-}
+    <!-- Cổng đăng nhập bắt buộc -->
+    <div id="loginGate" class="login-gate">
+      <img src="nox-logo.svg" class="gate-logo" alt="NOX CHAT">
+      <h2>NOX CHAT</h2>
+      <p>Đăng nhập để bắt đầu trò chuyện</p>
+      <button id="loginBtn" class="google-btn">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.6 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.2 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.2 29.5 4 24 4c-7.4 0-13.8 4.1-17.1 10.1z"/><path fill="#4CAF50" d="M24 44c5.3 0 10.2-2 13.9-5.4l-6.4-5.4C29.4 34.9 26.8 36 24 36c-5.3 0-9.8-3.4-11.4-8.1l-6.5 5C9.9 39.6 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3-3.4 5.4-6.3 6.9l6.4 5.4C39.4 37.5 44 31.4 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+        Đăng nhập bằng Google
+      </button>
+      <p id="loginError" class="login-error"></p>
+    </div>
 
-.user-chip img {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-}
+    <!-- Nội dung chat (ẩn cho tới khi đăng nhập) -->
+    <div id="chatArea" class="chat-area" style="display:none;">
+      <div id="messages"></div>
 
-.user-chip span {
-  font-size: 12px;
-  max-width: 80px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+      <div id="warnBox" class="warn-box" style="display:none;"></div>
 
-.user-chip button {
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 13px;
-  opacity: 0.7;
-}
+      <div id="replyPreview" class="reply-preview" style="display:none;">
+        <div class="reply-preview-text">
+          <span class="reply-preview-label">Trả lời <b id="replyToName"></b></span>
+          <span id="replyToText"></span>
+        </div>
+        <button id="cancelReply">✕</button>
+      </div>
 
-#messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+      <div class="input-row">
+        <div class="msg-row">
+          <button id="imgBtn" class="icon-btn" title="Gửi ảnh">📷</button>
+          <input id="fileInput" type="file" accept="image/*" style="display:none;">
+          <button id="emojiBtn" class="icon-btn" title="Emoji">😊</button>
+          <input id="msgInput" placeholder="Nhập tin nhắn..." maxlength="500">
+          <button id="sendBtn">Gửi</button>
+        </div>
+        <div id="emojiPicker" class="emoji-picker" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
 
-.msg {
-  max-width: 78%;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 14px;
-  line-height: 1.4;
-  word-wrap: break-word;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  transition: background 0.15s;
-}
+  <div id="msgActionMenu" class="msg-action-menu" style="display:none;">
+    <button data-action="reply">↩ Trả lời</button>
+    <button data-action="copy">⧉ Sao chép</button>
+    <button data-action="share">↗ Chia sẻ</button>
+  </div>
 
-.msg .who {
-  font-size: 11px;
-  font-weight: bold;
-  margin-bottom: 2px;
-  opacity: 0.7;
-}
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="firebase.config.js"></script>
+  <script src="chat.js?v=2"></script>
 
-.msg .reply-quote {
-  font-size: 11px;
-  border-left: 3px solid #4a6cf7;
-  padding: 2px 6px;
-  margin-bottom: 4px;
-  opacity: 0.7;
-  background: rgba(0,0,0,0.04);
-  border-radius: 4px;
-}
-
-.msg.me { align-self: flex-end; background: #d9e6ff; }
-.msg.them { align-self: flex-start; background: #eee; }
-
-.msg.pressed { background: #b9cdfb; }
-.msg.them.pressed { background: #ddd; }
-
-.thinkbox {
-  align-self: flex-start;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: #f2eaff;
-  font-size: 12px;
-  color: #7c3aed;
-}
-
-.thinkbox .b {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: #7c3aed;
-  animation: bounce 1.1s infinite ease-in-out;
-}
-.thinkbox .b:nth-child(2){ animation-delay: 0.15s; }
-.thinkbox .b:nth-child(3){ animation-delay: 0.3s; }
-@keyframes bounce {
-  0%,80%,100%{ transform: translateY(0); opacity: 0.5; }
-  40%{ transform: translateY(-4px); opacity: 1; }
-}
-
-.seen-row {
-  align-self: flex-end;
-  font-size: 10px;
-  color: #999;
-  padding: 0 4px;
-}
-
-.reply-preview {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #f4f4f8;
-  padding: 8px 12px;
-  border-top: 1px solid #eee;
-  font-size: 12px;
-}
-
-.reply-preview-text { overflow: hidden; }
-.reply-preview-label { color: #4a6cf7; display: block; font-size: 11px; }
-#replyToText {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #555;
-}
-.reply-preview button {
-  background: none;
-  border: none;
-  font-size: 14px;
-  color: #999;
-  cursor: pointer;
-}
-
-.input-row {
-  padding: 12px;
-  border-top: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.input-row input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-}
-
-.input-row input:focus { border-color: #4a6cf7; }
-
-.msg-row { display: flex; gap: 8px; }
-.msg-row input { flex: 1; }
-
-.msg-row button {
-  background: #4a6cf7;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0 18px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.msg-action-menu {
-  position: fixed;
-  background: #222;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  z-index: 999;
-}
-
-.msg-action-menu button {
-  display: block;
-  width: 100%;
-  background: none;
-  border: none;
-  color: #fff;
-  padding: 10px 18px;
-  font-size: 13px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.msg-action-menu button:hover { background: #333; }
+</body>
+</html>
