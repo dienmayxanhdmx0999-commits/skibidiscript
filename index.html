@@ -5,16 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V36 MASTER SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V36. Giao diện Vuông, Quản lý Menu & Tiện ích DEV toàn diện.">
+<title>NOX WEB - V37 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V37. Giao diện Vuông, Fix triệt để lỗi Quản lý Menu & Tiện ích DEV.">
 <meta name="robots" content="index, follow">
 
-<!-- Firebase App & Database -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- Puter.js AI -->
 <script src="https://js.puter.com/v2/"></script>
 
 <style>
@@ -391,7 +388,6 @@ textarea.script-share-input { height: 150px; resize: none; }
     <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
   </div>
 
-  <!-- PHẦN CHỈNH SỬA MỤC MENU DÀNH CHO DEV (ĐÃ FIX KHUNG GIAO DIỆN) -->
   <div class="drawer-group" id="dev-menu-editor-group" style="display:none;">
     <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ MENU</div>
     <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">CHỈNH SỬA MENU</button>
@@ -414,24 +410,23 @@ textarea.script-share-input { height: 150px; resize: none; }
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V34</span>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V37</span>
       <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
     </div>
 
     <div class="info-board">
       <h3 id="ui-notice-title">THÔNG BÁO</h3>
       <div class="text-truncate" id="ui-notice-text" style="display:block;">
-        > <b>WELCOME TO NOX WEB V34 MASTER.</b><br>
-        > Giao diện cuộn mượt mà không bị tràn màn hình.<br>
-        > DEV được cấp quyền chỉnh sửa Menu trực tiếp qua Sidebar.<br>
-        > Kho tiện ích đồng bộ Firebase, hỗ trợ Sửa/Xóa bằng nút tròn.
+        > <b>WELCOME TO NOX WEB V37 MASTER.</b><br>
+        > Đã khắc phục triệt để lỗi định dạng chuỗi, giúp Sửa/Xóa Menu & Tiện Ích mượt mà.<br>
+        > Cấp quyền DEV toàn diện cho quản trị viên.
       </div>
     </div>
 
     <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V34)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V37)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none; padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
         <button onclick="ConfigEngine.saveConfig()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">CẬP NHẬT HỆ THỐNG</button>
@@ -585,7 +580,6 @@ textarea.script-share-input { height: 150px; resize: none; }
   </div>
 </div>
 
-<!-- EDIT MESSAGE MODAL -->
 <div class="modal-backdrop" id="modal-edit-msg" onclick="if(event.target===this)closeUI('modal-edit-msg')">
   <div class="modal-content" style="max-width: 450px; height: auto;">
     <div class="modal-header">
@@ -653,7 +647,7 @@ function toggleText(element) {
 }
 
 /* ==========================================================================
-   AUTH ENGINE (FIX LỖI ĐĂNG XUẤT VÀ LƯU PHIÊN)
+   AUTH ENGINE
    ========================================================================== */
 const AuthEngine = {
     login: function(profile) {
@@ -758,7 +752,7 @@ const ConfigEngine = {
 };
 
 /* ==========================================================================
-   MENU EDITOR ENGINE (QUẢN LÝ MENU DÀNH CHO DEV)
+   MENU EDITOR ENGINE (FIX AN TOÀN SỰ KIỆN NÚT BẤM)
    ========================================================================== */
 const MenuEditor = {
     ref: null,
@@ -805,8 +799,22 @@ const MenuEditor = {
                     a.style.display = "flex";
                     a.style.justifyContent = "space-between";
                     
-                    let delHtml = IS_ADMIN ? `<span style="color:var(--accent-danger); cursor:pointer;" onclick="event.preventDefault(); MenuEditor.deleteMenuItem('${key}')">[X]</span>` : '';
-                    a.innerHTML = `<span>${item.name}</span> ${delHtml}`;
+                    let spanText = document.createElement('span');
+                    spanText.innerText = item.name;
+                    a.appendChild(spanText);
+
+                    if(IS_ADMIN) {
+                        let delSpan = document.createElement('span');
+                        delSpan.style.color = "var(--accent-danger)";
+                        delSpan.style.cursor = "pointer";
+                        delSpan.innerText = "[X]";
+                        delSpan.onclick = (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            MenuEditor.deleteMenuItem(key);
+                        };
+                        a.appendChild(delSpan);
+                    }
                     container.appendChild(a);
                 });
             }
@@ -815,7 +823,7 @@ const MenuEditor = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE
+   UTILS ENGINE (SỬ DỤNG EVENT LISTENER AN TOÀN TRÁNH VỠ KÝ TỰ ĐẶC BIỆT)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
@@ -918,20 +926,65 @@ const UtilsEngine = {
             allItems.forEach(data => {
                 const pane = DOM.get(data.type);
                 if(pane) {
-                    const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                    let devControls = '';
+                    const box = document.createElement('div'); 
+                    box.className = 'data-box dynamic-item';
+                    
+                    const boxHead = document.createElement('div');
+                    boxHead.className = 'box-head';
+                    
+                    const boxTitle = document.createElement('span');
+                    boxTitle.className = 'box-title';
+                    boxTitle.innerText = data.title;
+                    
+                    const controlsWrapper = document.createElement('div');
+                    controlsWrapper.style.display = "inline-flex";
+                    controlsWrapper.style.alignItems = "center";
+                    
                     if(IS_ADMIN && data.key) {
-                        devControls = `
-                            <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
-                            <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${data.key}')">XÓA</button>
-                        `;
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'dev-circle-edit-btn';
+                        editBtn.innerText = '✎';
+                        editBtn.title = 'Chỉnh sửa';
+                        editBtn.onclick = () => UtilsEngine.triggerEdit(data.key, data.type, data.title, data.content);
+                        
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'dev-delete-btn';
+                        deleteBtn.innerText = 'XÓA';
+                        deleteBtn.onclick = () => UtilsEngine.triggerDelete(data.key);
+                        
+                        controlsWrapper.appendChild(editBtn);
+                        controlsWrapper.appendChild(deleteBtn);
                     }
                     
+                    boxTitle.appendChild(controlsWrapper);
+                    boxHead.appendChild(boxTitle);
+                    
+                    const actionBtn = document.createElement('button');
+                    actionBtn.className = 'box-action';
+                    
                     if(data.type === 'pane-script' || data.isScript) {
-                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
+                        actionBtn.innerText = 'COPY';
+                        actionBtn.onclick = function() { UtilsEngine.execCopy(this); };
+                        boxHead.appendChild(actionBtn);
+                        
+                        box.appendChild(boxHead);
+                        
+                        const scriptCode = document.createElement('div');
+                        scriptCode.className = 'script-code';
+                        scriptCode.innerText = data.content;
+                        box.appendChild(scriptCode);
                     } else {
-                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
+                        actionBtn.innerText = 'MỞ';
+                        const aLink = document.createElement('a');
+                        aLink.href = data.content;
+                        aLink.target = "_blank";
+                        aLink.className = 'box-action';
+                        aLink.innerText = 'MỞ';
+                        
+                        boxHead.appendChild(aLink);
+                        box.appendChild(boxHead);
                     }
+                    
                     pane.appendChild(box);
                 }
             });
@@ -1156,7 +1209,6 @@ const ChatEngine = {
     row.appendChild(metaDiv.firstElementChild);
     row.appendChild(bubbleEl);
     
-    // NÚT THAO TÁC TRỰC TIẾP (SỬA / THU HỒI) DƯỚI TIN NHẮN CỦA MÌNH
     if(isMe && !isRecalled && msgKey) {
         const actionBari = document.createElement('div');
         actionBari.className = 'msg-action-bar';
@@ -1272,15 +1324,48 @@ const ChatEngine = {
           
           scripts.forEach(s => {
               const b = document.createElement('div'); b.className = 'data-box';
-              let delBtn = IS_ADMIN ? `<button class="dev-delete-btn" onclick="ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child('${s.key}').remove())">XÓA</button>` : '';
               let badge = s.role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (s.role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
               let displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
               
-              b.innerHTML = `
-                <div class="box-head"><span class="box-title">${s.title.replace(/</g,"&lt;")} <div>${delBtn}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-                <div class="script-code">${s.code.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
-                <div style="font-size:0.75rem; color:var(--text-sub); margin-top:4px;">${badge} Đóng góp bởi: ${displayName}</div>
-              `;
+              const boxHead = document.createElement('div');
+              boxHead.className = 'box-head';
+              
+              const boxTitle = document.createElement('span');
+              boxTitle.className = 'box-title';
+              boxTitle.innerText = s.title;
+              
+              const controlsWrapper = document.createElement('div');
+              controlsWrapper.style.display = "inline-flex";
+              controlsWrapper.style.alignItems = "center";
+              
+              if(IS_ADMIN) {
+                  const deleteBtn = document.createElement('button');
+                  deleteBtn.className = 'dev-delete-btn';
+                  deleteBtn.innerText = 'XÓA';
+                  deleteBtn.onclick = () => ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child(s.key).remove());
+                  controlsWrapper.appendChild(deleteBtn);
+              }
+              boxTitle.appendChild(controlsWrapper);
+              boxHead.appendChild(boxTitle);
+              
+              const copyBtn = document.createElement('button');
+              copyBtn.className = 'box-action';
+              copyBtn.innerText = 'COPY';
+              copyBtn.onclick = function() { UtilsEngine.execCopy(this); };
+              boxHead.appendChild(copyBtn);
+              
+              b.appendChild(boxHead);
+              
+              const scriptCode = document.createElement('div');
+              scriptCode.className = 'script-code';
+              scriptCode.innerText = s.code;
+              b.appendChild(scriptCode);
+              
+              const footerInfo = document.createElement('div');
+              footerInfo.style.cssText = "font-size:0.75rem; color:var(--text-sub); margin-top:4px;";
+              footerInfo.innerHTML = `${badge} Đóng góp bởi: ${displayName}`;
+              b.appendChild(footerInfo);
+              
               vBoard.appendChild(b);
           });
       });
