@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V35 MASTER SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V35. Giao diện Vuông, Sửa/Thu hồi tin nhắn trực tiếp, Menu DEV mở rộng.">
+<title>NOX WEB - V36 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V36. Giao diện Vuông, Quản lý Menu & Tiện ích DEV toàn diện.">
 <meta name="robots" content="index, follow">
 
 <!-- Firebase App & Database -->
@@ -14,7 +14,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- Puter.js AI (Dự phòng) -->
+<!-- Puter.js AI -->
 <script src="https://js.puter.com/v2/"></script>
 
 <style>
@@ -227,7 +227,7 @@ body::after {
 
 .script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad); background: var(--bg-input); border: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
 
-/* DEV CIRCLE EDIT BUTTON */
+/* DEV ACTION BUTTONS */
 .dev-circle-edit-btn {
     width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: var(--accent-blue);
     border: 1px solid var(--accent-blue); display: inline-flex; align-items: center; justify-content: center;
@@ -250,6 +250,14 @@ body::after {
 }
 .dev-add-panel button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
 
+/* DEV MENU EDITOR PANEL (FIXED LAYOUT) */
+.dev-menu-editor {
+    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-top: 10px; display: none; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box;
+}
+.dev-menu-editor.active { display: flex; }
+.dev-menu-editor input { padding: 8px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); font-size: 0.85rem; width: 100%;}
+.dev-menu-editor button { padding: 8px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; font-size: 0.85rem; width: 100%;}
+
 /* ==========================================================================
    CONFIRMATION MODAL
    ========================================================================== */
@@ -264,7 +272,7 @@ body::after {
 .btn-no:hover { border-color: var(--text-main); }
 
 /* ==========================================================================
-   CHAT UI & NÚT THAO TÁC TRỰC TIẾP (SỬA / THU HỒI)
+   CHAT UI
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -282,13 +290,12 @@ body::after {
 .badge-nox { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--accent-green-bg); }
 .badge-guest { color: var(--text-sub); border: 1px solid var(--border-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--bg-input); }
 
-.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent;}
+.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer;}
 .msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
-.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); }
-.msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); }
+.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
+.msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); cursor: default;}
 .msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
 
-/* NÚT THAO TÁC TRỰC TIẾP NGAY TRÊN TIN NHẮN CỦA MÌNH */
 .msg-action-bar {
   display: flex; gap: 8px; margin-top: 4px; font-size: 0.75rem; font-weight: bold;
 }
@@ -384,11 +391,11 @@ textarea.script-share-input { height: 150px; resize: none; }
     <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
   </div>
 
-  <!-- PHẦN CHỈNH SỬA MỤC MENU DÀNH CHO DEV -->
+  <!-- PHẦN CHỈNH SỬA MỤC MENU DÀNH CHO DEV (ĐÃ FIX KHUNG GIAO DIỆN) -->
   <div class="drawer-group" id="dev-menu-editor-group" style="display:none;">
     <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ MENU</div>
     <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">CHỈNH SỬA MENU</button>
-    <div class="dev-menu-editor" id="dev-menu-editor-box">
+    <div class="drawer-group dev-menu-editor" id="dev-menu-editor-box">
         <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)...">
         <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)">
         <button onclick="MenuEditor.addMenuItem()">THÊM VÀO MENU</button>
@@ -407,25 +414,24 @@ textarea.script-share-input { height: 150px; resize: none; }
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V33</span>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V34</span>
       <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
     </div>
 
     <div class="info-board">
       <h3 id="ui-notice-title">THÔNG BÁO</h3>
       <div class="text-truncate" id="ui-notice-text" style="display:block;">
-        > <b>WELCOME TO NOX WEB V33 MASTER.</b><br>
-        > Cho phép cuộn trang mượt mà khi đầy nội dung.<br>
-        > Hỗ trợ nút tròn (✎) để DEV chỉnh sửa trực tiếp các mục tiện ích.<br>
-        > Thao tác Sửa/Thu hồi hiển thị trực tiếp ngay dưới tin nhắn của bạn.<br>
-        > DEV có quyền tùy chỉnh menu và cấu hình giao diện.
+        > <b>WELCOME TO NOX WEB V34 MASTER.</b><br>
+        > Giao diện cuộn mượt mà không bị tràn màn hình.<br>
+        > DEV được cấp quyền chỉnh sửa Menu trực tiếp qua Sidebar.<br>
+        > Kho tiện ích đồng bộ Firebase, hỗ trợ Sửa/Xóa bằng nút tròn.
       </div>
     </div>
 
     <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V33)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V34)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none; padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
         <button onclick="ConfigEngine.saveConfig()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">CẬP NHẬT HỆ THỐNG</button>
@@ -752,7 +758,7 @@ const ConfigEngine = {
 };
 
 /* ==========================================================================
-   MENU EDITOR ENGINE (ĐẶC QUYỀN DEV CHỈNH SỬA MENU)
+   MENU EDITOR ENGINE (QUẢN LÝ MENU DÀNH CHO DEV)
    ========================================================================== */
 const MenuEditor = {
     ref: null,
@@ -1019,7 +1025,7 @@ const GptEngine = {
 const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT ENGINE (FIX LỖI NÚT THAO TÁC TRỰC TIẾP TRÊN TIN NHẮN)
+   FIREBASE CHAT ENGINE
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
