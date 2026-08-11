@@ -5,18 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V32 MASTER EDITION</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V32. Giao diện Vuông, AI Gemini, Identity System, Typing Indicator, Toast Notification.">
+<title>NOX WEB - V33 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V33. Cho phép cuộn trang, Sửa lỗi đăng xuất, Quản lý menu DEV, Đầy đủ Script/APK/iOS.">
 <meta name="robots" content="index, follow">
 
+<!-- Firebase App & Database -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<!-- Puter.js AI (Dự phòng) -->
 <script src="https://js.puter.com/v2/"></script>
 
 <style>
 /* ==========================================================================
-   CSS ARCHITECTURE: DARK THEME & SQUARE GEOMETRY
+   CSS ARCHITECTURE: DARK THEME & SCROLLABLE LAYOUT
    ========================================================================== */
 :root {
   --bg-core: #0d0f12;        
@@ -39,6 +42,7 @@
   --dev-color: #ff0055;
   
   --rad: 0px; 
+  
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
@@ -50,12 +54,14 @@ a { text-decoration: none; color: inherit; }
 
 html { font-family: "Courier New", Courier, monospace; font-size: 16px; width: 100%; height: 100%; }
 
+/* CHO PHÉP TRANG WEB CUỘN LÊN CUỘN XUỐNG KHI NỘI DUNG ĐẦY / TRÀN */
 body {
-  width: 100%; max-width: 100vw; height: 100dvh; max-height: 100dvh;
+  width: 100%; min-height: 100vh;
   background-color: var(--bg-core);
-  overflow: hidden !important; overscroll-behavior: none; position: fixed; top: 0; left: 0;
+  overflow-y: auto !important; overflow-x: hidden;
+  position: relative;
   display: flex; justify-content: center; align-items: flex-start;
-  padding: 8dvh 16px 80px; color: var(--text-main);
+  padding: 8vh 16px 100px; color: var(--text-main);
 }
 
 /* CRT SCANLINE EFFECT */
@@ -66,7 +72,7 @@ body::after {
 }
 
 /* ==========================================================================
-   TOAST NOTIFICATION BANNER (5s Alert)
+   TOAST NOTIFICATION BANNER
    ========================================================================== */
 #toast-banner {
   position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
@@ -124,7 +130,7 @@ body::after {
   background: var(--bg-core); border-right: 1px solid var(--border-color);
   transform: translateX(-100%); opacity: 0; pointer-events: none;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-  box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+  box-shadow: 4px 0 15px rgba(0,0,0,0.5); overflow-y: auto;
 }
 .drawer-menu.is-open { transform: translateX(0); opacity: 1; pointer-events: auto; }
 
@@ -140,7 +146,7 @@ body::after {
 .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
 
 /* ==========================================================================
-   MAIN DASHBOARD CARD
+   MAIN DASHBOARD CARD (CÂN CHỈNH MARGIN TRÁNH ĐÈ MENU)
    ========================================================================== */
 .card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; margin-top: 50px; }
 .main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; }
@@ -242,11 +248,13 @@ body::after {
 }
 .dev-add-panel button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
 
-/* EDIT CONFIG PANEL (DEV) */
-.dev-config-box { background: var(--bg-panel); border: 1px solid var(--dev-color); padding: 16px; margin-bottom: 16px; display: none; flex-direction: column; gap: 10px; }
-.dev-config-box.active { display: flex; }
-.dev-config-box input { padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); }
-.dev-config-box button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
+/* DEV MENU EDITOR PANEL */
+.dev-menu-editor {
+    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-top: 15px; display: none; flex-direction: column; gap: 8px;
+}
+.dev-menu-editor.active { display: flex; }
+.dev-menu-editor input { padding: 8px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); font-size: 0.85rem;}
+.dev-menu-editor button { padding: 8px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; font-size: 0.85rem;}
 
 /* ==========================================================================
    CONFIRMATION MODAL
@@ -262,7 +270,7 @@ body::after {
 .btn-no:hover { border-color: var(--text-main); }
 
 /* ==========================================================================
-   CHAT UI & CONTEXT MENU
+   CHAT UI & CONTEXT MENU (FIX LỖI BẤM VÀO TIN NHẮN HIỆN MENU SỬA/THU HỒI)
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -280,23 +288,22 @@ body::after {
 .badge-nox { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--accent-green-bg); }
 .badge-guest { color: var(--text-sub); border: 1px solid var(--border-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--bg-input); }
 
-.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; user-select: text;}
+.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer;}
 .msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
-.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); }
-.msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); }
+.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
+.msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); cursor: default;}
 .msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
 
-/* Menu context khi đè vào tin nhắn (Edit / Recall) */
+/* Context menu nổi khi bấm vào tin nhắn của mình */
 .msg-context-menu {
-  position: absolute; top: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
-  z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 120px;
+  position: absolute; bottom: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
+  z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 140px;
 }
 .msg-context-menu.active { display: flex; }
 .msg-context-btn { padding: 10px 16px; text-align: left; font-size: 0.85rem; font-weight: bold; background: transparent; color: var(--text-main); cursor: pointer; border-bottom: 1px solid var(--border-color); }
 .msg-context-btn:hover { background: var(--bg-panel-hover); color: var(--accent-green); }
 .msg-context-btn.danger:hover { color: var(--accent-danger); }
 
-/* Typing Indicator (Hiệu ứng 3 chấm) */
 #typing-indicator { font-size: 0.8rem; color: var(--text-sub); font-style: italic; padding: 4px 20px; min-height: 24px;}
 .typing-dots span { animation: blink-dot 1.4s infinite both; font-weight: bold;}
 .typing-dots span:nth-child(2) { animation-delay: .2s; }
@@ -351,7 +358,7 @@ textarea.script-share-input { height: 150px; resize: none; }
 </head>
 <body>
 
-<div id="toast-banner">M CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
+<div id="toast-banner">CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
 
 <div class="confirm-backdrop" id="confirm-modal">
     <div class="confirm-box">
@@ -381,10 +388,11 @@ textarea.script-share-input { height: 150px; resize: none; }
     <button class="btn-sidebar" onclick="openUI('modal-noxchat')">GLOBAL CHAT</button>
   </div>
   
+  <!-- QUẢN LÝ TÀI KHOẢN TRỰC TIẾP TRONG MENU -->
   <div class="drawer-group" id="drawer-auth-group">
     <div class="drawer-label">TÀI KHOẢN</div>
     <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center;"></div>
-    <button class="btn-sidebar" id="drawer-btn-guest" onclick="ChatEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
+    <button class="btn-sidebar" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
     <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
   </div>
 
@@ -399,30 +407,32 @@ textarea.script-share-input { height: 150px; resize: none; }
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V32</span>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V33</span>
       <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
     </div>
 
     <div class="info-board">
       <h3 id="ui-notice-title">THÔNG BÁO</h3>
       <div class="text-truncate" id="ui-notice-text" style="display:block;">
-        > <b>WELCOME TO NOX WEB V32.</b><br>
-        > Hỗ trợ đăng xuất, đăng nhập khách từ menu.<br>
-        > Đặc quyền DEV chỉnh sửa/xóa tiện ích, Toast Alert thông báo thời gian thực.<br>
-        > Nhấn giữ hoặc đè vào tin nhắn chat của bạn để chỉnh sửa hoặc thu hồi.
+        > <b>WELCOME TO NOX WEB V33 MASTER.</b><br>
+        > Hỗ trợ cuộn trang mượt mà khi nội dung đầy.<br>
+        > Đã fix lỗi Đăng xuất tài khoản.<br>
+        > Thêm quyền cho DEV chỉnh sửa các mục trong Menu.<br>
+        > Click trực tiếp vào tin nhắn của bạn để Sửa hoặc Thu hồi.
       </div>
     </div>
 
-    <div class="dev-config-box" id="dev-config-panel">
-        <div style="color:var(--dev-color); font-weight:bold; margin-bottom:5px;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
-        <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V32)...">
-        <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
-        <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none;"></textarea>
-        <button onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
+    <!-- KHUNG CHỈNH SỬA THÔNG TIN CHO DEV (ẨN THEO MẶC ĐỊNH) -->
+    <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
+        <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB & MENU</div>
+        <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V33)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none; padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
+        <button onclick="ConfigEngine.saveConfig()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">CẬP NHẬT HỆ THỐNG</button>
     </div>
 
-    <button class="btn-primary" onclick="openUI('modal-archive')">
+    <button class="btn-primary" onclick="openUI('modal-archive')" style="margin-top:15px;">
       TRUY CẬP KHO DỮ LIỆU
     </button>
   </main>
@@ -512,14 +522,14 @@ textarea.script-share-input { height: 150px; resize: none; }
       <p class="auth-desc">Đăng nhập để tham gia trò chuyện cùng cộng đồng.</p>
       <div id="google-login-mount"></div>
       <div style="margin: 10px 0; color: var(--text-sub);">HOẶC</div>
-      <button class="btn-guest" onclick="ChatEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
+      <button class="btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
     </div>
 
     <div class="modal-header">
       <div class="modal-heading">SERVER CHAT</div>
       <div style="display:flex; gap:8px;">
         <button class="box-action" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main);" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">KHO SCRIPT</button>
-        <button class="modal-close" onclick="closeUI('modal-noxchat')">✕</button>
+        <button class="modal-close" style="width:36px; height:36px;" onclick="closeUI('modal-noxchat')">✕</button>
       </div>
     </div>
     
@@ -530,10 +540,6 @@ textarea.script-share-input { height: 150px; resize: none; }
       </div>
     </div>
     
-    <div id="typing-indicator" style="display:none;">
-        <span id="typing-user-text">Ai đó</span> đang nhập <span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>
-    </div>
-
     <div class="chat-footer">
       <div class="image-preview-zone" id="chat-preview-zone">
         <img src="" id="chat-preview-img" class="preview-thumb">
@@ -543,7 +549,7 @@ textarea.script-share-input { height: 150px; resize: none; }
         <button class="btn-photo" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
         <label for="chat-img-upload" class="btn-photo">PHOTO</label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
-        <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." oninput="ChatEngine.notifyTyping()" onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
+        <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
         <button class="chat-send" onclick="ChatEngine.sendMsg()">GỬI</button>
       </div>
     </div>
@@ -574,11 +580,13 @@ textarea.script-share-input { height: 150px; resize: none; }
   </div>
 </div>
 
-<div class="msg-context-menu" id="msg-context-modal">
-    <button class="msg-context-btn" onclick="ChatEngine.openEditModal()">Chỉnh sửa văn bản</button>
-    <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg()">Thu hồi tin nhắn</button>
+<!-- SCRIPT EDIT / RECALL CONTEXT MENU -->
+<div class="msg-context-menu" id="msg-context-modal" style="position:fixed; background:var(--bg-panel); border:1px solid var(--border-color); display:none; flex-direction:column; z-index:20000; box-shadow:var(--shadow-lg);">
+    <button class="msg-context-btn" onclick="ChatEngine.openEditModal()" style="padding:12px 20px; background:none; color:var(--text-main); font-weight:bold; cursor:pointer; text-align:left; border-bottom:1px solid var(--border-color);">Chỉnh sửa văn bản</button>
+    <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg()" style="padding:12px 20px; background:none; color:var(--accent-danger); font-weight:bold; cursor:pointer; text-align:left;">Thu hồi tin nhắn</button>
 </div>
 
+<!-- EDIT MESSAGE MODAL -->
 <div class="modal-backdrop" id="modal-edit-msg" onclick="if(event.target===this)closeUI('modal-edit-msg')">
   <div class="modal-content" style="max-width: 450px; height: auto;">
     <div class="modal-header">
@@ -619,7 +627,6 @@ const ConfirmUI = {
     }
 };
 
-/* TOAST BANNER ALERT (5s) */
 function showToast(msg) {
     const t = DOM.get('toast-banner');
     if(!t) return;
@@ -632,13 +639,12 @@ function showToast(msg) {
    UI CONTROLS
    ========================================================================== */
 function toggleMenu() { 
-    const d = DOM.get('nav-drawer'); const o = DOM.get('menu-overlay');
-    if(d) { d.classList.toggle('is-open'); if(o) o.classList.toggle('is-active'); }
+    const d = DOM.get('nav-drawer');
+    if(d) d.classList.toggle('is-open');
 }
 function openUI(id) { 
     const e = DOM.get(id); if(e) e.classList.add('is-active'); 
     const d = DOM.get('nav-drawer'); if(d) d.classList.remove('is-open');
-    const o = DOM.get('menu-overlay'); if(o) o.classList.remove('is-active');
 }
 function closeUI(id) { const e = DOM.get(id); if(e) e.classList.remove('is-active'); }
 
@@ -646,6 +652,44 @@ function toggleText(element) {
     const textNode = element.querySelector('.text-truncate');
     if(textNode) textNode.classList.toggle('expanded');
 }
+
+/* ==========================================================================
+   AUTH ENGINE (FIX LỖI ĐĂNG XUẤT VÀ LƯU PHIÊN)
+   ========================================================================== */
+const AuthEngine = {
+    login: function(profile) {
+        if(profile.email === ADMIN_EMAIL) { 
+            IS_ADMIN = true; 
+            DOM.get('dev-utils-panel').classList.add('active'); 
+            DOM.get('dev-config-panel').style.display = 'flex'; 
+        }
+        ChatEngine.userProfile = profile;
+        localStorage.setItem('nox_user_profile', JSON.stringify(profile));
+        DOM.get('auth-guard').style.display = 'none';
+        this.updateAuthUI(true, profile);
+    },
+    guestLogin: function() {
+        const guestProfile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest", role: 'GUEST' };
+        this.login(guestProfile);
+        ChatEngine.appendMsg('SYSTEM', `Đăng nhập khách: ${guestProfile.name}`, true);
+        ChatEngine.listenForMessages();
+    },
+    logout: function() {
+        localStorage.removeItem('nox_user_profile');
+        window.location.reload();
+    },
+    updateAuthUI: function(isLoggedIn, profile) {
+        if(isLoggedIn) {
+            DOM.get('drawer-btn-guest').style.display = 'none';
+            DOM.get('drawer-google-login-wrap').style.display = 'none';
+            DOM.get('drawer-btn-logout').style.display = 'flex';
+        } else {
+            DOM.get('drawer-btn-guest').style.display = 'flex';
+            DOM.get('drawer-google-login-wrap').style.display = 'flex';
+            DOM.get('drawer-btn-logout').style.display = 'none';
+        }
+    }
+};
 
 /* ==========================================================================
    IMAGE PROCESSOR
@@ -678,7 +722,7 @@ const ImageProcessor = {
 };
 
 /* ==========================================================================
-   CONFIG ENGINE (ĐỒNG BỘ CẤU HÌNH WEB VÀO FIREBASE)
+   CONFIG ENGINE (ĐỒNG BỘ NỘI DUNG WEB TỪ FIREBASE)
    ========================================================================== */
 const ConfigEngine = {
     ref: null,
@@ -714,7 +758,7 @@ const ConfigEngine = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (QUẢN LÝ TIỆN ÍCH DYNAMIC + SỬA/XÓA)
+   UTILS ENGINE (QUẢN LÝ KHO TIỆN ÍCH DYNAMIC - ĐÃ KHÔI PHỤC ĐỦ SCRIPT/LINK/APK/IOS)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
@@ -754,13 +798,11 @@ const UtilsEngine = {
         if(!title || !content) { alert("Nhập đủ thông tin!"); return; }
         
         if(editKey) {
-            // Chế độ chỉnh sửa
             this.ref.child(editKey).update({ type, title, content }).then(() => {
                 showToast("Đã cập nhật tiện ích!");
                 this.cancelEdit();
             });
         } else {
-            // Chế độ thêm mới
             this.ref.push({ type, title, content, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
                 showToast("Đã thêm tiện ích mới!");
                 DOM.get('dev-util-title').value = ''; DOM.get('dev-util-content').value = '';
@@ -786,36 +828,58 @@ const UtilsEngine = {
         DOM.get('dev-edit-key').value = '';
         DOM.get('dev-util-title').value = ''; 
         DOM.get('dev-util-content').value = '';
-        DOM.get('dev-panel-heading').innerText = "[DEV] THÊM TIỆN ÍCH MỚI";
+        DOM.get('dev-panel-heading').innerText = "[DEV] THÊM / SỬA TIỆN ÍCH";
         DOM.get('dev-submit-btn').innerText = "ĐĂNG TẢI";
         DOM.get('dev-cancel-btn').style.display = 'none';
     },
     loadDynamicUtils: function() {
         if(!this.ref) return;
+        
+        // Dữ liệu tĩnh mặc định đầy đủ Links, Scripts, APK, iOS
+        const defaultData = [
+            { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz', isLink: true },
+            { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig', isLink: true },
+            { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL', isLink: true },
+            { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp', isLink: true },
+            { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
+            { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
+            { type: 'pane-script', title: 'Teddy Hub V2', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()', isScript: true },
+            { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/', isLink: true },
+            { type: 'pane-apk', title: 'Roblox Delta VNG', content: 'https://modsfire.com/Q4sFLA37wl7PckA', isLink: true },
+            { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk', isLink: true },
+            { type: 'pane-ios', title: 'Delta iOS (No Jailbreak)', content: 'https://deltaexploits.gg/', isLink: true }
+        ];
+
         this.ref.on('value', snapshot => {
             DOM.queryAll('.dynamic-item').forEach(el => el.remove());
+            
+            let allItems = [...defaultData];
             if(snapshot.exists()) {
                 snapshot.forEach(child => {
-                    const data = child.val(); const key = child.key; const pane = DOM.get(data.type);
-                    if(pane) {
-                        const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                        let devControls = '';
-                        if(IS_ADMIN) {
-                            devControls = `
-                                <button class="dev-edit-btn" onclick="UtilsEngine.triggerEdit('${key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')">SỬA</button>
-                                <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${key}')">XÓA</button>
-                            `;
-                        }
-                        
-                        if(data.type === 'pane-script') {
-                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
-                        } else {
-                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
-                        }
-                        pane.insertBefore(box, pane.firstChild);
-                    }
+                    allItems.push({ key: child.key, ...child.val() });
                 });
             }
+
+            allItems.forEach(data => {
+                const pane = DOM.get(data.type);
+                if(pane) {
+                    const box = document.createElement('div'); box.className = 'data-box dynamic-item';
+                    let devControls = '';
+                    if(IS_ADMIN && data.key) {
+                        devControls = `
+                            <button class="dev-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')">SỬA</button>
+                            <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${data.key}')">XÓA</button>
+                        `;
+                    }
+                    
+                    if(data.type === 'pane-script' || data.isScript) {
+                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
+                    } else {
+                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
+                    }
+                    pane.appendChild(box);
+                }
+            });
         });
     }
 };
@@ -866,7 +930,7 @@ const GptEngine = {
       if(!keyVal) { alert("Vui lòng nhập API Key!"); return; }
       this.setApiKey(keyVal); DOM.get('gpt-fallback-container').style.display = 'none';
       this.input.disabled = false; this.input.placeholder = "Nhập câu lệnh...";
-      this.appendMsg('other', 'System', 'Đã lưu API Key mới.');
+      this.appendMsg('other', 'System', 'Đã lưu API Key mới. Vui lòng thử lại.');
   },
 
   submit: async function() {
@@ -906,13 +970,11 @@ const GptEngine = {
 const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT ENGINE (PERSISTENT AUTH, TYPING, EDIT, RECALL, TOAST)
+   FIREBASE CHAT ENGINE (FIX LỖI BẤM VÀO TIN NHẮN HIỆN MENU SỬA/THU HỒI)
    ========================================================================== */
 const ChatEngine = {
-  dbRef: null, scriptRef: null, typingRef: null, userProfile: null, 
-  board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
-  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", 
-  isSetup: false, activeMsgKey: null, typingTimer: null,
+  dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
+  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", isSetup: false,
 
   initFirebase: function() {
     if(this.isSetup) return;
@@ -927,28 +989,25 @@ const ChatEngine = {
       if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
       this.dbRef = firebase.database().ref('nox_global_chat');
       this.scriptRef = firebase.database().ref('nox_global_scripts'); 
-      this.typingRef = firebase.database().ref('nox_typing_status');
       this.isSetup = true; 
       
       UtilsEngine.init();
       ConfigEngine.init();
-      this.cleanupOldMessages(); 
-      setInterval(() => this.cleanupOldMessages(), 3600000); 
-      
-      // Lắng nghe trạng thái Nhập văn bản (Typing)
-      this.listenTyping();
-      // Lắng nghe sự kiện thêm mới script để hiện Toast Alert 5s
-      this.listenNewScriptsToast();
+      this.cleanupOldMessages(); setInterval(() => this.cleanupOldMessages(), 3600000); 
 
-      // KHÔI PHỤC PHIÊN ĐĂNG NHẬP TRƯỚC ĐÓ (PERSISTENT AUTH)
+      // Khôi phục phiên đăng nhập từ LocalStorage
       const savedUser = localStorage.getItem('nox_user_profile');
       if(savedUser) {
           try {
               const profile = JSON.parse(savedUser);
               this.userProfile = profile;
-              if(profile.email === ADMIN_EMAIL) { IS_ADMIN = true; DOM.get('dev-utils-panel').classList.add('active'); DOM.get('dev-config-panel').classList.add('active'); }
+              if(profile.email === ADMIN_EMAIL) { 
+                  IS_ADMIN = true; 
+                  DOM.get('dev-utils-panel').classList.add('active'); 
+                  DOM.get('dev-config-panel').style.display = 'flex'; 
+              }
               DOM.get('auth-guard').style.display = 'none';
-              this.updateMenuAuthUI(true, profile);
+              AuthEngine.updateAuthUI(true, profile);
               this.listenForMessages();
           } catch(e) { localStorage.removeItem('nox_user_profile'); }
       }
@@ -971,58 +1030,37 @@ const ChatEngine = {
     if(payload.email === ADMIN_EMAIL) { 
         IS_ADMIN = true; 
         DOM.get('dev-utils-panel').classList.add('active'); 
-        DOM.get('dev-config-panel').classList.add('active'); 
+        DOM.get('dev-config-panel').style.display = 'flex'; 
     }
-    ChatEngine.userProfile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
-    
-    // Lưu vào LocalStorage chống mất khi reset web
-    localStorage.setItem('nox_user_profile', JSON.stringify(ChatEngine.userProfile));
+    const profile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
+    ChatEngine.userProfile = profile;
+    localStorage.setItem('nox_user_profile', JSON.stringify(profile));
 
     DOM.get('auth-guard').style.display = 'none'; 
-    ChatEngine.updateMenuAuthUI(true, ChatEngine.userProfile);
-    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${ChatEngine.userProfile.role}`, true); 
+    AuthEngine.updateAuthUI(true, profile);
+    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${profile.role}`, true); 
     ChatEngine.listenForMessages();
   },
 
   initGoogleIdentity: function() {
     if(typeof google === 'undefined' || !google.accounts) { setTimeout(() => ChatEngine.initGoogleIdentity(), 500); return; }
     google.accounts.id.initialize({ client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", callback: this.onGoogleLoginSuccess });
-    
-    // Render nút trong Modal Chat
     const btnWrap = DOM.get('google-login-mount'); if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
     
-    // Render nút trong Menu Sidebar chính
-    const menuWrap = DOM.get('drawer-google-login-wrap'); 
+    const menuWrap = DOM.get('drawer-google-login-wrap');
     if(menuWrap && !menuWrap.hasChildNodes()) {
         google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
     }
   },
 
   guestLogin: function() {
-      this.userProfile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest", role: 'GUEST' };
-      localStorage.setItem('nox_user_profile', JSON.stringify(this.userProfile));
+      const profile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest", role: 'GUEST' };
+      this.userProfile = profile;
+      localStorage.setItem('nox_user_profile', JSON.stringify(profile));
       DOM.get('auth-guard').style.display = 'none';
-      this.updateMenuAuthUI(true, this.userProfile);
-      this.appendMsg('SYSTEM', `Đăng nhập khách: ${this.userProfile.name}`, true);
+      AuthEngine.updateAuthUI(true, profile);
+      this.appendMsg('SYSTEM', `Đăng nhập khách: ${profile.name}`, true);
       this.listenForMessages();
-  },
-
-  logout: function() {
-      localStorage.removeItem('nox_user_profile');
-      window.location.reload();
-  },
-
-  updateMenuAuthUI: function(isLoggedIn, profile) {
-      if(isLoggedIn) {
-          DOM.get('drawer-btn-guest').style.display = 'none';
-          DOM.get('drawer-google-login-wrap').style.display = 'none';
-          DOM.get('drawer-btn-logout').style.display = 'flex';
-          DOM.get('drawer-system-title').innerText = `${profile.role}: ${profile.name}`;
-      } else {
-          DOM.get('drawer-btn-guest').style.display = 'flex';
-          DOM.get('drawer-google-login-wrap').style.display = 'flex';
-          DOM.get('drawer-btn-logout').style.display = 'none';
-      }
   },
 
   removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
@@ -1035,19 +1073,55 @@ const ChatEngine = {
     const row = document.createElement('div'); row.className = `msg-row ${rowType}`; row.id = msgKey ? `msg-${msgKey}` : '';
     
     let innerHTML = '';
+    let deleteBtn = (IS_ADMIN && msgKey && !isSystem) ? `<span style="cursor:pointer; color:var(--accent-danger); margin-left:8px;" onclick="ChatEngine.triggerDeleteMsg('${msgKey}')">[X]</span>` : '';
+
     if(!isMe) {
-      let badge = role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
-      innerHTML += `<div class="msg-meta"><div class="msg-name">${badge}${senderName}</div></div>`;
+      let badge = ''; let nameClass = 'msg-name';
+      if(isSystem) { nameClass = 'msg-name sys'; }
+      else {
+          if(role === 'DEV') { badge = `<span class="badge-dev">[DEV]</span>`; nameClass = 'msg-name dev'; }
+          else if(role === 'NOX') { badge = `<span class="badge-nox">[NOX]</span>`; }
+          else { badge = `<span class="badge-guest">[GUEST]</span>`; }
+      }
+      innerHTML += `<div class="msg-meta"><div class="${nameClass}">${badge}${senderName} ${deleteBtn}</div></div>`;
     } else {
-      innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
+        innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn ${deleteBtn}</div></div>`;
     }
     
     let bubbleContent = isRecalled ? '<span style="font-style:italic; color:var(--text-muted);">[Tin nhắn đã bị thu hồi]</span>' : htmlContent;
-    innerHTML += `<div class="msg-bubble" ${isMe && !isRecalled && msgKey ? `oncontextmenu="event.preventDefault(); ChatEngine.openContext('${msgKey}', event)" ontouchstart="ChatEngine.handleTouchStart('${msgKey}', event)"` : ''}>${bubbleContent}</div>`;
     
-    row.innerHTML = innerHTML; 
+    // FIX QUAN TRỌNG: Gắn sự kiện click trực tiếp vào bubble của mình để hiện menu Sửa / Thu hồi
+    const bubbleEl = document.createElement('div');
+    bubbleEl.className = `msg-bubble ${isRecalled ? 'recalled' : ''}`;
+    bubbleEl.innerHTML = bubbleContent;
     
-    // Nếu tin nhắn đã tồn tại -> Cập nhật nội dung (cho Edit hoặc Recall)
+    if(isMe && !isRecalled && msgKey) {
+        bubbleEl.style.cursor = 'pointer';
+        bubbleEl.title = 'Bấm vào để Sửa / Thu hồi';
+        bubbleEl.onclick = (e) => {
+            e.stopPropagation();
+            ChatEngine.openContext(msgKey, e);
+        };
+    }
+
+    const metaDiv = document.createElement('div');
+    metaDiv.innerHTML = innerHTML;
+    
+    row.appendChild(metaDiv.firstElementChild);
+    row.appendChild(bubbleEl);
+    
+    // Nếu có menu context riêng cho tin nhắn này
+    if(isMe && !isRecalled && msgKey) {
+        const ctxMenu = document.createElement('div');
+        ctxMenu.className = 'msg-context-menu';
+        ctxMenu.id = `ctx-${msgKey}`;
+        ctxMenu.innerHTML = `
+            <button class="msg-context-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Chỉnh sửa văn bản</button>
+            <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi tin nhắn</button>
+        `;
+        row.appendChild(ctxMenu);
+    }
+    
     const existing = DOM.get(`msg-${msgKey}`);
     if(existing) {
         existing.replaceWith(row);
@@ -1057,31 +1131,27 @@ const ChatEngine = {
     }
   },
 
-  /* LONG PRESS / RIGHT CLICK CONTEXT MENU CHO TIN NHẮN CỦA MÌNH */
-  touchTimer: null,
-  handleTouchStart: function(key, e) {
-      this.touchTimer = setTimeout(() => {
-          this.openContext(key, e);
-      }, 600); // Giữ 0.6 giây để mở menu
-      document.addEventListener('touchend', () => clearTimeout(this.touchTimer), { once: true });
-  },
-
+  activeMsgKey: null,
   openContext: function(key, e) {
-      this.activeMsgKey = key;
-      const menu = DOM.get('msg-context-modal');
-      menu.style.top = `${e.clientY || e.touches[0].clientY}px`;
-      menu.style.left = `${e.clientX || e.touches[0].clientX}px`;
-      menu.classList.add('active');
-      document.addEventListener('pointerdown', () => menu.classList.remove('active'), { once: true });
+      // Ẩn tất cả các menu khác trước
+      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
+      const menu = DOM.get(`ctx-${key}`);
+      if(menu) {
+          menu.classList.toggle('active');
+          document.addEventListener('pointerdown', (ev) => {
+              if(!menu.contains(ev.target)) menu.classList.remove('active');
+          }, { once: true });
+      }
   },
 
-  openEditModal: function() {
-      if(!this.activeMsgKey) return;
-      this.dbRef.child(this.activeMsgKey).once('value', snapshot => {
+  openEditModal: function(key) {
+      this.activeMsgKey = key;
+      this.dbRef.child(key).once('value', snapshot => {
           const data = snapshot.val();
           if(data && data.text) {
               DOM.get('edit-msg-textarea').value = data.text;
               openUI('modal-edit-msg');
+              document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
           }
       });
   },
@@ -1097,8 +1167,9 @@ const ChatEngine = {
       });
   },
 
-  triggerRecallMsg: function() {
-      if(!this.activeMsgKey) return;
+  triggerRecallMsg: function(key) {
+      this.activeMsgKey = key;
+      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
       ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
           this.dbRef.child(this.activeMsgKey).update({ recalled: true, text: "" }).then(() => {
               showToast("Đã thu hồi tin nhắn!");
@@ -1106,10 +1177,13 @@ const ChatEngine = {
       });
   },
 
+  triggerDeleteMsg: function(key) { ConfirmUI.show("BẠN CÓ CHẮC MUỐN XÓA TIN NHẮN NÀY KHỎI HỆ THỐNG?", () => { this.dbRef.child(key).remove(); }); },
+
   listenForMessages: function() {
     if(!this.dbRef) return;
     this.dbRef.limitToLast(50).on('child_added', (snapshot) => {
       const data = snapshot.val(); if(!data) return;
+      if(this.userProfile && data.user === this.userProfile.name && Date.now() - data.timestamp < 3000) return; 
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
       if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
       this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
@@ -1121,43 +1195,8 @@ const ChatEngine = {
       if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
       this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
     });
-  },
 
-  notifyTyping: function() {
-      if(!this.userProfile || !this.typingRef) return;
-      clearTimeout(this.typingTimer);
-      this.typingRef.set({ user: this.userProfile.name, time: Date.now() });
-      this.typingTimer = setTimeout(() => {
-          this.typingRef.remove();
-      }, 2000);
-  },
-
-  listenTyping: function() {
-      if(!this.typingRef) return;
-      this.typingRef.on('value', snapshot => {
-          const val = snapshot.val();
-          const indicator = DOM.get('typing-indicator');
-          if(!indicator) return;
-          
-          if(val && this.userProfile && val.user !== this.userProfile.name && (Date.now() - val.time < 3000)) {
-              DOM.get('typing-user-text').innerText = val.user;
-              indicator.style.display = 'block';
-          } else {
-              indicator.style.display = 'none';
-          }
-      });
-  },
-
-  listenNewScriptsToast: function() {
-      if(!this.scriptRef) return;
-      let isFirst = true;
-      this.scriptRef.limitToLast(1).on('child_added', (snapshot) => {
-          if(isFirst) { isFirst = false; return; } // Bỏ qua lịch sử cũ khi vừa load
-          const data = snapshot.val();
-          if(data && data.title) {
-              showToast(`[SCRIPT MỚI] ${data.title} vừa được đăng tải!`);
-          }
-      });
+    this.dbRef.on('child_removed', (snapshot) => { const row = DOM.get(`msg-${snapshot.key}`); if(row) row.remove(); });
   },
 
   sendMsg: function() {
@@ -1170,7 +1209,6 @@ const ChatEngine = {
     if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
     
     this.input.value = ''; this.removeImage();
-    if(this.typingRef) this.typingRef.remove();
     
     this.dbRef.push({ 
         user: this.userProfile.name, role: this.userProfile.role, 
@@ -1190,7 +1228,7 @@ const ChatEngine = {
           closeUI('modal-script-share'); 
       });
   },
-  
+
   loadVaultScripts: function() {
       const vBoard = DOM.get('vault-board'); if(!vBoard) return;
       vBoard.innerHTML = '<div style="text-align:center; padding: 20px;">Đang tải...</div>';
@@ -1218,7 +1256,7 @@ const ChatEngine = {
 };
 
 /* ==========================================================================
-   SYSTEM BOOT
+   SYSTEM BOOTSTRAP
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   ChatEngine.initFirebase();
