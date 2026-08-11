@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V47 MASTER SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX-SKIBIDI WEB Enterprise V47. Fix triệt để lỗi giao diện Menu input & Kho tiện ích trống.">
+<title>NOX WEB - V48 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX-SKIBIDI WEB Enterprise V48. Khôi phục bảng thêm tiện ích của DEV.">
 <meta name="robots" content="index, follow">
 
 <!-- Firebase App & Database -->
@@ -61,6 +61,12 @@ body {
   padding: 8vh 16px 100px; color: var(--text-main);
 }
 
+@media (min-width: 768px) {
+  .card-wrapper { max-width: 650px !important; }
+  .modal-content { max-width: 750px !important; }
+  body { padding-top: 10vh; }
+}
+
 body::after {
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
@@ -101,22 +107,6 @@ body::after {
 .drawer-label { font-size: 0.8rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 4px; margin-bottom: 4px; }
 .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 998; opacity: 0; pointer-events: none; transition: 0.3s; }
 .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
-
-/* FIX GIAO DIỆN INPUT TRONG MENU (CHỐNG LỖI TRẮNG SÁNG NHƯ ẢNH 29193.jpg) */
-#dev-menu-editor-box {
-    display: none; flex-direction: column; gap: 10px; margin-top: 10px;
-    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05);
-    width: 100%; box-sizing: border-box;
-}
-#dev-menu-editor-box.active { display: flex; }
-#dev-menu-editor-box input {
-    width: 100%; max-width: 100%; padding: 12px 14px; background: var(--bg-input); color: var(--text-main);
-    border: 1px solid var(--border-color); font-size: 0.9rem; box-sizing: border-box; font-family: inherit;
-}
-#dev-menu-editor-box button {
-    width: 100%; padding: 12px; background: var(--dev-color); color: #fff;
-    font-weight: bold; cursor: pointer; font-size: 0.9rem; text-transform: uppercase;
-}
 
 /* ==========================================================================
    MAIN DASHBOARD CARD
@@ -341,7 +331,7 @@ body::after {
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V47</span>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V48</span>
       <h1 class="title-main" id="ui-title-text">NOX-SKIBIDI WEB</h1>
     </div>
 
@@ -359,7 +349,7 @@ body::after {
     <div class="dev-config-box" id="dev-config-panel" style="display:none;">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V47)...">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V48)...">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
         <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none;"></textarea>
         <button onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
@@ -491,7 +481,7 @@ body::after {
     
     <div class="chat-footer">
       <div class="image-preview-zone" id="chat-preview-zone">
-        <img src="" id="chat-preview-img" class="preview-thumb">
+        <img src="" id="gpt-preview-img" class="preview-thumb">
         <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
       </div>
       <div class="chat-input-wrapper">
@@ -890,34 +880,14 @@ const UserMgr = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (KHO TIỆN ÍCH ĐỒNG BỘ HOÀN TOÀN TỪ FIREBASE - ĐẢM BẢO DEV CÓ NÚT SỬA/XÓA)
+   UTILS ENGINE (KHO TIỆN ÍCH HOÀN CHỈNH - ĐẢM BẢO DEV CÓ NÚT SỬA/XÓA)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
     init: function() { 
         this.ref = firebase.database().ref('nox_custom_utils'); 
-        this.checkAndInitDefaultUtils();
         this.loadDynamicUtils(); 
         MenuEditor.init();
-    },
-    checkAndInitDefaultUtils: function() {
-        if(!this.ref) return;
-        this.ref.once('value', snapshot => {
-            if(!snapshot.exists()) {
-                const defaults = [
-                    { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
-                    { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig' },
-                    { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
-                    { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
-                    { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
-                    { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
-                    { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
-                    { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
-                    { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
-                ];
-                defaults.forEach(d => this.ref.push(d));
-            }
-        });
     },
     switchPane: function(id, btn) { 
         DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); 
@@ -987,31 +957,52 @@ const UtilsEngine = {
     },
     loadDynamicUtils: function() {
         if(!this.ref) return;
+        
+        const defaultData = [
+            { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
+            { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig' },
+            { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
+            { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
+            { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
+            { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
+            { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
+            { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
+            { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
+        ];
+
         this.ref.on('value', snapshot => {
             DOM.queryAll('.tab-pane').forEach(p => p.innerHTML = '');
-            if(snapshot.exists()) {
+            
+            let allItems = [];
+            // Nếu firebase trống, nạp mặc định vào firebase để DEV có key chỉnh sửa/xóa
+            if(!snapshot.exists()) {
+                defaultData.forEach(d => this.ref.push(d));
+            } else {
                 snapshot.forEach(child => {
-                    const data = child.val(); const key = child.key; const pane = DOM.get(data.type);
-                    if(pane) {
-                        const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                        
-                        let devControls = '';
-                        if(IS_ADMIN) {
-                            devControls = `
-                                <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
-                                <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${key}')">XÓA</button>
-                            `;
-                        }
-                        
-                        if(data.type === 'pane-script' || data.isScript) {
-                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div style="display:inline-flex; align-items:center; gap:4px;">${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
-                        } else {
-                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div style="display:inline-flex; align-items:center; gap:4px;">${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
-                        }
-                        pane.appendChild(box);
-                    }
+                    allItems.push({ key: child.key, ...child.val() });
                 });
             }
+
+            allItems.forEach(data => {
+                const pane = DOM.get(data.type);
+                if(pane) {
+                    const box = document.createElement('div'); box.className = 'data-box dynamic-item';
+                    let devControls = '';
+                    if(IS_ADMIN && data.key) {
+                        devControls = `
+                            <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
+                            <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${data.key}')">XÓA</button>
+                        `;
+                    }
+                    
+                    if(data.type === 'pane-script' || data.isScript) {
+                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div style="display:inline-flex; align-items:center; gap:4px;">${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
+                    } else {
+                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div style="display:inline-flex; align-items:center; gap:4px;">${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
+                    }
+                    pane.appendChild(box);
+                }
+            });
         });
     }
 };
