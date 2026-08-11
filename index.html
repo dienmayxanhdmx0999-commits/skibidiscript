@@ -5,50 +5,51 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - Enterprise Dashboard</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V28. Giao diện Dark Mode chuyên nghiệp, AI DeepSeek Pro.">
+<title>NOX WEB - Enterprise Dashboard V29</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise. Giao diện Dark Mode LED, Gemini Interactions API, Global Chat.">
 <meta name="robots" content="index, follow">
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://js.puter.com/v2/"></script>
 
 <style>
 /* ==========================================================================
-   CSS ARCHITECTURE: xKIRO DARK THEME
+   CSS ARCHITECTURE: DARK THEME & NEON LED
    ========================================================================== */
 :root {
   /* Dark Mode Solid Colors */
-  --bg-core: #0d0f12;        /* Nền đen sâu */
-  --bg-panel: #16181d;       /* Nền xám cho các thẻ */
-  --bg-panel-hover: #1c1f26; /* Hover xám sáng hơn */
-  --bg-input: #0a0c0f;       /* Nền ô nhập liệu */
+  --bg-core: #0d0f12;        
+  --bg-panel: #16181d;       
+  --bg-panel-hover: #1c1f26; 
+  --bg-input: #0a0c0f;       
   
-  --border-color: #272a30;   /* Viền mỏng, tinh tế */
+  --border-color: #272a30;   
   --border-hover: #3a3e47;
   
   /* Typography */
-  --text-main: #f3f4f6;      /* Trắng sáng */
-  --text-sub: #9ca3af;       /* Xám mờ */
+  --text-main: #f3f4f6;      
+  --text-sub: #9ca3af;       
   --text-muted: #6b7280;
   
-  /* Accent Colors (Chuẩn xKiro Green) */
+  /* Accent Colors */
   --accent-green: #10b981;
-  --accent-green-hover: #059669;
   --accent-green-bg: rgba(16, 185, 129, 0.1);
-  
+  --accent-blue: #3b82f6; /* LED XANH */
+  --accent-blue-glow: 0 0 15px rgba(59, 130, 246, 0.6);
   --accent-danger: #ef4444;
   --accent-danger-bg: rgba(239, 68, 68, 0.1);
   
-  /* Geometry */
+  /* Geometry (Bo tròn đều đặn) */
   --rad-sm: 8px;
-  --rad-md: 12px;
+  --rad-md: 12px; /* Chuẩn chữ nhật bo góc */
   --rad-lg: 16px;
   
   /* Shadow */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -69,24 +70,22 @@ body {
    SOLID PANELS & BUTTONS (MINIMALIST DASHBOARD)
    ========================================================================== */
 .solid-panel {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  border-radius: var(--rad-lg);
-  box-shadow: var(--shadow-md);
+  background: var(--bg-panel); border: 1px solid var(--border-color);
+  border-radius: var(--rad-lg); box-shadow: var(--shadow-md);
   position: relative; z-index: 10;
 }
 
 .btn-primary {
-  width: 100%; padding: 14px 20px; border-radius: var(--rad-sm); 
+  width: 100%; padding: 14px 20px; border-radius: var(--rad-md); 
   display: flex; align-items: center; justify-content: center; gap: 10px;
   color: #fff; font-weight: 600; font-size: 0.95rem; 
   background: var(--accent-green); transition: all 0.2s ease; cursor: pointer;
 }
-.btn-primary:hover { background: var(--accent-green-hover); }
+.btn-primary:hover { background: #059669; }
 .btn-primary:active { transform: scale(0.98); }
 
 .btn-sidebar {
-  width: 100%; padding: 12px 16px; border-radius: var(--rad-sm); 
+  width: 100%; padding: 14px 16px; border-radius: var(--rad-sm); 
   display: flex; align-items: center; justify-content: flex-start; gap: 14px;
   color: var(--text-sub); font-weight: 500; font-size: 0.95rem; 
   background: transparent; border: 1px solid transparent;
@@ -95,9 +94,14 @@ body {
 .btn-sidebar:hover { background: var(--bg-panel-hover); color: var(--text-main); }
 .btn-sidebar.active { background: var(--accent-green-bg); color: var(--accent-green); border-color: rgba(16, 185, 129, 0.2); }
 
-/* Custom Logos - Uniform Sizing */
-.svg-logo { width: 22px; height: 22px; flex-shrink: 0; }
-.btn-sidebar .svg-logo { fill: currentColor; color: currentColor; }
+/* Chấm Tròn Tối Giản (Dots) */
+.dot-icon {
+  font-size: 24px; line-height: 0; position: relative; top: 1px;
+}
+.dot-icon.purple { color: #a855f7; text-shadow: 0 0 10px rgba(168, 85, 247, 0.6); }
+.dot-icon.green { color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.6); }
+.dot-icon.blue { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.6); }
+.dot-icon.indigo { color: #6366f1; text-shadow: 0 0 10px rgba(99, 102, 241, 0.6); }
 
 /* ==========================================================================
    SIDEBAR & HEADER
@@ -110,6 +114,7 @@ body {
   cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm);
 }
 .menu-trigger:hover { border-color: var(--border-hover); background: var(--bg-panel-hover); }
+.menu-trigger svg { width: 20px; height: 20px; color: var(--text-main); }
 
 .drawer-menu {
   position: fixed; top: 0; left: 0; height: 100dvh; width: 300px; max-width: 85vw;
@@ -123,13 +128,13 @@ body {
 
 .drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); }
 .drawer-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+.drawer-title svg { width: 20px; height: 20px; color: var(--accent-green); }
 .drawer-close { background: transparent; color: var(--text-sub); width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: var(--rad-sm); cursor: pointer; transition: 0.2s;}
 .drawer-close:hover { background: var(--bg-panel-hover); color: var(--text-main); }
 
 .drawer-group { display: flex; flex-direction: column; gap: 6px; }
 .drawer-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 12px; margin-bottom: 4px; }
 
-/* Backdrop cho Menu */
 .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998; opacity: 0; pointer-events: none; transition: 0.3s; }
 .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
 
@@ -140,41 +145,37 @@ body {
 .main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; }
 
 .system-logo-box { 
-  width: 56px; height: 56px; border-radius: var(--rad-sm);
-  background: var(--accent-green-bg); display: flex; justify-content: center; align-items: center;
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  width: 56px; height: 56px; border-radius: var(--rad-md);
+  background: var(--bg-input); display: flex; justify-content: center; align-items: center;
+  border: 1px solid var(--border-color); box-shadow: inset 0 0 10px rgba(255,255,255,0.02);
 }
-.system-logo-box svg { width: 32px; height: 32px; color: var(--accent-green); }
+.system-logo-box svg { width: 28px; height: 28px; color: var(--text-main); }
 
 .title-wrap { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
 .title-main { font-size: 1.8rem; font-weight: 700; color: var(--text-main); }
-.status-badge { font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.2); }
+.status-badge { font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.2); }
 
-/* THUẬT TOÁN ẨN VĂN BẢN DÀI (TRUNCATE & EXPAND) */
 .info-board {
-  padding: 16px; border-radius: var(--rad-sm); background: var(--bg-input); border: 1px solid var(--border-color);
+  padding: 16px; border-radius: var(--rad-md); background: var(--bg-input); border: 1px solid var(--border-color);
   cursor: pointer; transition: all 0.3s ease;
 }
 .info-board:hover { border-color: var(--border-hover); }
 .info-board h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: var(--text-main); display: flex; justify-content: space-between;}
 .info-board h3 span.hint { font-size: 0.75rem; color: var(--text-sub); font-weight: normal; }
 
-/* CSS Line Clamp để cắt chữ nếu quá dài */
 .text-truncate {
   font-size: 0.9rem; line-height: 1.6; color: var(--text-sub);
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   transition: all 0.3s ease;
 }
-.text-truncate.expanded {
-  display: block; -webkit-line-clamp: unset;
-}
+.text-truncate.expanded { display: block; -webkit-line-clamp: unset; }
 
 /* ==========================================================================
    MODAL CORE (ARCHIVE, GPT, CHAT)
    ========================================================================== */
 .modal-backdrop { 
   position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; 
-  padding: 16px; background: rgba(0, 0, 0, 0.7); opacity: 0; transition: opacity 0.3s ease; 
+  padding: 16px; background: rgba(0, 0, 0, 0.75); opacity: 0; transition: opacity 0.3s ease; 
 }
 .modal-backdrop.is-active { display: flex; opacity: 1; }
 
@@ -187,66 +188,88 @@ body {
 
 .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-color); background: var(--bg-core); }
 .modal-heading { font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 10px; color: var(--text-main); }
-.modal-close { width: 36px; height: 36px; border-radius: var(--rad-sm); background: transparent; color: var(--text-sub); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; }
+.modal-close { width: 36px; height: 36px; border-radius: var(--rad-sm); background: transparent; color: var(--text-sub); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; font-size: 1.2rem;}
 .modal-close:hover { background: var(--bg-panel-hover); color: var(--text-danger); }
 
 /* ==========================================================================
-   ARCHIVE TABS
+   ARCHIVE TABS & DATA BOXES (BLUE LED NEON EFFECT)
    ========================================================================== */
 .search-wrapper { padding: 16px 20px; background: var(--bg-panel); border-bottom: 1px solid var(--border-color); }
-.search-box { width: 100%; padding: 12px 16px; border-radius: var(--rad-sm); font-size: 0.95rem; color: var(--text-main); background: var(--bg-input); border: 1px solid var(--border-color); transition: 0.2s; }
-.search-box:focus { border-color: var(--accent-green); }
+.search-box { width: 100%; padding: 14px 16px; border-radius: var(--rad-sm); font-size: 0.95rem; color: var(--text-main); background: var(--bg-input); border: 1px solid var(--border-color); transition: 0.2s; }
+.search-box:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); }
 
 .tab-nav { display: flex; gap: 8px; padding: 16px 20px 0; background: var(--bg-panel); overflow-x: auto; }
 .tab-nav::-webkit-scrollbar { display: none; }
-.tab-btn { padding: 8px 16px; border-radius: var(--rad-sm) var(--rad-sm) 0 0; color: var(--text-sub); font-size: 0.9rem; font-weight: 600; border-bottom: 2px solid transparent; transition: 0.2s; white-space: nowrap;}
+.tab-btn { padding: 10px 16px; border-radius: var(--rad-md) var(--rad-md) 0 0; color: var(--text-sub); font-size: 0.9rem; font-weight: 600; border-bottom: 2px solid transparent; transition: 0.2s; white-space: nowrap;}
 .tab-btn:hover { color: var(--text-main); }
-.tab-btn.is-active { color: var(--accent-green); border-bottom-color: var(--accent-green); }
+.tab-btn.is-active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
 
-.tab-body-wrapper { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-core); }
-.tab-body-wrapper::-webkit-scrollbar { width: 6px; }
+.tab-body-wrapper { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-core); display: flex; flex-direction: column; gap: 16px;}
+.tab-body-wrapper::-webkit-scrollbar { width: 4px; }
 .tab-body-wrapper::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
 
-.tab-pane { display: none; flex-direction: column; gap: 12px; }
+.tab-pane { display: none; flex-direction: column; gap: 16px; }
 .tab-pane.is-active { display: flex; animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-.data-box { padding: 16px; border-radius: var(--rad-sm); background: var(--bg-panel); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 12px; }
+/* Cấu trúc Box chữ nhật đều nhau có LED Xanh */
+.data-box { 
+  padding: 16px 20px; border-radius: var(--rad-md); 
+  background: var(--bg-panel); border: 1px solid var(--border-color); 
+  display: flex; flex-direction: column; gap: 14px; 
+  position: relative; overflow: hidden; transition: all 0.2s ease;
+}
+.data-box::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--accent-blue); box-shadow: 0 0 15px 2px rgba(59, 130, 246, 0.5);
+  transition: width 0.2s;
+}
+.data-box:hover { transform: translateY(-2px); border-color: var(--accent-blue); }
+.data-box:hover::before { width: 6px; box-shadow: 0 0 20px 4px rgba(59, 130, 246, 0.7); }
 .data-box.is-hidden { display: none; }
-.box-head { display: flex; justify-content: space-between; align-items: center; }
-.box-title { font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
-.box-action { padding: 8px 16px; border-radius: var(--rad-sm); background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); font-weight: 500; font-size: 0.85rem; transition: 0.2s; cursor: pointer; }
-.box-action:hover { border-color: var(--accent-green); color: var(--accent-green); }
+
+.box-head { display: flex; justify-content: space-between; align-items: center; padding-left: 8px;}
+.box-title { font-size: 1rem; font-weight: 600; color: var(--text-main); }
+.box-action { 
+  padding: 8px 16px; border-radius: var(--rad-sm); background: rgba(59, 130, 246, 0.1); 
+  color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.2); 
+  font-weight: 600; font-size: 0.85rem; transition: 0.2s; cursor: pointer; 
+}
+.box-action:hover { background: var(--accent-blue); color: #fff; box-shadow: var(--accent-blue-glow); }
 .box-action.is-copied { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
-.script-code { padding: 12px; border-radius: var(--rad-sm); background: var(--bg-input); border: 1px solid var(--border-color); font-family: "Courier New", monospace; font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
+
+.script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad-sm); background: var(--bg-input); border: 1px solid var(--border-color); font-family: "Courier New", monospace; font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
 .search-empty { text-align: center; padding: 40px; color: var(--text-muted); font-size: 0.95rem; }
 
 /* ==========================================================================
-   CHAT UI (NOX GPT & GLOBAL CHAT)
+   CHAT UI (TỐI ƯU HIỆU NĂNG RENDER VỚI CONTENT-VISIBILITY)
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
-.chat-messages::-webkit-scrollbar { width: 6px; }
+.chat-messages::-webkit-scrollbar { width: 4px; }
 .chat-messages::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
 
-.msg-row { display: flex; flex-direction: column; max-width: 85%; animation: slideIn 0.2s ease-out; }
+/* Content Visibility để chống giật khi có hàng trăm tin nhắn */
+.msg-row { 
+  display: flex; flex-direction: column; max-width: 85%; animation: slideIn 0.2s ease-out; 
+  content-visibility: auto; contain-intrinsic-size: auto 80px; 
+}
 @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .msg-row.type-user { align-self: flex-end; align-items: flex-end; }
 .msg-row.type-other { align-self: flex-start; align-items: flex-start; }
 
 .msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 0 4px; }
-.msg-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--bg-panel); display: flex; justify-content: center; align-items: center; border: 1px solid var(--border-color); overflow: hidden;}
-.msg-avatar svg { width: 14px; height: 14px; color: var(--accent-green); }
+.msg-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--border-color); display: flex; justify-content: center; align-items: center; overflow: hidden; background-size: cover; color: #fff; font-size: 10px; font-weight: bold;}
 .msg-name { font-size: 0.75rem; font-weight: 600; color: var(--text-sub); }
 .msg-name.sys { color: var(--accent-green); }
 
-.msg-bubble { padding: 12px 16px; border-radius: var(--rad-sm); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; }
-.msg-row.type-user .msg-bubble { background: var(--accent-green); color: #fff; border-bottom-right-radius: 4px; }
+.msg-bubble { padding: 12px 16px; border-radius: var(--rad-md); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; }
+.msg-row.type-user .msg-bubble { background: var(--accent-blue); color: #fff; border-bottom-right-radius: 4px; }
 .msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border: 1px solid var(--border-color); border-bottom-left-radius: 4px; }
 .msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); }
 
 .chat-image { max-width: 100%; border-radius: var(--rad-sm); margin-bottom: 8px; border: 1px solid var(--border-color); }
 
-/* CHAT INPUT AREA (Đã fix lỗi tràn, nút gửi chuyên nghiệp) */
+/* CHAT INPUT AREA (Đã fix lỗi tràn, nút to rõ) */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
 
 .image-preview-zone { display: none; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
@@ -254,128 +277,111 @@ body {
 .preview-thumb { width: 40px; height: 40px; border-radius: var(--rad-sm); object-fit: cover; border: 1px solid var(--border-color); }
 .preview-remove { width: 24px; height: 24px; border-radius: 50%; background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 0.8rem; }
 
-.chat-input-wrapper { display: flex; align-items: center; gap: 8px; width: 100%; }
+.chat-input-wrapper { display: flex; align-items: center; gap: 8px; width: 100%; box-sizing: border-box; }
 
-.attach-btn { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--rad-sm); background: var(--bg-input); color: var(--text-sub); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--border-color); }
+.attach-btn { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--rad-md); background: var(--bg-input); color: var(--text-sub); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--border-color); font-weight: bold;}
 .attach-btn:hover { color: var(--text-main); border-color: var(--text-sub); }
 
-.chat-field { flex: 1; min-width: 0; height: 44px; padding: 0 16px; border-radius: var(--rad-sm); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; transition: 0.2s; }
-.chat-field:focus { border-color: var(--accent-green); }
-.chat-field::placeholder { color: var(--text-muted); }
+.chat-field { flex: 1; min-width: 0; height: 44px; padding: 0 16px; border-radius: var(--rad-md); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; transition: 0.2s; }
+.chat-field:focus { border-color: var(--accent-blue); }
 
 .chat-send { 
-  height: 44px; padding: 0 16px; border-radius: var(--rad-sm); 
-  background: var(--accent-green); color: #fff; font-weight: 600; font-size: 0.9rem;
+  width: auto; min-width: 70px; height: 44px; padding: 0 16px; border-radius: var(--rad-md); 
+  background: var(--brand); color: #fff; font-weight: 600; font-size: 0.9rem;
   display: flex; justify-content: center; align-items: center; gap: 6px;
   cursor: pointer; transition: 0.2s; flex-shrink: 0; 
 }
 .chat-send:active { transform: scale(0.95); }
-.chat-send svg { width: 16px; height: 16px; }
 
-/* API FALLBACK FORM (XKIRO STYLE) */
-.api-fallback-box { display: flex; flex-direction: column; gap: 8px; padding: 16px; margin: 16px; background: var(--bg-panel); border-radius: var(--rad-md); border: 1px solid var(--accent-danger); box-shadow: var(--shadow-md); }
+/* API FALLBACK FORM (Gọn gàng) */
+.api-fallback-box { display: flex; flex-direction: column; gap: 8px; padding: 16px; margin: 16px; background: var(--bg-panel); border-radius: var(--rad-lg); border: 1px solid var(--accent-danger); box-shadow: var(--shadow-md); }
 .api-fallback-title { font-size: 0.9rem; font-weight: 700; color: var(--accent-danger); }
-.api-fallback-box input { width: 100%; padding: 12px 14px; border-radius: var(--rad-sm); background: var(--bg-input); border: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main); }
-.api-fallback-box button { width: 100%; padding: 12px; border-radius: var(--rad-sm); background: var(--accent-danger); color: #fff; font-weight: 600; cursor: pointer; }
+.api-fallback-box input { width: 100%; padding: 12px 14px; border-radius: var(--rad-md); background: var(--bg-input); border: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main); }
+.api-fallback-box button { width: 100%; padding: 12px; border-radius: var(--rad-md); background: var(--accent-danger); color: #fff; font-weight: 600; cursor: pointer; }
 
-/* AUTH BLOCKER */
+/* AUTH BLOCKER CHO GLOBAL CHAT */
 .auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(13, 15, 18, 0.95); text-align: center; padding: 32px; }
 .auth-blocker.is-hidden { display: none; }
 .auth-title { font-size: 1.4rem; font-weight: 700; color: var(--text-main); }
 .auth-desc { color: var(--text-sub); font-size: 0.9rem; line-height: 1.5; }
 
-/* ==========================================================================
-   SVG ICONS & UTILS
-   ========================================================================== */
-.svg-icon { width: 100%; height: 100%; }
+/* SCRIPT VAULT MODAL */
+.script-share-form { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
+.script-share-input { padding: 14px; border-radius: var(--rad-md); border: 1px solid var(--border-color); font-family: monospace; font-size: 0.9rem; background: var(--bg-input); color: var(--text-main);}
+textarea.script-share-input { height: 150px; resize: none; }
+
 </style>
 </head>
 <body>
 
 <svg width="0" height="0" style="position:absolute; width:0; height:0; display:none;">
   <defs>
-    <g id="icon-system">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    </g>
-    <g id="icon-nox-gpt">
-      <path d="M12 2l1.6 5.4c.5 1.6 1.8 2.9 3.4 3.4L22 12l-5.4 1.6c-1.6.5-2.9 1.8-3.4 3.4L12 22l-1.6-5.4c-.5-1.6-1.8-2.9-3.4-3.4L2 12l5.4-1.6c1.6-.5 2.9-1.8 3.4-3.4L12 2z" fill="currentColor"/>
-    </g>
-    <g id="icon-zalo">
-      <path d="M12 2C6.48 2 2 6.03 2 11c0 2.8 1.4 5.3 3.6 7.02-.3 1.94-1.5 3.32-1.6 3.46-.12.15-.05.37.13.43.06.02.13.02.19 0 2.22-.87 4.14-2.22 5.3-3.13 1.15.28 2.37.42 3.6.42 5.52 0 10-4.03 10-9S17.52 2 12 2z" fill="currentColor"/>
-      <path d="M8.5 13.5v-1l3.5-3.5h-3.5v-1.5h5.5v1l-3.5 3.5h3.5v1.5h-5.5z" fill="#ffffff"/>
-    </g>
-    <g id="icon-discord">
-      <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.25.46-.53 1.05-.71 1.55-1.6-.24-3.18-.24-4.75 0-.19-.5-.48-1.09-.73-1.55a.1.1 0 0 0-.08-.03c-1.5.26-2.93.71-4.27 1.33a.1.1 0 0 0-.05.05C.65 11.23-.2 17.06.04 22.8c0 .04.02.07.05.09 1.8.1.58 3.53 2.14 5.25.04.02.08.02.12 0l1.15-1.22c.04-.04.02-.09-.03-.1-1.09-.41-2.13-.9-3.1-1.46a.1.1 0 0 1-.01-.16c.2-.15.4-.3.59-.46.03-.02.06-.02.09 0 2.1 1 4.34 1.5 6.64 1.5s4.54-.5 6.64-1.5c.03-.02.06-.02.09 0 .2.16.4.31.59.46.04.03.06.09.02.13-.98.56-2.02 1.05-3.12 1.46-.05.02-.07.07-.03.11l1.14 1.21c.04.04.09.04.13.02 1.76-1.72 2.94-3.45 3.53-5.25.03-.02.05-.05.05-.09.3-6.1-.81-11.93-4.32-17.47a.08.08 0 0 0-.05-.05zM8.02 15.33c-1.18 0-2.15-1.08-2.15-2.41s.95-2.41 2.15-2.41c1.21 0 2.17 1.09 2.15 2.41 0 1.33-.96 2.41-2.15 2.41zm7.97 0c-1.18 0-2.15-1.08-2.15-2.41s.95-2.41 2.15-2.41c1.21 0 2.17 1.09 2.15 2.41 0 1.33-.95 2.41-2.15 2.41z" fill="currentColor"/>
-    </g>
-    <g id="icon-chat"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
-    <g id="icon-send"><line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></g>
-    <g id="icon-menu"><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="18" x2="15" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></g>
+    <g id="icon-system"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></g>
+    <g id="icon-send"><line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></g>
   </defs>
 </svg>
 
-<div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+<div class="bg-engine"></div>
 
 <header class="top-nav">
   <button class="menu-trigger" onclick="toggleMenu()">
-    <svg class="svg-logo"><use href="#icon-menu"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
     <span>MENU</span>
   </button>
 </header>
 
 <nav class="drawer-menu" id="nav-drawer">
   <div class="drawer-header">
-    <div class="drawer-title">
-      <svg class="svg-logo" style="color:var(--accent-green)"><use href="#icon-system"/></svg> Workspace
-    </div>
+    <div class="drawer-title"><svg width="20" height="20" style="color:var(--brand);"><use href="#icon-system"/></svg> ĐIỀU HƯỚNG</div>
     <button class="drawer-close" onclick="toggleMenu()">✕</button>
   </div>
   
   <div class="drawer-group">
     <div class="drawer-label">AI & Chat</div>
     <button class="btn-sidebar" onclick="openUI('modal-noxgpt')">
-      <svg class="svg-logo" style="color:var(--accent-green)"><use href="#icon-nox-gpt"/></svg> NOX GPT
+      <span class="dot-icon purple">●</span> NOX GPT [AI]
     </button>
     <button class="btn-sidebar" onclick="openUI('modal-noxchat')">
-      <svg class="svg-logo"><use href="#icon-chat"/></svg> Global Chat
+      <span class="dot-icon green">●</span> Global Chat
     </button>
   </div>
   
   <div class="drawer-group">
     <div class="drawer-label">Cộng Đồng</div>
     <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="btn-sidebar">
-      <svg class="svg-logo" style="color:#0068ff"><use href="#icon-zalo"/></svg> Nhóm Zalo
+      <span class="dot-icon blue">●</span> Nhóm Zalo
     </a>
     <a href="https://discord.gg/kRCKkw63s" target="_blank" class="btn-sidebar">
-      <svg class="svg-logo" style="color:#5865F2"><use href="#icon-discord"/></svg> Discord Server
+      <span class="dot-icon indigo">●</span> Discord Server
     </a>
   </div>
 </nav>
+<div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
 
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     
-    <div class="title-wrap">
+    <div class="card-header">
       <div class="system-logo-box">
         <svg viewBox="0 0 24 24"><use href="#icon-system"/></svg>
       </div>
       <div>
         <h1 class="title-main">NOX WEB</h1>
-        <span class="status-badge">Phiên bản V28</span>
+        <div style="margin-top: 5px;"><span class="status-badge" style="font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2);">ENTERPRISE V29</span></div>
       </div>
     </div>
 
     <div class="info-board" onclick="toggleText(this)">
-      <h3>Tổng quan hệ thống <span class="hint">Bấm để xem thêm</span></h3>
+      <h3>Thông báo hệ thống <span class="hint">Bấm để xem thêm</span></h3>
       <div class="text-truncate">
-        Giao diện <b>Dark Mode Enterprise</b> chuẩn thiết kế chuyên nghiệp, loại bỏ hoàn toàn các thành phần dư thừa.<br><br>
-        ✨ <b>AI DeepSeek 4.0 Pro:</b> Cập nhật model mới nhất, am hiểu sâu sắc về hệ sinh thái NOX WEB. Cơ chế gọi API tốc độ cao, báo lỗi ngay lập tức nếu Key hỏng.<br>
-        🌐 <b>Firebase Chat & Vault:</b> Hỗ trợ gửi ảnh siêu nhẹ. Tin nhắn tự hủy sau 24H. Kho chia sẻ Script lưu trữ vĩnh viễn.<br>
-        ⚡ <b>Tối ưu Layout:</b> Văn bản dài tự động thu gọn. Khung gửi tin nhắn cố định hoàn hảo trên thiết bị di động.
+        Giao diện <b>Minimalist Solid</b>. Các khung viền đều được bo góc chữ nhật vuông vức, có dải đèn LED báo hiệu đẹp mắt.<br><br>
+        ✨ <b>API Gemini Interaction:</b> Cập nhật API tương tác v1beta/interactions mới nhất, hỗ trợ nhận diện và phân tích file ảnh (MIME Types).<br>
+        🚀 <b>Tối ưu Cực độ:</b> Fix hoàn toàn lỗi tràn khung, mất nút, và render tin nhắn siêu mượt với `content-visibility`.
       </div>
     </div>
 
     <button class="btn-primary" onclick="openUI('modal-archive')">
-      <svg class="svg-logo"><use href="#icon-system"/></svg> MỞ KHO TIỆN ÍCH
+      MỞ KHO TIỆN ÍCH
     </button>
     
   </main>
@@ -384,7 +390,7 @@ body {
 <div class="modal-backdrop" id="modal-archive" onclick="if(event.target===this)closeUI('modal-archive')">
   <div class="modal-content">
     <div class="modal-header">
-      <div class="modal-heading"><svg class="svg-logo"><use href="#icon-system"/></svg> Kho Dữ Liệu</div>
+      <div class="modal-heading">KHO TIỆN ÍCH</div>
       <button class="modal-close" onclick="closeUI('modal-archive')">✕</button>
     </div>
 
@@ -405,17 +411,17 @@ body {
         <div class="data-box"><div class="box-head"><span class="box-title">Bypass Key Delta</span><a href="https://baconbypass.xyz" target="_blank" class="box-action">Truy cập</a></div></div>
         <div class="data-box"><div class="box-head"><span class="box-title">Kasumi Store VIP</span><a href="https://gofile.io/d/v3Q6Ig" target="_blank" class="box-action">Truy cập</a></div></div>
         <div class="data-box"><div class="box-head"><span class="box-title">Clone Tab Delta VNG</span><a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-action">Truy cập</a></div></div>
-        <div class="data-box"><div class="box-head"><span class="box-title">Kho Tài Nguyên APK</span><a href="https://gofile.io/d/w9cKYp" target="_blank" class="box-action">Truy cập</a></div></div>
+        <div class="data-box"><div class="box-head"><span class="box-title">Clone Tab ArceusX</span><a href="https://gofile.io/d/3PdBKU" target="_blank" class="box-action">Truy cập</a></div></div>
         <div class="data-box"><div class="box-head"><span class="box-title">Hanami Script</span><a href="https://gist.github.com/Hoangtiger2005/a4cf07f7cea143c735d802f38827563d/raw/script_hanami.user.js" target="_blank" class="box-action">Tải mã</a></div></div>
       </div>
       
       <div id="pane-script" class="tab-pane">
         <div class="data-box">
-          <div class="box-head"><span class="box-title">Speed X Hub Pro</span><button class="box-action btn-copy" onclick="execCopy(this)">Copy</button></div>
+          <div class="box-head"><span class="box-title">Speed X Hub Pro</span><button class="box-action" onclick="execCopy(this)">Copy</button></div>
           <div class="script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
         </div>
         <div class="data-box">
-          <div class="box-head"><span class="box-title">UB Hub Master</span><button class="box-action btn-copy" onclick="execCopy(this)">Copy</button></div>
+          <div class="box-head"><span class="box-title">UB Hub Master</span><button class="box-action" onclick="execCopy(this)">Copy</button></div>
           <div class="script-code">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
         </div>
       </div>
@@ -437,14 +443,14 @@ body {
 <div class="modal-backdrop" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
   <div class="modal-content">
     <div class="modal-header">
-      <div class="modal-heading"><svg class="svg-logo" style="color:var(--accent-green)"><use href="#icon-nox-gpt"/></svg> AI Chat</div>
+      <div class="modal-heading"><span class="dot-icon purple">●</span> NOX GPT</div>
       <button class="modal-close" onclick="closeUI('modal-noxgpt')">✕</button>
     </div>
     
     <div id="gpt-fallback-container" style="display:none;">
         <div class="api-fallback-box">
-            <div class="api-fallback-title">CẬP NHẬT API KEY (XKIRO DEEPSEEK)</div>
-            <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng sk-xt-)...">
+            <div class="api-fallback-title">CẬP NHẬT API KEY (GOOGLE GEMINI)</div>
+            <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng AQ. hoặc AIza)...">
             <button onclick="GptEngine.validateAndSaveConfig()">CẬP NHẬT</button>
         </div>
     </div>
@@ -461,7 +467,7 @@ body {
         <label for="gpt-img-upload" class="attach-btn">📷</label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
         
-        <input type="text" id="noxgpt-field" class="chat-field" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') GptEngine.submit()">
+        <input type="text" id="noxgpt-field" class="chat-field" placeholder="Hỏi NOX GPT..." onkeypress="if(event.key === 'Enter') GptEngine.submit()">
         <button class="chat-send" onclick="GptEngine.submit()">
           GỬI
         </button>
@@ -475,22 +481,24 @@ body {
     
     <div class="auth-blocker" id="auth-guard">
       <h2 class="auth-title">Xác thực danh tính</h2>
-      <p class="auth-desc">Tham gia hệ thống Chat toàn cầu. Tin nhắn tự động xóa sau 24H.</p>
+      <p class="auth-desc">Tham gia phòng chat toàn cầu. Tin nhắn tự động xóa sau 24H.</p>
       <div class="auth-google-btn-wrap" id="google-login-mount"></div>
+      <button class="btn-primary" style="width:250px; margin-top:10px; background:var(--bg-panel); color:var(--text-main); border:1px solid var(--border-color);" onclick="ChatEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
     </div>
 
     <div class="modal-header">
-      <div class="modal-heading"><svg class="svg-logo"><use href="#icon-chat"/></svg> Global Chat</div>
+      <div class="modal-heading"><span class="dot-icon green">●</span> Global Chat</div>
       <div style="display:flex; gap:8px;">
-        <button class="box-action" style="padding: 6px 12px; font-size:0.8rem;" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">Kho Script</button>
-        <button class="modal-close" style="width:32px; height:32px;" onclick="closeUI('modal-noxchat')">✕</button>
+        <button class="btn-soft" style="height:36px; min-height:36px; padding:0 12px; border-radius:8px;" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
+        <button class="btn-soft" style="height:36px; min-height:36px; padding:0 12px; border-radius:8px;" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">Kho Script</button>
+        <button class="modal-close" style="width:36px; height:36px;" onclick="closeUI('modal-noxchat')">✕</button>
       </div>
     </div>
     
     <div class="chat-messages" id="noxchat-board">
       <div class="msg-row type-other">
         <div class="msg-meta">
-          <div class="msg-avatar"><svg viewBox="0 0 24 24"><use href="#icon-system"/></svg></div>
+          <div class="msg-avatar"><span class="dot-icon green" style="font-size:14px;">●</span></div>
           <div class="msg-name sys">Hệ Thống</div>
         </div>
         <div class="msg-bubble">
@@ -506,7 +514,6 @@ body {
       </div>
 
       <div class="chat-input-wrapper">
-        <div class="attach-btn" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</div>
         <label for="chat-img-upload" class="attach-btn" title="Gửi ảnh">📷</label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
         
@@ -523,10 +530,10 @@ body {
       <div class="modal-heading">Chia sẻ Script</div>
       <button class="modal-close" onclick="closeUI('modal-script-share')">✕</button>
     </div>
-    <div style="display:flex; flex-direction:column; gap:12px;">
+    <div class="script-share-form">
       <input type="text" id="share-title" class="search-box" placeholder="Tên Script (VD: Hub VIP)">
       <textarea id="share-code" class="search-box" placeholder="Dán mã Script vào đây..." style="height:150px; resize:none; font-family:monospace;"></textarea>
-      <button class="btn-primary" onclick="ChatEngine.sendScript()">ĐĂNG LÊN KHO</button>
+      <button class="btn-primary" onclick="ChatEngine.sendScript()">ĐĂNG LÊN KHO CỘNG ĐỒNG</button>
     </div>
   </div>
 </div>
@@ -537,7 +544,7 @@ body {
       <div class="modal-heading">Kho Script Cộng Đồng</div>
       <button class="modal-close" onclick="closeUI('modal-script-vault')">✕</button>
     </div>
-    <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:14px;">
+    <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:14px; padding: 20px;">
     </div>
   </div>
 </div>
@@ -607,7 +614,7 @@ const ImageProcessor = {
         else { if (h > MAX_H) { w *= MAX_H / h; h = MAX_H; } }
         const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
         const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
-        const base64Str = canvas.toDataURL('image/jpeg', 0.5);
+        const base64Str = canvas.toDataURL('image/jpeg', 0.5); // Nén nhẹ 50%
         if(target === 'gpt') {
           this.currentGptImage = base64Str;
           DOM.get('gpt-preview-img').src = base64Str; DOM.get('gpt-preview-zone').classList.add('active');
@@ -623,24 +630,21 @@ const ImageProcessor = {
 };
 
 /* ==========================================================================
-   NOX GPT ENGINE (DEEPSEEK 4.0 PRO)
+   NOX GPT ENGINE (GEMINI INTERACTIONS API + PUTER FALLBACK)
    ========================================================================== */
 const GptEngine = {
-  defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
-  defaultUrl: "https://api.xkiro.com/v1/chat/completions",
+  defaultKey: "AQ.Ab8RN6L-Nwaw9ndnWLGEDSAaXXv808vv0oTHeAtvi-Ue7iq4jQ",
+  defaultUrl: "https://generativelanguage.googleapis.com/v1beta/interactions",
   
-  getApiKey: function() { return localStorage.getItem('nox_ds_key') || this.defaultKey; },
-  setApiKey: function(newKey) { localStorage.setItem('nox_ds_key', newKey.trim()); },
+  getApiKey: function() { return localStorage.getItem('nox_interaction_key') || this.defaultKey; },
+  setApiKey: function(newKey) { localStorage.setItem('nox_interaction_key', newKey.trim()); },
   
   board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'),
-  isGreeted: false,
-  messageHistory: [
-      { role: "system", content: "Bạn là NOXGPT, trợ lý AI thông minh của NOX WEB. NOX WEB là kho lưu trữ các tiện ích Roblox như Script (Speed X Hub, UB Hub), Client APK (Delta, Codex, ArceusX), và có cộng đồng Discord, Zalo. Hãy trả lời ngắn gọn, thân thiện và chính xác." }
-  ],
+  isGreeted: false, usePuter: false,
 
   init: function() {
     if(this.isGreeted) return; this.isGreeted = true;
-    this.appendMsg('other', 'NOXGPT', 'Chào mừng đến với NOXGPT , bạn muốn hỏi về vấn đề gì?');
+    this.appendMsg('other', 'NOX GPT', 'Hệ thống AI Gemini Interactions đã sẵn sàng. Gửi ảnh hoặc tin nhắn để thử nghiệm.');
   },
 
   appendMsg: function(type, name, htmlContent, isError = false) {
@@ -648,7 +652,7 @@ const GptEngine = {
     const row = document.createElement('div'); row.className = `msg-row type-${type} ${isError ? 'type-error' : ''}`;
     let innerHTML = '';
     if(type === 'other') {
-      innerHTML += `<div class="msg-meta"><div class="msg-avatar"><svg viewBox="0 0 24 24"><use href="#icon-nox-gpt"/></svg></div><div class="msg-name sys">${name}</div></div>`;
+      innerHTML += `<div class="msg-meta"><div class="msg-avatar"><span class="dot-icon purple">●</span></div><div class="msg-name sys">${name}</div></div>`;
     } else {
       innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
     }
@@ -664,10 +668,10 @@ const GptEngine = {
   },
 
   triggerFallbackUI: function(errorMessage) {
-    this.input.disabled = true; this.input.placeholder = "Vui lòng cập nhật API Key...";
+    this.input.disabled = true; this.input.placeholder = "API Lỗi...";
     const fallbackHTML = `
       <div style="font-weight:bold; margin-bottom:8px;">[ LỖI KẾT NỐI API ]</div>
-      <div style="font-size:0.85rem; margin-bottom:12px;">Chi tiết lỗi: ${errorMessage}</div>`;
+      <div style="font-size:0.85rem; margin-bottom:12px;">Đã kích hoạt AI dự phòng (Puter). Cập nhật API Key Gemini nếu muốn dùng lại:</div>`;
     this.appendMsg('other', 'System', fallbackHTML, true);
     
     const box = DOM.get('gpt-fallback-container');
@@ -679,11 +683,29 @@ const GptEngine = {
       const keyVal = keyInput ? keyInput.value.trim() : '';
       
       if(!keyVal) { alert("Vui lòng nhập API Key!"); return; }
+      if(!keyVal.startsWith("AIza") && !keyVal.startsWith("AQ.")) {
+          alert("Lỗi: Key Gemini phải bắt đầu bằng 'AIza' hoặc 'AQ.'"); return;
+      }
       
       this.setApiKey(keyVal);
+      this.usePuter = false;
       DOM.get('gpt-fallback-container').style.display = 'none';
       this.input.disabled = false; this.input.placeholder = "Nhập tin nhắn...";
       this.appendMsg('other', 'System', 'Đã lưu API Key mới. Vui lòng thử lại câu hỏi.');
+  },
+
+  submitPuter: function(text) {
+      const tempNode = this.appendMsg('other', 'NOX AI (Puter)', '<span style="opacity:0.6;">Đang xử lý (Puter AI)...</span>');
+      try {
+          puter.ai.chat(text, { model: "gpt-5.4-nano" }).then(response => {
+              tempNode.remove();
+              let output = typeof response === 'string' ? response : (response.message || response.text);
+              if(!output) output = JSON.stringify(response);
+              this.appendMsg('other', 'NOX AI (Puter)', output.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>'));
+          }).catch(err => {
+              tempNode.remove(); this.appendMsg('other', 'System Error', 'Lỗi kết nối Puter AI.', true);
+          });
+      } catch(e) { tempNode.remove(); }
   },
 
   submit: async function() {
@@ -697,47 +719,62 @@ const GptEngine = {
     this.input.value = ''; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
     
-    // Lưu lịch sử (XKiro API không nhận ảnh dưới dạng text, tạm thời gửi text)
-    this.messageHistory.push({ role: "user", content: text || "[Đã gửi một hình ảnh]" });
+    if(this.usePuter) {
+        if(base64Img) this.appendMsg('other', 'System', 'Lưu ý: Puter AI hiện không hỗ trợ xem ảnh.', true);
+        this.submitPuter(text || "Xin chào");
+        return;
+    }
 
-    const tempNode = this.appendMsg('other', 'NOXGPT', '<span style="opacity:0.6;">Đang xử lý...</span>');
+    const tempNode = this.appendMsg('other', 'NOX GPT', '<span style="opacity:0.6;">Đang xử lý...</span>');
 
     try {
       const apiKey = this.getApiKey();
+      
+      // Tạo Payload theo chuẩn Interactions API v1beta
+      let payload = { model: "gemini-3.6-flash" };
+      
+      if(base64Img) {
+          const base64Data = base64Img.split(',')[1];
+          payload.input = [
+              { type: "text", text: text || "Phân tích chi tiết hình ảnh này." },
+              { type: "image", data: base64Data, mime_type: "image/jpeg" }
+          ];
+      } else {
+          payload.input = text;
+      }
       
       const response = await fetch(this.defaultUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
+            'x-goog-api-key': apiKey
         },
-        body: JSON.stringify({
-            model: "deepseek/deepseek-v4-pro",
-            messages: this.messageHistory
-        })
+        body: JSON.stringify(payload)
       });
 
-      if(!response.ok) {
-          const errData = await response.json().catch(()=>({}));
-          throw new Error(errData.error?.message || `HTTP Error ${response.status}`);
-      }
+      if(!response.ok) throw new Error("API FAILED");
 
       const data = await response.json(); tempNode.remove();
       
-      if(data.choices && data.choices[0] && data.choices[0].message) {
-          const reply = data.choices[0].message.content;
-          const formattedText = reply.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
-          this.appendMsg('other', 'NOXGPT', formattedText); 
-          this.messageHistory.push({ role: "assistant", content: reply });
-      } else {
-          throw new Error("Invalid Response Format");
+      // Xử lý Output theo chuẩn interactions
+      let outputText = "Không có phản hồi.";
+      if(data.output_text) {
+          outputText = data.output_text;
+      } else if (data.response) { // fallback nếu google thay đổi
+          outputText = data.response;
+      } else if (data.candidates) {
+          outputText = data.candidates[0].content.parts[0].text;
       }
+      
+      const formattedText = outputText.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
+      this.appendMsg('other', 'NOX GPT', formattedText); 
       
     } catch(err) {
       if(tempNode) tempNode.remove();
-      console.warn("DeepSeek Error:", err);
-      // Lỗi 1 lần bung luôn khung nhập Key
+      console.warn("Gemini Error:", err);
+      this.usePuter = true;
       this.triggerFallbackUI(err.message);
+      this.submitPuter(text || "Xin chào");
     }
   }
 };
@@ -749,7 +786,7 @@ const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-no
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
-  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", isSetup: false,
+  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", isSetup: false, msgCount: 0,
 
   initFirebase: function() {
     if(this.isSetup) return;
@@ -790,7 +827,7 @@ const ChatEngine = {
     const payload = ChatEngine.decodeJwt(response.credential);
     ChatEngine.userProfile = { name: payload.name || "User", email: payload.email, avatar: payload.picture || "" };
     DOM.get('auth-guard').style.display = 'none';
-    ChatEngine.appendMsg('Hệ Thống', `Xác thực thành công. Chào mừng <b>${ChatEngine.userProfile.name}</b>!`, true);
+    ChatEngine.appendMsg('Hệ Thống', `Đăng nhập thành công. Chào mừng <b>${ChatEngine.userProfile.name}</b>!`, true);
     ChatEngine.listenForMessages();
   },
 
@@ -799,6 +836,13 @@ const ChatEngine = {
     google.accounts.id.initialize({ client_id: this.googleClientId, callback: this.onGoogleLoginSuccess });
     const btnWrap = DOM.get('google-login-mount');
     if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "outline", size: "large", shape: "pill", width: 250 });
+  },
+
+  guestLogin: function() {
+      this.userProfile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest@nox.local", avatar: "" };
+      DOM.get('auth-guard').style.display = 'none';
+      this.appendMsg('Hệ Thống', `Đăng nhập khách thành công. Tên của bạn: <b>${this.userProfile.name}</b>`, true);
+      this.listenForMessages();
   },
 
   removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
@@ -812,12 +856,15 @@ const ChatEngine = {
     
     let innerHTML = '';
     if(!isMe) {
-      let avaStyle = isSystem ? 'background: var(--accent-green);' : (avatarUrl ? `background-image: url(${avatarUrl}); background-size: cover;` : 'background: var(--bg-panel);');
+      let avaStyle = isSystem ? 'background: var(--accent-green);' : (avatarUrl ? `background-image: url(${avatarUrl}); background-size: cover;` : 'background: var(--border-color);');
       let nameClass = isSystem ? 'msg-name sys' : 'msg-name';
       innerHTML += `<div class="msg-meta"><div class="msg-avatar" style="${avaStyle}"></div><div class="${nameClass}">${senderName}</div></div>`;
     }
     innerHTML += `<div class="msg-bubble">${htmlContent}</div>`;
     row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
+    
+    this.msgCount++;
+    if(this.msgCount > 100 && this.board.firstChild) { this.board.firstChild.remove(); this.msgCount--; }
   },
 
   listenForMessages: function() {
@@ -833,7 +880,7 @@ const ChatEngine = {
   },
 
   sendMsg: function() {
-    if(!this.userProfile) { alert("Vui lòng xác thực Google!"); return; }
+    if(!this.userProfile) { alert("Vui lòng đăng nhập!"); return; }
     if(!this.dbRef) return;
     const text = this.input.value.trim(); const base64Img = ImageProcessor.currentChatImage;
     if(!text && !base64Img) return;
@@ -851,7 +898,7 @@ const ChatEngine = {
   },
 
   sendScript: function() {
-      if(!this.userProfile) { alert("Vui lòng xác thực trong Global Chat trước khi chia sẻ!"); return; }
+      if(!this.userProfile) { alert("Vui lòng đăng nhập chat trước khi chia sẻ!"); return; }
       const title = DOM.get('share-title').value.trim(); const code = DOM.get('share-code').value.trim();
       if(!title || !code) { alert("Vui lòng điền đủ Tên và Mã Script!"); return; }
       
@@ -875,7 +922,7 @@ const ChatEngine = {
               b.innerHTML = `
                 <div class="box-head"><span class="box-title">${s.title.replace(/</g, "&lt;")}</span><button class="box-action btn-copy" onclick="execCopy(this)">COPY</button></div>
                 <div class="script-code">${s.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
-                <div style="font-size:0.75rem; color:rgba(255,255,255,0.7);">Gửi bởi: ${s.user}</div>
+                <div style="font-size:0.75rem; color:var(--text-sub);">Gửi bởi: ${s.user}</div>
               `;
               vBoard.appendChild(b);
           });
