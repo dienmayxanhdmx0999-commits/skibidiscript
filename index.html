@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V33 MASTER SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V33. Cho phép cuộn trang, Sửa lỗi đăng xuất, Quản lý menu DEV, Đầy đủ Script/APK/iOS.">
+<title>NOX WEB - V35 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V35. Giao diện Vuông, Sửa/Thu hồi tin nhắn trực tiếp, Menu DEV mở rộng.">
 <meta name="robots" content="index, follow">
 
 <!-- Firebase App & Database -->
@@ -19,7 +19,7 @@
 
 <style>
 /* ==========================================================================
-   CSS ARCHITECTURE: DARK THEME & SCROLLABLE LAYOUT
+   CSS ARCHITECTURE: DARK THEME & SQUARE GEOMETRY
    ========================================================================== */
 :root {
   --bg-core: #0d0f12;        
@@ -42,7 +42,6 @@
   --dev-color: #ff0055;
   
   --rad: 0px; 
-  
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
@@ -54,12 +53,10 @@ a { text-decoration: none; color: inherit; }
 
 html { font-family: "Courier New", Courier, monospace; font-size: 16px; width: 100%; height: 100%; }
 
-/* CHO PHÉP TRANG WEB CUỘN LÊN CUỘN XUỐNG KHI NỘI DUNG ĐẦY / TRÀN */
 body {
   width: 100%; min-height: 100vh;
   background-color: var(--bg-core);
-  overflow-y: auto !important; overflow-x: hidden;
-  position: relative;
+  overflow-y: auto !important; overflow-x: hidden; position: relative;
   display: flex; justify-content: center; align-items: flex-start;
   padding: 8vh 16px 100px; color: var(--text-main);
 }
@@ -146,7 +143,7 @@ body::after {
 .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
 
 /* ==========================================================================
-   MAIN DASHBOARD CARD (CÂN CHỈNH MARGIN TRÁNH ĐÈ MENU)
+   MAIN DASHBOARD CARD
    ========================================================================== */
 .card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; margin-top: 50px; }
 .main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; }
@@ -230,14 +227,19 @@ body::after {
 
 .script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad); background: var(--bg-input); border: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
 
-/* DEV ACTION BUTTONS */
-.dev-delete-btn, .dev-edit-btn {
+/* DEV CIRCLE EDIT BUTTON */
+.dev-circle-edit-btn {
+    width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: var(--accent-blue);
+    border: 1px solid var(--accent-blue); display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; font-weight: bold; font-size: 13px; margin-left: 8px; transition: 0.2s;
+}
+.dev-circle-edit-btn:hover { background: var(--accent-blue); color: #fff; }
+
+.dev-delete-btn {
+    background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger);
     padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 8px; font-size: 0.8rem;
 }
-.dev-delete-btn { background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger); }
 .dev-delete-btn:hover { background: var(--accent-danger); color: #fff; }
-.dev-edit-btn { background: rgba(59,130,246,0.1); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
-.dev-edit-btn:hover { background: var(--accent-blue); color: #fff; }
 
 .dev-add-panel {
     padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-bottom: 16px; display: none;
@@ -247,14 +249,6 @@ body::after {
     padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color);
 }
 .dev-add-panel button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
-
-/* DEV MENU EDITOR PANEL */
-.dev-menu-editor {
-    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-top: 15px; display: none; flex-direction: column; gap: 8px;
-}
-.dev-menu-editor.active { display: flex; }
-.dev-menu-editor input { padding: 8px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); font-size: 0.85rem;}
-.dev-menu-editor button { padding: 8px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; font-size: 0.85rem;}
 
 /* ==========================================================================
    CONFIRMATION MODAL
@@ -270,7 +264,7 @@ body::after {
 .btn-no:hover { border-color: var(--text-main); }
 
 /* ==========================================================================
-   CHAT UI & CONTEXT MENU (FIX LỖI BẤM VÀO TIN NHẮN HIỆN MENU SỬA/THU HỒI)
+   CHAT UI & NÚT THAO TÁC TRỰC TIẾP (SỬA / THU HỒI)
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -288,27 +282,22 @@ body::after {
 .badge-nox { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--accent-green-bg); }
 .badge-guest { color: var(--text-sub); border: 1px solid var(--border-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--bg-input); }
 
-.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer;}
+.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent;}
 .msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
-.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
-.msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); cursor: default;}
+.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); }
+.msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); }
 .msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
 
-/* Context menu nổi khi bấm vào tin nhắn của mình */
-.msg-context-menu {
-  position: absolute; bottom: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
-  z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 140px;
+/* NÚT THAO TÁC TRỰC TIẾP NGAY TRÊN TIN NHẮN CỦA MÌNH */
+.msg-action-bar {
+  display: flex; gap: 8px; margin-top: 4px; font-size: 0.75rem; font-weight: bold;
 }
-.msg-context-menu.active { display: flex; }
-.msg-context-btn { padding: 10px 16px; text-align: left; font-size: 0.85rem; font-weight: bold; background: transparent; color: var(--text-main); cursor: pointer; border-bottom: 1px solid var(--border-color); }
-.msg-context-btn:hover { background: var(--bg-panel-hover); color: var(--accent-green); }
-.msg-context-btn.danger:hover { color: var(--accent-danger); }
-
-#typing-indicator { font-size: 0.8rem; color: var(--text-sub); font-style: italic; padding: 4px 20px; min-height: 24px;}
-.typing-dots span { animation: blink-dot 1.4s infinite both; font-weight: bold;}
-.typing-dots span:nth-child(2) { animation-delay: .2s; }
-.typing-dots span:nth-child(3) { animation-delay: .4s; }
-@keyframes blink-dot { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
+.msg-action-btn {
+  background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-sub);
+  padding: 2px 8px; cursor: pointer; border-radius: var(--rad); transition: 0.2s;
+}
+.msg-action-btn:hover { border-color: var(--text-main); color: var(--text-main); }
+.msg-action-btn.danger:hover { background: var(--accent-danger-bg); color: var(--accent-danger); border-color: var(--accent-danger); }
 
 /* CHAT INPUT AREA */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
@@ -388,7 +377,6 @@ textarea.script-share-input { height: 150px; resize: none; }
     <button class="btn-sidebar" onclick="openUI('modal-noxchat')">GLOBAL CHAT</button>
   </div>
   
-  <!-- QUẢN LÝ TÀI KHOẢN TRỰC TIẾP TRONG MENU -->
   <div class="drawer-group" id="drawer-auth-group">
     <div class="drawer-label">TÀI KHOẢN</div>
     <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center;"></div>
@@ -396,8 +384,20 @@ textarea.script-share-input { height: 150px; resize: none; }
     <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
   </div>
 
+  <!-- PHẦN CHỈNH SỬA MỤC MENU DÀNH CHO DEV -->
+  <div class="drawer-group" id="dev-menu-editor-group" style="display:none;">
+    <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ MENU</div>
+    <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">CHỈNH SỬA MENU</button>
+    <div class="dev-menu-editor" id="dev-menu-editor-box">
+        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)...">
+        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)">
+        <button onclick="MenuEditor.addMenuItem()">THÊM VÀO MENU</button>
+    </div>
+  </div>
+
   <div class="drawer-group" style="margin-top: 5px;">
     <div class="drawer-label">CỘNG ĐỒNG</div>
+    <div id="dynamic-menu-links" style="display:flex; flex-direction:column; gap:8px;"></div>
     <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="btn-sidebar">NHÓM ZALO</a>
     <a href="https://discord.gg/kRCKkw63s" target="_blank" class="btn-sidebar">DISCORD SERVER</a>
   </div>
@@ -415,16 +415,15 @@ textarea.script-share-input { height: 150px; resize: none; }
       <h3 id="ui-notice-title">THÔNG BÁO</h3>
       <div class="text-truncate" id="ui-notice-text" style="display:block;">
         > <b>WELCOME TO NOX WEB V33 MASTER.</b><br>
-        > Hỗ trợ cuộn trang mượt mà khi nội dung đầy.<br>
-        > Đã fix lỗi Đăng xuất tài khoản.<br>
-        > Thêm quyền cho DEV chỉnh sửa các mục trong Menu.<br>
-        > Click trực tiếp vào tin nhắn của bạn để Sửa hoặc Thu hồi.
+        > Cho phép cuộn trang mượt mà khi đầy nội dung.<br>
+        > Hỗ trợ nút tròn (✎) để DEV chỉnh sửa trực tiếp các mục tiện ích.<br>
+        > Thao tác Sửa/Thu hồi hiển thị trực tiếp ngay dưới tin nhắn của bạn.<br>
+        > DEV có quyền tùy chỉnh menu và cấu hình giao diện.
       </div>
     </div>
 
-    <!-- KHUNG CHỈNH SỬA THÔNG TIN CHO DEV (ẨN THEO MẶC ĐỊNH) -->
     <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
-        <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB & MENU</div>
+        <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V33)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
@@ -580,12 +579,6 @@ textarea.script-share-input { height: 150px; resize: none; }
   </div>
 </div>
 
-<!-- SCRIPT EDIT / RECALL CONTEXT MENU -->
-<div class="msg-context-menu" id="msg-context-modal" style="position:fixed; background:var(--bg-panel); border:1px solid var(--border-color); display:none; flex-direction:column; z-index:20000; box-shadow:var(--shadow-lg);">
-    <button class="msg-context-btn" onclick="ChatEngine.openEditModal()" style="padding:12px 20px; background:none; color:var(--text-main); font-weight:bold; cursor:pointer; text-align:left; border-bottom:1px solid var(--border-color);">Chỉnh sửa văn bản</button>
-    <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg()" style="padding:12px 20px; background:none; color:var(--accent-danger); font-weight:bold; cursor:pointer; text-align:left;">Thu hồi tin nhắn</button>
-</div>
-
 <!-- EDIT MESSAGE MODAL -->
 <div class="modal-backdrop" id="modal-edit-msg" onclick="if(event.target===this)closeUI('modal-edit-msg')">
   <div class="modal-content" style="max-width: 450px; height: auto;">
@@ -662,6 +655,7 @@ const AuthEngine = {
             IS_ADMIN = true; 
             DOM.get('dev-utils-panel').classList.add('active'); 
             DOM.get('dev-config-panel').style.display = 'flex'; 
+            DOM.get('dev-menu-editor-group').style.display = 'flex';
         }
         ChatEngine.userProfile = profile;
         localStorage.setItem('nox_user_profile', JSON.stringify(profile));
@@ -722,7 +716,7 @@ const ImageProcessor = {
 };
 
 /* ==========================================================================
-   CONFIG ENGINE (ĐỒNG BỘ NỘI DUNG WEB TỪ FIREBASE)
+   CONFIG ENGINE
    ========================================================================== */
 const ConfigEngine = {
     ref: null,
@@ -758,13 +752,71 @@ const ConfigEngine = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (QUẢN LÝ KHO TIỆN ÍCH DYNAMIC - ĐÃ KHÔI PHỤC ĐỦ SCRIPT/LINK/APK/IOS)
+   MENU EDITOR ENGINE (ĐẶC QUYỀN DEV CHỈNH SỬA MENU)
+   ========================================================================== */
+const MenuEditor = {
+    ref: null,
+    init: function() {
+        this.ref = firebase.database().ref('nox_custom_menu');
+        this.loadMenu();
+    },
+    toggleEditor: function() {
+        DOM.get('dev-menu-editor-box').classList.toggle('active');
+    },
+    addMenuItem: function() {
+        if(!IS_ADMIN) return;
+        const name = DOM.get('menu-item-name').value.trim();
+        const link = DOM.get('menu-item-link').value.trim();
+        if(!name || !link) { alert("Nhập đủ tên và đường dẫn!"); return; }
+        
+        this.ref.push({ name, link, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
+            DOM.get('menu-item-name').value = '';
+            DOM.get('menu-item-link').value = '';
+            showToast("Đã thêm mục vào menu!");
+        });
+    },
+    deleteMenuItem: function(key) {
+        ConfirmUI.show("XÓA MỤC NÀY KHỎI MENU?", () => {
+            this.ref.child(key).remove().then(() => showToast("Đã xóa khỏi menu!"));
+        });
+    },
+    loadMenu: function() {
+        if(!this.ref) return;
+        this.ref.on('value', snapshot => {
+            const container = DOM.get('dynamic-menu-links');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            if(snapshot.exists()) {
+                snapshot.forEach(child => {
+                    const item = child.val();
+                    const key = child.key;
+                    
+                    const a = document.createElement('a');
+                    a.href = item.link;
+                    a.target = "_blank";
+                    a.className = "btn-sidebar";
+                    a.style.display = "flex";
+                    a.style.justifyContent = "space-between";
+                    
+                    let delHtml = IS_ADMIN ? `<span style="color:var(--accent-danger); cursor:pointer;" onclick="event.preventDefault(); MenuEditor.deleteMenuItem('${key}')">[X]</span>` : '';
+                    a.innerHTML = `<span>${item.name}</span> ${delHtml}`;
+                    container.appendChild(a);
+                });
+            }
+        });
+    }
+};
+
+/* ==========================================================================
+   UTILS ENGINE
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
     init: function() { 
         this.ref = firebase.database().ref('nox_custom_utils'); 
         this.loadDynamicUtils(); 
+        MenuEditor.init();
     },
     switchPane: function(id, btn) { 
         DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); 
@@ -835,19 +887,16 @@ const UtilsEngine = {
     loadDynamicUtils: function() {
         if(!this.ref) return;
         
-        // Dữ liệu tĩnh mặc định đầy đủ Links, Scripts, APK, iOS
         const defaultData = [
-            { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz', isLink: true },
-            { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig', isLink: true },
-            { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL', isLink: true },
-            { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp', isLink: true },
+            { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
+            { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig' },
+            { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
+            { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
             { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
             { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
-            { type: 'pane-script', title: 'Teddy Hub V2', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()', isScript: true },
-            { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/', isLink: true },
-            { type: 'pane-apk', title: 'Roblox Delta VNG', content: 'https://modsfire.com/Q4sFLA37wl7PckA', isLink: true },
-            { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk', isLink: true },
-            { type: 'pane-ios', title: 'Delta iOS (No Jailbreak)', content: 'https://deltaexploits.gg/', isLink: true }
+            { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
+            { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
+            { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
         ];
 
         this.ref.on('value', snapshot => {
@@ -867,7 +916,7 @@ const UtilsEngine = {
                     let devControls = '';
                     if(IS_ADMIN && data.key) {
                         devControls = `
-                            <button class="dev-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')">SỬA</button>
+                            <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
                             <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${data.key}')">XÓA</button>
                         `;
                     }
@@ -970,7 +1019,7 @@ const GptEngine = {
 const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT ENGINE (FIX LỖI BẤM VÀO TIN NHẮN HIỆN MENU SỬA/THU HỒI)
+   FIREBASE CHAT ENGINE (FIX LỖI NÚT THAO TÁC TRỰC TIẾP TRÊN TIN NHẮN)
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
@@ -995,7 +1044,6 @@ const ChatEngine = {
       ConfigEngine.init();
       this.cleanupOldMessages(); setInterval(() => this.cleanupOldMessages(), 3600000); 
 
-      // Khôi phục phiên đăng nhập từ LocalStorage
       const savedUser = localStorage.getItem('nox_user_profile');
       if(savedUser) {
           try {
@@ -1005,6 +1053,7 @@ const ChatEngine = {
                   IS_ADMIN = true; 
                   DOM.get('dev-utils-panel').classList.add('active'); 
                   DOM.get('dev-config-panel').style.display = 'flex'; 
+                  DOM.get('dev-menu-editor-group').style.display = 'flex';
               }
               DOM.get('auth-guard').style.display = 'none';
               AuthEngine.updateAuthUI(true, profile);
@@ -1031,6 +1080,7 @@ const ChatEngine = {
         IS_ADMIN = true; 
         DOM.get('dev-utils-panel').classList.add('active'); 
         DOM.get('dev-config-panel').style.display = 'flex'; 
+        DOM.get('dev-menu-editor-group').style.display = 'flex';
     }
     const profile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
     ChatEngine.userProfile = profile;
@@ -1090,36 +1140,25 @@ const ChatEngine = {
     
     let bubbleContent = isRecalled ? '<span style="font-style:italic; color:var(--text-muted);">[Tin nhắn đã bị thu hồi]</span>' : htmlContent;
     
-    // FIX QUAN TRỌNG: Gắn sự kiện click trực tiếp vào bubble của mình để hiện menu Sửa / Thu hồi
     const bubbleEl = document.createElement('div');
     bubbleEl.className = `msg-bubble ${isRecalled ? 'recalled' : ''}`;
     bubbleEl.innerHTML = bubbleContent;
     
-    if(isMe && !isRecalled && msgKey) {
-        bubbleEl.style.cursor = 'pointer';
-        bubbleEl.title = 'Bấm vào để Sửa / Thu hồi';
-        bubbleEl.onclick = (e) => {
-            e.stopPropagation();
-            ChatEngine.openContext(msgKey, e);
-        };
-    }
-
     const metaDiv = document.createElement('div');
     metaDiv.innerHTML = innerHTML;
     
     row.appendChild(metaDiv.firstElementChild);
     row.appendChild(bubbleEl);
     
-    // Nếu có menu context riêng cho tin nhắn này
+    // NÚT THAO TÁC TRỰC TIẾP (SỬA / THU HỒI) DƯỚI TIN NHẮN CỦA MÌNH
     if(isMe && !isRecalled && msgKey) {
-        const ctxMenu = document.createElement('div');
-        ctxMenu.className = 'msg-context-menu';
-        ctxMenu.id = `ctx-${msgKey}`;
-        ctxMenu.innerHTML = `
-            <button class="msg-context-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Chỉnh sửa văn bản</button>
-            <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi tin nhắn</button>
+        const actionBari = document.createElement('div');
+        actionBari.className = 'msg-action-bar';
+        actionBari.innerHTML = `
+            <button class="msg-action-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Sửa</button>
+            <button class="msg-action-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi</button>
         `;
-        row.appendChild(ctxMenu);
+        row.appendChild(actionBari);
     }
     
     const existing = DOM.get(`msg-${msgKey}`);
@@ -1132,18 +1171,6 @@ const ChatEngine = {
   },
 
   activeMsgKey: null,
-  openContext: function(key, e) {
-      // Ẩn tất cả các menu khác trước
-      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
-      const menu = DOM.get(`ctx-${key}`);
-      if(menu) {
-          menu.classList.toggle('active');
-          document.addEventListener('pointerdown', (ev) => {
-              if(!menu.contains(ev.target)) menu.classList.remove('active');
-          }, { once: true });
-      }
-  },
-
   openEditModal: function(key) {
       this.activeMsgKey = key;
       this.dbRef.child(key).once('value', snapshot => {
@@ -1151,7 +1178,6 @@ const ChatEngine = {
           if(data && data.text) {
               DOM.get('edit-msg-textarea').value = data.text;
               openUI('modal-edit-msg');
-              document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
           }
       });
   },
@@ -1169,7 +1195,6 @@ const ChatEngine = {
 
   triggerRecallMsg: function(key) {
       this.activeMsgKey = key;
-      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
       ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
           this.dbRef.child(this.activeMsgKey).update({ recalled: true, text: "" }).then(() => {
               showToast("Đã thu hồi tin nhắn!");
@@ -1217,6 +1242,7 @@ const ChatEngine = {
     });
   },
 
+  triggerSendScript: function() { ConfirmUI.show("ĐĂNG TẢI SCRIPT NÀY LÊN MÁY CHỦ?", () => { this.sendScript(); }); },
   sendScript: function() {
       if(!this.userProfile) { alert("Vui lòng đăng nhập chat trước!"); return; }
       const title = DOM.get('share-title').value.trim(); const code = DOM.get('share-code').value.trim();
@@ -1245,8 +1271,8 @@ const ChatEngine = {
               let displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
               
               b.innerHTML = `
-                <div class="box-head"><span class="box-title">${s.title.replace(/</g, "&lt;")} <div>${delBtn}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-                <div class="script-code">${s.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+                <div class="box-head"><span class="box-title">${s.title.replace(/</g,"&lt;")} <div>${delBtn}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
+                <div class="script-code">${s.code.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
                 <div style="font-size:0.75rem; color:var(--text-sub); margin-top:4px;">${badge} Đóng góp bởi: ${displayName}</div>
               `;
               vBoard.appendChild(b);
