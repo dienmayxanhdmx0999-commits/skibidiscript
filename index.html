@@ -3,398 +3,316 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#f1f5f9">
+<meta name="theme-color" content="#f8fafc">
 
-<title>NOX WEB - Solid Gradient & AI</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise. Giao diện Gradient Solid, AI Gemini, Firebase Global Chat tự hủy.">
+<title>NOX WEB - Multimodal Vision Enterprise</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V25. Giao diện tối giản, bo góc chuẩn, tích hợp gửi ảnh Firebase và Gemini 3.5 Flash.">
 <meta name="robots" content="index, follow">
 
+<!-- Firebase Core & Database -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <style>
 /* ==========================================================================
-   CSS ARCHITECTURE: DESIGN TOKENS & GRADIENTS
+   CSS VARIABLES: ROUNDED & BALANCED GEOMETRY
    ========================================================================== */
 :root {
-  /* Nền web trắng xám chuyển động */
+  /* Colors */
   --bg-1: #f8fafc;
-  --bg-2: #e2e8f0;
-  --bg-3: #cbd5e1;
-  --bg-4: #f1f5f9;
+  --bg-2: #f1f5f9;
+  --bg-3: #e2e8f0;
+  --bg-4: #cbd5e1;
   
-  /* Cấu trúc Card chính (Solid) */
   --card-bg: #ffffff;
   --card-border: #e2e8f0;
-  --card-shadow: 0 15px 35px -5px rgba(15, 23, 42, 0.1), 0 5px 15px -5px rgba(15, 23, 42, 0.05);
+  --card-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 5px 15px -5px rgba(15, 23, 42, 0.04);
   
-  /* TYPOGRAPHY */
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-tertiary: #94a3b8;
-  --text-danger: #ef4444;
-  --text-success: #10b981;
+  --text-main: #0f172a;
+  --text-sub: #475569;
+  --text-muted: #94a3b8;
   
-  /* ACCENT COLORS */
-  --brand-blue: #3b82f6;
-  --brand-blue-hover: #2563eb;
-  --brand-glow: 0 8px 25px -5px rgba(59, 130, 246, 0.4);
+  --brand: #3b82f6;
+  --brand-hover: #2563eb;
   
-  /* TAB GRADIENTS THEO YÊU CẦU */
-  --grad-script: linear-gradient(135deg, #ff0000, #ff7f00); /* Đỏ Cam */
-  --grad-link: linear-gradient(135deg, #111111, #555555); /* Đen Xám */
-  --grad-apk: linear-gradient(135deg, #0052D4, #ffeb3b); /* Xanh Vàng */
-  
-  /* GEOMETRY */
-  --radius-sm: 12px;
-  --radius-md: 20px;
-  --radius-lg: 28px;
+  /* Geometry (Bo tròn mạnh mẽ, cân bằng) */
+  --rad-sm: 16px;
+  --rad-md: 24px;
+  --rad-lg: 32px;
+  --rad-xl: 40px;
 }
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+button, input { font-family: inherit; outline: none; border: none; }
+a { text-decoration: none; color: inherit; }
+
+html { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 16px; width: 100%; height: 100%; }
 
 /* ==========================================================================
-   CSS RESET & GLOBAL LOCK LAYOUT
+   FIX LỖI HÌNH NỀN (BACKGROUND ENGINE)
+   Sử dụng dvh để chống lỗi tràn khung trên iOS/Android
    ========================================================================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased; font-size: 16px; scroll-behavior: smooth; width: 100%; height: 100%;
-}
-
 body {
-  width: 100%; max-width: 100vw; height: 100%; max-height: 100vh;
-  /* Màu nền chủ đạo trắng xám chuyển động nhẹ */
-  background: linear-gradient(45deg, var(--bg-1), var(--bg-2), var(--bg-3), var(--bg-4));
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  width: 100%; max-width: 100vw;
+  height: 100dvh; max-height: 100dvh;
   overflow: hidden !important; overscroll-behavior: none;
   position: fixed; top: 0; left: 0;
   display: flex; justify-content: center; align-items: flex-start;
-  padding: 8vh 16px 80px; color: var(--text-primary);
+  padding: 8dvh 16px 80px; color: var(--text-main);
+  background-color: var(--bg-1); /* Fallback */
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.bg-engine {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(45deg, var(--bg-1), var(--bg-2), var(--bg-3), var(--bg-4));
+  background-size: 400% 400%;
+  animation: bg-anim 15s ease infinite;
 }
+@keyframes bg-anim { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-a { text-decoration: none; color: inherit; }
-button { font-family: inherit; border: none; background: none; cursor: pointer; }
-input { font-family: inherit; border: none; outline: none; }
-
-/* ==========================================================================
-   CANVAS SNOW (TUYẾT TRẮNG RƠI NHẸ)
-   ========================================================================== */
-#snow-canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+#snow-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
 /* ==========================================================================
-   SOLID UI COMPONENTS
+   PANELS & BUTTONS (BALANCED & ROUNDED)
    ========================================================================== */
 .solid-panel {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--card-shadow);
-  z-index: 10; position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: var(--rad-lg); box-shadow: var(--card-shadow);
+  position: relative; z-index: 10;
 }
 
-/* ==========================================================================
-   BUTTONS & CHIPS
-   ========================================================================== */
 .btn-primary {
-  width: 100%; padding: 18px 24px; border-radius: var(--radius-md); 
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  color: #fff; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.5px;
-  background: var(--brand-blue); box-shadow: var(--brand-glow);
-  transition: all 0.2s ease;
+  width: 100%; padding: 18px; border-radius: var(--rad-md);
+  background: var(--brand); color: #fff; font-weight: 800; font-size: 1.05rem;
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.4); transition: all 0.2s ease; cursor: pointer;
 }
-.btn-primary:hover { background: var(--brand-blue-hover); transform: translateY(-3px); box-shadow: 0 12px 30px -5px rgba(37,99,235,0.5); }
-.btn-primary:active { transform: translateY(1px) scale(0.98); }
+.btn-primary:hover { background: var(--brand-hover); transform: translateY(-3px); }
+.btn-primary:active { transform: scale(0.98); }
 
-/* Fix lỗi menu kéo dài: Đặt height và flex-shrink cố định */
+/* Nút Sidebar đã cân bằng, bo tròn, xóa SVG */
 .btn-soft {
-  width: 100%; height: 50px; min-height: 50px; flex-shrink: 0;
-  padding: 0 18px; border-radius: var(--radius-sm); 
-  display: flex; align-items: center; justify-content: flex-start; gap: 12px;
-  color: var(--text-primary); font-weight: 800; font-size: 0.95rem;
+  width: 100%; height: 55px; border-radius: var(--rad-md);
   background: #f8fafc; border: 1px solid #e2e8f0;
-  transition: all 0.2s ease;
+  display: flex; justify-content: center; align-items: center; 
+  color: var(--text-main); font-weight: 800; font-size: 0.95rem;
+  transition: all 0.2s ease; cursor: pointer;
 }
-.btn-soft:hover { background: #f1f5f9; border-color: #cbd5e1; transform: translateX(5px); }
-
-/* Màu Logo SVG chuyên biệt */
-.btn-soft.ai svg { color: #8b5cf6; } /* Màu Gemini */
-.btn-soft.zalo svg { fill: #0068ff; } /* Màu Zalo chuẩn */
-.btn-soft.dc svg { fill: #5865F2; } /* Màu Discord chuẩn */
-.btn-soft.chat svg { color: var(--text-success); }
+.btn-soft:hover { background: #f1f5f9; border-color: #cbd5e1; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
 /* ==========================================================================
-   HEADER NAVIGATION & DRAWER MENU
+   SIDEBAR & MENUS
    ========================================================================== */
-.top-nav { position: fixed; top: 20px; left: 20px; z-index: 100; display: flex; gap: 12px; }
+.top-nav { position: fixed; top: 20px; left: 20px; z-index: 100; }
 .menu-trigger {
-  height: 50px; padding: 0 22px; display: flex; align-items: center; gap: 10px;
-  color: var(--text-primary); font-weight: 800; font-size: 0.95rem; border-radius: var(--radius-md);
+  height: 50px; padding: 0 24px; border-radius: var(--rad-md);
   background: #fff; border: 1px solid var(--card-border); box-shadow: var(--card-shadow);
-  transition: all 0.2s ease;
+  display: flex; align-items: center; gap: 10px; color: var(--text-main); font-weight: 800;
+  cursor: pointer; transition: transform 0.2s;
 }
-.menu-trigger:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(15,23,42,0.1); }
+.menu-trigger:hover { transform: translateY(-2px); }
 
 .drawer-menu {
-  position: fixed; top: 85px; left: 20px; width: 320px; max-width: calc(100vw - 40px); padding: 24px; z-index: 999;
-  display: flex; flex-direction: column; gap: 20px;
+  position: fixed; top: 85px; left: 20px; width: 320px; max-width: calc(100vw - 40px);
+  padding: 24px; z-index: 999; display: flex; flex-direction: column; gap: 20px;
   transform: translateX(-120%); opacity: 0; pointer-events: none;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
 }
 .drawer-menu.is-open { transform: translateX(0); opacity: 1; pointer-events: auto; }
 .drawer-title { font-size: 1.1rem; font-weight: 900; text-align: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; }
-.drawer-group { display: flex; flex-direction: column; gap: 10px; }
-.drawer-label { font-size: 0.75rem; font-weight: 900; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1.5px; }
+.drawer-group { display: flex; flex-direction: column; gap: 12px; }
 
 /* ==========================================================================
-   MAIN DASHBOARD CARD
+   MAIN DASHBOARD
    ========================================================================== */
 .card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 520px; margin: 0 auto; }
 .main-card { display: flex; flex-direction: column; gap: 24px; padding: 32px 24px; text-align: center; }
 
-.card-header { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-
-.system-logo-box { 
-  width: 90px; height: 90px; margin: 0 auto;
-  border-radius: var(--radius-md); padding: 20px; 
-  display: flex; justify-content: center; align-items: center;
-  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-  border: 1px solid #cbd5e1; box-shadow: inset 0 2px 10px #fff, 0 10px 20px rgba(0,0,0,0.05);
+.system-logo-box {
+  width: 90px; height: 90px; margin: 0 auto; border-radius: var(--rad-md);
+  background: #f8fafc; border: 1px solid #cbd5e1; display: flex; justify-content: center; align-items: center;
+  box-shadow: inset 0 2px 10px #fff, 0 10px 20px rgba(0,0,0,0.05);
 }
-.system-logo-box svg { width: 100%; height: 100%; color: var(--brand-blue); }
+.system-logo-box svg { width: 45px; height: 45px; color: var(--brand); }
 
-.title-main { font-size: 2.2rem; font-weight: 900; letter-spacing: 1px; margin: 0; color: var(--text-primary); }
-
-.status-chip {
-  display: inline-flex; align-items: center; justify-content: center;
-  font-size: 0.8rem; font-weight: 800; padding: 6px 20px; border-radius: 30px;
-  background: #eff6ff; color: var(--brand-blue); border: 1px solid #bfdbfe;
-  letter-spacing: 1px; text-transform: uppercase;
-}
+.title-main { font-size: 2.2rem; font-weight: 900; letter-spacing: 1px; color: var(--text-main); }
+.status-chip { display: inline-block; font-size: 0.8rem; font-weight: 800; padding: 6px 20px; border-radius: 30px; background: #eff6ff; color: var(--brand); border: 1px solid #bfdbfe; letter-spacing: 1px; }
 
 .info-board {
-  padding: 20px; text-align: left; width: 100%; border-radius: var(--radius-sm);
-  background: #f8fafc; border: 1px solid #e2e8f0;
-  transition: all 0.3s ease; position: relative;
+  padding: 20px; text-align: left; border-radius: var(--rad-md); background: #f8fafc; border: 1px solid #e2e8f0;
 }
-.info-board h3 { font-size: 1rem; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; color: var(--text-primary); }
-.info-board p { font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); font-weight: 500; }
-.info-badge { font-size: 0.7rem; padding: 4px 10px; color: #fff; background: var(--text-tertiary); border-radius: 20px; font-weight: bold; }
+.info-board h3 { font-size: 1rem; font-weight: 800; margin-bottom: 10px; color: var(--text-main); }
+.info-board p { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); }
 
 /* ==========================================================================
-   MODAL ENGINE
+   MODAL CORE
    ========================================================================== */
-.modal-backdrop { 
-  position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px; 
-  background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
-  opacity: 0; transition: opacity 0.3s ease; 
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center;
+  padding: 16px; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+  opacity: 0; transition: opacity 0.3s ease;
 }
 .modal-backdrop.is-active { display: flex; opacity: 1; }
-
-.modal-content { 
-  width: 100%; max-width: 650px; max-height: 88svh; padding: 26px; display: flex; flex-direction: column; gap: 20px; 
-  background: #ffffff; border-radius: var(--radius-lg); box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+.modal-content {
+  width: 100%; max-width: 650px; max-height: 88dvh; padding: 24px; display: flex; flex-direction: column; gap: 20px;
+  background: #ffffff; border-radius: var(--rad-xl); box-shadow: 0 25px 50px rgba(0,0,0,0.2);
   transform: scale(0.95) translateY(20px); transition: transform 0.3s ease;
 }
-@media (max-width: 768px) { .modal-content { padding: 20px; border-radius: var(--radius-md); } }
 .modal-backdrop.is-active .modal-content { transform: scale(1) translateY(0); }
 
 .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 16px; }
-.modal-heading { font-size: 1.25rem; font-weight: 900; display: flex; align-items: center; gap: 12px; color: var(--text-primary); }
-.modal-close { 
-  width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-  background: #f1f5f9; color: var(--text-secondary); transition: all 0.2s; 
-}
+.modal-heading { font-size: 1.25rem; font-weight: 900; color: var(--text-main); }
+.modal-close { width: 44px; height: 44px; border-radius: 50%; background: #f1f5f9; color: var(--text-sub); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; }
 .modal-close:hover { background: #fee2e2; color: var(--text-danger); transform: rotate(90deg); }
 
 /* ==========================================================================
-   ARCHIVE TABS & SEARCH
+   ARCHIVE TABS
    ========================================================================== */
-.search-box { 
-  width: 100%; padding: 16px 22px; border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600; color: var(--text-primary);
-  background: #f8fafc; border: 1px solid #e2e8f0; outline: none; transition: all 0.2s;
-}
-.search-box:focus { background: #fff; border-color: var(--brand-blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+.search-box { width: 100%; padding: 18px 24px; border-radius: var(--rad-md); font-size: 1rem; font-weight: 600; background: #f8fafc; border: 1px solid #e2e8f0; transition: 0.2s; }
+.search-box:focus { background: #fff; border-color: var(--brand); box-shadow: 0 0 0 4px rgba(59,130,246,0.1); }
 
-.tab-nav { display: flex; gap: 8px; padding: 6px; background: #f1f5f9; border-radius: var(--radius-md); }
-.tab-btn { flex: 1; padding: 12px 0; border-radius: 12px; color: var(--text-secondary); background: transparent; font-size: 0.9rem; font-weight: 800; transition: all 0.2s; }
-.tab-btn.is-active { color: var(--brand-blue); background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.tab-nav { display: flex; gap: 8px; padding: 8px; background: #f1f5f9; border-radius: var(--rad-md); }
+.tab-btn { flex: 1; padding: 12px 0; border-radius: var(--rad-sm); color: var(--text-sub); font-weight: 800; font-size: 0.9rem; transition: 0.2s; cursor: pointer; }
+.tab-btn.is-active { background: #fff; color: var(--brand); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
-.tab-body-wrapper { position: relative; flex: 1; overflow-y: auto; padding-right: 8px; }
-.tab-body-wrapper::-webkit-scrollbar { width: 6px; }
-.tab-body-wrapper::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-.tab-pane { display: none; flex-direction: column; gap: 14px; }
-.tab-pane.is-active { display: flex; animation: slideUpFade 0.3s ease; }
-@keyframes slideUpFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.tab-body-wrapper { flex: 1; overflow-y: auto; padding-right: 4px; }
+.tab-pane { display: none; flex-direction: column; gap: 16px; }
+.tab-pane.is-active { display: flex; animation: fadeUp 0.3s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* CÁC LOẠI DATA-BOX CÓ BACKGROUND MÀU ĐẶC BIỆT THEO YÊU CẦU */
-.data-box { 
-  padding: 20px; display: flex; flex-direction: column; gap: 14px; border-radius: var(--radius-sm);
-  background: #f8fafc; border: 1px solid #e2e8f0; transition: transform 0.2s;
-}
+.data-box { padding: 20px; border-radius: var(--rad-md); background: #f8fafc; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 14px; transition: transform 0.2s; }
+.data-box:hover { transform: translateY(-2px); }
 .data-box.is-hidden { display: none; }
-.box-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.box-head { display: flex; justify-content: space-between; align-items: center; }
+.box-title { font-size: 1.05rem; font-weight: 800; color: var(--text-main); }
+.box-action { padding: 10px 20px; border-radius: var(--rad-sm); background: var(--brand); color: #fff; font-weight: 800; font-size: 0.85rem; transition: 0.2s; cursor: pointer; }
+.box-action:hover { background: var(--brand-hover); }
+.box-action.btn-copy { background: #8b5cf6; }
+.box-action.is-copied { background: var(--text-success) !important; }
+.script-code { padding: 14px; border-radius: var(--rad-sm); background: #fff; border: 1px solid #e2e8f0; font-family: monospace; font-size: 0.85rem; word-break: break-all; color: var(--text-sub); }
 
-/* 1. SCRIPT BOX (Đỏ Cam chuyển màu) */
-.box-script { background: var(--grad-script); border: none; }
-.box-script .box-title, .box-script .script-code { color: #fff; }
-.box-script .script-code { background: rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.2); }
-.box-script .box-action { background: #fff; color: #ff0000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-
-/* 2. LINK BOX (Đen Xám chuyển màu) */
-.box-link { background: var(--grad-link); border: none; }
-.box-link .box-title { color: #fff; }
-.box-link .box-action { background: #fff; color: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-
-/* 3. APK BOX (Xanh Vàng chuyển màu) */
-.box-apk { background: var(--grad-apk); border: none; }
-.box-apk .box-title { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-.box-apk .box-action { background: #fff; color: #0052D4; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-
-/* 4. IOS BOX (Chỉ riêng mục này giữ màu Liquid Glass) */
-.box-ios { 
-  background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.6); 
-  -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px); 
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05); 
-}
-.box-ios .box-title { color: #000; }
-.box-ios .box-action { background: #000; color: #fff; }
-
-.box-title { font-size: 1.05rem; font-weight: 800; color: var(--text-primary); }
-.box-action { padding: 10px 20px; border-radius: var(--radius-xs); font-size: 0.85rem; font-weight: 800; color: #fff; background: var(--brand-blue); transition: all 0.2s; }
-.box-action:active { transform: scale(0.95); }
-.box-action.is-copied { background: var(--text-success) !important; color: #fff !important; }
-.script-code { padding: 14px; border-radius: var(--radius-xs); font-family: monospace; font-size: 0.85rem; color: #334155; background: #fff; border: 1px solid #e2e8f0; word-break: break-all; }
-.search-empty { text-align: center; padding: 40px; color: var(--text-tertiary); font-weight: 800; }
+/* COLOR OVERRIDES FOR BOXES */
+.box-link { background: linear-gradient(135deg, #111, #444); border: none; } .box-link .box-title { color: #fff; } .box-link .box-action { background: #fff; color: #000; }
+.box-script { background: linear-gradient(135deg, #ef4444, #f97316); border: none; } .box-script .box-title, .box-script .script-code { color: #fff; } .box-script .script-code { background: rgba(0,0,0,0.2); border: none; } .box-script .box-action { background: #fff; color: #ef4444; }
+.box-apk { background: linear-gradient(135deg, #3b82f6, #eab308); border: none; } .box-apk .box-title { color: #fff; } .box-apk .box-action { background: #fff; color: #3b82f6; }
+.box-ios { background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); }
 
 /* ==========================================================================
-   CHAT SYSTEM CORE (NOX GPT & GLOBAL FIREBASE CHAT)
+   CHAT UI (NOX GPT & GLOBAL CHAT)
    ========================================================================== */
-.chat-layout { width: 100%; max-width: 650px; height: 85svh; display: flex; flex-direction: column; padding: 24px; }
-.chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 10px 4px 20px; scroll-behavior: smooth; }
-.chat-messages::-webkit-scrollbar { width: 6px; }
-.chat-messages::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+.chat-layout { height: 88dvh; }
+.chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; padding: 10px 4px 20px; }
 
-.msg-row { display: flex; flex-direction: column; max-width: 85%; animation: msgPop 0.2s ease-out; }
-@keyframes msgPop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
+.msg-row { display: flex; flex-direction: column; max-width: 85%; animation: popIn 0.3s ease; }
+@keyframes popIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .msg-row.type-user { align-self: flex-end; align-items: flex-end; }
 .msg-row.type-other { align-self: flex-start; align-items: flex-start; }
 
 .msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 0 4px; }
-.msg-avatar { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; background: #e2e8f0; display:flex; justify-content:center; align-items:center;}
-.msg-name { font-size: 0.75rem; font-weight: 800; color: var(--text-tertiary); }
-.msg-name.system-badge { color: var(--text-success); }
+.msg-avatar { width: 24px; height: 24px; border-radius: 50%; background: #e2e8f0; background-size: cover; background-position: center; }
+.msg-name { font-size: 0.75rem; font-weight: 800; color: var(--text-muted); }
+.msg-name.sys { color: var(--text-success); }
 
-.msg-bubble { padding: 14px 20px; border-radius: 20px; font-size: 0.95rem; line-height: 1.5; font-weight: 500; word-wrap: break-word; }
-.msg-row.type-user .msg-bubble { background: var(--brand-blue); color: #fff; border-bottom-right-radius: 6px; }
-.msg-row.type-other .msg-bubble { background: #f1f5f9; color: var(--text-primary); border: 1px solid #e2e8f0; border-bottom-left-radius: 6px; }
-.msg-row.type-error .msg-bubble { background: #fee2e2; color: var(--text-danger); border-color: #fca5a5; }
+.msg-bubble { padding: 14px 20px; border-radius: var(--rad-md); font-size: 0.95rem; line-height: 1.5; font-weight: 500; word-wrap: break-word; }
+.msg-row.type-user .msg-bubble { background: var(--brand); color: #fff; border-bottom-right-radius: 6px; }
+.msg-row.type-other .msg-bubble { background: #f8fafc; border: 1px solid #e2e8f0; color: var(--text-main); border-bottom-left-radius: 6px; }
+.msg-row.type-error .msg-bubble { background: #fee2e2; border-color: #fca5a5; color: var(--text-danger); }
 
-/* Input Area */
-.chat-input-wrapper { display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 2px solid #f1f5f9; }
-.chat-field { flex: 1; padding: 16px 24px; border-radius: 30px; border: 1px solid #e2e8f0; background: #f8fafc; outline: none; font-size: 1rem; font-weight: 500; transition: all 0.2s; }
-.chat-field:focus { border-color: var(--brand-blue); background: #fff; box-shadow: 0 0 0 4px rgba(59,130,246,0.1); }
-.chat-send { width: 54px; height: 54px; border-radius: 50%; background: var(--brand-blue); color: #fff; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: transform 0.2s; flex-shrink: 0; }
+/* IMAGE RENDER IN CHAT */
+.chat-image { max-width: 100%; border-radius: var(--rad-sm); margin-bottom: 8px; display: block; border: 1px solid rgba(0,0,0,0.1); }
+
+/* INPUT AREA WITH IMAGE UPLOAD */
+.chat-input-wrapper { display: flex; align-items: center; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #f1f5f9; position: relative; }
+.image-preview-zone { position: absolute; top: -70px; left: 0; display: none; align-items: center; gap: 10px; background: #fff; padding: 6px 12px; border-radius: var(--rad-md); border: 1px solid #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.image-preview-zone.active { display: flex; }
+.preview-thumb { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+.preview-remove { background: #fee2e2; color: #ef4444; width: 24px; height: 24px; border-radius: 50%; font-weight: bold; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+
+.attach-btn { width: 50px; height: 50px; border-radius: 50%; background: #f1f5f9; color: var(--text-sub); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.2rem; transition: 0.2s; flex-shrink: 0; }
+.attach-btn:hover { background: #e2e8f0; color: var(--text-main); }
+
+.chat-field { flex: 1; height: 50px; padding: 0 20px; border-radius: 25px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 1rem; transition: 0.2s; }
+.chat-field:focus { border-color: var(--brand); background: #fff; }
+.chat-send { width: 50px; height: 50px; border-radius: 50%; background: var(--brand); color: #fff; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; flex-shrink: 0; box-shadow: 0 4px 10px rgba(59,130,246,0.3); }
 .chat-send:active { transform: scale(0.9); }
-.chat-send svg { width: 22px; height: 22px; margin-left: -2px; }
 
-/* Firebase Auth Overlay */
-.auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 24px; background: rgba(255,255,255,0.9); border-radius: inherit; text-align: center; padding: 40px; }
+/* FALLBACK FORM FOR API KEY & URL */
+.fallback-form { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.fallback-input { padding: 14px 16px; border-radius: var(--rad-sm); border: 1px solid #fca5a5; font-size: 0.85rem; outline: none; }
+.fallback-btn { padding: 14px; border-radius: var(--rad-sm); background: var(--text-danger); color: #fff; font-weight: bold; cursor: pointer; }
+
+/* AUTH BLOCKER */
+.auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; background: rgba(255,255,255,0.95); border-radius: inherit; padding: 30px; text-align: center; }
 .auth-blocker.is-hidden { display: none; }
-.auth-icon { width: 80px; height: 80px; background: #eff6ff; border-radius: var(--radius-md); display: flex; justify-content: center; align-items: center; margin-bottom: 10px; color: var(--brand-blue); }
-.auth-title { font-size: 1.6rem; font-weight: 900; color: var(--text-primary); }
-.auth-desc { color: var(--text-secondary); font-size: 1rem; line-height: 1.6; max-width: 400px; font-weight: 500; }
-.auth-google-btn-wrap { margin-top: 10px; min-height: 44px; display: flex; justify-content: center; width: 100%; }
+.auth-title { font-size: 1.5rem; font-weight: 900; color: var(--text-main); }
+.auth-desc { color: var(--text-sub); font-size: 0.95rem; line-height: 1.5; font-weight: 500; }
 
-/* Version Tag */
-footer.version-tag { position: fixed; bottom: 16px; right: 20px; z-index: 60; font-weight: 900; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 1px; text-transform: uppercase; }
-
-/* ==========================================================================
-   API FALLBACK FORM INSIDE CHAT
-   ========================================================================== */
-.api-fallback-form { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; width: 100%; min-width: 250px; }
-.api-fallback-input { padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid #fca5a5; background: #fff; font-size: 0.85rem; outline: none; }
-.api-fallback-btn { padding: 12px; border-radius: var(--radius-sm); background: var(--text-danger); color: #fff; font-weight: bold; cursor: pointer; border: none;}
+footer.version-tag { position: fixed; bottom: 16px; right: 20px; z-index: 60; font-weight: 900; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 1px; }
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute; width:0; height:0; display:none;">
-  <defs>
-    <g id="icon-gemini">
-      <path d="M16 2.01L13.73 8.3c-.35 1.09-1.2 1.94-2.29 2.3L6.01 12.86l5.43 2.27c1.09.35 1.94 1.2 2.29 2.29l2.27 5.43 2.27-5.43c.35-1.09 1.2-1.94 2.29-2.29l5.43-2.27-5.43-2.27c-1.09-.35-1.94-1.2-2.29-2.3L16 2.01z" fill="currentColor"/>
-    </g>
-    <g id="icon-discord">
-      <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.25.46-.53 1.05-.71 1.55-1.6-.24-3.18-.24-4.75 0-.19-.5-.48-1.09-.73-1.55a.1.1 0 0 0-.08-.03c-1.5.26-2.93.71-4.27 1.33a.1.1 0 0 0-.05.05C.65 11.23-.2 17.06.04 22.8c0 .04.02.07.05.09 1.8.1.58 3.53 2.14 5.25.04.02.08.02.12 0l1.15-1.22c.04-.04.02-.09-.03-.1-1.09-.41-2.13-.9-3.1-1.46a.1.1 0 0 1-.01-.16c.2-.15.4-.3.59-.46.03-.02.06-.02.09 0 2.1 1 4.34 1.5 6.64 1.5s4.54-.5 6.64-1.5c.03-.02.06-.02.09 0 .2.16.4.31.59.46.04.03.06.09.02.13-.98.56-2.02 1.05-3.12 1.46-.05.02-.07.07-.03.11l1.14 1.21c.04.04.09.04.13.02 1.76-1.72 2.94-3.45 3.53-5.25.03-.02.05-.05.05-.09.3-6.1-.81-11.93-4.32-17.47a.08.08 0 0 0-.05-.05zM8.02 15.33c-1.18 0-2.15-1.08-2.15-2.41s.95-2.41 2.15-2.41c1.21 0 2.17 1.09 2.15 2.41 0 1.33-.96 2.41-2.15 2.41zm7.97 0c-1.18 0-2.15-1.08-2.15-2.41s.95-2.41 2.15-2.41c1.21 0 2.17 1.09 2.15 2.41 0 1.33-.95 2.41-2.15 2.41z" fill="currentColor"/>
-    </g>
-    <g id="icon-zalo">
-      <path d="M12 2C6.48 2 2 6.03 2 11c0 2.8 1.4 5.3 3.6 7.02-.3 1.94-1.5 3.32-1.6 3.46-.12.15-.05.37.13.43.06.02.13.02.19 0 2.22-.87 4.14-2.22 5.3-3.13 1.15.28 2.37.42 3.6.42 5.52 0 10-4.03 10-9S17.52 2 12 2z" fill="currentColor"/>
-      <path d="M8.5 13.5v-1l3.5-3.5h-3.5v-1.5h5.5v1l-3.5 3.5h3.5v1.5h-5.5z" fill="#ffffff"/> </g>
-    <g id="icon-chat"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
-    <g id="icon-system"><polygon points="12 2 2 7 12 12 22 7 12 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><polyline points="2 17 12 22 22 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><polyline points="2 12 12 17 22 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></g>
-    <g id="icon-send"><line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></g>
-  </defs>
-</svg>
-
+<div class="bg-engine"></div>
 <canvas id="snow-canvas"></canvas>
 
+<!-- ==========================================================================
+     HEADER & SIDEBAR
+     ========================================================================== -->
 <header class="top-nav">
-  <button class="menu-trigger" onclick="toggleMenu()" aria-label="Menu">
+  <button class="menu-trigger" onclick="toggleMenu()">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
     <span>MENU</span>
   </button>
 </header>
 
 <nav class="drawer-menu solid-panel" id="nav-drawer">
-  <div class="drawer-title">ĐIỀU HƯỚNG HỆ THỐNG</div>
+  <div class="drawer-title">ĐIỀU HƯỚNG</div>
   
   <div class="drawer-group">
     <div class="drawer-label">AI & GLOBAL CHAT</div>
-    <button class="btn-soft ai" onclick="openUI('modal-noxgpt')">
-      <svg style="width:20px;height:20px;"><use href="#icon-gemini"/></svg> NOX GPT [AI]
-    </button>
-    <button class="btn-soft chat" onclick="openUI('modal-noxchat')">
-      <svg style="width:20px;height:20px;"><use href="#icon-chat"/></svg> NOX CHAT [GLOBAL]
-    </button>
+    <!-- Nút Menu đã xóa SVG Logo, bo góc, cân bằng -->
+    <button class="btn-soft" onclick="openUI('modal-noxgpt')">NOX GPT [AI]</button>
+    <button class="btn-soft" onclick="openUI('modal-noxchat')">NOX CHAT [GLOBAL]</button>
   </div>
   
   <div class="drawer-group" style="margin-top: 10px;">
     <div class="drawer-label">CỘNG ĐỒNG</div>
-    <a class="plain" href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" rel="noopener">
-      <button class="btn-soft zalo"><svg style="width:22px;height:22px;"><use href="#icon-zalo"/></svg> ZALO NETWORK</button>
+    <a class="plain" href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank">
+      <button class="btn-soft">ZALO NETWORK</button>
     </a>
-    <a class="plain" href="https://discord.gg/kRCKkw63s" target="_blank" rel="noopener">
-      <button class="btn-soft dc"><svg style="width:22px;height:22px;"><use href="#icon-discord"/></svg> DISCORD TERMINAL</button>
+    <a class="plain" href="https://discord.gg/kRCKkw63s" target="_blank">
+      <button class="btn-soft">DISCORD TERMINAL</button>
     </a>
   </div>
 </nav>
 
+<!-- ==========================================================================
+     MAIN DASHBOARD
+     ========================================================================== -->
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="card-header">
       
       <div class="system-logo-box">
-        <svg viewBox="0 0 24 24"><use href="#icon-system"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
       </div>
       
       <h1 class="title-main">NOX WEB</h1>
-      <div><span class="status-chip">SOLID GRADIENT EDITION</span></div>
+      <div><span class="status-chip">MULTIMODAL V25</span></div>
 
       <div class="info-board">
         <h3><span>THÔNG BÁO TỪ HỆ THỐNG</span></h3>
         <p>
-          Giao diện <b>Solid Gradient V24</b> cực sạch, không dùng kính lỏng rối mắt.<br><br>
-          ✨ <b>NOX GPT:</b> Logo Gemini chính thức. Cơ chế chống lỗi API (Fail-Safe) tự động hoàn hảo.<br>
-          🌐 <b>NOX CHAT:</b> Tích hợp <b>Firebase Database</b>. Đặc biệt: <b>Tin nhắn sẽ tự động xóa sau 24h</b> để bảo vệ dữ liệu server!
+          Phiên bản <b>V25 MultiModal</b>. Giao diện bo góc cực mượt.<br><br>
+          ✨ <b>TÍNH NĂNG GỬI ẢNH:</b> NOX GPT và NOX CHAT giờ đây đã hỗ trợ tải ảnh trực tiếp từ thiết bị (có hệ thống nén ảnh).<br>
+          ⚡ <b>NOX GPT:</b> Cập nhật Gemini 3.5 Flash. Tích hợp UI Fallback cho phép điền Custom URL/REST API.<br>
+          🧹 <b>NOX CHAT:</b> Hệ thống Firebase tích hợp module tự động quét và xóa tin nhắn cũ hơn 24 giờ.
         </p>
       </div>
 
@@ -406,13 +324,14 @@ footer.version-tag { position: fixed; bottom: 16px; right: 20px; z-index: 60; fo
   </main>
 </div>
 
+<!-- ==========================================================================
+     MODAL: KHO TIỆN ÍCH (ARCHIVE)
+     ========================================================================== -->
 <div class="modal-backdrop" id="modal-archive" onclick="if(event.target===this)closeUI('modal-archive')">
   <div class="modal-content">
     <div class="modal-header">
       <div class="modal-heading">KHO TIỆN ÍCH</div>
-      <button class="modal-close" onclick="closeUI('modal-archive')">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="modal-close" onclick="closeUI('modal-archive')">✕</button>
     </div>
 
     <input class="search-box" id="input-search" placeholder="🔎 Nhập từ khóa tìm kiếm tiện ích..." oninput="execSearch(this.value)">
@@ -425,223 +344,234 @@ footer.version-tag { position: fixed; bottom: 16px; right: 20px; z-index: 60; fo
     </div>
 
     <div class="tab-body-wrapper">
-      
       <div id="pane-link" class="tab-pane is-active">
         <div class="data-box box-link"><div class="box-head"><span class="box-title">Bypass Key Delta</span><a href="https://baconbypass.xyz" target="_blank" class="box-action">TRUY CẬP</a></div></div>
         <div class="data-box box-link"><div class="box-head"><span class="box-title">Kasumi Store VIP</span><a href="https://gofile.io/d/v3Q6Ig" target="_blank" class="box-action">TRUY CẬP</a></div></div>
-        <div class="data-box box-link"><div class="box-head"><span class="box-title">Clone Tab Delta VNG (Zam)</span><a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-action">TRUY CẬP</a></div></div>
-        <div class="data-box box-link"><div class="box-head"><span class="box-title">Clone Tab Delta Global</span><a href="https://gofile.io/d/p0Mww1" target="_blank" class="box-action">TRUY CẬP</a></div></div>
-        <div class="data-box box-link"><div class="box-head"><span class="box-title">Clone Tab ArceusX Global</span><a href="https://gofile.io/d/3PdBKU" target="_blank" class="box-action">TRUY CẬP</a></div></div>
-        <div class="data-box box-link"><div class="box-head"><span class="box-title">Clone Tab CodeX Global</span><a href="https://gofile.io/d/t6cUdc" target="_blank" class="box-action">TRUY CẬP</a></div></div>
+        <div class="data-box box-link"><div class="box-head"><span class="box-title">Clone Tab Delta VNG</span><a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-action">TRUY CẬP</a></div></div>
         <div class="data-box box-link"><div class="box-head"><span class="box-title">Kho Tài Nguyên APK</span><a href="https://gofile.io/d/w9cKYp" target="_blank" class="box-action">TRUY CẬP</a></div></div>
-        <div class="data-box box-link"><div class="box-head"><span class="box-title">Hanami Script</span><a href="https://gist.github.com/Hoangtiger2005/a4cf07f7cea143c735d802f38827563d/raw/script_hanami.user.js" target="_blank" class="box-action">TẢI SCRIPT</a></div></div>
+        <div class="data-box box-link"><div class="box-head"><span class="box-title">Hanami Script</span><a href="https://gist.github.com/Hoangtiger2005/a4cf07f7cea143c735d802f38827563d/raw/script_hanami.user.js" target="_blank" class="box-action">TẢI MÃ</a></div></div>
       </div>
-      
       <div id="pane-script" class="tab-pane">
         <div class="data-box box-script">
-          <div class="box-head"><span class="box-title">Speed X Hub Pro</span><button class="box-action btn-copy" onclick="execCopy(this)">COPY SCRIPT</button></div>
+          <div class="box-head"><span class="box-title">Speed X Hub Pro</span><button class="box-action btn-copy" onclick="execCopy(this)">COPY</button></div>
           <div class="script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
         </div>
         <div class="data-box box-script">
-          <div class="box-head"><span class="box-title">UB Hub Master</span><button class="box-action btn-copy" onclick="execCopy(this)">COPY SCRIPT</button></div>
+          <div class="box-head"><span class="box-title">UB Hub Master</span><button class="box-action btn-copy" onclick="execCopy(this)">COPY</button></div>
           <div class="script-code">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
         </div>
-        <div class="data-box box-script">
-          <div class="box-head"><span class="box-title">Teddy Hub V2</span><button class="box-action btn-copy" onclick="execCopy(this)">COPY SCRIPT</button></div>
-          <div class="script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()</div>
-        </div>
       </div>
-      
       <div id="pane-apk" class="tab-pane">
-        <div class="data-box box-apk"><div class="box-head"><span class="box-title">Delta Web Client</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">TẢI XUỐNG</a></div></div>
-        <div class="data-box box-apk"><div class="box-head"><span class="box-title">Delta VNG Bypass</span><a href="https://modsfire.com/Q4sFLA37wl7PckA" target="_blank" class="box-action">TẢI XUỐNG</a></div></div>
-        <div class="data-box box-apk"><div class="box-head"><span class="box-title">Delta Global Official</span><a href="https://delta.filenetwork.vip/file/Delta-2.731.944.apk" target="_blank" class="box-action">TẢI XUỐNG</a></div></div>
-        <div class="data-box box-apk"><div class="box-head"><span class="box-title">CodeX Global</span><a href="https://www.mediafire.com/file/2vcq4h8gk516qbq/Codex+v2.731.944.apk/file" target="_blank" class="box-action">TẢI XUỐNG</a></div></div>
-        <div class="data-box box-apk"><div class="box-head"><span class="box-title">ArceusX Global</span><a href="https://android.spdmteam.com/" target="_blank" class="box-action">TẢI XUỐNG</a></div></div>
-        <div class="data-box box-apk"><div class="box-head"><span class="box-title">Kiwi VPN Premium</span><a href="https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk" target="_blank" class="box-action">TẢI XUỐNG</a></div></div>
+        <div class="data-box box-apk"><div class="box-head"><span class="box-title">Delta Web Client</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">TẢI VỀ</a></div></div>
+        <div class="data-box box-apk"><div class="box-head"><span class="box-title">Delta VNG Bypass</span><a href="https://modsfire.com/Q4sFLA37wl7PckA" target="_blank" class="box-action">TẢI VỀ</a></div></div>
+        <div class="data-box box-apk"><div class="box-head"><span class="box-title">Kiwi VPN Premium</span><a href="https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk" target="_blank" class="box-action">TẢI VỀ</a></div></div>
       </div>
-      
       <div id="pane-ios" class="tab-pane">
         <div class="data-box box-ios"><div class="box-head"><span class="box-title">Delta iOS</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">MỞ BẰNG SAFARI</a></div></div>
       </div>
-      
     </div>
   </div>
 </div>
 
+<!-- ==========================================================================
+     MODAL: NOX GPT (CÓ GỬI ẢNH & FALLBACK URL)
+     ========================================================================== -->
 <div class="modal-backdrop" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
   <div class="modal-content chat-layout">
     <div class="modal-header">
-      <div class="modal-heading">
-        <svg width="24" height="24" viewBox="0 0 24 24" style="color: #8b5cf6;"><use href="#icon-gemini"/></svg>
-        NOX GPT ENGINE
-      </div>
-      <button class="modal-close" onclick="closeUI('modal-noxgpt')">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <div class="modal-heading">NOX GPT ENGINE</div>
+      <button class="modal-close" onclick="closeUI('modal-noxgpt')">✕</button>
     </div>
     
     <div class="chat-messages" id="noxgpt-board"></div>
     
+    <!-- Zone xem trước ảnh -->
+    <div class="image-preview-zone" id="gpt-preview-zone">
+      <img src="" id="gpt-preview-img" class="preview-thumb">
+      <div class="preview-remove" onclick="GptEngine.removeImage()">✕</div>
+    </div>
+    
     <div class="chat-input-wrapper">
-      <input type="text" id="noxgpt-field" class="chat-field" placeholder="Nhập câu hỏi hoặc lệnh cho AI..." onkeypress="if(event.key === 'Enter') handleGptSubmit()">
-      <button class="chat-send" onclick="handleGptSubmit()"><svg viewBox="0 0 24 24"><use href="#icon-send"/></svg></button>
+      <!-- Nút Gửi Ảnh -->
+      <label for="gpt-img-upload" class="attach-btn">📷</label>
+      <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
+      
+      <input type="text" id="noxgpt-field" class="chat-field" placeholder="Nhập lệnh hoặc gửi ảnh..." onkeypress="if(event.key === 'Enter') GptEngine.submit()">
+      <button class="chat-send" onclick="GptEngine.submit()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
     </div>
   </div>
 </div>
 
+<!-- ==========================================================================
+     MODAL: NOX CHAT GLOBAL (CÓ GỬI ẢNH)
+     ========================================================================== -->
 <div class="modal-backdrop" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
   <div class="modal-content chat-layout" style="position: relative; overflow: hidden;">
     
     <div class="auth-blocker" id="auth-guard">
-      <div class="auth-icon"><svg viewBox="0 0 24 24"><use href="#icon-chat"/></svg></div>
       <h2 class="auth-title">NOX GLOBAL CHAT</h2>
-      <p class="auth-desc">Tham gia hệ thống Chat toàn cầu. Tin nhắn sẽ <b>tự động xóa sau 24 giờ</b>. Vui lòng xác thực Google để tiếp tục.</p>
+      <p class="auth-desc">Chat toàn cầu hỗ trợ gửi hình ảnh.<br>Tin nhắn sẽ tự hủy sau 24H.</p>
       <div class="auth-google-btn-wrap" id="google-login-mount"></div>
     </div>
 
     <div class="modal-header">
-      <div class="modal-heading">
-        <svg width="24" height="24" viewBox="0 0 24 24" style="color: #10b981;"><use href="#icon-chat"/></svg>
-        NOX CHAT [GLOBAL]
-      </div>
-      <button class="modal-close" onclick="closeUI('modal-noxchat')">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <div class="modal-heading">NOX CHAT [GLOBAL]</div>
+      <button class="modal-close" onclick="closeUI('modal-noxchat')">✕</button>
     </div>
     
     <div class="chat-messages" id="noxchat-board">
       <div class="msg-row type-other">
         <div class="msg-meta">
           <div class="msg-avatar" style="background:#10b981;"></div>
-          <div class="msg-name system-badge">Hệ Thống NOX</div>
+          <div class="msg-name sys">Hệ Thống</div>
         </div>
-        <div class="msg-bubble" style="background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46;">
-          Hệ thống Firebase Realtime Database đã được kết nối. Đang đợi xác thực...
+        <div class="msg-bubble" style="background: #ecfdf5; border-color: #a7f3d0; color: #065f46;">
+          Đã kết nối máy chủ Firebase. Đợi xác thực...
         </div>
       </div>
     </div>
     
+    <div class="image-preview-zone" id="chat-preview-zone">
+      <img src="" id="chat-preview-img" class="preview-thumb">
+      <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
+    </div>
+
     <div class="chat-input-wrapper">
-      <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') executeGlobalSend()">
-      <button class="chat-send" onclick="executeGlobalSend()"><svg viewBox="0 0 24 24"><use href="#icon-send"/></svg></button>
+      <label for="chat-img-upload" class="attach-btn">📷</label>
+      <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
+      
+      <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
+      <button class="chat-send" onclick="ChatEngine.sendMsg()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
     </div>
   </div>
 </div>
 
-<footer class="version-tag">NOX ENTERPRISE v24.0.0 - DOOMSDAY GRADIENT</footer>
+<footer class="version-tag">NOX V25 - MULTIMODAL</footer>
 
 <script>
-/**
- * NOX WEB ENTERPRISE V24 JAVASCRIPT ARCHITECTURE
- */
 "use strict";
 
-const DOM = {
-  get: id => document.getElementById(id),
-  queryAll: sel => document.querySelectorAll(sel)
+const DOM = { get: id => document.getElementById(id), queryAll: sel => document.querySelectorAll(sel) };
+
+/* ==========================================================================
+   1. IMAGE COMPRESSION ENGINE (CANVAS BASED)
+   Nén ảnh xuống JPEG (Max 800px) trước khi gửi lên Firebase/Gemini
+   ========================================================================== */
+const ImageProcessor = {
+  currentGptImage: null,
+  currentChatImage: null,
+  
+  handleSelect: function(input, target) {
+    if(!input.files || !input.files[0]) return;
+    const file = input.files[0];
+    
+    // Đọc ảnh -> Vẽ lên Canvas -> Xuất ra Base64
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX_WIDTH = 800;
+        const MAX_HEIGHT = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) { if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; } } 
+        else { if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; } }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Nén chất lượng 0.7 JPEG
+        const base64Str = canvas.toDataURL('image/jpeg', 0.7);
+        
+        if(target === 'gpt') {
+          this.currentGptImage = base64Str;
+          DOM.get('gpt-preview-img').src = base64Str;
+          DOM.get('gpt-preview-zone').classList.add('active');
+        } else {
+          this.currentChatImage = base64Str;
+          DOM.get('chat-preview-img').src = base64Str;
+          DOM.get('chat-preview-zone').classList.add('active');
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    input.value = ""; // Reset input
+  }
 };
 
 /* ==========================================================================
-   PARTICLE PHYSICS ENGINE: SNOW (HARDWARE ACCELERATED)
+   2. PARTICLE PHYSICS (SNOW)
    ========================================================================== */
 const ParticleEngine = {
-  canvas: DOM.get('snow-canvas'), ctx: null, w: 0, h: 0, particles: [], dpr: 1, isActive: true,
+  canvas: DOM.get('snow-canvas'), ctx: null, w: 0, h: 0, particles: [], isActive: true,
   init: function() {
-    if(!this.canvas) return;
-    this.ctx = this.canvas.getContext('2d', {alpha: true, desynchronized: true});
-    this.handleResize(); window.addEventListener('resize', () => this.handleResize());
-    this.spawn(); this.render();
+    if(!this.canvas) return; this.ctx = this.canvas.getContext('2d', {alpha: true});
+    this.resize(); window.addEventListener('resize', () => this.resize()); this.spawn(); this.render();
   },
-  handleResize: function() {
-    this.dpr = window.innerWidth <= 768 ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
-    this.w = window.innerWidth; this.h = window.innerHeight;
-    this.canvas.width = this.w * this.dpr; this.canvas.height = this.h * this.dpr;
-    this.ctx.scale(this.dpr, this.dpr); this.spawn();
+  resize: function() {
+    const dpr = window.devicePixelRatio || 1; this.w = window.innerWidth; this.h = window.innerHeight;
+    this.canvas.width = this.w * dpr; this.canvas.height = this.h * dpr; this.ctx.scale(dpr, dpr); this.spawn();
   },
   spawn: function() {
-    this.particles = []; const pCount = window.innerWidth <= 768 ? 40 : 100;
-    for(let i=0; i<pCount; i++) {
-      this.particles.push({
-        x: Math.random() * this.w, y: Math.random() * this.h, radius: Math.random() * 2 + 1,
-        speedX: Math.random() * 0.8 - 0.4, speedY: Math.random() * 1.5 + 0.5, sway: 0, swaySpeed: Math.random() * 0.05 + 0.01
-      });
-    }
+    this.particles = []; const pCount = window.innerWidth <= 768 ? 30 : 60;
+    for(let i=0; i<pCount; i++) { this.particles.push({ x: Math.random()*this.w, y: Math.random()*this.h, r: Math.random()*1.5+1, sx: Math.random()*0.5-0.25, sy: Math.random()*1+0.5, sw: 0, sws: Math.random()*0.05 }); }
   },
   render: function() {
-    if(!this.isActive) return;
-    this.ctx.clearRect(0, 0, this.w, this.h);
-    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-    this.ctx.beginPath();
+    if(!this.isActive) return; this.ctx.clearRect(0, 0, this.w, this.h); this.ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; this.ctx.beginPath();
     for(let i=0; i<this.particles.length; i++) {
-      let p = this.particles[i]; p.sway += p.swaySpeed;
-      let nx = p.x + p.speedX + Math.sin(p.sway) * 0.5, ny = p.y + p.speedY;
-      if(ny > this.h) { ny = -10; nx = Math.random() * this.w; }
-      if(nx > this.w) nx = 0; if(nx < 0) nx = this.w;
-      p.x = nx; p.y = ny;
-      this.ctx.moveTo((nx|0), (ny|0)); this.ctx.arc((nx|0), (ny|0), p.radius, 0, 6.283, true);
+      let p = this.particles[i]; p.sw += p.sws; let nx = p.x + p.sx + Math.sin(p.sw)*0.5, ny = p.y + p.sy;
+      if(ny > this.h) { ny = -10; nx = Math.random()*this.w; } if(nx > this.w) nx = 0; if(nx < 0) nx = this.w; p.x = nx; p.y = ny;
+      this.ctx.moveTo((nx|0), (ny|0)); this.ctx.arc((nx|0), (ny|0), p.r, 0, 6.283, true);
     }
     this.ctx.fill(); requestAnimationFrame(() => this.render());
   }
 };
 
 /* ==========================================================================
-   UI CONTROLLERS
+   3. UI CORE
    ========================================================================== */
-function toggleMenu() { const drawer = DOM.get('nav-drawer'); if(drawer) drawer.classList.toggle('is-open'); }
-document.addEventListener('pointerdown', (e) => {
-  const drawer = DOM.get('nav-drawer');
-  if(drawer && drawer.classList.contains('is-open')) {
-    if(!drawer.contains(e.target) && !e.target.closest('.menu-trigger')) drawer.classList.remove('is-open');
-  }
-});
-function openUI(id) { const el = DOM.get(id); if(el) el.classList.add('is-active'); const drawer = DOM.get('nav-drawer'); if(drawer) drawer.classList.remove('is-open'); }
-function closeUI(id) { const el = DOM.get(id); if(el) el.classList.remove('is-active'); }
-function switchPane(paneId, btn) {
-  DOM.queryAll('.tab-pane, .tab-btn').forEach(el => el.classList.remove('is-active'));
-  const targetPane = DOM.get(paneId); if(targetPane) targetPane.classList.add('is-active');
-  if(btn) btn.classList.add('is-active');
-  const searchInput = DOM.get('input-search'); execSearch(searchInput ? searchInput.value : '');
-}
-function execSearch(query) {
-  const q = (query || '').trim().toLowerCase();
-  DOM.queryAll('.tab-pane').forEach(pane => {
-    let matchCount = 0;
-    pane.querySelectorAll('.data-box').forEach(box => {
-      const isMatch = !q || box.textContent.toLowerCase().includes(q); box.classList.toggle('is-hidden', !isMatch); if(isMatch) matchCount++;
-    });
-    let emptyMsg = pane.querySelector('.search-empty');
-    if(!matchCount && q) { if(!emptyMsg) { emptyMsg = document.createElement('div'); emptyMsg.className = 'search-empty'; emptyMsg.textContent = 'Không tìm thấy tiện ích phù hợp.'; pane.appendChild(emptyMsg); } } 
-    else if(emptyMsg) emptyMsg.remove();
-  });
-}
-function execCopy(btn) {
-  const box = btn.closest('.data-box'); if(!box) return; const scriptCode = box.querySelector('.script-code'); if(!scriptCode) return;
-  const textToCopy = scriptCode.innerText.trim();
-  const fb = () => { const textarea = document.createElement('textarea'); textarea.value = textToCopy; textarea.style.cssText = 'position:fixed; opacity:0; top:-999px;'; document.body.appendChild(textarea); textarea.select(); try { document.execCommand('copy'); ok(); } catch(err) { prompt('Copy thủ công:', textToCopy); } textarea.remove(); };
-  const ok = () => { const originalText = btn.textContent; btn.textContent = 'ĐÃ COPY ✔'; btn.classList.add('is-copied'); setTimeout(() => { btn.textContent = originalText; btn.classList.remove('is-copied'); }, 2500); };
-  if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(textToCopy).then(ok).catch(fb); else fb();
-}
+function toggleMenu() { const d = DOM.get('nav-drawer'); if(d) d.classList.toggle('is-open'); }
+document.addEventListener('pointerdown', (e) => { const d = DOM.get('nav-drawer'); if(d && d.classList.contains('is-open') && !d.contains(e.target) && !e.target.closest('.menu-trigger')) d.classList.remove('is-open'); });
+function openUI(id) { const e = DOM.get(id); if(e) e.classList.add('is-active'); const d = DOM.get('nav-drawer'); if(d) d.classList.remove('is-open'); }
+function closeUI(id) { const e = DOM.get(id); if(e) e.classList.remove('is-active'); }
+function switchPane(id, btn) { DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); const p = DOM.get(id); if(p) p.classList.add('is-active'); if(btn) btn.classList.add('is-active'); const s = DOM.get('input-search'); execSearch(s ? s.value : ''); }
+function execSearch(query) { const q = (query||'').trim().toLowerCase(); DOM.queryAll('.tab-pane').forEach(p => { let c = 0; p.querySelectorAll('.data-box').forEach(b => { const m = !q || b.textContent.toLowerCase().includes(q); b.classList.toggle('is-hidden', !m); if(m) c++; }); let eMsg = p.querySelector('.search-empty'); if(!c && q) { if(!eMsg) { eMsg = document.createElement('div'); eMsg.className = 'search-empty'; eMsg.textContent = 'Không tìm thấy tiện ích phù hợp.'; p.appendChild(eMsg); } } else if(eMsg) eMsg.remove(); }); }
+function execCopy(btn) { const b = btn.closest('.data-box'); if(!b) return; const s = b.querySelector('.script-code'); if(!s) return; const txt = s.innerText.trim(); const fb = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed; opacity:0; top:-999px;'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch(e) { prompt('Copy thủ công:', txt); } ta.remove(); }; const ok = () => { const o = btn.textContent; btn.textContent = 'ĐÃ COPY ✔'; btn.classList.add('is-copied'); setTimeout(() => { btn.textContent = o; btn.classList.remove('is-copied'); }, 2500); }; if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok).catch(fb); else fb(); }
 
 /* ==========================================================================
-   NOX GPT (GEMINI AI ENGINE) WITH FAIL-SAFE
+   4. NOX GPT ENGINE (VỚI API URL TÙY CHỈNH & HỖ TRỢ ẢNH)
    ========================================================================== */
 const GptEngine = {
-  defaultKey: "AQ.Ab8RN6LS1WY2vqkEWTmOsdxSzpVZbNUMKoW6OTQKLozJqyP5vA",
-  getApiKey: function() { return localStorage.getItem('nox_custom_api_key') || this.defaultKey; },
-  setApiKey: function(newKey) { localStorage.setItem('nox_custom_api_key', newKey.trim()); },
+  // Key gốc theo yêu cầu của bạn
+  defaultKey: "AQ.Ab8RN6LPohkKCLkmm-I8DwjfD-x_-0AX1IG_Y8q29kNED3Y9jw",
+  defaultUrl: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent",
   
-  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), failCount: 0, maxFails: 3, isGreeted: false,
+  getApiKey: function() { return localStorage.getItem('nox_api_key') || this.defaultKey; },
+  getApiUrl: function() { return localStorage.getItem('nox_api_url') || this.defaultUrl; },
+  setApiConfig: function(key, url) { localStorage.setItem('nox_api_key', key.trim()); localStorage.setItem('nox_api_url', url.trim()); },
+  
+  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'),
+  failCount: 0, maxFails: 3, isGreeted: false,
+
   init: function() {
     if(this.isGreeted) return; this.isGreeted = true;
-    this.appendMsg('other', 'NOX GPT', 'Chào bạn! Tôi là Gemini (NOX GPT). Tôi có thể giúp gì cho bạn?');
+    this.appendMsg('other', 'NOX GPT', 'Hệ thống AI Gemini 3.5 Flash đã sẵn sàng. Bạn có thể hỏi đáp hoặc tải ảnh lên để tôi phân tích.');
   },
+
   appendMsg: function(type, name, htmlContent, isError = false) {
     if(!this.board) return;
     const row = document.createElement('div'); row.className = `msg-row type-${type} ${isError ? 'type-error' : ''}`;
     let innerHTML = '';
     if(type === 'other') {
-      innerHTML += `<div class="msg-meta"><div class="msg-avatar" style="background: #f1f5f9; display:flex; justify-content:center; align-items:center;"><svg style="width:14px; height:14px; color:#8b5cf6;" viewBox="0 0 24 24"><use href="#icon-gemini"/></svg></div><div class="msg-name system-badge">${name}</div></div>`;
+      innerHTML += `<div class="msg-meta"><div class="msg-avatar" style="background:#8b5cf6;"></div><div class="msg-name sys">${name}</div></div>`;
     } else {
       innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
     }
@@ -649,51 +579,120 @@ const GptEngine = {
     row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
     return row; 
   },
+
+  removeImage: function() {
+    ImageProcessor.currentGptImage = null;
+    DOM.get('gpt-preview-img').src = '';
+    DOM.get('gpt-preview-zone').classList.remove('active');
+  },
+
   triggerFallbackUI: function() {
-    this.input.disabled = true; this.input.placeholder = "Hệ thống đang bị khóa API...";
+    this.input.disabled = true; this.input.placeholder = "API Blocked. Requires Override...";
     const fallbackHTML = `
-      <div style="margin-bottom:8px; font-weight:bold;">[LỖI] API KEY KHÔNG HỢP LỆ HOẶC HẾT HẠN!</div>
-      <div style="font-size:0.85rem; margin-bottom:12px;">Hệ thống phát hiện kết nối thất bại 3 lần liên tiếp. Để tiếp tục sử dụng AI, vui lòng nhập API Key (Gemini) của riêng bạn:</div>
-      <div class="api-fallback-form">
-        <input type="text" id="custom-api-input" class="api-fallback-input" placeholder="Dán Gemini API Key mới vào đây...">
-        <button class="api-fallback-btn" onclick="GptEngine.saveCustomKey()">LƯU & KHÔI PHỤC KẾT NỐI</button>
+      <div style="font-weight:bold; margin-bottom:8px;">[ LỖI KẾT NỐI API QUÁ 3 LẦN ]</div>
+      <div style="font-size:0.85rem; margin-bottom:12px;">Vui lòng nhập API Key và Custom Endpoint URL của bạn (Hỗ trợ REST API tùy chỉnh):</div>
+      <div class="fallback-form">
+        <input type="text" id="custom-api-key" class="fallback-input" placeholder="Nhập API Key...">
+        <input type="text" id="custom-api-url" class="fallback-input" placeholder="Nhập Endpoint URL..." value="${this.getApiUrl()}">
+        <button class="fallback-btn" onclick="GptEngine.saveConfig()">CẬP NHẬT CẤU HÌNH</button>
       </div>`;
-    this.appendMsg('other', 'System Error', fallbackHTML, true);
+    this.appendMsg('other', 'System', fallbackHTML, true);
   },
-  saveCustomKey: function() {
-    const input = DOM.get('custom-api-input'); if(!input || !input.value.trim()) { alert("Vui lòng nhập API Key!"); return; }
-    this.setApiKey(input.value); this.failCount = 0; this.input.disabled = false; this.input.placeholder = "Nhập câu hỏi hoặc lệnh cho AI...";
-    this.appendMsg('other', 'System Rescue', 'Đã lưu API Key mới thành công! Hệ thống NOX GPT đã được khôi phục.');
+
+  saveConfig: function() {
+    const keyInp = DOM.get('custom-api-key'); const urlInp = DOM.get('custom-api-url');
+    if(!keyInp || !keyInp.value.trim() || !urlInp || !urlInp.value.trim()) { alert("Vui lòng điền đủ thông tin!"); return; }
+    
+    this.setApiConfig(keyInp.value, urlInp.value);
+    this.failCount = 0; this.input.disabled = false; this.input.placeholder = "Nhập lệnh hoặc gửi ảnh...";
+    this.appendMsg('other', 'System', 'Cấu hình API đã được cập nhật thành công.');
   },
+
   submit: async function() {
     if(this.failCount >= this.maxFails) return; 
-    const text = this.input.value.trim(); if(!text) return;
-    this.input.value = ''; this.appendMsg('user', 'Bạn', text.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
-    const tempNode = this.appendMsg('other', 'NOX GPT', '<span style="opacity:0.6;">Đang phân tích dữ liệu...</span>');
+    const text = this.input.value.trim();
+    const base64Img = ImageProcessor.currentGptImage;
+    
+    if(!text && !base64Img) return;
+
+    // Render User Message
+    let userHtml = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    if(base64Img) {
+      userHtml = `<img src="${base64Img}" class="chat-image">` + userHtml;
+    }
+    this.input.value = ''; this.removeImage();
+    this.appendMsg('user', 'Bạn', userHtml);
+
+    const tempNode = this.appendMsg('other', 'NOX GPT', '<span style="opacity:0.6;">Đang xử lý dữ liệu...</span>');
 
     try {
       const apiKey = this.getApiKey();
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
+      const apiUrl = this.getApiUrl();
+      
+      // Build payload đa phương thức (Text + Image)
+      const parts = [];
+      if(text) parts.push({ "text": text });
+      if(base64Img) {
+        // Cắt bỏ phần header "data:image/jpeg;base64," của Data URL
+        const base64Data = base64Img.split(',')[1];
+        parts.push({
+          "inlineData": {
+            "mimeType": "image/jpeg",
+            "data": base64Data
+          }
+        });
+      }
+
+      // Hỗ trợ fetch cho URL tùy chỉnh (Nhiều URL có thể truyền key qua Query Parameter, một số thì qua Header)
+      // Theo mặc định REST API Gemini, thường truyền "?key="
+      let fetchUrl = apiUrl;
+      let headers = { 'Content-Type': 'application/json' };
+      
+      // Nếu là URL chuẩn của Google và chưa có parameter, tự gắn key vào url
+      if(apiUrl.includes('googleapis.com') && !apiUrl.includes('?')) {
+         fetchUrl = `${apiUrl}?key=${apiKey}`;
+      } else {
+         // Nếu người dùng dùng link REST tùy biến có cấu hình header `x-goog-api-key`
+         headers['x-goog-api-key'] = apiKey;
+      }
+
+      const response = await fetch(fetchUrl, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          contents: [{ parts: parts }]
+        })
       });
+
       const data = await response.json(); tempNode.remove();
-      if(data.error) throw new Error(data.error.message || "Unknown API Error");
-      if(data.candidates && data.candidates[0].content.parts[0].text) {
-        const formattedText = data.candidates[0].content.parts[0].text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
-        this.appendMsg('other', 'NOX GPT', formattedText); this.failCount = 0; 
-      } else throw new Error("No response content");
+      
+      if(data.error) throw new Error(data.error.message || "Lỗi API Unknown");
+      
+      // Parse output tùy theo dạng URL trả về (Rest interaction hoặc standard generateContent)
+      let outputText = "Không có phản hồi.";
+      if(data.candidates && data.candidates[0].content && data.candidates[0].content.parts[0].text) {
+          outputText = data.candidates[0].content.parts[0].text;
+      } else if (data.output_text) {
+          outputText = data.output_text; // Định dạng trả về của Interaction API
+      }
+      
+      const formattedText = outputText.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
+      this.appendMsg('other', 'NOX GPT', formattedText); 
+      this.failCount = 0; 
+      
     } catch(err) {
       if(tempNode) tempNode.remove(); this.failCount++;
+      console.warn("NOX GPT Error:", err);
       if(this.failCount >= this.maxFails) this.triggerFallbackUI();
-      else this.appendMsg('other', 'NOX GPT', `Lỗi kết nối máy chủ AI (${err.message}). Đang thử lại (${this.failCount}/${this.maxFails})...`, true);
+      else this.appendMsg('other', 'System Error', `Lỗi AI (${err.message}). Đang thử lại (${this.failCount}/${this.maxFails}).`, true);
     }
   }
 };
 function handleGptSubmit() { GptEngine.submit(); }
-const _coreOpenUI = openUI; openUI = function(id) { _coreOpenUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
+const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   NOX CHAT (FIREBASE REALTIME DATABASE + XÓA SAU 24H)
+   FIREBASE CHAT ENGINE (CÓ GỬI ẢNH VÀ XÓA TỰ ĐỘNG SAU 24H)
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
@@ -716,38 +715,24 @@ const ChatEngine = {
       if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
       this.dbRef = firebase.database().ref('nox_global_chat');
       this.isSetup = true;
-      console.log("Firebase Database Connected.");
+      console.log("Firebase DB Connected.");
       
-      // Chạy hàm dọn rác 24h ngay khi khởi tạo
+      // Xóa tin nhắn quá 24h
       this.cleanupOldMessages();
-      // Đặt lịch dọn rác mỗi giờ (3600000 ms)
-      setInterval(() => this.cleanupOldMessages(), 3600000);
-      
-    } catch(err) {
-      console.error("Firebase Init Error:", err);
-      this.appendMsg('Hệ Thống NOX', '⚠️ Không thể khởi tạo máy chủ Chat.', true);
-    }
+      setInterval(() => this.cleanupOldMessages(), 3600000); 
+    } catch(err) { console.error("FB Init Err:", err); }
   },
 
-  // THUẬT TOÁN XÓA TIN NHẮN TỰ ĐỘNG SAU 24 GIỜ
   cleanupOldMessages: function() {
     if(!this.dbRef) return;
-    const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
-    const cutoffTimestamp = Date.now() - TWENTY_FOUR_HOURS_MS;
+    const MS_24H = 86400000;
+    const cutoff = Date.now() - MS_24H;
     
-    // Tìm các tin nhắn có timestamp nhỏ hơn mức cutoff (tức là cũ hơn 24h)
-    this.dbRef.orderByChild('timestamp').endAt(cutoffTimestamp).once('value', (snapshot) => {
+    this.dbRef.orderByChild('timestamp').endAt(cutoff).once('value', (snapshot) => {
       if(snapshot.exists()) {
         const updates = {};
-        snapshot.forEach((child) => {
-          updates[child.key] = null; // Đánh dấu null để xóa
-        });
-        // Thực thi xóa hàng loạt
-        this.dbRef.update(updates).then(() => {
-          console.log("Đã dọn dẹp tin nhắn cũ hơn 24h thành công.");
-        }).catch((error) => {
-          console.error("Lỗi khi xóa tin nhắn cũ:", error);
-        });
+        snapshot.forEach((child) => { updates[child.key] = null; });
+        this.dbRef.update(updates).then(() => console.log("Cleaned 24h messages."));
       }
     });
   },
@@ -758,9 +743,9 @@ const ChatEngine = {
 
   onGoogleLoginSuccess: function(response) {
     const payload = ChatEngine.decodeJwt(response.credential);
-    ChatEngine.userProfile = { name: payload.name || "User", email: payload.email, avatar: payload.picture || "" };
+    ChatEngine.userProfile = { name: payload.name || "Anonymous", email: payload.email, avatar: payload.picture || "" };
     const guard = DOM.get('auth-guard'); if(guard) guard.classList.add('is-hidden');
-    ChatEngine.appendMsg('Hệ Thống NOX', `Đăng nhập thành công. Chào mừng <b>${ChatEngine.userProfile.name}</b>!`, true);
+    ChatEngine.appendMsg('Hệ Thống', `Đăng nhập thành công. Chào mừng <b>${ChatEngine.userProfile.name}</b>!`, true);
     ChatEngine.listenForMessages();
   },
 
@@ -769,6 +754,12 @@ const ChatEngine = {
     google.accounts.id.initialize({ client_id: this.googleClientId, callback: this.onGoogleLoginSuccess });
     const btnWrap = DOM.get('google-login-mount');
     if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "outline", size: "large", shape: "pill", width: 250 });
+  },
+
+  removeImage: function() {
+    ImageProcessor.currentChatImage = null;
+    DOM.get('chat-preview-img').src = '';
+    DOM.get('chat-preview-zone').classList.remove('active');
   },
 
   appendMsg: function(senderName, htmlContent, isSystem = false, avatarUrl = '') {
@@ -780,8 +771,8 @@ const ChatEngine = {
     
     let innerHTML = '';
     if(!isMe) {
-      let avaStyle = isSystem ? 'background: #10b981;' : (avatarUrl ? `background-image: url(${avatarUrl}); background-size: cover;` : 'background: #cbd5e1;');
-      let nameClass = isSystem ? 'msg-name system-badge' : 'msg-name';
+      let avaStyle = isSystem ? 'background: #10b981;' : (avatarUrl ? `background-image: url(${avatarUrl});` : 'background: #cbd5e1;');
+      let nameClass = isSystem ? 'msg-name sys' : 'msg-name';
       innerHTML += `<div class="msg-meta"><div class="msg-avatar" style="${avaStyle}"></div><div class="${nameClass}">${senderName}</div></div>`;
     }
     innerHTML += `<div class="msg-bubble">${htmlContent}</div>`;
@@ -790,39 +781,44 @@ const ChatEngine = {
 
   listenForMessages: function() {
     if(!this.dbRef) return;
-    this.dbRef.limitToLast(50).on('child_added', (snapshot) => {
+    this.dbRef.limitToLast(40).on('child_added', (snapshot) => {
       const data = snapshot.val(); if(!data) return;
-      if(this.userProfile && data.email === this.userProfile.email && Date.now() - data.timestamp < 5000) return; 
-      this.appendMsg(data.user, data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;"), false, data.avatar);
+      if(this.userProfile && data.email === this.userProfile.email && Date.now() - data.timestamp < 6000) return; 
+      
+      let html = data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
+      this.appendMsg(data.user, html, false, data.avatar);
     });
   },
 
   sendMsg: function() {
     if(!this.userProfile) { alert("Vui lòng đăng nhập Google!"); return; }
-    if(!this.dbRef) { alert("Lỗi Firebase."); return; }
-    const text = this.input.value.trim(); if(!text) return;
+    if(!this.dbRef) return;
+    const text = this.input.value.trim();
+    const base64Img = ImageProcessor.currentChatImage;
+    if(!text && !base64Img) return;
     
-    this.appendMsg(this.userProfile.name, text.replace(/</g, "&lt;").replace(/>/g, "&gt;"), false, this.userProfile.avatar);
-    this.input.value = '';
+    let displayHtml = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
+    
+    this.appendMsg(this.userProfile.name, displayHtml, false, this.userProfile.avatar);
+    this.input.value = ''; this.removeImage();
     
     this.dbRef.push({
-      user: this.userProfile.name, email: this.userProfile.email, avatar: this.userProfile.avatar, text: text,
-      timestamp: firebase.database.ServerValue.TIMESTAMP
-    }).catch(err => { console.error("Lỗi:", err); this.appendMsg('Hệ Thống NOX', 'Gửi thất bại.', true); });
+      user: this.userProfile.name, email: this.userProfile.email, avatar: this.userProfile.avatar, 
+      text: text, image: base64Img || "", timestamp: firebase.database.ServerValue.TIMESTAMP
+    }).catch(err => { this.appendMsg('Hệ Thống', 'Gửi thất bại.', true); });
   }
 };
 
-function executeGlobalSend() { ChatEngine.sendMsg(); }
-
 /* ==========================================================================
-   SYSTEM BOOTSTRAP
+   SYSTEM BOOT
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
   ParticleEngine.init();
   ChatEngine.initFirebase();
   ChatEngine.initGoogleIdentity();
 });
-
 </script>
 </body>
 </html>
