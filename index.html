@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V42 SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V42. Khung chat tự động giãn, Google Auth Menu, Sửa lỗi gửi tin nhắn.">
+<title>NOX WEB - V43 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX-SKIBIDI WEB Enterprise. Khôi phục quyền DEV, Tương tác Chat, Menu AI.">
 <meta name="robots" content="index, follow">
 
 <!-- Firebase App & Database -->
@@ -39,6 +39,7 @@
   --accent-danger: #ef4444;
   --accent-danger-bg: rgba(239, 68, 68, 0.1);
   --dev-color: #ff0055;
+  --accent-blue: #3b82f6;
   
   --rad: 0px; 
   
@@ -54,8 +55,7 @@ a { text-decoration: none; color: inherit; }
 html { font-family: "Courier New", Courier, monospace; font-size: 16px; width: 100%; height: 100%; }
 
 body {
-  width: 100%; min-height: 100vh;
-  background-color: var(--bg-core);
+  width: 100%; min-height: 100vh; background-color: var(--bg-core);
   overflow-y: auto !important; overflow-x: hidden; position: relative;
   display: flex; justify-content: center; align-items: flex-start;
   padding: 8vh 16px 100px; color: var(--text-main);
@@ -79,62 +79,26 @@ body::after {
 /* ==========================================================================
    SOLID PANELS & BUTTONS
    ========================================================================== */
-.solid-panel {
-  background: var(--bg-panel); border: 1px solid var(--border-color);
-  border-radius: var(--rad); box-shadow: var(--shadow-md);
-  position: relative; z-index: 10;
-}
+.solid-panel { background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-md); position: relative; z-index: 10; }
 
-.btn-primary {
-  width: 100%; padding: 14px 20px; border-radius: var(--rad); 
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  color: #fff; font-weight: bold; font-size: 0.95rem; 
-  background: var(--accent-green); transition: all 0.2s ease; cursor: pointer;
-  text-transform: uppercase; letter-spacing: 1px;
-}
-.btn-primary:hover { background: #059669; }
-.btn-primary:active { transform: scale(0.98); }
+.btn-primary { width: 100%; padding: 14px 20px; border-radius: var(--rad); display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; font-weight: bold; font-size: 0.95rem; background: var(--accent-green); transition: all 0.2s ease; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+.btn-primary:hover { background: #059669; } .btn-primary:active { transform: scale(0.98); }
 
-.btn-sidebar {
-  width: 100%; padding: 14px 16px; border-radius: var(--rad); 
-  display: flex; align-items: center; justify-content: flex-start; gap: 14px;
-  color: var(--text-sub); font-weight: bold; font-size: 0.95rem; 
-  background: transparent; border: 1px solid var(--border-color);
-  transition: all 0.2s ease; cursor: pointer; text-transform: uppercase;
-}
+.btn-sidebar { width: 100%; padding: 14px 16px; border-radius: var(--rad); display: flex; align-items: center; justify-content: flex-start; gap: 14px; color: var(--text-sub); font-weight: bold; font-size: 0.95rem; background: transparent; border: 1px solid var(--border-color); transition: all 0.2s ease; cursor: pointer; text-transform: uppercase; }
 .btn-sidebar:hover { background: var(--bg-panel-hover); color: var(--text-main); border-color: var(--text-sub); }
-.btn-sidebar.active { background: var(--accent-green-bg); color: var(--accent-green); border-color: var(--accent-green); }
 
-/* ==========================================================================
-   SIDEBAR & HEADER
-   ========================================================================== */
 .top-nav { position: fixed; top: 16px; left: 16px; z-index: 100; }
-.menu-trigger {
-  height: 44px; padding: 0 16px; border-radius: var(--rad);
-  background: var(--bg-panel); border: 1px solid var(--border-color);
-  display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: bold; font-size: 0.9rem;
-  cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm); text-transform: uppercase;
-}
+.menu-trigger { height: 44px; padding: 0 16px; border-radius: var(--rad); background: var(--bg-panel); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm); text-transform: uppercase; }
 .menu-trigger:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
 
-.drawer-menu {
-  position: fixed; top: 0; left: 0; height: 100dvh; width: 300px; max-width: 85vw;
-  padding: 24px 16px; z-index: 999; display: flex; flex-direction: column; gap: 24px;
-  background: var(--bg-core); border-right: 1px solid var(--border-color);
-  transform: translateX(-100%); opacity: 0; pointer-events: none;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-  box-shadow: 4px 0 15px rgba(0,0,0,0.5); overflow-y: auto;
-}
+.drawer-menu { position: fixed; top: 0; left: 0; height: 100dvh; width: 300px; max-width: 85vw; padding: 24px 16px; z-index: 999; display: flex; flex-direction: column; gap: 24px; background: var(--bg-core); border-right: 1px solid var(--border-color); transform: translateX(-100%); opacity: 0; pointer-events: none; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.5); overflow-y: auto; }
 .drawer-menu.is-open { transform: translateX(0); opacity: 1; pointer-events: auto; }
-
 .drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px dashed var(--border-color); }
 .drawer-title { font-size: 1.1rem; font-weight: bold; color: var(--text-main); display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
 .drawer-close { background: var(--border-color); color: var(--text-main); width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: var(--rad); cursor: pointer; transition: 0.2s; font-weight: bold;}
 .drawer-close:hover { background: var(--accent-danger); color: #fff; }
-
 .drawer-group { display: flex; flex-direction: column; gap: 8px; }
 .drawer-label { font-size: 0.8rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 4px; margin-bottom: 4px; }
-
 .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 998; opacity: 0; pointer-events: none; transition: 0.3s; }
 .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
 
@@ -143,40 +107,24 @@ body::after {
    ========================================================================== */
 .card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; margin-top: 50px; }
 .main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; }
-
 .title-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
 .title-main { font-size: 2rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px;}
 .status-badge { font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: var(--rad); background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); text-transform: uppercase;}
 
-.info-board {
-  padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color);
-}
-.info-board h3 { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--accent-green); text-transform: uppercase;}
-.info-board p { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); }
+.info-board { padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); cursor: pointer;}
+.info-board h3 { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--accent-green); text-transform: uppercase; display: flex; justify-content: space-between;}
+.info-board h3 span.hint { font-size: 0.75rem; color: var(--text-sub); font-weight: normal; text-transform: none; }
 
-.text-truncate {
-  font-size: 0.9rem; line-height: 1.6; color: var(--text-sub);
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-  transition: all 0.3s ease;
-}
+.text-truncate { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: all 0.3s ease; }
 .text-truncate.expanded { display: block; -webkit-line-clamp: unset; }
 
 /* ==========================================================================
    MODAL CORE
    ========================================================================== */
-.modal-backdrop { 
-  position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; 
-  padding: 16px; background: rgba(0, 0, 0, 0.85); opacity: 0; transition: opacity 0.2s ease; 
-}
+.modal-backdrop { position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(0, 0, 0, 0.85); opacity: 0; transition: opacity 0.2s ease; }
 .modal-backdrop.is-active { display: flex; opacity: 1; }
-
-.modal-content { 
-  width: 100%; max-width: 650px; height: 90dvh; max-height: 800px; display: flex; flex-direction: column; 
-  background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-lg);
-  transform: scale(0.98); transition: transform 0.2s ease; overflow: hidden;
-}
+.modal-content { width: 100%; max-width: 650px; height: 90dvh; max-height: 800px; display: flex; flex-direction: column; background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-lg); transform: scale(0.98); transition: transform 0.2s ease; overflow: hidden; }
 .modal-backdrop.is-active .modal-content { transform: scale(1); }
-
 .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px dashed var(--border-color); background: var(--bg-core); }
 .modal-heading { font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-main); text-transform: uppercase;}
 .modal-close { width: 36px; height: 36px; border-radius: var(--rad); background: var(--border-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; font-weight: bold;}
@@ -198,61 +146,39 @@ body::after {
 .tab-body-wrapper { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-core); display: flex; flex-direction: column; gap: 16px;}
 .tab-body-wrapper::-webkit-scrollbar { width: 4px; }
 .tab-body-wrapper::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 0; }
-
 .tab-pane { display: none; flex-direction: column; gap: 16px; }
 .tab-pane.is-active { display: flex; }
 
-.data-box { 
-  padding: 16px 20px; border-radius: var(--rad); 
-  background: var(--bg-panel); border: 1px solid var(--border-color); 
-  display: flex; flex-direction: column; gap: 14px; 
-  position: relative; transition: all 0.2s ease;
-}
+.data-box { padding: 16px 20px; border-radius: var(--rad); background: var(--bg-panel); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 14px; position: relative; transition: all 0.2s ease; }
 .data-box:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
 .data-box.is-hidden { display: none; }
 
 .box-head { display: flex; justify-content: space-between; align-items: center; padding-left: 8px;}
-.box-title { font-size: 1rem; font-weight: bold; color: var(--text-main); text-transform: uppercase;}
-.box-action { 
-  padding: 8px 16px; border-radius: var(--rad); background: var(--bg-input); 
-  color: var(--text-main); border: 1px solid var(--border-color); 
-  font-weight: bold; font-size: 0.85rem; transition: 0.2s; cursor: pointer; text-transform: uppercase;
-}
+.box-title { font-size: 1rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; display: flex; align-items: center; gap: 8px;}
+.box-action { padding: 8px 16px; border-radius: var(--rad); background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); font-weight: bold; font-size: 0.85rem; transition: 0.2s; cursor: pointer; text-transform: uppercase; }
 .box-action:hover { border-color: var(--text-main); background: var(--border-hover); }
 .box-action.is-copied { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
 
 .script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad); background: var(--bg-input); border: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
 
-/* DEV ACTION BUTTONS */
-.dev-circle-edit-btn {
-    width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: var(--accent-blue);
-    border: 1px solid var(--accent-blue); display: inline-flex; align-items: center; justify-content: center;
-    cursor: pointer; font-weight: bold; font-size: 13px; margin-left: 8px; transition: 0.2s;
-}
+/* Nút thao tác của DEV */
+.dev-circle-edit-btn { width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.2s; }
 .dev-circle-edit-btn:hover { background: var(--accent-blue); color: #fff; }
-
-.dev-delete-btn {
-    background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger);
-    padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 8px; font-size: 0.8rem;
-}
+.dev-delete-btn { background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger); padding: 4px 8px; font-weight: bold; cursor: pointer; border-radius: var(--rad); font-size: 0.75rem; }
 .dev-delete-btn:hover { background: var(--accent-danger); color: #fff; }
 
-.dev-add-panel {
-    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-bottom: 16px; display: none;
-}
+.dev-add-panel { padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-bottom: 16px; display: none; }
 .dev-add-panel.active { display: flex; flex-direction: column; gap: 10px; }
-.dev-add-panel input, .dev-add-panel select, .dev-add-panel textarea {
-    padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color);
-}
+.dev-add-panel input, .dev-add-panel select, .dev-add-panel textarea { padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); }
 .dev-add-panel button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
 
 /* ==========================================================================
-   CONFIRMATION MODAL & BAN ALERT MODAL
+   CONFIRMATION MODAL & BAN ALERT
    ========================================================================== */
 .confirm-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10005; display: none; align-items: center; justify-content: center; padding: 16px;}
 .confirm-backdrop.active { display: flex; }
 .confirm-box { background: var(--bg-panel); border: 2px solid var(--accent-danger); padding: 24px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 30px rgba(239, 68, 68, 0.2); }
-.confirm-msg { color: var(--accent-danger); font-weight: bold; margin-bottom: 24px; font-size: 1.1rem; text-transform: uppercase; line-height: 1.5;}
+.confirm-msg { color: var(--accent-danger); font-weight: bold; margin-bottom: 24px; font-size: 1.1rem; text-transform: uppercase;}
 .confirm-actions { display: flex; gap: 16px; justify-content: center; }
 .btn-ok { padding: 12px 30px; font-weight: bold; cursor: pointer; background: var(--accent-danger); color: #fff; border: 1px solid var(--accent-danger); text-transform: uppercase;}
 .btn-ok:hover { background: #dc2626; }
@@ -264,7 +190,7 @@ body::after {
 .ban-alert-box { background: var(--bg-panel); border: 3px solid var(--accent-danger); padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
 
 /* ==========================================================================
-   CHAT UI & AUTO-EXPAND TEXTAREA
+   CHAT UI
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -286,29 +212,40 @@ body::after {
 .msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
 .msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
 .msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); cursor: default;}
-.msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
+.msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important; cursor: default;}
 
-/* Fix lỗi khung ảnh to */
 .chat-image { max-width: 100%; max-height: 250px; object-fit: contain; border-radius: var(--rad); margin-bottom: 8px; display: block; background: #000; border: 1px solid var(--border-color); }
 
-/* Chat Textarea (Auto-expand) */
+/* Context Menu Nổi cho Chat */
+.msg-context-menu {
+  position: absolute; bottom: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
+  z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 140px;
+}
+.msg-context-menu.active { display: flex; }
+.msg-context-btn { padding: 10px 16px; text-align: left; font-size: 0.85rem; font-weight: bold; background: transparent; color: var(--text-main); cursor: pointer; border-bottom: 1px solid var(--border-color); }
+.msg-context-btn:hover { background: var(--bg-panel-hover); color: var(--accent-green); }
+.msg-context-btn.danger:hover { color: var(--accent-danger); }
+
+/* Moderation Panel */
+.dev-mod-panel {
+    background: var(--bg-panel); border: 1px solid var(--accent-danger); border-radius: var(--rad);
+    padding: 16px; display: flex; flex-direction: column; gap: 10px; width: 100%; min-width: 250px;
+}
+.dev-mod-panel input { padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); width: 100%;}
+.dev-mod-panel button { padding: 10px; color: #fff; font-weight: bold; cursor: pointer; border: none; width: 100%;}
+
+/* CHAT INPUT AREA */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+
 .image-preview-zone { display: none; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
 .image-preview-zone.active { display: flex; }
-.preview-thumb { width: 40px; height: 40px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
+.preview-thumb { width: 50px; height: 50px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
 .preview-remove { width: 24px; height: 24px; background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--accent-danger);}
 
-.chat-input-wrapper { display: flex; align-items: flex-end; gap: 8px; width: 100%; box-sizing: border-box;}
-
-.chat-field { 
-  flex: 1; min-width: 0; min-height: 44px; height: 44px; max-height: 120px; 
-  padding: 12px 16px; border-radius: var(--rad); background: var(--bg-input); 
-  border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; 
-  resize: none; overflow-y: auto; line-height: 20px; font-family: inherit;
-}
+.chat-input-wrapper { display: flex; align-items: flex-end; gap: 8px; width: 100%; }
+.chat-field { flex: 1; min-width: 0; min-height: 44px; height: 44px; max-height: 120px; padding: 12px 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; resize: none; overflow-y: auto; line-height: 20px; font-family: inherit;}
 .chat-field:focus { border-color: var(--text-sub); }
 
-/* Nút thêm ảnh */
 .btn-photo { 
   height: 44px; width: 44px; background: var(--bg-input); color: var(--text-main); 
   border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; 
@@ -325,11 +262,6 @@ body::after {
 .chat-send:active { transform: scale(0.95); }
 .chat-send:hover { background: transparent; color: var(--text-main); }
 
-/* API FALLBACK FORM */
-.api-fallback-box { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--bg-input); border: 1px dashed var(--accent-danger); margin-bottom: 10px;}
-.api-fallback-box input { padding: 12px; background: var(--bg-core); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace;}
-.api-fallback-box button { padding: 12px; background: var(--accent-danger); color: #fff; font-weight: bold; cursor: pointer; }
-
 /* AUTH BLOCKER */
 .auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(13, 15, 18, 0.95); text-align: center; padding: 32px; }
 .auth-blocker.is-hidden { display: none; }
@@ -339,10 +271,6 @@ body::after {
 .btn-guest { padding: 12px 24px; border-radius: var(--rad); background: transparent; border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; text-transform: uppercase;}
 .btn-guest:hover { border-color: var(--text-main); }
 
-.script-share-form { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
-.script-share-input { padding: 14px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace; }
-textarea.script-share-input { height: 150px; resize: none; }
-
 </style>
 </head>
 <body>
@@ -351,7 +279,7 @@ textarea.script-share-input { height: 150px; resize: none; }
 
 <div class="ban-alert-backdrop" id="ban-alert-modal">
     <div class="ban-alert-box" style="background:var(--bg-panel); border:3px solid var(--accent-danger); padding:30px; max-width:450px; text-align:center;">
-        <div style="color:var(--accent-danger); font-size:1.3rem; font-weight:bold; margin-bottom:12px;" id="ban-alert-title">YOU GOT BANNED BY DEV</div>
+        <div style="color:var(--accent-danger); font-size:1.3rem; font-weight:bold; margin-bottom:12px;">YOU GOT BANNED BY DEV</div>
         <div style="color:var(--text-main); font-size:0.95rem; line-height:1.6; margin-bottom:20px;" id="ban-alert-reason">Lý do vi phạm...</div>
         <button class="btn-primary" style="background:var(--accent-danger);" onclick="document.getElementById('ban-alert-modal').classList.remove('active')">ĐÃ HIỂU</button>
     </div>
@@ -385,7 +313,6 @@ textarea.script-share-input { height: 150px; resize: none; }
     <button class="btn-sidebar" onclick="RestrictedAction.checkAndOpen('modal-noxchat')">GLOBAL CHAT</button>
   </div>
   
-  <!-- MENU CHỨA GOOGLE LOGIN / LOGOUT -->
   <div class="drawer-group" id="drawer-auth-group">
     <div class="drawer-label">TÀI KHOẢN</div>
     <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center; margin-bottom: 8px; overflow:hidden;"></div>
@@ -396,10 +323,10 @@ textarea.script-share-input { height: 150px; resize: none; }
   <div class="drawer-group" id="dev-menu-editor-group" style="display:none;">
     <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ MENU</div>
     <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">CHỈNH SỬA MENU</button>
-    <div class="drawer-group dev-menu-editor" id="dev-menu-editor-box" style="display:none; padding:16px; border:1px dashed var(--dev-color); background:rgba(255,0,85,0.05); margin-top:8px;">
-        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem; width:100%;">
-        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem; width:100%;">
-        <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer; font-size:0.85rem; width:100%; text-transform:uppercase;">THÊM VÀO MENU</button>
+    <div class="dev-add-panel" id="dev-menu-editor-box">
+        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)...">
+        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)">
+        <button onclick="MenuEditor.addMenuItem()">THÊM VÀO MENU</button>
     </div>
   </div>
 
@@ -419,28 +346,28 @@ textarea.script-share-input { height: 150px; resize: none; }
 
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
-    <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V42</span>
+    <div class="title-wrap">
+      <span class="status-badge" id="ui-version-badge">Phiên bản V33</span>
       <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
     </div>
 
     <div class="info-board" onclick="toggleText(this)">
       <h3>THÔNG BÁO <span class="hint">Bấm để xem thêm</span></h3>
-      <div class="text-truncate" id="ui-notice-text" style="display:block;">
-        > <b>WELCOME TO NOX WEB V42.</b><br>
-        > <b>Fix lỗi Khung Chat:</b> Khung chat giờ đây tự động giãn chiều cao (Auto-grow) theo lượng văn bản bạn nhập, hỗ trợ gõ nhiều dòng.<br>
-        > <b>Fix lỗi Menu Đăng Nhập:</b> Đảm bảo nút Google hiển thị ở mọi nơi (trong Menu và Chat).<br>
-        > <b>Chức năng DEV hoàn chỉnh:</b> Hỗ trợ Toast thông báo, Quản lý User (Ban/Mute), Menu Editor.
+      <div class="text-truncate" id="ui-notice-text">
+        CHÀO MỪNG ĐẾN VỚI NOX- SKIBIDI SHARE NƠI CUNG CẤP NHỮNG SCRIPT LINK APK IOS CHẤT LƯỢNG TỐT NHẤT - ĐẶT BIỆT LÀ KHÔNG CẦN VƯỢT LINK.<br><br>
+        > Hỗ trợ đăng xuất an toàn.<br>
+        > DEV có quyền Sửa/Xóa Menu, Tiện ích.<br>
+        > Nhấp vào tin nhắn của bạn để chỉnh sửa hoặc thu hồi.
       </div>
     </div>
 
-    <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
+    <div class="dev-add-panel" id="dev-config-panel">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
-        <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V42)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none; padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
-        <button onclick="ConfigEngine.saveConfig()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">CẬP NHẬT HỆ THỐNG</button>
+        <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V33)...">
+        <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
+        <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none;"></textarea>
+        <button onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
     </div>
 
     <button class="btn-primary" onclick="openUI('modal-archive')" style="margin-top:15px;">
@@ -461,20 +388,20 @@ textarea.script-share-input { height: 150px; resize: none; }
         <input class="search-box" id="input-search" placeholder="Nhập từ khóa tìm kiếm..." oninput="UtilsEngine.execSearch(this.value)">
     </div>
 
-    <div class="dev-add-panel" id="dev-utils-panel" style="display:none; padding:16px; border:1px dashed var(--dev-color); background:rgba(255,0,85,0.05); flex-direction:column; gap:10px;">
+    <div class="dev-add-panel" id="dev-utils-panel">
         <div style="color:var(--dev-color); font-weight:bold; margin-bottom:5px;" id="dev-panel-heading">[DEV] THÊM / SỬA TIỆN ÍCH</div>
         <input type="hidden" id="dev-edit-key" value="">
-        <select id="dev-util-type" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <select id="dev-util-type">
             <option value="pane-link">Link</option>
             <option value="pane-script">Script</option>
             <option value="pane-apk">APK</option>
             <option value="pane-ios">iOS</option>
         </select>
-        <input type="text" id="dev-util-title" placeholder="Tên tiện ích..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
+        <input type="text" id="dev-util-title" placeholder="Tên tiện ích...">
+        <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..."></textarea>
         <div style="display:flex; gap:10px;">
-            <button onclick="UtilsEngine.triggerSave()" style="flex:1; padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;" id="dev-submit-btn">ĐĂNG TẢI</button>
-            <button onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; background:var(--border-color); color:var(--text-main); flex:1; padding:10px; font-weight:bold; cursor:pointer;">HỦY</button>
+            <button onclick="UtilsEngine.triggerSave()" style="flex:1;" id="dev-submit-btn">ĐĂNG TẢI</button>
+            <button onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; background:var(--border-color); color:var(--text-main); flex:1;">HỦY</button>
         </div>
     </div>
 
@@ -486,40 +413,15 @@ textarea.script-share-input { height: 150px; resize: none; }
     </div>
 
     <div class="tab-body-wrapper">
-      <!-- HARDCODED STATIC HTML (Khôi phục dữ liệu cứng) -->
-      <div id="pane-link" class="tab-pane is-active">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Bypass Key Delta</span><a href="https://baconbypass.xyz" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kasumi Store VIP</span><a href="https://gofile.io/d/v3Q6Ig" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Clone Tab Delta VNG</span><a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kho Tài Nguyên APK</span><a href="https://gofile.io/d/w9cKYp" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Hanami Script</span><a href="https://gist.github.com/Hoangtiger2005/a4cf07f7cea143c735d802f38827563d/raw/script_hanami.user.js" target="_blank" class="box-action">TẢI MÃ</a></div></div>
-      </div>
-      
-      <div id="pane-script" class="tab-pane">
-        <div class="data-box static-item">
-          <div class="box-head"><span class="box-title">Speed X Hub Pro</span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-          <div class="script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
-        </div>
-        <div class="data-box static-item">
-          <div class="box-head"><span class="box-title">UB Hub Master</span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-          <div class="script-code">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
-        </div>
-      </div>
-      
-      <div id="pane-apk" class="tab-pane">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Delta Web Client</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">TẢI VỀ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Delta VNG Bypass</span><a href="https://modsfire.com/Q4sFLA37wl7PckA" target="_blank" class="box-action">TẢI VỀ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kiwi VPN Premium</span><a href="https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk" target="_blank" class="box-action">TẢI VỀ</a></div></div>
-      </div>
-      
-      <div id="pane-ios" class="tab-pane">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Delta iOS</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">MỞ BẰNG SAFARI</a></div></div>
-      </div>
+      <div id="pane-link" class="tab-pane is-active"></div>
+      <div id="pane-script" class="tab-pane"></div>
+      <div id="pane-apk" class="tab-pane"></div>
+      <div id="pane-ios" class="tab-pane"></div>
     </div>
   </div>
 </div>
 
-<!-- MODAL QUẢN LÝ USER (DEV ONLY) -->
+<!-- MODAL QUẢN LÝ USER -->
 <div class="modal-backdrop" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
   <div class="modal-content">
     <div class="modal-header">
@@ -532,7 +434,7 @@ textarea.script-share-input { height: 150px; resize: none; }
   </div>
 </div>
 
-<!-- MODAL ĐIỀU HÀNH CHAT TRỰC TIẾP (DEV MUTE/BAN) -->
+<!-- MODAL ĐIỀU HÀNH CHAT TRỰC TIẾP -->
 <div class="modal-backdrop" id="modal-dev-mod" onclick="if(event.target===this)closeUI('modal-dev-mod')">
     <div class="modal-content" style="max-width: 400px; height: auto;">
         <div class="modal-header">
@@ -543,17 +445,17 @@ textarea.script-share-input { height: 150px; resize: none; }
             <div style="color:var(--accent-green); font-weight:bold; font-size:1.1rem;" id="mod-target-name">User: </div>
             <input type="hidden" id="mod-target-email">
             
-            <div style="padding:16px; border:1px solid var(--border-color); background:var(--bg-input);">
+            <div class="dev-mod-panel">
                 <div style="font-weight:bold; margin-bottom:8px; color:#f59e0b;">MUTE (CẤM CHAT)</div>
-                <input type="number" id="mod-mute-hours" placeholder="Số giờ (Mặc định 24h)" style="width:100%; margin-bottom:8px; padding:10px; background:var(--bg-core); color:var(--text-main); border:1px solid var(--border-color);">
-                <input type="text" id="mod-mute-reason" placeholder="Lý do Mute..." style="width:100%; margin-bottom:8px; padding:10px; background:var(--bg-core); color:var(--text-main); border:1px solid var(--border-color);">
-                <button class="btn-primary" style="background:#f59e0b; border-radius:0;" onclick="UserMgr.submitMute()">MUTE NGƯỜI NÀY</button>
+                <input type="number" id="mod-mute-hours" placeholder="Số giờ (Mặc định 24h)">
+                <input type="text" id="mod-mute-reason" placeholder="Lý do Mute...">
+                <button style="background:#f59e0b;" onclick="UserMgr.submitMute()">MUTE NGƯỜI NÀY</button>
             </div>
 
-            <div style="padding:16px; border:1px solid var(--border-color); background:var(--bg-input);">
+            <div class="dev-mod-panel" style="border-color:var(--accent-danger);">
                 <div style="font-weight:bold; margin-bottom:8px; color:var(--accent-danger);">BAN (CẤM VĨNH VIỄN)</div>
-                <input type="text" id="mod-ban-reason" placeholder="Lý do Ban..." style="width:100%; margin-bottom:8px; padding:10px; background:var(--bg-core); color:var(--text-main); border:1px solid var(--border-color);">
-                <button class="btn-primary" style="background:var(--accent-danger); border-radius:0;" onclick="UserMgr.submitBan()">BAN NGƯỜI NÀY</button>
+                <input type="text" id="mod-ban-reason" placeholder="Lý do Ban...">
+                <button style="background:var(--accent-danger);" onclick="UserMgr.submitBan()">BAN NGƯỜI NÀY</button>
             </div>
         </div>
     </div>
@@ -563,13 +465,13 @@ textarea.script-share-input { height: 150px; resize: none; }
 <div class="modal-backdrop" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
   <div class="modal-content">
     <div class="modal-header">
-      <div class="modal-heading">NOXGPT</div>
+      <div class="modal-heading">NOXGPT [AI]</div>
       <button class="modal-close" onclick="closeUI('modal-noxgpt')">✕</button>
     </div>
     
     <div id="gpt-fallback-container" style="display:none; padding:16px; background:var(--bg-input); border:1px dashed var(--accent-danger); margin:16px; flex-direction:column; gap:8px;">
-        <div style="font-size:0.9rem; font-weight:700; color:var(--accent-danger);" id="gpt-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY</div>
-        <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key..." style="width:100%; padding:12px 14px; background:var(--bg-core); border:1px solid var(--border-color); color:var(--text-main);">
+        <div style="font-size:0.9rem; font-weight:700; color:var(--accent-danger);" id="gpt-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY (GEMINI)</div>
+        <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng AQ. hoặc AIza)..." style="width:100%; padding:12px 14px; background:var(--bg-core); border:1px solid var(--border-color); color:var(--text-main);">
         <button onclick="GptEngine.validateAndSaveConfig()" style="width:100%; padding:12px; background:var(--accent-danger); color:#fff; font-weight:600; cursor:pointer;">LƯU VÀ THỬ LẠI</button>
     </div>
 
@@ -583,7 +485,7 @@ textarea.script-share-input { height: 150px; resize: none; }
       <div class="chat-input-wrapper">
         <label for="gpt-img-upload" class="btn-photo">+</label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
-        <textarea id="noxgpt-field" class="chat-field" placeholder="Nhập lệnh..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
+        <textarea id="noxgpt-field" class="chat-field" placeholder="Nhập câu lệnh..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
         <button class="chat-send" onclick="GptEngine.submit()">GỬI</button>
       </div>
     </div>
@@ -605,7 +507,7 @@ textarea.script-share-input { height: 150px; resize: none; }
     <div class="modal-header">
       <div class="modal-heading">SERVER CHAT</div>
       <div style="display:flex; gap:8px;">
-        <button class="box-action" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main);" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">KHO SCRIPT</button>
+        <button class="btn-sidebar" style="height:36px; min-height:36px; padding:0 12px; width:auto;" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">KHO SCRIPT</button>
         <button class="modal-close" style="width:36px; height:36px;" onclick="closeUI('modal-noxchat')">✕</button>
       </div>
     </div>
@@ -623,13 +525,10 @@ textarea.script-share-input { height: 150px; resize: none; }
         <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
       </div>
       <div class="chat-input-wrapper">
-        <button class="btn-photo" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
+        <button class="btn-photo" style="font-size: 0.9rem;" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
         <label for="chat-img-upload" class="btn-photo" title="Gửi ảnh">+</label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
-        
-        <!-- Thay input bằng TEXTAREA auto-grow -->
         <textarea id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); ChatEngine.sendMsg(); }"></textarea>
-        
         <button class="chat-send" onclick="ChatEngine.sendMsg()">GỬI</button>
       </div>
     </div>
@@ -642,9 +541,9 @@ textarea.script-share-input { height: 150px; resize: none; }
       <div class="modal-heading">CHIA SẺ SCRIPT</div>
       <button class="modal-close" onclick="closeUI('modal-script-share')">✕</button>
     </div>
-    <div class="script-share-form" style="display:flex; flex-direction:column; gap:16px; padding:20px;">
-      <input type="text" id="share-title" class="search-box" style="border-radius: var(--rad);" placeholder="Tên Script (VD: Hub VIP)">
-      <textarea id="share-code" class="search-box" placeholder="Dán mã Script vào đây..." style="height:150px; resize:none; border-radius: var(--rad);"></textarea>
+    <div class="dev-add-panel active" style="border:none; background:transparent;">
+      <input type="text" id="share-title" placeholder="Tên Script (VD: Hub VIP)">
+      <textarea id="share-code" placeholder="Dán mã Script vào đây..." style="height:150px; resize:none;"></textarea>
       <button class="btn-primary" onclick="ChatEngine.triggerSendScript()">ĐĂNG LÊN MÁY CHỦ</button>
     </div>
   </div>
@@ -667,8 +566,8 @@ textarea.script-share-input { height: 150px; resize: none; }
       <div class="modal-heading">CHỈNH SỬA TIN NHẮN</div>
       <button class="modal-close" onclick="closeUI('modal-edit-msg')">✕</button>
     </div>
-    <div style="display:flex; flex-direction:column; gap:14px; padding:20px;">
-      <textarea id="edit-msg-textarea" class="search-box" style="height:100px; resize:none;"></textarea>
+    <div class="dev-add-panel active" style="border:none; background:transparent;">
+      <textarea id="edit-msg-textarea" style="height:100px; resize:none;"></textarea>
       <button class="btn-primary" onclick="ChatEngine.saveEditedMsg()">LƯU THAY ĐỔI</button>
     </div>
   </div>
@@ -679,7 +578,6 @@ textarea.script-share-input { height: 150px; resize: none; }
 
 const DOM = { get: id => document.getElementById(id), queryAll: sel => document.querySelectorAll(sel) };
 
-/* HÀM KÉO GIÃN KHUNG CHAT (Auto-grow Textarea) */
 function autoResizeTextarea(el) {
     el.style.height = '44px';
     let newHeight = el.scrollHeight;
@@ -687,9 +585,6 @@ function autoResizeTextarea(el) {
     el.style.height = newHeight + 'px';
 }
 
-/* ==========================================================================
-   GLOBAL CONSTANTS & CONFIRMATION UI
-   ========================================================================== */
 const ADMIN_EMAIL = "hminhgalaxy@gmail.com";
 let IS_ADMIN = false;
 
@@ -704,20 +599,15 @@ const ConfirmUI = {
         DOM.get('confirm-modal').classList.remove('active');
         if(this.onConfirm) this.onConfirm();
     },
-    no: function() {
-        DOM.get('confirm-modal').classList.remove('active');
-    }
+    no: function() { DOM.get('confirm-modal').classList.remove('active'); }
 };
 
 function showToast(msg) {
-    const t = DOM.get('toast-banner');
-    if(!t) return;
-    t.innerText = msg;
-    t.classList.add('show');
+    const t = DOM.get('toast-banner'); if(!t) return;
+    t.innerText = msg; t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 5000);
 }
 
-/* Kiểm tra xem user có bị Ban hay không trước khi mở tính năng */
 const RestrictedAction = {
     checkAndOpen: function(modalId) {
         const profile = ChatEngine.userProfile;
@@ -727,8 +617,7 @@ const RestrictedAction = {
                 firebase.database().ref('nox_users_control/' + safeKey).once('value').then(snapshot => {
                     const data = snapshot.val();
                     if(data && data.isBanned) {
-                        DOM.get('ban-alert-title').innerText = "YOU GOT BANNED BY DEV";
-                        DOM.get('ban-alert-reason').innerText = `Lý do vi phạm: ${data.banReason || "Không có lý do"}`;
+                        DOM.get('ban-alert-reason').innerText = `Lý do: ${data.banReason || "Không có"}`;
                         DOM.get('ban-alert-modal').classList.add('active');
                         return;
                     }
@@ -749,7 +638,9 @@ const RestrictedAction = {
 function toggleMenu() { 
     const d = DOM.get('nav-drawer'); const o = DOM.get('menu-overlay');
     if(d) { d.classList.toggle('is-open'); if(o) o.classList.toggle('is-active'); }
-    if(!ChatEngine.userProfile) AuthEngine.renderGoogleButtons();
+    if(!ChatEngine.userProfile && DOM.get('drawer-google-login-wrap') && !DOM.get('drawer-google-login-wrap').hasChildNodes()) {
+         AuthEngine.renderGoogleButtons();
+    }
 }
 function openUI(id) { 
     const e = DOM.get(id); if(e) e.classList.add('is-active'); 
@@ -764,7 +655,7 @@ function toggleText(element) {
 }
 
 /* ==========================================================================
-   AUTH ENGINE (FIX LỖI MẤT GOOGLE LOGIN & XÁC NHẬN LOGOUT)
+   AUTH ENGINE (ĐÃ FIX LỖI ĐĂNG XUẤT)
    ========================================================================== */
 const AuthEngine = {
     initGoogleIdentity: function() {
@@ -811,7 +702,7 @@ const AuthEngine = {
         localStorage.setItem('nox_user_profile', JSON.stringify(profile));
         
         try {
-            if(profile.email && profile.email !== 'guest') {
+            if(profile.role !== 'DEV' && profile.email && profile.email !== 'guest') {
                 const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
                 firebase.database().ref('nox_users_registry/' + safeKey).set({
                     name: profile.name, email: profile.email, role: profile.role, lastLogin: firebase.database.ServerValue.TIMESTAMP
@@ -824,15 +715,20 @@ const AuthEngine = {
     },
     guestLogin: function() {
         const randId = Math.floor(Math.random() * 9999);
-        const guestProfile = { name: "Guest_" + randId, email: "guest", role: 'GUEST' };
+        const guestProfile = { name: "Guest_" + randId, email: "guest_" + randId + "@nox.local", role: 'GUEST' };
         this.login(guestProfile);
+        
+        try {
+            firebase.database().ref('nox_users_registry/' + guestProfile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_')).set({
+                name: guestProfile.name, email: guestProfile.email, role: guestProfile.role, lastLogin: firebase.database.ServerValue.TIMESTAMP
+            });
+        } catch (e) {}
+
         ChatEngine.appendMsg('SYSTEM', `Đăng nhập khách: ${guestProfile.name}`, true);
         ChatEngine.listenForMessages();
     },
     triggerLogout: function() {
-        ConfirmUI.show("BẠN CÓ CHẮC CHẮN MUỐN ĐĂNG XUẤT KHỎI HỆ THỐNG?", () => {
-            this.logout();
-        });
+        ConfirmUI.show("BẠN CÓ CHẮC CHẮN MUỐN ĐĂNG XUẤT KHỎI HỆ THỐNG?", () => { this.logout(); });
     },
     logout: function() {
         localStorage.removeItem('nox_user_profile');
@@ -896,7 +792,7 @@ const ConfigEngine = {
             const data = snapshot.val();
             if(data) {
                 if(data.title && DOM.get('ui-title-text')) DOM.get('ui-title-text').innerText = data.title;
-                if(data.version && DOM.get('ui-version-badge')) DOM.get('ui-version-badge').innerText = `Phiên bản ${data.version}`;
+                if(data.version && DOM.get('ui-version-badge')) DOM.get('ui-version-badge').innerText = `${data.version}`;
                 if(data.noticeTitle && DOM.get('ui-notice-title')) DOM.get('ui-notice-title').innerText = data.noticeTitle;
                 if(data.noticeText && DOM.get('ui-notice-text')) DOM.get('ui-notice-text').innerHTML = data.noticeText.replace(/\n/g, '<br>');
             }
@@ -915,7 +811,7 @@ const ConfigEngine = {
         if(noticeTitle) payload.noticeTitle = noticeTitle;
         if(noticeText) payload.noticeText = noticeText;
         
-        this.ref.update(payload).then(() => { showToast("Cập nhật thành công!"); });
+        this.ref.update(payload).then(() => { showToast("Đã cập nhật hệ thống thành công!"); });
     }
 };
 
@@ -930,7 +826,9 @@ const MenuEditor = {
         if(!IS_ADMIN) return;
         const name = DOM.get('menu-item-name').value.trim(); const link = DOM.get('menu-item-link').value.trim();
         if(!name || !link) { alert("Nhập đủ tên và đường dẫn!"); return; }
-        this.ref.push({ name, link, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => { DOM.get('menu-item-name').value = ''; DOM.get('menu-item-link').value = ''; showToast("Đã thêm Menu!"); });
+        this.ref.push({ name, link, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
+            DOM.get('menu-item-name').value = ''; DOM.get('menu-item-link').value = ''; showToast("Đã thêm mục vào menu!");
+        });
     },
     deleteMenuItem: function(key) { ConfirmUI.show("XÓA MỤC NÀY KHỎI MENU?", () => { this.ref.child(key).remove().then(() => showToast("Đã xóa khỏi menu!")); }); },
     loadMenu: function() {
@@ -940,11 +838,15 @@ const MenuEditor = {
             if(snapshot.exists()) {
                 snapshot.forEach(child => {
                     const item = child.val(); const key = child.key;
-                    const a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "btn-sidebar"; a.style.display = "flex"; a.style.justifyContent = "space-between";
+                    const a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "btn-sidebar";
+                    a.style.display = "flex"; a.style.justifyContent = "space-between";
+                    
                     let spanText = document.createElement('span'); spanText.innerText = item.name; a.appendChild(spanText);
+
                     if(IS_ADMIN) {
                         let delSpan = document.createElement('span'); delSpan.style.color = "var(--accent-danger)"; delSpan.style.cursor = "pointer"; delSpan.innerText = "[X]";
-                        delSpan.onclick = (e) => { e.preventDefault(); e.stopPropagation(); MenuEditor.deleteMenuItem(key); }; a.appendChild(delSpan);
+                        delSpan.onclick = (e) => { e.preventDefault(); e.stopPropagation(); MenuEditor.deleteMenuItem(key); };
+                        a.appendChild(delSpan);
                     }
                     container.appendChild(a);
                 });
@@ -959,34 +861,36 @@ const MenuEditor = {
 const UserMgr = {
     loadUsers: async function() {
         if(!IS_ADMIN) return;
-        const board = DOM.get('user-mgr-board'); board.innerHTML = '<div style="text-align:center;">Đang tải...</div>';
+        const board = DOM.get('user-mgr-board'); board.innerHTML = '<div style="text-align:center;">Đang tải danh sách người dùng...</div>';
         try {
             const regSnap = await firebase.database().ref('nox_users_registry').once('value');
             if(!regSnap.exists()) { board.innerHTML = '<div>Chưa có user nào.</div>'; return; }
-            const ctrlSnap = await firebase.database().ref('nox_users_control').once('value'); const controls = ctrlSnap.val() || {};
+            
+            const ctrlSnap = await firebase.database().ref('nox_users_control').once('value');
+            const controls = ctrlSnap.val() || {};
             
             board.innerHTML = '';
             regSnap.forEach(child => {
                 const u = child.val(); const safeKey = child.key; const control = controls[safeKey] || {};
-                const box = document.createElement('div'); box.style.cssText = "padding:16px; border:1px solid var(--border-color); background:var(--bg-panel); display:flex; flex-direction:column; gap:12px;";
+                const box = document.createElement('div'); box.className = 'data-box';
                 
                 let statusHtml = `<span style="color:var(--accent-green)">Bình thường</span>`;
                 if(control.isBanned) statusHtml = `<span style="color:var(--accent-danger)">ĐÃ BAN (${control.banReason})</span>`;
                 else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = `<span style="color:#f59e0b">ĐÃ MUTE đến ${new Date(control.muteUntil).toLocaleTimeString()} (${control.muteReason})</span>`;
                 
                 box.innerHTML = `
-                    <div style="font-weight:bold; font-size:1rem; color:var(--text-main);">${u.name}</div>
+                    <div class="box-head"><span class="box-title">${u.name}</span></div>
                     <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 8px;">Email: ${u.email}</div>
                     <div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ${statusHtml}</div>
                     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
                         <input type="number" id="um-mute-hours-${safeKey}" placeholder="Giờ mute" style="width:100px; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
                         <input type="text" id="um-mute-reason-${safeKey}" placeholder="Lý do mute..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                        <button style="padding:8px 16px; background:#f59e0b; color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.muteFromPanel('${safeKey}')">MUTE</button>
+                        <button class="box-action" style="background:#f59e0b; color:#fff;" onclick="UserMgr.muteFromPanel('${safeKey}')">MUTE</button>
                     </div>
                     <div style="display:flex; gap:8px; margin-top:8px;">
                         <input type="text" id="um-ban-reason-${safeKey}" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                        <button style="padding:8px 16px; background:var(--accent-danger); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.banFromPanel('${safeKey}')">BAN</button>
-                        <button style="padding:8px 16px; background:var(--accent-green); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.uncontrolUser('${safeKey}')">GỠ</button>
+                        <button class="box-action" style="background:var(--accent-danger); color:#fff;" onclick="UserMgr.banFromPanel('${safeKey}')">BAN</button>
+                        <button class="box-action" style="background:var(--accent-green); color:#fff;" onclick="UserMgr.uncontrolUser('${safeKey}')">GỠ</button>
                     </div>
                 `;
                 board.appendChild(box);
@@ -995,13 +899,15 @@ const UserMgr = {
     },
     muteFromPanel: function(safeKey) {
         const hours = parseFloat(DOM.get(`um-mute-hours-${safeKey}`).value) || 24; const reason = DOM.get(`um-mute-reason-${safeKey}`).value.trim() || "Vi phạm quy định"; const muteUntil = Date.now() + (hours * 3600 * 1000);
-        firebase.database().ref('nox_users_control/' + safeKey).update({ isMuted: true, muteUntil: muteUntil, muteReason: reason }).then(() => { showToast("Đã Mute user!"); this.loadUsers(); });
+        firebase.database().ref('nox_users_control/' + safeKey).update({ isMuted: true, muteUntil: muteUntil, muteReason: reason }).then(() => { showToast("Đã Mute user thành công!"); this.loadUsers(); });
     },
     banFromPanel: function(safeKey) {
         const reason = DOM.get(`um-ban-reason-${safeKey}`).value.trim() || "Vi phạm nghiêm trọng";
         firebase.database().ref('nox_users_control/' + safeKey).update({ isBanned: true, banReason: reason }).then(() => { showToast("Đã Ban vĩnh viễn user!"); this.loadUsers(); });
     },
-    uncontrolUser: function(safeKey) { firebase.database().ref('nox_users_control/' + safeKey).set({ isBanned: false, isMuted: false }).then(() => { showToast("Đã gỡ bỏ hình phạt!"); this.loadUsers(); }); },
+    uncontrolUser: function(safeKey) {
+        firebase.database().ref('nox_users_control/' + safeKey).set({ isBanned: false, isMuted: false }).then(() => { showToast("Đã gỡ bỏ hình phạt cho user!"); this.loadUsers(); });
+    },
     openModPanel: function(name, email) {
         if(!IS_ADMIN) return;
         DOM.get('mod-target-name').innerText = "User: " + name; DOM.get('mod-target-email').value = email; openUI('modal-dev-mod');
@@ -1019,59 +925,141 @@ const UserMgr = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC - ĐÃ KHÔI PHỤC ĐỦ DỮ LIỆU)
+   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC + NÚT SỬA/XÓA CỦA DEV ĐÃ ĐƯỢC FIX)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
-    init: function() { this.ref = firebase.database().ref('nox_custom_utils'); this.loadDynamicUtils(); MenuEditor.init(); },
-    switchPane: function(id, btn) { DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); const p = DOM.get(id); if(p) p.classList.add('is-active'); if(btn) btn.classList.add('is-active'); this.execSearch(DOM.get('input-search') ? DOM.get('input-search').value : ''); },
-    execSearch: function(query) { const q = (query||'').trim().toLowerCase(); DOM.queryAll('.tab-pane').forEach(p => { let c = 0; p.querySelectorAll('.data-box').forEach(b => { const m = !q || b.textContent.toLowerCase().includes(q); b.classList.toggle('is-hidden', !m); if(m) c++; }); let eMsg = p.querySelector('.search-empty'); if(!c && q) { if(!eMsg) { eMsg = document.createElement('div'); eMsg.className = 'search-empty'; eMsg.textContent = 'Không tìm thấy dữ liệu.'; p.appendChild(eMsg); } } else if(eMsg) eMsg.remove(); }); },
-    execCopy: function(btn) { const b = btn.closest('.data-box'); if(!b) return; const s = b.querySelector('.script-code'); if(!s) return; const txt = s.innerText.trim(); const fb = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed; opacity:0;'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch(e) { prompt('Copy:', txt); } ta.remove(); }; const ok = () => { const o = btn.textContent; btn.textContent = 'COPIED'; btn.classList.add('is-copied'); setTimeout(() => { btn.textContent = o; btn.classList.remove('is-copied'); }, 2000); }; if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok).catch(fb); else fb(); },
-    triggerSave: function() { ConfirmUI.show("LƯU TIỆN ÍCH NÀY LÊN MÁY CHỦ?", () => { this.saveUtility(); }); },
+    init: function() { 
+        this.ref = firebase.database().ref('nox_custom_utils'); 
+        this.loadDynamicUtils(); 
+        MenuEditor.init();
+    },
+    switchPane: function(id, btn) { 
+        DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); 
+        const p = DOM.get(id); if(p) p.classList.add('is-active'); if(btn) btn.classList.add('is-active'); 
+        this.execSearch(DOM.get('input-search') ? DOM.get('input-search').value : ''); 
+    },
+    execSearch: function(query) { 
+        const q = (query||'').trim().toLowerCase(); 
+        DOM.queryAll('.tab-pane').forEach(p => { 
+            let c = 0; p.querySelectorAll('.data-box').forEach(b => { const m = !q || b.textContent.toLowerCase().includes(q); b.classList.toggle('is-hidden', !m); if(m) c++; }); 
+            let eMsg = p.querySelector('.search-empty'); 
+            if(!c && q) { if(!eMsg) { eMsg = document.createElement('div'); eMsg.className = 'search-empty'; eMsg.textContent = 'Không tìm thấy dữ liệu.'; p.appendChild(eMsg); } } else if(eMsg) eMsg.remove(); 
+        }); 
+    },
+    execCopy: function(btn) { 
+        const b = btn.closest('.data-box'); if(!b) return; const s = b.querySelector('.script-code'); if(!s) return; const txt = s.innerText.trim(); 
+        const fb = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed; opacity:0;'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch(e) { prompt('Copy:', txt); } ta.remove(); }; 
+        const ok = () => { const o = btn.textContent; btn.textContent = 'COPIED'; btn.classList.add('is-copied'); setTimeout(() => { btn.textContent = o; btn.classList.remove('is-copied'); }, 2000); }; 
+        if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok).catch(fb); else fb(); 
+    },
+    triggerSave: function() {
+        ConfirmUI.show("LƯU TIỆN ÍCH NÀY LÊN MÁY CHỦ?", () => { this.saveUtility(); });
+    },
     saveUtility: function() {
         if(!IS_ADMIN) return;
-        const editKey = DOM.get('dev-edit-key').value; const type = DOM.get('dev-util-type').value; const title = DOM.get('dev-util-title').value.trim(); const content = DOM.get('dev-util-content').value.trim();
+        const editKey = DOM.get('dev-edit-key').value;
+        const type = DOM.get('dev-util-type').value; 
+        const title = DOM.get('dev-util-title').value.trim(); 
+        const content = DOM.get('dev-util-content').value.trim();
+        
         if(!title || !content) { alert("Nhập đủ thông tin!"); return; }
-        if(editKey) { this.ref.child(editKey).update({ type, title, content }).then(() => { showToast("Đã cập nhật tiện ích!"); this.cancelEdit(); }); } 
-        else { this.ref.push({ type, title, content, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => { showToast("Đã thêm tiện ích mới!"); DOM.get('dev-util-title').value = ''; DOM.get('dev-util-content').value = ''; }); }
+        
+        if(editKey) {
+            this.ref.child(editKey).update({ type, title, content }).then(() => {
+                showToast("Đã cập nhật tiện ích!");
+                this.cancelEdit();
+            });
+        } else {
+            this.ref.push({ type, title, content, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
+                showToast("Đã thêm tiện ích mới!");
+                DOM.get('dev-util-title').value = ''; DOM.get('dev-util-content').value = '';
+            });
+        }
     },
-    triggerDelete: function(key) { ConfirmUI.show("XÓA TIỆN ÍCH NÀY KHỎI HỆ THỐNG?", () => { this.ref.child(key).remove().then(() => showToast("Đã xóa tiện ích!")); }); },
-    triggerEdit: function(key, type, title, content) { DOM.get('dev-edit-key').value = key; DOM.get('dev-util-type').value = type; DOM.get('dev-util-title').value = title; DOM.get('dev-util-content').value = content; DOM.get('dev-panel-heading').innerText = "[DEV] CHỈNH SỬA TIỆN ÍCH"; DOM.get('dev-submit-btn').innerText = "LƯU THAY ĐỔI"; DOM.get('dev-cancel-btn').style.display = 'block'; openUI('modal-archive'); },
-    cancelEdit: function() { DOM.get('dev-edit-key').value = ''; DOM.get('dev-util-title').value = ''; DOM.get('dev-util-content').value = ''; DOM.get('dev-panel-heading').innerText = "[DEV] THÊM / SỬA TIỆN ÍCH"; DOM.get('dev-submit-btn').innerText = "ĐĂNG TẢI"; DOM.get('dev-cancel-btn').style.display = 'none'; },
+    triggerDelete: function(key) {
+        ConfirmUI.show("XÓA TIỆN ÍCH NÀY KHỎI HỆ THỐNG?", () => { 
+            this.ref.child(key).remove().then(() => showToast("Đã xóa tiện ích!")); 
+        });
+    },
+    triggerEdit: function(key, type, title, content) {
+        DOM.get('dev-edit-key').value = key;
+        DOM.get('dev-util-type').value = type;
+        DOM.get('dev-util-title').value = title;
+        DOM.get('dev-util-content').value = content;
+        DOM.get('dev-panel-heading').innerText = "[DEV] CHỈNH SỬA TIỆN ÍCH";
+        DOM.get('dev-submit-btn').innerText = "LƯU THAY ĐỔI";
+        DOM.get('dev-cancel-btn').style.display = 'block';
+        openUI('modal-archive');
+    },
+    cancelEdit: function() {
+        DOM.get('dev-edit-key').value = '';
+        DOM.get('dev-util-title').value = ''; 
+        DOM.get('dev-util-content').value = '';
+        DOM.get('dev-panel-heading').innerText = "[DEV] THÊM / SỬA TIỆN ÍCH";
+        DOM.get('dev-submit-btn').innerText = "ĐĂNG TẢI";
+        DOM.get('dev-cancel-btn').style.display = 'none';
+    },
     loadDynamicUtils: function() {
         if(!this.ref) return;
+        
+        const defaultData = [
+            { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz', isLink: true },
+            { type: 'pane-link', title: 'Kasumi Store', content: 'https://gofile.io/d/v3Q6Ig', isLink: true },
+            { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL', isLink: true },
+            { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp', isLink: true },
+            { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
+            { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
+            { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/', isLink: true },
+            { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk', isLink: true },
+            { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/', isLink: true }
+        ];
+
         this.ref.on('value', snapshot => {
-            DOM.queryAll('.dynamic-item').forEach(el => el.remove()); // Giữ lại static items
+            DOM.queryAll('.dynamic-item').forEach(el => el.remove());
+            
+            let allItems = [...defaultData];
             if(snapshot.exists()) {
                 snapshot.forEach(child => {
-                    const data = child.val(); const key = child.key; const pane = DOM.get(data.type);
-                    if(pane) {
-                        const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                        let devControls = '';
-                        if(IS_ADMIN) {
-                            devControls = `<button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button><button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${key}')">XÓA</button>`;
-                        }
-                        if(data.type === 'pane-script') { box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`; } 
-                        else { box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`; }
-                        pane.insertBefore(box, pane.firstChild);
-                    }
+                    allItems.push({ key: child.key, ...child.val() });
                 });
             }
+
+            allItems.forEach(data => {
+                const pane = DOM.get(data.type);
+                if(pane) {
+                    const box = document.createElement('div'); box.className = 'data-box dynamic-item';
+                    
+                    let devControls = '';
+                    if(IS_ADMIN && data.key) {
+                        devControls = `
+                            <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
+                            <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${data.key}')">XÓA</button>
+                        `;
+                    }
+                    
+                    if(data.type === 'pane-script' || data.isScript) {
+                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
+                    } else {
+                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
+                    }
+                    pane.appendChild(box);
+                }
+            });
         });
     }
 };
 
 /* ==========================================================================
-   NOX GPT ENGINE (DEEPSEEK 4.0 PRO)
+   NOX GPT ENGINE (GEMINI INTERACTIONS API + PUTER)
    ========================================================================== */
 const GptEngine = {
-  defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
-  defaultUrl: "https://api.xkiro.com/v1/chat/completions",
-  getApiKey: function() { return localStorage.getItem('nox_ds_key') || this.defaultKey; },
-  setApiKey: function(newKey) { localStorage.setItem('nox_ds_key', newKey.trim()); },
+  defaultKey: "AQ.Ab8RN6L-Nwaw9ndnWLGEDSAaXXv808vv0oTHeAtvi-Ue7iq4jQ",
+  defaultUrl: "https://generativelanguage.googleapis.com/v1beta/interactions",
+  getApiKey: function() { return localStorage.getItem('nox_interaction_key') || this.defaultKey; },
+  setApiKey: function(newKey) { localStorage.setItem('nox_interaction_key', newKey.trim()); },
   
-  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
-  messageHistory: [{ role: "system", content: "Bạn là NOXGPT, AI của NOX WEB (tạo ra bởi DEV HminhGalaxy). Trả lời ngắn gọn, chuẩn Hacker." }],
+  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false, usePuter: false,
 
   init: function() {
     if(this.isGreeted) return; this.isGreeted = true;
@@ -1080,19 +1068,16 @@ const GptEngine = {
 
   appendMsg: function(type, name, htmlContent, isError = false) {
     if(!this.board) return;
-    const row = document.createElement('div'); row.style.cssText = "display:flex; flex-direction:column; max-width:85%; margin-bottom:16px;";
-    if(type === 'user') row.style.alignSelf = "flex-end";
-    
+    const row = document.createElement('div'); row.className = `msg-row type-${type} ${isError ? 'type-error' : ''}`;
     let innerHTML = '';
-    if(type === 'other') { innerHTML += `<div style="display:flex; align-items:center; margin-bottom:4px;"><div style="font-size:0.8rem; font-weight:bold; color:var(--accent-green);">${name}</div></div>`; } 
-    else { innerHTML += `<div style="display:flex; align-items:center; justify-content:flex-end; margin-bottom:4px;"><div style="font-size:0.8rem; font-weight:bold; color:var(--text-sub);">Bạn</div></div>`; }
-    
-    let bg = type === 'user' ? "var(--border-hover)" : (isError ? "var(--accent-danger-bg)" : "var(--bg-panel)");
-    let borderColor = type === 'user' ? "var(--text-sub)" : (isError ? "var(--accent-danger)" : "var(--border-color)");
-    let color = isError ? "var(--accent-danger)" : "var(--text-main)";
-    
-    innerHTML += `<div style="padding:12px 16px; background:${bg}; border:1px solid ${borderColor}; color:${color}; font-size:0.95rem; line-height:1.5; word-wrap:break-word;">${htmlContent}</div>`;
-    row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight; return row; 
+    if(type === 'other') {
+      innerHTML += `<div class="msg-meta"><div class="msg-name sys">${name}</div></div>`;
+    } else {
+      innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
+    }
+    innerHTML += `<div class="msg-bubble">${htmlContent}</div>`;
+    row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
+    return row; 
   },
 
   removeImage: function() { ImageProcessor.currentGptImage = null; DOM.get('gpt-preview-img').src = ''; DOM.get('gpt-preview-zone').classList.remove('active'); },
@@ -1100,15 +1085,29 @@ const GptEngine = {
   triggerFallbackUI: function(errorMessage) {
     this.input.disabled = true; this.input.placeholder = "API Lỗi...";
     const box = DOM.get('gpt-fallback-container');
-    if(box) { box.style.display = 'block'; box.querySelector('.api-fallback-title').innerText = `[LỖI API] ${errorMessage}`; }
+    if(box) { box.style.display = 'block'; box.querySelector('.api-fallback-title').innerText = `[LỖI API] Đang dùng Puter. Cập nhật Key Gemini để khôi phục:`; }
   },
 
   validateAndSaveConfig: function() {
       const keyInput = DOM.get('gpt-new-api-key'); const keyVal = keyInput ? keyInput.value.trim() : '';
       if(!keyVal) { alert("Vui lòng nhập API Key!"); return; }
-      this.setApiKey(keyVal); DOM.get('gpt-fallback-container').style.display = 'none';
-      this.input.disabled = false; this.input.placeholder = "Nhập câu lệnh...";
+      if(!keyVal.startsWith("AIza") && !keyVal.startsWith("AQ.")) {
+          alert("Lỗi: Key Gemini phải bắt đầu bằng 'AIza' hoặc 'AQ.'"); return;
+      }
+      this.setApiKey(keyVal); this.usePuter = false;
+      DOM.get('gpt-fallback-container').style.display = 'none'; this.input.disabled = false; this.input.placeholder = "Nhập tin nhắn...";
       this.appendMsg('other', 'System', 'Đã lưu API Key mới. Vui lòng thử lại câu hỏi.');
+  },
+
+  submitPuter: function(text) {
+      const tempNode = this.appendMsg('other', 'NOXGPT (Dự phòng)', '<span style="opacity:0.6;">Đang xử lý (Puter)...</span>');
+      try {
+          puter.ai.chat(text, { model: "gpt-5.4-nano" }).then(response => {
+              tempNode.remove();
+              let output = typeof response === 'string' ? response : (response.message || response.text || JSON.stringify(response));
+              this.appendMsg('other', 'NOXGPT (Dự phòng)', output.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>'));
+          }).catch(err => { tempNode.remove(); this.appendMsg('other', 'System Error', 'Lỗi kết nối Puter AI.', true); });
+      } catch(e) { tempNode.remove(); }
   },
 
   submit: async function() {
@@ -1120,35 +1119,46 @@ const GptEngine = {
     
     this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
-    this.messageHistory.push({ role: "user", content: text || "[Đã gửi ảnh]" });
+    
+    if(this.usePuter) {
+        if(base64Img) this.appendMsg('other', 'System', 'Lưu ý: Puter không hỗ trợ xem ảnh.', true);
+        this.submitPuter(text || "Xin chào"); return;
+    }
 
     const tempNode = this.appendMsg('other', 'NOXGPT', '<span style="opacity:0.6;">Đang xử lý...</span>');
 
     try {
       const apiKey = this.getApiKey();
+      let payload = { model: "gemini-3.6-flash" };
+      
+      let inputArr = [];
+      if(text) inputArr.push({ type: "text", text: text });
+      if(base64Img) {
+          const base64Data = base64Img.split(',')[1];
+          inputArr.push({ type: "image", data: base64Data, mime_type: "image/jpeg" });
+      }
+      payload.input = inputArr.length === 1 && text ? text : inputArr;
+
       const response = await fetch(this.defaultUrl, {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-        body: JSON.stringify({ model: "deepseek/deepseek-v4-pro", messages: this.messageHistory })
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey }, body: JSON.stringify(payload)
       });
 
-      if(!response.ok) { const errData = await response.json().catch(()=>({})); throw new Error(errData.error?.message || `HTTP Error ${response.status}`); }
+      if(!response.ok) throw new Error("API FAILED");
       const data = await response.json(); tempNode.remove();
       
-      if(data.choices && data.choices[0] && data.choices[0].message) {
-          const reply = data.choices[0].message.content;
-          const formattedText = reply.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
-          this.appendMsg('other', 'NOXGPT', formattedText); 
-          this.messageHistory.push({ role: "assistant", content: reply });
-      } else { throw new Error("Format lỗi từ máy chủ"); }
+      let outputText = data.output_text || data.response || (data.candidates && data.candidates[0].content.parts[0].text) || "Lỗi dữ liệu trả về.";
+      this.appendMsg('other', 'NOXGPT', outputText.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>')); 
+      
     } catch(err) {
-      if(tempNode) tempNode.remove(); console.warn("DeepSeek Error:", err); this.triggerFallbackUI(err.message);
+      if(tempNode) tempNode.remove(); console.warn("Gemini Error:", err);
+      this.usePuter = true; this.triggerFallbackUI(err.message); this.submitPuter(text || "Xin chào");
     }
   }
 };
 const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT ENGINE (FIX LỖI CỤC BỘ CLICK VÀO TIN NHẮN ĐỂ SỬA)
+   FIREBASE CHAT ENGINE (FIX LỖI CLICK VÀO TIN NHẮN)
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
@@ -1210,7 +1220,8 @@ const ChatEngine = {
     const row = document.createElement('div'); row.className = `msg-row ${rowType}`; row.id = msgKey ? `msg-${msgKey}` : '';
     
     let innerHTML = '';
-    
+    let deleteBtn = (IS_ADMIN && msgKey && !isSystem) ? `<span style="cursor:pointer; color:var(--accent-danger); margin-left:8px;" onclick="ChatEngine.triggerDeleteMsg('${msgKey}')">[X]</span>` : '';
+
     if(!isMe) {
       let badge = ''; let nameClass = 'msg-name';
       if(isSystem) { nameClass = 'msg-name sys'; }
@@ -1219,9 +1230,9 @@ const ChatEngine = {
           else if(role === 'NOX') { badge = `<span class="badge-nox">[NOX]</span>`; }
           else { badge = `<span class="badge-guest">[GUEST]</span>`; }
       }
-      innerHTML += `<div class="msg-meta"><div class="${nameClass}">${badge}${senderName}</div></div>`;
+      innerHTML += `<div class="msg-meta"><div class="${nameClass}">${badge}${senderName} ${deleteBtn}</div></div>`;
     } else {
-        innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
+        innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn ${deleteBtn}</div></div>`;
     }
     
     let bubbleContent = isRecalled ? '<span style="font-style:italic; color:var(--text-muted);">[Tin nhắn đã bị thu hồi]</span>' : htmlContent;
@@ -1229,38 +1240,43 @@ const ChatEngine = {
     let borderColor = isMe ? "var(--text-sub)" : (isRecalled ? "var(--border-color)" : "var(--border-color)");
     
     const bubbleEl = document.createElement('div');
-    bubbleEl.style.cssText = `padding:12px 16px; background:${bg}; border:1px solid ${borderColor}; color:var(--text-main); font-size:0.95rem; line-height:1.5; word-wrap:break-word; cursor:pointer; position:relative;`;
-    if(isRecalled) bubbleEl.style.borderStyle = "dashed";
+    bubbleEl.className = `msg-bubble ${isRecalled ? 'recalled' : ''}`;
     bubbleEl.innerHTML = bubbleContent;
     
-    // CLICK EVENT: HIỆN MENU SỬA/THU HỒI
+    // BẮT SỰ KIỆN CLICK ĐỂ HIỆN MENU SỬA/THU HỒI
     bubbleEl.onclick = (e) => {
         e.stopPropagation();
-        document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
+        
+        // Remove all other action bars
+        document.querySelectorAll('.msg-context-menu').forEach(el => el.remove());
         
         if(isMe && !isRecalled && msgKey) {
             const ctxMenu = document.createElement('div');
-            ctxMenu.className = 'msg-context-menu';
+            ctxMenu.className = 'msg-context-menu active';
             ctxMenu.innerHTML = `
-                <button class="msg-context-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Chỉnh sửa văn bản</button>
-                <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi tin nhắn</button>
+                <button class="msg-context-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Sửa văn bản</button>
+                <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi</button>
             `;
-            // Căn chỉnh context menu
-            ctxMenu.style.cssText = "position:absolute; bottom:100%; right:0; background:var(--bg-panel); border:1px solid var(--border-color); display:flex; flex-direction:column; z-index:100; box-shadow:var(--shadow-lg); min-width:140px;";
             row.appendChild(ctxMenu);
-            
             document.addEventListener('pointerdown', (ev) => { if(!ctxMenu.contains(ev.target)) ctxMenu.remove(); }, { once: true });
         } else if (!isMe && IS_ADMIN && role !== 'DEV' && !isSystem && senderEmail) {
             UserMgr.openModPanel(senderName, senderEmail);
         }
     };
 
-    const metaDiv = document.createElement('div'); metaDiv.innerHTML = innerHTML;
-    row.appendChild(metaDiv.firstElementChild); row.appendChild(bubbleEl);
+    const metaDiv = document.createElement('div');
+    metaDiv.innerHTML = innerHTML;
+    
+    row.appendChild(metaDiv.firstElementChild);
+    row.appendChild(bubbleEl);
     
     const existing = DOM.get(`msg-${msgKey}`);
-    if(existing) { existing.replaceWith(row); } 
-    else { this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight; }
+    if(existing) {
+        existing.replaceWith(row);
+    } else {
+        this.board.appendChild(row); 
+        this.board.scrollTop = this.board.scrollHeight;
+    }
   },
 
   activeMsgKey: null,
@@ -1278,20 +1294,33 @@ const ChatEngine = {
   },
 
   saveEditedMsg: function() {
-      const key = DOM.get('edit-msg-textarea').getAttribute('data-key'); if(!key) return;
-      const newText = DOM.get('edit-msg-textarea').value.trim(); if(!newText) { alert("Tin nhắn trống!"); return; }
-      this.dbRef.child(key).update({ text: newText }).then(() => { closeUI('modal-edit-msg'); showToast("Đã chỉnh sửa!"); });
+      const key = DOM.get('edit-msg-textarea').getAttribute('data-key');
+      if(!key) return;
+      const newText = DOM.get('edit-msg-textarea').value.trim();
+      if(!newText) { alert("Tin nhắn trống!"); return; }
+      
+      this.dbRef.child(key).update({ text: newText }).then(() => {
+          closeUI('modal-edit-msg');
+          showToast("Đã chỉnh sửa tin nhắn!");
+      });
   },
 
   triggerRecallMsg: function(key) {
       document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
-      ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => { this.dbRef.child(key).update({ recalled: true, text: "" }).then(() => { showToast("Đã thu hồi!"); }); });
+      ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
+          this.dbRef.child(key).update({ recalled: true, text: "" }).then(() => {
+              showToast("Đã thu hồi tin nhắn!");
+          });
+      });
   },
+
+  triggerDeleteMsg: function(key) { ConfirmUI.show("BẠN CÓ CHẮC MUỐN XÓA TIN NHẮN NÀY KHỎI HỆ THỐNG?", () => { this.dbRef.child(key).remove(); }); },
 
   listenForMessages: function() {
     if(!this.dbRef) return;
     this.dbRef.limitToLast(50).on('child_added', (snapshot) => {
       const data = snapshot.val(); if(!data) return;
+      // Tránh việc bị trùng do cơ chế Offline của Firebase
       if(this.userProfile && data.user === this.userProfile.name && Date.now() - data.timestamp < 3000) return; 
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
       if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
@@ -1312,31 +1341,30 @@ const ChatEngine = {
     if(!this.userProfile) { alert("Chưa đăng nhập!"); return; }
     if(!this.dbRef) return;
     
-    if (this.userProfile.role === 'GUEST') { this._executeSend(); return; }
-    
     const safeKey = this.userProfile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
-    firebase.database().ref('nox_users_control/' + safeKey).once('value').then(snapshot => {
+    firebase.database().ref('nox_users_control/' + safeKey).once('value', snapshot => {
         const ctrl = snapshot.val();
         if(ctrl && ctrl.isMuted && Date.now() < ctrl.muteUntil) {
-            alert(`BẠN ĐÃ BỊ CẤM TRONG 24H. Lý do: ${ctrl.muteReason || 'Không có'}`); return;
+            const timeStr = new Date(ctrl.muteUntil).toLocaleTimeString();
+            alert(`BẠN ĐÃ BỊ CẤM TRONG 24H (Đến ${timeStr}). Lý do: ${ctrl.muteReason || 'Không có'}`);
+            return;
         }
-        this._executeSend();
-    }).catch(() => this._executeSend());
-  },
-
-  _executeSend: function() {
-      const text = this.input.value.trim(); const base64Img = ImageProcessor.currentChatImage;
-      if(!text && !base64Img) return;
-      
-      let displayHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>') : "";
-      if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
-      
-      this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
-      
-      this.dbRef.push({ 
-          user: this.userProfile.name, role: this.userProfile.role, email: this.userProfile.email,
-          text: text, image: base64Img || "", recalled: false, timestamp: firebase.database.ServerValue.TIMESTAMP 
-      }).catch(err => { this.appendMsg('SYSTEM', 'Gửi lỗi.', true); });
+        
+        const text = this.input.value.trim(); const base64Img = ImageProcessor.currentChatImage;
+        if(!text && !base64Img) return;
+        
+        let displayHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+        if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
+        
+        this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
+        
+        // Push directly up (the event listener will pull it back down to show it)
+        this.dbRef.push({ 
+            user: this.userProfile.name, role: this.userProfile.role, email: this.userProfile.email,
+            text: text, image: base64Img || "", recalled: false, 
+            timestamp: firebase.database.ServerValue.TIMESTAMP 
+        }).catch(err => { this.appendMsg('SYSTEM', 'Gửi lỗi.', true); });
+    });
   },
 
   triggerSendScript: function() { ConfirmUI.show("ĐĂNG TẢI SCRIPT NÀY LÊN MÁY CHỦ?", () => { this.sendScript(); }); },
@@ -1345,7 +1373,11 @@ const ChatEngine = {
       const title = DOM.get('share-title').value.trim(); const code = DOM.get('share-code').value.trim();
       if(!title || !code) { alert("Điền đủ thông tin!"); return; }
       this.scriptRef.push({ user: this.userProfile.name, role: this.userProfile.role, title: title, code: code, timestamp: firebase.database.ServerValue.TIMESTAMP })
-      .then(() => { showToast("Đăng Script thành công!"); DOM.get('share-title').value = ''; DOM.get('share-code').value = ''; closeUI('modal-script-share'); });
+      .then(() => { 
+          showToast("Đăng Script thành công!"); 
+          DOM.get('share-title').value = ''; DOM.get('share-code').value = ''; 
+          closeUI('modal-script-share'); 
+      });
   },
 
   loadVaultScripts: function() {
