@@ -5,21 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V44 MASTER SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX-SKIBIDI WEB Enterprise V44. Inline Mod Panel, Fix UI Overflow, Realtime Ban/Unban.">
+<title>NOX WEB - V34 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V34. Giao diện Vuông, Kho tiện ích chỉnh sửa qua nút tròn, Global Chat quản lý DEV.">
 <meta name="robots" content="index, follow">
 
-<!-- Firebase App & Database -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- Puter.js AI (Dự phòng) -->
 <script src="https://js.puter.com/v2/"></script>
 
 <style>
 /* ==========================================================================
-   CSS ARCHITECTURE: DARK THEME & FIXED OVERFLOW
+   CSS ARCHITECTURE: DARK THEME & SQUARE GEOMETRY
    ========================================================================== */
 :root {
   --bg-core: #0d0f12;        
@@ -36,36 +33,41 @@
   
   --accent-green: #10b981;
   --accent-green-bg: rgba(16, 185, 129, 0.1);
+  --accent-blue: #3b82f6; 
   --accent-danger: #ef4444;
   --accent-danger-bg: rgba(239, 68, 68, 0.1);
   --dev-color: #ff0055;
   
   --rad: 0px; 
-  
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-button, input, textarea, select { font-family: inherit; outline: none; border: none; border-radius: var(--rad); box-sizing: border-box; }
+button, input, textarea, select { font-family: inherit; outline: none; border: none; border-radius: var(--rad); }
 a { text-decoration: none; color: inherit; }
 
 html { font-family: "Courier New", Courier, monospace; font-size: 16px; width: 100%; height: 100%; }
 
 body {
-  width: 100%; min-height: 100vh; background-color: var(--bg-core);
+  width: 100%; min-height: 100vh;
+  background-color: var(--bg-core);
   overflow-y: auto !important; overflow-x: hidden; position: relative;
   display: flex; justify-content: center; align-items: flex-start;
   padding: 8vh 16px 100px; color: var(--text-main);
 }
 
+/* CRT SCANLINE EFFECT */
 body::after {
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
   background-size: 100% 4px, 3px 100%; opacity: 0.2;
 }
 
+/* ==========================================================================
+   TOAST NOTIFICATION BANNER
+   ========================================================================== */
 #toast-banner {
   position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
   background: var(--accent-green); color: #fff; padding: 12px 24px;
@@ -78,58 +80,104 @@ body::after {
 /* ==========================================================================
    SOLID PANELS & BUTTONS
    ========================================================================== */
-.solid-panel { background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-md); position: relative; z-index: 10; }
+.solid-panel {
+  background: var(--bg-panel); border: 1px solid var(--border-color);
+  border-radius: var(--rad); box-shadow: var(--shadow-md);
+  position: relative; z-index: 10;
+}
 
-.btn-primary { width: 100%; padding: 14px 20px; border-radius: var(--rad); display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; font-weight: bold; font-size: 0.95rem; background: var(--accent-green); transition: all 0.2s ease; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-.btn-primary:hover { background: #059669; } .btn-primary:active { transform: scale(0.98); }
+.btn-primary {
+  width: 100%; padding: 14px 20px; border-radius: var(--rad); 
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: #fff; font-weight: bold; font-size: 0.95rem; 
+  background: var(--accent-green); transition: all 0.2s ease; cursor: pointer;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.btn-primary:hover { background: #059669; }
+.btn-primary:active { transform: scale(0.98); }
 
-.btn-sidebar { width: 100%; padding: 14px 16px; border-radius: var(--rad); display: flex; align-items: center; justify-content: flex-start; gap: 14px; color: var(--text-sub); font-weight: bold; font-size: 0.95rem; background: transparent; border: 1px solid var(--border-color); transition: all 0.2s ease; cursor: pointer; text-transform: uppercase; }
+.btn-sidebar {
+  width: 100%; padding: 14px 16px; border-radius: var(--rad); 
+  display: flex; align-items: center; justify-content: flex-start; gap: 14px;
+  color: var(--text-sub); font-weight: bold; font-size: 0.95rem; 
+  background: transparent; border: 1px solid var(--border-color);
+  transition: all 0.2s ease; cursor: pointer; text-transform: uppercase;
+}
 .btn-sidebar:hover { background: var(--bg-panel-hover); color: var(--text-main); border-color: var(--text-sub); }
+.btn-sidebar.active { background: var(--accent-green-bg); color: var(--accent-green); border-color: var(--accent-green); }
 
+/* ==========================================================================
+   SIDEBAR & HEADER
+   ========================================================================== */
 .top-nav { position: fixed; top: 16px; left: 16px; z-index: 100; }
-.menu-trigger { height: 44px; padding: 0 16px; border-radius: var(--rad); background: var(--bg-panel); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm); text-transform: uppercase; }
+.menu-trigger {
+  height: 44px; padding: 0 16px; border-radius: var(--rad);
+  background: var(--bg-panel); border: 1px solid var(--border-color);
+  display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: bold; font-size: 0.9rem;
+  cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm); text-transform: uppercase;
+}
 .menu-trigger:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
 
-.drawer-menu { position: fixed; top: 0; left: 0; height: 100dvh; width: 300px; max-width: 85vw; padding: 24px 16px; z-index: 999; display: flex; flex-direction: column; gap: 24px; background: var(--bg-core); border-right: 1px solid var(--border-color); transform: translateX(-100%); opacity: 0; pointer-events: none; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.5); overflow-y: auto; }
+.drawer-menu {
+  position: fixed; top: 0; left: 0; height: 100dvh; width: 300px; max-width: 85vw;
+  padding: 24px 16px; z-index: 999; display: flex; flex-direction: column; gap: 24px;
+  background: var(--bg-core); border-right: 1px solid var(--border-color);
+  transform: translateX(-100%); opacity: 0; pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.5); overflow-y: auto;
+}
 .drawer-menu.is-open { transform: translateX(0); opacity: 1; pointer-events: auto; }
+
 .drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px dashed var(--border-color); }
 .drawer-title { font-size: 1.1rem; font-weight: bold; color: var(--text-main); display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
 .drawer-close { background: var(--border-color); color: var(--text-main); width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: var(--rad); cursor: pointer; transition: 0.2s; font-weight: bold;}
 .drawer-close:hover { background: var(--accent-danger); color: #fff; }
+
 .drawer-group { display: flex; flex-direction: column; gap: 8px; }
 .drawer-label { font-size: 0.8rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 4px; margin-bottom: 4px; }
+
 .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 998; opacity: 0; pointer-events: none; transition: 0.3s; }
 .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
 
 /* ==========================================================================
-   MAIN DASHBOARD CARD (FIX OVERFLOW LỖI TRÊN ẢNH)
+   MAIN DASHBOARD CARD
    ========================================================================== */
 .card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; margin-top: 50px; }
-.main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; width: 100%; }
+.main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; }
 
 .title-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
 .title-main { font-size: 2rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px;}
 .status-badge { font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: var(--rad); background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); text-transform: uppercase;}
 
-.info-board { padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); cursor: pointer; width: 100%; }
-.info-board h3 { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--accent-green); text-transform: uppercase; display: flex; justify-content: space-between;}
-.info-board h3 span.hint { font-size: 0.75rem; color: var(--text-sub); font-weight: normal; text-transform: none; }
+.info-board {
+  padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color);
+}
+.info-board h3 { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--accent-green); text-transform: uppercase;}
+.info-board p { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); }
 
-.text-truncate { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: all 0.3s ease; }
+.text-truncate {
+  font-size: 0.9rem; line-height: 1.6; color: var(--text-sub);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  transition: all 0.3s ease;
+}
 .text-truncate.expanded { display: block; -webkit-line-clamp: unset; }
-
-/* Fix lỗi khung cấu hình Dev bị tràn (Width 100% & box-sizing) */
-.dev-config-box { display: none; flex-direction: column; gap: 10px; margin-top: 15px; border: 1px dashed var(--dev-color); padding: 16px; background: rgba(255,0,85,0.05); width: 100%; box-sizing: border-box; }
-.dev-config-box input, .dev-config-box textarea { width: 100%; max-width: 100%; padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); box-sizing: border-box; }
-.dev-config-box button { width: 100%; padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
 
 /* ==========================================================================
    MODAL CORE
    ========================================================================== */
-.modal-backdrop { position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(0, 0, 0, 0.85); opacity: 0; transition: opacity 0.2s ease; }
+.modal-backdrop { 
+  position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; 
+  padding: 16px; background: rgba(0, 0, 0, 0.85); opacity: 0; transition: opacity 0.2s ease; 
+}
 .modal-backdrop.is-active { display: flex; opacity: 1; }
-.modal-content { width: 100%; max-width: 650px; height: 90dvh; max-height: 800px; display: flex; flex-direction: column; background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-lg); transform: scale(0.98); transition: transform 0.2s ease; overflow: hidden; }
+
+.modal-content { 
+  width: 100%; max-width: 650px; height: 90dvh; max-height: 800px; display: flex; flex-direction: column; 
+  background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-lg);
+  transform: scale(0.98); transition: transform 0.2s ease; overflow: hidden;
+}
 .modal-backdrop.is-active .modal-content { transform: scale(1); }
+
 .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px dashed var(--border-color); background: var(--bg-core); }
 .modal-heading { font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-main); text-transform: uppercase;}
 .modal-close { width: 36px; height: 36px; border-radius: var(--rad); background: var(--border-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; font-weight: bold;}
@@ -151,32 +199,56 @@ body::after {
 .tab-body-wrapper { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-core); display: flex; flex-direction: column; gap: 16px;}
 .tab-body-wrapper::-webkit-scrollbar { width: 4px; }
 .tab-body-wrapper::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 0; }
+
 .tab-pane { display: none; flex-direction: column; gap: 16px; }
 .tab-pane.is-active { display: flex; }
 
-.data-box { padding: 16px 20px; border-radius: var(--rad); background: var(--bg-panel); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 14px; position: relative; transition: all 0.2s ease; }
+.data-box { 
+  padding: 16px 20px; border-radius: var(--rad); 
+  background: var(--bg-panel); border: 1px solid var(--border-color); 
+  display: flex; flex-direction: column; gap: 14px; 
+  position: relative; transition: all 0.2s ease;
+}
 .data-box:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
 .data-box.is-hidden { display: none; }
 
 .box-head { display: flex; justify-content: space-between; align-items: center; padding-left: 8px;}
 .box-title { font-size: 1rem; font-weight: bold; color: var(--text-main); text-transform: uppercase;}
-.box-action { padding: 8px 16px; border-radius: var(--rad); background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); font-weight: bold; font-size: 0.85rem; transition: 0.2s; cursor: pointer; text-transform: uppercase; }
+.box-action { 
+  padding: 8px 16px; border-radius: var(--rad); background: var(--bg-input); 
+  color: var(--text-main); border: 1px solid var(--border-color); 
+  font-weight: bold; font-size: 0.85rem; transition: 0.2s; cursor: pointer; text-transform: uppercase;
+}
 .box-action:hover { border-color: var(--text-main); background: var(--border-hover); }
 .box-action.is-copied { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
 
 .script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad); background: var(--bg-input); border: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
 
-.dev-circle-edit-btn { width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: #3b82f6; border: 1px solid #3b82f6; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 13px; margin-left: 8px; transition: 0.2s; }
-.dev-circle-edit-btn:hover { background: #3b82f6; color: #fff; }
-.dev-delete-btn { background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger); padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 8px; font-size: 0.8rem; }
+/* DEV CIRCLE EDIT BUTTON (Nút tròn chỉnh sửa cho DEV) */
+.dev-circle-edit-btn {
+    width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: var(--accent-blue);
+    border: 1px solid var(--accent-blue); display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; font-weight: bold; font-size: 13px; margin-left: 8px; transition: 0.2s;
+}
+.dev-circle-edit-btn:hover { background: var(--accent-blue); color: #fff; }
+
+.dev-delete-btn {
+    background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger);
+    padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 8px; font-size: 0.8rem;
+}
 .dev-delete-btn:hover { background: var(--accent-danger); color: #fff; }
 
-.dev-add-panel { padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-bottom: 16px; display: none; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box; }
-.dev-add-panel input, .dev-add-panel select, .dev-add-panel textarea { width: 100%; max-width: 100%; padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); box-sizing: border-box;}
-.dev-add-panel button { width: 100%; padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
+.dev-add-panel {
+    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-bottom: 16px; display: none;
+}
+.dev-add-panel.active { display: flex; flex-direction: column; gap: 10px; }
+.dev-add-panel input, .dev-add-panel select, .dev-add-panel textarea {
+    padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color);
+}
+.dev-add-panel button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
 
 /* ==========================================================================
-   CONFIRMATION MODAL & BAN ALERT
+   CONFIRMATION MODAL
    ========================================================================== */
 .confirm-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10005; display: none; align-items: center; justify-content: center; padding: 16px;}
 .confirm-backdrop.active { display: flex; }
@@ -188,12 +260,8 @@ body::after {
 .btn-no { padding: 12px 30px; font-weight: bold; cursor: pointer; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); text-transform: uppercase;}
 .btn-no:hover { border-color: var(--text-main); }
 
-.ban-alert-backdrop { position: fixed; inset: 0; background: rgba(13,15,18,0.95); z-index: 30000; display: none; align-items: center; justify-content: center; padding: 20px; }
-.ban-alert-backdrop.active { display: flex; }
-.ban-alert-box { background: var(--bg-panel); border: 3px solid var(--accent-danger); padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
-
 /* ==========================================================================
-   CHAT UI & INLINE MOD PANEL (BẢNG MUTE/BAN HIỆN NGAY TRONG CHAT)
+   CHAT UI & CONTEXT MENU
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -204,9 +272,8 @@ body::after {
 .msg-row.type-other { align-self: flex-start; align-items: flex-start; }
 
 .msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.msg-name { font-size: 0.8rem; font-weight: bold; color: var(--text-sub); text-transform: uppercase; cursor: pointer;}
-.msg-name:hover { color: var(--accent-blue); text-decoration: underline; }
-.msg-name.sys { color: var(--accent-green); cursor: default; }
+.msg-name { font-size: 0.8rem; font-weight: bold; color: var(--text-sub); text-transform: uppercase; }
+.msg-name.sys { color: var(--accent-green); }
 
 .badge-dev { color: var(--dev-color); border: 1px solid var(--dev-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: rgba(255,0,85,0.1); }
 .badge-nox { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--accent-green-bg); }
@@ -215,42 +282,47 @@ body::after {
 .msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer;}
 .msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
 .msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
+.msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); cursor: default;}
 .msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
 
-.chat-image { max-width: 100%; max-height: 250px; object-fit: contain; border-radius: var(--rad); margin-bottom: 8px; display: block; background: #000; border: 1px solid var(--border-color); }
-
-.msg-action-bar { display: flex; gap: 8px; margin-top: 4px; font-size: 0.75rem; font-weight: bold; }
-.msg-action-btn { background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-sub); padding: 2px 8px; cursor: pointer; border-radius: var(--rad); transition: 0.2s; }
-.msg-action-btn:hover { border-color: var(--text-main); color: var(--text-main); }
-.msg-action-btn.danger:hover { background: var(--accent-danger-bg); color: var(--accent-danger); border-color: var(--accent-danger); }
-
-/* BẢNG MUTE/BAN NỔI NGAY TRÊN KHUNG CHAT KHI BẤM VÀO PLAYER */
-.inline-mod-box {
-  background: var(--bg-panel); border: 2px solid var(--dev-color); padding: 16px; margin-top: 8px;
-  display: flex; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box; z-index: 50;
-  box-shadow: 0 5px 20px rgba(255,0,85,0.3);
+.msg-context-menu {
+  position: absolute; bottom: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
+  z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 140px;
 }
-.inline-mod-box input { width: 100%; padding: 8px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); box-sizing: border-box; font-size: 0.85rem;}
-.inline-mod-box button { width: 100%; padding: 8px; font-weight: bold; cursor: pointer; border: none; text-transform: uppercase; font-size: 0.85rem;}
+.msg-context-menu.active { display: flex; }
+.msg-context-btn { padding: 10px 16px; text-align: left; font-size: 0.85rem; font-weight: bold; background: transparent; color: var(--text-main); cursor: pointer; border-bottom: 1px solid var(--border-color); }
+.msg-context-btn:hover { background: var(--bg-panel-hover); color: var(--accent-green); }
+.msg-context-btn.danger:hover { color: var(--accent-danger); }
 
+/* CHAT INPUT AREA */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
 
 .image-preview-zone { display: none; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
 .image-preview-zone.active { display: flex; }
-.preview-thumb { width: 40px; height: 40px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
+.preview-thumb { width: 50px; height: 50px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
 .preview-remove { width: 24px; height: 24px; background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--accent-danger);}
 
-.chat-input-wrapper { display: flex; align-items: flex-end; gap: 8px; width: 100%; box-sizing: border-box;}
-.chat-field { flex: 1; min-width: 0; min-height: 44px; height: 44px; max-height: 120px; padding: 12px 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; resize: none; overflow-y: auto; line-height: 20px; font-family: inherit;}
+.chat-input-wrapper { display: flex; align-items: center; gap: 8px; width: 100%; }
+.chat-field { flex: 1; min-width: 0; height: 44px; padding: 0 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; }
 .chat-field:focus { border-color: var(--text-sub); }
 
-.btn-photo { height: 44px; width: 44px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; cursor: pointer; font-weight: bold; font-size: 1.5rem; transition: 0.2s; flex-shrink: 0; line-height: 0;}
+.btn-photo { 
+  height: 44px; width: auto; padding: 0 12px; background: var(--bg-input); color: var(--text-main); 
+  border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; 
+  cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.2s; flex-shrink: 0;
+}
 .btn-photo:hover { background: var(--border-hover); border-color: var(--text-sub); }
 
-.chat-send { height: 44px; width: auto; padding: 0 16px; border-radius: var(--rad); background: var(--text-main); color: var(--bg-core); font-weight: bold; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s; border: 1px solid var(--text-main); flex-shrink: 0;}
+.chat-send { 
+  height: 44px; width: auto; padding: 0 16px; border-radius: var(--rad); 
+  background: var(--text-main); color: var(--bg-core); font-weight: bold; font-size: 0.9rem;
+  display: flex; justify-content: center; align-items: center; gap: 6px;
+  cursor: pointer; transition: 0.2s; border: 1px solid var(--text-main); flex-shrink: 0;
+}
 .chat-send:active { transform: scale(0.95); }
 .chat-send:hover { background: transparent; color: var(--text-main); }
 
+/* AUTH & FALLBACK */
 .auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(13, 15, 18, 0.95); text-align: center; padding: 32px; }
 .auth-blocker.is-hidden { display: none; }
 .auth-title { font-size: 1.4rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; }
@@ -258,19 +330,19 @@ body::after {
 
 .btn-guest { padding: 12px 24px; border-radius: var(--rad); background: transparent; border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; text-transform: uppercase;}
 .btn-guest:hover { border-color: var(--text-main); }
+
+.api-fallback-box { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--bg-input); border: 1px dashed var(--accent-danger); margin-bottom: 10px;}
+.api-fallback-box input { padding: 12px; background: var(--bg-core); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace;}
+.api-fallback-box button { padding: 12px; background: var(--accent-danger); color: #fff; font-weight: bold; cursor: pointer; }
+
+.script-share-form { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
+.script-share-input { padding: 14px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace; }
+textarea.script-share-input { height: 150px; resize: none; }
 </style>
 </head>
 <body>
 
 <div id="toast-banner">CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
-
-<div class="ban-alert-backdrop" id="ban-alert-modal">
-    <div class="ban-alert-box">
-        <div style="color:var(--accent-danger); font-size:1.3rem; font-weight:bold; margin-bottom:12px;" id="ban-alert-title">YOU GOT BANNED BY DEV</div>
-        <div style="color:var(--text-main); font-size:0.95rem; line-height:1.6; margin-bottom:20px;" id="ban-alert-reason">Lý do vi phạm...</div>
-        <button class="btn-primary" style="background:var(--accent-danger);" onclick="DOM.get('ban-alert-modal').classList.remove('active')">ĐÃ HIỂU</button>
-    </div>
-</div>
 
 <div class="confirm-backdrop" id="confirm-modal">
     <div class="confirm-box">
@@ -296,35 +368,19 @@ body::after {
   
   <div class="drawer-group">
     <div class="drawer-label">AI & CHAT</div>
-    <button class="btn-sidebar" onclick="RestrictedAction.checkAndOpen('modal-noxgpt')">NOXGPT [AI]</button>
-    <button class="btn-sidebar" onclick="RestrictedAction.checkAndOpen('modal-noxchat')">GLOBAL CHAT</button>
+    <button class="btn-sidebar" onclick="openUI('modal-noxgpt')">NOXGPT [AI]</button>
+    <button class="btn-sidebar" onclick="openUI('modal-noxchat')">GLOBAL CHAT</button>
   </div>
   
   <div class="drawer-group" id="drawer-auth-group">
     <div class="drawer-label">TÀI KHOẢN</div>
-    <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center; margin-bottom: 8px; overflow:hidden;"></div>
+    <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center;"></div>
     <button class="btn-sidebar" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
-    <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.triggerLogout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
-  </div>
-
-  <div class="drawer-group" id="dev-menu-editor-group" style="display:none;">
-    <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ MENU</div>
-    <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">CHỈNH SỬA MENU</button>
-    <div class="drawer-group dev-menu-editor" id="dev-menu-editor-box" style="display:none; padding:16px; border:1px dashed var(--dev-color); background:rgba(255,0,85,0.05); margin-top:8px;">
-        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem; width:100%;">
-        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem; width:100%;">
-        <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer; font-size:0.85rem; width:100%; text-transform:uppercase;">THÊM VÀO MENU</button>
-    </div>
-  </div>
-
-  <div class="drawer-group" id="dev-user-mgr-group" style="display:none;">
-    <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ USER</div>
-    <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">QUẢN LÝ NGƯỜI DÙNG</button>
+    <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
   </div>
 
   <div class="drawer-group" style="margin-top: 5px;">
     <div class="drawer-label">CỘNG ĐỒNG</div>
-    <div id="dynamic-menu-links" style="display:flex; flex-direction:column; gap:8px;"></div>
     <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="btn-sidebar">NHÓM ZALO</a>
     <a href="https://discord.gg/kRCKkw63s" target="_blank" class="btn-sidebar">DISCORD SERVER</a>
   </div>
@@ -333,31 +389,29 @@ body::after {
 
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
-    <div class="title-wrap">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V44</span>
+    <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+      <span class="status-badge" id="ui-version-badge">Phiên bản V34</span>
       <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
     </div>
 
-    <!-- THÔNG BÁO CÓ THỂ THU GỌN VÀ MỞ RỘNG -->
-    <div class="info-board" onclick="toggleText(this)">
-      <h3 id="ui-notice-title">THÔNG BÁO <span class="hint">Bấm để thu gọn/mở rộng</span></h3>
-      <div class="text-truncate" id="ui-notice-text">
-        CHÀO MỪNG ĐẾN VỚI NOX- SKIBIDI SHARE NƠI CUNG CẤP NHỮNG SCRIPT LINK APK IOS CHẤT LƯỢNG TỐT NHẤT - ĐẶT BIỆT LÀ KHÔNG CẦN VƯỢT LINK.<br><br>
-        > Hỗ trợ đăng xuất an toàn.<br>
-        > DEV có quyền Sửa/Xóa Menu, Tiện ích, Ban/Mute User.<br>
-        > Bấm vào tên người chơi trong khung chat để kích hoạt bảng Ban/Mute trực tiếp.<br>
-        > Nhấp vào tin nhắn của bạn để chỉnh sửa hoặc thu hồi.
+    <div class="info-board">
+      <h3 id="ui-notice-title">THÔNG BÁO</h3>
+      <div class="text-truncate" id="ui-notice-text" style="display:block;">
+        > <b>WELCOME TO NOX WEB V34 MASTER.</b><br>
+        > Cho phép cuộn trang mượt mà khi đầy nội dung.<br>
+        > Hỗ trợ nút tròn (✎) để DEV chỉnh sửa trực tiếp các mục tiện ích.<br>
+        > Click vào tin nhắn của bạn để Sửa hoặc Thu hồi.<br>
+        > Thông báo Toast Alert hiển thị trong 5s khi có cập nhật mới.
       </div>
     </div>
 
-    <!-- KHUNG CẤU HÌNH GIAO DIỆN (ĐÃ FIX LỖI TRÀN TRÊN ẢNH) -->
-    <div class="dev-config-box" id="dev-config-panel" style="display:none;">
+    <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
-        <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V44)...">
-        <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
-        <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none;"></textarea>
-        <button onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
+        <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V34)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none; padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
+        <button onclick="ConfigEngine.saveConfig()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">CẬP NHẬT HỆ THỐNG</button>
     </div>
 
     <button class="btn-primary" onclick="openUI('modal-archive')" style="margin-top:15px;">
@@ -366,7 +420,6 @@ body::after {
   </main>
 </div>
 
-<!-- MODAL KHO TIỆN ÍCH -->
 <div class="modal-backdrop" id="modal-archive" onclick="if(event.target===this)closeUI('modal-archive')">
   <div class="modal-content">
     <div class="modal-header">
@@ -403,63 +456,27 @@ body::after {
     </div>
 
     <div class="tab-body-wrapper">
-      <div id="pane-link" class="tab-pane is-active">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Bypass Key Delta</span><a href="https://baconbypass.xyz" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kasumi Store VIP</span><a href="https://gofile.io/d/v3Q6Ig" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Clone Tab Delta VNG</span><a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kho Tài Nguyên APK</span><a href="https://gofile.io/d/w9cKYp" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Hanami Script</span><a href="https://gist.github.com/Hoangtiger2005/a4cf07f7cea143c735d802f38827563d/raw/script_hanami.user.js" target="_blank" class="box-action">TẢI MÃ</a></div></div>
-      </div>
-      
-      <div id="pane-script" class="tab-pane">
-        <div class="data-box static-item">
-          <div class="box-head"><span class="box-title">Speed X Hub Pro</span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-          <div class="script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
-        </div>
-        <div class="data-box static-item">
-          <div class="box-head"><span class="box-title">UB Hub Master</span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-          <div class="script-code">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
-        </div>
-      </div>
-      
-      <div id="pane-apk" class="tab-pane">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Delta Web Client</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">TẢI VỀ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Delta VNG Bypass</span><a href="https://modsfire.com/Q4sFLA37wl7PckA" target="_blank" class="box-action">TẢI VỀ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kiwi VPN Premium</span><a href="https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk" target="_blank" class="box-action">TẢI VỀ</a></div></div>
-      </div>
-      
-      <div id="pane-ios" class="tab-pane">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Delta iOS</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">MỞ BẰNG SAFARI</a></div></div>
-      </div>
+      <div id="pane-link" class="tab-pane is-active"></div>
+      <div id="pane-script" class="tab-pane"></div>
+      <div id="pane-apk" class="tab-pane"></div>
+      <div id="pane-ios" class="tab-pane"></div>
     </div>
   </div>
 </div>
 
-<!-- MODAL QUẢN LÝ USER -->
-<div class="modal-backdrop" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-heading">[DEV] QUẢN LÝ NGƯỜI DÙNG</div>
-      <button class="modal-close" onclick="closeUI('modal-user-mgr')">✕</button>
-    </div>
-    <div class="tab-body-wrapper" id="user-mgr-board" style="display:flex; flex-direction:column; gap:16px; padding: 20px;">
-        <div style="text-align:center; color:var(--text-sub);">Đang tải danh sách user...</div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL NOXGPT -->
 <div class="modal-backdrop" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
   <div class="modal-content">
     <div class="modal-header">
-      <div class="modal-heading">NOXGPT [AI]</div>
+      <div class="modal-heading">NOXGPT</div>
       <button class="modal-close" onclick="closeUI('modal-noxgpt')">✕</button>
     </div>
     
-    <div id="gpt-fallback-container" style="display:none; padding:16px; background:var(--bg-input); border:1px dashed var(--accent-danger); margin:16px; flex-direction:column; gap:8px;">
-        <div style="font-size:0.9rem; font-weight:700; color:var(--accent-danger);" id="gpt-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY</div>
-        <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key..." style="width:100%; padding:12px 14px; background:var(--bg-core); border:1px solid var(--border-color); color:var(--text-main);">
-        <button onclick="GptEngine.validateAndSaveConfig()" style="width:100%; padding:12px; background:var(--accent-danger); color:#fff; font-weight:600; cursor:pointer;">LƯU VÀ THỬ LẠI</button>
+    <div id="gpt-fallback-container" style="display:none;">
+        <div class="api-fallback-box">
+            <div class="api-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY (XKIRO)</div>
+            <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng sk-xt-)...">
+            <button onclick="GptEngine.validateAndSaveConfig()">LƯU VÀ THỬ LẠI</button>
+        </div>
     </div>
 
     <div class="chat-messages" id="noxgpt-board"></div>
@@ -470,16 +487,15 @@ body::after {
         <div class="preview-remove" onclick="GptEngine.removeImage()">✕</div>
       </div>
       <div class="chat-input-wrapper">
-        <label for="gpt-img-upload" class="btn-photo">+</label>
+        <label for="gpt-img-upload" class="btn-photo">PHOTO</label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
-        <textarea id="noxgpt-field" class="chat-field" placeholder="Nhập câu lệnh..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
+        <input type="text" id="noxgpt-field" class="chat-field" placeholder="Nhập câu lệnh..." onkeypress="if(event.key === 'Enter') GptEngine.submit()">
         <button class="chat-send" onclick="GptEngine.submit()">GỬI</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- MODAL GLOBAL CHAT -->
 <div class="modal-backdrop" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
   <div class="modal-content" style="position: relative;">
     
@@ -492,19 +508,17 @@ body::after {
     </div>
 
     <div class="modal-header">
-      <div class="modal-heading">Global Chat</div>
+      <div class="modal-heading">SERVER CHAT</div>
       <div style="display:flex; gap:8px;">
-        <button class="box-action" style="padding: 6px 12px; font-size:0.8rem; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">Kho Script</button>
-        <button class="modal-close" style="width:32px; height:32px;" onclick="closeUI('modal-noxchat')">✕</button>
+        <button class="box-action" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main);" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">KHO SCRIPT</button>
+        <button class="modal-close" style="width:36px; height:36px;" onclick="closeUI('modal-noxchat')">✕</button>
       </div>
     </div>
     
     <div class="chat-messages" id="noxchat-board">
       <div class="msg-row type-other">
-        <div class="msg-meta"><div class="msg-name sys">Hệ Thống</div></div>
-        <div class="msg-bubble" style="background:var(--bg-input); border:1px solid var(--border-color);">
-          Đã kết nối Firebase. Đợi xác thực...
-        </div>
+        <div class="msg-meta"><div class="msg-name sys">SYSTEM</div></div>
+        <div class="msg-bubble" style="background: var(--bg-input);">Đang kết nối tới máy chủ Firebase...</div>
       </div>
     </div>
     
@@ -513,12 +527,11 @@ body::after {
         <img src="" id="chat-preview-img" class="preview-thumb">
         <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
       </div>
-
       <div class="chat-input-wrapper">
-        <button class="btn-photo" style="font-size: 0.9rem;" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
-        <label for="chat-img-upload" class="btn-photo" title="Gửi ảnh">+</label>
+        <button class="btn-photo" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
+        <label for="chat-img-upload" class="btn-photo">PHOTO</label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
-        <textarea id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); ChatEngine.sendMsg(); }"></textarea>
+        <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
         <button class="chat-send" onclick="ChatEngine.sendMsg()">GỬI</button>
       </div>
     </div>
@@ -528,13 +541,13 @@ body::after {
 <div class="modal-backdrop" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
   <div class="modal-content" style="max-width: 500px; height: auto;">
     <div class="modal-header">
-      <div class="modal-heading">Chia sẻ Script</div>
+      <div class="modal-heading">CHIA SẺ SCRIPT</div>
       <button class="modal-close" onclick="closeUI('modal-script-share')">✕</button>
     </div>
-    <div style="display:flex; flex-direction:column; gap:12px; padding:20px;">
-      <input type="text" id="share-title" placeholder="Tên Script (VD: Hub VIP)" style="padding:12px 16px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.95rem;">
-      <textarea id="share-code" placeholder="Dán mã Script vào đây..." style="height:150px; resize:none; font-family:monospace; padding:12px 16px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
-      <button class="btn-primary" onclick="ChatEngine.sendScript()">ĐĂNG LÊN KHO</button>
+    <div class="script-share-form" style="display:flex; flex-direction:column; gap:16px; padding:20px;">
+      <input type="text" id="share-title" class="search-box" style="border-radius: var(--rad);" placeholder="Tên Script (VD: Hub VIP)">
+      <textarea id="share-code" class="search-box" placeholder="Dán mã Script vào đây..." style="height:150px; resize:none; border-radius: var(--rad);"></textarea>
+      <button class="btn-primary" onclick="ChatEngine.triggerSendScript()">ĐĂNG LÊN MÁY CHỦ</button>
     </div>
   </div>
 </div>
@@ -542,15 +555,18 @@ body::after {
 <div class="modal-backdrop" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
   <div class="modal-content">
     <div class="modal-header">
-      <div class="modal-heading">Kho Script Cộng Đồng</div>
+      <div class="modal-heading">KHO SCRIPT CỘNG ĐỒNG</div>
       <button class="modal-close" onclick="closeUI('modal-script-vault')">✕</button>
     </div>
-    <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:14px; padding:20px; flex:1; overflow-y:auto; background:var(--bg-core);">
-    </div>
+    <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:16px; padding: 20px;"></div>
   </div>
 </div>
 
-<!-- EDIT MESSAGE MODAL -->
+<div class="msg-context-menu" id="msg-context-modal" style="position:fixed; background:var(--bg-panel); border:1px solid var(--border-color); display:none; flex-direction:column; z-index:20000; box-shadow:var(--shadow-lg);">
+    <button class="msg-context-btn" onclick="ChatEngine.openEditModal()" style="padding:12px 20px; background:none; color:var(--text-main); font-weight:bold; cursor:pointer; text-align:left; border-bottom:1px solid var(--border-color);">Chỉnh sửa văn bản</button>
+    <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg()" style="padding:12px 20px; background:none; color:var(--accent-danger); font-weight:bold; cursor:pointer; text-align:left;">Thu hồi tin nhắn</button>
+</div>
+
 <div class="modal-backdrop" id="modal-edit-msg" onclick="if(event.target===this)closeUI('modal-edit-msg')">
   <div class="modal-content" style="max-width: 450px; height: auto;">
     <div class="modal-header">
@@ -558,7 +574,7 @@ body::after {
       <button class="modal-close" onclick="closeUI('modal-edit-msg')">✕</button>
     </div>
     <div style="display:flex; flex-direction:column; gap:14px; padding:20px;">
-      <textarea id="edit-msg-textarea" style="height:100px; resize:none; padding:12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
+      <textarea id="edit-msg-textarea" class="search-box" style="height:100px; resize:none;"></textarea>
       <button class="btn-primary" onclick="ChatEngine.saveEditedMsg()">LƯU THAY ĐỔI</button>
     </div>
   </div>
@@ -569,13 +585,9 @@ body::after {
 
 const DOM = { get: id => document.getElementById(id), queryAll: sel => document.querySelectorAll(sel) };
 
-function autoResizeTextarea(el) {
-    el.style.height = '44px';
-    let newHeight = el.scrollHeight;
-    if (newHeight > 120) newHeight = 120;
-    el.style.height = newHeight + 'px';
-}
-
+/* ==========================================================================
+   GLOBAL CONSTANTS & CONFIRMATION UI
+   ========================================================================== */
 const ADMIN_EMAIL = "hminhgalaxy@gmail.com";
 let IS_ADMIN = false;
 
@@ -590,7 +602,9 @@ const ConfirmUI = {
         DOM.get('confirm-modal').classList.remove('active');
         if(this.onConfirm) this.onConfirm();
     },
-    no: function() { DOM.get('confirm-modal').classList.remove('active'); }
+    no: function() {
+        DOM.get('confirm-modal').classList.remove('active');
+    }
 };
 
 function showToast(msg) {
@@ -601,42 +615,16 @@ function showToast(msg) {
     setTimeout(() => t.classList.remove('show'), 5000);
 }
 
-const RestrictedAction = {
-    checkAndOpen: function(modalId) {
-        const profile = ChatEngine.userProfile;
-        if(profile && profile.email && profile.email !== 'guest') {
-            const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
-            try {
-                firebase.database().ref('nox_users_control/' + safeKey).once('value').then(snapshot => {
-                    const data = snapshot.val();
-                    if(data && data.isBanned) {
-                        DOM.get('ban-alert-reason').innerText = `Lý do: ${data.banReason || "Không có"}`;
-                        DOM.get('ban-alert-modal').classList.add('active');
-                        return;
-                    }
-                    if(modalId === 'modal-noxchat' && !ChatEngine.userProfile) { AuthEngine.renderGoogleButtons(); }
-                    openUI(modalId);
-                }).catch(e => openUI(modalId));
-            } catch(e) { openUI(modalId); }
-        } else {
-            if(modalId === 'modal-noxchat' && !ChatEngine.userProfile) { AuthEngine.renderGoogleButtons(); }
-            openUI(modalId);
-        }
-    }
-};
-
 /* ==========================================================================
    UI CONTROLS
    ========================================================================== */
 function toggleMenu() { 
-    const d = DOM.get('nav-drawer'); const o = DOM.get('menu-overlay');
-    if(d) { d.classList.toggle('is-open'); if(o) o.classList.toggle('is-active'); }
-    if(!ChatEngine.userProfile) AuthEngine.renderGoogleButtons();
+    const d = DOM.get('nav-drawer');
+    if(d) d.classList.toggle('is-open');
 }
 function openUI(id) { 
     const e = DOM.get(id); if(e) e.classList.add('is-active'); 
     const d = DOM.get('nav-drawer'); if(d) d.classList.remove('is-open');
-    const o = DOM.get('menu-overlay'); if(o) o.classList.remove('is-active');
 }
 function closeUI(id) { const e = DOM.get(id); if(e) e.classList.remove('is-active'); }
 
@@ -649,88 +637,36 @@ function toggleText(element) {
    AUTH ENGINE
    ========================================================================== */
 const AuthEngine = {
-    initGoogleIdentity: function() {
-        if(typeof google === 'undefined' || !google.accounts) { 
-            setTimeout(() => AuthEngine.initGoogleIdentity(), 500); 
-            return; 
-        }
-        google.accounts.id.initialize({ 
-            client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", 
-            callback: this.onGoogleLoginSuccess.bind(this) 
-        });
-        this.renderGoogleButtons();
-    },
-    renderGoogleButtons: function() {
-        if(typeof google === 'undefined' || !google.accounts) return;
-        const btnWrap = DOM.get('google-login-mount'); 
-        if(btnWrap && !btnWrap.hasChildNodes()) {
-            google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
-        }
-        const menuWrap = DOM.get('drawer-google-login-wrap');
-        if(menuWrap && !menuWrap.hasChildNodes()) {
-            google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
-        }
-    },
-    onGoogleLoginSuccess: function(response) {
-        const payload = this.decodeJwt(response.credential);
-        const profile = { name: payload.name || "User", email: payload.email, role: (payload.email === ADMIN_EMAIL) ? 'DEV' : 'NOX' };
-        this.login(profile);
-        ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${profile.role}`, true); 
-        ChatEngine.listenForMessages();
-    },
-    decodeJwt: function(token) {
-        try { const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))); } catch(e) { return {}; }
-    },
     login: function(profile) {
         if(profile.email === ADMIN_EMAIL) { 
             IS_ADMIN = true; 
             DOM.get('dev-utils-panel').classList.add('active'); 
             DOM.get('dev-config-panel').style.display = 'flex'; 
-            DOM.get('dev-menu-editor-group').style.display = 'flex';
-            DOM.get('dev-user-mgr-group').style.display = 'flex';
         }
         ChatEngine.userProfile = profile;
         localStorage.setItem('nox_user_profile', JSON.stringify(profile));
-        
-        try {
-            if(profile.email && profile.email !== 'guest') {
-                const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
-                firebase.database().ref('nox_users_registry/' + safeKey).set({
-                    name: profile.name, email: profile.email, role: profile.role, lastLogin: firebase.database.ServerValue.TIMESTAMP
-                });
-            }
-        } catch(e) { console.warn("Firebase offline"); }
-
-        const authGuard = DOM.get('auth-guard'); if(authGuard) authGuard.style.display = 'none';
+        DOM.get('auth-guard').style.display = 'none';
         this.updateAuthUI(true, profile);
     },
     guestLogin: function() {
-        const randId = Math.floor(Math.random() * 9999);
-        const guestProfile = { name: "Guest_" + randId, email: "guest_" + randId + "@nox.local", role: 'GUEST' };
+        const guestProfile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest", role: 'GUEST' };
         this.login(guestProfile);
         ChatEngine.appendMsg('SYSTEM', `Đăng nhập khách: ${guestProfile.name}`, true);
         ChatEngine.listenForMessages();
-    },
-    triggerLogout: function() {
-        ConfirmUI.show("BẠN CÓ CHẮC CHẮN MUỐN ĐĂNG XUẤT KHỎI HỆ THỐNG?", () => { this.logout(); });
     },
     logout: function() {
         localStorage.removeItem('nox_user_profile');
         window.location.reload();
     },
     updateAuthUI: function(isLoggedIn, profile) {
-        const btnGuest = DOM.get('drawer-btn-guest');
-        const googleWrap = DOM.get('drawer-google-login-wrap');
-        const btnLogout = DOM.get('drawer-btn-logout');
-        
         if(isLoggedIn) {
-            if(btnGuest) btnGuest.style.display = 'none';
-            if(googleWrap) googleWrap.style.display = 'none';
-            if(btnLogout) btnLogout.style.display = 'flex';
+            DOM.get('drawer-btn-guest').style.display = 'none';
+            DOM.get('drawer-google-login-wrap').style.display = 'none';
+            DOM.get('drawer-btn-logout').style.display = 'flex';
         } else {
-            if(btnGuest) btnGuest.style.display = 'flex';
-            if(googleWrap) googleWrap.style.display = 'flex';
-            if(btnLogout) btnLogout.style.display = 'none';
+            DOM.get('drawer-btn-guest').style.display = 'flex';
+            DOM.get('drawer-google-login-wrap').style.display = 'flex';
+            DOM.get('drawer-btn-logout').style.display = 'none';
         }
     }
 };
@@ -795,155 +731,20 @@ const ConfigEngine = {
         if(noticeTitle) payload.noticeTitle = noticeTitle;
         if(noticeText) payload.noticeText = noticeText;
         
-        this.ref.update(payload).then(() => { showToast("Cập nhật thành công!"); });
-    }
-};
-
-/* ==========================================================================
-   MENU EDITOR ENGINE
-   ========================================================================== */
-const MenuEditor = {
-    ref: null,
-    init: function() { this.ref = firebase.database().ref('nox_custom_menu'); this.loadMenu(); },
-    toggleEditor: function() { const box = DOM.get('dev-menu-editor-box'); if(box) box.style.display = (box.style.display === 'flex') ? 'none' : 'flex'; },
-    addMenuItem: function() {
-        if(!IS_ADMIN) return;
-        const name = DOM.get('menu-item-name').value.trim(); const link = DOM.get('menu-item-link').value.trim();
-        if(!name || !link) { alert("Nhập đủ tên và đường dẫn!"); return; }
-        this.ref.push({ name, link, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => { DOM.get('menu-item-name').value = ''; DOM.get('menu-item-link').value = ''; showToast("Đã thêm mục vào menu!"); });
-    },
-    deleteMenuItem: function(key) { ConfirmUI.show("XÓA MỤC NÀY KHỎI MENU?", () => { this.ref.child(key).remove().then(() => showToast("Đã xóa khỏi menu!")); }); },
-    loadMenu: function() {
-        if(!this.ref) return;
-        this.ref.on('value', snapshot => {
-            const container = DOM.get('dynamic-menu-links'); if(!container) return; container.innerHTML = '';
-            if(snapshot.exists()) {
-                snapshot.forEach(child => {
-                    const item = child.val(); const key = child.key;
-                    const a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "btn-sidebar";
-                    a.style.display = "flex"; a.style.justifyContent = "space-between";
-                    let spanText = document.createElement('span'); spanText.innerText = item.name; a.appendChild(spanText);
-                    if(IS_ADMIN) {
-                        let delSpan = document.createElement('span'); delSpan.style.color = "var(--accent-danger)"; delSpan.style.cursor = "pointer"; delSpan.innerText = "[X]";
-                        delSpan.onclick = (e) => { e.preventDefault(); e.stopPropagation(); MenuEditor.deleteMenuItem(key); }; a.appendChild(delSpan);
-                    }
-                    container.appendChild(a);
-                });
-            }
+        this.ref.update(payload).then(() => {
+            showToast("Đã cập nhật hệ thống thành công!");
         });
     }
 };
 
 /* ==========================================================================
-   USER MANAGER (QUẢN LÝ USER CHO DEV - THÊM GỠ BAN / GỠ MUTE)
-   ========================================================================== */
-const UserMgr = {
-    loadUsers: async function() {
-        if(!IS_ADMIN) return;
-        const board = DOM.get('user-mgr-board'); board.innerHTML = '<div style="text-align:center;">Đang tải danh sách người dùng...</div>';
-        try {
-            const regSnap = await firebase.database().ref('nox_users_registry').once('value');
-            if(!regSnap.exists()) { board.innerHTML = '<div>Chưa có user nào.</div>'; return; }
-            
-            const ctrlSnap = await firebase.database().ref('nox_users_control').once('value');
-            const controls = ctrlSnap.val() || {};
-            
-            board.innerHTML = '';
-            regSnap.forEach(child => {
-                const u = child.val(); const safeKey = child.key; const control = controls[safeKey] || {};
-                const box = document.createElement('div');
-                box.style.cssText = "padding:16px; border:1px solid var(--border-color); background:var(--bg-panel); display:flex; flex-direction:column; gap:12px;";
-                
-                let statusHtml = `<span style="color:var(--accent-green)">Bình thường</span>`;
-                if(control.isBanned) statusHtml = `<span style="color:var(--accent-danger)">ĐÃ BAN (${control.banReason})</span>`;
-                else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = `<span style="color:#f59e0b">ĐÃ MUTE đến ${new Date(control.muteUntil).toLocaleTimeString()} (${control.muteReason})</span>`;
-                
-                box.innerHTML = `
-                    <div style="font-weight:bold; font-size:1rem; color:var(--text-main);">${u.name} (${u.role || 'NOX'})</div>
-                    <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 8px;">Email/ID: ${u.email}</div>
-                    <div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ${statusHtml}</div>
-                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
-                        <input type="number" id="um-mute-hours-${safeKey}" placeholder="Giờ mute" style="width:100px; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                        <input type="text" id="um-mute-reason-${safeKey}" placeholder="Lý do mute..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                        <button style="padding:8px 16px; background:#f59e0b; color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.muteFromPanel('${safeKey}')">MUTE</button>
-                    </div>
-                    <div style="display:flex; gap:8px; margin-top:8px;">
-                        <input type="text" id="um-ban-reason-${safeKey}" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                        <button style="padding:8px 16px; background:var(--accent-danger); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.banFromPanel('${safeKey}')">BAN</button>
-                        <button style="padding:8px 16px; background:var(--accent-green); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.uncontrolUser('${safeKey}')">GỠ BAN / GỠ MUTE</button>
-                    </div>
-                `;
-                board.appendChild(box);
-            });
-        } catch (e) { board.innerHTML = '<div>Lỗi tải dữ liệu.</div>'; }
-    },
-    muteFromPanel: function(safeKey) {
-        const hours = parseFloat(DOM.get(`um-mute-hours-${safeKey}`).value) || 24; const reason = DOM.get(`um-mute-reason-${safeKey}`).value.trim() || "Vi phạm quy định"; const muteUntil = Date.now() + (hours * 3600 * 1000);
-        firebase.database().ref('nox_users_control/' + safeKey).update({ isMuted: true, muteUntil: muteUntil, muteReason: reason }).then(() => { showToast("Đã Mute user!"); this.loadUsers(); });
-    },
-    banFromPanel: function(safeKey) {
-        const reason = DOM.get(`um-ban-reason-${safeKey}`).value.trim() || "Vi phạm nghiêm trọng";
-        firebase.database().ref('nox_users_control/' + safeKey).update({ isBanned: true, banReason: reason }).then(() => { showToast("Đã Ban vĩnh viễn user!"); this.loadUsers(); });
-    },
-    uncontrolUser: function(safeKey) {
-        firebase.database().ref('nox_users_control/' + safeKey).set({ isBanned: false, isMuted: false }).then(() => { showToast("Đã Gỡ Ban & Gỡ Mute!"); this.loadUsers(); });
-    },
-    
-    // Bấm vào tên người chơi trong khung chat để hiện khung Ban/Mute ngay lập tức
-    openModPanelByEmail: function(name, email) {
-        if(!IS_ADMIN) return;
-        const safeKey = email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
-        
-        const existing = DOM.get('inline-mod-panel-box');
-        if(existing) existing.remove();
-        
-        const board = DOM.get('noxchat-board');
-        const panel = document.createElement('div');
-        panel.id = 'inline-mod-panel-box';
-        panel.className = 'dev-mod-panel';
-        panel.innerHTML = `
-            <div style="font-weight:bold; color:var(--dev-color);">ĐIỀU HÀNH NGƯỜI DÙNG: ${name}</div>
-            <div style="display:flex; gap:8px;">
-                <input type="number" id="inline-mute-h" placeholder="Giờ" style="width:70px;">
-                <input type="text" id="inline-mute-r" placeholder="Lý do mute..." style="flex:1;">
-                <button style="background:#f59e0b;" onclick="UserMgr.inlineMute('${safeKey}')">MUTE</button>
-            </div>
-            <div style="display:flex; gap:8px;">
-                <input type="text" id="inline-ban-r" placeholder="Lý do ban..." style="flex:1;">
-                <button style="background:var(--accent-danger);" onclick="UserMgr.inlineBan('${safeKey}')">BAN</button>
-                <button style="background:var(--accent-green);" onclick="UserMgr.inlineUncontrol('${safeKey}')">GỠ BAN/MUTE</button>
-            </div>
-            <div style="text-align:right; font-size:0.75rem; color:var(--text-muted); cursor:pointer;" onclick="this.parentElement.remove()">[Đóng]</div>
-        `;
-        board.appendChild(panel);
-        board.scrollTop = board.scrollHeight;
-    },
-    inlineMute: function(safeKey) {
-        const hours = parseFloat(DOM.get('inline-mute-h').value) || 24;
-        const reason = DOM.get('inline-mute-r').value.trim() || "Vi phạm";
-        firebase.database().ref('nox_users_control/' + safeKey).update({ isMuted: true, muteUntil: Date.now() + (hours*3600000), muteReason: reason })
-        .then(() => { showToast("Đã Mute user!"); DOM.get('inline-mod-panel-box').remove(); });
-    },
-    inlineBan: function(safeKey) {
-        const reason = DOM.get('inline-ban-r').value.trim() || "Vi phạm nghiêm trọng";
-        firebase.database().ref('nox_users_control/' + safeKey).update({ isBanned: true, banReason: reason })
-        .then(() => { showToast("Đã Ban user!"); DOM.get('inline-mod-panel-box').remove(); });
-    },
-    inlineUncontrol: function(safeKey) {
-        firebase.database().ref('nox_users_control/' + safeKey).set({ isBanned: false, isMuted: false })
-        .then(() => { showToast("Đã gỡ phạt user!"); DOM.get('inline-mod-panel-box').remove(); });
-    }
-};
-
-/* ==========================================================================
-   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC + NÚT SỬA/XÓA CỦA DEV)
+   UTILS ENGINE (KHO TIỆN ÍCH TÍCH HỢP NÚT TRÒN CHỈNH SỬA CHO DEV)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
     init: function() { 
         this.ref = firebase.database().ref('nox_custom_utils'); 
         this.loadDynamicUtils(); 
-        MenuEditor.init();
     },
     switchPane: function(id, btn) { 
         DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); 
@@ -1071,7 +872,7 @@ const GptEngine = {
   
   board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
   messageHistory: [
-      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB (tạo ra bởi DEV HminhGalaxy). Trả lời ngắn gọn, chuẩn Hacker." }
+      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB. Trả lời ngắn gọn, chuẩn Hacker." }
   ],
 
   init: function() {
@@ -1081,22 +882,14 @@ const GptEngine = {
 
   appendMsg: function(type, name, htmlContent, isError = false) {
     if(!this.board) return;
-    const row = document.createElement('div'); row.style.cssText = "display:flex; flex-direction:column; max-width:85%; margin-bottom:16px;";
-    if(type === 'user') row.style.alignSelf = "flex-end";
-    
+    const row = document.createElement('div'); row.className = `msg-row type-${type} ${isError ? 'type-error' : ''}`;
     let innerHTML = '';
     if(type === 'other') {
-      innerHTML += `<div style="display:flex; align-items:center; margin-bottom:4px;"><div style="font-size:0.8rem; font-weight:bold; color:var(--accent-green);">${name}</div></div>`;
+      innerHTML += `<div class="msg-meta"><div class="msg-name sys">${name}</div></div>`;
     } else {
-      innerHTML += `<div style="display:flex; align-items:center; justify-content:flex-end; margin-bottom:4px;"><div style="font-size:0.8rem; font-weight:bold; color:var(--text-sub);">Bạn</div></div>`;
+      innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
     }
-    
-    let bg = type === 'user' ? "var(--border-hover)" : (isError ? "var(--accent-danger-bg)" : "var(--bg-panel)");
-    let borderColor = type === 'user' ? "var(--text-sub)" : (isError ? "var(--accent-danger)" : "var(--border-color)");
-    let color = isError ? "var(--accent-danger)" : "var(--text-main)";
-    
-    innerHTML += `<div style="padding:12px 16px; background:${bg}; border:1px solid ${borderColor}; color:${color}; font-size:0.95rem; line-height:1.5; word-wrap:break-word;">${htmlContent}</div>`;
-    
+    innerHTML += `<div class="msg-bubble">${htmlContent}</div>`;
     row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
     return row; 
   },
@@ -1106,7 +899,7 @@ const GptEngine = {
   triggerFallbackUI: function(errorMessage) {
     this.input.disabled = true; this.input.placeholder = "API Lỗi...";
     const box = DOM.get('gpt-fallback-container');
-    if(box) { box.style.display = 'flex'; box.querySelector('.api-fallback-title').innerText = `[LỖI API] ${errorMessage}`; }
+    if(box) { box.style.display = 'block'; box.querySelector('.api-fallback-title').innerText = `[LỖI API] ${errorMessage}`; }
   },
 
   validateAndSaveConfig: function() {
@@ -1124,7 +917,7 @@ const GptEngine = {
     let userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
     if(base64Img) { userHtml = `<img src="${base64Img}" class="chat-image">` + userHtml; }
     
-    this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
+    this.input.value = ''; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
     this.messageHistory.push({ role: "user", content: text || "[Đã gửi ảnh]" });
 
@@ -1154,11 +947,11 @@ const GptEngine = {
 const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT ENGINE
+   FIREBASE CHAT ENGINE (CLICK TO EDIT / RECALL)
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
-  isSetup: false,
+  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", isSetup: false,
 
   initFirebase: function() {
     if(this.isSetup) return;
@@ -1175,7 +968,8 @@ const ChatEngine = {
       this.scriptRef = firebase.database().ref('nox_global_scripts'); 
       this.isSetup = true; 
       
-      UtilsEngine.init(); ConfigEngine.init();
+      UtilsEngine.init();
+      ConfigEngine.init();
       this.cleanupOldMessages(); setInterval(() => this.cleanupOldMessages(), 3600000); 
 
       const savedUser = localStorage.getItem('nox_user_profile');
@@ -1187,35 +981,72 @@ const ChatEngine = {
                   IS_ADMIN = true; 
                   DOM.get('dev-utils-panel').classList.add('active'); 
                   DOM.get('dev-config-panel').style.display = 'flex'; 
-                  DOM.get('dev-menu-editor-group').style.display = 'flex';
-                  DOM.get('dev-user-mgr-group').style.display = 'flex';
               }
               DOM.get('auth-guard').style.display = 'none';
               AuthEngine.updateAuthUI(true, profile);
               this.listenForMessages();
           } catch(e) { localStorage.removeItem('nox_user_profile'); }
       }
+
     } catch(err) { console.error("FB Init Err:", err); }
   },
 
   cleanupOldMessages: function() {
     if(!this.dbRef) return;
-    const cutoff = Date.now() - 86400000;
+    const MS_24H = 86400000; const cutoff = Date.now() - MS_24H;
     this.dbRef.orderByChild('timestamp').endAt(cutoff).once('value', (snapshot) => {
       if(snapshot.exists()) { const updates = {}; snapshot.forEach((child) => { updates[child.key] = null; }); this.dbRef.update(updates); }
     });
   },
 
+  decodeJwt: function(token) { try { const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))); } catch(e) { return {}; } },
+
+  onGoogleLoginSuccess: function(response) {
+    const payload = ChatEngine.decodeJwt(response.credential);
+    if(payload.email === ADMIN_EMAIL) { 
+        IS_ADMIN = true; 
+        DOM.get('dev-utils-panel').classList.add('active'); 
+        DOM.get('dev-config-panel').style.display = 'flex'; 
+    }
+    const profile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
+    ChatEngine.userProfile = profile;
+    localStorage.setItem('nox_user_profile', JSON.stringify(profile));
+
+    DOM.get('auth-guard').style.display = 'none'; 
+    AuthEngine.updateAuthUI(true, profile);
+    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${profile.role}`, true); 
+    ChatEngine.listenForMessages();
+  },
+
+  initGoogleIdentity: function() {
+    if(typeof google === 'undefined' || !google.accounts) { setTimeout(() => ChatEngine.initGoogleIdentity(), 500); return; }
+    google.accounts.id.initialize({ client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", callback: this.onGoogleLoginSuccess });
+    const btnWrap = DOM.get('google-login-mount'); if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
+    
+    const menuWrap = DOM.get('drawer-google-login-wrap');
+    if(menuWrap && !menuWrap.hasChildNodes()) {
+        google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
+    }
+  },
+
+  guestLogin: function() {
+      const profile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest", role: 'GUEST' };
+      this.userProfile = profile;
+      localStorage.setItem('nox_user_profile', JSON.stringify(profile));
+      DOM.get('auth-guard').style.display = 'none';
+      AuthEngine.updateAuthUI(true, profile);
+      this.appendMsg('SYSTEM', `Đăng nhập khách: ${profile.name}`, true);
+      this.listenForMessages();
+  },
+
   removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
 
-  appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX', isRecalled = false, senderEmail = '') {
+  appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX', isRecalled = false) {
     if(!this.board) return;
     let isMe = false; if(this.userProfile && senderName === this.userProfile.name) isMe = true;
     
-    const row = document.createElement('div'); 
-    row.style.cssText = `display:flex; flex-direction:column; max-width:85%; margin-bottom:16px; position:relative;`;
-    if(isMe) row.style.alignSelf = "flex-end";
-    row.id = msgKey ? `msg-${msgKey}` : '';
+    const rowType = isMe ? 'type-user' : 'type-other';
+    const row = document.createElement('div'); row.className = `msg-row ${rowType}`; row.id = msgKey ? `msg-${msgKey}` : '';
     
     let innerHTML = '';
     let deleteBtn = (IS_ADMIN && msgKey && !isSystem) ? `<span style="cursor:pointer; color:var(--accent-danger); margin-left:8px;" onclick="ChatEngine.triggerDeleteMsg('${msgKey}')">[X]</span>` : '';
@@ -1228,9 +1059,7 @@ const ChatEngine = {
           else if(role === 'NOX') { badge = `<span class="badge-nox">[NOX]</span>`; }
           else { badge = `<span class="badge-guest">[GUEST]</span>`; }
       }
-      // Bấm vào tên người khác nếu là DEV sẽ mở ngay bảng Mute/Ban trực tiếp
-      let clickAction = (IS_ADMIN && senderEmail) ? `onclick="UserMgr.openModPanel('${senderName.replace(/'/g, "\\'")}', '${senderEmail}')"` : '';
-      innerHTML += `<div class="msg-meta"><div class="${nameClass}" ${clickAction}>${badge}${senderName} ${deleteBtn}</div></div>`;
+      innerHTML += `<div class="msg-meta"><div class="${nameClass}">${badge}${senderName} ${deleteBtn}</div></div>`;
     } else {
         innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn ${deleteBtn}</div></div>`;
     }
@@ -1241,55 +1070,83 @@ const ChatEngine = {
     bubbleEl.className = `msg-bubble ${isRecalled ? 'recalled' : ''}`;
     bubbleEl.innerHTML = bubbleContent;
     
-    // Bấm vào tin nhắn của mình để hiện sửa/thu hồi
-    bubbleEl.onclick = (e) => {
-        e.stopPropagation();
-        document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
-        
-        if(isMe && !isRecalled && msgKey) {
-            const ctxMenu = document.createElement('div');
-            ctxMenu.className = 'msg-context-menu active';
-            ctxMenu.innerHTML = `
-                <button class="msg-context-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Chỉnh sửa văn bản</button>
-                <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi tin nhắn</button>
-            `;
-            row.appendChild(ctxMenu);
-            document.addEventListener('pointerdown', (ev) => { if(!ctxMenu.contains(ev.target)) ctxMenu.remove(); }, { once: true });
-        }
-    };
+    // GẮN SỰ KIỆN CLICK ĐỂ HIỆN MENU SỬA / THU HỒI TRÊN TIN NHẮN CỦA MÌNH
+    if(isMe && !isRecalled && msgKey) {
+        bubbleEl.title = 'Bấm vào để Sửa / Thu hồi';
+        bubbleEl.onclick = (e) => {
+            e.stopPropagation();
+            ChatEngine.openContext(msgKey, e);
+        };
+    }
 
-    const metaDiv = document.createElement('div'); metaDiv.innerHTML = innerHTML;
-    row.appendChild(metaDiv.firstElementChild); row.appendChild(bubbleEl);
+    const metaDiv = document.createElement('div');
+    metaDiv.innerHTML = innerHTML;
+    
+    row.appendChild(metaDiv.firstElementChild);
+    row.appendChild(bubbleEl);
+    
+    if(isMe && !isRecalled && msgKey) {
+        const ctxMenu = document.createElement('div');
+        ctxMenu.className = 'msg-context-menu';
+        ctxMenu.id = `ctx-${msgKey}`;
+        ctxMenu.innerHTML = `
+            <button class="msg-context-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Chỉnh sửa văn bản</button>
+            <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi tin nhắn</button>
+        `;
+        row.appendChild(ctxMenu);
+    }
     
     const existing = DOM.get(`msg-${msgKey}`);
-    if(existing) { existing.replaceWith(row); } 
-    else { this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight; }
+    if(existing) {
+        existing.replaceWith(row);
+    } else {
+        this.board.appendChild(row); 
+        this.board.scrollTop = this.board.scrollHeight;
+    }
   },
 
   activeMsgKey: null,
+  openContext: function(key, e) {
+      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
+      const menu = DOM.get(`ctx-${key}`);
+      if(menu) {
+          menu.classList.toggle('active');
+          document.addEventListener('pointerdown', (ev) => {
+              if(!menu.contains(ev.target)) menu.classList.remove('active');
+          }, { once: true });
+      }
+  },
+
   openEditModal: function(key) {
-      document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
       this.activeMsgKey = key;
       this.dbRef.child(key).once('value', snapshot => {
           const data = snapshot.val();
           if(data && data.text) {
               DOM.get('edit-msg-textarea').value = data.text;
-              DOM.get('edit-msg-textarea').setAttribute('data-key', key);
               openUI('modal-edit-msg');
+              document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
           }
       });
   },
 
   saveEditedMsg: function() {
-      const key = DOM.get('edit-msg-textarea').getAttribute('data-key'); if(!key) return;
-      const newText = DOM.get('edit-msg-textarea').value.trim(); if(!newText) { alert("Tin nhắn trống!"); return; }
-      this.dbRef.child(key).update({ text: newText }).then(() => { closeUI('modal-edit-msg'); showToast("Đã chỉnh sửa tin nhắn!"); });
+      if(!this.activeMsgKey) return;
+      const newText = DOM.get('edit-msg-textarea').value.trim();
+      if(!newText) { alert("Tin nhắn trống!"); return; }
+      
+      this.dbRef.child(this.activeMsgKey).update({ text: newText }).then(() => {
+          closeUI('modal-edit-msg');
+          showToast("Đã chỉnh sửa tin nhắn!");
+      });
   },
 
   triggerRecallMsg: function(key) {
-      document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
+      this.activeMsgKey = key;
+      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
       ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
-          this.dbRef.child(key).update({ recalled: true, text: "" }).then(() => { showToast("Đã thu hồi tin nhắn!"); });
+          this.dbRef.child(this.activeMsgKey).update({ recalled: true, text: "" }).then(() => {
+              showToast("Đã thu hồi tin nhắn!");
+          });
       });
   },
 
@@ -1302,14 +1159,14 @@ const ChatEngine = {
       if(this.userProfile && data.user === this.userProfile.name && Date.now() - data.timestamp < 3000) return; 
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
       if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
-      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled, data.email);
+      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
     });
     
     this.dbRef.on('child_changed', (snapshot) => {
       const data = snapshot.val(); if(!data) return;
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
       if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
-      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled, data.email);
+      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
     });
 
     this.dbRef.on('child_removed', (snapshot) => { const row = DOM.get(`msg-${snapshot.key}`); if(row) row.remove(); });
@@ -1318,29 +1175,18 @@ const ChatEngine = {
   sendMsg: function() {
     if(!this.userProfile) { alert("Chưa đăng nhập!"); return; }
     if(!this.dbRef) return;
+    const text = this.input.value.trim(); const base64Img = ImageProcessor.currentChatImage;
+    if(!text && !base64Img) return;
     
-    const safeKey = this.userProfile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
-    firebase.database().ref('nox_users_control/' + safeKey).once('value', snapshot => {
-        const ctrl = snapshot.val();
-        if(ctrl && ctrl.isMuted && Date.now() < ctrl.muteUntil) {
-            const timeStr = new Date(ctrl.muteUntil).toLocaleTimeString();
-            alert(`BẠN ĐÃ BỊ CẤM TRONG 24H (Đến ${timeStr}). Lý do: ${ctrl.muteReason || 'Không có'}`);
-            return;
-        }
-        
-        const text = this.input.value.trim(); const base64Img = ImageProcessor.currentChatImage;
-        if(!text && !base64Img) return;
-        
-        let displayHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
-        if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
-        
-        this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
-        
-        this.dbRef.push({ 
-            user: this.userProfile.name, role: this.userProfile.role, email: this.userProfile.email,
-            text: text, image: base64Img || "", recalled: false, 
-            timestamp: firebase.database.ServerValue.TIMESTAMP 
-        }).catch(err => { this.appendMsg('SYSTEM', 'Gửi lỗi.', true); });
+    let displayHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
+    
+    this.input.value = ''; this.removeImage();
+    
+    this.dbRef.push({ 
+        user: this.userProfile.name, role: this.userProfile.role, 
+        text: text, image: base64Img || "", recalled: false, 
+        timestamp: firebase.database.ServerValue.TIMESTAMP 
     });
   },
 
@@ -1367,29 +1213,15 @@ const ChatEngine = {
           
           scripts.forEach(s => {
               const b = document.createElement('div'); b.className = 'data-box';
+              let delBtn = IS_ADMIN ? `<button class="dev-delete-btn" onclick="ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child('${s.key}').remove())">XÓA</button>` : '';
               let badge = s.role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (s.role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
               let displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
               
-              const boxHead = document.createElement('div'); boxHead.className = 'box-head';
-              const boxTitle = document.createElement('span'); boxTitle.className = 'box-title'; boxTitle.innerText = s.title;
-              
-              const controlsWrapper = document.createElement('div'); controlsWrapper.style.display = "inline-flex"; controlsWrapper.style.alignItems = "center";
-              if(IS_ADMIN) {
-                  const deleteBtn = document.createElement('button'); deleteBtn.className = 'dev-delete-btn'; deleteBtn.innerText = 'XÓA';
-                  deleteBtn.onclick = () => ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child(s.key).remove());
-                  controlsWrapper.appendChild(deleteBtn);
-              }
-              boxTitle.appendChild(controlsWrapper); boxHead.appendChild(boxTitle);
-              
-              const copyBtn = document.createElement('button'); copyBtn.className = 'box-action'; copyBtn.innerText = 'COPY';
-              copyBtn.onclick = function() { UtilsEngine.execCopy(this); }; boxHead.appendChild(copyBtn);
-              b.appendChild(boxHead);
-              
-              const scriptCode = document.createElement('div'); scriptCode.className = 'script-code'; scriptCode.innerText = s.code; b.appendChild(scriptCode);
-              
-              const footerInfo = document.createElement('div'); footerInfo.style.cssText = "font-size:0.75rem; color:var(--text-sub); margin-top:4px;";
-              footerInfo.innerHTML = `${badge} Đóng góp bởi: ${displayName}`; b.appendChild(footerInfo);
-              
+              b.innerHTML = `
+                <div class="box-head"><span class="box-title">${s.title.replace(/</g,"&lt;")} <div>${delBtn}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
+                <div class="script-code">${s.code.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
+                <div style="font-size:0.75rem; color:var(--text-sub); margin-top:4px;">${badge} Đóng góp bởi: ${displayName}</div>
+              `;
               vBoard.appendChild(b);
           });
       });
@@ -1400,8 +1232,8 @@ const ChatEngine = {
    SYSTEM BOOTSTRAP
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  AuthEngine.initGoogleIdentity();
   ChatEngine.initFirebase();
+  ChatEngine.initGoogleIdentity();
 });
 </script>
 </body>
