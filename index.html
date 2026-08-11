@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V31</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V31. Giao diện Vuông, AI Gemini, Identity System.">
+<title>NOX WEB - V32 MASTER EDITION</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V32. Giao diện Vuông, AI Gemini, Identity System, Typing Indicator, Toast Notification.">
 <meta name="robots" content="index, follow">
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -38,9 +38,7 @@
   --accent-danger-bg: rgba(239, 68, 68, 0.1);
   --dev-color: #ff0055;
   
-  /* SQUARE GEOMETRY (Mọi thứ góc vuông) */
   --rad: 0px; 
-  
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
@@ -68,7 +66,19 @@ body::after {
 }
 
 /* ==========================================================================
-   SOLID PANELS & BUTTONS (GÓC VUÔNG)
+   TOAST NOTIFICATION BANNER (5s Alert)
+   ========================================================================== */
+#toast-banner {
+  position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+  background: var(--accent-green); color: #fff; padding: 12px 24px;
+  font-weight: bold; border-radius: var(--rad); z-index: 20000;
+  box-shadow: 0 10px 30px rgba(16,185,129,0.4); text-transform: uppercase;
+  transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#toast-banner.show { top: 20px; }
+
+/* ==========================================================================
+   SOLID PANELS & BUTTONS
    ========================================================================== */
 .solid-panel {
   background: var(--bg-panel); border: 1px solid var(--border-color);
@@ -130,9 +140,9 @@ body::after {
 .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
 
 /* ==========================================================================
-   MAIN DASHBOARD CARD (FIX OVERLAP MENU)
+   MAIN DASHBOARD CARD
    ========================================================================== */
-.card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; margin-top: 50px; /* Đẩy xuống để không đè menu */ }
+.card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; margin-top: 50px; }
 .main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; }
 
 .title-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
@@ -215,11 +225,13 @@ body::after {
 .script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad); background: var(--bg-input); border: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
 
 /* DEV ACTION BUTTONS */
-.dev-delete-btn {
-    background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger);
-    padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 10px; font-size: 0.8rem;
+.dev-delete-btn, .dev-edit-btn {
+    padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 8px; font-size: 0.8rem;
 }
+.dev-delete-btn { background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger); }
 .dev-delete-btn:hover { background: var(--accent-danger); color: #fff; }
+.dev-edit-btn { background: rgba(59,130,246,0.1); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+.dev-edit-btn:hover { background: var(--accent-blue); color: #fff; }
 
 .dev-add-panel {
     padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-bottom: 16px; display: none;
@@ -230,8 +242,14 @@ body::after {
 }
 .dev-add-panel button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
 
+/* EDIT CONFIG PANEL (DEV) */
+.dev-config-box { background: var(--bg-panel); border: 1px solid var(--dev-color); padding: 16px; margin-bottom: 16px; display: none; flex-direction: column; gap: 10px; }
+.dev-config-box.active { display: flex; }
+.dev-config-box input { padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); }
+.dev-config-box button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
+
 /* ==========================================================================
-   CONFIRMATION MODAL (Hộp thoại xác nhận OK/NO Đỏ)
+   CONFIRMATION MODAL
    ========================================================================== */
 .confirm-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10005; display: none; align-items: center; justify-content: center; padding: 16px;}
 .confirm-backdrop.active { display: flex; }
@@ -244,13 +262,13 @@ body::after {
 .btn-no:hover { border-color: var(--text-main); }
 
 /* ==========================================================================
-   CHAT UI (SQUARE & DEV BADGE)
+   CHAT UI & CONTEXT MENU
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
 .chat-messages::-webkit-scrollbar-thumb { background: var(--border-color); }
 
-.msg-row { display: flex; flex-direction: column; max-width: 85%; content-visibility: auto; contain-intrinsic-size: auto 80px; }
+.msg-row { display: flex; flex-direction: column; max-width: 85%; content-visibility: auto; contain-intrinsic-size: auto 80px; position: relative;}
 .msg-row.type-user { align-self: flex-end; align-items: flex-end; }
 .msg-row.type-other { align-self: flex-start; align-items: flex-start; }
 
@@ -258,31 +276,45 @@ body::after {
 .msg-name { font-size: 0.8rem; font-weight: bold; color: var(--text-sub); text-transform: uppercase; }
 .msg-name.sys { color: var(--accent-green); }
 
-/* Identity Badges */
 .badge-dev { color: var(--dev-color); border: 1px solid var(--dev-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: rgba(255,0,85,0.1); }
 .badge-nox { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--accent-green-bg); }
 .badge-guest { color: var(--text-sub); border: 1px solid var(--border-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--bg-input); }
 
-.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent;}
+.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; user-select: text;}
 .msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
 .msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); }
 .msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); }
+.msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
+
+/* Menu context khi đè vào tin nhắn (Edit / Recall) */
+.msg-context-menu {
+  position: absolute; top: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
+  z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 120px;
+}
+.msg-context-menu.active { display: flex; }
+.msg-context-btn { padding: 10px 16px; text-align: left; font-size: 0.85rem; font-weight: bold; background: transparent; color: var(--text-main); cursor: pointer; border-bottom: 1px solid var(--border-color); }
+.msg-context-btn:hover { background: var(--bg-panel-hover); color: var(--accent-green); }
+.msg-context-btn.danger:hover { color: var(--accent-danger); }
+
+/* Typing Indicator (Hiệu ứng 3 chấm) */
+#typing-indicator { font-size: 0.8rem; color: var(--text-sub); font-style: italic; padding: 4px 20px; min-height: 24px;}
+.typing-dots span { animation: blink-dot 1.4s infinite both; font-weight: bold;}
+.typing-dots span:nth-child(2) { animation-delay: .2s; }
+.typing-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes blink-dot { 0% { opacity: .2; } 20% { opacity: 1; } 100% { opacity: .2; } }
 
 /* CHAT INPUT AREA */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
 
-/* Image Preview Fix */
 .image-preview-zone { display: none; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
 .image-preview-zone.active { display: flex; }
 .preview-thumb { width: 50px; height: 50px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
 .preview-remove { width: 24px; height: 24px; background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--accent-danger);}
 
 .chat-input-wrapper { display: flex; align-items: center; gap: 8px; width: 100%; }
-
 .chat-field { flex: 1; min-width: 0; height: 44px; padding: 0 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; }
 .chat-field:focus { border-color: var(--text-sub); }
 
-/* NÚT PHOTO & GỬI */
 .btn-photo { 
   height: 44px; width: auto; padding: 0 12px; background: var(--bg-input); color: var(--text-main); 
   border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; 
@@ -299,9 +331,7 @@ body::after {
 .chat-send:active { transform: scale(0.95); }
 .chat-send:hover { background: transparent; color: var(--text-main); }
 
-/* ==========================================================================
-   AUTH & FALLBACK
-   ========================================================================== */
+/* AUTH & FALLBACK */
 .auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(13, 15, 18, 0.95); text-align: center; padding: 32px; }
 .auth-blocker.is-hidden { display: none; }
 .auth-title { font-size: 1.4rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; }
@@ -314,14 +344,14 @@ body::after {
 .api-fallback-box input { padding: 12px; background: var(--bg-core); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace;}
 .api-fallback-box button { padding: 12px; background: var(--accent-danger); color: #fff; font-weight: bold; cursor: pointer; }
 
-/* SCRIPT VAULT FORM */
 .script-share-form { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
 .script-share-input { padding: 14px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace; }
 textarea.script-share-input { height: 150px; resize: none; }
-
 </style>
 </head>
 <body>
+
+<div id="toast-banner">M CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
 
 <div class="confirm-backdrop" id="confirm-modal">
     <div class="confirm-box">
@@ -341,7 +371,7 @@ textarea.script-share-input { height: 150px; resize: none; }
 
 <nav class="drawer-menu" id="nav-drawer">
   <div class="drawer-header">
-    <div class="drawer-title">BẢNG ĐIỀU KHIỂN</div>
+    <div class="drawer-title" id="drawer-system-title">BẢNG ĐIỀU KHIỂN</div>
     <button class="drawer-close" onclick="toggleMenu()">✕</button>
   </div>
   
@@ -351,7 +381,14 @@ textarea.script-share-input { height: 150px; resize: none; }
     <button class="btn-sidebar" onclick="openUI('modal-noxchat')">GLOBAL CHAT</button>
   </div>
   
-  <div class="drawer-group" style="margin-top: 10px;">
+  <div class="drawer-group" id="drawer-auth-group">
+    <div class="drawer-label">TÀI KHOẢN</div>
+    <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center;"></div>
+    <button class="btn-sidebar" id="drawer-btn-guest" onclick="ChatEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
+    <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
+  </div>
+
+  <div class="drawer-group" style="margin-top: 5px;">
     <div class="drawer-label">CỘNG ĐỒNG</div>
     <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="btn-sidebar">NHÓM ZALO</a>
     <a href="https://discord.gg/kRCKkw63s" target="_blank" class="btn-sidebar">DISCORD SERVER</a>
@@ -362,20 +399,31 @@ textarea.script-share-input { height: 150px; resize: none; }
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-      <span class="status-badge">Phiên bản V31.0</span>
-      <h1 class="title-main">NOX WEB </h1>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V32</span>
+      <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
     </div>
 
     <div class="info-board">
-      <h3>THÔNG BÁO</h3>
-      <div class="text-truncate" style="display:block;">
-        > <b> WELCOME TO NOX WEB .<br>
-        > <b> NẾU AI PHÁT HIỆN LỖI HOẶC CÓ THẮC MẮC HÃY LIÊN HỆ DEV DVMINH ĐỂ ĐƯỢC HỖ TRỢ.<br>
+      <h3 id="ui-notice-title">THÔNG BÁO</h3>
+      <div class="text-truncate" id="ui-notice-text" style="display:block;">
+        > <b>WELCOME TO NOX WEB V32.</b><br>
+        > Hỗ trợ đăng xuất, đăng nhập khách từ menu.<br>
+        > Đặc quyền DEV chỉnh sửa/xóa tiện ích, Toast Alert thông báo thời gian thực.<br>
+        > Nhấn giữ hoặc đè vào tin nhắn chat của bạn để chỉnh sửa hoặc thu hồi.
       </div>
     </div>
 
+    <div class="dev-config-box" id="dev-config-panel">
+        <div style="color:var(--dev-color); font-weight:bold; margin-bottom:5px;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
+        <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V32)...">
+        <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
+        <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none;"></textarea>
+        <button onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
+    </div>
+
     <button class="btn-primary" onclick="openUI('modal-archive')">
-      TRUY CẬP KHO TIỆN ÍCH
+      TRUY CẬP KHO DỮ LIỆU
     </button>
   </main>
 </div>
@@ -392,16 +440,20 @@ textarea.script-share-input { height: 150px; resize: none; }
     </div>
 
     <div class="dev-add-panel" id="dev-utils-panel">
-        <div style="color:var(--dev-color); font-weight:bold; margin-bottom:5px;">[DEV] THÊM TIỆN ÍCH MỚI</div>
+        <div style="color:var(--dev-color); font-weight:bold; margin-bottom:5px;" id="dev-panel-heading">[DEV] THÊM / SỬA TIỆN ÍCH</div>
+        <input type="hidden" id="dev-edit-key" value="">
         <select id="dev-util-type">
             <option value="pane-link">Link</option>
             <option value="pane-script">Script</option>
             <option value="pane-apk">APK</option>
             <option value="pane-ios">iOS</option>
         </select>
-        <input type="text" id="dev-util-title" placeholder="Tên tiện ích (VD: Hack Blox Fruits)...">
+        <input type="text" id="dev-util-title" placeholder="Tên tiện ích...">
         <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..."></textarea>
-        <button onclick="UtilsEngine.triggerAdd()">ĐĂNG TẢI</button>
+        <div style="display:flex; gap:10px;">
+            <button onclick="UtilsEngine.triggerSave()" style="flex:1;" id="dev-submit-btn">ĐĂNG TẢI</button>
+            <button onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; background:var(--border-color); color:var(--text-main); flex:1;">HỦY</button>
+        </div>
     </div>
 
     <div class="tab-nav">
@@ -412,29 +464,10 @@ textarea.script-share-input { height: 150px; resize: none; }
     </div>
 
     <div class="tab-body-wrapper">
-      <div id="pane-link" class="tab-pane is-active">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Bypass Key Delta</span><a href="https://baconbypass.xyz" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kasumi Store VIP</span><a href="https://gofile.io/d/v3Q6Ig" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Clone Tab Delta VNG</span><a href="https://gofile.io/d/S1FNjL" target="_blank" class="box-action">MỞ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kho Tài Nguyên APK</span><a href="https://gofile.io/d/w9cKYp" target="_blank" class="box-action">MỞ</a></div></div>
-      </div>
-      <div id="pane-script" class="tab-pane">
-        <div class="data-box static-item">
-          <div class="box-head"><span class="box-title">Speed X Hub Pro</span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-          <div class="script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</div>
-        </div>
-        <div class="data-box static-item">
-          <div class="box-head"><span class="box-title">UB Hub Master</span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-          <div class="script-code">loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()</div>
-        </div>
-      </div>
-      <div id="pane-apk" class="tab-pane">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Delta Web Client</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">TẢI VỀ</a></div></div>
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Kiwi VPN Premium</span><a href="https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk" target="_blank" class="box-action">TẢI VỀ</a></div></div>
-      </div>
-      <div id="pane-ios" class="tab-pane">
-        <div class="data-box static-item"><div class="box-head"><span class="box-title">Delta iOS</span><a href="https://deltaexploits.gg/" target="_blank" class="box-action">MỞ</a></div></div>
-      </div>
+      <div id="pane-link" class="tab-pane is-active"></div>
+      <div id="pane-script" class="tab-pane"></div>
+      <div id="pane-apk" class="tab-pane"></div>
+      <div id="pane-ios" class="tab-pane"></div>
     </div>
   </div>
 </div>
@@ -448,8 +481,8 @@ textarea.script-share-input { height: 150px; resize: none; }
     
     <div id="gpt-fallback-container" style="display:none;">
         <div class="api-fallback-box">
-            <div class="api-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY (GEMINI)</div>
-            <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng AQ. hoặc AIza)...">
+            <div class="api-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY (XKIRO)</div>
+            <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng sk-xt-)...">
             <button onclick="GptEngine.validateAndSaveConfig()">LƯU VÀ THỬ LẠI</button>
         </div>
     </div>
@@ -492,15 +525,15 @@ textarea.script-share-input { height: 150px; resize: none; }
     
     <div class="chat-messages" id="noxchat-board">
       <div class="msg-row type-other">
-        <div class="msg-meta">
-          <div class="msg-name sys">SYSTEM</div>
-        </div>
-        <div class="msg-bubble" style="background: var(--bg-input);">
-          Đang kết nối tới máy chủ Firebase...
-        </div>
+        <div class="msg-meta"><div class="msg-name sys">SYSTEM</div></div>
+        <div class="msg-bubble" style="background: var(--bg-input);">Đang kết nối tới máy chủ Firebase...</div>
       </div>
     </div>
     
+    <div id="typing-indicator" style="display:none;">
+        <span id="typing-user-text">Ai đó</span> đang nhập <span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>
+    </div>
+
     <div class="chat-footer">
       <div class="image-preview-zone" id="chat-preview-zone">
         <img src="" id="chat-preview-img" class="preview-thumb">
@@ -510,7 +543,7 @@ textarea.script-share-input { height: 150px; resize: none; }
         <button class="btn-photo" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
         <label for="chat-img-upload" class="btn-photo">PHOTO</label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
-        <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
+        <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." oninput="ChatEngine.notifyTyping()" onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
         <button class="chat-send" onclick="ChatEngine.sendMsg()">GỬI</button>
       </div>
     </div>
@@ -537,7 +570,24 @@ textarea.script-share-input { height: 150px; resize: none; }
       <div class="modal-heading">KHO SCRIPT CỘNG ĐỒNG</div>
       <button class="modal-close" onclick="closeUI('modal-script-vault')">✕</button>
     </div>
-    <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:16px; padding: 20px;">
+    <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:16px; padding: 20px;"></div>
+  </div>
+</div>
+
+<div class="msg-context-menu" id="msg-context-modal">
+    <button class="msg-context-btn" onclick="ChatEngine.openEditModal()">Chỉnh sửa văn bản</button>
+    <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg()">Thu hồi tin nhắn</button>
+</div>
+
+<div class="modal-backdrop" id="modal-edit-msg" onclick="if(event.target===this)closeUI('modal-edit-msg')">
+  <div class="modal-content" style="max-width: 450px; height: auto;">
+    <div class="modal-header">
+      <div class="modal-heading">CHỈNH SỬA TIN NHẮN</div>
+      <button class="modal-close" onclick="closeUI('modal-edit-msg')">✕</button>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; padding:20px;">
+      <textarea id="edit-msg-textarea" class="search-box" style="height:100px; resize:none;"></textarea>
+      <button class="btn-primary" onclick="ChatEngine.saveEditedMsg()">LƯU THAY ĐỔI</button>
     </div>
   </div>
 </div>
@@ -569,6 +619,15 @@ const ConfirmUI = {
     }
 };
 
+/* TOAST BANNER ALERT (5s) */
+function showToast(msg) {
+    const t = DOM.get('toast-banner');
+    if(!t) return;
+    t.innerText = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 5000);
+}
+
 /* ==========================================================================
    UI CONTROLS
    ========================================================================== */
@@ -583,8 +642,13 @@ function openUI(id) {
 }
 function closeUI(id) { const e = DOM.get(id); if(e) e.classList.remove('is-active'); }
 
+function toggleText(element) {
+    const textNode = element.querySelector('.text-truncate');
+    if(textNode) textNode.classList.toggle('expanded');
+}
+
 /* ==========================================================================
-   IMAGE PROCESSOR (CANVAS COMPRESSION)
+   IMAGE PROCESSOR
    ========================================================================== */
 const ImageProcessor = {
   currentGptImage: null, currentChatImage: null,
@@ -614,11 +678,50 @@ const ImageProcessor = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (QUẢN LÝ TIỆN ÍCH DYNAMIC TỪ FIREBASE)
+   CONFIG ENGINE (ĐỒNG BỘ CẤU HÌNH WEB VÀO FIREBASE)
+   ========================================================================== */
+const ConfigEngine = {
+    ref: null,
+    init: function() {
+        this.ref = firebase.database().ref('nox_site_config');
+        this.ref.on('value', snapshot => {
+            const data = snapshot.val();
+            if(data) {
+                if(data.title && DOM.get('ui-title-text')) DOM.get('ui-title-text').innerText = data.title;
+                if(data.version && DOM.get('ui-version-badge')) DOM.get('ui-version-badge').innerText = `Phiên bản ${data.version}`;
+                if(data.noticeTitle && DOM.get('ui-notice-title')) DOM.get('ui-notice-title').innerText = data.noticeTitle;
+                if(data.noticeText && DOM.get('ui-notice-text')) DOM.get('ui-notice-text').innerHTML = data.noticeText.replace(/\n/g, '<br>');
+            }
+        });
+    },
+    saveConfig: function() {
+        if(!IS_ADMIN) return;
+        const title = DOM.get('dev-conf-title').value.trim();
+        const version = DOM.get('dev-conf-version').value.trim();
+        const noticeTitle = DOM.get('dev-conf-noticetitle').value.trim();
+        const noticeText = DOM.get('dev-conf-noticetext').value.trim();
+        
+        let payload = {};
+        if(title) payload.title = title;
+        if(version) payload.version = version;
+        if(noticeTitle) payload.noticeTitle = noticeTitle;
+        if(noticeText) payload.noticeText = noticeText;
+        
+        this.ref.update(payload).then(() => {
+            showToast("Đã cập nhật hệ thống thành công!");
+        });
+    }
+};
+
+/* ==========================================================================
+   UTILS ENGINE (QUẢN LÝ TIỆN ÍCH DYNAMIC + SỬA/XÓA)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
-    init: function() { this.ref = firebase.database().ref('nox_custom_utils'); this.loadDynamicUtils(); },
+    init: function() { 
+        this.ref = firebase.database().ref('nox_custom_utils'); 
+        this.loadDynamicUtils(); 
+    },
     switchPane: function(id, btn) { 
         DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); 
         const p = DOM.get(id); if(p) p.classList.add('is-active'); if(btn) btn.classList.add('is-active'); 
@@ -638,17 +741,54 @@ const UtilsEngine = {
         const ok = () => { const o = btn.textContent; btn.textContent = 'COPIED'; btn.classList.add('is-copied'); setTimeout(() => { btn.textContent = o; btn.classList.remove('is-copied'); }, 2000); }; 
         if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok).catch(fb); else fb(); 
     },
-    triggerAdd: function() {
-        ConfirmUI.show("BẠN MUỐN ĐĂNG TIỆN ÍCH NÀY LÊN HỆ THỐNG?", () => { this.addUtility(); });
+    triggerSave: function() {
+        ConfirmUI.show("LƯU TIỆN ÍCH NÀY LÊN MÁY CHỦ?", () => { this.saveUtility(); });
     },
-    addUtility: function() {
+    saveUtility: function() {
         if(!IS_ADMIN) return;
-        const type = DOM.get('dev-util-type').value; const title = DOM.get('dev-util-title').value.trim(); const content = DOM.get('dev-util-content').value.trim();
+        const editKey = DOM.get('dev-edit-key').value;
+        const type = DOM.get('dev-util-type').value; 
+        const title = DOM.get('dev-util-title').value.trim(); 
+        const content = DOM.get('dev-util-content').value.trim();
+        
         if(!title || !content) { alert("Nhập đủ thông tin!"); return; }
-        this.ref.push({ type: type, title: title, content: content, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => { DOM.get('dev-util-title').value = ''; DOM.get('dev-util-content').value = ''; });
+        
+        if(editKey) {
+            // Chế độ chỉnh sửa
+            this.ref.child(editKey).update({ type, title, content }).then(() => {
+                showToast("Đã cập nhật tiện ích!");
+                this.cancelEdit();
+            });
+        } else {
+            // Chế độ thêm mới
+            this.ref.push({ type, title, content, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
+                showToast("Đã thêm tiện ích mới!");
+                DOM.get('dev-util-title').value = ''; DOM.get('dev-util-content').value = '';
+            });
+        }
     },
     triggerDelete: function(key) {
-        ConfirmUI.show("XÓA TIỆN ÍCH NÀY KHỎI MÁY CHỦ?", () => { this.ref.child(key).remove(); });
+        ConfirmUI.show("XÓA TIỆN ÍCH NÀY KHỎI HỆ THỐNG?", () => { 
+            this.ref.child(key).remove().then(() => showToast("Đã xóa tiện ích!")); 
+        });
+    },
+    triggerEdit: function(key, type, title, content) {
+        DOM.get('dev-edit-key').value = key;
+        DOM.get('dev-util-type').value = type;
+        DOM.get('dev-util-title').value = title;
+        DOM.get('dev-util-content').value = content;
+        DOM.get('dev-panel-heading').innerText = "[DEV] CHỈNH SỬA TIỆN ÍCH";
+        DOM.get('dev-submit-btn').innerText = "LƯU THAY ĐỔI";
+        DOM.get('dev-cancel-btn').style.display = 'block';
+        openUI('modal-archive');
+    },
+    cancelEdit: function() {
+        DOM.get('dev-edit-key').value = '';
+        DOM.get('dev-util-title').value = ''; 
+        DOM.get('dev-util-content').value = '';
+        DOM.get('dev-panel-heading').innerText = "[DEV] THÊM TIỆN ÍCH MỚI";
+        DOM.get('dev-submit-btn').innerText = "ĐĂNG TẢI";
+        DOM.get('dev-cancel-btn').style.display = 'none';
     },
     loadDynamicUtils: function() {
         if(!this.ref) return;
@@ -659,11 +799,18 @@ const UtilsEngine = {
                     const data = child.val(); const key = child.key; const pane = DOM.get(data.type);
                     if(pane) {
                         const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                        let delBtn = IS_ADMIN ? `<button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${key}')">XÓA</button>` : '';
+                        let devControls = '';
+                        if(IS_ADMIN) {
+                            devControls = `
+                                <button class="dev-edit-btn" onclick="UtilsEngine.triggerEdit('${key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')">SỬA</button>
+                                <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${key}')">XÓA</button>
+                            `;
+                        }
+                        
                         if(data.type === 'pane-script') {
-                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} ${delBtn}</span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
+                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
                         } else {
-                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} ${delBtn}</span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
+                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
                         }
                         pane.insertBefore(box, pane.firstChild);
                     }
@@ -674,15 +821,18 @@ const UtilsEngine = {
 };
 
 /* ==========================================================================
-   NOX GPT ENGINE (GEMINI INTERACTIONS API + PUTER)
+   NOX GPT ENGINE (DEEPSEEK 4.0 PRO)
    ========================================================================== */
 const GptEngine = {
-  defaultKey: "AQ.Ab8RN6L8EAaeUZ8dJstlq1kRZAbUIl9AppWKG5VNtoHQza5Nqg",
-  defaultUrl: "https://generativelanguage.googleapis.com/v1beta/interactions",
-  getApiKey: function() { return localStorage.getItem('nox_gemini_key') || this.defaultKey; },
-  setApiKey: function(newKey) { localStorage.setItem('nox_gemini_key', newKey.trim()); },
+  defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
+  defaultUrl: "https://api.xkiro.com/v1/chat/completions",
+  getApiKey: function() { return localStorage.getItem('nox_ds_key') || this.defaultKey; },
+  setApiKey: function(newKey) { localStorage.setItem('nox_ds_key', newKey.trim()); },
   
-  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false, usePuter: false,
+  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
+  messageHistory: [
+      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB. Trả lời ngắn gọn, chuẩn Hacker." }
+  ],
 
   init: function() {
     if(this.isGreeted) return; this.isGreeted = true;
@@ -693,7 +843,6 @@ const GptEngine = {
     if(!this.board) return;
     const row = document.createElement('div'); row.className = `msg-row type-${type} ${isError ? 'type-error' : ''}`;
     let innerHTML = '';
-    // Xóa logo, chỉ giữ tên theo yêu cầu
     if(type === 'other') {
       innerHTML += `<div class="msg-meta"><div class="msg-name sys">${name}</div></div>`;
     } else {
@@ -709,26 +858,15 @@ const GptEngine = {
   triggerFallbackUI: function(errorMessage) {
     this.input.disabled = true; this.input.placeholder = "API Lỗi...";
     const box = DOM.get('gpt-fallback-container');
-    if(box) { box.style.display = 'block'; box.querySelector('.api-fallback-title').innerText = `[LỖI API] Đang dùng Puter. Cập nhật Key Gemini để khôi phục:`; }
+    if(box) { box.style.display = 'block'; box.querySelector('.api-fallback-title').innerText = `[LỖI API] ${errorMessage}`; }
   },
 
   validateAndSaveConfig: function() {
       const keyInput = DOM.get('gpt-new-api-key'); const keyVal = keyInput ? keyInput.value.trim() : '';
       if(!keyVal) { alert("Vui lòng nhập API Key!"); return; }
-      this.setApiKey(keyVal); this.usePuter = false;
-      DOM.get('gpt-fallback-container').style.display = 'none'; this.input.disabled = false; this.input.placeholder = "Nhập lệnh...";
-      this.appendMsg('other', 'System', 'Đã lưu API Key mới. Hãy thử lại.');
-  },
-
-  submitPuter: function(text) {
-      const tempNode = this.appendMsg('other', 'NOXGPT (Dự phòng)', '<span style="opacity:0.6;">Đang xử lý (Puter)...</span>');
-      try {
-          puter.ai.chat(text, { model: "gpt-5.4-nano" }).then(response => {
-              tempNode.remove();
-              let output = typeof response === 'string' ? response : (response.message || response.text || JSON.stringify(response));
-              this.appendMsg('other', 'NOXGPT (Dự phòng)', output.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>'));
-          }).catch(err => { tempNode.remove(); this.appendMsg('other', 'System', 'Puter AI cũng đang lỗi.', true); });
-      } catch(e) { tempNode.remove(); }
+      this.setApiKey(keyVal); DOM.get('gpt-fallback-container').style.display = 'none';
+      this.input.disabled = false; this.input.placeholder = "Nhập câu lệnh...";
+      this.appendMsg('other', 'System', 'Đã lưu API Key mới.');
   },
 
   submit: async function() {
@@ -740,51 +878,41 @@ const GptEngine = {
     
     this.input.value = ''; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
-    
-    if(this.usePuter) {
-        if(base64Img) this.appendMsg('other', 'System', 'Lưu ý: Puter không hỗ trợ xem ảnh.', true);
-        this.submitPuter(text || "Xin chào"); return;
-    }
+    this.messageHistory.push({ role: "user", content: text || "[Đã gửi ảnh]" });
 
     const tempNode = this.appendMsg('other', 'NOXGPT', '<span style="opacity:0.6;">Đang xử lý...</span>');
 
     try {
       const apiKey = this.getApiKey();
-      let payload = { model: "gemini-3.6-flash" };
-      
-      // Xây dựng input array theo chuẩn Interaction
-      let inputArr = [];
-      if(text) inputArr.push({ type: "text", text: text });
-      if(base64Img) {
-          const base64Data = base64Img.split(',')[1];
-          inputArr.push({ type: "image", data: base64Data, mime_type: "image/jpeg" });
-      }
-      payload.input = inputArr.length === 1 && text ? text : inputArr;
-
       const response = await fetch(this.defaultUrl, {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey }, body: JSON.stringify(payload)
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({ model: "deepseek/deepseek-v4-pro", messages: this.messageHistory })
       });
 
-      if(!response.ok) throw new Error("API FAILED");
+      if(!response.ok) { const errData = await response.json().catch(()=>({})); throw new Error(errData.error?.message || `HTTP ${response.status}`); }
       const data = await response.json(); tempNode.remove();
       
-      let outputText = data.output_text || data.response || (data.candidates && data.candidates[0].content.parts[0].text) || "Lỗi dữ liệu trả về.";
-      this.appendMsg('other', 'NOXGPT', outputText.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>')); 
-      
+      if(data.choices && data.choices[0] && data.choices[0].message) {
+          const reply = data.choices[0].message.content;
+          const formattedText = reply.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
+          this.appendMsg('other', 'NOXGPT', formattedText); 
+          this.messageHistory.push({ role: "assistant", content: reply });
+      } else { throw new Error("Format lỗi từ máy chủ"); }
     } catch(err) {
-      if(tempNode) tempNode.remove(); console.warn("Gemini Error:", err);
-      this.usePuter = true; this.triggerFallbackUI(err.message); this.submitPuter(text || "Xin chào");
+      if(tempNode) tempNode.remove(); console.warn("AI Error:", err); this.triggerFallbackUI(err.message);
     }
   }
 };
 const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT ENGINE (BADGES, DELETE, GUEST LOGIN)
+   FIREBASE CHAT ENGINE (PERSISTENT AUTH, TYPING, EDIT, RECALL, TOAST)
    ========================================================================== */
 const ChatEngine = {
-  dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
-  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", isSetup: false,
+  dbRef: null, scriptRef: null, typingRef: null, userProfile: null, 
+  board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
+  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", 
+  isSetup: false, activeMsgKey: null, typingTimer: null,
 
   initFirebase: function() {
     if(this.isSetup) return;
@@ -799,8 +927,32 @@ const ChatEngine = {
       if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
       this.dbRef = firebase.database().ref('nox_global_chat');
       this.scriptRef = firebase.database().ref('nox_global_scripts'); 
-      this.isSetup = true; UtilsEngine.init();
-      this.cleanupOldMessages(); setInterval(() => this.cleanupOldMessages(), 3600000); 
+      this.typingRef = firebase.database().ref('nox_typing_status');
+      this.isSetup = true; 
+      
+      UtilsEngine.init();
+      ConfigEngine.init();
+      this.cleanupOldMessages(); 
+      setInterval(() => this.cleanupOldMessages(), 3600000); 
+      
+      // Lắng nghe trạng thái Nhập văn bản (Typing)
+      this.listenTyping();
+      // Lắng nghe sự kiện thêm mới script để hiện Toast Alert 5s
+      this.listenNewScriptsToast();
+
+      // KHÔI PHỤC PHIÊN ĐĂNG NHẬP TRƯỚC ĐÓ (PERSISTENT AUTH)
+      const savedUser = localStorage.getItem('nox_user_profile');
+      if(savedUser) {
+          try {
+              const profile = JSON.parse(savedUser);
+              this.userProfile = profile;
+              if(profile.email === ADMIN_EMAIL) { IS_ADMIN = true; DOM.get('dev-utils-panel').classList.add('active'); DOM.get('dev-config-panel').classList.add('active'); }
+              DOM.get('auth-guard').style.display = 'none';
+              this.updateMenuAuthUI(true, profile);
+              this.listenForMessages();
+          } catch(e) { localStorage.removeItem('nox_user_profile'); }
+      }
+
     } catch(err) { console.error("FB Init Err:", err); }
   },
 
@@ -816,63 +968,196 @@ const ChatEngine = {
 
   onGoogleLoginSuccess: function(response) {
     const payload = ChatEngine.decodeJwt(response.credential);
-    if(payload.email === ADMIN_EMAIL) { IS_ADMIN = true; DOM.get('dev-utils-panel').classList.add('active'); }
+    if(payload.email === ADMIN_EMAIL) { 
+        IS_ADMIN = true; 
+        DOM.get('dev-utils-panel').classList.add('active'); 
+        DOM.get('dev-config-panel').classList.add('active'); 
+    }
     ChatEngine.userProfile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
-    DOM.get('auth-guard').style.display = 'none'; ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${ChatEngine.userProfile.role}`, true); ChatEngine.listenForMessages();
+    
+    // Lưu vào LocalStorage chống mất khi reset web
+    localStorage.setItem('nox_user_profile', JSON.stringify(ChatEngine.userProfile));
+
+    DOM.get('auth-guard').style.display = 'none'; 
+    ChatEngine.updateMenuAuthUI(true, ChatEngine.userProfile);
+    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${ChatEngine.userProfile.role}`, true); 
+    ChatEngine.listenForMessages();
   },
 
   initGoogleIdentity: function() {
     if(typeof google === 'undefined' || !google.accounts) { setTimeout(() => ChatEngine.initGoogleIdentity(), 500); return; }
-    google.accounts.id.initialize({ client_id: this.googleClientId, callback: this.onGoogleLoginSuccess });
+    google.accounts.id.initialize({ client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", callback: this.onGoogleLoginSuccess });
+    
+    // Render nút trong Modal Chat
     const btnWrap = DOM.get('google-login-mount'); if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
+    
+    // Render nút trong Menu Sidebar chính
+    const menuWrap = DOM.get('drawer-google-login-wrap'); 
+    if(menuWrap && !menuWrap.hasChildNodes()) {
+        google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
+    }
   },
 
   guestLogin: function() {
       this.userProfile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest", role: 'GUEST' };
+      localStorage.setItem('nox_user_profile', JSON.stringify(this.userProfile));
       DOM.get('auth-guard').style.display = 'none';
+      this.updateMenuAuthUI(true, this.userProfile);
       this.appendMsg('SYSTEM', `Đăng nhập khách: ${this.userProfile.name}`, true);
       this.listenForMessages();
   },
 
+  logout: function() {
+      localStorage.removeItem('nox_user_profile');
+      window.location.reload();
+  },
+
+  updateMenuAuthUI: function(isLoggedIn, profile) {
+      if(isLoggedIn) {
+          DOM.get('drawer-btn-guest').style.display = 'none';
+          DOM.get('drawer-google-login-wrap').style.display = 'none';
+          DOM.get('drawer-btn-logout').style.display = 'flex';
+          DOM.get('drawer-system-title').innerText = `${profile.role}: ${profile.name}`;
+      } else {
+          DOM.get('drawer-btn-guest').style.display = 'flex';
+          DOM.get('drawer-google-login-wrap').style.display = 'flex';
+          DOM.get('drawer-btn-logout').style.display = 'none';
+      }
+  },
+
   removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
 
-  appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX') {
+  appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX', isRecalled = false) {
     if(!this.board) return;
     let isMe = false; if(this.userProfile && senderName === this.userProfile.name) isMe = true;
+    
     const rowType = isMe ? 'type-user' : 'type-other';
     const row = document.createElement('div'); row.className = `msg-row ${rowType}`; row.id = msgKey ? `msg-${msgKey}` : '';
     
     let innerHTML = '';
-    let deleteBtn = (IS_ADMIN && msgKey && !isSystem) ? `<span style="cursor:pointer; color:var(--accent-danger); margin-left:8px;" onclick="ChatEngine.triggerDeleteMsg('${msgKey}')">[X]</span>` : '';
-
     if(!isMe) {
-      let badge = ''; let nameClass = 'msg-name';
-      if(isSystem) { nameClass = 'msg-name sys'; }
-      else {
-          if(role === 'DEV') { badge = `<span class="badge-dev">[DEV]</span>`; nameClass = 'msg-name dev'; }
-          else if(role === 'NOX') { badge = `<span class="badge-nox">[NOX]</span>`; }
-          else { badge = `<span class="badge-guest">[GUEST]</span>`; }
-      }
-      innerHTML += `<div class="msg-meta"><div class="${nameClass}">${badge}${senderName} ${deleteBtn}</div></div>`;
+      let badge = role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
+      innerHTML += `<div class="msg-meta"><div class="msg-name">${badge}${senderName}</div></div>`;
     } else {
-        innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn ${deleteBtn}</div></div>`;
+      innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
     }
-    innerHTML += `<div class="msg-bubble">${htmlContent}</div>`;
-    row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
+    
+    let bubbleContent = isRecalled ? '<span style="font-style:italic; color:var(--text-muted);">[Tin nhắn đã bị thu hồi]</span>' : htmlContent;
+    innerHTML += `<div class="msg-bubble" ${isMe && !isRecalled && msgKey ? `oncontextmenu="event.preventDefault(); ChatEngine.openContext('${msgKey}', event)" ontouchstart="ChatEngine.handleTouchStart('${msgKey}', event)"` : ''}>${bubbleContent}</div>`;
+    
+    row.innerHTML = innerHTML; 
+    
+    // Nếu tin nhắn đã tồn tại -> Cập nhật nội dung (cho Edit hoặc Recall)
+    const existing = DOM.get(`msg-${msgKey}`);
+    if(existing) {
+        existing.replaceWith(row);
+    } else {
+        this.board.appendChild(row); 
+        this.board.scrollTop = this.board.scrollHeight;
+    }
   },
 
-  triggerDeleteMsg: function(key) { ConfirmUI.show("BẠN CÓ CHẮC MUỐN XÓA TIN NHẮN NÀY KHỎI HỆ THỐNG?", () => { this.dbRef.child(key).remove(); }); },
+  /* LONG PRESS / RIGHT CLICK CONTEXT MENU CHO TIN NHẮN CỦA MÌNH */
+  touchTimer: null,
+  handleTouchStart: function(key, e) {
+      this.touchTimer = setTimeout(() => {
+          this.openContext(key, e);
+      }, 600); // Giữ 0.6 giây để mở menu
+      document.addEventListener('touchend', () => clearTimeout(this.touchTimer), { once: true });
+  },
+
+  openContext: function(key, e) {
+      this.activeMsgKey = key;
+      const menu = DOM.get('msg-context-modal');
+      menu.style.top = `${e.clientY || e.touches[0].clientY}px`;
+      menu.style.left = `${e.clientX || e.touches[0].clientX}px`;
+      menu.classList.add('active');
+      document.addEventListener('pointerdown', () => menu.classList.remove('active'), { once: true });
+  },
+
+  openEditModal: function() {
+      if(!this.activeMsgKey) return;
+      this.dbRef.child(this.activeMsgKey).once('value', snapshot => {
+          const data = snapshot.val();
+          if(data && data.text) {
+              DOM.get('edit-msg-textarea').value = data.text;
+              openUI('modal-edit-msg');
+          }
+      });
+  },
+
+  saveEditedMsg: function() {
+      if(!this.activeMsgKey) return;
+      const newText = DOM.get('edit-msg-textarea').value.trim();
+      if(!newText) { alert("Tin nhắn trống!"); return; }
+      
+      this.dbRef.child(this.activeMsgKey).update({ text: newText }).then(() => {
+          closeUI('modal-edit-msg');
+          showToast("Đã chỉnh sửa tin nhắn!");
+      });
+  },
+
+  triggerRecallMsg: function() {
+      if(!this.activeMsgKey) return;
+      ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
+          this.dbRef.child(this.activeMsgKey).update({ recalled: true, text: "" }).then(() => {
+              showToast("Đã thu hồi tin nhắn!");
+          });
+      });
+  },
 
   listenForMessages: function() {
     if(!this.dbRef) return;
     this.dbRef.limitToLast(50).on('child_added', (snapshot) => {
       const data = snapshot.val(); if(!data) return;
-      if(this.userProfile && data.user === this.userProfile.name && Date.now() - data.timestamp < 3000) return; 
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
       if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
-      this.appendMsg(data.user, html, false, snapshot.key, data.role);
+      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
     });
-    this.dbRef.on('child_removed', (snapshot) => { const row = DOM.get(`msg-${snapshot.key}`); if(row) row.remove(); });
+    
+    this.dbRef.on('child_changed', (snapshot) => {
+      const data = snapshot.val(); if(!data) return;
+      let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+      if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
+      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
+    });
+  },
+
+  notifyTyping: function() {
+      if(!this.userProfile || !this.typingRef) return;
+      clearTimeout(this.typingTimer);
+      this.typingRef.set({ user: this.userProfile.name, time: Date.now() });
+      this.typingTimer = setTimeout(() => {
+          this.typingRef.remove();
+      }, 2000);
+  },
+
+  listenTyping: function() {
+      if(!this.typingRef) return;
+      this.typingRef.on('value', snapshot => {
+          const val = snapshot.val();
+          const indicator = DOM.get('typing-indicator');
+          if(!indicator) return;
+          
+          if(val && this.userProfile && val.user !== this.userProfile.name && (Date.now() - val.time < 3000)) {
+              DOM.get('typing-user-text').innerText = val.user;
+              indicator.style.display = 'block';
+          } else {
+              indicator.style.display = 'none';
+          }
+      });
+  },
+
+  listenNewScriptsToast: function() {
+      if(!this.scriptRef) return;
+      let isFirst = true;
+      this.scriptRef.limitToLast(1).on('child_added', (snapshot) => {
+          if(isFirst) { isFirst = false; return; } // Bỏ qua lịch sử cũ khi vừa load
+          const data = snapshot.val();
+          if(data && data.title) {
+              showToast(`[SCRIPT MỚI] ${data.title} vừa được đăng tải!`);
+          }
+      });
   },
 
   sendMsg: function() {
@@ -884,23 +1169,28 @@ const ChatEngine = {
     let displayHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
     if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
     
-    this.appendMsg(this.userProfile.name, displayHtml, false, null, this.userProfile.role);
     this.input.value = ''; this.removeImage();
+    if(this.typingRef) this.typingRef.remove();
     
-    this.dbRef.push({ user: this.userProfile.name, role: this.userProfile.role, text: text, image: base64Img || "", timestamp: firebase.database.ServerValue.TIMESTAMP }).catch(err => { this.appendMsg('SYSTEM', 'Gửi lỗi.', true); });
+    this.dbRef.push({ 
+        user: this.userProfile.name, role: this.userProfile.role, 
+        text: text, image: base64Img || "", recalled: false, 
+        timestamp: firebase.database.ServerValue.TIMESTAMP 
+    });
   },
 
-  triggerSendScript: function() { ConfirmUI.show("ĐĂNG TẢI SCRIPT NÀY LÊN MÁY CHỦ?", () => { this.sendScript(); }); },
   sendScript: function() {
       if(!this.userProfile) { alert("Vui lòng đăng nhập chat trước!"); return; }
       const title = DOM.get('share-title').value.trim(); const code = DOM.get('share-code').value.trim();
       if(!title || !code) { alert("Điền đủ thông tin!"); return; }
       this.scriptRef.push({ user: this.userProfile.name, role: this.userProfile.role, title: title, code: code, timestamp: firebase.database.ServerValue.TIMESTAMP })
-      .then(() => { alert("Đăng Script thành công!"); DOM.get('share-title').value = ''; DOM.get('share-code').value = ''; closeUI('modal-script-share'); });
+      .then(() => { 
+          showToast("Đăng Script thành công!"); 
+          DOM.get('share-title').value = ''; DOM.get('share-code').value = ''; 
+          closeUI('modal-script-share'); 
+      });
   },
   
-  triggerDeleteScript: function(key) { ConfirmUI.show("XÓA SCRIPT NÀY KHỎI KHO DỮ LIỆU?", () => { this.scriptRef.child(key).remove(); }); },
-
   loadVaultScripts: function() {
       const vBoard = DOM.get('vault-board'); if(!vBoard) return;
       vBoard.innerHTML = '<div style="text-align:center; padding: 20px;">Đang tải...</div>';
@@ -912,12 +1202,12 @@ const ChatEngine = {
           
           scripts.forEach(s => {
               const b = document.createElement('div'); b.className = 'data-box';
-              let delBtn = IS_ADMIN ? `<button class="dev-delete-btn" onclick="ChatEngine.triggerDeleteScript('${s.key}')">XÓA</button>` : '';
+              let delBtn = IS_ADMIN ? `<button class="dev-delete-btn" onclick="ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child('${s.key}').remove())">XÓA</button>` : '';
               let badge = s.role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (s.role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
               let displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
               
               b.innerHTML = `
-                <div class="box-head"><span class="box-title">${s.title.replace(/</g, "&lt;")} ${delBtn}</span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
+                <div class="box-head"><span class="box-title">${s.title.replace(/</g, "&lt;")} <div>${delBtn}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
                 <div class="script-code">${s.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
                 <div style="font-size:0.75rem; color:var(--text-sub); margin-top:4px;">${badge} Đóng góp bởi: ${displayName}</div>
               `;
