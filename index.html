@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V40 SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V40. Fix Đăng nhập, Khôi phục Dữ liệu tĩnh, AI DeepSeek Pro.">
+<title>NOX WEB - V41 SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V41. Nút ảnh dấu +, Xác nhận đăng xuất, Đảm bảo render Google Login.">
 <meta name="robots" content="index, follow">
 
 <!-- Firebase App & Database -->
@@ -148,10 +148,11 @@ body::after {
 .title-main { font-size: 2rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px;}
 .status-badge { font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: var(--rad); background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); text-transform: uppercase;}
 
-.info-board { padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); cursor: pointer; transition: all 0.3s ease; }
-.info-board:hover { border-color: var(--border-hover); }
-.info-board h3 { font-size: 0.95rem; font-weight: bold; margin-bottom: 8px; color: var(--text-main); display: flex; justify-content: space-between;}
-.info-board h3 span.hint { font-size: 0.75rem; color: var(--text-sub); font-weight: normal; }
+.info-board {
+  padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color);
+}
+.info-board h3 { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--accent-green); text-transform: uppercase;}
+.info-board p { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); }
 
 .text-truncate {
   font-size: 0.9rem; line-height: 1.6; color: var(--text-sub);
@@ -165,64 +166,73 @@ body::after {
    ========================================================================== */
 .modal-backdrop { 
   position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; 
-  padding: 16px; background: rgba(0, 0, 0, 0.7); opacity: 0; transition: opacity 0.3s ease; 
+  padding: 16px; background: rgba(0, 0, 0, 0.85); opacity: 0; transition: opacity 0.2s ease; 
 }
 .modal-backdrop.is-active { display: flex; opacity: 1; }
 
 .modal-content { 
   width: 100%; max-width: 650px; height: 90dvh; max-height: 800px; display: flex; flex-direction: column; 
   background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-lg);
-  transform: translateY(20px) scale(0.98); transition: transform 0.3s ease; overflow: hidden;
+  transform: scale(0.98); transition: transform 0.2s ease; overflow: hidden;
 }
-.modal-backdrop.is-active .modal-content { transform: translateY(0) scale(1); }
+.modal-backdrop.is-active .modal-content { transform: scale(1); }
 
-.modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-color); background: var(--bg-core); }
-.modal-heading { font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-main); }
-.modal-close { width: 36px; height: 36px; border-radius: var(--rad); background: transparent; color: var(--text-sub); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; }
-.modal-close:hover { background: var(--bg-panel-hover); color: var(--text-danger); }
+.modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px dashed var(--border-color); background: var(--bg-core); }
+.modal-heading { font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-main); text-transform: uppercase;}
+.modal-close { width: 36px; height: 36px; border-radius: var(--rad); background: var(--border-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; font-weight: bold;}
+.modal-close:hover { background: var(--accent-danger); color: #fff; }
 
 /* ==========================================================================
    ARCHIVE TABS & DATA BOXES
    ========================================================================== */
 .search-wrapper { padding: 16px 20px; background: var(--bg-panel); border-bottom: 1px solid var(--border-color); }
-.search-box { width: 100%; padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; color: var(--text-main); background: var(--bg-input); border: 1px solid var(--border-color); transition: 0.2s; }
+.search-box { width: 100%; padding: 14px 16px; border-radius: var(--rad); font-size: 0.95rem; color: var(--text-main); background: var(--bg-input); border: 1px solid var(--border-color); transition: 0.2s; font-family: inherit;}
 .search-box:focus { border-color: var(--accent-green); }
 
-.tab-nav { display: flex; gap: 8px; padding: 16px 20px 0; background: var(--bg-panel); overflow-x: auto; }
+.tab-nav { display: flex; gap: 8px; padding: 16px 20px 0; background: var(--bg-panel); overflow-x: auto; border-bottom: 1px solid var(--border-color);}
 .tab-nav::-webkit-scrollbar { display: none; }
-.tab-btn { padding: 8px 16px; border-radius: var(--rad); color: var(--text-sub); font-size: 0.9rem; font-weight: bold; border-bottom: 2px solid transparent; transition: 0.2s; white-space: nowrap;}
-.tab-btn:hover { color: var(--text-main); }
-.tab-btn.is-active { color: var(--accent-green); border-bottom-color: var(--accent-green); }
+.tab-btn { padding: 10px 16px; border-radius: var(--rad); color: var(--text-sub); font-size: 0.9rem; font-weight: bold; border: 1px solid transparent; transition: 0.2s; white-space: nowrap; text-transform: uppercase;}
+.tab-btn:hover { color: var(--text-main); border-color: var(--border-color); }
+.tab-btn.is-active { color: var(--text-main); background: var(--border-color); border-color: var(--text-sub); }
 
-.tab-body-wrapper { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-core); }
-.tab-body-wrapper::-webkit-scrollbar { width: 6px; }
-.tab-body-wrapper::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 0; }
+.tab-body-wrapper { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-core); display: flex; flex-direction: column; gap: 16px;}
+.tab-body-wrapper::-webkit-scrollbar { width: 4px; }
+.tab-body-wrapper::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 0; }
 
-.tab-pane { display: none; flex-direction: column; gap: 12px; }
-.tab-pane.is-active { display: flex; animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.tab-pane { display: none; flex-direction: column; gap: 16px; }
+.tab-pane.is-active { display: flex; }
 
-.data-box { padding: 16px; border-radius: var(--rad); background: var(--bg-panel); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 12px; }
+.data-box { 
+  padding: 16px 20px; border-radius: var(--rad); 
+  background: var(--bg-panel); border: 1px solid var(--border-color); 
+  display: flex; flex-direction: column; gap: 14px; 
+  position: relative; transition: all 0.2s ease;
+}
+.data-box:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
 .data-box.is-hidden { display: none; }
-.box-head { display: flex; justify-content: space-between; align-items: center; }
-.box-title { font-size: 0.95rem; font-weight: bold; color: var(--text-main); display: flex; align-items: center; gap: 10px;}
-.box-action { padding: 8px 16px; border-radius: var(--rad); background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); font-weight: bold; font-size: 0.85rem; transition: 0.2s; cursor: pointer; }
-.box-action:hover { border-color: var(--accent-green); color: var(--accent-green); }
+
+.box-head { display: flex; justify-content: space-between; align-items: center; padding-left: 8px;}
+.box-title { font-size: 1rem; font-weight: bold; color: var(--text-main); text-transform: uppercase;}
+.box-action { 
+  padding: 8px 16px; border-radius: var(--rad); background: var(--bg-input); 
+  color: var(--text-main); border: 1px solid var(--border-color); 
+  font-weight: bold; font-size: 0.85rem; transition: 0.2s; cursor: pointer; text-transform: uppercase;
+}
+.box-action:hover { border-color: var(--text-main); background: var(--border-hover); }
 .box-action.is-copied { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
 
-.script-code { padding: 12px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); font-family: "Courier New", monospace; font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
-.search-empty { text-align: center; padding: 40px; color: var(--text-muted); font-size: 0.95rem; }
+.script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad); background: var(--bg-input); border: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
 
 /* DEV ACTION BUTTONS */
 .dev-circle-edit-btn {
-    width: 28px; height: 28px; border-radius: 50%; background: var(--bg-input); color: #3b82f6;
+    width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: #3b82f6;
     border: 1px solid #3b82f6; display: inline-flex; align-items: center; justify-content: center;
-    cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.2s;
+    cursor: pointer; font-weight: bold; font-size: 13px; margin-left: 8px; transition: 0.2s;
 }
 .dev-circle-edit-btn:hover { background: #3b82f6; color: #fff; }
 
 .dev-delete-btn {
-    background: var(--bg-input); color: var(--accent-danger); border: 1px solid var(--accent-danger);
+    background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger);
     padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 8px; font-size: 0.8rem;
 }
 .dev-delete-btn:hover { background: var(--accent-danger); color: #fff; }
@@ -254,27 +264,25 @@ body::after {
 .ban-alert-box { background: var(--bg-panel); border: 3px solid var(--accent-danger); padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
 
 /* ==========================================================================
-   CHAT UI & MODERATION ACTIONS
+   CHAT UI & FIX ẢNH BỰ (FIX IMAGE SIZE)
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
 .chat-messages::-webkit-scrollbar-thumb { background: var(--border-color); }
 
-.msg-row { display: flex; flex-direction: column; max-width: 85%; }
+.msg-row { display: flex; flex-direction: column; max-width: 85%; content-visibility: auto; contain-intrinsic-size: auto 80px; position: relative;}
 .msg-row.type-user { align-self: flex-end; align-items: flex-end; }
 .msg-row.type-other { align-self: flex-start; align-items: flex-start; }
 
-.msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 0 4px; }
-.msg-name { font-size: 0.75rem; font-weight: bold; color: var(--text-sub); }
+.msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.msg-name { font-size: 0.8rem; font-weight: bold; color: var(--text-sub); text-transform: uppercase; }
 .msg-name.sys { color: var(--accent-green); }
 
 .badge-dev { color: var(--dev-color); border: 1px solid var(--dev-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: rgba(255,0,85,0.1); }
 .badge-nox { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--accent-green-bg); }
 .badge-guest { color: var(--text-sub); border: 1px solid var(--border-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--bg-input); }
 
-/* Chỉnh hiệu ứng nhấp vào tin nhắn */
-.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer; transition: 0.2s;}
-.msg-bubble:active { transform: scale(0.98); opacity: 0.8; }
+.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer;}
 .msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
 .msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
 .msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); cursor: default;}
@@ -283,7 +291,7 @@ body::after {
 /* Fix lỗi khung ảnh to */
 .chat-image { max-width: 100%; max-height: 250px; object-fit: contain; border-radius: var(--rad); margin-bottom: 8px; display: block; background: #000; border: 1px solid var(--border-color); }
 
-/* KHUNG MENU NỔI (KHI BẤM VÀO TIN NHẮN) */
+/* Context Menu nổi cho chat */
 .msg-context-menu {
   position: absolute; bottom: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
   z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 140px;
@@ -293,46 +301,36 @@ body::after {
 .msg-context-btn:hover { background: var(--bg-panel-hover); color: var(--accent-green); }
 .msg-context-btn.danger:hover { color: var(--accent-danger); }
 
-/* BẢNG ĐIỀU HÀNH USER DÀNH CHO DEV (CẤM/MUTE) TRONG CHAT */
-.dev-mod-panel {
-    background: var(--bg-panel); border: 1px solid var(--accent-danger); border-radius: var(--rad);
-    padding: 16px; margin-top: 6px; display: flex; flex-direction: column; gap: 10px; width: 100%; min-width: 250px;
-}
-.dev-mod-panel input { padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); width: 100%;}
-.dev-mod-panel button { padding: 10px; color: #fff; font-weight: bold; cursor: pointer; border: none; width: 100%;}
-
 /* CHAT INPUT AREA */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
 
 .image-preview-zone { display: none; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
 .image-preview-zone.active { display: flex; }
-.preview-thumb { width: 40px; height: 40px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
+.preview-thumb { width: 50px; height: 50px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
 .preview-remove { width: 24px; height: 24px; background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--accent-danger);}
 
 .chat-input-wrapper { display: flex; align-items: center; gap: 8px; width: 100%; }
+.chat-field { flex: 1; min-width: 0; height: 44px; padding: 0 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; }
+.chat-field:focus { border-color: var(--text-sub); }
 
-.attach-btn { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--rad); background: var(--bg-input); color: var(--text-sub); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; border: 1px solid var(--border-color); }
-.attach-btn:hover { color: var(--text-main); border-color: var(--text-sub); }
-
-.chat-field { flex: 1; min-width: 0; height: 44px; padding: 0 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; transition: 0.2s; }
-.chat-field:focus { border-color: var(--accent-green); }
-.chat-field::placeholder { color: var(--text-muted); }
+/* NÚT THÊM ẢNH BẰNG DẤU + */
+.btn-photo { 
+  height: 44px; width: 44px; background: var(--bg-input); color: var(--text-main); 
+  border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; 
+  cursor: pointer; font-weight: bold; font-size: 1.5rem; transition: 0.2s; flex-shrink: 0;
+}
+.btn-photo:hover { background: var(--border-hover); border-color: var(--text-sub); }
 
 .chat-send { 
-  height: 44px; padding: 0 16px; border-radius: var(--rad); 
-  background: var(--accent-green); color: #fff; font-weight: bold; font-size: 0.9rem;
+  height: 44px; width: auto; padding: 0 16px; border-radius: var(--rad); 
+  background: var(--text-main); color: var(--bg-core); font-weight: bold; font-size: 0.9rem;
   display: flex; justify-content: center; align-items: center; gap: 6px;
-  cursor: pointer; transition: 0.2s; flex-shrink: 0; 
+  cursor: pointer; transition: 0.2s; border: 1px solid var(--text-main); flex-shrink: 0;
 }
 .chat-send:active { transform: scale(0.95); }
+.chat-send:hover { background: transparent; color: var(--text-main); }
 
-/* API FALLBACK FORM */
-.api-fallback-box { display: flex; flex-direction: column; gap: 8px; padding: 16px; margin: 16px; background: var(--bg-panel); border: 1px solid var(--accent-danger); box-shadow: var(--shadow-md); }
-.api-fallback-title { font-size: 0.9rem; font-weight: bold; color: var(--accent-danger); }
-.api-fallback-box input { width: 100%; padding: 12px 14px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main); }
-.api-fallback-box button { width: 100%; padding: 12px; border-radius: var(--rad); background: var(--accent-danger); color: #fff; font-weight: bold; cursor: pointer; }
-
-/* AUTH BLOCKER */
+/* AUTH & FALLBACK */
 .auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(13, 15, 18, 0.95); text-align: center; padding: 32px; }
 .auth-blocker.is-hidden { display: none; }
 .auth-title { font-size: 1.4rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; }
@@ -340,6 +338,14 @@ body::after {
 
 .btn-guest { padding: 12px 24px; border-radius: var(--rad); background: transparent; border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; text-transform: uppercase;}
 .btn-guest:hover { border-color: var(--text-main); }
+
+.api-fallback-box { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--bg-input); border: 1px dashed var(--accent-danger); margin-bottom: 10px;}
+.api-fallback-box input { padding: 12px; background: var(--bg-core); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace;}
+.api-fallback-box button { padding: 12px; background: var(--accent-danger); color: #fff; font-weight: bold; cursor: pointer; }
+
+.script-share-form { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
+.script-share-input { padding: 14px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace; }
+textarea.script-share-input { height: 150px; resize: none; }
 </style>
 </head>
 <body>
@@ -347,11 +353,11 @@ body::after {
 <div id="toast-banner">CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
 
 <!-- BẢNG ĐỎ HIỆN KHI BỊ BAN -->
-<div class="ban-alert-backdrop" id="ban-alert-modal" style="display:none; position:fixed; inset:0; background:rgba(13,15,18,0.95); z-index:30000; align-items:center; justify-content:center; padding:20px;">
-    <div class="ban-alert-box" style="background:var(--bg-panel); border:3px solid var(--accent-danger); padding:30px; max-width:450px; text-align:center;">
+<div class="ban-alert-backdrop" id="ban-alert-modal">
+    <div class="ban-alert-box">
         <div style="color:var(--accent-danger); font-size:1.3rem; font-weight:bold; margin-bottom:12px;" id="ban-alert-title">YOU GOT BANNED BY DEV</div>
         <div style="color:var(--text-main); font-size:0.95rem; line-height:1.6; margin-bottom:20px;" id="ban-alert-reason">Lý do vi phạm...</div>
-        <button class="btn-primary" style="background:var(--accent-danger);" onclick="document.getElementById('ban-alert-modal').style.display='none'">ĐÃ HIỂU</button>
+        <button class="btn-primary" style="background:var(--accent-danger);" onclick="DOM.get('ban-alert-modal').classList.remove('active')">ĐÃ HIỂU</button>
     </div>
 </div>
 
@@ -385,21 +391,24 @@ body::after {
   
   <div class="drawer-group" id="drawer-auth-group">
     <div class="drawer-label">TÀI KHOẢN</div>
-    <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center;"></div>
+    <!-- Cập nhật cho Google Login render -->
+    <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center; margin-bottom: 8px;"></div>
     <button class="btn-sidebar" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
-    <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
+    <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.triggerLogout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
   </div>
 
+  <!-- PHẦN CHỈNH SỬA MỤC MENU DÀNH CHO DEV -->
   <div class="drawer-group" id="dev-menu-editor-group" style="display:none;">
     <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ MENU</div>
     <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">CHỈNH SỬA MENU</button>
     <div class="drawer-group dev-menu-editor" id="dev-menu-editor-box" style="display:none; padding:16px; border:1px dashed var(--dev-color); background:rgba(255,0,85,0.05); margin-top:8px;">
-        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem;">
-        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem;">
-        <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">THÊM VÀO MENU</button>
+        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem; width:100%;">
+        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem; width:100%;">
+        <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer; font-size:0.85rem; width:100%; text-transform:uppercase;">THÊM VÀO MENU</button>
     </div>
   </div>
 
+  <!-- QUẢN LÝ USER DÀNH CHO DEV (BAN / MUTE) -->
   <div class="drawer-group" id="dev-user-mgr-group" style="display:none;">
     <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ USER</div>
     <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">QUẢN LÝ NGƯỜI DÙNG</button>
@@ -417,26 +426,26 @@ body::after {
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V40</span>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V41</span>
       <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
     </div>
 
-    <div class="info-board" onclick="toggleText(this)">
-      <h3>TỔNG QUAN HỆ THỐNG <span class="hint">Bấm để xem thêm</span></h3>
-      <div class="text-truncate">
-        Giao diện <b>Square Dark Mode</b> chuẩn máy chủ.<br><br>
-        > <b>Fix lỗi Đăng Nhập:</b> Đã khôi phục hoàn toàn chức năng đăng nhập Khách / Google.<br>
-        > <b>Kho Dữ Liệu Tĩnh:</b> Các Link, Script, APK được nạp sẵn 100% không phụ thuộc mạng, đảm bảo không bao giờ bị mất.<br>
-        > <b>Đặc quyền DEV:</b> Tự động nhận diện tài khoản Dev qua Gmail. Kích hoạt quyền xóa tin nhắn và quản lý Kho tiện ích trực tiếp trên web.<br>
-        > <b>NOXGPT:</b> Nâng cấp Xkiro DeepSeek. Fix lỗi "Không phản hồi". Ẩn logo AI để tập trung văn bản.<br>
-        > <b>Global Chat:</b> Hỗ trợ gửi ảnh đã fix kích thước. Cấm chat/Ban người dùng trực tiếp.
+    <div class="info-board">
+      <h3 id="ui-notice-title">THÔNG BÁO</h3>
+      <div class="text-truncate" id="ui-notice-text" style="display:block;">
+        > <b>WELCOME TO NOX WEB V41.</b><br>
+        > Hỗ trợ đăng xuất, đăng nhập khách từ menu.<br>
+        > Bổ sung Confirm khi Đăng xuất tránh thao tác nhầm.<br>
+        > Tùy chỉnh Nút Gửi Ảnh thành dấu [+] gọn gàng.<br>
+        > Đảm bảo luôn tải được Nút Đăng Nhập Google.<br>
+        > Nhấn vào tin nhắn chat của bạn để chỉnh sửa hoặc thu hồi.
       </div>
     </div>
 
     <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V40)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V41)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none; padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
         <button onclick="ConfigEngine.saveConfig()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">CẬP NHẬT HỆ THỐNG</button>
@@ -485,7 +494,6 @@ body::after {
     </div>
 
     <div class="tab-body-wrapper">
-      <!-- HARDCODED STATIC HTML MANG LẠI DỮ LIỆU ĐÃ MẤT -->
       <div id="pane-link" class="tab-pane is-active">
         <div class="data-box static-item"><div class="box-head"><span class="box-title">Bypass Key Delta</span><a href="https://baconbypass.xyz" target="_blank" class="box-action">MỞ</a></div></div>
         <div class="data-box static-item"><div class="box-head"><span class="box-title">Kasumi Store VIP</span><a href="https://gofile.io/d/v3Q6Ig" target="_blank" class="box-action">MỞ</a></div></div>
@@ -566,25 +574,25 @@ body::after {
       <button class="modal-close" onclick="closeUI('modal-noxgpt')">✕</button>
     </div>
     
-    <div id="gpt-fallback-container" style="display:none; padding:16px; background:var(--bg-input); border:1px dashed var(--accent-danger); margin:16px; display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:0.9rem; font-weight:700; color:var(--accent-danger);" id="gpt-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY (XKIRO)</div>
+    <div id="gpt-fallback-container" style="display:none; padding:16px; background:var(--bg-input); border:1px dashed var(--accent-danger); margin:16px; flex-direction:column; gap:8px;">
+        <div style="font-size:0.9rem; font-weight:bold; color:var(--accent-danger);" id="gpt-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY (XKIRO)</div>
         <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng sk-xt-)..." style="width:100%; padding:12px 14px; background:var(--bg-core); border:1px solid var(--border-color); color:var(--text-main);">
-        <button onclick="GptEngine.validateAndSaveConfig()" style="width:100%; padding:12px; background:var(--accent-danger); color:#fff; font-weight:600; cursor:pointer;">LƯU VÀ THỬ LẠI</button>
+        <button onclick="GptEngine.validateAndSaveConfig()" style="width:100%; padding:12px; background:var(--accent-danger); color:#fff; font-weight:bold; cursor:pointer;">LƯU VÀ THỬ LẠI</button>
     </div>
 
     <div class="chat-messages" id="noxgpt-board"></div>
     
-    <div class="chat-footer" style="background:var(--bg-panel); border-top:1px solid var(--border-color); padding:12px 16px; display:flex; flex-direction:column; gap:8px;">
-      <div class="image-preview-zone" id="gpt-preview-zone" style="display:none; align-items:center; gap:10px; padding-bottom:8px; border-bottom:1px solid var(--border-color);">
-        <img src="" id="gpt-preview-img" style="width:40px; height:40px; object-fit:cover; border:1px solid var(--border-color);">
-        <div onclick="GptEngine.removeImage()" style="width:24px; height:24px; background:var(--accent-danger-bg); color:var(--accent-danger); display:flex; justify-content:center; align-items:center; cursor:pointer; font-size:0.8rem;">✕</div>
+    <div class="chat-footer">
+      <div class="image-preview-zone" id="gpt-preview-zone">
+        <img src="" id="gpt-preview-img" class="preview-thumb">
+        <div class="preview-remove" onclick="GptEngine.removeImage()">✕</div>
       </div>
-      <div class="chat-input-wrapper" style="display:flex; align-items:center; gap:8px; width:100%;">
-        <label for="gpt-img-upload" class="attach-btn" style="width:44px; height:44px; background:var(--bg-input); color:var(--text-sub); display:flex; justify-content:center; align-items:center; cursor:pointer; border:1px solid var(--border-color); font-weight:bold;">📸</label>
+      <div class="chat-input-wrapper">
+        <label for="gpt-img-upload" class="btn-photo">+</label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
         
-        <input type="text" id="noxgpt-field" class="chat-field" placeholder="Nhập câu lệnh..." style="flex:1; min-width:0; height:44px; padding:0 16px; background:var(--bg-input); border:1px solid var(--border-color); color:var(--text-main); font-size:0.95rem;" onkeypress="if(event.key === 'Enter') GptEngine.submit()">
-        <button class="chat-send" onclick="GptEngine.submit()" style="height:44px; padding:0 16px; background:var(--accent-green); color:#fff; font-weight:600; font-size:0.9rem; cursor:pointer;">GỬI</button>
+        <input type="text" id="noxgpt-field" class="chat-field" placeholder="Nhập câu lệnh..." onkeypress="if(event.key === 'Enter') GptEngine.submit()">
+        <button class="chat-send" onclick="GptEngine.submit()">GỬI</button>
       </div>
     </div>
   </div>
@@ -594,19 +602,20 @@ body::after {
 <div class="modal-backdrop" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
   <div class="modal-content" style="position: relative;">
     
-    <div class="auth-blocker" id="auth-guard" style="position:absolute; inset:0; z-index:20; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:16px; background:rgba(13, 15, 18, 0.95); text-align:center; padding:32px;">
-      <h2 style="font-size:1.4rem; font-weight:700; color:var(--text-main);">Xác thực danh tính</h2>
-      <p style="color:var(--text-sub); font-size:0.9rem; line-height:1.5;">Tham gia hệ thống Chat toàn cầu. Tin nhắn tự động xóa sau 24H.</p>
+    <div class="auth-blocker" id="auth-guard">
+      <h2 class="auth-title">Xác thực danh tính</h2>
+      <p class="auth-desc">Tham gia hệ thống Chat toàn cầu. Tin nhắn tự động xóa sau 24H.</p>
+      <!-- Khung render nút đăng nhập Google -->
       <div id="google-login-mount"></div>
       <div style="margin: 10px 0; color: var(--text-sub);">HOẶC</div>
-      <button style="padding:12px 24px; background:transparent; border:1px solid var(--border-color); color:var(--text-main); font-weight:bold; cursor:pointer; transition:0.2s;" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
+      <button class="btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
     </div>
 
     <div class="modal-header">
       <div class="modal-heading">Global Chat</div>
       <div style="display:flex; gap:8px;">
         <button class="box-action" style="padding: 6px 12px; font-size:0.8rem; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">Kho Script</button>
-        <button class="modal-close" onclick="closeUI('modal-noxchat')">✕</button>
+        <button class="modal-close" style="width:32px; height:32px;" onclick="closeUI('modal-noxchat')">✕</button>
       </div>
     </div>
     
@@ -621,19 +630,19 @@ body::after {
       </div>
     </div>
     
-    <div class="chat-footer" style="background:var(--bg-panel); border-top:1px solid var(--border-color); padding:12px 16px; display:flex; flex-direction:column; gap:8px;">
-      <div class="image-preview-zone" id="chat-preview-zone" style="display:none; align-items:center; gap:10px; padding-bottom:8px; border-bottom:1px dashed var(--border-color);">
-        <img src="" id="chat-preview-img" style="width:40px; height:40px; object-fit:cover; border:1px solid var(--border-color);">
-        <div onclick="ChatEngine.removeImage()" style="width:24px; height:24px; background:var(--accent-danger-bg); color:var(--accent-danger); display:flex; justify-content:center; align-items:center; cursor:pointer; font-size:0.8rem;">✕</div>
+    <div class="chat-footer">
+      <div class="image-preview-zone" id="chat-preview-zone">
+        <img src="" id="chat-preview-img" class="preview-thumb">
+        <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
       </div>
 
-      <div class="chat-input-wrapper" style="display:flex; align-items:center; gap:8px; width:100%;">
-        <button style="height:44px; padding:0 12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); display:flex; justify-content:center; align-items:center; cursor:pointer; font-weight:bold; font-size:0.85rem;" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
-        <label for="chat-img-upload" style="height:44px; padding:0 12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); display:flex; justify-content:center; align-items:center; cursor:pointer; font-weight:bold; font-size:0.85rem;" title="Gửi ảnh">📸</label>
+      <div class="chat-input-wrapper">
+        <button class="btn-photo" style="font-size: 0.9rem;" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
+        <label for="chat-img-upload" class="btn-photo" title="Gửi ảnh">+</label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
         
-        <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." style="flex:1; min-width:0; height:44px; padding:0 16px; background:var(--bg-input); border:1px solid var(--border-color); color:var(--text-main); font-size:0.95rem;" onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
-        <button class="chat-send" onclick="ChatEngine.sendMsg()" style="height:44px; padding:0 16px; background:var(--accent-green); color:#fff; font-weight:600; font-size:0.9rem; cursor:pointer;">GỬI</button>
+        <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
+        <button class="chat-send" onclick="ChatEngine.sendMsg()">GỬI</button>
       </div>
     </div>
   </div>
@@ -666,12 +675,6 @@ body::after {
   </div>
 </div>
 
-<!-- SCRIPT EDIT / RECALL CONTEXT MENU -->
-<div class="msg-context-menu" id="msg-context-modal" style="position:absolute; background:var(--bg-panel); border:1px solid var(--border-color); display:none; flex-direction:column; z-index:20000; box-shadow:var(--shadow-lg);">
-    <button class="msg-context-btn" onclick="ChatEngine.openEditModal()" style="padding:12px 20px; background:transparent; color:var(--text-main); font-weight:bold; cursor:pointer; text-align:left; border-bottom:1px solid var(--border-color);">Chỉnh sửa văn bản</button>
-    <button class="msg-context-btn" onclick="ChatEngine.triggerRecallMsg()" style="padding:12px 20px; background:transparent; color:var(--accent-danger); font-weight:bold; cursor:pointer; text-align:left;">Thu hồi tin nhắn</button>
-</div>
-
 <!-- EDIT MESSAGE MODAL -->
 <div class="modal-backdrop" id="modal-edit-msg" onclick="if(event.target===this)closeUI('modal-edit-msg')">
   <div class="modal-content" style="max-width: 450px; height: auto;">
@@ -692,7 +695,7 @@ body::after {
 const DOM = { get: id => document.getElementById(id), queryAll: sel => document.querySelectorAll(sel) };
 
 /* ==========================================================================
-   GLOBAL CONSTANTS & BAN CHECKER
+   GLOBAL CONSTANTS & CONFIRMATION UI
    ========================================================================== */
 const ADMIN_EMAIL = "hminhgalaxy@gmail.com";
 let IS_ADMIN = false;
@@ -721,7 +724,7 @@ function showToast(msg) {
     setTimeout(() => t.classList.remove('show'), 5000);
 }
 
-/* Kiem tra Ban truoc khi mo Modal */
+/* Kiểm tra xem user có bị Ban hay không trước khi mở tính năng */
 const RestrictedAction = {
     checkAndOpen: function(modalId) {
         const profile = ChatEngine.userProfile;
@@ -733,13 +736,21 @@ const RestrictedAction = {
                     if(data && data.isBanned) {
                         DOM.get('ban-alert-title').innerText = "YOU GOT BANNED BY DEV";
                         DOM.get('ban-alert-reason').innerText = `Lý do vi phạm: ${data.banReason || "Không có lý do"}`;
-                        DOM.get('ban-alert-modal').style.display = 'flex';
+                        DOM.get('ban-alert-modal').classList.add('active');
                         return;
+                    }
+                    // Trigger Google button render in case it was missed
+                    if(modalId === 'modal-noxchat' && !ChatEngine.userProfile) {
+                        AuthEngine.ensureGoogleLoginRender();
                     }
                     openUI(modalId);
                 }).catch(e => openUI(modalId));
             } catch(e) { openUI(modalId); }
         } else {
+             // Trigger Google button render in case it was missed
+             if(modalId === 'modal-noxchat' && !ChatEngine.userProfile) {
+                 AuthEngine.ensureGoogleLoginRender();
+             }
             openUI(modalId);
         }
     }
@@ -751,6 +762,10 @@ const RestrictedAction = {
 function toggleMenu() { 
     const d = DOM.get('nav-drawer'); const o = DOM.get('menu-overlay');
     if(d) { d.classList.toggle('is-open'); if(o) o.classList.toggle('is-active'); }
+    // Render button inside menu if it wasn't rendered yet
+    if(!ChatEngine.userProfile && DOM.get('drawer-google-login-wrap') && !DOM.get('drawer-google-login-wrap').hasChildNodes()) {
+         AuthEngine.ensureGoogleLoginRender();
+    }
 }
 function openUI(id) { 
     const e = DOM.get(id); if(e) e.classList.add('is-active'); 
@@ -765,7 +780,7 @@ function toggleText(element) {
 }
 
 /* ==========================================================================
-   AUTH ENGINE (FIX LỖI ĐĂNG XUẤT VÀ LƯU PHIÊN BẰNG TRY-CATCH)
+   AUTH ENGINE (BỔ SUNG CONFIRM LOGOUT VÀ RENDER GOOGLE BTN)
    ========================================================================== */
 const AuthEngine = {
     login: function(profile) {
@@ -798,6 +813,11 @@ const AuthEngine = {
         ChatEngine.appendMsg('SYSTEM', `Đăng nhập khách: ${guestProfile.name}`, true);
         ChatEngine.listenForMessages();
     },
+    triggerLogout: function() {
+        ConfirmUI.show("BẠN CÓ CHẮC CHẮN MUỐN ĐĂNG XUẤT KHỎI HỆ THỐNG?", () => {
+            this.logout();
+        });
+    },
     logout: function() {
         localStorage.removeItem('nox_user_profile');
         window.location.reload();
@@ -815,6 +835,18 @@ const AuthEngine = {
             if(btnGuest) btnGuest.style.display = 'flex';
             if(googleWrap) googleWrap.style.display = 'flex';
             if(btnLogout) btnLogout.style.display = 'none';
+        }
+    },
+    ensureGoogleLoginRender: function() {
+        if(typeof google !== 'undefined' && google.accounts) {
+             const btnWrap = DOM.get('google-login-mount'); 
+             if(btnWrap && !btnWrap.hasChildNodes()) {
+                 google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
+             }
+             const menuWrap = DOM.get('drawer-google-login-wrap');
+             if(menuWrap && !menuWrap.hasChildNodes()) {
+                 google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
+             }
         }
     }
 };
@@ -837,10 +869,10 @@ const ImageProcessor = {
         const base64Str = canvas.toDataURL('image/jpeg', 0.5);
         if(target === 'gpt') {
           this.currentGptImage = base64Str;
-          DOM.get('gpt-preview-img').src = base64Str; DOM.get('gpt-preview-zone').style.display = 'flex';
+          DOM.get('gpt-preview-img').src = base64Str; DOM.get('gpt-preview-zone').classList.add('active');
         } else {
           this.currentChatImage = base64Str;
-          DOM.get('chat-preview-img').src = base64Str; DOM.get('chat-preview-zone').style.display = 'flex';
+          DOM.get('chat-preview-img').src = base64Str; DOM.get('chat-preview-zone').classList.add('active');
         }
       };
       img.src = e.target.result;
@@ -958,7 +990,7 @@ const MenuEditor = {
 };
 
 /* ==========================================================================
-   USER MANAGER (DEV BAN / MUTE PANEL) - FIX LỖI TẢI ASYNC
+   USER MANAGER (DEV BAN / MUTE PANEL)
    ========================================================================== */
 const UserMgr = {
     loadUsers: async function() {
@@ -1024,7 +1056,7 @@ const UserMgr = {
         .then(() => { showToast("Đã gỡ bỏ hình phạt cho user!"); this.loadUsers(); });
     },
     
-    // Mute/Ban trực tiếp từ Chat
+    // Nút Mod trực tiếp trong Chat (khi DEV bấm vào tin nhắn user khác)
     openModPanel: function(name, email) {
         if(!IS_ADMIN) return;
         DOM.get('mod-target-name').innerText = "User: " + name;
@@ -1049,7 +1081,7 @@ const UserMgr = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC - ĐÃ AN TOÀN HTML)
+   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
@@ -1134,7 +1166,6 @@ const UtilsEngine = {
                     const data = child.val(); const key = child.key; const pane = DOM.get(data.type);
                     if(pane) {
                         const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                        box.style.cssText = "padding:16px; border:1px solid var(--border-color); background:var(--bg-panel); margin-bottom:12px;";
                         
                         let devControls = '';
                         if(IS_ADMIN) {
@@ -1163,12 +1194,10 @@ const UtilsEngine = {
 const GptEngine = {
   defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
   defaultUrl: "https://api.xkiro.com/v1/chat/completions",
-  
   getApiKey: function() { return localStorage.getItem('nox_ds_key') || this.defaultKey; },
   setApiKey: function(newKey) { localStorage.setItem('nox_ds_key', newKey.trim()); },
   
-  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'),
-  isGreeted: false,
+  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
   messageHistory: [
       { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB (tạo ra bởi DEV HminhGalaxy). Trả lời ngắn gọn, chuẩn Hacker." }
   ],
@@ -1201,6 +1230,8 @@ const GptEngine = {
     return row; 
   },
 
+  removeImage: function() { ImageProcessor.currentGptImage = null; DOM.get('gpt-preview-img').src = ''; DOM.get('gpt-preview-zone').classList.remove('active'); },
+
   triggerFallbackUI: function(errorMessage) {
     this.input.disabled = true; this.input.placeholder = "Vui lòng cập nhật API Key...";
     const fallbackHTML = `
@@ -1209,7 +1240,7 @@ const GptEngine = {
     this.appendMsg('other', 'System', fallbackHTML, true);
     
     const box = DOM.get('gpt-fallback-container');
-    if(box) box.style.display = 'flex';
+    if(box) box.style.display = 'block';
   },
 
   validateAndSaveConfig: function() {
@@ -1226,13 +1257,16 @@ const GptEngine = {
 
   submit: async function() {
     const text = this.input.value.trim();
-    if(!text) return;
+    const base64Img = ImageProcessor.currentGptImage;
+    if(!text && !base64Img) return;
 
-    let userHtml = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    this.input.value = ''; 
+    let userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if(base64Img) { userHtml = `<img src="${base64Img}" class="chat-image">` + userHtml; }
+    
+    this.input.value = ''; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
     
-    this.messageHistory.push({ role: "user", content: text });
+    this.messageHistory.push({ role: "user", content: text || "[Đã gửi một hình ảnh]" });
 
     const tempNode = this.appendMsg('other', 'NOXGPT', '<span style="opacity:0.6;">Đang xử lý...</span>');
 
@@ -1264,7 +1298,7 @@ const GptEngine = {
           this.appendMsg('other', 'NOXGPT', formattedText); 
           this.messageHistory.push({ role: "assistant", content: reply });
       } else {
-          throw new Error("Format lỗi từ máy chủ");
+          throw new Error("Invalid Response Format");
       }
       
     } catch(err) {
@@ -1275,8 +1309,10 @@ const GptEngine = {
   }
 };
 
+const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
+
 /* ==========================================================================
-   FIREBASE CHAT ENGINE & ADMIN LOGIC (SỬA LỖI CLICK VÀO TIN NHẮN)
+   FIREBASE CHAT ENGINE (FIX LỖI MENU CHỈNH SỬA / MUTE)
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
@@ -1297,11 +1333,9 @@ const ChatEngine = {
       this.scriptRef = firebase.database().ref('nox_global_scripts'); 
       this.isSetup = true; 
       
-      UtilsEngine.init();
       ConfigEngine.init();
       this.cleanupOldMessages(); setInterval(() => this.cleanupOldMessages(), 3600000); 
 
-      // Khôi phục phiên đăng nhập từ LocalStorage
       const savedUser = localStorage.getItem('nox_user_profile');
       if(savedUser) {
           try {
@@ -1365,29 +1399,26 @@ const ChatEngine = {
     if(isRecalled) bubbleEl.style.borderStyle = "dashed";
     bubbleEl.innerHTML = bubbleContent;
     
-    // SỰ KIỆN CLICK VÀO TIN NHẮN (HIỆN MENU)
+    // BẮT SỰ KIỆN CLICK ĐỂ HIỆN NÚT SỬA/THU HỒI
     bubbleEl.onclick = (e) => {
         e.stopPropagation();
-        // Xóa các menu đang mở khác
-        document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
+        const existingActions = row.querySelector('.dynamic-action-bar');
+        
+        // Remove all other action bars
+        document.querySelectorAll('.dynamic-action-bar').forEach(el => el.remove());
+        
+        if(existingActions) return; // Toggle off if clicking the same bubble
         
         if(isMe && !isRecalled && msgKey) {
-            const ctxMenu = document.createElement('div');
-            ctxMenu.className = 'msg-context-menu';
-            ctxMenu.style.cssText = `position:absolute; bottom:100%; right:0; background:var(--bg-panel); border:1px solid var(--border-color); display:flex; flex-direction:column; z-index:100; box-shadow:var(--shadow-lg);`;
-            ctxMenu.innerHTML = `
-                <button style="padding:10px 16px; text-align:left; font-size:0.85rem; font-weight:bold; background:transparent; color:var(--text-main); cursor:pointer; border-bottom:1px solid var(--border-color);" onclick="ChatEngine.openEditModal('${msgKey}')">Sửa văn bản</button>
-                <button style="padding:10px 16px; text-align:left; font-size:0.85rem; font-weight:bold; background:transparent; color:var(--accent-danger); cursor:pointer;" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi</button>
+            const actionBari = document.createElement('div');
+            actionBari.className = 'dynamic-action-bar';
+            actionBari.style.cssText = 'display:flex; gap:8px; margin-top:4px; font-size:0.75rem; font-weight:bold; justify-content:flex-end;';
+            actionBari.innerHTML = `
+                <button style="background:var(--bg-input); border:1px solid var(--border-color); color:var(--text-sub); padding:2px 8px; cursor:pointer;" onclick="event.stopPropagation(); ChatEngine.openEditModal('${msgKey}')">Sửa</button>
+                <button style="background:var(--accent-danger-bg); border:1px solid var(--accent-danger); color:var(--accent-danger); padding:2px 8px; cursor:pointer;" onclick="event.stopPropagation(); ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi</button>
             `;
-            row.appendChild(ctxMenu);
-            
-            // Tự đóng menu khi bấm chỗ khác
-            document.addEventListener('pointerdown', (ev) => {
-                if(!ctxMenu.contains(ev.target)) ctxMenu.remove();
-            }, { once: true });
-            
+            row.appendChild(actionBari);
         } else if (!isMe && IS_ADMIN && role !== 'DEV' && !isSystem && senderEmail) {
-            // DEV bấm vào tin nhắn người khác để Mute/Ban
             UserMgr.openModPanel(senderName, senderEmail);
         }
     };
@@ -1408,7 +1439,7 @@ const ChatEngine = {
   },
 
   openEditModal: function(key) {
-      document.querySelectorAll('.msg-context-menu').forEach(m => m.remove()); // Đóng menu
+      document.querySelectorAll('.dynamic-action-bar').forEach(el => el.remove());
       this.dbRef.child(key).once('value', snapshot => {
           const data = snapshot.val();
           if(data && data.text) {
@@ -1432,7 +1463,7 @@ const ChatEngine = {
   },
 
   triggerRecallMsg: function(key) {
-      document.querySelectorAll('.msg-context-menu').forEach(m => m.remove()); // Đóng menu
+      document.querySelectorAll('.dynamic-action-bar').forEach(el => el.remove());
       ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
           this.dbRef.child(key).update({ recalled: true, text: "" }).then(() => {
               showToast("Đã thu hồi tin nhắn!");
@@ -1440,20 +1471,22 @@ const ChatEngine = {
       });
   },
 
+  triggerDeleteMsg: function(key) { ConfirmUI.show("BẠN CÓ CHẮC MUỐN XÓA TIN NHẮN NÀY KHỎI HỆ THỐNG?", () => { this.dbRef.child(key).remove(); }); },
+
   listenForMessages: function() {
     if(!this.dbRef) return;
     this.dbRef.limitToLast(50).on('child_added', (snapshot) => {
       const data = snapshot.val(); if(!data) return;
       if(this.userProfile && data.user === this.userProfile.name && Date.now() - data.timestamp < 3000) return; 
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
-      if(data.image) { html = `<img src="${data.image}" style="max-width:100%; max-height:250px; object-fit:contain; border-radius:var(--rad); margin-bottom:8px; display:block; background:#000; border:1px solid var(--border-color);">` + html; }
+      if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
       this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled, data.email);
     });
     
     this.dbRef.on('child_changed', (snapshot) => {
       const data = snapshot.val(); if(!data) return;
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
-      if(data.image) { html = `<img src="${data.image}" style="max-width:100%; max-height:250px; object-fit:contain; border-radius:var(--rad); margin-bottom:8px; display:block; background:#000; border:1px solid var(--border-color);">` + html; }
+      if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
       this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled, data.email);
     });
 
@@ -1477,7 +1510,7 @@ const ChatEngine = {
         if(!text && !base64Img) return;
         
         let displayHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
-        if(base64Img) displayHtml = `<img src="${base64Img}" style="max-width:100%; max-height:250px; object-fit:contain; border-radius:var(--rad); margin-bottom:8px; display:block; background:#000; border:1px solid var(--border-color);">` + displayHtml;
+        if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
         
         this.input.value = ''; this.removeImage();
         
@@ -1487,6 +1520,43 @@ const ChatEngine = {
             timestamp: firebase.database.ServerValue.TIMESTAMP 
         }).catch(err => { this.appendMsg('SYSTEM', 'Gửi lỗi.', true); });
     });
+  },
+
+  sendScript: function() {
+      if(!this.userProfile) { alert("Vui lòng đăng nhập chat trước!"); return; }
+      const title = DOM.get('share-title').value.trim(); const code = DOM.get('share-code').value.trim();
+      if(!title || !code) { alert("Điền đủ thông tin!"); return; }
+      this.scriptRef.push({ user: this.userProfile.name, role: this.userProfile.role, title: title, code: code, timestamp: firebase.database.ServerValue.TIMESTAMP })
+      .then(() => { 
+          showToast("Đăng Script thành công!"); 
+          DOM.get('share-title').value = ''; DOM.get('share-code').value = ''; 
+          closeUI('modal-script-share'); 
+      });
+  },
+
+  loadVaultScripts: function() {
+      const vBoard = DOM.get('vault-board'); if(!vBoard) return;
+      vBoard.innerHTML = '<div style="text-align:center; padding: 20px;">Đang tải...</div>';
+      
+      this.scriptRef.limitToLast(50).on('value', (snapshot) => {
+          vBoard.innerHTML = '';
+          if(!snapshot.exists()) { vBoard.innerHTML = '<div class="search-empty">Trống.</div>'; return; }
+          let scripts = []; snapshot.forEach(child => { scripts.push({key: child.key, ...child.val()}); }); scripts.reverse();
+          
+          scripts.forEach(s => {
+              const b = document.createElement('div'); b.className = 'data-box';
+              let delBtn = IS_ADMIN ? `<button class="dev-delete-btn" onclick="ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child('${s.key}').remove())">XÓA</button>` : '';
+              let badge = s.role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (s.role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
+              let displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
+              
+              b.innerHTML = `
+                <div class="box-head"><span class="box-title">${s.title.replace(/</g,"&lt;")} <div>${delBtn}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
+                <div class="script-code">${s.code.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
+                <div style="font-size:0.75rem; color:var(--text-sub); margin-top:4px;">${badge} Đóng góp bởi: ${displayName}</div>
+              `;
+              vBoard.appendChild(b);
+          });
+      });
   }
 };
 
@@ -1496,6 +1566,7 @@ const ChatEngine = {
 document.addEventListener('DOMContentLoaded', () => {
   ChatEngine.initFirebase();
   ChatEngine.initGoogleIdentity();
+  UtilsEngine.init();
 });
 </script>
 </body>
