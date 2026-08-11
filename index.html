@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - SKIBIDI</title>
-<meta name="description" content="Welcome To NOX-SKIBIDI WEBSITE.">
+<title>NOX WEB - V39 SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V39. Giao diện Vuông, AI DeepSeek Pro, Moderation System.">
 <meta name="robots" content="index, follow">
 
 <!-- Firebase App & Database -->
@@ -14,7 +14,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- Puter.js AI -->
+<!-- Puter.js AI (Dự phòng) -->
 <script src="https://js.puter.com/v2/"></script>
 
 <style>
@@ -42,6 +42,7 @@
   --dev-color: #ff0055;
   
   --rad: 0px; 
+  
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
@@ -61,16 +62,12 @@ body {
   padding: 8vh 16px 100px; color: var(--text-main);
 }
 
-/* CRT SCANLINE EFFECT */
 body::after {
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
   background-size: 100% 4px, 3px 100%; opacity: 0.2;
 }
 
-/* ==========================================================================
-   TOAST NOTIFICATION BANNER
-   ========================================================================== */
 #toast-banner {
   position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
   background: var(--accent-green); color: #fff; padding: 12px 24px;
@@ -152,9 +149,7 @@ body::after {
 .title-main { font-size: 2rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px;}
 .status-badge { font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: var(--rad); background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); text-transform: uppercase;}
 
-.info-board {
-  padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color);
-}
+.info-board { padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); }
 .info-board h3 { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--accent-green); text-transform: uppercase;}
 .info-board p { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); }
 
@@ -250,6 +245,21 @@ body::after {
 }
 .dev-add-panel button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
 
+/* FIX LỖI KHUNG CHỈNH SỬA MENU */
+#dev-menu-editor-box {
+    display: none; flex-direction: column; gap: 8px; margin-top: 8px;
+    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05);
+}
+#dev-menu-editor-box.active { display: flex; }
+#dev-menu-editor-box input {
+    padding: 10px; background: var(--bg-input); color: var(--text-main); 
+    border: 1px solid var(--border-color); font-size: 0.85rem; width: 100%;
+}
+#dev-menu-editor-box button {
+    padding: 10px; background: var(--dev-color); color: #fff; 
+    font-weight: bold; cursor: pointer; font-size: 0.85rem; width: 100%; text-transform: uppercase;
+}
+
 /* ==========================================================================
    CONFIRMATION MODAL & BAN ALERT MODAL
    ========================================================================== */
@@ -263,13 +273,12 @@ body::after {
 .btn-no { padding: 12px 30px; font-weight: bold; cursor: pointer; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); text-transform: uppercase;}
 .btn-no:hover { border-color: var(--text-main); }
 
-/* BẢNG ĐỎ KHI BỊ BAN */
 .ban-alert-backdrop { position: fixed; inset: 0; background: rgba(13,15,18,0.95); z-index: 30000; display: none; align-items: center; justify-content: center; padding: 20px; }
 .ban-alert-backdrop.active { display: flex; }
 .ban-alert-box { background: var(--bg-panel); border: 3px solid var(--accent-danger); padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
 
 /* ==========================================================================
-   CHAT UI & FIX ẢNH BỰ (FIX IMAGE SIZE)
+   CHAT UI & MODERATION ACTIONS
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -289,17 +298,28 @@ body::after {
 
 .msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer;}
 .msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
-.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
+.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); }
 .msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); cursor: default;}
 .msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
 
-/* FIX ẢNH QUÁ BỰ (IMAGE FIT) */
 .chat-image { max-width: 100%; max-height: 250px; object-fit: contain; border-radius: var(--rad); margin-bottom: 8px; display: block; background: #000; border: 1px solid var(--border-color); }
 
-.msg-action-bar { display: flex; gap: 8px; margin-top: 4px; font-size: 0.75rem; font-weight: bold; }
-.msg-action-btn { background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-sub); padding: 2px 8px; cursor: pointer; border-radius: var(--rad); transition: 0.2s; }
-.msg-action-btn:hover { border-color: var(--text-main); color: var(--text-main); }
-.msg-action-btn.danger:hover { background: var(--accent-danger-bg); color: var(--accent-danger); border-color: var(--accent-danger); }
+/* BẢNG ĐIỀU HÀNH USER DÀNH CHO DEV (CẤM/MUTE) */
+.dev-mod-panel {
+    background: var(--bg-panel); border: 1px solid var(--accent-danger); border-radius: var(--rad);
+    padding: 16px; margin-top: 6px; display: flex; flex-direction: column; gap: 10px; width: 100%; min-width: 250px;
+}
+.dev-mod-panel input { padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); width: 100%;}
+.dev-mod-panel button { padding: 10px; color: #fff; font-weight: bold; cursor: pointer; border: none; width: 100%;}
+
+.msg-context-menu {
+  position: absolute; bottom: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
+  z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 140px;
+}
+.msg-context-menu.active { display: flex; }
+.msg-context-btn { padding: 10px 16px; text-align: left; font-size: 0.85rem; font-weight: bold; background: transparent; color: var(--text-main); cursor: pointer; border-bottom: 1px solid var(--border-color); }
+.msg-context-btn:hover { background: var(--bg-panel-hover); color: var(--accent-green); }
+.msg-context-btn.danger:hover { color: var(--accent-danger); }
 
 /* CHAT INPUT AREA */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
@@ -341,22 +361,16 @@ body::after {
 .api-fallback-box { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--bg-input); border: 1px dashed var(--accent-danger); margin-bottom: 10px;}
 .api-fallback-box input { padding: 12px; background: var(--bg-core); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace;}
 .api-fallback-box button { padding: 12px; background: var(--accent-danger); color: #fff; font-weight: bold; cursor: pointer; }
-
-.script-share-form { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
-.script-share-input { padding: 14px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace; }
-textarea.script-share-input { height: 150px; resize: none; }
 </style>
 </head>
 <body>
 
 <div id="toast-banner">CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
 
-<!-- BẢNG ĐỎ HIỆN KHI BỊ BAN -->
 <div class="ban-alert-backdrop" id="ban-alert-modal">
-    <div class="ban-alert-box">
+    <div class="ban-alert-box" style="background:var(--bg-panel); border:3px solid var(--accent-danger); padding:30px; max-width:450px; text-align:center;">
         <div style="color:var(--accent-danger); font-size:1.3rem; font-weight:bold; margin-bottom:12px;" id="ban-alert-title">YOU GOT BANNED BY DEV</div>
         <div style="color:var(--text-main); font-size:0.95rem; line-height:1.6; margin-bottom:20px;" id="ban-alert-reason">Lý do vi phạm...</div>
-        <button class="btn-primary" style="background:var(--accent-danger);" onclick="DOM.get('ban-alert-modal').classList.remove('active')">ĐÃ HIỂU</button>
     </div>
 </div>
 
@@ -395,18 +409,16 @@ textarea.script-share-input { height: 150px; resize: none; }
     <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
   </div>
 
-  <!-- PHẦN CHỈNH SỬA MỤC MENU DÀNH CHO DEV -->
   <div class="drawer-group" id="dev-menu-editor-group" style="display:none;">
     <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ MENU</div>
     <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">CHỈNH SỬA MENU</button>
-    <div class="drawer-group dev-menu-editor" id="dev-menu-editor-box">
-        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)...">
-        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)">
-        <button onclick="MenuEditor.addMenuItem()">THÊM VÀO MENU</button>
+    <div id="dev-menu-editor-box" style="display:none; flex-direction:column; gap:8px; margin-top:8px; padding:16px; border:1px dashed var(--dev-color); background:rgba(255,0,85,0.05);">
+        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem; width:100%;">
+        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.85rem; width:100%;">
+        <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer; font-size:0.85rem; width:100%; text-transform:uppercase;">THÊM VÀO MENU</button>
     </div>
   </div>
 
-  <!-- QUẢN LÝ USER DÀNH CHO DEV (BAN / MUTE) -->
   <div class="drawer-group" id="dev-user-mgr-group" style="display:none;">
     <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ USER</div>
     <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">QUẢN LÝ NGƯỜI DÙNG</button>
@@ -424,24 +436,24 @@ textarea.script-share-input { height: 150px; resize: none; }
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V38</span>
-      <h1 class="title-main" id="ui-title-text">NOX-SKIBIDI WEB</h1>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V39</span>
+      <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
     </div>
 
     <div class="info-board">
       <h3 id="ui-notice-title">THÔNG BÁO</h3>
       <div class="text-truncate" id="ui-notice-text" style="display:block;">
-        > <b>WELCOME TO NOX WEB V38 MASTER.</b><br>
-        > Đã fix lỗi kích thước ảnh gửi lên chat.<br>
-        > Thêm hệ thống Ban vĩnh viễn và Mute từ DEV<br>
-        > Hỗ trợ quản lý User trực tiếp qua Menu Sidebar của DEV.
+        > <b>WELCOME TO NOX WEB V39 MODERATOR.</b><br>
+        > Đã fix lỗi Menu tràn khung và Quản lý Người dùng.<br>
+        > <b>ĐẶC QUYỀN MỚI CHO DEV:</b> Chạm thẳng vào tin nhắn của bất kỳ ai trong Global Chat để tiến hành <b>BAN HOẶC MUTE NGAY LẬP TỨC</b>.<br>
+        > Guest Login tự cấp ID để không đè dữ liệu.
       </div>
     </div>
 
     <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V38)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V39)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
         <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none; padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
         <button onclick="ConfigEngine.saveConfig()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">CẬP NHẬT HỆ THỐNG</button>
@@ -509,6 +521,33 @@ textarea.script-share-input { height: 150px; resize: none; }
         <div style="text-align:center; color:var(--text-sub);">Đang tải danh sách user...</div>
     </div>
   </div>
+</div>
+
+<!-- MODAL ĐIỀU HÀNH CHAT TRỰC TIẾP (DEV MUTE/BAN) -->
+<div class="modal-backdrop" id="modal-dev-mod" onclick="if(event.target===this)closeUI('modal-dev-mod')">
+    <div class="modal-content" style="max-width: 400px; height: auto;">
+        <div class="modal-header">
+            <div class="modal-heading" style="color:var(--dev-color)">ĐIỀU HÀNH USER</div>
+            <button class="modal-close" onclick="closeUI('modal-dev-mod')">✕</button>
+        </div>
+        <div style="padding:20px; display:flex; flex-direction:column; gap:16px;">
+            <div style="color:var(--accent-green); font-weight:bold; font-size:1.1rem;" id="mod-target-name">User: </div>
+            <input type="hidden" id="mod-target-email">
+            
+            <div style="padding:16px; border:1px solid var(--border-color); background:var(--bg-input);">
+                <div style="font-weight:bold; margin-bottom:8px; color:#f59e0b;">MUTE (CẤM CHAT)</div>
+                <input type="number" id="mod-mute-hours" placeholder="Số giờ (Mặc định 24h)" style="width:100%; margin-bottom:8px; padding:10px; background:var(--bg-core); color:var(--text-main); border:1px solid var(--border-color);">
+                <input type="text" id="mod-mute-reason" placeholder="Lý do Mute..." style="width:100%; margin-bottom:8px; padding:10px; background:var(--bg-core); color:var(--text-main); border:1px solid var(--border-color);">
+                <button class="btn-primary" style="background:#f59e0b; border-radius:0;" onclick="UserMgr.submitMute()">MUTE NGƯỜI NÀY</button>
+            </div>
+
+            <div style="padding:16px; border:1px solid var(--border-color); background:var(--bg-input);">
+                <div style="font-weight:bold; margin-bottom:8px; color:var(--accent-danger);">BAN (CẤM VĨNH VIỄN)</div>
+                <input type="text" id="mod-ban-reason" placeholder="Lý do Ban..." style="width:100%; margin-bottom:8px; padding:10px; background:var(--bg-core); color:var(--text-main); border:1px solid var(--border-color);">
+                <button class="btn-primary" style="background:var(--accent-danger); border-radius:0;" onclick="UserMgr.submitBan()">BAN NGƯỜI NÀY</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- MODAL NOXGPT -->
@@ -587,13 +626,14 @@ textarea.script-share-input { height: 150px; resize: none; }
   </div>
 </div>
 
+<!-- CÁC MODAL KHÁC -->
 <div class="modal-backdrop" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
   <div class="modal-content" style="max-width: 500px; height: auto;">
     <div class="modal-header">
       <div class="modal-heading">CHIA SẺ SCRIPT</div>
       <button class="modal-close" onclick="closeUI('modal-script-share')">✕</button>
     </div>
-    <div class="script-share-form" style="display:flex; flex-direction:column; gap:16px; padding:20px;">
+    <div style="display:flex; flex-direction:column; gap:16px; padding:20px;">
       <input type="text" id="share-title" class="search-box" style="border-radius: var(--rad);" placeholder="Tên Script (VD: Hub VIP)">
       <textarea id="share-code" class="search-box" placeholder="Dán mã Script vào đây..." style="height:150px; resize:none; border-radius: var(--rad);"></textarea>
       <button class="btn-primary" onclick="ChatEngine.triggerSendScript()">ĐĂNG LÊN MÁY CHỦ</button>
@@ -609,6 +649,12 @@ textarea.script-share-input { height: 150px; resize: none; }
     </div>
     <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:16px; padding: 20px;"></div>
   </div>
+</div>
+
+<!-- SCRIPT EDIT / RECALL CONTEXT MENU -->
+<div class="msg-context-menu" id="msg-context-modal" style="position:fixed; background:var(--bg-panel); border:1px solid var(--border-color); display:none; flex-direction:column; z-index:20000; box-shadow:var(--shadow-lg);">
+    <button class="msg-context-btn" onclick="ChatEngine.openEditModal()" style="padding:12px 20px; background:none; color:var(--text-main); font-weight:bold; cursor:pointer; text-align:left; border-bottom:1px solid var(--border-color);">Chỉnh sửa văn bản</button>
+    <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg()" style="padding:12px 20px; background:none; color:var(--accent-danger); font-weight:bold; cursor:pointer; text-align:left;">Thu hồi tin nhắn</button>
 </div>
 
 <!-- EDIT MESSAGE MODAL -->
@@ -631,7 +677,7 @@ textarea.script-share-input { height: 150px; resize: none; }
 const DOM = { get: id => document.getElementById(id), queryAll: sel => document.querySelectorAll(sel) };
 
 /* ==========================================================================
-   GLOBAL CONSTANTS & BAN CHECKER
+   GLOBAL CONSTANTS & CONFIRMATION UI
    ========================================================================== */
 const ADMIN_EMAIL = "hminhgalaxy@gmail.com";
 let IS_ADMIN = false;
@@ -669,8 +715,7 @@ const RestrictedAction = {
             firebase.database().ref('nox_users_control/' + safeKey).once('value', snapshot => {
                 const data = snapshot.val();
                 if(data && data.isBanned) {
-                    DOM.get('ban-alert-title').innerText = "YOU GOT BANNED BY DEV";
-                    DOM.get('ban-alert-reason').innerText = `Lý do vi phạm: ${data.banReason || "Không có lý do"}`;
+                    DOM.get('ban-alert-reason').innerText = `Lý do: ${data.banReason || "Không có"}`;
                     DOM.get('ban-alert-modal').classList.add('active');
                     return;
                 }
@@ -686,12 +731,13 @@ const RestrictedAction = {
    UI CONTROLS
    ========================================================================== */
 function toggleMenu() { 
-    const d = DOM.get('nav-drawer');
-    if(d) d.classList.toggle('is-open');
+    const d = DOM.get('nav-drawer'); const o = DOM.get('menu-overlay');
+    if(d) { d.classList.toggle('is-open'); if(o) o.classList.toggle('is-active'); }
 }
 function openUI(id) { 
     const e = DOM.get(id); if(e) e.classList.add('is-active'); 
     const d = DOM.get('nav-drawer'); if(d) d.classList.remove('is-open');
+    const o = DOM.get('menu-overlay'); if(o) o.classList.remove('is-active');
 }
 function closeUI(id) { const e = DOM.get(id); if(e) e.classList.remove('is-active'); }
 
@@ -715,7 +761,6 @@ const AuthEngine = {
         ChatEngine.userProfile = profile;
         localStorage.setItem('nox_user_profile', JSON.stringify(profile));
         
-        // Đăng ký user lên Firebase Registry để DEV quản lý
         if(profile.email) {
             const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
             firebase.database().ref('nox_users_registry/' + safeKey).set({
@@ -727,8 +772,10 @@ const AuthEngine = {
         this.updateAuthUI(true, profile);
     },
     guestLogin: function() {
-        const guestId = "guest_" + Math.floor(Math.random() * 9999);
-        const guestProfile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: guestId, role: 'GUEST' };
+        // Fix Guest ID to avoid override
+        const randId = Math.floor(Math.random() * 9999);
+        const guestEmail = "guest_" + randId + "@nox.local";
+        const guestProfile = { name: "Guest_" + randId, email: guestEmail, role: 'GUEST' };
         this.login(guestProfile);
         ChatEngine.appendMsg('SYSTEM', `Đăng nhập khách: ${guestProfile.name}`, true);
         ChatEngine.listenForMessages();
@@ -810,9 +857,7 @@ const ConfigEngine = {
         if(noticeTitle) payload.noticeTitle = noticeTitle;
         if(noticeText) payload.noticeText = noticeText;
         
-        this.ref.update(payload).then(() => {
-            showToast("Đã cập nhật hệ thống thành công!");
-        });
+        this.ref.update(payload).then(() => { showToast("Cập nhật thành công!"); });
     }
 };
 
@@ -821,12 +866,10 @@ const ConfigEngine = {
    ========================================================================== */
 const MenuEditor = {
     ref: null,
-    init: function() {
-        this.ref = firebase.database().ref('nox_custom_menu');
-        this.loadMenu();
-    },
+    init: function() { this.ref = firebase.database().ref('nox_custom_menu'); this.loadMenu(); },
     toggleEditor: function() {
-        DOM.get('dev-menu-editor-box').classList.toggle('active');
+        const box = DOM.get('dev-menu-editor-box');
+        if(box) box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
     },
     addMenuItem: function() {
         if(!IS_ADMIN) return;
@@ -835,49 +878,31 @@ const MenuEditor = {
         if(!name || !link) { alert("Nhập đủ tên và đường dẫn!"); return; }
         
         this.ref.push({ name, link, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
-            DOM.get('menu-item-name').value = '';
-            DOM.get('menu-item-link').value = '';
-            showToast("Đã thêm mục vào menu!");
+            DOM.get('menu-item-name').value = ''; DOM.get('menu-item-link').value = ''; showToast("Đã thêm Menu!");
         });
     },
     deleteMenuItem: function(key) {
-        ConfirmUI.show("XÓA MỤC NÀY KHỎI MENU?", () => {
-            this.ref.child(key).remove().then(() => showToast("Đã xóa khỏi menu!"));
-        });
+        ConfirmUI.show("XÓA MỤC NÀY KHỎI MENU?", () => { this.ref.child(key).remove().then(() => showToast("Đã xóa!")); });
     },
     loadMenu: function() {
         if(!this.ref) return;
         this.ref.on('value', snapshot => {
-            const container = DOM.get('dynamic-menu-links');
-            if(!container) return;
+            const container = DOM.get('dynamic-menu-links'); if(!container) return;
             container.innerHTML = '';
-            
             if(snapshot.exists()) {
                 snapshot.forEach(child => {
-                    const item = child.val();
-                    const key = child.key;
-                    
+                    const item = child.val(); const key = child.key;
                     const a = document.createElement('a');
-                    a.href = item.link;
-                    a.target = "_blank";
-                    a.className = "btn-sidebar";
-                    a.style.display = "flex";
-                    a.style.justifyContent = "space-between";
+                    a.href = item.link; a.target = "_blank"; a.className = "btn-sidebar";
+                    a.style.display = "flex"; a.style.justifyContent = "space-between";
                     
-                    let spanText = document.createElement('span');
-                    spanText.innerText = item.name;
+                    let spanText = document.createElement('span'); spanText.innerText = item.name;
                     a.appendChild(spanText);
 
                     if(IS_ADMIN) {
                         let delSpan = document.createElement('span');
-                        delSpan.style.color = "var(--accent-danger)";
-                        delSpan.style.cursor = "pointer";
-                        delSpan.innerText = "[X]";
-                        delSpan.onclick = (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            MenuEditor.deleteMenuItem(key);
-                        };
+                        delSpan.style.color = "var(--accent-danger)"; delSpan.style.cursor = "pointer"; delSpan.innerText = "[X]";
+                        delSpan.onclick = (e) => { e.preventDefault(); e.stopPropagation(); MenuEditor.deleteMenuItem(key); };
                         a.appendChild(delSpan);
                     }
                     container.appendChild(a);
@@ -891,72 +916,95 @@ const MenuEditor = {
    USER MANAGER (DEV BAN / MUTE PANEL)
    ========================================================================== */
 const UserMgr = {
-    loadUsers: function() {
+    loadUsers: async function() {
         if(!IS_ADMIN) return;
         const board = DOM.get('user-mgr-board');
         board.innerHTML = '<div style="text-align:center;">Đang tải danh sách người dùng...</div>';
         
-        firebase.database().ref('nox_users_registry').once('value', snapshot => {
-            board.innerHTML = '';
-            if(!snapshot.exists()) { board.innerHTML = '<div>Chưa có user nào.</div>'; return; }
+        try {
+            const regSnap = await firebase.database().ref('nox_users_registry').once('value');
+            if(!regSnap.exists()) { board.innerHTML = '<div>Chưa có user nào.</div>'; return; }
             
-            snapshot.forEach(child => {
+            const ctrlSnap = await firebase.database().ref('nox_users_control').once('value');
+            const controls = ctrlSnap.val() || {};
+            
+            board.innerHTML = '';
+            regSnap.forEach(child => {
                 const u = child.val();
                 const safeKey = child.key;
+                const control = controls[safeKey] || {};
                 
-                firebase.database().ref('nox_users_control/' + safeKey).once('value', cSnap => {
-                    const control = cSnap.val() || {};
-                    
-                    const box = document.createElement('div');
-                    box.className = 'data-box';
-                    
-                    let statusHtml = `<span style="color:var(--accent-green)">Bình thường</span>`;
-                    if(control.isBanned) statusHtml = `<span style="color:var(--accent-danger)">ĐÃ BAN VĨNH VIỄN (${control.banReason})</span>`;
-                    else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = `<span style="color:#f59e0b">ĐÃ MUTE đến ${new Date(control.muteUntil).toLocaleTimeString()} (${control.muteReason})</span>`;
-                    
-                    box.innerHTML = `
-                        <div class="box-head"><span class="box-title">${u.name} (${u.email})</span></div>
-                        <div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ${statusHtml}</div>
-                        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-                            <input type="number" id="mute-hours-${safeKey}" placeholder="Số giờ mute" style="width:100px; padding:6px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                            <input type="text" id="mute-reason-${safeKey}" placeholder="Lý do mute..." style="flex:1; padding:6px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                            <button class="box-action" style="background:#f59e0b; color:#fff;" onclick="UserMgr.muteUser('${safeKey}')">MUTE</button>
-                        </div>
-                        <div style="display:flex; gap:8px; margin-top:8px;">
-                            <input type="text" id="ban-reason-${safeKey}" placeholder="Lý do ban vĩnh viễn..." style="flex:1; padding:6px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                            <button class="box-action" style="background:var(--accent-danger); color:#fff;" onclick="UserMgr.banUser('${safeKey}')">BAN</button>
-                            <button class="box-action" style="background:var(--accent-green); color:#fff;" onclick="UserMgr.uncontrolUser('${safeKey}')">GỠ BAN/MUTE</button>
-                        </div>
-                    `;
-                    board.appendChild(box);
-                });
+                const box = document.createElement('div');
+                box.className = 'data-box';
+                
+                let statusHtml = `<span style="color:var(--accent-green)">Bình thường</span>`;
+                if(control.isBanned) statusHtml = `<span style="color:var(--accent-danger)">ĐÃ BAN (${control.banReason})</span>`;
+                else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = `<span style="color:#f59e0b">ĐÃ MUTE đến ${new Date(control.muteUntil).toLocaleTimeString()} (${control.muteReason})</span>`;
+                
+                box.innerHTML = `
+                    <div class="box-head"><span class="box-title">${u.name}</span></div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 8px;">Email: ${u.email}</div>
+                    <div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ${statusHtml}</div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
+                        <input type="number" id="um-mute-hours-${safeKey}" placeholder="Giờ mute" style="width:100px; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+                        <input type="text" id="um-mute-reason-${safeKey}" placeholder="Lý do mute..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+                        <button class="box-action" style="background:#f59e0b; color:#fff;" onclick="UserMgr.muteFromPanel('${safeKey}')">MUTE</button>
+                    </div>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                        <input type="text" id="um-ban-reason-${safeKey}" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+                        <button class="box-action" style="background:var(--accent-danger); color:#fff;" onclick="UserMgr.banFromPanel('${safeKey}')">BAN</button>
+                        <button class="box-action" style="background:var(--accent-green); color:#fff;" onclick="UserMgr.uncontrolUser('${safeKey}')">GỠ</button>
+                    </div>
+                `;
+                board.appendChild(box);
             });
-        });
+        } catch (e) {
+            board.innerHTML = '<div>Lỗi tải dữ liệu.</div>';
+        }
     },
-    muteUser: function(safeKey) {
-        const hours = parseFloat(DOM.get(`mute-hours-${safeKey}`).value) || 24;
-        const reason = DOM.get(`mute-reason-${safeKey}`).value.trim() || "Vi phạm quy định chat";
+    muteFromPanel: function(safeKey) {
+        const hours = parseFloat(DOM.get(`um-mute-hours-${safeKey}`).value) || 24;
+        const reason = DOM.get(`um-mute-reason-${safeKey}`).value.trim() || "Vi phạm quy định";
         const muteUntil = Date.now() + (hours * 3600 * 1000);
-        
-        firebase.database().ref('nox_users_control/' + safeKey).update({
-            isMuted: true, muteUntil: muteUntil, muteReason: reason
-        }).then(() => showToast("Đã Mute user thành công!"));
+        firebase.database().ref('nox_users_control/' + safeKey).update({ isMuted: true, muteUntil: muteUntil, muteReason: reason })
+        .then(() => { showToast("Đã Mute!"); this.loadUsers(); });
     },
-    banUser: function(safeKey) {
-        const reason = DOM.get(`ban-reason-${safeKey}`).value.trim() || "Vi phạm nghiêm trọng";
-        firebase.database().ref('nox_users_control/' + safeKey).update({
-            isBanned: true, banReason: reason
-        }).then(() => showToast("Đã Ban vĩnh viễn user!"));
+    banFromPanel: function(safeKey) {
+        const reason = DOM.get(`um-ban-reason-${safeKey}`).value.trim() || "Vi phạm nghiêm trọng";
+        firebase.database().ref('nox_users_control/' + safeKey).update({ isBanned: true, banReason: reason })
+        .then(() => { showToast("Đã Ban vĩnh viễn!"); this.loadUsers(); });
     },
     uncontrolUser: function(safeKey) {
-        firebase.database().ref('nox_users_control/' + safeKey).set({
-            isBanned: false, isMuted: false
-        }).then(() => showToast("Đã gỡ bỏ hình phạt cho user!"));
+        firebase.database().ref('nox_users_control/' + safeKey).set({ isBanned: false, isMuted: false })
+        .then(() => { showToast("Đã gỡ phạt!"); this.loadUsers(); });
+    },
+    
+    // Nút Mod trực tiếp trong Chat (khi DEV bấm vào tin nhắn user khác)
+    openModPanel: function(name, email) {
+        if(!IS_ADMIN) return;
+        DOM.get('mod-target-name').innerText = "User: " + name;
+        DOM.get('mod-target-email').value = email;
+        openUI('modal-dev-mod');
+    },
+    submitMute: function() {
+        const email = DOM.get('mod-target-email').value; if(!email) return;
+        const safeKey = email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
+        const hours = parseFloat(DOM.get('mod-mute-hours').value) || 24;
+        const reason = DOM.get('mod-mute-reason').value.trim() || "Spam";
+        firebase.database().ref('nox_users_control/' + safeKey).update({ isMuted: true, muteUntil: Date.now() + (hours*3600000), muteReason: reason })
+        .then(() => { showToast("Đã Mute!"); closeUI('modal-dev-mod'); });
+    },
+    submitBan: function() {
+        const email = DOM.get('mod-target-email').value; if(!email) return;
+        const safeKey = email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
+        const reason = DOM.get('mod-ban-reason').value.trim() || "Spam";
+        firebase.database().ref('nox_users_control/' + safeKey).update({ isBanned: true, banReason: reason })
+        .then(() => { showToast("Đã Ban!"); closeUI('modal-dev-mod'); });
     }
 };
 
 /* ==========================================================================
-   UTILS ENGINE (KHO TIỆN ÍCH)
+   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC - ĐÃ AN TOÀN HTML)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
@@ -1036,13 +1084,13 @@ const UtilsEngine = {
         
         const defaultData = [
             { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
-            { type: 'pane-link', title: 'Kasumi Store ', content: 'https://gofile.io/d/v3Q6Ig' },
+            { type: 'pane-link', title: 'Kasumi Store', content: 'https://gofile.io/d/v3Q6Ig' },
             { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
             { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
-            { type: 'pane-script', title: 'Speed X Hub ', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
-            { type: 'pane-script', title: 'UB Hub ', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
+            { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
+            { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
             { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
-            { type: 'pane-apk', title: 'Kiwi VPN VIP', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
+            { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
             { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
         ];
 
@@ -1060,18 +1108,40 @@ const UtilsEngine = {
                 const pane = DOM.get(data.type);
                 if(pane) {
                     const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                    let devControls = '';
+                    
+                    const boxHead = document.createElement('div'); boxHead.className = 'box-head';
+                    const boxTitle = document.createElement('span'); boxTitle.className = 'box-title';
+                    boxTitle.innerText = data.title;
+                    
+                    const ctrls = document.createElement('div');
+                    ctrls.style.display = "inline-flex"; ctrls.style.alignItems = "center";
+                    
                     if(IS_ADMIN && data.key) {
-                        devControls = `
-                            <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
-                            <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${data.key}')">XÓA</button>
-                        `;
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'dev-circle-edit-btn'; editBtn.innerText = '✎';
+                        editBtn.onclick = () => this.triggerEdit(data.key, data.type, data.title, data.content);
+                        
+                        const delBtn = document.createElement('button');
+                        delBtn.className = 'dev-delete-btn'; delBtn.innerText = 'XÓA';
+                        delBtn.onclick = () => this.triggerDelete(data.key);
+                        
+                        ctrls.appendChild(editBtn); ctrls.appendChild(delBtn);
                     }
+                    boxTitle.appendChild(ctrls); boxHead.appendChild(boxTitle);
                     
                     if(data.type === 'pane-script' || data.isScript) {
-                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
+                        const copyBtn = document.createElement('button'); copyBtn.className = 'box-action'; copyBtn.innerText = 'COPY';
+                        copyBtn.onclick = function() { UtilsEngine.execCopy(this); };
+                        boxHead.appendChild(copyBtn);
+                        box.appendChild(boxHead);
+                        
+                        const codeDiv = document.createElement('div'); codeDiv.className = 'script-code';
+                        codeDiv.innerText = data.content;
+                        box.appendChild(codeDiv);
                     } else {
-                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
+                        const openA = document.createElement('a'); openA.href = data.content; openA.target = '_blank'; openA.className = 'box-action'; openA.innerText = 'MỞ';
+                        boxHead.appendChild(openA);
+                        box.appendChild(boxHead);
                     }
                     pane.appendChild(box);
                 }
@@ -1090,9 +1160,7 @@ const GptEngine = {
   setApiKey: function(newKey) { localStorage.setItem('nox_ds_key', newKey.trim()); },
   
   board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
-  messageHistory: [
-      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB. Trả lời ngắn gọn, chuẩn Hacker." }
-  ],
+  messageHistory: [{ role: "system", content: "Bạn là NOXGPT, AI của NOX WEB." }],
 
   init: function() {
     if(this.isGreeted) return; this.isGreeted = true;
@@ -1103,11 +1171,8 @@ const GptEngine = {
     if(!this.board) return;
     const row = document.createElement('div'); row.className = `msg-row type-${type} ${isError ? 'type-error' : ''}`;
     let innerHTML = '';
-    if(type === 'other') {
-      innerHTML += `<div class="msg-meta"><div class="msg-name sys">${name}</div></div>`;
-    } else {
-      innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
-    }
+    if(type === 'other') { innerHTML += `<div class="msg-meta"><div class="msg-name sys">${name}</div></div>`; } 
+    else { innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`; }
     innerHTML += `<div class="msg-bubble">${htmlContent}</div>`;
     row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
     return row; 
@@ -1166,7 +1231,7 @@ const GptEngine = {
 const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT ENGINE (KIỂM TRA MUTE & ẢNH ĐÃ FIX KÍCH THƯỚC)
+   FIREBASE CHAT ENGINE (FIX LỖI MENU CHỈNH SỬA / MUTE)
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
@@ -1187,7 +1252,6 @@ const ChatEngine = {
       this.scriptRef = firebase.database().ref('nox_global_scripts'); 
       this.isSetup = true; 
       
-      UtilsEngine.init();
       ConfigEngine.init();
       this.cleanupOldMessages(); setInterval(() => this.cleanupOldMessages(), 3600000); 
 
@@ -1224,26 +1288,8 @@ const ChatEngine = {
 
   onGoogleLoginSuccess: function(response) {
     const payload = ChatEngine.decodeJwt(response.credential);
-    if(payload.email === ADMIN_EMAIL) { 
-        IS_ADMIN = true; 
-        DOM.get('dev-utils-panel').classList.add('active'); 
-        DOM.get('dev-config-panel').style.display = 'flex'; 
-        DOM.get('dev-menu-editor-group').style.display = 'flex';
-        DOM.get('dev-user-mgr-group').style.display = 'flex';
-    }
-    const profile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
-    ChatEngine.userProfile = profile;
-    localStorage.setItem('nox_user_profile', JSON.stringify(profile));
-
-    // Register to registry
-    const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
-    firebase.database().ref('nox_users_registry/' + safeKey).set({
-        name: profile.name, email: profile.email, role: profile.role, lastLogin: firebase.database.ServerValue.TIMESTAMP
-    });
-
-    DOM.get('auth-guard').style.display = 'none'; 
-    AuthEngine.updateAuthUI(true, profile);
-    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${profile.role}`, true); 
+    AuthEngine.login({ name: payload.name || "User", email: payload.email, role: (payload.email === ADMIN_EMAIL) ? 'DEV' : 'NOX' });
+    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${ChatEngine.userProfile.role}`, true); 
     ChatEngine.listenForMessages();
   },
 
@@ -1251,32 +1297,11 @@ const ChatEngine = {
     if(typeof google === 'undefined' || !google.accounts) { setTimeout(() => ChatEngine.initGoogleIdentity(), 500); return; }
     google.accounts.id.initialize({ client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", callback: this.onGoogleLoginSuccess });
     const btnWrap = DOM.get('google-login-mount'); if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
-    
-    const menuWrap = DOM.get('drawer-google-login-wrap');
-    if(menuWrap && !menuWrap.hasChildNodes()) {
-        google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
-    }
-  },
-
-  guestLogin: function() {
-      const guestId = "guest_" + Math.floor(Math.random() * 9999);
-      const profile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: guestId, role: 'GUEST' };
-      this.userProfile = profile;
-      localStorage.setItem('nox_user_profile', JSON.stringify(profile));
-      
-      firebase.database().ref('nox_users_registry/' + guestId).set({
-          name: profile.name, email: guestId, role: 'GUEST', lastLogin: firebase.database.ServerValue.TIMESTAMP
-      });
-
-      DOM.get('auth-guard').style.display = 'none';
-      AuthEngine.updateAuthUI(true, profile);
-      this.appendMsg('SYSTEM', `Đăng nhập khách: ${profile.name}`, true);
-      this.listenForMessages();
   },
 
   removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
 
-  appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX', isRecalled = false) {
+  appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX', isRecalled = false, senderEmail = '') {
     if(!this.board) return;
     let isMe = false; if(this.userProfile && senderName === this.userProfile.name) isMe = true;
     
@@ -1305,12 +1330,22 @@ const ChatEngine = {
     bubbleEl.className = `msg-bubble ${isRecalled ? 'recalled' : ''}`;
     bubbleEl.innerHTML = bubbleContent;
     
+    // GẮN SỰ KIỆN CHỈNH SỬA / MUTE
+    if(isMe && !isRecalled && msgKey) {
+        bubbleEl.title = 'Bấm vào để Sửa / Thu hồi';
+        bubbleEl.onclick = (e) => { e.stopPropagation(); ChatEngine.openContext(msgKey, e); };
+    } else if (!isMe && IS_ADMIN && role !== 'DEV' && !isSystem) {
+        bubbleEl.title = 'Bấm vào để Điều hành (Mute/Ban)';
+        bubbleEl.onclick = (e) => { e.stopPropagation(); UserMgr.openModPanel(senderName, senderEmail); };
+    }
+
     const metaDiv = document.createElement('div');
     metaDiv.innerHTML = innerHTML;
     
     row.appendChild(metaDiv.firstElementChild);
     row.appendChild(bubbleEl);
     
+    // NÚT THAO TÁC NGAY DƯỚI BONG BÓNG (NẾU CLICK CHƯA QUEN)
     if(isMe && !isRecalled && msgKey) {
         const actionBari = document.createElement('div');
         actionBari.className = 'msg-action-bar';
@@ -1322,23 +1357,25 @@ const ChatEngine = {
     }
     
     const existing = DOM.get(`msg-${msgKey}`);
-    if(existing) {
-        existing.replaceWith(row);
-    } else {
-        this.board.appendChild(row); 
-        this.board.scrollTop = this.board.scrollHeight;
-    }
+    if(existing) { existing.replaceWith(row); } 
+    else { this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight; }
   },
 
   activeMsgKey: null,
+  openContext: function(key, e) {
+      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
+      const menu = DOM.get(`ctx-${key}`);
+      if(menu) {
+          menu.classList.toggle('active');
+          document.addEventListener('pointerdown', (ev) => { if(!menu.contains(ev.target)) menu.classList.remove('active'); }, { once: true });
+      }
+  },
+
   openEditModal: function(key) {
       this.activeMsgKey = key;
       this.dbRef.child(key).once('value', snapshot => {
           const data = snapshot.val();
-          if(data && data.text) {
-              DOM.get('edit-msg-textarea').value = data.text;
-              openUI('modal-edit-msg');
-          }
+          if(data && data.text) { DOM.get('edit-msg-textarea').value = data.text; openUI('modal-edit-msg'); }
       });
   },
 
@@ -1347,18 +1384,14 @@ const ChatEngine = {
       const newText = DOM.get('edit-msg-textarea').value.trim();
       if(!newText) { alert("Tin nhắn trống!"); return; }
       
-      this.dbRef.child(this.activeMsgKey).update({ text: newText }).then(() => {
-          closeUI('modal-edit-msg');
-          showToast("Đã chỉnh sửa tin nhắn!");
-      });
+      this.dbRef.child(this.activeMsgKey).update({ text: newText }).then(() => { closeUI('modal-edit-msg'); showToast("Đã chỉnh sửa tin nhắn!"); });
   },
 
   triggerRecallMsg: function(key) {
       this.activeMsgKey = key;
+      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
       ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
-          this.dbRef.child(this.activeMsgKey).update({ recalled: true, text: "" }).then(() => {
-              showToast("Đã thu hồi tin nhắn!");
-          });
+          this.dbRef.child(this.activeMsgKey).update({ recalled: true, text: "" }).then(() => { showToast("Đã thu hồi tin nhắn!"); });
       });
   },
 
@@ -1371,14 +1404,14 @@ const ChatEngine = {
       if(this.userProfile && data.user === this.userProfile.name && Date.now() - data.timestamp < 3000) return; 
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
       if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
-      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
+      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled, data.email);
     });
     
     this.dbRef.on('child_changed', (snapshot) => {
       const data = snapshot.val(); if(!data) return;
       let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
       if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
-      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
+      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled, data.email);
     });
 
     this.dbRef.on('child_removed', (snapshot) => { const row = DOM.get(`msg-${snapshot.key}`); if(row) row.remove(); });
@@ -1388,14 +1421,11 @@ const ChatEngine = {
     if(!this.userProfile) { alert("Chưa đăng nhập!"); return; }
     if(!this.dbRef) return;
     
-    // Kiểm tra Mute trước khi gửi
     const safeKey = this.userProfile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
     firebase.database().ref('nox_users_control/' + safeKey).once('value', snapshot => {
         const ctrl = snapshot.val();
         if(ctrl && ctrl.isMuted && Date.now() < ctrl.muteUntil) {
-            const timeStr = new Date(ctrl.muteUntil).toLocaleTimeString();
-            alert(`BẠN ĐÃ BỊ CẤM TRONG 24H (Đến ${timeStr}). Lý do: ${ctrl.muteReason || 'Không có'}`);
-            return;
+            alert(`BẠN ĐÃ BỊ CẤM TRONG 24H. Lý do: ${ctrl.muteReason || 'Không có'}`); return;
         }
         
         const text = this.input.value.trim(); const base64Img = ImageProcessor.currentChatImage;
@@ -1407,13 +1437,13 @@ const ChatEngine = {
         this.input.value = ''; this.removeImage();
         
         this.dbRef.push({ 
-            user: this.userProfile.name, role: this.userProfile.role, 
-            text: text, image: base64Img || "", recalled: false, 
-            timestamp: firebase.database.ServerValue.TIMESTAMP 
-        });
+            user: this.userProfile.name, role: this.userProfile.role, email: this.userProfile.email,
+            text: text, image: base64Img || "", recalled: false, timestamp: firebase.database.ServerValue.TIMESTAMP 
+        }).catch(err => { this.appendMsg('SYSTEM', 'Gửi lỗi.', true); });
     });
   },
 
+  triggerSendScript: function() { ConfirmUI.show("ĐĂNG TẢI SCRIPT NÀY LÊN MÁY CHỦ?", () => { this.sendScript(); }); },
   sendScript: function() {
       if(!this.userProfile) { alert("Vui lòng đăng nhập chat trước!"); return; }
       const title = DOM.get('share-title').value.trim(); const code = DOM.get('share-code').value.trim();
@@ -1437,47 +1467,29 @@ const ChatEngine = {
           
           scripts.forEach(s => {
               const b = document.createElement('div'); b.className = 'data-box';
-              let badge = s.role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (s.role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
-              let displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
               
-              const boxHead = document.createElement('div');
-              boxHead.className = 'box-head';
+              const boxHead = document.createElement('div'); boxHead.className = 'box-head';
+              const boxTitle = document.createElement('span'); boxTitle.className = 'box-title'; boxTitle.innerText = s.title;
               
-              const boxTitle = document.createElement('span');
-              boxTitle.className = 'box-title';
-              boxTitle.innerText = s.title;
-              
-              const controlsWrapper = document.createElement('div');
-              controlsWrapper.style.display = "inline-flex";
-              controlsWrapper.style.alignItems = "center";
-              
+              const ctrls = document.createElement('div'); ctrls.style.display = "inline-flex"; ctrls.style.alignItems = "center";
               if(IS_ADMIN) {
-                  const deleteBtn = document.createElement('button');
-                  deleteBtn.className = 'dev-delete-btn';
-                  deleteBtn.innerText = 'XÓA';
-                  deleteBtn.onclick = () => ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child(s.key).remove());
-                  controlsWrapper.appendChild(deleteBtn);
+                  const delBtn = document.createElement('button'); delBtn.className = 'dev-delete-btn'; delBtn.innerText = 'XÓA';
+                  delBtn.onclick = () => ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child(s.key).remove());
+                  ctrls.appendChild(delBtn);
               }
-              boxTitle.appendChild(controlsWrapper);
-              boxHead.appendChild(boxTitle);
+              boxTitle.appendChild(ctrls); boxHead.appendChild(boxTitle);
               
-              const copyBtn = document.createElement('button');
-              copyBtn.className = 'box-action';
-              copyBtn.innerText = 'COPY';
-              copyBtn.onclick = function() { UtilsEngine.execCopy(this); };
-              boxHead.appendChild(copyBtn);
-              
+              const copyBtn = document.createElement('button'); copyBtn.className = 'box-action'; copyBtn.innerText = 'COPY';
+              copyBtn.onclick = function() { UtilsEngine.execCopy(this); }; boxHead.appendChild(copyBtn);
               b.appendChild(boxHead);
               
-              const scriptCode = document.createElement('div');
-              scriptCode.className = 'script-code';
-              scriptCode.innerText = s.code;
-              b.appendChild(scriptCode);
+              const scriptCode = document.createElement('div'); scriptCode.className = 'script-code'; scriptCode.innerText = s.code; b.appendChild(scriptCode);
               
-              const footerInfo = document.createElement('div');
-              footerInfo.style.cssText = "font-size:0.75rem; color:var(--text-sub); margin-top:4px;";
-              footerInfo.innerHTML = `${badge} Đóng góp bởi: ${displayName}`;
-              b.appendChild(footerInfo);
+              const badge = s.role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (s.role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
+              const displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
+              
+              const footerInfo = document.createElement('div'); footerInfo.style.cssText = "font-size:0.75rem; color:var(--text-sub); margin-top:4px;";
+              footerInfo.innerHTML = `${badge} Đóng góp bởi: ${displayName}`; b.appendChild(footerInfo);
               
               vBoard.appendChild(b);
           });
@@ -1489,6 +1501,7 @@ const ChatEngine = {
    SYSTEM BOOTSTRAP
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  ParticleEngine.init();
   ChatEngine.initFirebase();
   ChatEngine.initGoogleIdentity();
 });
