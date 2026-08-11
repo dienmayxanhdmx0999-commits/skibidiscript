@@ -1,120 +1,1240 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0d0f12">
 
-  <!-- Ép trình duyệt luôn tải bản mới, không dùng bản cache cũ -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+<title>NOX WEB - V34 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V34. Giao diện Vuông, Kho tiện ích chỉnh sửa qua nút tròn, Global Chat quản lý DEV.">
+<meta name="robots" content="index, follow">
 
-  <!-- SEO -->
-  <title>NOX CHAT - Nhắn tin trực tuyến miễn phí</title>
-  <meta name="description" content="NOX CHAT - Phòng chat trực tuyến miễn phí, nhắn tin thời gian thực, đăng nhập bằng Google, gửi ảnh, trả lời và chia sẻ tin nhắn dễ dàng.">
-  <meta name="keywords" content="nox chat, chat online, nhắn tin trực tuyến, chat miễn phí, phòng chat, nox gpt">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/chat.html">
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://js.puter.com/v2/"></script>
 
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="NOX CHAT - Nhắn tin trực tuyến">
-  <meta property="og:description" content="Phòng chat trực tuyến miễn phí, thời gian thực, đăng nhập bằng Google.">
-  <meta property="og:image" content="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/nox-logo.svg">
-  <meta property="og:url" content="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/chat.html">
+<style>
+/* ==========================================================================
+   CSS ARCHITECTURE: DARK THEME & SQUARE GEOMETRY
+   ========================================================================== */
+:root {
+  --bg-core: #0d0f12;        
+  --bg-panel: #16181d;       
+  --bg-panel-hover: #1c1f26; 
+  --bg-input: #0a0c0f;       
+  
+  --border-color: #272a30;   
+  --border-hover: #3a3e47;
+  
+  --text-main: #f3f4f6;      
+  --text-sub: #9ca3af;       
+  --text-muted: #6b7280;
+  
+  --accent-green: #10b981;
+  --accent-green-bg: rgba(16, 185, 129, 0.1);
+  --accent-blue: #3b82f6; 
+  --accent-danger: #ef4444;
+  --accent-danger-bg: rgba(239, 68, 68, 0.1);
+  --dev-color: #ff0055;
+  
+  --rad: 0px; 
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+}
 
-  <link rel="icon" href="nox-logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="chat.css?v=2">
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+button, input, textarea, select { font-family: inherit; outline: none; border: none; border-radius: var(--rad); }
+a { text-decoration: none; color: inherit; }
+
+html { font-family: "Courier New", Courier, monospace; font-size: 16px; width: 100%; height: 100%; }
+
+body {
+  width: 100%; min-height: 100vh;
+  background-color: var(--bg-core);
+  overflow-y: auto !important; overflow-x: hidden; position: relative;
+  display: flex; justify-content: center; align-items: flex-start;
+  padding: 8vh 16px 100px; color: var(--text-main);
+}
+
+/* CRT SCANLINE EFFECT */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 3px 100%; opacity: 0.2;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION BANNER
+   ========================================================================== */
+#toast-banner {
+  position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+  background: var(--accent-green); color: #fff; padding: 12px 24px;
+  font-weight: bold; border-radius: var(--rad); z-index: 20000;
+  box-shadow: 0 10px 30px rgba(16,185,129,0.4); text-transform: uppercase;
+  transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#toast-banner.show { top: 20px; }
+
+/* ==========================================================================
+   SOLID PANELS & BUTTONS
+   ========================================================================== */
+.solid-panel {
+  background: var(--bg-panel); border: 1px solid var(--border-color);
+  border-radius: var(--rad); box-shadow: var(--shadow-md);
+  position: relative; z-index: 10;
+}
+
+.btn-primary {
+  width: 100%; padding: 14px 20px; border-radius: var(--rad); 
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: #fff; font-weight: bold; font-size: 0.95rem; 
+  background: var(--accent-green); transition: all 0.2s ease; cursor: pointer;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.btn-primary:hover { background: #059669; }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-sidebar {
+  width: 100%; padding: 14px 16px; border-radius: var(--rad); 
+  display: flex; align-items: center; justify-content: flex-start; gap: 14px;
+  color: var(--text-sub); font-weight: bold; font-size: 0.95rem; 
+  background: transparent; border: 1px solid var(--border-color);
+  transition: all 0.2s ease; cursor: pointer; text-transform: uppercase;
+}
+.btn-sidebar:hover { background: var(--bg-panel-hover); color: var(--text-main); border-color: var(--text-sub); }
+.btn-sidebar.active { background: var(--accent-green-bg); color: var(--accent-green); border-color: var(--accent-green); }
+
+/* ==========================================================================
+   SIDEBAR & HEADER
+   ========================================================================== */
+.top-nav { position: fixed; top: 16px; left: 16px; z-index: 100; }
+.menu-trigger {
+  height: 44px; padding: 0 16px; border-radius: var(--rad);
+  background: var(--bg-panel); border: 1px solid var(--border-color);
+  display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: bold; font-size: 0.9rem;
+  cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm); text-transform: uppercase;
+}
+.menu-trigger:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
+
+.drawer-menu {
+  position: fixed; top: 0; left: 0; height: 100dvh; width: 300px; max-width: 85vw;
+  padding: 24px 16px; z-index: 999; display: flex; flex-direction: column; gap: 24px;
+  background: var(--bg-core); border-right: 1px solid var(--border-color);
+  transform: translateX(-100%); opacity: 0; pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.5); overflow-y: auto;
+}
+.drawer-menu.is-open { transform: translateX(0); opacity: 1; pointer-events: auto; }
+
+.drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px dashed var(--border-color); }
+.drawer-title { font-size: 1.1rem; font-weight: bold; color: var(--text-main); display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+.drawer-close { background: var(--border-color); color: var(--text-main); width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: var(--rad); cursor: pointer; transition: 0.2s; font-weight: bold;}
+.drawer-close:hover { background: var(--accent-danger); color: #fff; }
+
+.drawer-group { display: flex; flex-direction: column; gap: 8px; }
+.drawer-label { font-size: 0.8rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 4px; margin-bottom: 4px; }
+
+.menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 998; opacity: 0; pointer-events: none; transition: 0.3s; }
+.menu-overlay.is-active { opacity: 1; pointer-events: auto; }
+
+/* ==========================================================================
+   MAIN DASHBOARD CARD
+   ========================================================================== */
+.card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; margin-top: 50px; }
+.main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; }
+
+.title-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+.title-main { font-size: 2rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px;}
+.status-badge { font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: var(--rad); background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); text-transform: uppercase;}
+
+.info-board {
+  padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color);
+}
+.info-board h3 { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--accent-green); text-transform: uppercase;}
+.info-board p { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); }
+
+.text-truncate {
+  font-size: 0.9rem; line-height: 1.6; color: var(--text-sub);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  transition: all 0.3s ease;
+}
+.text-truncate.expanded { display: block; -webkit-line-clamp: unset; }
+
+/* ==========================================================================
+   MODAL CORE
+   ========================================================================== */
+.modal-backdrop { 
+  position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; 
+  padding: 16px; background: rgba(0, 0, 0, 0.85); opacity: 0; transition: opacity 0.2s ease; 
+}
+.modal-backdrop.is-active { display: flex; opacity: 1; }
+
+.modal-content { 
+  width: 100%; max-width: 650px; height: 90dvh; max-height: 800px; display: flex; flex-direction: column; 
+  background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-lg);
+  transform: scale(0.98); transition: transform 0.2s ease; overflow: hidden;
+}
+.modal-backdrop.is-active .modal-content { transform: scale(1); }
+
+.modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px dashed var(--border-color); background: var(--bg-core); }
+.modal-heading { font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-main); text-transform: uppercase;}
+.modal-close { width: 36px; height: 36px; border-radius: var(--rad); background: var(--border-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; font-weight: bold;}
+.modal-close:hover { background: var(--accent-danger); color: #fff; }
+
+/* ==========================================================================
+   ARCHIVE TABS & DATA BOXES
+   ========================================================================== */
+.search-wrapper { padding: 16px 20px; background: var(--bg-panel); border-bottom: 1px solid var(--border-color); }
+.search-box { width: 100%; padding: 14px 16px; border-radius: var(--rad); font-size: 0.95rem; color: var(--text-main); background: var(--bg-input); border: 1px solid var(--border-color); transition: 0.2s; font-family: inherit;}
+.search-box:focus { border-color: var(--accent-green); }
+
+.tab-nav { display: flex; gap: 8px; padding: 16px 20px 0; background: var(--bg-panel); overflow-x: auto; border-bottom: 1px solid var(--border-color);}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn { padding: 10px 16px; border-radius: var(--rad); color: var(--text-sub); font-size: 0.9rem; font-weight: bold; border: 1px solid transparent; transition: 0.2s; white-space: nowrap; text-transform: uppercase;}
+.tab-btn:hover { color: var(--text-main); border-color: var(--border-color); }
+.tab-btn.is-active { color: var(--text-main); background: var(--border-color); border-color: var(--text-sub); }
+
+.tab-body-wrapper { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-core); display: flex; flex-direction: column; gap: 16px;}
+.tab-body-wrapper::-webkit-scrollbar { width: 4px; }
+.tab-body-wrapper::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 0; }
+
+.tab-pane { display: none; flex-direction: column; gap: 16px; }
+.tab-pane.is-active { display: flex; }
+
+.data-box { 
+  padding: 16px 20px; border-radius: var(--rad); 
+  background: var(--bg-panel); border: 1px solid var(--border-color); 
+  display: flex; flex-direction: column; gap: 14px; 
+  position: relative; transition: all 0.2s ease;
+}
+.data-box:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
+.data-box.is-hidden { display: none; }
+
+.box-head { display: flex; justify-content: space-between; align-items: center; padding-left: 8px;}
+.box-title { font-size: 1rem; font-weight: bold; color: var(--text-main); text-transform: uppercase;}
+.box-action { 
+  padding: 8px 16px; border-radius: var(--rad); background: var(--bg-input); 
+  color: var(--text-main); border: 1px solid var(--border-color); 
+  font-weight: bold; font-size: 0.85rem; transition: 0.2s; cursor: pointer; text-transform: uppercase;
+}
+.box-action:hover { border-color: var(--text-main); background: var(--border-hover); }
+.box-action.is-copied { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
+
+.script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad); background: var(--bg-input); border: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
+
+/* DEV CIRCLE EDIT BUTTON (Nút tròn chỉnh sửa cho DEV) */
+.dev-circle-edit-btn {
+    width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: var(--accent-blue);
+    border: 1px solid var(--accent-blue); display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; font-weight: bold; font-size: 13px; margin-left: 8px; transition: 0.2s;
+}
+.dev-circle-edit-btn:hover { background: var(--accent-blue); color: #fff; }
+
+.dev-delete-btn {
+    background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger);
+    padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 8px; font-size: 0.8rem;
+}
+.dev-delete-btn:hover { background: var(--accent-danger); color: #fff; }
+
+.dev-add-panel {
+    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-bottom: 16px; display: none;
+}
+.dev-add-panel.active { display: flex; flex-direction: column; gap: 10px; }
+.dev-add-panel input, .dev-add-panel select, .dev-add-panel textarea {
+    padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color);
+}
+.dev-add-panel button { padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
+
+/* ==========================================================================
+   CONFIRMATION MODAL
+   ========================================================================== */
+.confirm-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10005; display: none; align-items: center; justify-content: center; padding: 16px;}
+.confirm-backdrop.active { display: flex; }
+.confirm-box { background: var(--bg-panel); border: 2px solid var(--accent-danger); padding: 24px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 30px rgba(239, 68, 68, 0.2); }
+.confirm-msg { color: var(--accent-danger); font-weight: bold; margin-bottom: 24px; font-size: 1.1rem; text-transform: uppercase;}
+.confirm-actions { display: flex; gap: 16px; justify-content: center; }
+.btn-ok { padding: 12px 30px; font-weight: bold; cursor: pointer; background: var(--accent-danger); color: #fff; border: 1px solid var(--accent-danger); text-transform: uppercase;}
+.btn-ok:hover { background: #dc2626; }
+.btn-no { padding: 12px 30px; font-weight: bold; cursor: pointer; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); text-transform: uppercase;}
+.btn-no:hover { border-color: var(--text-main); }
+
+/* ==========================================================================
+   CHAT UI & CONTEXT MENU
+   ========================================================================== */
+.chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--border-color); }
+
+.msg-row { display: flex; flex-direction: column; max-width: 85%; content-visibility: auto; contain-intrinsic-size: auto 80px; position: relative;}
+.msg-row.type-user { align-self: flex-end; align-items: flex-end; }
+.msg-row.type-other { align-self: flex-start; align-items: flex-start; }
+
+.msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.msg-name { font-size: 0.8rem; font-weight: bold; color: var(--text-sub); text-transform: uppercase; }
+.msg-name.sys { color: var(--accent-green); }
+
+.badge-dev { color: var(--dev-color); border: 1px solid var(--dev-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: rgba(255,0,85,0.1); }
+.badge-nox { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--accent-green-bg); }
+.badge-guest { color: var(--text-sub); border: 1px solid var(--border-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--bg-input); }
+
+.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer;}
+.msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
+.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
+.msg-row.type-error .msg-bubble { background: var(--accent-danger-bg); border-color: var(--accent-danger); color: var(--accent-danger); cursor: default;}
+.msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
+
+.msg-context-menu {
+  position: absolute; bottom: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color);
+  z-index: 100; display: none; flex-direction: column; box-shadow: var(--shadow-lg); min-width: 140px;
+}
+.msg-context-menu.active { display: flex; }
+.msg-context-btn { padding: 10px 16px; text-align: left; font-size: 0.85rem; font-weight: bold; background: transparent; color: var(--text-main); cursor: pointer; border-bottom: 1px solid var(--border-color); }
+.msg-context-btn:hover { background: var(--bg-panel-hover); color: var(--accent-green); }
+.msg-context-btn.danger:hover { color: var(--accent-danger); }
+
+/* CHAT INPUT AREA */
+.chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+
+.image-preview-zone { display: none; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
+.image-preview-zone.active { display: flex; }
+.preview-thumb { width: 50px; height: 50px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
+.preview-remove { width: 24px; height: 24px; background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--accent-danger);}
+
+.chat-input-wrapper { display: flex; align-items: center; gap: 8px; width: 100%; }
+.chat-field { flex: 1; min-width: 0; height: 44px; padding: 0 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; }
+.chat-field:focus { border-color: var(--text-sub); }
+
+.btn-photo { 
+  height: 44px; width: auto; padding: 0 12px; background: var(--bg-input); color: var(--text-main); 
+  border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; 
+  cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.2s; flex-shrink: 0;
+}
+.btn-photo:hover { background: var(--border-hover); border-color: var(--text-sub); }
+
+.chat-send { 
+  height: 44px; width: auto; padding: 0 16px; border-radius: var(--rad); 
+  background: var(--text-main); color: var(--bg-core); font-weight: bold; font-size: 0.9rem;
+  display: flex; justify-content: center; align-items: center; gap: 6px;
+  cursor: pointer; transition: 0.2s; border: 1px solid var(--text-main); flex-shrink: 0;
+}
+.chat-send:active { transform: scale(0.95); }
+.chat-send:hover { background: transparent; color: var(--text-main); }
+
+/* AUTH & FALLBACK */
+.auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(13, 15, 18, 0.95); text-align: center; padding: 32px; }
+.auth-blocker.is-hidden { display: none; }
+.auth-title { font-size: 1.4rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; }
+.auth-desc { color: var(--text-sub); font-size: 0.9rem; line-height: 1.5; }
+
+.btn-guest { padding: 12px 24px; border-radius: var(--rad); background: transparent; border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; text-transform: uppercase;}
+.btn-guest:hover { border-color: var(--text-main); }
+
+.api-fallback-box { display: flex; flex-direction: column; gap: 8px; padding: 16px; background: var(--bg-input); border: 1px dashed var(--accent-danger); margin-bottom: 10px;}
+.api-fallback-box input { padding: 12px; background: var(--bg-core); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace;}
+.api-fallback-box button { padding: 12px; background: var(--accent-danger); color: #fff; font-weight: bold; cursor: pointer; }
+
+.script-share-form { display: flex; flex-direction: column; gap: 12px; padding: 20px; }
+.script-share-input { padding: 14px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-family: monospace; }
+textarea.script-share-input { height: 150px; resize: none; }
+</style>
 </head>
 <body>
 
-  <div class="chat-box">
+<div id="toast-banner">CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
 
-    <header>
-      <button id="menuBtn" class="icon-btn" aria-label="Menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-
-      <div class="brand">
-        <img src="nox-logo.svg" alt="NOX CHAT" class="logo">
-        <span class="brand-text">NOX<span>CHAT</span></span>
-      </div>
-
-      <div id="userChip" class="user-chip" style="display:none;">
-        <img id="userAvatar" src="" alt="">
-      </div>
-    </header>
-
-    <!-- Menu 3 gạch -->
-    <div id="sideMenu" class="side-menu">
-      <div class="side-menu-header">
-        <span>Menu</span>
-        <button id="closeMenuBtn">✕</button>
-      </div>
-      <a href="https://dienmayxanhdmx0999-commits.github.io/skibidiscript/ai.html" class="side-item">
-        <span class="side-icon nox-icon">N</span> NOX GPT
-      </a>
-      <a href="https://discord.gg/4GHRxf86U" target="_blank" rel="noopener" class="side-item">
-        <span class="side-icon discord-icon">D</span> Discord
-      </a>
-      <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" rel="noopener" class="side-item">
-        <span class="side-icon zalo-icon">Z</span> Zalo
-      </a>
-      <button id="logoutBtn" class="side-item side-logout">
-        <span class="side-icon logout-icon">⎋</span> Đăng xuất
-      </button>
-    </div>
-    <div id="menuOverlay" class="menu-overlay" style="display:none;"></div>
-
-    <!-- Cổng đăng nhập bắt buộc -->
-    <div id="loginGate" class="login-gate">
-      <img src="nox-logo.svg" class="gate-logo" alt="NOX CHAT">
-      <h2>NOX CHAT</h2>
-      <p>Đăng nhập để bắt đầu trò chuyện</p>
-      <button id="loginBtn" class="google-btn">
-        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.6 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.2 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.2 29.5 4 24 4c-7.4 0-13.8 4.1-17.1 10.1z"/><path fill="#4CAF50" d="M24 44c5.3 0 10.2-2 13.9-5.4l-6.4-5.4C29.4 34.9 26.8 36 24 36c-5.3 0-9.8-3.4-11.4-8.1l-6.5 5C9.9 39.6 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3-3.4 5.4-6.3 6.9l6.4 5.4C39.4 37.5 44 31.4 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
-        Đăng nhập bằng Google
-      </button>
-      <p id="loginError" class="login-error"></p>
-    </div>
-
-    <!-- Nội dung chat (ẩn cho tới khi đăng nhập) -->
-    <div id="chatArea" class="chat-area" style="display:none;">
-      <div id="messages"></div>
-
-      <div id="warnBox" class="warn-box" style="display:none;"></div>
-
-      <div id="replyPreview" class="reply-preview" style="display:none;">
-        <div class="reply-preview-text">
-          <span class="reply-preview-label">Trả lời <b id="replyToName"></b></span>
-          <span id="replyToText"></span>
+<div class="confirm-backdrop" id="confirm-modal">
+    <div class="confirm-box">
+        <div class="confirm-msg" id="confirm-msg-text">BẠN CÓ CHẮC CHẮN MUỐN THỰC HIỆN HÀNH ĐỘNG NÀY?</div>
+        <div class="confirm-actions">
+            <button class="btn-ok" onclick="ConfirmUI.ok()">OK</button>
+            <button class="btn-no" onclick="ConfirmUI.no()">NO</button>
         </div>
-        <button id="cancelReply">✕</button>
-      </div>
+    </div>
+</div>
 
-      <div class="input-row">
-        <div class="msg-row">
-          <button id="imgBtn" class="icon-btn" title="Gửi ảnh">📷</button>
-          <input id="fileInput" type="file" accept="image/*" style="display:none;">
-          <button id="emojiBtn" class="icon-btn" title="Emoji">😊</button>
-          <input id="msgInput" placeholder="Nhập tin nhắn..." maxlength="500">
-          <button id="sendBtn">Gửi</button>
+<header class="top-nav">
+  <button class="menu-trigger" onclick="toggleMenu()">
+    <span style="font-size:1.2rem; margin-top:-2px;">≡</span> MENU
+  </button>
+</header>
+
+<nav class="drawer-menu" id="nav-drawer">
+  <div class="drawer-header">
+    <div class="drawer-title" id="drawer-system-title">BẢNG ĐIỀU KHIỂN</div>
+    <button class="drawer-close" onclick="toggleMenu()">✕</button>
+  </div>
+  
+  <div class="drawer-group">
+    <div class="drawer-label">AI & CHAT</div>
+    <button class="btn-sidebar" onclick="openUI('modal-noxgpt')">NOXGPT [AI]</button>
+    <button class="btn-sidebar" onclick="openUI('modal-noxchat')">GLOBAL CHAT</button>
+  </div>
+  
+  <div class="drawer-group" id="drawer-auth-group">
+    <div class="drawer-label">TÀI KHOẢN</div>
+    <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center;"></div>
+    <button class="btn-sidebar" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
+    <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.logout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
+  </div>
+
+  <div class="drawer-group" style="margin-top: 5px;">
+    <div class="drawer-label">CỘNG ĐỒNG</div>
+    <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="btn-sidebar">NHÓM ZALO</a>
+    <a href="https://discord.gg/kRCKkw63s" target="_blank" class="btn-sidebar">DISCORD SERVER</a>
+  </div>
+</nav>
+<div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+
+<div class="card-wrapper">
+  <main class="main-card solid-panel" id="dashboard-card">
+    <div class="title-wrap" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+      <span class="status-badge" id="ui-version-badge">Phiên bản V34</span>
+      <h1 class="title-main" id="ui-title-text">NOX WEB SERVER</h1>
+    </div>
+
+    <div class="info-board">
+      <h3 id="ui-notice-title">THÔNG BÁO</h3>
+      <div class="text-truncate" id="ui-notice-text" style="display:block;">
+        > <b>WELCOME TO NOX WEB V34 MASTER.</b><br>
+        > Cho phép cuộn trang mượt mà khi đầy nội dung.<br>
+        > Hỗ trợ nút tròn (✎) để DEV chỉnh sửa trực tiếp các mục tiện ích.<br>
+        > Click vào tin nhắn của bạn để Sửa hoặc Thu hồi.<br>
+        > Thông báo Toast Alert hiển thị trong 5s khi có cập nhật mới.
+      </div>
+    </div>
+
+    <div class="dev-config-box" id="dev-config-panel" style="display:none; flex-direction:column; gap:10px; margin-top:15px; border:1px dashed var(--dev-color); padding:16px; background:rgba(255,0,85,0.05);">
+        <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
+        <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V34)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+        <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none; padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
+        <button onclick="ConfigEngine.saveConfig()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">CẬP NHẬT HỆ THỐNG</button>
+    </div>
+
+    <button class="btn-primary" onclick="openUI('modal-archive')" style="margin-top:15px;">
+      TRUY CẬP KHO DỮ LIỆU
+    </button>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-archive" onclick="if(event.target===this)closeUI('modal-archive')">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-heading">KHO TIỆN ÍCH</div>
+      <button class="modal-close" onclick="closeUI('modal-archive')">✕</button>
+    </div>
+
+    <div class="search-wrapper">
+        <input class="search-box" id="input-search" placeholder="Nhập từ khóa tìm kiếm..." oninput="UtilsEngine.execSearch(this.value)">
+    </div>
+
+    <div class="dev-add-panel" id="dev-utils-panel">
+        <div style="color:var(--dev-color); font-weight:bold; margin-bottom:5px;" id="dev-panel-heading">[DEV] THÊM / SỬA TIỆN ÍCH</div>
+        <input type="hidden" id="dev-edit-key" value="">
+        <select id="dev-util-type">
+            <option value="pane-link">Link</option>
+            <option value="pane-script">Script</option>
+            <option value="pane-apk">APK</option>
+            <option value="pane-ios">iOS</option>
+        </select>
+        <input type="text" id="dev-util-title" placeholder="Tên tiện ích...">
+        <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..."></textarea>
+        <div style="display:flex; gap:10px;">
+            <button onclick="UtilsEngine.triggerSave()" style="flex:1;" id="dev-submit-btn">ĐĂNG TẢI</button>
+            <button onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; background:var(--border-color); color:var(--text-main); flex:1;">HỦY</button>
         </div>
-        <div id="emojiPicker" class="emoji-picker" style="display:none;"></div>
+    </div>
+
+    <div class="tab-nav">
+      <button class="tab-btn is-active" onclick="UtilsEngine.switchPane('pane-link', this)">LINKS</button>
+      <button class="tab-btn" onclick="UtilsEngine.switchPane('pane-script', this)">SCRIPTS</button>
+      <button class="tab-btn" onclick="UtilsEngine.switchPane('pane-apk', this)">APKS</button>
+      <button class="tab-btn" onclick="UtilsEngine.switchPane('pane-ios', this)">IOS</button>
+    </div>
+
+    <div class="tab-body-wrapper">
+      <div id="pane-link" class="tab-pane is-active"></div>
+      <div id="pane-script" class="tab-pane"></div>
+      <div id="pane-apk" class="tab-pane"></div>
+      <div id="pane-ios" class="tab-pane"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-heading">NOXGPT</div>
+      <button class="modal-close" onclick="closeUI('modal-noxgpt')">✕</button>
+    </div>
+    
+    <div id="gpt-fallback-container" style="display:none;">
+        <div class="api-fallback-box">
+            <div class="api-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY (XKIRO)</div>
+            <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng sk-xt-)...">
+            <button onclick="GptEngine.validateAndSaveConfig()">LƯU VÀ THỬ LẠI</button>
+        </div>
+    </div>
+
+    <div class="chat-messages" id="noxgpt-board"></div>
+    
+    <div class="chat-footer">
+      <div class="image-preview-zone" id="gpt-preview-zone">
+        <img src="" id="gpt-preview-img" class="preview-thumb">
+        <div class="preview-remove" onclick="GptEngine.removeImage()">✕</div>
+      </div>
+      <div class="chat-input-wrapper">
+        <label for="gpt-img-upload" class="btn-photo">PHOTO</label>
+        <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
+        <input type="text" id="noxgpt-field" class="chat-field" placeholder="Nhập câu lệnh..." onkeypress="if(event.key === 'Enter') GptEngine.submit()">
+        <button class="chat-send" onclick="GptEngine.submit()">GỬI</button>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="msgActionMenu" class="msg-action-menu" style="display:none;">
-    <button data-action="reply">↩ Trả lời</button>
-    <button data-action="copy">⧉ Sao chép</button>
-    <button data-action="share">↗ Chia sẻ</button>
+<div class="modal-backdrop" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
+  <div class="modal-content" style="position: relative;">
+    
+    <div class="auth-blocker" id="auth-guard">
+      <h2 class="auth-title">GLOBAL CHAT</h2>
+      <p class="auth-desc">Đăng nhập để tham gia trò chuyện cùng cộng đồng.</p>
+      <div id="google-login-mount"></div>
+      <div style="margin: 10px 0; color: var(--text-sub);">HOẶC</div>
+      <button class="btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
+    </div>
+
+    <div class="modal-header">
+      <div class="modal-heading">SERVER CHAT</div>
+      <div style="display:flex; gap:8px;">
+        <button class="box-action" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main);" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">KHO SCRIPT</button>
+        <button class="modal-close" style="width:36px; height:36px;" onclick="closeUI('modal-noxchat')">✕</button>
+      </div>
+    </div>
+    
+    <div class="chat-messages" id="noxchat-board">
+      <div class="msg-row type-other">
+        <div class="msg-meta"><div class="msg-name sys">SYSTEM</div></div>
+        <div class="msg-bubble" style="background: var(--bg-input);">Đang kết nối tới máy chủ Firebase...</div>
+      </div>
+    </div>
+    
+    <div class="chat-footer">
+      <div class="image-preview-zone" id="chat-preview-zone">
+        <img src="" id="chat-preview-img" class="preview-thumb">
+        <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
+      </div>
+      <div class="chat-input-wrapper">
+        <button class="btn-photo" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
+        <label for="chat-img-upload" class="btn-photo">PHOTO</label>
+        <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
+        <input type="text" id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') ChatEngine.sendMsg()">
+        <button class="chat-send" onclick="ChatEngine.sendMsg()">GỬI</button>
+      </div>
+    </div>
   </div>
+</div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="firebase.config.js"></script>
-  <script src="chat.js?v=2"></script>
+<div class="modal-backdrop" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
+  <div class="modal-content" style="max-width: 500px; height: auto;">
+    <div class="modal-header">
+      <div class="modal-heading">CHIA SẺ SCRIPT</div>
+      <button class="modal-close" onclick="closeUI('modal-script-share')">✕</button>
+    </div>
+    <div class="script-share-form" style="display:flex; flex-direction:column; gap:16px; padding:20px;">
+      <input type="text" id="share-title" class="search-box" style="border-radius: var(--rad);" placeholder="Tên Script (VD: Hub VIP)">
+      <textarea id="share-code" class="search-box" placeholder="Dán mã Script vào đây..." style="height:150px; resize:none; border-radius: var(--rad);"></textarea>
+      <button class="btn-primary" onclick="ChatEngine.triggerSendScript()">ĐĂNG LÊN MÁY CHỦ</button>
+    </div>
+  </div>
+</div>
 
+<div class="modal-backdrop" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-heading">KHO SCRIPT CỘNG ĐỒNG</div>
+      <button class="modal-close" onclick="closeUI('modal-script-vault')">✕</button>
+    </div>
+    <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:16px; padding: 20px;"></div>
+  </div>
+</div>
+
+<div class="msg-context-menu" id="msg-context-modal" style="position:fixed; background:var(--bg-panel); border:1px solid var(--border-color); display:none; flex-direction:column; z-index:20000; box-shadow:var(--shadow-lg);">
+    <button class="msg-context-btn" onclick="ChatEngine.openEditModal()" style="padding:12px 20px; background:none; color:var(--text-main); font-weight:bold; cursor:pointer; text-align:left; border-bottom:1px solid var(--border-color);">Chỉnh sửa văn bản</button>
+    <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg()" style="padding:12px 20px; background:none; color:var(--accent-danger); font-weight:bold; cursor:pointer; text-align:left;">Thu hồi tin nhắn</button>
+</div>
+
+<div class="modal-backdrop" id="modal-edit-msg" onclick="if(event.target===this)closeUI('modal-edit-msg')">
+  <div class="modal-content" style="max-width: 450px; height: auto;">
+    <div class="modal-header">
+      <div class="modal-heading">CHỈNH SỬA TIN NHẮN</div>
+      <button class="modal-close" onclick="closeUI('modal-edit-msg')">✕</button>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; padding:20px;">
+      <textarea id="edit-msg-textarea" class="search-box" style="height:100px; resize:none;"></textarea>
+      <button class="btn-primary" onclick="ChatEngine.saveEditedMsg()">LƯU THAY ĐỔI</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+const DOM = { get: id => document.getElementById(id), queryAll: sel => document.querySelectorAll(sel) };
+
+/* ==========================================================================
+   GLOBAL CONSTANTS & CONFIRMATION UI
+   ========================================================================== */
+const ADMIN_EMAIL = "hminhgalaxy@gmail.com";
+let IS_ADMIN = false;
+
+const ConfirmUI = {
+    onConfirm: null,
+    show: function(msg, callback) {
+        DOM.get('confirm-msg-text').innerHTML = msg;
+        this.onConfirm = callback;
+        DOM.get('confirm-modal').classList.add('active');
+    },
+    ok: function() {
+        DOM.get('confirm-modal').classList.remove('active');
+        if(this.onConfirm) this.onConfirm();
+    },
+    no: function() {
+        DOM.get('confirm-modal').classList.remove('active');
+    }
+};
+
+function showToast(msg) {
+    const t = DOM.get('toast-banner');
+    if(!t) return;
+    t.innerText = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 5000);
+}
+
+/* ==========================================================================
+   UI CONTROLS
+   ========================================================================== */
+function toggleMenu() { 
+    const d = DOM.get('nav-drawer');
+    if(d) d.classList.toggle('is-open');
+}
+function openUI(id) { 
+    const e = DOM.get(id); if(e) e.classList.add('is-active'); 
+    const d = DOM.get('nav-drawer'); if(d) d.classList.remove('is-open');
+}
+function closeUI(id) { const e = DOM.get(id); if(e) e.classList.remove('is-active'); }
+
+function toggleText(element) {
+    const textNode = element.querySelector('.text-truncate');
+    if(textNode) textNode.classList.toggle('expanded');
+}
+
+/* ==========================================================================
+   AUTH ENGINE
+   ========================================================================== */
+const AuthEngine = {
+    login: function(profile) {
+        if(profile.email === ADMIN_EMAIL) { 
+            IS_ADMIN = true; 
+            DOM.get('dev-utils-panel').classList.add('active'); 
+            DOM.get('dev-config-panel').style.display = 'flex'; 
+        }
+        ChatEngine.userProfile = profile;
+        localStorage.setItem('nox_user_profile', JSON.stringify(profile));
+        DOM.get('auth-guard').style.display = 'none';
+        this.updateAuthUI(true, profile);
+    },
+    guestLogin: function() {
+        const guestProfile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest", role: 'GUEST' };
+        this.login(guestProfile);
+        ChatEngine.appendMsg('SYSTEM', `Đăng nhập khách: ${guestProfile.name}`, true);
+        ChatEngine.listenForMessages();
+    },
+    logout: function() {
+        localStorage.removeItem('nox_user_profile');
+        window.location.reload();
+    },
+    updateAuthUI: function(isLoggedIn, profile) {
+        if(isLoggedIn) {
+            DOM.get('drawer-btn-guest').style.display = 'none';
+            DOM.get('drawer-google-login-wrap').style.display = 'none';
+            DOM.get('drawer-btn-logout').style.display = 'flex';
+        } else {
+            DOM.get('drawer-btn-guest').style.display = 'flex';
+            DOM.get('drawer-google-login-wrap').style.display = 'flex';
+            DOM.get('drawer-btn-logout').style.display = 'none';
+        }
+    }
+};
+
+/* ==========================================================================
+   IMAGE PROCESSOR
+   ========================================================================== */
+const ImageProcessor = {
+  currentGptImage: null, currentChatImage: null,
+  handleSelect: function(input, target) {
+    if(!input.files || !input.files[0]) return;
+    const file = input.files[0]; const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX_W = 500; const MAX_H = 500; let w = img.width; let h = img.height;
+        if (w > h) { if (w > MAX_W) { h *= MAX_W / w; w = MAX_W; } } else { if (h > MAX_H) { w *= MAX_H / h; h = MAX_H; } }
+        const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
+        const base64Str = canvas.toDataURL('image/jpeg', 0.5);
+        if(target === 'gpt') {
+          this.currentGptImage = base64Str;
+          DOM.get('gpt-preview-img').src = base64Str; DOM.get('gpt-preview-zone').classList.add('active');
+        } else {
+          this.currentChatImage = base64Str;
+          DOM.get('chat-preview-img').src = base64Str; DOM.get('chat-preview-zone').classList.add('active');
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file); input.value = ""; 
+  }
+};
+
+/* ==========================================================================
+   CONFIG ENGINE
+   ========================================================================== */
+const ConfigEngine = {
+    ref: null,
+    init: function() {
+        this.ref = firebase.database().ref('nox_site_config');
+        this.ref.on('value', snapshot => {
+            const data = snapshot.val();
+            if(data) {
+                if(data.title && DOM.get('ui-title-text')) DOM.get('ui-title-text').innerText = data.title;
+                if(data.version && DOM.get('ui-version-badge')) DOM.get('ui-version-badge').innerText = `Phiên bản ${data.version}`;
+                if(data.noticeTitle && DOM.get('ui-notice-title')) DOM.get('ui-notice-title').innerText = data.noticeTitle;
+                if(data.noticeText && DOM.get('ui-notice-text')) DOM.get('ui-notice-text').innerHTML = data.noticeText.replace(/\n/g, '<br>');
+            }
+        });
+    },
+    saveConfig: function() {
+        if(!IS_ADMIN) return;
+        const title = DOM.get('dev-conf-title').value.trim();
+        const version = DOM.get('dev-conf-version').value.trim();
+        const noticeTitle = DOM.get('dev-conf-noticetitle').value.trim();
+        const noticeText = DOM.get('dev-conf-noticetext').value.trim();
+        
+        let payload = {};
+        if(title) payload.title = title;
+        if(version) payload.version = version;
+        if(noticeTitle) payload.noticeTitle = noticeTitle;
+        if(noticeText) payload.noticeText = noticeText;
+        
+        this.ref.update(payload).then(() => {
+            showToast("Đã cập nhật hệ thống thành công!");
+        });
+    }
+};
+
+/* ==========================================================================
+   UTILS ENGINE (KHO TIỆN ÍCH TÍCH HỢP NÚT TRÒN CHỈNH SỬA CHO DEV)
+   ========================================================================== */
+const UtilsEngine = {
+    ref: null,
+    init: function() { 
+        this.ref = firebase.database().ref('nox_custom_utils'); 
+        this.loadDynamicUtils(); 
+    },
+    switchPane: function(id, btn) { 
+        DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); 
+        const p = DOM.get(id); if(p) p.classList.add('is-active'); if(btn) btn.classList.add('is-active'); 
+        this.execSearch(DOM.get('input-search') ? DOM.get('input-search').value : ''); 
+    },
+    execSearch: function(query) { 
+        const q = (query||'').trim().toLowerCase(); 
+        DOM.queryAll('.tab-pane').forEach(p => { 
+            let c = 0; p.querySelectorAll('.data-box').forEach(b => { const m = !q || b.textContent.toLowerCase().includes(q); b.classList.toggle('is-hidden', !m); if(m) c++; }); 
+            let eMsg = p.querySelector('.search-empty'); 
+            if(!c && q) { if(!eMsg) { eMsg = document.createElement('div'); eMsg.className = 'search-empty'; eMsg.textContent = 'Không tìm thấy dữ liệu.'; p.appendChild(eMsg); } } else if(eMsg) eMsg.remove(); 
+        }); 
+    },
+    execCopy: function(btn) { 
+        const b = btn.closest('.data-box'); if(!b) return; const s = b.querySelector('.script-code'); if(!s) return; const txt = s.innerText.trim(); 
+        const fb = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed; opacity:0;'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch(e) { prompt('Copy:', txt); } ta.remove(); }; 
+        const ok = () => { const o = btn.textContent; btn.textContent = 'COPIED'; btn.classList.add('is-copied'); setTimeout(() => { btn.textContent = o; btn.classList.remove('is-copied'); }, 2000); }; 
+        if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok).catch(fb); else fb(); 
+    },
+    triggerSave: function() {
+        ConfirmUI.show("LƯU TIỆN ÍCH NÀY LÊN MÁY CHỦ?", () => { this.saveUtility(); });
+    },
+    saveUtility: function() {
+        if(!IS_ADMIN) return;
+        const editKey = DOM.get('dev-edit-key').value;
+        const type = DOM.get('dev-util-type').value; 
+        const title = DOM.get('dev-util-title').value.trim(); 
+        const content = DOM.get('dev-util-content').value.trim();
+        
+        if(!title || !content) { alert("Nhập đủ thông tin!"); return; }
+        
+        if(editKey) {
+            this.ref.child(editKey).update({ type, title, content }).then(() => {
+                showToast("Đã cập nhật tiện ích!");
+                this.cancelEdit();
+            });
+        } else {
+            this.ref.push({ type, title, content, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
+                showToast("Đã thêm tiện ích mới!");
+                DOM.get('dev-util-title').value = ''; DOM.get('dev-util-content').value = '';
+            });
+        }
+    },
+    triggerDelete: function(key) {
+        ConfirmUI.show("XÓA TIỆN ÍCH NÀY KHỎI HỆ THỐNG?", () => { 
+            this.ref.child(key).remove().then(() => showToast("Đã xóa tiện ích!")); 
+        });
+    },
+    triggerEdit: function(key, type, title, content) {
+        DOM.get('dev-edit-key').value = key;
+        DOM.get('dev-util-type').value = type;
+        DOM.get('dev-util-title').value = title;
+        DOM.get('dev-util-content').value = content;
+        DOM.get('dev-panel-heading').innerText = "[DEV] CHỈNH SỬA TIỆN ÍCH";
+        DOM.get('dev-submit-btn').innerText = "LƯU THAY ĐỔI";
+        DOM.get('dev-cancel-btn').style.display = 'block';
+        openUI('modal-archive');
+    },
+    cancelEdit: function() {
+        DOM.get('dev-edit-key').value = '';
+        DOM.get('dev-util-title').value = ''; 
+        DOM.get('dev-util-content').value = '';
+        DOM.get('dev-panel-heading').innerText = "[DEV] THÊM / SỬA TIỆN ÍCH";
+        DOM.get('dev-submit-btn').innerText = "ĐĂNG TẢI";
+        DOM.get('dev-cancel-btn').style.display = 'none';
+    },
+    loadDynamicUtils: function() {
+        if(!this.ref) return;
+        
+        const defaultData = [
+            { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
+            { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig' },
+            { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
+            { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
+            { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
+            { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
+            { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
+            { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
+            { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
+        ];
+
+        this.ref.on('value', snapshot => {
+            DOM.queryAll('.dynamic-item').forEach(el => el.remove());
+            
+            let allItems = [...defaultData];
+            if(snapshot.exists()) {
+                snapshot.forEach(child => {
+                    allItems.push({ key: child.key, ...child.val() });
+                });
+            }
+
+            allItems.forEach(data => {
+                const pane = DOM.get(data.type);
+                if(pane) {
+                    const box = document.createElement('div'); box.className = 'data-box dynamic-item';
+                    let devControls = '';
+                    if(IS_ADMIN && data.key) {
+                        devControls = `
+                            <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
+                            <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${data.key}')">XÓA</button>
+                        `;
+                    }
+                    
+                    if(data.type === 'pane-script' || data.isScript) {
+                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
+                    } else {
+                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
+                    }
+                    pane.appendChild(box);
+                }
+            });
+        });
+    }
+};
+
+/* ==========================================================================
+   NOX GPT ENGINE (DEEPSEEK 4.0 PRO)
+   ========================================================================== */
+const GptEngine = {
+  defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
+  defaultUrl: "https://api.xkiro.com/v1/chat/completions",
+  getApiKey: function() { return localStorage.getItem('nox_ds_key') || this.defaultKey; },
+  setApiKey: function(newKey) { localStorage.setItem('nox_ds_key', newKey.trim()); },
+  
+  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
+  messageHistory: [
+      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB. Trả lời ngắn gọn, chuẩn Hacker." }
+  ],
+
+  init: function() {
+    if(this.isGreeted) return; this.isGreeted = true;
+    this.appendMsg('other', 'NOXGPT', 'Chào mừng đến với NOXGPT, bạn muốn hỏi về vấn đề gì?');
+  },
+
+  appendMsg: function(type, name, htmlContent, isError = false) {
+    if(!this.board) return;
+    const row = document.createElement('div'); row.className = `msg-row type-${type} ${isError ? 'type-error' : ''}`;
+    let innerHTML = '';
+    if(type === 'other') {
+      innerHTML += `<div class="msg-meta"><div class="msg-name sys">${name}</div></div>`;
+    } else {
+      innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
+    }
+    innerHTML += `<div class="msg-bubble">${htmlContent}</div>`;
+    row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
+    return row; 
+  },
+
+  removeImage: function() { ImageProcessor.currentGptImage = null; DOM.get('gpt-preview-img').src = ''; DOM.get('gpt-preview-zone').classList.remove('active'); },
+
+  triggerFallbackUI: function(errorMessage) {
+    this.input.disabled = true; this.input.placeholder = "API Lỗi...";
+    const box = DOM.get('gpt-fallback-container');
+    if(box) { box.style.display = 'block'; box.querySelector('.api-fallback-title').innerText = `[LỖI API] ${errorMessage}`; }
+  },
+
+  validateAndSaveConfig: function() {
+      const keyInput = DOM.get('gpt-new-api-key'); const keyVal = keyInput ? keyInput.value.trim() : '';
+      if(!keyVal) { alert("Vui lòng nhập API Key!"); return; }
+      this.setApiKey(keyVal); DOM.get('gpt-fallback-container').style.display = 'none';
+      this.input.disabled = false; this.input.placeholder = "Nhập câu lệnh...";
+      this.appendMsg('other', 'System', 'Đã lưu API Key mới. Vui lòng thử lại.');
+  },
+
+  submit: async function() {
+    const text = this.input.value.trim(); const base64Img = ImageProcessor.currentGptImage;
+    if(!text && !base64Img) return;
+
+    let userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if(base64Img) { userHtml = `<img src="${base64Img}" class="chat-image">` + userHtml; }
+    
+    this.input.value = ''; this.removeImage();
+    this.appendMsg('user', 'Bạn', userHtml);
+    this.messageHistory.push({ role: "user", content: text || "[Đã gửi ảnh]" });
+
+    const tempNode = this.appendMsg('other', 'NOXGPT', '<span style="opacity:0.6;">Đang xử lý...</span>');
+
+    try {
+      const apiKey = this.getApiKey();
+      const response = await fetch(this.defaultUrl, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({ model: "deepseek/deepseek-v4-pro", messages: this.messageHistory })
+      });
+
+      if(!response.ok) { const errData = await response.json().catch(()=>({})); throw new Error(errData.error?.message || `HTTP ${response.status}`); }
+      const data = await response.json(); tempNode.remove();
+      
+      if(data.choices && data.choices[0] && data.choices[0].message) {
+          const reply = data.choices[0].message.content;
+          const formattedText = reply.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
+          this.appendMsg('other', 'NOXGPT', formattedText); 
+          this.messageHistory.push({ role: "assistant", content: reply });
+      } else { throw new Error("Format lỗi từ máy chủ"); }
+    } catch(err) {
+      if(tempNode) tempNode.remove(); console.warn("AI Error:", err); this.triggerFallbackUI(err.message);
+    }
+  }
+};
+const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
+
+/* ==========================================================================
+   FIREBASE CHAT ENGINE (CLICK TO EDIT / RECALL)
+   ========================================================================== */
+const ChatEngine = {
+  dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
+  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", isSetup: false,
+
+  initFirebase: function() {
+    if(this.isSetup) return;
+    const firebaseConfig = {
+      apiKey: "AIzaSyDHyuP7FcF8SqOXsoyTeYnAvJbk0Uunq0c", authDomain: "chatting-74814.firebaseapp.com",
+      databaseURL: "https://chatting-74814-default-rtdb.firebaseio.com", projectId: "chatting-74814",
+      storageBucket: "chatting-74814.firebasestorage.app", messagingSenderId: "520016594870",
+      appId: "1:520016594870:web:df652fe9a0fd68dc7e6317", measurementId: "G-7HWYC4HCDT"
+    };
+
+    try {
+      if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      this.dbRef = firebase.database().ref('nox_global_chat');
+      this.scriptRef = firebase.database().ref('nox_global_scripts'); 
+      this.isSetup = true; 
+      
+      UtilsEngine.init();
+      ConfigEngine.init();
+      this.cleanupOldMessages(); setInterval(() => this.cleanupOldMessages(), 3600000); 
+
+      const savedUser = localStorage.getItem('nox_user_profile');
+      if(savedUser) {
+          try {
+              const profile = JSON.parse(savedUser);
+              this.userProfile = profile;
+              if(profile.email === ADMIN_EMAIL) { 
+                  IS_ADMIN = true; 
+                  DOM.get('dev-utils-panel').classList.add('active'); 
+                  DOM.get('dev-config-panel').style.display = 'flex'; 
+              }
+              DOM.get('auth-guard').style.display = 'none';
+              AuthEngine.updateAuthUI(true, profile);
+              this.listenForMessages();
+          } catch(e) { localStorage.removeItem('nox_user_profile'); }
+      }
+
+    } catch(err) { console.error("FB Init Err:", err); }
+  },
+
+  cleanupOldMessages: function() {
+    if(!this.dbRef) return;
+    const MS_24H = 86400000; const cutoff = Date.now() - MS_24H;
+    this.dbRef.orderByChild('timestamp').endAt(cutoff).once('value', (snapshot) => {
+      if(snapshot.exists()) { const updates = {}; snapshot.forEach((child) => { updates[child.key] = null; }); this.dbRef.update(updates); }
+    });
+  },
+
+  decodeJwt: function(token) { try { const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))); } catch(e) { return {}; } },
+
+  onGoogleLoginSuccess: function(response) {
+    const payload = ChatEngine.decodeJwt(response.credential);
+    if(payload.email === ADMIN_EMAIL) { 
+        IS_ADMIN = true; 
+        DOM.get('dev-utils-panel').classList.add('active'); 
+        DOM.get('dev-config-panel').style.display = 'flex'; 
+    }
+    const profile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
+    ChatEngine.userProfile = profile;
+    localStorage.setItem('nox_user_profile', JSON.stringify(profile));
+
+    DOM.get('auth-guard').style.display = 'none'; 
+    AuthEngine.updateAuthUI(true, profile);
+    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${profile.role}`, true); 
+    ChatEngine.listenForMessages();
+  },
+
+  initGoogleIdentity: function() {
+    if(typeof google === 'undefined' || !google.accounts) { setTimeout(() => ChatEngine.initGoogleIdentity(), 500); return; }
+    google.accounts.id.initialize({ client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", callback: this.onGoogleLoginSuccess });
+    const btnWrap = DOM.get('google-login-mount'); if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
+    
+    const menuWrap = DOM.get('drawer-google-login-wrap');
+    if(menuWrap && !menuWrap.hasChildNodes()) {
+        google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
+    }
+  },
+
+  guestLogin: function() {
+      const profile = { name: "Guest_" + Math.floor(Math.random() * 9999), email: "guest", role: 'GUEST' };
+      this.userProfile = profile;
+      localStorage.setItem('nox_user_profile', JSON.stringify(profile));
+      DOM.get('auth-guard').style.display = 'none';
+      AuthEngine.updateAuthUI(true, profile);
+      this.appendMsg('SYSTEM', `Đăng nhập khách: ${profile.name}`, true);
+      this.listenForMessages();
+  },
+
+  removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
+
+  appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX', isRecalled = false) {
+    if(!this.board) return;
+    let isMe = false; if(this.userProfile && senderName === this.userProfile.name) isMe = true;
+    
+    const rowType = isMe ? 'type-user' : 'type-other';
+    const row = document.createElement('div'); row.className = `msg-row ${rowType}`; row.id = msgKey ? `msg-${msgKey}` : '';
+    
+    let innerHTML = '';
+    let deleteBtn = (IS_ADMIN && msgKey && !isSystem) ? `<span style="cursor:pointer; color:var(--accent-danger); margin-left:8px;" onclick="ChatEngine.triggerDeleteMsg('${msgKey}')">[X]</span>` : '';
+
+    if(!isMe) {
+      let badge = ''; let nameClass = 'msg-name';
+      if(isSystem) { nameClass = 'msg-name sys'; }
+      else {
+          if(role === 'DEV') { badge = `<span class="badge-dev">[DEV]</span>`; nameClass = 'msg-name dev'; }
+          else if(role === 'NOX') { badge = `<span class="badge-nox">[NOX]</span>`; }
+          else { badge = `<span class="badge-guest">[GUEST]</span>`; }
+      }
+      innerHTML += `<div class="msg-meta"><div class="${nameClass}">${badge}${senderName} ${deleteBtn}</div></div>`;
+    } else {
+        innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn ${deleteBtn}</div></div>`;
+    }
+    
+    let bubbleContent = isRecalled ? '<span style="font-style:italic; color:var(--text-muted);">[Tin nhắn đã bị thu hồi]</span>' : htmlContent;
+    
+    const bubbleEl = document.createElement('div');
+    bubbleEl.className = `msg-bubble ${isRecalled ? 'recalled' : ''}`;
+    bubbleEl.innerHTML = bubbleContent;
+    
+    // GẮN SỰ KIỆN CLICK ĐỂ HIỆN MENU SỬA / THU HỒI TRÊN TIN NHẮN CỦA MÌNH
+    if(isMe && !isRecalled && msgKey) {
+        bubbleEl.title = 'Bấm vào để Sửa / Thu hồi';
+        bubbleEl.onclick = (e) => {
+            e.stopPropagation();
+            ChatEngine.openContext(msgKey, e);
+        };
+    }
+
+    const metaDiv = document.createElement('div');
+    metaDiv.innerHTML = innerHTML;
+    
+    row.appendChild(metaDiv.firstElementChild);
+    row.appendChild(bubbleEl);
+    
+    if(isMe && !isRecalled && msgKey) {
+        const ctxMenu = document.createElement('div');
+        ctxMenu.className = 'msg-context-menu';
+        ctxMenu.id = `ctx-${msgKey}`;
+        ctxMenu.innerHTML = `
+            <button class="msg-context-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Chỉnh sửa văn bản</button>
+            <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi tin nhắn</button>
+        `;
+        row.appendChild(ctxMenu);
+    }
+    
+    const existing = DOM.get(`msg-${msgKey}`);
+    if(existing) {
+        existing.replaceWith(row);
+    } else {
+        this.board.appendChild(row); 
+        this.board.scrollTop = this.board.scrollHeight;
+    }
+  },
+
+  activeMsgKey: null,
+  openContext: function(key, e) {
+      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
+      const menu = DOM.get(`ctx-${key}`);
+      if(menu) {
+          menu.classList.toggle('active');
+          document.addEventListener('pointerdown', (ev) => {
+              if(!menu.contains(ev.target)) menu.classList.remove('active');
+          }, { once: true });
+      }
+  },
+
+  openEditModal: function(key) {
+      this.activeMsgKey = key;
+      this.dbRef.child(key).once('value', snapshot => {
+          const data = snapshot.val();
+          if(data && data.text) {
+              DOM.get('edit-msg-textarea').value = data.text;
+              openUI('modal-edit-msg');
+              document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
+          }
+      });
+  },
+
+  saveEditedMsg: function() {
+      if(!this.activeMsgKey) return;
+      const newText = DOM.get('edit-msg-textarea').value.trim();
+      if(!newText) { alert("Tin nhắn trống!"); return; }
+      
+      this.dbRef.child(this.activeMsgKey).update({ text: newText }).then(() => {
+          closeUI('modal-edit-msg');
+          showToast("Đã chỉnh sửa tin nhắn!");
+      });
+  },
+
+  triggerRecallMsg: function(key) {
+      this.activeMsgKey = key;
+      document.querySelectorAll('.msg-context-menu').forEach(m => m.classList.remove('active'));
+      ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
+          this.dbRef.child(this.activeMsgKey).update({ recalled: true, text: "" }).then(() => {
+              showToast("Đã thu hồi tin nhắn!");
+          });
+      });
+  },
+
+  triggerDeleteMsg: function(key) { ConfirmUI.show("BẠN CÓ CHẮC MUỐN XÓA TIN NHẮN NÀY KHỎI HỆ THỐNG?", () => { this.dbRef.child(key).remove(); }); },
+
+  listenForMessages: function() {
+    if(!this.dbRef) return;
+    this.dbRef.limitToLast(50).on('child_added', (snapshot) => {
+      const data = snapshot.val(); if(!data) return;
+      if(this.userProfile && data.user === this.userProfile.name && Date.now() - data.timestamp < 3000) return; 
+      let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+      if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
+      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
+    });
+    
+    this.dbRef.on('child_changed', (snapshot) => {
+      const data = snapshot.val(); if(!data) return;
+      let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+      if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
+      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
+    });
+
+    this.dbRef.on('child_removed', (snapshot) => { const row = DOM.get(`msg-${snapshot.key}`); if(row) row.remove(); });
+  },
+
+  sendMsg: function() {
+    if(!this.userProfile) { alert("Chưa đăng nhập!"); return; }
+    if(!this.dbRef) return;
+    const text = this.input.value.trim(); const base64Img = ImageProcessor.currentChatImage;
+    if(!text && !base64Img) return;
+    
+    let displayHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
+    
+    this.input.value = ''; this.removeImage();
+    
+    this.dbRef.push({ 
+        user: this.userProfile.name, role: this.userProfile.role, 
+        text: text, image: base64Img || "", recalled: false, 
+        timestamp: firebase.database.ServerValue.TIMESTAMP 
+    });
+  },
+
+  sendScript: function() {
+      if(!this.userProfile) { alert("Vui lòng đăng nhập chat trước!"); return; }
+      const title = DOM.get('share-title').value.trim(); const code = DOM.get('share-code').value.trim();
+      if(!title || !code) { alert("Điền đủ thông tin!"); return; }
+      this.scriptRef.push({ user: this.userProfile.name, role: this.userProfile.role, title: title, code: code, timestamp: firebase.database.ServerValue.TIMESTAMP })
+      .then(() => { 
+          showToast("Đăng Script thành công!"); 
+          DOM.get('share-title').value = ''; DOM.get('share-code').value = ''; 
+          closeUI('modal-script-share'); 
+      });
+  },
+
+  loadVaultScripts: function() {
+      const vBoard = DOM.get('vault-board'); if(!vBoard) return;
+      vBoard.innerHTML = '<div style="text-align:center; padding: 20px;">Đang tải...</div>';
+      
+      this.scriptRef.limitToLast(50).on('value', (snapshot) => {
+          vBoard.innerHTML = '';
+          if(!snapshot.exists()) { vBoard.innerHTML = '<div class="search-empty">Trống.</div>'; return; }
+          let scripts = []; snapshot.forEach(child => { scripts.push({key: child.key, ...child.val()}); }); scripts.reverse();
+          
+          scripts.forEach(s => {
+              const b = document.createElement('div'); b.className = 'data-box';
+              let delBtn = IS_ADMIN ? `<button class="dev-delete-btn" onclick="ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child('${s.key}').remove())">XÓA</button>` : '';
+              let badge = s.role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (s.role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
+              let displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
+              
+              b.innerHTML = `
+                <div class="box-head"><span class="box-title">${s.title.replace(/</g,"&lt;")} <div>${delBtn}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
+                <div class="script-code">${s.code.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
+                <div style="font-size:0.75rem; color:var(--text-sub); margin-top:4px;">${badge} Đóng góp bởi: ${displayName}</div>
+              `;
+              vBoard.appendChild(b);
+          });
+      });
+  }
+};
+
+/* ==========================================================================
+   SYSTEM BOOTSTRAP
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  ChatEngine.initFirebase();
+  ChatEngine.initGoogleIdentity();
+});
+</script>
 </body>
-            </html>
+</html>
