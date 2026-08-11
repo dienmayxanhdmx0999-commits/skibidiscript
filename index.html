@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V45 MASTER SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V45. Fix triệt để quyền Sửa/Xóa Menu & Tiện ích cho DEV.">
+<title>NOX WEB - V46 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX-SKIBIDI WEB Enterprise V46. Responsive PC/Mobile, Fix User Manager UI, Full CRUD Utility for DEV.">
 <meta name="robots" content="index, follow">
 
 <!-- Firebase App & Database -->
@@ -14,12 +14,12 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- Puter.js AI -->
+<!-- Puter.js AI (Dự phòng) -->
 <script src="https://js.puter.com/v2/"></script>
 
 <style>
 /* ==========================================================================
-   CSS ARCHITECTURE: DARK THEME & SQUARE GEOMETRY
+   CSS ARCHITECTURE: DARK THEME & RESPONSIVE PC/MOBILE
    ========================================================================== */
 :root {
   --bg-core: #0d0f12;        
@@ -36,10 +36,10 @@
   
   --accent-green: #10b981;
   --accent-green-bg: rgba(16, 185, 129, 0.1);
-  --accent-blue: #3b82f6; 
   --accent-danger: #ef4444;
   --accent-danger-bg: rgba(239, 68, 68, 0.1);
   --dev-color: #ff0055;
+  --accent-blue: #3b82f6;
   
   --rad: 0px; 
   
@@ -59,6 +59,13 @@ body {
   overflow-y: auto !important; overflow-x: hidden; position: relative;
   display: flex; justify-content: center; align-items: flex-start;
   padding: 8vh 16px 100px; color: var(--text-main);
+}
+
+/* RESPONSIVE CHO MÁY TÍNH (PC) & ĐIỆN THOẠI */
+@media (min-width: 768px) {
+  .card-wrapper { max-width: 650px !important; }
+  .modal-content { max-width: 750px !important; }
+  body { padding-top: 10vh; }
 }
 
 body::after {
@@ -174,22 +181,6 @@ body::after {
 .dev-add-panel input, .dev-add-panel select, .dev-add-panel textarea { width: 100%; max-width: 100%; padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); box-sizing: border-box;}
 .dev-add-panel button { width: 100%; padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
 
-/* FIX GIAO DIỆN CHỈNH SỬA MENU CHO ĐẸP, KHÔNG LỖI KHUNG */
-.dev-menu-editor {
-    display: none; flex-direction: column; gap: 10px; margin-top: 10px;
-    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05);
-    width: 100%; box-sizing: border-box;
-}
-.dev-menu-editor.active { display: flex; }
-.dev-menu-editor input {
-    width: 100%; max-width: 100%; padding: 12px 14px; background: var(--bg-input); color: var(--text-main);
-    border: 1px solid var(--border-color); font-size: 0.9rem; box-sizing: border-box;
-}
-.dev-menu-editor button {
-    width: 100%; padding: 12px; background: var(--dev-color); color: #fff;
-    font-weight: bold; cursor: pointer; font-size: 0.9rem; text-transform: uppercase;
-}
-
 /* ==========================================================================
    CONFIRMATION MODAL & BAN ALERT
    ========================================================================== */
@@ -208,7 +199,7 @@ body::after {
 .ban-alert-box { background: var(--bg-panel); border: 3px solid var(--accent-danger); padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
 
 /* ==========================================================================
-   CHAT UI
+   CHAT UI & USER MGR FIX LỖI TRÀN GIAO DIỆN TRÊN ẢNH
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -239,12 +230,22 @@ body::after {
 .msg-action-btn:hover { border-color: var(--text-main); color: var(--text-main); }
 .msg-action-btn.danger:hover { background: var(--accent-danger-bg); color: var(--accent-danger); border-color: var(--accent-danger); }
 
+/* Fix lỗi tràn giao diện Quản lý User trên ảnh 29192.jpg */
+#user-mgr-board .data-box {
+    background: var(--bg-panel); border: 1px solid var(--border-color); padding: 16px;
+    display: flex; flex-direction: column; gap: 12px; width: 100%; box-sizing: border-box;
+}
+#user-mgr-board input {
+    width: 100%; max-width: 100%; padding: 10px; background: var(--bg-input); color: var(--text-main);
+    border: 1px solid var(--border-color); font-size: 0.85rem; box-sizing: border-box;
+}
+
 /* CHAT INPUT AREA */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
 
 .image-preview-zone { display: none; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
 .image-preview-zone.active { display: flex; }
-.preview-thumb { width: 50px; height: 50px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
+.preview-thumb { width: 40px; height: 40px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
 .preview-remove { width: 24px; height: 24px; background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--accent-danger);}
 
 .chat-input-wrapper { display: flex; align-items: flex-end; gap: 8px; width: 100%; box-sizing: border-box;}
@@ -341,7 +342,7 @@ body::after {
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V45</span>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V46</span>
       <h1 class="title-main" id="ui-title-text">NOX-SKIBIDI WEB</h1>
     </div>
 
@@ -350,16 +351,16 @@ body::after {
       <h3 id="ui-notice-title">THÔNG BÁO <span class="hint">Bấm để thu gọn/mở rộng</span></h3>
       <div class="text-truncate" id="ui-notice-text">
         CHÀO MỪNG ĐẾN VỚI NOX- SKIBIDI SHARE NƠI CUNG CẤP NHỮNG SCRIPT LINK APK IOS CHẤT LƯỢNG TỐT NHẤT - ĐẶT BIỆT LÀ KHÔNG CẦN VƯỢT LINK.<br><br>
-        > Hỗ trợ đăng xuất an toàn có xác nhận.<br>
-        > DEV có quyền Sửa/Xóa Menu, Tiện ích, Ban/Mute User trực tiếp.<br>
-        > Nhấp vào tin nhắn của bạn để chỉnh sửa hoặc thu hồi.
+        > Hỗ trợ đăng xuất an toàn.<br>
+        > DEV có toàn quyền Sửa/Xóa Menu, Tiện ích, Ban/Mute User.<br>
+        > Giao diện tự động co giãn tương thích PC và điện thoại.
       </div>
     </div>
 
     <div class="dev-config-box" id="dev-config-panel" style="display:none;">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V45)...">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V46)...">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
         <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none;"></textarea>
         <button onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
@@ -371,7 +372,7 @@ body::after {
   </main>
 </div>
 
-<!-- MODAL KHO TIỆN ÍCH -->
+<!-- MODAL KHO TIỆN ÍCH (ĐỒNG BỘ HOÀN TOÀN TỪ FIREBASE ĐỂ DEV SỬA/XÓA MỌI MỤC) -->
 <div class="modal-backdrop" id="modal-archive" onclick="if(event.target===this)closeUI('modal-archive')">
   <div class="modal-content">
     <div class="modal-header">
@@ -416,7 +417,7 @@ body::after {
   </div>
 </div>
 
-<!-- MODAL QUẢN LÝ USER -->
+<!-- MODAL QUẢN LÝ USER (GIAO DIỆN ĐÃ ĐƯỢC FIX GỌN GÀNG, KHÔNG TRÀN KHUNG) -->
 <div class="modal-backdrop" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
   <div class="modal-content">
     <div class="modal-header">
@@ -427,33 +428,6 @@ body::after {
         <div style="text-align:center; color:var(--text-sub);">Đang tải danh sách user...</div>
     </div>
   </div>
-</div>
-
-<!-- MODAL ĐIỀU HÀNH CHAT TRỰC TIẾP -->
-<div class="modal-backdrop" id="modal-dev-mod" onclick="if(event.target===this)closeUI('modal-dev-mod')">
-    <div class="modal-content" style="max-width: 400px; height: auto;">
-        <div class="modal-header">
-            <div class="modal-heading" style="color:var(--dev-color)">ĐIỀU HÀNH USER</div>
-            <button class="modal-close" onclick="closeUI('modal-dev-mod')">✕</button>
-        </div>
-        <div style="padding:20px; display:flex; flex-direction:column; gap:16px;">
-            <div style="color:var(--accent-green); font-weight:bold; font-size:1.1rem;" id="mod-target-name">User: </div>
-            <input type="hidden" id="mod-target-email">
-            
-            <div class="dev-mod-panel">
-                <div style="font-weight:bold; margin-bottom:8px; color:#f59e0b;">MUTE (CẤM CHAT)</div>
-                <input type="number" id="mod-mute-hours" placeholder="Số giờ (Mặc định 24h)">
-                <input type="text" id="mod-mute-reason" placeholder="Lý do Mute...">
-                <button style="background:#f59e0b;" onclick="UserMgr.submitMute()">MUTE NGƯỜI NÀY</button>
-            </div>
-
-            <div class="dev-mod-panel" style="border-color:var(--accent-danger);">
-                <div style="font-weight:bold; margin-bottom:8px; color:var(--accent-danger);">BAN (CẤM VĨNH VIỄN)</div>
-                <input type="text" id="mod-ban-reason" placeholder="Lý do Ban...">
-                <button style="background:var(--accent-danger);" onclick="UserMgr.submitBan()">BAN NGƯỜI NÀY</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- MODAL NOXGPT -->
@@ -510,7 +484,7 @@ body::after {
     <div class="chat-messages" id="noxchat-board">
       <div class="msg-row type-other">
         <div class="msg-meta"><div class="msg-name sys">Hệ Thống</div></div>
-        <div class="msg-bubble" style="background:var(--bg-input); border:1px solid var(--border-color);">
+        <div class="msg-bubble" style="background: var(--bg-input);">
           Đã kết nối Firebase. Đợi xác thực...
         </div>
       </div>
@@ -518,7 +492,7 @@ body::after {
     
     <div class="chat-footer">
       <div class="image-preview-zone" id="chat-preview-zone">
-        <img src="" id="chat-preview-img" class="preview-thumb">
+        <img src="" id="gpt-preview-img" class="preview-thumb">
         <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
       </div>
       <div class="chat-input-wrapper">
@@ -864,7 +838,7 @@ const UserMgr = {
             regSnap.forEach(child => {
                 const u = child.val(); const safeKey = child.key; const control = controls[safeKey] || {};
                 const box = document.createElement('div');
-                box.style.cssText = "padding:16px; border:1px solid var(--border-color); background:var(--bg-panel); display:flex; flex-direction:column; gap:12px;";
+                box.style.cssText = "padding:16px; border:1px solid var(--border-color); background:var(--bg-panel); display:flex; flex-direction:column; gap:12px; width:100%; box-sizing:border-box;";
                 
                 let statusHtml = `<span style="color:var(--accent-green)">Bình thường</span>`;
                 if(control.isBanned) statusHtml = `<span style="color:var(--accent-danger)">ĐÃ BAN (${control.banReason})</span>`;
@@ -875,12 +849,12 @@ const UserMgr = {
                     <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 8px;">Email: ${u.email}</div>
                     <div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ${statusHtml}</div>
                     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
-                        <input type="number" id="um-mute-hours-${safeKey}" placeholder="Giờ mute" style="width:100px; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-                        <input type="text" id="um-mute-reason-${safeKey}" placeholder="Lý do mute..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+                        <input type="number" id="um-mute-hours-${safeKey}" placeholder="Giờ mute" style="width:100px; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); box-sizing:border-box;">
+                        <input type="text" id="um-mute-reason-${safeKey}" placeholder="Lý do mute..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); box-sizing:border-box;">
                         <button style="padding:8px 16px; background:#f59e0b; color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.muteFromPanel('${safeKey}')">MUTE</button>
                     </div>
                     <div style="display:flex; gap:8px; margin-top:8px;">
-                        <input type="text" id="um-ban-reason-${safeKey}" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+                        <input type="text" id="um-ban-reason-${safeKey}" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); box-sizing:border-box;">
                         <button style="padding:8px 16px; background:var(--accent-danger); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.banFromPanel('${safeKey}')">BAN</button>
                         <button style="padding:8px 16px; background:var(--accent-green); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.uncontrolUser('${safeKey}')">GỠ BAN / GỠ MUTE</button>
                     </div>
@@ -917,14 +891,34 @@ const UserMgr = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE
+   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC HOÀN TOÀN TỪ FIREBASE ĐỂ DEV SỬA/XÓA MỌI MỤC)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
     init: function() { 
         this.ref = firebase.database().ref('nox_custom_utils'); 
+        this.checkAndInitDefaultUtils();
         this.loadDynamicUtils(); 
         MenuEditor.init();
+    },
+    checkAndInitDefaultUtils: function() {
+        if(!this.ref) return;
+        this.ref.once('value', snapshot => {
+            if(!snapshot.exists()) {
+                const defaults = [
+                    { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
+                    { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig' },
+                    { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
+                    { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
+                    { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
+                    { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
+                    { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
+                    { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
+                    { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
+                ];
+                defaults.forEach(d => this.ref.push(d));
+            }
+        });
     },
     switchPane: function(id, btn) { 
         DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); 
@@ -994,49 +988,31 @@ const UtilsEngine = {
     },
     loadDynamicUtils: function() {
         if(!this.ref) return;
-        
-        const defaultData = [
-            { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
-            { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig' },
-            { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
-            { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
-            { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
-            { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
-            { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
-            { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
-            { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
-        ];
-
         this.ref.on('value', snapshot => {
-            DOM.queryAll('.dynamic-item').forEach(el => el.remove());
-            
-            let allItems = [...defaultData];
+            DOM.queryAll('.tab-pane').forEach(p => p.innerHTML = '');
             if(snapshot.exists()) {
                 snapshot.forEach(child => {
-                    allItems.push({ key: child.key, ...child.val() });
+                    const data = child.val(); const key = child.key; const pane = DOM.get(data.type);
+                    if(pane) {
+                        const box = document.createElement('div'); box.className = 'data-box dynamic-item';
+                        
+                        let devControls = '';
+                        if(IS_ADMIN) {
+                            devControls = `
+                                <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
+                                <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${key}')">XÓA</button>
+                            `;
+                        }
+                        
+                        if(data.type === 'pane-script' || data.isScript) {
+                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div style="display:inline-flex; align-items:center; gap:4px;">${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
+                        } else {
+                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div style="display:inline-flex; align-items:center; gap:4px;">${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
+                        }
+                        pane.appendChild(box);
+                    }
                 });
             }
-
-            allItems.forEach(data => {
-                const pane = DOM.get(data.type);
-                if(pane) {
-                    const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                    let devControls = '';
-                    if(IS_ADMIN && data.key) {
-                        devControls = `
-                            <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${data.key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
-                            <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${data.key}')">XÓA</button>
-                        `;
-                    }
-                    
-                    if(data.type === 'pane-script' || data.isScript) {
-                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
-                    } else {
-                        box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div>${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
-                    }
-                    pane.appendChild(box);
-                }
-            });
         });
     }
 };
@@ -1052,7 +1028,7 @@ const GptEngine = {
   
   board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
   messageHistory: [
-      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB. Trả lời ngắn gọn, chuẩn Hacker." }
+      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB (tạo ra bởi DEV HminhGalaxy). Trả lời ngắn gọn, chuẩn Hacker." }
   ],
 
   init: function() {
@@ -1097,7 +1073,7 @@ const GptEngine = {
     let userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
     if(base64Img) { userHtml = `<img src="${base64Img}" class="chat-image">` + userHtml; }
     
-    this.input.value = ''; this.removeImage();
+    this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
     this.messageHistory.push({ role: "user", content: text || "[Đã gửi ảnh]" });
 
@@ -1131,7 +1107,7 @@ const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-no
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
-  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", isSetup: false,
+  isSetup: false,
 
   initFirebase: function() {
     if(this.isSetup) return;
@@ -1181,59 +1157,6 @@ const ChatEngine = {
     });
   },
 
-  decodeJwt: function(token) { try { const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))); } catch(e) { return {}; } },
-
-  onGoogleLoginSuccess: function(response) {
-    const payload = ChatEngine.decodeJwt(response.credential);
-    if(payload.email === ADMIN_EMAIL) { 
-        IS_ADMIN = true; 
-        DOM.get('dev-utils-panel').classList.add('active'); 
-        DOM.get('dev-config-panel').style.display = 'flex'; 
-        DOM.get('dev-menu-editor-group').style.display = 'flex';
-        DOM.get('dev-user-mgr-group').style.display = 'flex';
-    }
-    const profile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
-    ChatEngine.userProfile = profile;
-    localStorage.setItem('nox_user_profile', JSON.stringify(profile));
-
-    const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
-    firebase.database().ref('nox_users_registry/' + safeKey).set({
-        name: profile.name, email: profile.email, role: profile.role, lastLogin: firebase.database.ServerValue.TIMESTAMP
-    });
-
-    DOM.get('auth-guard').style.display = 'none'; 
-    AuthEngine.updateAuthUI(true, profile);
-    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${profile.role}`, true); 
-    ChatEngine.listenForMessages();
-  },
-
-  initGoogleIdentity: function() {
-    if(typeof google === 'undefined' || !google.accounts) { setTimeout(() => ChatEngine.initGoogleIdentity(), 500); return; }
-    google.accounts.id.initialize({ client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", callback: this.onGoogleLoginSuccess });
-    const btnWrap = DOM.get('google-login-mount'); if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
-    
-    const menuWrap = DOM.get('drawer-google-login-wrap');
-    if(menuWrap && !menuWrap.hasChildNodes()) {
-        google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
-    }
-  },
-
-  guestLogin: function() {
-      const randId = Math.floor(Math.random() * 9999);
-      const profile = { name: "Guest_" + randId, email: "guest_" + randId + "@nox.local", role: 'GUEST' };
-      this.userProfile = profile;
-      localStorage.setItem('nox_user_profile', JSON.stringify(profile));
-      
-      firebase.database().ref('nox_users_registry/' + profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_')).set({
-          name: profile.name, email: profile.email, role: 'GUEST', lastLogin: firebase.database.ServerValue.TIMESTAMP
-      });
-
-      DOM.get('auth-guard').style.display = 'none';
-      AuthEngine.updateAuthUI(true, profile);
-      this.appendMsg('SYSTEM', `Đăng nhập khách: ${profile.name}`, true);
-      this.listenForMessages();
-  },
-
   removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
 
   appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX', isRecalled = false, senderEmail = '') {
@@ -1255,7 +1178,7 @@ const ChatEngine = {
           else { badge = `<span class="badge-guest">[GUEST]</span>`; }
       }
       let clickAction = (IS_ADMIN && senderEmail) ? `onclick="UserMgr.openModPanel('${senderName.replace(/'/g, "\\'")}', '${senderEmail}')"` : '';
-      innerHTML += `<div class="msg-meta"><div class="${nameClass}" ${clickAction}>${badge}${senderName} ${deleteBtn}</div></div>`;
+      innerHTML += `<div class="msg-meta"><div class="${nameClass}" ${clickAction} title="Bấm để Ban/Mute">${badge}${senderName} ${deleteBtn}</div></div>`;
     } else {
         innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn ${deleteBtn}</div></div>`;
     }
