@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V37 MASTER SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX WEB Enterprise V37. Giao diện Vuông, Fix triệt để lỗi Quản lý Menu & Tiện ích DEV.">
+<title>SKIBIDI SHARE WEBSITE</title>
+<meta name="description" content=" SKIBIDI WEBSITE V37.0">
 <meta name="robots" content="index, follow">
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -351,7 +351,7 @@ textarea.script-share-input { height: 150px; resize: none; }
 </head>
 <body>
 
-<div id="toast-banner">CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
+<div id="toast-banner">CẬP NHẬT MỚI TỪ WEB</div>
 
 <div class="confirm-backdrop" id="confirm-modal">
     <div class="confirm-box">
@@ -417,9 +417,9 @@ textarea.script-share-input { height: 150px; resize: none; }
     <div class="info-board">
       <h3 id="ui-notice-title">THÔNG BÁO</h3>
       <div class="text-truncate" id="ui-notice-text" style="display:block;">
-        > <b>WELCOME TO NOX WEB V37 MASTER.</b><br>
-        > Đã khắc phục triệt để lỗi định dạng chuỗi, giúp Sửa/Xóa Menu & Tiện Ích mượt mà.<br>
-        > Cấp quyền DEV toàn diện cho quản trị viên.
+        > <b>WELCOME TO SKIBIDI WEB - NOX WEB</b><br>
+        > Đã khắc phục triệt để lỗi <br>
+
       </div>
     </div>
 
@@ -491,7 +491,7 @@ textarea.script-share-input { height: 150px; resize: none; }
     
     <div id="gpt-fallback-container" style="display:none;">
         <div class="api-fallback-box">
-            <div class="api-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY (XKIRO)</div>
+            <div class="api-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY </div>
             <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key (Bắt đầu bằng sk-xt-)...">
             <button onclick="GptEngine.validateAndSaveConfig()">LƯU VÀ THỬ LẠI</button>
         </div>
@@ -526,7 +526,7 @@ textarea.script-share-input { height: 150px; resize: none; }
     </div>
 
     <div class="modal-header">
-      <div class="modal-heading">SERVER CHAT</div>
+      <div class="modal-heading"> CHAT SKIBIDI WEB </div>
       <div style="display:flex; gap:8px;">
         <button class="box-action" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main);" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">KHO SCRIPT</button>
         <button class="modal-close" style="width:36px; height:36px;" onclick="closeUI('modal-noxchat')">✕</button>
@@ -573,7 +573,7 @@ textarea.script-share-input { height: 150px; resize: none; }
 <div class="modal-backdrop" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
   <div class="modal-content">
     <div class="modal-header">
-      <div class="modal-heading">KHO SCRIPT CỘNG ĐỒNG</div>
+      <div class="modal-heading">KHO SCRIPT WEB</div>
       <button class="modal-close" onclick="closeUI('modal-script-vault')">✕</button>
     </div>
     <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:16px; padding: 20px;"></div>
@@ -903,11 +903,11 @@ const UtilsEngine = {
         
         const defaultData = [
             { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
-            { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig' },
+            { type: 'pane-link', title: 'Kasumi Store ', content: 'https://gofile.io/d/v3Q6Ig' },
             { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
             { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
-            { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
-            { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
+            { type: 'pane-script', title: 'Speed X Hub ', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
+            { type: 'pane-script', title: 'UB Hub ', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
             { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
             { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
             { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
