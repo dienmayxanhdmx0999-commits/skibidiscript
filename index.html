@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f12">
 
-<title>NOX WEB - V46 MASTER SERVER</title>
-<meta name="description" content="Hệ sinh thái NOX-SKIBIDI WEB Enterprise V46. Responsive PC/Mobile, Fix User Manager UI, Full CRUD Utility for DEV.">
+<title>NOX WEB - V47 MASTER SERVER</title>
+<meta name="description" content="Hệ sinh thái NOX-SKIBIDI WEB Enterprise V47. Fix triệt để lỗi giao diện Menu input & Kho tiện ích trống.">
 <meta name="robots" content="index, follow">
 
 <!-- Firebase App & Database -->
@@ -19,7 +19,7 @@
 
 <style>
 /* ==========================================================================
-   CSS ARCHITECTURE: DARK THEME & RESPONSIVE PC/MOBILE
+   CSS ARCHITECTURE: DARK THEME & SQUARE GEOMETRY
    ========================================================================== */
 :root {
   --bg-core: #0d0f12;        
@@ -59,13 +59,6 @@ body {
   overflow-y: auto !important; overflow-x: hidden; position: relative;
   display: flex; justify-content: center; align-items: flex-start;
   padding: 8vh 16px 100px; color: var(--text-main);
-}
-
-/* RESPONSIVE CHO MÁY TÍNH (PC) & ĐIỆN THOẠI */
-@media (min-width: 768px) {
-  .card-wrapper { max-width: 650px !important; }
-  .modal-content { max-width: 750px !important; }
-  body { padding-top: 10vh; }
 }
 
 body::after {
@@ -108,6 +101,22 @@ body::after {
 .drawer-label { font-size: 0.8rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 4px; margin-bottom: 4px; }
 .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 998; opacity: 0; pointer-events: none; transition: 0.3s; }
 .menu-overlay.is-active { opacity: 1; pointer-events: auto; }
+
+/* FIX GIAO DIỆN INPUT TRONG MENU (CHỐNG LỖI TRẮNG SÁNG NHƯ ẢNH 29193.jpg) */
+#dev-menu-editor-box {
+    display: none; flex-direction: column; gap: 10px; margin-top: 10px;
+    padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05);
+    width: 100%; box-sizing: border-box;
+}
+#dev-menu-editor-box.active { display: flex; }
+#dev-menu-editor-box input {
+    width: 100%; max-width: 100%; padding: 12px 14px; background: var(--bg-input); color: var(--text-main);
+    border: 1px solid var(--border-color); font-size: 0.9rem; box-sizing: border-box; font-family: inherit;
+}
+#dev-menu-editor-box button {
+    width: 100%; padding: 12px; background: var(--dev-color); color: #fff;
+    font-weight: bold; cursor: pointer; font-size: 0.9rem; text-transform: uppercase;
+}
 
 /* ==========================================================================
    MAIN DASHBOARD CARD
@@ -199,7 +208,7 @@ body::after {
 .ban-alert-box { background: var(--bg-panel); border: 3px solid var(--accent-danger); padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
 
 /* ==========================================================================
-   CHAT UI & USER MGR FIX LỖI TRÀN GIAO DIỆN TRÊN ẢNH
+   CHAT UI
    ========================================================================== */
 .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -229,16 +238,6 @@ body::after {
 .msg-action-btn { background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-sub); padding: 2px 8px; cursor: pointer; border-radius: var(--rad); transition: 0.2s; }
 .msg-action-btn:hover { border-color: var(--text-main); color: var(--text-main); }
 .msg-action-btn.danger:hover { background: var(--accent-danger-bg); color: var(--accent-danger); border-color: var(--accent-danger); }
-
-/* Fix lỗi tràn giao diện Quản lý User trên ảnh 29192.jpg */
-#user-mgr-board .data-box {
-    background: var(--bg-panel); border: 1px solid var(--border-color); padding: 16px;
-    display: flex; flex-direction: column; gap: 12px; width: 100%; box-sizing: border-box;
-}
-#user-mgr-board input {
-    width: 100%; max-width: 100%; padding: 10px; background: var(--bg-input); color: var(--text-main);
-    border: 1px solid var(--border-color); font-size: 0.85rem; box-sizing: border-box;
-}
 
 /* CHAT INPUT AREA */
 .chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
@@ -342,7 +341,7 @@ body::after {
 <div class="card-wrapper">
   <main class="main-card solid-panel" id="dashboard-card">
     <div class="title-wrap">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V46</span>
+      <span class="status-badge" id="ui-version-badge">Phiên bản V47</span>
       <h1 class="title-main" id="ui-title-text">NOX-SKIBIDI WEB</h1>
     </div>
 
@@ -353,14 +352,14 @@ body::after {
         CHÀO MỪNG ĐẾN VỚI NOX- SKIBIDI SHARE NƠI CUNG CẤP NHỮNG SCRIPT LINK APK IOS CHẤT LƯỢNG TỐT NHẤT - ĐẶT BIỆT LÀ KHÔNG CẦN VƯỢT LINK.<br><br>
         > Hỗ trợ đăng xuất an toàn.<br>
         > DEV có toàn quyền Sửa/Xóa Menu, Tiện ích, Ban/Mute User.<br>
-        > Giao diện tự động co giãn tương thích PC và điện thoại.
+        > Nhấp vào tin nhắn của bạn để chỉnh sửa hoặc thu hồi.
       </div>
     </div>
 
     <div class="dev-config-box" id="dev-config-panel" style="display:none;">
         <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V46)...">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V47)...">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
         <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none;"></textarea>
         <button onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
@@ -372,7 +371,7 @@ body::after {
   </main>
 </div>
 
-<!-- MODAL KHO TIỆN ÍCH (ĐỒNG BỘ HOÀN TOÀN TỪ FIREBASE ĐỂ DEV SỬA/XÓA MỌI MỤC) -->
+<!-- MODAL KHO TIỆN ÍCH (ĐÃ ĐỒNG BỘ HOÀN TOÀN TỪ FIREBASE - ĐẦY ĐỦ NÚT SỬA/XÓA CHO DEV) -->
 <div class="modal-backdrop" id="modal-archive" onclick="if(event.target===this)closeUI('modal-archive')">
   <div class="modal-content">
     <div class="modal-header">
@@ -417,7 +416,7 @@ body::after {
   </div>
 </div>
 
-<!-- MODAL QUẢN LÝ USER (GIAO DIỆN ĐÃ ĐƯỢC FIX GỌN GÀNG, KHÔNG TRÀN KHUNG) -->
+<!-- MODAL QUẢN LÝ USER -->
 <div class="modal-backdrop" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
   <div class="modal-content">
     <div class="modal-header">
@@ -492,7 +491,7 @@ body::after {
     
     <div class="chat-footer">
       <div class="image-preview-zone" id="chat-preview-zone">
-        <img src="" id="gpt-preview-img" class="preview-thumb">
+        <img src="" id="chat-preview-img" class="preview-thumb">
         <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
       </div>
       <div class="chat-input-wrapper">
@@ -789,7 +788,7 @@ const ConfigEngine = {
 const MenuEditor = {
     ref: null,
     init: function() { this.ref = firebase.database().ref('nox_custom_menu'); this.loadMenu(); },
-    toggleEditor: function() { const box = DOM.get('dev-menu-editor-box'); if(box) box.style.display = (box.style.display === 'flex') ? 'none' : 'flex'; },
+    toggleEditor: function() { const box = DOM.get('dev-menu-editor-box'); if(box) box.classList.toggle('active'); },
     addMenuItem: function() {
         if(!IS_ADMIN) return;
         const name = DOM.get('menu-item-name').value.trim(); const link = DOM.get('menu-item-link').value.trim();
@@ -891,7 +890,7 @@ const UserMgr = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC HOÀN TOÀN TỪ FIREBASE ĐỂ DEV SỬA/XÓA MỌI MỤC)
+   UTILS ENGINE (KHO TIỆN ÍCH ĐỒNG BỘ HOÀN TOÀN TỪ FIREBASE - ĐẢM BẢO DEV CÓ NÚT SỬA/XÓA)
    ========================================================================== */
 const UtilsEngine = {
     ref: null,
@@ -1028,7 +1027,7 @@ const GptEngine = {
   
   board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
   messageHistory: [
-      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB (tạo ra bởi DEV HminhGalaxy). Trả lời ngắn gọn, chuẩn Hacker." }
+      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB (tạo ra bởi DEV Hminhgalaxy). Trả lời ngắn gọn, chuẩn Hacker." }
   ],
 
   init: function() {
@@ -1073,7 +1072,7 @@ const GptEngine = {
     let userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
     if(base64Img) { userHtml = `<img src="${base64Img}" class="chat-image">` + userHtml; }
     
-    this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
+    this.input.value = ''; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
     this.messageHistory.push({ role: "user", content: text || "[Đã gửi ảnh]" });
 
@@ -1107,7 +1106,7 @@ const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-no
    ========================================================================== */
 const ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
-  isSetup: false,
+  googleClientId: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", isSetup: false,
 
   initFirebase: function() {
     if(this.isSetup) return;
@@ -1155,6 +1154,59 @@ const ChatEngine = {
     this.dbRef.orderByChild('timestamp').endAt(cutoff).once('value', (snapshot) => {
       if(snapshot.exists()) { const updates = {}; snapshot.forEach((child) => { updates[child.key] = null; }); this.dbRef.update(updates); }
     });
+  },
+
+  decodeJwt: function(token) { try { const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))); } catch(e) { return {}; } },
+
+  onGoogleLoginSuccess: function(response) {
+    const payload = ChatEngine.decodeJwt(response.credential);
+    if(payload.email === ADMIN_EMAIL) { 
+        IS_ADMIN = true; 
+        DOM.get('dev-utils-panel').classList.add('active'); 
+        DOM.get('dev-config-panel').style.display = 'flex'; 
+        DOM.get('dev-menu-editor-group').style.display = 'flex';
+        DOM.get('dev-user-mgr-group').style.display = 'flex';
+    }
+    const profile = { name: payload.name || "User", email: payload.email, role: IS_ADMIN ? 'DEV' : 'NOX' };
+    ChatEngine.userProfile = profile;
+    localStorage.setItem('nox_user_profile', JSON.stringify(profile));
+
+    const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
+    firebase.database().ref('nox_users_registry/' + safeKey).set({
+        name: profile.name, email: profile.email, role: profile.role, lastLogin: firebase.database.ServerValue.TIMESTAMP
+    });
+
+    DOM.get('auth-guard').style.display = 'none'; 
+    AuthEngine.updateAuthUI(true, profile);
+    ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${profile.role}`, true); 
+    ChatEngine.listenForMessages();
+  },
+
+  initGoogleIdentity: function() {
+    if(typeof google === 'undefined' || !google.accounts) { setTimeout(() => ChatEngine.initGoogleIdentity(), 500); return; }
+    google.accounts.id.initialize({ client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", callback: this.onGoogleLoginSuccess });
+    const btnWrap = DOM.get('google-login-mount'); if(btnWrap) google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
+    
+    const menuWrap = DOM.get('drawer-google-login-wrap');
+    if(menuWrap && !menuWrap.hasChildNodes()) {
+        google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
+    }
+  },
+
+  guestLogin: function() {
+      const randId = Math.floor(Math.random() * 9999);
+      const profile = { name: "Guest_" + randId, email: "guest_" + randId + "@nox.local", role: 'GUEST' };
+      this.userProfile = profile;
+      localStorage.setItem('nox_user_profile', JSON.stringify(profile));
+      
+      firebase.database().ref('nox_users_registry/' + profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_')).set({
+          name: profile.name, email: profile.email, role: 'GUEST', lastLogin: firebase.database.ServerValue.TIMESTAMP
+      });
+
+      DOM.get('auth-guard').style.display = 'none';
+      AuthEngine.updateAuthUI(true, profile);
+      this.appendMsg('SYSTEM', `Đăng nhập khách: ${profile.name}`, true);
+      this.listenForMessages();
   },
 
   removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
