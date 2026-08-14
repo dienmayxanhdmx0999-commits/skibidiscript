@@ -3,508 +3,1346 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#0d0f12">
+<meta name="theme-color" content="#030508">
 
-<title>NOX WEB - Website Tiện Ích </title>
-<meta name="description" content=" NOX-SKIBIDI WEB. Vượt Link Không có tiếng nói ở Đây , Web Tiện Ích Hàng Cuối Việt Nam">
+<title>NOX WEB V75 ULTRA PROMAX - Quantum Opus</title>
+<meta name="description" content="NOX-SKIBIDI WEB V75 ULTRA PROMAX. Kho tiện ích, Script Roblox, APK Direct Link không quảng cáo.">
 <meta name="robots" content="index, follow">
 
-<!-- Firebase App & Database -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;900&display=swap" rel="stylesheet">
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<!-- Google Identity -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<!-- Puter.js AI (Dự phòng) -->
 <script src="https://js.puter.com/v2/"></script>
 
 <style>
 /* ==========================================================================
-   CSS ARCHITECTURE: DARK THEME & RESPONSIVE PC/MOBILE
+   V75 ULTRA PROMAX DESIGN SYSTEM
    ========================================================================== */
 :root {
-  --bg-core: #0d0f12;        
-  --bg-panel: #16181d;       
-  --bg-panel-hover: #1c1f26; 
-  --bg-input: #0a0c0f;       
+  --bg-core: #030508;        
+  --bg-card: rgba(11, 15, 25, 0.82);       
+  --bg-card-hover: rgba(18, 24, 40, 0.94); 
+  --bg-card-solid: #080c14;
+  --bg-input: rgba(6, 9, 16, 0.96);       
   
-  --border-color: #272a30;   
-  --border-hover: #3a3e47;
+  --border-color: rgba(255, 255, 255, 0.08);   
+  --border-focus: rgba(0, 245, 160, 0.45);
+  --border-hover: rgba(255, 255, 255, 0.2);
   
-  --text-main: #f3f4f6;      
-  --text-sub: #9ca3af;       
-  --text-muted: #6b7280;
+  --text-main: #f8fafc;      
+  --text-sub: #94a3b8;       
+  --text-muted: #64748b;
   
-  --accent-green: #10b981;
-  --accent-green-bg: rgba(16, 185, 129, 0.1);
-  --accent-danger: #ef4444;
-  --accent-danger-bg: rgba(239, 68, 68, 0.1);
-  --dev-color: #ff0055;
-  --accent-blue: #3b82f6;
+  --accent-emerald: #00f5a0;
+  --accent-emerald-glow: rgba(0, 245, 160, 0.35);
+  --accent-cyan: #00d9f5;
+  --accent-cyan-glow: rgba(0, 217, 245, 0.35);
+  --accent-danger: #ff2a5f;
+  --accent-danger-bg: rgba(255, 42, 95, 0.12);
+  --dev-color: #ff2a85;
+  --accent-amber: #f59e0b;
   
-  --rad: 0px; 
+  --rad-lg: 18px;
+  --rad-md: 12px; 
+  --rad-sm: 8px;
   
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-button, input, textarea, select { font-family: inherit; outline: none; border: none; border-radius: var(--rad); box-sizing: border-box; }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  -webkit-tap-highlight-color: transparent; 
+}
+
+button, input, textarea, select { 
+  font-family: 'Plus Jakarta Sans', sans-serif; 
+  outline: none; 
+  border: none; 
+  border-radius: var(--rad-sm); 
+  box-sizing: border-box; 
+}
+
 a { text-decoration: none; color: inherit; }
 
-html { font-family: "Courier New", Courier, monospace; font-size: 16px; width: 100%; height: 100%; }
+html { 
+  font-family: 'Plus Jakarta Sans', sans-serif; 
+  font-size: 15px; 
+  width: 100%; 
+  background-color: var(--bg-core);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
 
 body {
-  width: 100%; min-height: 100vh; background-color: var(--bg-core);
-  overflow-y: auto !important; overflow-x: hidden; position: relative;
-  display: flex; justify-content: center; align-items: flex-start;
-  padding: 8vh 16px 100px; color: var(--text-main);
+  width: 100%; 
+  min-height: 100vh; 
+  background-color: var(--bg-core);
+  background-image: 
+    radial-gradient(circle at 15% 10%, rgba(0, 245, 160, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(0, 217, 245, 0.08) 0%, transparent 45%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+  overflow-x: hidden; 
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  padding: 85px 16px 80px; 
+  color: var(--text-main);
 }
 
-/* RESPONSIVE CHO MÁY TÍNH (PC) & ĐIỆN THOẠI */
-@media (min-width: 768px) {
-  .card-wrapper { max-width: 650px !important; }
-  .modal-content { max-width: 750px !important; }
-  body { padding-top: 10vh; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-emerald); }
+
+/* ==========================================================================
+   QUANTUM CIRCULAR LOADING SCREEN
+   ========================================================================== */
+#quantum-loader {
+  position: fixed;
+  inset: 0;
+  background: #020306;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.7s var(--ease-spring), transform 0.7s var(--ease-spring);
+}
+#quantum-loader.fade-out {
+  opacity: 0;
+  transform: scale(1.06);
+  pointer-events: none;
 }
 
-body::after {
-  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  background-size: 100% 4px, 3px 100%; opacity: 0.2;
+.loader-spinner-wrap {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader-ring-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(0, 245, 160, 0.4);
+  animation: spinRight 6s linear infinite;
+}
+.loader-ring-mid {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent-cyan);
+  border-bottom-color: var(--accent-emerald);
+  animation: spinLeft 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  box-shadow: 0 0 25px rgba(0, 245, 160, 0.25);
+}
+.loader-ring-inner {
+  position: absolute;
+  inset: 28px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 42, 133, 0.5);
+  animation: spinRight 3s linear infinite;
+}
+.loader-center-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+}
+.loader-center-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #fff, var(--accent-emerald));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.loader-center-sub {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent-cyan);
+  font-weight: 700;
 }
 
-#toast-banner {
-  position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
-  background: var(--accent-green); color: #fff; padding: 12px 24px;
-  font-weight: bold; border-radius: var(--rad); z-index: 20000;
-  box-shadow: 0 10px 30px rgba(16,185,129,0.4); text-transform: uppercase;
-  transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+@keyframes spinRight { 100% { transform: rotate(360deg); } }
+@keyframes spinLeft { 100% { transform: rotate(-360deg); } }
+
+.loader-status-text {
+  margin-top: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  letter-spacing: 1.5px;
+  animation: pulseOpacity 1.5s infinite ease-in-out;
 }
-#toast-banner.show { top: 20px; }
+@keyframes pulseOpacity { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
 /* ==========================================================================
-   SOLID PANELS & BUTTONS
+   RAINBOW THEME ANIMATION FOR NOXGPT 3.1 PRO
    ========================================================================== */
-.solid-panel { background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-md); position: relative; z-index: 10; }
+@keyframes rainbowBorder {
+  0% { border-color: #ff007f; box-shadow: 0 0 22px rgba(255, 0, 127, 0.4); }
+  25% { border-color: #00f5a0; box-shadow: 0 0 22px rgba(0, 245, 160, 0.4); }
+  50% { border-color: #00d9f5; box-shadow: 0 0 22px rgba(0, 217, 245, 0.4); }
+  75% { border-color: #a855f7; box-shadow: 0 0 22px rgba(168, 85, 247, 0.4); }
+  100% { border-color: #ff007f; box-shadow: 0 0 22px rgba(255, 0, 127, 0.4); }
+}
 
-.btn-primary { width: 100%; padding: 14px 20px; border-radius: var(--rad); display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; font-weight: bold; font-size: 0.95rem; background: var(--accent-green); transition: all 0.2s ease; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-.btn-primary:hover { background: #059669; } .btn-primary:active { transform: scale(0.98); }
+@keyframes rainbowGradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-.btn-sidebar { width: 100%; padding: 14px 16px; border-radius: var(--rad); display: flex; align-items: center; justify-content: flex-start; gap: 14px; color: var(--text-sub); font-weight: bold; font-size: 0.95rem; background: transparent; border: 1px solid var(--border-color); transition: all 0.2s ease; cursor: pointer; text-transform: uppercase; }
-.btn-sidebar:hover { background: var(--bg-panel-hover); color: var(--text-main); border-color: var(--text-sub); }
+.rainbow-mode-active {
+  animation: rainbowBorder 4s linear infinite !important;
+}
 
-.top-nav { position: fixed; top: 16px; left: 16px; z-index: 100; }
-.menu-trigger { height: 44px; padding: 0 16px; border-radius: var(--rad); background: var(--bg-panel); border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm); text-transform: uppercase; }
-.menu-trigger:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
-
-.drawer-menu { position: fixed; top: 0; left: 0; height: 100dvh; width: 300px; max-width: 85vw; padding: 24px 16px; z-index: 999; display: flex; flex-direction: column; gap: 24px; background: var(--bg-core); border-right: 1px solid var(--border-color); transform: translateX(-100%); opacity: 0; pointer-events: none; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease; box-shadow: 4px 0 15px rgba(0,0,0,0.5); overflow-y: auto; }
-.drawer-menu.is-open { transform: translateX(0); opacity: 1; pointer-events: auto; }
-.drawer-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px dashed var(--border-color); }
-.drawer-title { font-size: 1.1rem; font-weight: bold; color: var(--text-main); display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
-.drawer-close { background: var(--border-color); color: var(--text-main); width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: var(--rad); cursor: pointer; transition: 0.2s; font-weight: bold;}
-.drawer-close:hover { background: var(--accent-danger); color: #fff; }
-.drawer-group { display: flex; flex-direction: column; gap: 8px; }
-.drawer-label { font-size: 0.8rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 4px; margin-bottom: 4px; }
-.menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 998; opacity: 0; pointer-events: none; transition: 0.3s; }
-.menu-overlay.is-active { opacity: 1; pointer-events: auto; }
+.rainbow-title-glow {
+  background: linear-gradient(90deg, #ff007f, #00f5a0, #00d9f5, #a855f7, #ff007f);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowGradientText 4s ease infinite;
+}
 
 /* ==========================================================================
-   MAIN DASHBOARD CARD
+   TOP CONTROLS & HUD
    ========================================================================== */
-.card-wrapper { position: relative; z-index: 50; width: 100%; max-width: 500px; margin: 0 auto; margin-top: 50px; }
-.main-card { display: flex; flex-direction: column; gap: 20px; padding: 32px 24px; text-align: left; width: 100%; }
-.title-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
-.title-main { font-size: 2rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px;}
-.status-badge { font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: var(--rad); background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); text-transform: uppercase;}
+.top-nav { 
+  position: fixed; 
+  top: 18px; 
+  left: 20px; 
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100; 
+  pointer-events: none;
+}
+.top-nav > * { pointer-events: auto; }
 
-.info-board { padding: 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); cursor: pointer; width: 100%; }
-.info-board h3 { font-size: 1rem; font-weight: bold; margin-bottom: 8px; color: var(--accent-green); text-transform: uppercase; display: flex; justify-content: space-between;}
-.info-board h3 span.hint { font-size: 0.75rem; color: var(--text-sub); font-weight: normal; text-transform: none; }
+.menu-trigger { 
+  height: 44px; 
+  padding: 0 18px; 
+  border-radius: 99px; 
+  background: rgba(14, 18, 28, 0.85); 
+  backdrop-filter: blur(16px); 
+  border: 1px solid var(--border-color); 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  color: var(--text-main); 
+  font-weight: 800; 
+  font-size: 0.85rem; 
+  cursor: pointer; 
+  transition: all 0.25s var(--ease-spring); 
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5); 
+}
+.menu-trigger:hover { 
+  border-color: var(--accent-emerald); 
+  color: var(--accent-emerald); 
+  box-shadow: 0 0 20px rgba(0, 245, 160, 0.3); 
+  transform: scale(1.04); 
+}
 
-.text-truncate { font-size: 0.9rem; line-height: 1.6; color: var(--text-sub); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: all 0.3s ease; }
-.text-truncate.expanded { display: block; -webkit-line-clamp: unset; }
+.lang-switch-btn {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 99px;
+  background: rgba(14, 18, 28, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-weight: 800;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-spring);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+.lang-switch-btn:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
 
-.dev-config-box { display: none; flex-direction: column; gap: 10px; margin-top: 15px; border: 1px dashed var(--dev-color); padding: 16px; background: rgba(255,0,85,0.05); width: 100%; box-sizing: border-box; }
-.dev-config-box input, .dev-config-box textarea { width: 100%; max-width: 100%; padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); box-sizing: border-box; }
-.dev-config-box button { width: 100%; padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
+.live-hud-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 860px;
+  padding: 10px 20px;
+  margin-bottom: 16px;
+  border-radius: 99px;
+  background: rgba(14, 18, 28, 0.65);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(16px);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hud-item { display: flex; align-items: center; gap: 8px; }
+.hud-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-emerald);
+  box-shadow: 0 0 8px var(--accent-emerald);
+  animation: pulseDot 1.5s infinite;
+}
+@keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.timezone-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
 /* ==========================================================================
-   MODAL CORE
+   FIX LỖI MENU TRANH CHẤP NỀN (FULLSCREEN MODAL KHÔNG BỊ TRÀN)
    ========================================================================== */
-.modal-backdrop { position: fixed; inset: 0; z-index: 1000; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(0, 0, 0, 0.85); opacity: 0; transition: opacity 0.2s ease; }
-.modal-backdrop.is-active { display: flex; opacity: 1; }
-.modal-content { width: 100%; max-width: 650px; height: 90dvh; max-height: 800px; display: flex; flex-direction: column; background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--rad); box-shadow: var(--shadow-lg); transform: scale(0.98); transition: transform 0.2s ease; overflow: hidden; }
-.modal-backdrop.is-active .modal-content { transform: scale(1); }
-.modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px dashed var(--border-color); background: var(--bg-core); }
-.modal-heading { font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; gap: 10px; color: var(--text-main); text-transform: uppercase;}
-.modal-close { width: 36px; height: 36px; border-radius: var(--rad); background: var(--border-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; transition: 0.2s; cursor: pointer; font-weight: bold;}
-.modal-close:hover { background: var(--accent-danger); color: #fff; }
+.drawer-menu { 
+  position: fixed; 
+  inset: 0; 
+  width: 100vw; 
+  height: 100dvh; 
+  z-index: 100000; 
+  display: none; 
+  flex-direction: column; 
+  background: #050811; 
+  backdrop-filter: blur(30px); 
+  -webkit-backdrop-filter: blur(30px);
+  overflow-y: auto; 
+  overscroll-behavior: contain;
+  padding: 30px 20px 60px; 
+}
+.drawer-menu.is-open { 
+  display: flex; 
+  animation: menuOpenFade 0.3s var(--ease-spring);
+}
+@keyframes menuOpenFade {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fullscreen-menu-header {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 18px;
+}
+.fullscreen-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #fff, var(--accent-emerald));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.fullscreen-close {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-color);
+  color: var(--text-sub);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-bounce);
+}
+.fullscreen-close:hover {
+  background: var(--accent-danger-bg);
+  color: var(--accent-danger);
+  border-color: var(--accent-danger);
+  transform: rotate(90deg) scale(1.1);
+}
+
+.fullscreen-menu-grid {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+.menu-section-card {
+  background: rgba(14, 18, 28, 0.85);
+  border: 1px solid var(--border-color);
+  border-radius: var(--rad-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.menu-section-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(20, 26, 42, 0.95);
+}
+.section-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-menu-item {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--rad-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-spring);
+}
+.btn-menu-item:hover {
+  background: rgba(0, 245, 160, 0.12);
+  border-color: var(--accent-emerald);
+  color: var(--accent-emerald);
+  transform: translateX(4px);
+}
 
 /* ==========================================================================
-   ARCHIVE TABS & DATA BOXES
+   HERO BANNER & SPECIAL CHARACTER TYPOGRAPHY
    ========================================================================== */
-.search-wrapper { padding: 16px 20px; background: var(--bg-panel); border-bottom: 1px solid var(--border-color); }
-.search-box { width: 100%; padding: 14px 16px; border-radius: var(--rad); font-size: 0.95rem; color: var(--text-main); background: var(--bg-input); border: 1px solid var(--border-color); transition: 0.2s; font-family: inherit;}
-.search-box:focus { border-color: var(--accent-green); }
+.hero-wrapper { 
+  width: 100%; 
+  max-width: 860px; 
+  margin: 0 auto 24px; 
+  animation: heroFadeIn 0.6s var(--ease-spring);
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(25px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-.tab-nav { display: flex; gap: 8px; padding: 16px 20px 0; background: var(--bg-panel); overflow-x: auto; border-bottom: 1px solid var(--border-color);}
+.hero-card { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 22px; 
+  padding: 34px 30px; 
+  width: 100%; 
+}
+.title-wrap { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 10px; 
+}
+.title-main { 
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem; 
+  font-weight: 900; 
+  background: linear-gradient(135deg, #ffffff 30%, #00f5a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+.status-badge { 
+  font-size: 0.75rem; 
+  font-weight: 800; 
+  padding: 6px 16px; 
+  border-radius: 99px; 
+  background: rgba(0, 245, 160, 0.12); 
+  color: var(--accent-emerald); 
+  border: 1px solid rgba(0, 245, 160, 0.35); 
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.8px;
+}
+
+.info-board { 
+  padding: 20px 22px; 
+  border-radius: var(--rad-md); 
+  background: var(--bg-input); 
+  border: 1px solid var(--border-color); 
+  width: 100%; 
+}
+.info-board-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.info-board-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--accent-emerald);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.typewriter-zone { 
+  font-size: 0.9rem; 
+  line-height: 1.7; 
+  color: var(--text-sub); 
+  min-height: 24px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.typing-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 15px;
+  background-color: var(--accent-emerald);
+  margin-left: 4px;
+  animation: blink 0.8s infinite;
+  vertical-align: middle;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.dev-config-box { 
+  display: none; 
+  flex-direction: column; 
+  gap: 12px; 
+  margin-top: 10px; 
+  border: 1px dashed var(--dev-color); 
+  padding: 18px; 
+  border-radius: var(--rad-md); 
+  background: rgba(255, 42, 133, 0.05); 
+  width: 100%; 
+}
+.dev-config-box input, .dev-config-box textarea { 
+  width: 100%; 
+  padding: 12px; 
+  background: var(--bg-input); 
+  color: var(--text-main); 
+  border: 1px solid var(--border-color); 
+}
+.dev-config-box button { 
+  width: 100%; 
+  padding: 12px; 
+  background: var(--dev-color); 
+  color: #fff; 
+  font-weight: 800; 
+  cursor: pointer; 
+  border-radius: var(--rad-sm); 
+}
+
+/* ==========================================================================
+   FEED & UTILITIES GRID
+   ========================================================================== */
+.feed-container {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feed-header-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--rad-lg);
+  padding: 20px;
+  backdrop-filter: blur(20px);
+}
+
+.tab-nav { 
+  display: flex; 
+  gap: 8px; 
+  overflow-x: auto; 
+  padding-bottom: 2px;
+}
 .tab-nav::-webkit-scrollbar { display: none; }
-.tab-btn { padding: 10px 16px; border-radius: var(--rad); color: var(--text-sub); font-size: 0.9rem; font-weight: bold; border: 1px solid transparent; transition: 0.2s; white-space: nowrap; text-transform: uppercase;}
-.tab-btn:hover { color: var(--text-main); border-color: var(--border-color); }
-.tab-btn.is-active { color: var(--text-main); background: var(--border-color); border-color: var(--text-sub); }
+.tab-btn { 
+  padding: 10px 20px; 
+  border-radius: 99px; 
+  color: var(--text-muted); 
+  font-size: 0.85rem; 
+  font-weight: 800; 
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  transition: all 0.25s var(--ease-spring); 
+  white-space: nowrap; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tab-btn:hover { color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); }
+.tab-btn.is-active { 
+  color: #032b1c; 
+  background: var(--accent-emerald); 
+  border-color: var(--accent-emerald); 
+  box-shadow: 0 0 15px var(--accent-emerald-glow);
+}
 
-.tab-body-wrapper { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-core); display: flex; flex-direction: column; gap: 16px;}
-.tab-body-wrapper::-webkit-scrollbar { width: 4px; }
-.tab-body-wrapper::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 0; }
-.tab-pane { display: none; flex-direction: column; gap: 16px; }
-.tab-pane.is-active { display: flex; }
+.feed-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 18px;
+  min-height: 200px;
+}
+@media (max-width: 768px) {
+  .feed-items-grid { grid-template-columns: 1fr; }
+}
 
-.data-box { padding: 16px 20px; border-radius: var(--rad); background: var(--bg-panel); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 14px; position: relative; transition: all 0.2s ease; }
-.data-box:hover { border-color: var(--text-sub); background: var(--bg-panel-hover); }
-.data-box.is-hidden { display: none; }
+.scroll-reveal {
+  opacity: 0;
+  transform: scale(0.92) translateY(20px);
+  transition: opacity 0.45s var(--ease-spring), transform 0.45s var(--ease-spring);
+}
+.scroll-reveal.in-view {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
 
-.box-head { display: flex; justify-content: space-between; align-items: center; padding-left: 8px;}
-.box-title { font-size: 1rem; font-weight: bold; color: var(--text-main); text-transform: uppercase;}
-.box-action { padding: 8px 16px; border-radius: var(--rad); background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); font-weight: bold; font-size: 0.85rem; transition: 0.2s; cursor: pointer; text-transform: uppercase; }
-.box-action:hover { border-color: var(--text-main); background: var(--border-hover); }
-.box-action.is-copied { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
+.data-box { 
+  padding: 20px 22px; 
+  border-radius: var(--rad-md); 
+  background: var(--bg-card); 
+  border: 1px solid var(--border-color); 
+  display: flex; 
+  flex-direction: column; 
+  gap: 14px; 
+  backdrop-filter: blur(20px);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  overflow: hidden;
+}
+.data-box:hover { 
+  border-color: var(--border-focus); 
+  background: var(--bg-card-hover); 
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 245, 160, 0.15);
+  transform: translateY(-2px);
+}
 
-.script-code { padding: 12px; margin-left: 8px; border-radius: var(--rad); background: var(--bg-input); border: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-sub); word-break: break-all; }
+.card-thumbnail-wrap {
+  width: 100%;
+  height: 180px;
+  border-radius: var(--rad-sm);
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  position: relative;
+}
+.card-thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.card-thumbnail-wrap:hover .card-thumbnail-img { transform: scale(1.04); }
 
-.dev-circle-edit-btn { width: 28px; height: 28px; border-radius: 50%; background: rgba(59,130,246,0.2); color: #3b82f6; border: 1px solid #3b82f6; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 13px; margin-left: 8px; transition: 0.2s; }
-.dev-circle-edit-btn:hover { background: #3b82f6; color: #fff; }
-.dev-delete-btn { background: var(--accent-danger-bg); color: var(--accent-danger); border: 1px solid var(--accent-danger); padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: var(--rad); margin-left: 8px; font-size: 0.8rem; }
-.dev-delete-btn:hover { background: var(--accent-danger); color: #fff; }
+.box-head { display: flex; justify-content: space-between; align-items: center; }
+.box-title { font-size: 1.05rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+.box-action { 
+  padding: 8px 18px; 
+  border-radius: 99px; 
+  background: rgba(255, 255, 255, 0.06); 
+  color: var(--text-main); 
+  border: 1px solid var(--border-color); 
+  font-weight: 800; 
+  font-size: 0.8rem; 
+  transition: all 0.2s ease; 
+  cursor: pointer; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 6px; 
+}
+.box-action:hover { border-color: var(--text-main); background: rgba(255, 255, 255, 0.15); transform: scale(1.04); }
+.box-action.is-copied { background: var(--accent-emerald) !important; color: #032b1c !important; border-color: var(--accent-emerald) !important; }
 
-.dev-add-panel { padding: 16px; border: 1px dashed var(--dev-color); background: rgba(255,0,85,0.05); margin-bottom: 16px; display: none; flex-direction: column; gap: 10px; width: 100%; box-sizing: border-box; }
-.dev-add-panel input, .dev-add-panel select, .dev-add-panel textarea { width: 100%; max-width: 100%; padding: 10px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); box-sizing: border-box;}
-.dev-add-panel button { width: 100%; padding: 10px; background: var(--dev-color); color: #fff; font-weight: bold; cursor: pointer; }
+.script-code { 
+  padding: 14px; 
+  border-radius: var(--rad-sm); 
+  background: var(--bg-input); 
+  border: 1px solid rgba(255, 255, 255, 0.04); 
+  font-family: 'JetBrains Mono', monospace; 
+  font-size: 0.82rem; 
+  color: #a7f3d0; 
+  word-break: break-all; 
+  user-select: all; 
+  line-height: 1.6; 
+}
 
 /* ==========================================================================
-   CONFIRMATION MODAL & BAN ALERT
+   NOXGPT 3.1 PRO CHAT MODAL (AUTO-ADJUST & RAINBOW)
    ========================================================================== */
-.confirm-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10005; display: none; align-items: center; justify-content: center; padding: 16px;}
-.confirm-backdrop.active { display: flex; }
-.confirm-box { background: var(--bg-panel); border: 2px solid var(--accent-danger); padding: 24px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 30px rgba(239, 68, 68, 0.2); }
-.confirm-msg { color: var(--accent-danger); font-weight: bold; margin-bottom: 24px; font-size: 1.1rem; text-transform: uppercase;}
-.confirm-actions { display: flex; gap: 16px; justify-content: center; }
-.btn-ok { padding: 12px 30px; font-weight: bold; cursor: pointer; background: var(--accent-danger); color: #fff; border: 1px solid var(--accent-danger); text-transform: uppercase;}
-.btn-ok:hover { background: #dc2626; }
-.btn-no { padding: 12px 30px; font-weight: bold; cursor: pointer; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); text-transform: uppercase;}
-.btn-no:hover { border-color: var(--text-main); }
+.modal-backdrop { 
+  position: fixed; 
+  inset: 0; 
+  z-index: 20000; 
+  display: none; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 12px; 
+  background: rgba(2, 4, 7, 0.85); 
+  backdrop-filter: blur(20px); 
+  opacity: 0; 
+  transition: opacity 0.3s var(--ease-spring); 
+}
+.modal-backdrop.is-active { display: flex; opacity: 1; }
 
-.ban-alert-backdrop { position: fixed; inset: 0; background: rgba(13,15,18,0.95); z-index: 30000; display: none; align-items: center; justify-content: center; padding: 20px; }
-.ban-alert-backdrop.active { display: flex; }
-.ban-alert-box { background: var(--bg-panel); border: 3px solid var(--accent-danger); padding: 30px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
+.modal-content { 
+  width: clamp(320px, 94vw, 680px); 
+  height: 85dvh; 
+  max-height: 780px; 
+  display: flex; 
+  flex-direction: column; 
+  background: var(--bg-card-solid); 
+  border: 1px solid var(--border-color); 
+  border-radius: var(--rad-lg); 
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.95); 
+  transform: scale(0.94) translateY(15px); 
+  transition: transform 0.35s var(--ease-spring); 
+  overflow: hidden; 
+}
+.modal-backdrop.is-active .modal-content { transform: scale(1) translateY(0); }
 
-/* ==========================================================================
-   CHAT UI & USER MGR FIX LỖI TRÀN GIAO DIỆN TRÊN ẢNH
-   ========================================================================== */
-.chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-core); }
-.chat-messages::-webkit-scrollbar { width: 4px; }
-.chat-messages::-webkit-scrollbar-thumb { background: var(--border-color); }
+.modal-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 14px 18px; 
+  border-bottom: 1px solid var(--border-color); 
+  background: rgba(14, 18, 28, 0.95); 
+  position: relative;
+}
+.modal-heading { 
+  font-size: 0.98rem; 
+  font-weight: 800; 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  color: var(--text-main); 
+}
+.modal-actions { display: flex; align-items: center; gap: 8px; }
 
-.msg-row { display: flex; flex-direction: column; max-width: 85%; content-visibility: auto; contain-intrinsic-size: auto 80px; position: relative;}
+.modal-btn-icon { 
+  width: 34px; 
+  height: 34px; 
+  border-radius: 50%; 
+  background: rgba(255, 255, 255, 0.05); 
+  border: 1px solid var(--border-color); 
+  color: var(--text-sub); 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  transition: all 0.2s ease; 
+  cursor: pointer; 
+}
+.modal-btn-icon:hover { background: rgba(255, 255, 255, 0.12); color: var(--text-main); }
+
+/* 3-DOTS DROPDOWN MENU */
+.gpt-dots-dropdown {
+  position: absolute;
+  top: 54px;
+  right: 18px;
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border-color);
+  border-radius: var(--rad-md);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1000;
+  min-width: 220px;
+}
+.gpt-dots-dropdown.active { display: flex; animation: dropDownFade 0.2s var(--ease-spring); }
+@keyframes dropDownFade { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+.dropdown-item {
+  padding: 10px 14px;
+  border-radius: var(--rad-sm);
+  background: transparent;
+  color: var(--text-main);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.dropdown-item:hover { background: rgba(255, 255, 255, 0.06); }
+.dropdown-item.active { color: var(--accent-cyan); }
+
+/* CHAT MESSAGES */
+.chat-messages { 
+  flex: 1 1 auto; 
+  overflow-y: auto; 
+  overscroll-behavior: contain;
+  display: flex; 
+  flex-direction: column; 
+  gap: 14px; 
+  padding: 16px; 
+  background: var(--bg-core); 
+}
+.msg-row { 
+  display: flex; 
+  flex-direction: column; 
+  max-width: 86%; 
+  position: relative; 
+  animation: msgPop 0.28s var(--ease-spring); 
+}
+@keyframes msgPop { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .msg-row.type-user { align-self: flex-end; align-items: flex-end; }
 .msg-row.type-other { align-self: flex-start; align-items: flex-start; }
 
 .msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.msg-name { font-size: 0.8rem; font-weight: bold; color: var(--text-sub); text-transform: uppercase; cursor: pointer;}
-.msg-name:hover { color: var(--accent-blue); text-decoration: underline; }
-.msg-name.sys { color: var(--accent-green); cursor: default; }
+.msg-name { font-size: 0.78rem; font-weight: 800; color: var(--text-sub); display: inline-flex; align-items: center; gap: 4px; }
+.msg-name.sys { color: var(--accent-emerald); }
 
-.badge-dev { color: var(--dev-color); border: 1px solid var(--dev-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: rgba(255,0,85,0.1); }
-.badge-nox { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--accent-green-bg); }
-.badge-guest { color: var(--text-sub); border: 1px solid var(--border-color); padding: 2px 6px; font-size: 0.7rem; margin-right: 4px; background: var(--bg-input); }
+.badge-dev { color: #fff; background: linear-gradient(135deg, #ff2a85, #be185d); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; }
+.badge-nox { color: #032b1c; background: var(--accent-emerald); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; }
+.badge-guest { color: var(--text-muted); border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; background: var(--bg-input); }
 
-.msg-bubble { padding: 12px 16px; border-radius: var(--rad); font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; border: 1px solid transparent; cursor: pointer;}
-.msg-row.type-user .msg-bubble { background: var(--border-hover); border-color: var(--text-sub); color: var(--text-main); }
-.msg-row.type-other .msg-bubble { background: var(--bg-panel); color: var(--text-main); border-color: var(--border-color); cursor: default;}
-.msg-bubble.recalled { font-style: italic; color: var(--text-muted); background: var(--bg-input) !important; border: 1px dashed var(--border-color) !important;}
-
-.chat-image { max-width: 100%; max-height: 250px; object-fit: contain; border-radius: var(--rad); margin-bottom: 8px; display: block; background: #000; border: 1px solid var(--border-color); }
-
-.msg-context-menu { position: absolute; bottom: 100%; right: 0; background: var(--bg-panel); border: 1px solid var(--border-color); box-shadow: var(--shadow-lg); border-radius: var(--rad); z-index: 100; display: none; flex-direction: column; min-width: 130px; overflow: hidden; margin-bottom: 4px; }
-.msg-context-menu.active { display: flex; }
-.msg-context-btn { padding: 10px 14px; background: transparent; color: var(--text-main); font-size: 0.85rem; font-weight: bold; text-align: left; cursor: pointer; border-bottom: 1px solid var(--border-color); transition: background 0.2s; }
-.msg-context-btn:last-child { border-bottom: none; }
-.msg-context-btn:hover { background: var(--bg-panel-hover); }
-.msg-context-btn.danger { color: var(--accent-danger); }
-.msg-context-btn.danger:hover { background: var(--accent-danger-bg); }
-
-/* Fix lỗi tràn giao diện Quản lý User trên ảnh 29192.jpg */
-#user-mgr-board .data-box {
-    background: var(--bg-panel); border: 1px solid var(--border-color); padding: 16px;
-    display: flex; flex-direction: column; gap: 12px; width: 100%; box-sizing: border-box;
+.msg-bubble { 
+  padding: 12px 16px; 
+  border-radius: 14px; 
+  font-size: 0.92rem; 
+  line-height: 1.6; 
+  word-wrap: break-word; 
+  border: 1px solid transparent; 
 }
-#user-mgr-board input {
-    width: 100%; max-width: 100%; padding: 10px; background: var(--bg-input); color: var(--text-main);
-    border: 1px solid var(--border-color); font-size: 0.85rem; box-sizing: border-box;
+.msg-row.type-user .msg-bubble { 
+  background: linear-gradient(135deg, rgba(0, 245, 160, 0.2), rgba(0, 217, 245, 0.2)); 
+  border-color: rgba(0, 245, 160, 0.35); 
+  color: #e2e8f0; 
+  border-bottom-right-radius: 2px; 
+}
+.msg-row.type-other .msg-bubble { 
+  background: var(--bg-card-solid); 
+  color: var(--text-main); 
+  border-color: var(--border-color); 
+  border-bottom-left-radius: 2px; 
 }
 
-/* CHAT INPUT AREA */
-.chat-footer { background: var(--bg-panel); border-top: 1px solid var(--border-color); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+/* MINIMAL QUANTUM MORPHING LOADER (CIRCLE -> SQUARE -> CIRCLE) */
+.ai-morphing-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+}
+.morphing-shape {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
+  box-shadow: 0 0 15px var(--accent-emerald-glow);
+  animation: morphCircleSquareCircle 1.6s infinite ease-in-out;
+}
+@keyframes morphCircleSquareCircle {
+  0% { border-radius: 50%; transform: rotate(0deg) scale(0.9); }
+  50% { border-radius: 4px; transform: rotate(180deg) scale(1.15); box-shadow: 0 0 20px var(--accent-cyan-glow); }
+  100% { border-radius: 50%; transform: rotate(360deg) scale(0.9); }
+}
 
-.image-preview-zone { display: none; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--border-color); }
-.image-preview-zone.active { display: flex; }
-.preview-thumb { width: 40px; height: 40px; border-radius: var(--rad); object-fit: cover; border: 1px solid var(--border-color); }
-.preview-remove { width: 24px; height: 24px; background: var(--accent-danger-bg); color: var(--accent-danger); display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--accent-danger);}
+.ai-image-result {
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: var(--rad-sm);
+  margin-top: 8px;
+  border: 1px solid var(--accent-emerald);
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 245, 160, 0.2);
+  display: block;
+}
 
-.chat-input-wrapper { display: flex; align-items: flex-end; gap: 8px; width: 100%; box-sizing: border-box;}
-.chat-field { flex: 1; min-width: 0; min-height: 44px; height: 44px; max-height: 120px; padding: 12px 16px; border-radius: var(--rad); background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.95rem; resize: none; overflow-y: auto; line-height: 20px; font-family: inherit;}
-.chat-field:focus { border-color: var(--text-sub); }
+.chat-footer { 
+  background: rgba(14, 18, 28, 0.95); 
+  border-top: 1px solid var(--border-color); 
+  padding: 12px 16px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px; 
+}
+.chat-input-wrapper { display: flex; align-items: flex-end; gap: 8px; width: 100%; }
+.chat-field { 
+  flex: 1; 
+  min-width: 0; 
+  min-height: 44px; 
+  height: 44px; 
+  max-height: 110px; 
+  padding: 11px 14px; 
+  border-radius: var(--rad-sm); 
+  background: var(--bg-input); 
+  border: 1px solid var(--border-color); 
+  color: var(--text-main); 
+  font-size: 0.9rem; 
+  resize: none; 
+  overflow-y: auto; 
+}
+.chat-field:focus { border-color: var(--accent-emerald); }
 
-.btn-photo { height: 44px; width: 44px; background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; cursor: pointer; font-weight: bold; font-size: 1.5rem; transition: 0.2s; flex-shrink: 0; line-height: 0;}
-.btn-photo:hover { background: var(--border-hover); border-color: var(--text-sub); }
+.btn-photo { 
+  height: 44px; 
+  width: 44px; 
+  border-radius: var(--rad-sm); 
+  background: var(--bg-input); 
+  color: var(--text-sub); 
+  border: 1px solid var(--border-color); 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  cursor: pointer; 
+  transition: 0.2s; 
+  flex-shrink: 0; 
+}
+.btn-photo:hover { background: rgba(255, 255, 255, 0.08); color: var(--text-main); }
 
-.chat-send { height: 44px; width: auto; padding: 0 16px; border-radius: var(--rad); background: var(--text-main); color: var(--bg-core); font-weight: bold; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s; border: 1px solid var(--text-main); flex-shrink: 0;}
-.chat-send:active { transform: scale(0.95); }
+/* SEND / STOP BUTTON WITH ROTATING SQUARE */
+.chat-send { 
+  height: 44px; 
+  padding: 0 18px; 
+  border-radius: var(--rad-sm); 
+  background: var(--accent-emerald); 
+  color: #032b1c; 
+  font-weight: 800; 
+  font-size: 0.85rem; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 6px; 
+  cursor: pointer; 
+  transition: all 0.2s ease; 
+  flex-shrink: 0; 
+}
+.chat-send.is-stopping {
+  background: var(--accent-danger);
+  color: #fff;
+  box-shadow: 0 0 18px rgba(255, 42, 95, 0.5);
+}
+.chat-send.is-stopping .stop-spin-square {
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 2px;
+  animation: spinSquareStop 1.8s linear infinite;
+}
+@keyframes spinSquareStop { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* LIGHTBOX */
+#image-lightbox {
+  position: fixed; 
+  inset: 0; 
+  background: rgba(0, 0, 0, 0.94); 
+  z-index: 300000; 
+  display: none; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 20px; 
+  cursor: zoom-out; 
+}
+#image-lightbox.active { display: flex; }
+#image-lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: var(--rad-md);
+  box-shadow: 0 0 30px rgba(0, 245, 160, 0.2);
+}
+
+/* Markdown blocks */
+.formatted-code-block { background: #040608; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; margin: 8px 0; overflow: hidden; }
+.code-block-header { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+.code-block-content { padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #6ee7b7; overflow-x: auto; white-space: pre-wrap; }
 
 /* AUTH BLOCKER */
-.auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(13, 15, 18, 0.95); text-align: center; padding: 32px; }
+.auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(6, 8, 14, 0.96); backdrop-filter: blur(16px); text-align: center; padding: 32px; }
 .auth-blocker.is-hidden { display: none; }
-.auth-title { font-size: 1.4rem; font-weight: bold; color: var(--text-main); text-transform: uppercase; }
-.auth-desc { color: var(--text-sub); font-size: 0.9rem; line-height: 1.5; }
-
-.btn-guest { padding: 12px 24px; border-radius: var(--rad); background: transparent; border: 1px solid var(--border-color); color: var(--text-main); font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; text-transform: uppercase;}
-.btn-guest:hover { border-color: var(--text-main); }
 </style>
 </head>
 <body>
 
-<div id="toast-banner">CẬP NHẬT MỚI TỪ MÁY CHỦ!</div>
-
-<div class="ban-alert-backdrop" id="ban-alert-modal">
-    <div class="ban-alert-box">
-        <div style="color:var(--accent-danger); font-size:1.3rem; font-weight:bold; margin-bottom:12px;" id="ban-alert-title">YOU GOT BANNED BY DEV</div>
-        <div style="color:var(--text-main); font-size:0.95rem; line-height:1.6; margin-bottom:20px;" id="ban-alert-reason">Lý do vi phạm...</div>
-        <button class="btn-primary" style="background:var(--accent-danger);" onclick="DOM.get('ban-alert-modal').classList.remove('active')">ĐÃ HIỂU</button>
+<div id="quantum-loader">
+  <div class="loader-spinner-wrap">
+    <div class="loader-ring-outer"></div>
+    <div class="loader-ring-mid"></div>
+    <div class="loader-ring-inner"></div>
+    <div class="loader-center-node">
+      <span class="loader-center-title">NOX</span>
+      <span class="loader-center-sub">V75 ULTRA</span>
     </div>
+  </div>
+  <div class="loader-status-text" id="loader-status-msg">INITIALIZING V75 QUANTUM CORE...</div>
 </div>
 
-<div class="confirm-backdrop" id="confirm-modal">
-    <div class="confirm-box">
-        <div class="confirm-msg" id="confirm-msg-text">BẠN CÓ CHẮC CHẮN MUỐN THỰC HIỆN HÀNH ĐỘNG NÀY?</div>
-        <div class="confirm-actions">
-            <button class="btn-ok" onclick="ConfirmUI.ok()">OK</button>
-            <button class="btn-no" onclick="ConfirmUI.no()">NO</button>
-        </div>
-    </div>
+<div id="image-lightbox" onclick="this.classList.remove('active')">
+  <img src="" id="lightbox-img" alt="Enlarged Preview">
+</div>
+
+<div id="toast-banner">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+  <span id="toast-msg-text">CẬP NHẬT MỚI TỪ MÁY CHỦ!</span>
 </div>
 
 <header class="top-nav">
   <button class="menu-trigger" onclick="toggleMenu()">
-    <span style="font-size:1.2rem; margin-top:-2px;">≡</span> MENU
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    <span id="txt-menu-btn">MENU</span>
+  </button>
+  
+  <button class="lang-switch-btn" onclick="LangEngine.toggle()">
+    <span id="txt-lang-badge">🇻🇳 VN</span>
   </button>
 </header>
 
 <nav class="drawer-menu" id="nav-drawer">
-  <div class="drawer-header">
-    <div class="drawer-title" id="drawer-system-title">BẢNG ĐIỀU KHIỂN</div>
-    <button class="drawer-close" onclick="toggleMenu()">✕</button>
-  </div>
-  
-  <div class="drawer-group">
-    <div class="drawer-label">AI & CHAT</div>
-    <button class="btn-sidebar" onclick="RestrictedAction.checkAndOpen('modal-noxgpt')">NOXGPT [AI]</button>
-    <button class="btn-sidebar" onclick="RestrictedAction.checkAndOpen('modal-noxchat')">GLOBAL CHAT</button>
-  </div>
-  
-  <div class="drawer-group" id="drawer-auth-group">
-    <div class="drawer-label">TÀI KHOẢN</div>
-    <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center; margin-bottom: 8px; overflow:hidden;"></div>
-    <button class="btn-sidebar" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
-    <button class="btn-sidebar" id="drawer-btn-logout" onclick="AuthEngine.triggerLogout()" style="display:none; color:var(--accent-danger); border-color:var(--accent-danger);">ĐĂNG XUẤT</button>
-  </div>
-
-  <div class="drawer-group" id="dev-menu-editor-group" style="display:none;">
-    <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ MENU</div>
-    <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">CHỈNH SỬA MENU</button>
-    <div class="drawer-group dev-menu-editor" id="dev-menu-editor-box" style="display:none; flex-direction:column; gap:8px;">
-        <input type="text" id="menu-item-name" placeholder="Tên mục (VD: Tool VIP)..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL... (https://...)" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-        <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:bold; cursor:pointer;">THÊM VÀO MENU</button>
+  <div class="fullscreen-menu-header">
+    <div class="fullscreen-title">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 17 22 12"></polyline></svg>
+      <span id="txt-drawer-title">BẢNG ĐIỀU KHIỂN HỆ THỐNG</span>
     </div>
+    <button class="fullscreen-close" onclick="toggleMenu()" title="Đóng menu (ESC)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
   </div>
 
-  <div class="drawer-group" id="dev-user-mgr-group" style="display:none;">
-    <div class="drawer-label" style="color:var(--dev-color)">[DEV] QUẢN LÝ USER</div>
-    <button class="btn-sidebar" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">QUẢN LÝ NGƯỜI DÙNG</button>
-  </div>
+  <div class="fullscreen-menu-grid">
+    <div class="menu-section-card">
+      <div class="section-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span id="txt-menu-ai-group">AI TRỢ LÝ & TRÒ CHUYỆN</span>
+      </div>
+      <button class="btn-menu-item" onclick="RestrictedAction.checkAndOpen('modal-noxgpt')">
+        <span style="display:flex; align-items:center; gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span class="rainbow-title-glow">NOXGPT 3.1 PRO [AI]</span>
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <button class="btn-menu-item" onclick="RestrictedAction.checkAndOpen('modal-noxchat')">
+        <span style="display:flex; align-items:center; gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          GLOBAL CHATROOM
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
 
-  <div class="drawer-group" style="margin-top: 5px;">
-    <div class="drawer-label">CỘNG ĐỒNG</div>
-    <div id="dynamic-menu-links" style="display:flex; flex-direction:column; gap:8px;"></div>
-    <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="btn-sidebar">NHÓM ZALO</a>
-    <a href="https://discord.gg/kRCKkw63s" target="_blank" class="btn-sidebar">DISCORD SERVER</a>
+    <div class="menu-section-card">
+      <div class="section-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span id="txt-menu-auth-group">TÀI KHOẢN HỆ THỐNG</span>
+      </div>
+      <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center; margin-bottom: 4px; overflow:hidden;"></div>
+      <button class="btn-menu-item" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">
+        <span style="display:flex; align-items:center; gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          <span id="txt-menu-guest-btn">ĐĂNG NHẬP KHÁCH</span>
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <button class="btn-menu-item" id="drawer-btn-logout" onclick="AuthEngine.triggerLogout()" style="display:none; color:var(--accent-danger); border-color:rgba(255, 42, 95, 0.3);">
+        <span style="display:flex; align-items:center; gap:10px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span id="txt-menu-logout-btn">ĐĂNG XUẤT</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="menu-section-card" id="dev-menu-editor-group" style="display:none;">
+      <div class="section-title" style="color:var(--dev-color);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--dev-color)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        [DEV] QUẢN TRỊ VIÊN
+      </div>
+      <button class="btn-menu-item" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">
+        <span>⚙ CHỈNH SỬA MENU</span>
+      </button>
+      <div id="dev-menu-editor-box" style="display:none; flex-direction:column; gap:8px;">
+          <input type="text" id="menu-item-name" placeholder="Tên mục..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+          <input type="text" id="menu-item-link" placeholder="Đường dẫn URL..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+          <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:800; cursor:pointer;">THÊM MỤC</button>
+      </div>
+      <button class="btn-menu-item" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">
+        <span>🛡 QUẢN LÝ NGƯỜI DÙNG</span>
+      </button>
+    </div>
+
+    <div class="menu-section-card">
+      <div class="section-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        <span id="txt-menu-community-group">KÊNH CỘNG ĐỒNG</span>
+      </div>
+      <div id="dynamic-menu-links" style="display:flex; flex-direction:column; gap:8px;"></div>
+      <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="btn-menu-item">
+        <span style="display:flex; align-items:center; gap:10px; color:#0068ff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          NHÓM ZALO NOX
+        </span>
+      </a>
+      <a href="https://discord.gg/kRCKkw63s" target="_blank" class="btn-menu-item">
+        <span style="display:flex; align-items:center; gap:10px; color:#5865F2;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          DISCORD SERVER
+        </span>
+      </a>
+    </div>
   </div>
 </nav>
-<div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
 
-<div class="card-wrapper">
-  <main class="main-card solid-panel" id="dashboard-card">
+<div class="live-hud-bar">
+  <div class="hud-item">
+    <div class="hud-status-dot"></div>
+    <span>NOX QUANTUM CORE</span>
+  </div>
+  <div class="hud-item">
+    <span>🌐 CLOCK:</span>
+    <span id="hud-live-clock" style="color:var(--accent-emerald); font-weight:700;">--:--:--</span>
+    <select class="timezone-select" id="hud-tz-select" onchange="TimeEngine.changeTz(this.value)">
+      <option value="Asia/Ho_Chi_Minh">VN (GMT+7)</option>
+      <option value="Asia/Tokyo">Tokyo (GMT+9)</option>
+      <option value="UTC">London (UTC)</option>
+      <option value="America/New_York">New York (EST)</option>
+    </select>
+  </div>
+  <div class="hud-item">
+    <span>PING: <span id="hud-ping">20ms</span></span>
+  </div>
+</div>
+
+<div class="hero-wrapper">
+  <main class="hero-card glass-panel" id="dashboard-card">
     <div class="title-wrap">
-      <span class="status-badge" id="ui-version-badge">Phiên bản V46</span>
-      <h1 class="title-main" id="ui-title-text">NOX-SKIBIDI WEB</h1>
+      <span class="status-badge" id="ui-version-badge">
+        <span class="pulse-glow-dot"></span> ⚡ 𝗣𝗛𝗜𝗘̂𝗡 𝗕𝗔̉𝗡 𝗩𝟳𝟱 𝗨𝗟𝗧𝗥𝗔 𝗣𝗥𝗢𝗠𝗔𝗫 ⚡
+      </span>
+      <h1 class="title-main" id="ui-title-text">⚡ 𝗡𝗢𝗫-𝗦𝗞𝗜𝗕𝗜𝗗𝗜 𝗪𝗘𝗕 ⚡</h1>
     </div>
 
-    <!-- THÔNG BÁO CÓ THỂ THU GỌN VÀ MỞ RỘNG -->
-    <div class="info-board" onclick="toggleText(this)">
-      <h3 id="ui-notice-title">THÔNG BÁO <span class="hint">Bấm để thu gọn/mở rộng</span></h3>
-      <div class="text-truncate" id="ui-notice-text">
-        CHÀO MỪNG ĐẾN VỚI NOX- SKIBIDI SHARE NƠI CUNG CẤP NHỮNG SCRIPT LINK APK IOS CHẤT LƯỢNG TỐT NHẤT - ĐẶT BIỆT LÀ KHÔNG CẦN VƯỢT LINK.<br><br>
-        > Hỗ trợ đăng xuất an toàn.<br>
-        > DEV có toàn quyền Sửa/Xóa Menu, Tiện ích, Ban/Mute User.<br>
-        > Giao diện tự động co giãn tương thích PC và điện thoại.
+    <div class="info-board">
+      <div class="info-board-head">
+        <div class="info-board-title" id="ui-notice-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span id="txt-notice-heading">◈ 𝗧𝗛𝗢̂𝗡𝗚 𝗕𝗔́𝗢 𝗛𝗘̣̂ 𝗧𝗛𝗢̂́𝗡𝗚 ◈</span>
+        </div>
+        <button class="btn-cyber-outline" id="btn-notice-toggle" onclick="NoticeTypewriter.toggle()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span id="txt-notice-btn">NỘI DUNG</span>
+        </button>
+      </div>
+      <div class="typewriter-zone" id="ui-notice-text-zone">
+        Nhấn vào nút <strong>NỘI DUNG</strong> phía trên để xem chi tiết thông báo...
       </div>
     </div>
 
-    <div class="dev-config-box" id="dev-config-panel" style="display:none;">
-        <div style="color:var(--dev-color); font-weight:bold;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
+    <div class="dev-config-box" id="dev-config-panel">
+        <div style="color:var(--dev-color); font-weight:800; font-size:0.85rem;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
-        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V46)...">
+        <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V75 PROMAX)...">
         <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
         <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:80px; resize:none;"></textarea>
         <button onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
     </div>
-
-    <button class="btn-primary" onclick="openUI('modal-archive')" style="margin-top:15px;">
-      TRUY CẬP KHO DỮ LIỆU
-    </button>
   </main>
 </div>
 
-<!-- MODAL KHO TIỆN ÍCH -->
-<div class="modal-backdrop" id="modal-archive" onclick="if(event.target===this)closeUI('modal-archive')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-heading">KHO TIỆN ÍCH</div>
-      <button class="modal-close" onclick="closeUI('modal-archive')">✕</button>
-    </div>
-
-    <div class="search-wrapper">
-        <input class="search-box" id="input-search" placeholder="Nhập từ khóa tìm kiếm..." oninput="UtilsEngine.execSearch(this.value)">
-    </div>
-
-    <!-- MỤC THÊM / SỬA TIỆN ÍCH DÀNH CHO DEV -->
-    <div class="dev-add-panel" id="dev-utils-panel">
-        <div style="color:var(--dev-color); font-weight:bold; margin-bottom:5px;" id="dev-panel-heading">[DEV] THÊM / SỬA TIỆN ÍCH</div>
-        <input type="hidden" id="dev-edit-key" value="">
-        <select id="dev-util-type">
-            <option value="pane-link">Link</option>
-            <option value="pane-script">Script</option>
-            <option value="pane-apk">APK</option>
-            <option value="pane-ios">iOS</option>
-        </select>
-        <input type="text" id="dev-util-title" placeholder="Tên tiện ích...">
-        <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..."></textarea>
-        <div style="display:flex; gap:10px;">
-            <button onclick="UtilsEngine.triggerSave()" style="flex:1;" id="dev-submit-btn">ĐĂNG TẢI</button>
-            <button onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; background:var(--border-color); color:var(--text-main); flex:1;">HỦY</button>
-        </div>
-    </div>
+<div class="feed-container">
+  <div class="feed-header-bar">
+    <input class="chat-field" id="input-search" placeholder="🔍 Tìm kiếm Script, Link Bypass, Tool APK..." oninput="UtilsEngine.execSearch(this.value)" style="width:100%;">
 
     <div class="tab-nav">
-      <button class="tab-btn is-active" onclick="UtilsEngine.switchPane('pane-link', this)">LINKS</button>
-      <button class="tab-btn" onclick="UtilsEngine.switchPane('pane-script', this)">SCRIPTS</button>
-      <button class="tab-btn" onclick="UtilsEngine.switchPane('pane-apk', this)">APKS</button>
-      <button class="tab-btn" onclick="UtilsEngine.switchPane('pane-ios', this)">IOS</button>
-    </div>
-
-    <div class="tab-body-wrapper">
-      <div id="pane-link" class="tab-pane is-active"></div>
-      <div id="pane-script" class="tab-pane"></div>
-      <div id="pane-apk" class="tab-pane"></div>
-      <div id="pane-ios" class="tab-pane"></div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL QUẢN LÝ USER -->
-<div class="modal-backdrop" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-heading">[DEV] QUẢN LÝ NGƯỜI DÙNG</div>
-      <button class="modal-close" onclick="closeUI('modal-user-mgr')">✕</button>
-    </div>
-    <div class="tab-body-wrapper" id="user-mgr-board" style="display:flex; flex-direction:column; gap:16px; padding: 20px;">
-        <div style="text-align:center; color:var(--text-sub);">Đang tải danh sách user...</div>
+      <button class="tab-btn is-active" onclick="UtilsEngine.switchTab('pane-link', this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+        <span id="tab-txt-links">LINKS BYPASS</span>
+      </button>
+      <button class="tab-btn" onclick="UtilsEngine.switchTab('pane-script', this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        <span id="tab-txt-scripts">SCRIPTS LUA</span>
+      </button>
+      <button class="tab-btn" onclick="UtilsEngine.switchTab('pane-apk', this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon></svg>
+        <span id="tab-txt-apk">FILE APK</span>
+      </button>
+      <button class="tab-btn" onclick="UtilsEngine.switchTab('pane-ios', this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle></svg>
+        <span id="tab-txt-ios">IPA / IOS</span>
+      </button>
     </div>
   </div>
+
+  <div class="dev-config-box" id="dev-utils-panel" style="margin-bottom:10px;">
+      <div style="color:var(--dev-color); font-weight:bold;" id="dev-panel-heading">[DEV] THÊM / SỬA TIỆN ÍCH</div>
+      <input type="hidden" id="dev-edit-key" value="">
+      <select id="dev-util-type" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+          <option value="pane-link">Link</option>
+          <option value="pane-script">Script</option>
+          <option value="pane-apk">APK</option>
+          <option value="pane-ios">iOS</option>
+      </select>
+      <input type="text" id="dev-util-title" placeholder="Tên tiện ích...">
+      <input type="text" id="dev-util-image" placeholder="URL hình ảnh Banner / Thumbnail...">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <label for="dev-file-img" class="btn-cyber-outline" style="cursor:pointer;">📁 TẢI ẢNH TỪ MÁY</label>
+        <input type="file" id="dev-file-img" accept="image/*" style="display:none;" onchange="UtilsEngine.handleDevImage(this)">
+        <span id="dev-file-name" style="font-size:0.8rem; color:var(--text-sub);">Chưa chọn ảnh</span>
+      </div>
+      <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..."></textarea>
+      <div style="display:flex; gap:10px;">
+          <button onclick="UtilsEngine.triggerSave()" style="flex:1; background:var(--dev-color); color:#fff; padding:12px; font-weight:bold;" id="dev-submit-btn">ĐĂNG TẢI</button>
+          <button onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; background:var(--border-color); color:var(--text-main); flex:1; padding:12px;">HỦY</button>
+      </div>
+  </div>
+
+  <div class="feed-items-grid" id="main-feed-container"></div>
 </div>
 
-<!-- MODAL NOXGPT -->
 <div class="modal-backdrop" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
-  <div class="modal-content">
+  <div class="modal-content rainbow-mode-active" id="gpt-modal-card">
     <div class="modal-header">
-      <div class="modal-heading">NOXGPT [AI]</div>
-      <button class="modal-close" onclick="closeUI('modal-noxgpt')">✕</button>
+      <div class="modal-heading">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <span id="gpt-active-model-title" class="rainbow-title-glow">NOXGPT 3.1 PRO [QUANTUM]</span>
+      </div>
+      
+      <div class="modal-actions">
+        <button class="modal-btn-icon" onclick="GptEngine.toggleDropdown()" title="Tùy chọn AI">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+        </button>
+
+        <button class="modal-btn-icon" onclick="closeUI('modal-noxgpt')" title="Đóng">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="gpt-dots-dropdown" id="gpt-options-dropdown">
+        <div class="dropdown-item active" id="dropdown-item-model31" onclick="GptEngine.switchModel('3.1')">
+          <span>⚡ Model: NOXGPT 3.1 Pro</span>
+          <span id="dropdown-m31-check">✓</span>
+        </div>
+        <div class="dropdown-item" id="dropdown-item-model25" onclick="GptEngine.switchModel('2.5')">
+          <span>◈ Model: NOXGPT 2.5 Ultra</span>
+          <span id="dropdown-m25-check"></span>
+        </div>
+        <div style="height:1px; background:var(--border-color); margin:4px 0;"></div>
+        <div class="dropdown-item active" id="dropdown-item-think" onclick="GptEngine.toggleDeepThink()">
+          <span>🧠 Suy nghĩ sâu (Deep Reasoning)</span>
+          <span id="dropdown-think-status">✓</span>
+        </div>
+        <div style="font-size:0.7rem; color:var(--accent-cyan); padding:4px 14px;" id="dropdown-quota-info">
+          Hạn mức 3.1 Pro: 40/40 lượt (5h reset)
+        </div>
+        <div class="dropdown-item" onclick="GptEngine.clearHistory()">
+          <span>🗑 Làm mới hội thoại</span>
+        </div>
+      </div>
     </div>
     
-    <div id="gpt-fallback-container" style="display:none; padding:16px; background:var(--bg-input); border:1px dashed var(--accent-danger); margin:16px; flex-direction:column; gap:8px;">
-        <div style="font-size:0.9rem; font-weight:700; color:var(--accent-danger);" id="gpt-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY</div>
-        <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key..." style="width:100%; padding:12px 14px; background:var(--bg-core); border:1px solid var(--border-color); color:var(--text-main);">
-        <button onclick="GptEngine.validateAndSaveConfig()" style="width:100%; padding:12px; background:var(--accent-danger); color:#fff; font-weight:600; cursor:pointer;">LƯU VÀ THỬ LẠI</button>
+    <div id="gpt-fallback-container" style="display:none; padding:14px; background:var(--bg-input); border:1px dashed var(--accent-danger); margin:12px; border-radius:var(--rad-sm);">
+        <div style="font-size:0.85rem; font-weight:800; color:var(--accent-danger); margin-bottom:8px;" id="gpt-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY</div>
+        <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key mới..." style="width:100%; padding:10px; background:var(--bg-core); border:1px solid var(--border-color); color:var(--text-main); margin-bottom:8px;">
+        <button onclick="GptEngine.validateAndSaveConfig()" style="width:100%; padding:10px; background:var(--accent-danger); color:#fff; font-weight:800; cursor:pointer;">LƯU VÀ THỬ LẠI</button>
     </div>
 
     <div class="chat-messages" id="noxgpt-board"></div>
     
     <div class="chat-footer">
-      <div class="image-preview-zone" id="gpt-preview-zone">
-        <img src="" id="gpt-preview-img" class="preview-thumb">
-        <div class="preview-remove" onclick="GptEngine.removeImage()">✕</div>
+      <div id="gpt-preview-zone" style="display:none; align-items:center; gap:10px;">
+        <img src="" id="gpt-preview-img" style="width:36px; height:36px; border-radius:6px; object-fit:cover;">
+        <div onclick="GptEngine.removeImage()" style="cursor:pointer; color:var(--accent-danger); font-weight:bold;">✕</div>
       </div>
       <div class="chat-input-wrapper">
-        <label for="gpt-img-upload" class="btn-photo">+</label>
+        <label for="gpt-img-upload" class="btn-photo" title="Tải ảnh">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        </label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
-        <textarea id="noxgpt-field" class="chat-field" placeholder="Nhập câu lệnh..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
-        <button class="chat-send" onclick="GptEngine.submit()">GỬI</button>
+        <textarea id="noxgpt-field" class="chat-field" placeholder="Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà', 'Make a home'..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
+        
+        <button class="chat-send" id="btn-gpt-send" onclick="GptEngine.handleSendOrStop()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- MODAL GLOBAL CHAT -->
 <div class="modal-backdrop" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
   <div class="modal-content" style="position: relative;">
     
     <div class="auth-blocker" id="auth-guard">
-      <h2 class="auth-title">GLOBAL CHAT</h2>
-      <p class="auth-desc">Đăng nhập để tham gia trò chuyện cùng cộng đồng.</p>
+      <h2 style="font-size:1.5rem; font-weight:800; color:var(--text-main);">GLOBAL CHATROOM</h2>
+      <p style="color:var(--text-sub); font-size:0.85rem;" id="txt-auth-desc">Đăng nhập để giao lưu cùng cộng đồng NOX.</p>
       <div id="google-login-mount"></div>
-      <div style="margin: 10px 0; color: var(--text-sub);">HOẶC</div>
-      <button class="btn-guest" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
+      <div style="margin: 4px 0; color: var(--text-muted); font-size:0.8rem;">— HOẶC —</div>
+      <button class="btn-primary" style="width:auto; padding:10px 22px;" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
     </div>
 
     <div class="modal-header">
-      <div class="modal-heading">Global Chat</div>
+      <div class="modal-heading">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        GLOBAL CHAT
+      </div>
       <div style="display:flex; gap:8px;">
-        <button class="btn-sidebar" style="height:36px; min-height:36px; padding:0 12px; width:auto;" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">Kho Script</button>
-        <button class="modal-close" style="width:36px; height:36px;" onclick="closeUI('modal-noxchat')">✕</button>
+        <button class="btn-cyber-outline" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">📦 KHO SCRIPT</button>
+        <button class="modal-btn-icon" onclick="closeUI('modal-noxchat')">✕</button>
       </div>
     </div>
     
     <div class="chat-messages" id="noxchat-board">
       <div class="msg-row type-other">
         <div class="msg-meta"><div class="msg-name sys">Hệ Thống</div></div>
-        <div class="msg-bubble" style="background: var(--bg-input);">
-          Đã kết nối Firebase. Đợi xác thực...
-        </div>
+        <div class="msg-bubble">⚡ Đã kết nối Firebase Realtime Database thành công.</div>
       </div>
     </div>
     
     <div class="chat-footer">
-      <div class="image-preview-zone" id="chat-preview-zone">
-        <img src="" id="chat-preview-img" class="preview-thumb">
-        <div class="preview-remove" onclick="ChatEngine.removeImage()">✕</div>
+      <div id="chat-preview-zone" style="display:none; align-items:center; gap:10px;">
+        <img src="" id="chat-preview-img" style="width:36px; height:36px; border-radius:6px; object-fit:cover;">
+        <div onclick="ChatEngine.removeImage()" style="cursor:pointer; color:var(--accent-danger); font-weight:bold;">✕</div>
       </div>
       <div class="chat-input-wrapper">
-        <button class="btn-photo" title="Chia sẻ Script" onclick="openUI('modal-script-share')">&lt;/&gt;</button>
-        <label for="chat-img-upload" class="btn-photo" title="Gửi ảnh">+</label>
+        <button class="btn-photo" title="Chia sẻ Script" onclick="openUI('modal-script-share')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        </button>
+        <label for="chat-img-upload" class="btn-photo" title="Gửi ảnh">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        </label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
         <textarea id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); ChatEngine.sendMsg(); }"></textarea>
-        <button class="chat-send" onclick="ChatEngine.sendMsg()">GỬI</button>
+        <button class="chat-send" onclick="ChatEngine.sendMsg()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -513,13 +1351,14 @@ body::after {
 <div class="modal-backdrop" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
   <div class="modal-content" style="max-width: 500px; height: auto;">
     <div class="modal-header">
-      <div class="modal-heading">Chia sẻ Script</div>
-      <button class="modal-close" onclick="closeUI('modal-script-share')">✕</button>
+      <div class="modal-heading">Chia sẻ Script Cộng Đồng</div>
+      <button class="modal-btn-icon" onclick="closeUI('modal-script-share')">✕</button>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px; padding:20px;">
-      <input type="text" id="share-title" placeholder="Tên Script (VD: Hub VIP)" style="padding:12px 16px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); font-size:0.95rem;">
-      <textarea id="share-code" placeholder="Dán mã Script vào đây..." style="height:150px; resize:none; font-family:monospace; padding:12px 16px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
-      <button class="btn-primary" onclick="ChatEngine.sendScript()">ĐĂNG LÊN KHO</button>
+      <input type="text" id="share-title" placeholder="Tên Script (VD: Speed Hub X)..." style="padding:12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+      <input type="text" id="share-image" placeholder="URL hình ảnh Banner (tùy chọn)..." style="padding:12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+      <textarea id="share-code" placeholder="Dán mã Script Lua vào đây..." style="height:140px; resize:none; font-family:'JetBrains Mono', monospace; font-size:0.85rem; padding:12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
+      <button class="btn-primary" onclick="ChatEngine.sendScript()">ĐĂNG LÊN KHO SCRIPT</button>
     </div>
   </div>
 </div>
@@ -527,82 +1366,350 @@ body::after {
 <div class="modal-backdrop" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
   <div class="modal-content">
     <div class="modal-header">
-      <div class="modal-heading">Kho Script Cộng Đồng</div>
-      <button class="modal-close" onclick="closeUI('modal-script-vault')">✕</button>
+      <div class="modal-heading">Kho Script Đóng Góp</div>
+      <button class="modal-btn-icon" onclick="closeUI('modal-script-vault')">✕</button>
     </div>
-    <div class="tab-body-wrapper" id="vault-board" style="display:flex; flex-direction:column; gap:16px; padding:20px; flex:1; overflow-y:auto; background:var(--bg-core);">
+    <div class="chat-messages" id="vault-board"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-heading" style="color:var(--dev-color);">[DEV] QUẢN LÝ NGƯỜI DÙNG</div>
+      <button class="modal-btn-icon" onclick="closeUI('modal-user-mgr')">✕</button>
+    </div>
+    <div class="chat-messages" id="user-mgr-board">
+        <div style="text-align:center; color:var(--text-sub); padding:20px;">Đang tải danh sách...</div>
     </div>
   </div>
 </div>
 
-<!-- EDIT MESSAGE MODAL -->
-<div class="modal-backdrop" id="modal-edit-msg" onclick="if(event.target===this)closeUI('modal-edit-msg')">
-  <div class="modal-content" style="max-width: 450px; height: auto;">
-    <div class="modal-header">
-      <div class="modal-heading">CHỈNH SỬA TIN NHẮN</div>
-      <button class="modal-close" onclick="closeUI('modal-edit-msg')">✕</button>
+<div class="modal-backdrop" id="confirm-modal">
+    <div class="data-box" style="max-width:400px; width:100%; text-align:center; padding:24px; background:var(--bg-card-solid);">
+        <div style="color:var(--accent-danger); font-weight:800; margin-bottom:20px; font-size:1rem;" id="confirm-msg-text">BẠN CÓ CHẮC CHẮN?</div>
+        <div style="display:flex; gap:12px;">
+            <button class="btn-primary" style="background:var(--accent-danger); color:#fff;" onclick="ConfirmUI.ok()">XÁC NHẬN</button>
+            <button class="btn-cyber-outline" style="flex:1;" onclick="ConfirmUI.no()">HỦY</button>
+        </div>
     </div>
-    <div style="display:flex; flex-direction:column; gap:14px; padding:20px;">
-      <textarea id="edit-msg-textarea" style="height:100px; resize:none; padding:12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
-      <button class="btn-primary" onclick="ChatEngine.saveEditedMsg()">LƯU THAY ĐỔI</button>
-    </div>
-  </div>
 </div>
 
 <script>
 "use strict";
 
-const DOM = { get: id => document.getElementById(id), queryAll: sel => document.querySelectorAll(sel) };
+var DOM = {
+    get: function(id) { return document.getElementById(id); },
+    queryAll: function(sel) { return document.querySelectorAll(sel); }
+};
 
 function autoResizeTextarea(el) {
+    if(!el) return;
     el.style.height = '44px';
-    let newHeight = el.scrollHeight;
-    if (newHeight > 120) newHeight = 120;
+    var newHeight = el.scrollHeight;
+    if (newHeight > 110) newHeight = 110;
     el.style.height = newHeight + 'px';
 }
 
-const ADMIN_EMAIL = "hminhgalaxy@gmail.com";
-let IS_ADMIN = false;
+function openLightbox(src) {
+    var box = DOM.get('image-lightbox');
+    var img = DOM.get('lightbox-img');
+    if(!box || !img || !src) return;
+    img.src = src;
+    box.classList.add('active');
+}
 
-const ConfirmUI = {
+var ADMIN_EMAIL = "hminhgalaxy@gmail.com";
+var IS_ADMIN = false;
+
+/* ==========================================================================
+   AI 3.1 PRO QUOTA MANAGER (40 REQUESTS / 5 HOURS RESET)
+   ========================================================================== */
+var AIQuota = {
+    MAX: 40,
+    INTERVAL: 5 * 60 * 60 * 1000,
+    getData: function() {
+        var raw = localStorage.getItem('nox_ai_31_quota_data');
+        var data = raw ? JSON.parse(raw) : null;
+        var now = Date.now();
+        if (!data || !data.timestamp || (now - data.timestamp) > this.INTERVAL) {
+            data = { count: this.MAX, timestamp: now };
+            localStorage.setItem('nox_ai_31_quota_data', JSON.stringify(data));
+        }
+        return data;
+    },
+    useQuota: function() {
+        var data = this.getData();
+        if (data.count > 0) {
+            data.count--;
+            localStorage.setItem('nox_ai_31_quota_data', JSON.stringify(data));
+            this.updateUI();
+            return true;
+        }
+        return false;
+    },
+    getRemainingTimeStr: function() {
+        var data = this.getData();
+        var diff = this.INTERVAL - (Date.now() - data.timestamp);
+        if (diff < 0) return "0h";
+        var hours = Math.floor(diff / (1000 * 60 * 60));
+        var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        return hours + "h " + mins + "p";
+    },
+    updateUI: function() {
+        var data = this.getData();
+        var info = DOM.get('dropdown-quota-info');
+        if (info) {
+            info.innerText = "Hạn mức 3.1 Pro: " + data.count + "/" + this.MAX + " lượt (" + this.getRemainingTimeStr() + ")";
+        }
+    }
+};
+
+/* ==========================================================================
+   DUAL LANGUAGE ENGINE (VN / EN)
+   ========================================================================== */
+var LangEngine = {
+    currentLang: "vi",
+    dict: {
+        vi: {
+            badge: "🇻🇳 VN",
+            menuBtn: "MENU",
+            drawerTitle: "BẢNG ĐIỀU KHIỂN HỆ THỐNG",
+            aiGroup: "AI TRỢ LÝ & TRÒ CHUYỆN",
+            authGroup: "TÀI KHOẢN HỆ THỐNG",
+            guestBtn: "ĐĂNG NHẬP KHÁCH",
+            logoutBtn: "ĐĂNG XUẤT",
+            communityGroup: "KÊNH CỘNG ĐỒNG",
+            noticeHeading: "◈ 𝗧𝗛𝗢̂𝗡𝗚 𝗕𝗔́𝗢 𝗛𝗘̣̂ 𝗧𝗛𝗢̂́𝗡𝗚 ◈",
+            noticeBtn: "NỘI DUNG",
+            tabLinks: "LINKS BYPASS",
+            tabScripts: "SCRIPTS LUA",
+            tabApk: "FILE APK",
+            tabIos: "IPA / IOS",
+            searchPlace: "🔍 Tìm kiếm Script, Link Bypass, Tool APK...",
+            aiPromptPlace: "Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà', 'Make a home'..."
+        },
+        en: {
+            badge: "🇬🇧 EN",
+            menuBtn: "MENU",
+            drawerTitle: "SYSTEM COMMAND DECK",
+            aiGroup: "AI ASSISTANTS & CHAT",
+            authGroup: "SYSTEM ACCOUNT",
+            guestBtn: "GUEST LOGIN",
+            logoutBtn: "LOGOUT",
+            communityGroup: "COMMUNITY CHANNELS",
+            noticeHeading: "◈ SYSTEM ANNOUNCEMENT ◈",
+            noticeBtn: "CONTENT",
+            tabLinks: "BYPASS LINKS",
+            tabScripts: "LUA SCRIPTS",
+            tabApk: "APK FILES",
+            tabIos: "IPA / IOS",
+            searchPlace: "🔍 Search Scripts, Bypass Links, APK Tools...",
+            aiPromptPlace: "Ask AI, write Script or 'Make a modern home'..."
+        }
+    },
+    init: function() {
+        var saved = localStorage.getItem('nox_lang');
+        if(saved && (saved === 'vi' || saved === 'en')) {
+            this.currentLang = saved;
+        }
+        this.apply();
+    },
+    toggle: function() {
+        this.currentLang = (this.currentLang === 'vi') ? 'en' : 'vi';
+        localStorage.setItem('nox_lang', this.currentLang);
+        this.apply();
+        showToast(this.currentLang === 'vi' ? "Đã chuyển sang Tiếng Việt" : "Switched to English");
+    },
+    apply: function() {
+        var d = this.dict[this.currentLang];
+        DOM.get('txt-lang-badge').innerText = d.badge;
+        DOM.get('txt-menu-btn').innerText = d.menuBtn;
+        DOM.get('txt-drawer-title').innerText = d.drawerTitle;
+        DOM.get('txt-menu-ai-group').innerText = d.aiGroup;
+        DOM.get('txt-menu-auth-group').innerText = d.authGroup;
+        DOM.get('txt-menu-guest-btn').innerText = d.guestBtn;
+        DOM.get('txt-menu-logout-btn').innerText = d.logoutBtn;
+        DOM.get('txt-menu-community-group').innerText = d.communityGroup;
+        DOM.get('txt-notice-heading').innerText = d.noticeHeading;
+        DOM.get('txt-notice-btn').innerText = d.noticeBtn;
+        DOM.get('tab-txt-links').innerText = d.tabLinks;
+        DOM.get('tab-txt-scripts').innerText = d.tabScripts;
+        DOM.get('tab-txt-apk').innerText = d.tabApk;
+        DOM.get('tab-txt-ios').innerText = d.tabIos;
+        DOM.get('input-search').placeholder = d.searchPlace;
+        DOM.get('noxgpt-field').placeholder = d.aiPromptPlace;
+    }
+};
+
+/* ==========================================================================
+   TIME ENGINE (REALTIME MULTI-TIMEZONE CLOCK)
+   ========================================================================== */
+var TimeEngine = {
+    currentTz: "Asia/Ho_Chi_Minh",
+    init: function() {
+        this.updateClock();
+        setInterval(function() { TimeEngine.updateClock(); }, 1000);
+    },
+    changeTz: function(tz) {
+        this.currentTz = tz;
+        this.updateClock();
+    },
+    updateClock: function() {
+        var clockEl = DOM.get('hud-live-clock');
+        if(!clockEl) return;
+        try {
+            var now = new Date();
+            var timeStr = now.toLocaleTimeString('vi-VN', { timeZone: this.currentTz, hour12: false });
+            clockEl.innerText = timeStr;
+        } catch(e) {
+            clockEl.innerText = new Date().toLocaleTimeString();
+        }
+    }
+};
+
+/* ==========================================================================
+   CIRCULAR LOADING CONTROLLER
+   ========================================================================== */
+var LoaderEngine = {
+    init: function() {
+        setTimeout(function() {
+            var loader = DOM.get('quantum-loader');
+            if(loader) {
+                loader.classList.add('fade-out');
+                setTimeout(function() { loader.style.display = 'none'; }, 700);
+            }
+        }, 1800);
+    }
+};
+
+/* ==========================================================================
+   NOTICE TYPEWRITER ENGINE (KÝ TỰ ĐẶC BIỆT & V75 PROMAX)
+   ========================================================================== */
+var NoticeTypewriter = {
+    fullTextVN: "⚡ 𝗡𝗢𝗫 𝗪𝗘𝗕 𝗨𝗟𝗧𝗥𝗔 𝗣𝗥𝗢𝗠𝗔𝗫 𝗩𝟳𝟱 ⚡\n◈ Nơi cung cấp Script Lua Roblox, Link Bypass, Tool APK & iOS chuẩn không quảng cáo.\n◈ NOXGPT 3.1 PRO: Đỉnh cao trí tuệ AI thế hệ mới (ngang tầm Claude Opus 4), suy nghĩ sâu, tạo ảnh 8K chuẩn xác.\n◈ Hạn mức 40 lượt cho 3.1 Pro (tự động reset sau 5 giờ).",
+    fullTextEN: "⚡ 𝗡𝗢𝗫 𝗪𝗘𝗕 𝗨𝗟𝗧𝗥𝗔 𝗣𝗥𝗢𝗠𝗔𝗫 𝗩𝟳𝟱 ⚡\n◈ The ultimate hub for Roblox Lua Scripts, Bypass Tools, APK & IPA without ads.\n◈ NOXGPT 3.1 PRO: Flagship quantum AI (Opus 4 tier), deep analytical reasoning & accurate 8K image generator.\n◈ 40 free queries quota for 3.1 Pro (resets every 5 hours).",
+    isExpanded: false,
+    timer: null,
+
+    toggle: function() {
+        var zone = DOM.get('ui-notice-text-zone');
+        var btn = DOM.get('btn-notice-toggle');
+        if(!zone || !btn) return;
+
+        var text = (LangEngine.currentLang === 'vi') ? this.fullTextVN : this.fullTextEN;
+
+        if (!this.isExpanded) {
+            this.isExpanded = true;
+            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> ' + (LangEngine.currentLang==='vi'?'THU GỌN':'COLLAPSE');
+            this.typeWrite(text, zone);
+        } else {
+            this.isExpanded = false;
+            if(this.timer) clearInterval(this.timer);
+            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> ' + (LangEngine.currentLang==='vi'?'NỘI DUNG':'CONTENT');
+            zone.innerHTML = (LangEngine.currentLang==='vi'?'Nhấn vào nút <strong>NỘI DUNG</strong> phía trên để xem chi tiết...':'Click <strong>CONTENT</strong> button above to view announcement...');
+        }
+    },
+
+    typeWrite: function(text, container) {
+        if(this.timer) clearInterval(this.timer);
+        container.innerHTML = '';
+        var i = 0;
+        var cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        container.appendChild(cursor);
+
+        this.timer = setInterval(function() {
+            if (i < text.length) {
+                var char = text.charAt(i);
+                if (char === '\n') {
+                    cursor.insertAdjacentHTML('beforebegin', '<br>');
+                } else {
+                    cursor.insertAdjacentText('beforebegin', char);
+                }
+                i++;
+            } else {
+                clearInterval(NoticeTypewriter.timer);
+                cursor.remove();
+            }
+        }, 16);
+    }
+};
+
+/* ==========================================================================
+   UI CONTROLS & CONFIRMATION
+   ========================================================================== */
+var ConfirmUI = {
     onConfirm: null,
     show: function(msg, callback) {
-        DOM.get('confirm-msg-text').innerHTML = msg;
+        var txt = DOM.get('confirm-msg-text');
+        if(txt) txt.innerHTML = msg;
         this.onConfirm = callback;
-        DOM.get('confirm-modal').classList.add('active');
+        var m = DOM.get('confirm-modal');
+        if(m) m.classList.add('is-active');
     },
     ok: function() {
-        DOM.get('confirm-modal').classList.remove('active');
+        var m = DOM.get('confirm-modal');
+        if(m) m.classList.remove('is-active');
         if(this.onConfirm) this.onConfirm();
     },
-    no: function() { DOM.get('confirm-modal').classList.remove('active'); }
+    no: function() { 
+        var m = DOM.get('confirm-modal');
+        if(m) m.classList.remove('is-active'); 
+    }
 };
 
 function showToast(msg) {
-    const t = DOM.get('toast-banner');
-    if(!t) return;
-    t.innerText = msg;
+    var t = DOM.get('toast-banner');
+    var txt = DOM.get('toast-msg-text');
+    if(!t || !txt) return;
+    txt.innerText = msg;
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 5000);
+    setTimeout(function() { t.classList.remove('show'); }, 4000);
 }
 
-const RestrictedAction = {
+function toggleMenu() { 
+    var d = DOM.get('nav-drawer');
+    if(d) d.classList.toggle('is-open');
+    if(!ChatEngine.userProfile && DOM.get('drawer-google-login-wrap') && !DOM.get('drawer-google-login-wrap').hasChildNodes()) {
+         AuthEngine.renderGoogleButtons();
+    }
+}
+function openUI(id) { 
+    var e = DOM.get(id); if(e) e.classList.add('is-active'); 
+    var d = DOM.get('nav-drawer'); if(d) d.classList.remove('is-open');
+}
+function closeUI(id) { 
+    var e = DOM.get(id); if(e) e.classList.remove('is-active'); 
+}
+
+window.addEventListener('keydown', function(e) {
+    if(e.key === 'Escape') {
+        DOM.queryAll('.modal-backdrop.is-active').forEach(function(m) { m.classList.remove('is-active'); });
+        var d = DOM.get('nav-drawer');
+        if(d && d.classList.contains('is-open')) d.classList.remove('is-open');
+        var lb = DOM.get('image-lightbox');
+        if(lb && lb.classList.contains('active')) lb.classList.remove('active');
+        var gptDrop = DOM.get('gpt-options-dropdown');
+        if(gptDrop && gptDrop.classList.contains('active')) gptDrop.classList.remove('active');
+    }
+});
+
+var RestrictedAction = {
     checkAndOpen: function(modalId) {
-        const profile = ChatEngine.userProfile;
+        var profile = ChatEngine.userProfile;
         if(profile && profile.email && profile.email !== 'guest') {
-            const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
+            var safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
             try {
-                firebase.database().ref('nox_users_control/' + safeKey).once('value').then(snapshot => {
-                    const data = snapshot.val();
+                firebase.database().ref('nox_users_control/' + safeKey).once('value').then(function(snapshot) {
+                    var data = snapshot.val();
                     if(data && data.isBanned) {
-                        DOM.get('ban-alert-title').innerText = "YOU GOT BANNED BY DEV";
-                        DOM.get('ban-alert-reason').innerText = `Lý do vi phạm: ${data.banReason || "Không có lý do"}`;
-                        DOM.get('ban-alert-modal').classList.add('active');
+                        alert('BẠN ĐÃ BỊ BAN! Lý do: ' + (data.banReason || 'Vi phạm quy định'));
                         return;
                     }
                     if(modalId === 'modal-noxchat' && !ChatEngine.userProfile) { AuthEngine.renderGoogleButtons(); }
                     openUI(modalId);
-                }).catch(e => openUI(modalId));
+                }).catch(function() { openUI(modalId); });
             } catch(e) { openUI(modalId); }
         } else {
             if(modalId === 'modal-noxchat' && !ChatEngine.userProfile) { AuthEngine.renderGoogleButtons(); }
@@ -612,213 +1719,178 @@ const RestrictedAction = {
 };
 
 /* ==========================================================================
-   UI CONTROLS
-   ========================================================================== */
-function toggleMenu() { 
-    const d = DOM.get('nav-drawer'); const o = DOM.get('menu-overlay');
-    if(d) { d.classList.toggle('is-open'); if(o) o.classList.toggle('is-active'); }
-    if(!ChatEngine.userProfile && DOM.get('drawer-google-login-wrap') && !DOM.get('drawer-google-login-wrap').hasChildNodes()) {
-         AuthEngine.renderGoogleButtons();
-    }
-}
-function openUI(id) { 
-    const e = DOM.get(id); if(e) e.classList.add('is-active'); 
-    const d = DOM.get('nav-drawer'); if(d) d.classList.remove('is-open');
-    const o = DOM.get('menu-overlay'); if(o) o.classList.remove('is-active');
-}
-function closeUI(id) { const e = DOM.get(id); if(e) e.classList.remove('is-active'); }
-
-function toggleText(element) {
-    const textNode = element.querySelector('.text-truncate');
-    if(textNode) textNode.classList.toggle('expanded');
-}
-
-/* ==========================================================================
    AUTH ENGINE
    ========================================================================== */
-const AuthEngine = {
+var AuthEngine = {
     initGoogleIdentity: function() {
         if(typeof google === 'undefined' || !google.accounts) { 
-            setTimeout(() => AuthEngine.initGoogleIdentity(), 500); 
+            setTimeout(function() { AuthEngine.initGoogleIdentity(); }, 500); 
             return; 
         }
-        google.accounts.id.initialize({ 
-            client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", 
-            callback: this.onGoogleLoginSuccess.bind(this) 
-        });
-        this.renderGoogleButtons();
+        try {
+            google.accounts.id.initialize({ 
+                client_id: "766095728968-dbm8rs6f8lt2tm23j0etvb7bukqord8l.apps.googleusercontent.com", 
+                callback: this.onGoogleLoginSuccess.bind(this) 
+            });
+            this.renderGoogleButtons();
+        } catch(e) { console.warn("Google Auth Init:", e); }
     },
     renderGoogleButtons: function() {
         if(typeof google === 'undefined' || !google.accounts) return;
-        const btnWrap = DOM.get('google-login-mount'); 
+        var btnWrap = DOM.get('google-login-mount'); 
         if(btnWrap && !btnWrap.hasChildNodes()) {
             google.accounts.id.renderButton(btnWrap, { theme: "filled_black", size: "large", shape: "rectangular", width: 250 });
         }
-        const menuWrap = DOM.get('drawer-google-login-wrap');
+        var menuWrap = DOM.get('drawer-google-login-wrap');
         if(menuWrap && !menuWrap.hasChildNodes()) {
             google.accounts.id.renderButton(menuWrap, { theme: "outline", size: "medium", shape: "pill", width: 220 });
         }
     },
     onGoogleLoginSuccess: function(response) {
-        const payload = this.decodeJwt(response.credential);
-        const profile = { name: payload.name || "User", email: payload.email, role: (payload.email === ADMIN_EMAIL) ? 'DEV' : 'NOX' };
+        var payload = this.decodeJwt(response.credential);
+        var profile = { name: payload.name || "User", email: payload.email, role: (payload.email === ADMIN_EMAIL) ? 'DEV' : 'NOX' };
         this.login(profile);
-        ChatEngine.appendMsg('SYSTEM', `Xác thực thành công. Role: ${profile.role}`, true); 
+        ChatEngine.appendMsg('SYSTEM', 'Xác thực thành công. Role: ' + profile.role, true); 
         ChatEngine.listenForMessages();
     },
     decodeJwt: function(token) {
-        try { const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))); } catch(e) { return {}; }
+        try { var base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join(''))); } catch(e) { return {}; }
     },
     login: function(profile) {
         if(profile.email === ADMIN_EMAIL) { 
             IS_ADMIN = true; 
-            const uPanel = DOM.get('dev-utils-panel'); if(uPanel) uPanel.style.display = 'flex'; 
-            const cPanel = DOM.get('dev-config-panel'); if(cPanel) cPanel.style.display = 'flex'; 
-            const mGroup = DOM.get('dev-menu-editor-group'); if(mGroup) mGroup.style.display = 'flex';
-            const uGroup = DOM.get('dev-user-mgr-group'); if(uGroup) uGroup.style.display = 'flex';
+            var uPanel = DOM.get('dev-utils-panel'); if(uPanel) uPanel.style.display = 'flex'; 
+            var cPanel = DOM.get('dev-config-panel'); if(cPanel) cPanel.style.display = 'flex'; 
+            var mGroup = DOM.get('dev-menu-editor-group'); if(mGroup) mGroup.style.display = 'flex';
         }
         ChatEngine.userProfile = profile;
         localStorage.setItem('nox_user_profile', JSON.stringify(profile));
         
         try {
             if(profile.email && profile.email !== 'guest') {
-                const safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
+                var safeKey = profile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
                 firebase.database().ref('nox_users_registry/' + safeKey).set({
                     name: profile.name, email: profile.email, role: profile.role, lastLogin: firebase.database.ServerValue.TIMESTAMP
                 });
             }
         } catch(e) { console.warn("Firebase offline"); }
 
-        const authGuard = DOM.get('auth-guard'); if(authGuard) authGuard.style.display = 'none';
-        this.updateAuthUI(true, profile);
-        // Tải lại tiện ích để cập nhật quyền hiển thị nút Sửa/Xóa của DEV
+        var authGuard = DOM.get('auth-guard');
+        if(authGuard) authGuard.style.display = 'none';
+        this.updateAuthUI(true);
         UtilsEngine.loadDynamicUtils();
     },
     guestLogin: function() {
-        const randId = Math.floor(Math.random() * 9999);
-        const guestProfile = { name: "Guest_" + randId, email: "guest_" + randId + "@nox.local", role: 'GUEST' };
+        var randId = Math.floor(Math.random() * 9999);
+        var guestProfile = { name: "Guest_" + randId, email: "guest_" + randId + "@nox.local", role: 'GUEST' };
         this.login(guestProfile);
-        ChatEngine.appendMsg('SYSTEM', `Đăng nhập khách: ${guestProfile.name}`, true);
+        ChatEngine.appendMsg('SYSTEM', 'Đăng nhập khách: ' + guestProfile.name, true);
         ChatEngine.listenForMessages();
     },
     triggerLogout: function() {
-        ConfirmUI.show("BẠN CÓ CHẮC CHẮN MUỐN ĐĂNG XUẤT KHỎI HỆ THỐNG?", () => { this.logout(); });
+        ConfirmUI.show("BẠN CÓ CHẮC CHẮN MUỐN ĐĂNG XUẤT?", function() {
+            localStorage.removeItem('nox_user_profile');
+            window.location.reload();
+        });
     },
-    logout: function() {
-        localStorage.removeItem('nox_user_profile');
-        window.location.reload();
-    },
-    updateAuthUI: function(isLoggedIn, profile) {
-        const btnGuest = DOM.get('drawer-btn-guest');
-        const googleWrap = DOM.get('drawer-google-login-wrap');
-        const btnLogout = DOM.get('drawer-btn-logout');
-        
-        if(isLoggedIn) {
-            if(btnGuest) btnGuest.style.display = 'none';
-            if(googleWrap) googleWrap.style.display = 'none';
-            if(btnLogout) btnLogout.style.display = 'flex';
-        } else {
-            if(btnGuest) btnGuest.style.display = 'flex';
-            if(googleWrap) googleWrap.style.display = 'flex';
-            if(btnLogout) btnLogout.style.display = 'none';
-        }
+    updateAuthUI: function(isLoggedIn) {
+        var btnGuest = DOM.get('drawer-btn-guest');
+        var googleWrap = DOM.get('drawer-google-login-wrap');
+        var btnLogout = DOM.get('drawer-btn-logout');
+        if(btnGuest) btnGuest.style.display = isLoggedIn ? 'none' : 'flex';
+        if(googleWrap) googleWrap.style.display = isLoggedIn ? 'none' : 'flex';
+        if(btnLogout) btnLogout.style.display = isLoggedIn ? 'flex' : 'none';
     }
 };
 
 /* ==========================================================================
    IMAGE PROCESSOR
    ========================================================================== */
-const ImageProcessor = {
+var ImageProcessor = {
   currentGptImage: null, currentChatImage: null,
   handleSelect: function(input, target) {
     if(!input.files || !input.files[0]) return;
-    const file = input.files[0]; const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        const MAX_W = 500; const MAX_H = 500; let w = img.width; let h = img.height;
+    var file = input.files[0]; var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        var MAX_W = 500; var MAX_H = 500; var w = img.width; var h = img.height;
         if (w > h) { if (w > MAX_W) { h *= MAX_W / w; w = MAX_W; } } else { if (h > MAX_H) { w *= MAX_H / h; h = MAX_H; } }
-        const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
-        const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
-        const base64Str = canvas.toDataURL('image/jpeg', 0.5);
+        var canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+        var ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
+        var base64Str = canvas.toDataURL('image/jpeg', 0.6);
         if(target === 'gpt') {
-          this.currentGptImage = base64Str;
-          DOM.get('gpt-preview-img').src = base64Str; DOM.get('gpt-preview-zone').classList.add('active');
+          ImageProcessor.currentGptImage = base64Str;
+          var pImg = DOM.get('gpt-preview-img'); if(pImg) pImg.src = base64Str;
+          var pZone = DOM.get('gpt-preview-zone'); if(pZone) pZone.style.display = 'flex';
         } else {
-          this.currentChatImage = base64Str;
-          DOM.get('chat-preview-img').src = base64Str; DOM.get('chat-preview-zone').classList.add('active');
+          ImageProcessor.currentChatImage = base64Str;
+          var cImg = DOM.get('chat-preview-img'); if(cImg) cImg.src = base64Str;
+          var cZone = DOM.get('chat-preview-zone'); if(cZone) cZone.style.display = 'flex';
         }
       };
       img.src = e.target.result;
     };
-    reader.readAsDataURL(file); input.value = ""; 
+    reader.readAsDataURL(file);
+    input.value = "";
   }
 };
 
 /* ==========================================================================
-   CONFIG ENGINE
+   CONFIG & MENU EDITORS
    ========================================================================== */
-const ConfigEngine = {
+var ConfigEngine = {
     ref: null,
     init: function() {
         this.ref = firebase.database().ref('nox_site_config');
-        this.ref.on('value', snapshot => {
-            const data = snapshot.val();
+        this.ref.on('value', function(snapshot) {
+            var data = snapshot.val();
             if(data) {
                 if(data.title && DOM.get('ui-title-text')) DOM.get('ui-title-text').innerText = data.title;
-                if(data.version && DOM.get('ui-version-badge')) DOM.get('ui-version-badge').innerText = `Phiên bản ${data.version}`;
+                if(data.version && DOM.get('ui-version-badge')) DOM.get('ui-version-badge').innerHTML = '<span class="pulse-glow-dot"></span> ⚡ PHIÊN BẢN ' + data.version + ' ⚡';
                 if(data.noticeTitle && DOM.get('ui-notice-title')) DOM.get('ui-notice-title').innerText = data.noticeTitle;
-                if(data.noticeText && DOM.get('ui-notice-text')) DOM.get('ui-notice-text').innerHTML = data.noticeText.replace(/\n/g, '<br>');
+                if(data.noticeText) NoticeTypewriter.fullTextVN = data.noticeText;
             }
         });
     },
     saveConfig: function() {
         if(!IS_ADMIN) return;
-        const title = DOM.get('dev-conf-title').value.trim();
-        const version = DOM.get('dev-conf-version').value.trim();
-        const noticeTitle = DOM.get('dev-conf-noticetitle').value.trim();
-        const noticeText = DOM.get('dev-conf-noticetext').value.trim();
-        
-        let payload = {};
+        var title = DOM.get('dev-conf-title').value.trim();
+        var version = DOM.get('dev-conf-version').value.trim();
+        var noticeTitle = DOM.get('dev-conf-noticetitle').value.trim();
+        var noticeText = DOM.get('dev-conf-noticetext').value.trim();
+        var payload = {};
         if(title) payload.title = title;
         if(version) payload.version = version;
         if(noticeTitle) payload.noticeTitle = noticeTitle;
         if(noticeText) payload.noticeText = noticeText;
-        
-        this.ref.update(payload).then(() => { showToast("Đã cập nhật hệ thống thành công!"); });
+        this.ref.update(payload).then(function() { showToast("Đã cập nhật cấu hình!"); });
     }
 };
 
-/* ==========================================================================
-   MENU EDITOR ENGINE
-   ========================================================================== */
-const MenuEditor = {
+var MenuEditor = {
     ref: null,
     init: function() { this.ref = firebase.database().ref('nox_custom_menu'); this.loadMenu(); },
-    toggleEditor: function() { const box = DOM.get('dev-menu-editor-box'); if(box) box.style.display = (box.style.display === 'flex') ? 'none' : 'flex'; },
+    toggleEditor: function() { var box = DOM.get('dev-menu-editor-box'); if(box) box.style.display = (box.style.display === 'flex') ? 'none' : 'flex'; },
     addMenuItem: function() {
         if(!IS_ADMIN) return;
-        const name = DOM.get('menu-item-name').value.trim(); const link = DOM.get('menu-item-link').value.trim();
-        if(!name || !link) { alert("Nhập đủ tên và đường dẫn!"); return; }
-        this.ref.push({ name, link, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
-            DOM.get('menu-item-name').value = ''; DOM.get('menu-item-link').value = ''; showToast("Đã thêm mục vào menu!");
+        var name = DOM.get('menu-item-name').value.trim(); var link = DOM.get('menu-item-link').value.trim();
+        if(!name || !link) { alert("Nhập đủ thông tin!"); return; }
+        this.ref.push({ name: name, link: link, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(function() {
+            DOM.get('menu-item-name').value = ''; DOM.get('menu-item-link').value = ''; showToast("Đã thêm vào Menu!");
         });
     },
-    deleteMenuItem: function(key) { ConfirmUI.show("XÓA MỤC NÀY KHỎI MENU?", () => { this.ref.child(key).remove().then(() => showToast("Đã xóa khỏi menu!")); }); },
+    deleteMenuItem: function(key) { ConfirmUI.show("XÓA MỤC NÀY KHỎI MENU?", function() { MenuEditor.ref.child(key).remove().then(function() { showToast("Đã xóa!"); }); }); },
     loadMenu: function() {
         if(!this.ref) return;
-        this.ref.on('value', snapshot => {
-            const container = DOM.get('dynamic-menu-links'); if(!container) return; container.innerHTML = '';
+        this.ref.on('value', function(snapshot) {
+            var container = DOM.get('dynamic-menu-links'); if(!container) return; container.innerHTML = '';
             if(snapshot.exists()) {
-                snapshot.forEach(child => {
-                    const item = child.val(); const key = child.key;
-                    const a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "btn-sidebar";
-                    a.style.display = "flex"; a.style.justifyContent = "space-between";
-                    let spanText = document.createElement('span'); spanText.innerText = item.name; a.appendChild(spanText);
-                    if(IS_ADMIN) {
-                        let delSpan = document.createElement('span'); delSpan.style.color = "var(--accent-danger)"; delSpan.style.cursor = "pointer"; delSpan.innerText = "[X]";
-                        delSpan.onclick = (e) => { e.preventDefault(); e.stopPropagation(); MenuEditor.deleteMenuItem(key); }; a.appendChild(delSpan);
-                    }
+                snapshot.forEach(function(child) {
+                    var item = child.val(); var key = child.key;
+                    var a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "btn-menu-item";
+                    var del = IS_ADMIN ? '<span style="color:var(--accent-danger); cursor:pointer;" onclick="event.preventDefault(); MenuEditor.deleteMenuItem(\'' + key + '\')">[X]</span>' : '';
+                    a.innerHTML = '<span>' + item.name + '</span> ' + del;
                     container.appendChild(a);
                 });
             }
@@ -827,283 +1899,578 @@ const MenuEditor = {
 };
 
 /* ==========================================================================
-   USER MANAGER (QUẢN LÝ USER CHO DEV)
+   USER MANAGER (DEV ONLY)
    ========================================================================== */
-const UserMgr = {
+var UserMgr = {
     loadUsers: async function() {
         if(!IS_ADMIN) return;
-        const board = DOM.get('user-mgr-board'); board.innerHTML = '<div style="text-align:center;">Đang tải danh sách người dùng...</div>';
+        var board = DOM.get('user-mgr-board'); if(!board) return;
+        board.innerHTML = '<div style="text-align:center; padding:20px;">Đang tải danh sách user...</div>';
         try {
-            const regSnap = await firebase.database().ref('nox_users_registry').once('value');
-            if(!regSnap.exists()) { board.innerHTML = '<div>Chưa có user nào.</div>'; return; }
-            
-            const ctrlSnap = await firebase.database().ref('nox_users_control').once('value');
-            const controls = ctrlSnap.val() || {};
-            
+            var regSnap = await firebase.database().ref('nox_users_registry').once('value');
+            if(!regSnap.exists()) { board.innerHTML = '<div style="text-align:center; padding:20px;">Chưa có người dùng.</div>'; return; }
+            var ctrlSnap = await firebase.database().ref('nox_users_control').once('value');
+            var controls = ctrlSnap.val() || {};
             board.innerHTML = '';
-            regSnap.forEach(child => {
-                const u = child.val(); const safeKey = child.key; const control = controls[safeKey] || {};
-                const box = document.createElement('div');
-                box.style.cssText = "padding:16px; border:1px solid var(--border-color); background:var(--bg-panel); display:flex; flex-direction:column; gap:12px; width:100%; box-sizing:border-box;";
-                
-                let statusHtml = `<span style="color:var(--accent-green)">Bình thường</span>`;
-                if(control.isBanned) statusHtml = `<span style="color:var(--accent-danger)">ĐÃ BAN (${control.banReason})</span>`;
-                else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = `<span style="color:#f59e0b">ĐÃ MUTE đến ${new Date(control.muteUntil).toLocaleTimeString()} (${control.muteReason})</span>`;
-                
-                box.innerHTML = `
-                    <div style="font-weight:bold; font-size:1rem; color:var(--text-main);">${u.name}</div>
-                    <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 8px;">Email: ${u.email}</div>
-                    <div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ${statusHtml}</div>
-                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
-                        <input type="number" id="um-mute-hours-${safeKey}" placeholder="Giờ mute" style="width:100px; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); box-sizing:border-box;">
-                        <input type="text" id="um-mute-reason-${safeKey}" placeholder="Lý do mute..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); box-sizing:border-box;">
-                        <button style="padding:8px 16px; background:#f59e0b; color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.muteFromPanel('${safeKey}')">MUTE</button>
-                    </div>
-                    <div style="display:flex; gap:8px; margin-top:8px;">
-                        <input type="text" id="um-ban-reason-${safeKey}" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color); box-sizing:border-box;">
-                        <button style="padding:8px 16px; background:var(--accent-danger); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.banFromPanel('${safeKey}')">BAN</button>
-                        <button style="padding:8px 16px; background:var(--accent-green); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.uncontrolUser('${safeKey}')">GỠ BAN / GỠ MUTE</button>
-                    </div>
-                `;
+            regSnap.forEach(function(child) {
+                var u = child.val(); var safeKey = child.key; var control = controls[safeKey] || {};
+                var box = document.createElement('div'); box.className = 'data-box';
+                var statusHtml = '<span style="color:var(--accent-emerald)">Bình thường</span>';
+                if(control.isBanned) statusHtml = '<span style="color:var(--accent-danger)">ĐÃ BAN (' + control.banReason + ')</span>';
+                else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = '<span style="color:var(--accent-amber)">ĐÃ MUTE đến ' + (new Date(control.muteUntil).toLocaleTimeString()) + '</span>';
+                box.innerHTML = 
+                    '<div style="font-weight:bold; color:var(--text-main);">' + u.name + '</div>' +
+                    '<div style="font-size:0.8rem; color:var(--text-muted);">Email: ' + u.email + '</div>' +
+                    '<div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ' + statusHtml + '</div>' +
+                    '<div style="display:flex; gap:8px; margin-top:8px;">' +
+                        '<input type="text" id="um-ban-reason-' + safeKey + '" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">' +
+                        '<button style="padding:8px 16px; background:var(--accent-danger); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.banFromPanel(\'' + safeKey + '\')">BAN</button>' +
+                        '<button style="padding:8px 16px; background:var(--accent-emerald); color:#022c22; font-weight:bold; cursor:pointer;" onclick="UserMgr.uncontrolUser(\'' + safeKey + '\')">GỠ PHẠT</button>' +
+                    '</div>';
                 board.appendChild(box);
             });
-        } catch (e) { board.innerHTML = '<div>Lỗi tải dữ liệu.</div>'; }
-    },
-    muteFromPanel: function(safeKey) {
-        const hours = parseFloat(DOM.get(`um-mute-hours-${safeKey}`).value) || 24; const reason = DOM.get(`um-mute-reason-${safeKey}`).value.trim() || "Vi phạm quy định"; const muteUntil = Date.now() + (hours * 3600 * 1000);
-        firebase.database().ref('nox_users_control/' + safeKey).update({ isMuted: true, muteUntil: muteUntil, muteReason: reason }).then(() => { showToast("Đã Mute user thành công!"); this.loadUsers(); });
+        } catch (e) { board.innerHTML = '<div>Lỗi tải danh sách người dùng.</div>'; }
     },
     banFromPanel: function(safeKey) {
-        const reason = DOM.get(`um-ban-reason-${safeKey}`).value.trim() || "Vi phạm nghiêm trọng";
-        firebase.database().ref('nox_users_control/' + safeKey).update({ isBanned: true, banReason: reason }).then(() => { showToast("Đã Ban vĩnh viễn user!"); this.loadUsers(); });
+        var reason = (DOM.get('um-ban-reason-' + safeKey) ? DOM.get('um-ban-reason-' + safeKey).value.trim() : '') || "Vi phạm quy định";
+        firebase.database().ref('nox_users_control/' + safeKey).update({ isBanned: true, banReason: reason }).then(function() { showToast("Đã Ban user!"); UserMgr.loadUsers(); });
     },
     uncontrolUser: function(safeKey) {
-        firebase.database().ref('nox_users_control/' + safeKey).set({ isBanned: false, isMuted: false }).then(() => { showToast("Đã gỡ bỏ hình phạt cho user!"); this.loadUsers(); });
+        firebase.database().ref('nox_users_control/' + safeKey).set({ isBanned: false, isMuted: false }).then(function() { showToast("Đã gỡ phạt!"); UserMgr.loadUsers(); });
     }
 };
 
 /* ==========================================================================
-   UTILS ENGINE (KHO TIỆN ÍCH DYNAMIC HOÀN TOÀN TỪ FIREBASE ĐỂ DEV SỬA/XÓA MỌI MỤC)
+   UTILS ENGINE (FEED CARDS & SCROLL REVEAL)
    ========================================================================== */
-const UtilsEngine = {
+var UtilsEngine = {
     ref: null,
+    itemsMap: {},
+    currentTab: 'pane-link',
+    observer: null,
+    devUploadedBase64: "",
+
     init: function() { 
         this.ref = firebase.database().ref('nox_custom_utils'); 
-        this.checkAndInitDefaultUtils();
+        this.initObserver();
+        this.checkAndInitDefaults();
         this.loadDynamicUtils(); 
         MenuEditor.init();
     },
-    checkAndInitDefaultUtils: function() {
+
+    handleDevImage: function(input) {
+        if(!input.files || !input.files[0]) return;
+        var file = input.files[0];
+        DOM.get('dev-file-name').innerText = file.name;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = new Image();
+            img.onload = function() {
+                var MAX_W = 600; var MAX_H = 400; var w = img.width; var h = img.height;
+                if (w > h) { if (w > MAX_W) { h *= MAX_W / w; w = MAX_W; } } else { if (h > MAX_H) { w *= MAX_H / h; h = MAX_H; } }
+                var canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+                var ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
+                UtilsEngine.devUploadedBase64 = canvas.toDataURL('image/jpeg', 0.65);
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    },
+
+    initObserver: function() {
+        this.observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.08 });
+    },
+
+    checkAndInitDefaults: function() {
         if(!this.ref) return;
-        this.ref.once('value', snapshot => {
+        this.ref.once('value', function(snapshot) {
             if(!snapshot.exists()) {
-                const defaults = [
-                    { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz' },
-                    { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig' },
-                    { type: 'pane-link', title: 'Clone Tab Delta VNG', content: 'https://gofile.io/d/S1FNjL' },
-                    { type: 'pane-link', title: 'Kho Tài Nguyên APK', content: 'https://gofile.io/d/w9cKYp' },
-                    { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true },
-                    { type: 'pane-script', title: 'UB Hub Master', content: 'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', isScript: true },
-                    { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/' },
-                    { type: 'pane-apk', title: 'Kiwi VPN Premium', content: 'https://www.mediafire.com/file/8zyjbeqob1p2paz/Kiwi_VPN.apk' },
-                    { type: 'pane-ios', title: 'Delta iOS', content: 'https://deltaexploits.gg/' }
+                var defaults = [
+                    { type: 'pane-link', title: 'Bypass Key Delta', content: 'https://baconbypass.xyz', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=60' },
+                    { type: 'pane-link', title: 'Kasumi Store VIP', content: 'https://gofile.io/d/v3Q6Ig', image: '' },
+                    { type: 'pane-script', title: 'Speed X Hub Pro', content: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()', isScript: true, image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=60' },
+                    { type: 'pane-apk', title: 'Delta Web Client', content: 'https://deltaexploits.gg/', image: '' },
+                    { type: 'pane-ios', title: 'Delta iOS IPA', content: 'https://deltaexploits.gg/', image: '' }
                 ];
-                defaults.forEach(d => this.ref.push(d));
+                defaults.forEach(function(d) { UtilsEngine.ref.push(d); });
             }
         });
     },
-    switchPane: function(id, btn) { 
-        DOM.queryAll('.tab-pane, .tab-btn').forEach(e => e.classList.remove('is-active')); 
-        const p = DOM.get(id); if(p) p.classList.add('is-active'); if(btn) btn.classList.add('is-active'); 
-        this.execSearch(DOM.get('input-search') ? DOM.get('input-search').value : ''); 
+
+    switchTab: function(tabId, btn) {
+        this.currentTab = tabId;
+        DOM.queryAll('.tab-btn').forEach(function(b) { b.classList.remove('is-active'); });
+        if(btn) btn.classList.add('is-active');
+        this.renderCurrentTab();
     },
-    execSearch: function(query) { 
-        const q = (query||'').trim().toLowerCase(); 
-        DOM.queryAll('.tab-pane').forEach(p => { 
-            let c = 0; p.querySelectorAll('.data-box').forEach(b => { const m = !q || b.textContent.toLowerCase().includes(q); b.classList.toggle('is-hidden', !m); if(m) c++; }); 
-            let eMsg = p.querySelector('.search-empty'); 
-            if(!c && q) { if(!eMsg) { eMsg = document.createElement('div'); eMsg.className = 'search-empty'; eMsg.textContent = 'Không tìm thấy dữ liệu.'; p.appendChild(eMsg); } } else if(eMsg) eMsg.remove(); 
-        }); 
-    },
-    execCopy: function(btn) { 
-        const b = btn.closest('.data-box'); if(!b) return; const s = b.querySelector('.script-code'); if(!s) return; const txt = s.innerText.trim(); 
-        const fb = () => { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed; opacity:0;'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch(e) { prompt('Copy:', txt); } ta.remove(); }; 
-        const ok = () => { const o = btn.textContent; btn.textContent = 'COPIED'; btn.classList.add('is-copied'); setTimeout(() => { btn.textContent = o; btn.classList.remove('is-copied'); }, 2000); }; 
-        if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok).catch(fb); else fb(); 
-    },
-    triggerSave: function() {
-        ConfirmUI.show("LƯU TIỆN ÍCH NÀY LÊN MÁY CHỦ?", () => { this.saveUtility(); });
-    },
-    saveUtility: function() {
-        if(!IS_ADMIN) return;
-        const editKey = DOM.get('dev-edit-key').value;
-        const type = DOM.get('dev-util-type').value; 
-        const title = DOM.get('dev-util-title').value.trim(); 
-        const content = DOM.get('dev-util-content').value.trim();
-        
-        if(!title || !content) { alert("Nhập đủ thông tin!"); return; }
-        
-        if(editKey) {
-            this.ref.child(editKey).update({ type, title, content }).then(() => {
-                showToast("Đã cập nhật tiện ích!");
-                this.cancelEdit();
-            });
-        } else {
-            this.ref.push({ type, title, content, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
-                showToast("Đã thêm tiện ích mới!");
-                DOM.get('dev-util-title').value = ''; DOM.get('dev-util-content').value = '';
-            });
+
+    renderCurrentTab: function() {
+        var container = DOM.get('main-feed-container');
+        if(!container) return;
+        container.innerHTML = '';
+
+        var searchVal = (DOM.get('input-search') ? DOM.get('input-search').value.trim().toLowerCase() : '');
+        var count = 0;
+
+        Object.keys(this.itemsMap).forEach(function(key) {
+            var item = UtilsEngine.itemsMap[key];
+            if(item.type !== UtilsEngine.currentTab) return;
+            if(searchVal && !item.title.toLowerCase().includes(searchVal) && !item.content.toLowerCase().includes(searchVal)) return;
+
+            count++;
+            var box = document.createElement('div');
+            box.className = 'data-box scroll-reveal';
+            box.id = 'util-card-' + key;
+
+            var devControls = IS_ADMIN ? 
+                '<button style="padding:4px 8px; background:var(--accent-blue); color:#fff; border-radius:4px; cursor:pointer;" onclick="UtilsEngine.triggerEdit(\'' + key + '\')">✎</button> ' +
+                '<button style="padding:4px 8px; background:var(--accent-danger); color:#fff; border-radius:4px; cursor:pointer;" onclick="UtilsEngine.triggerDelete(\'' + key + '\')">XÓA</button>' : '';
+
+            var safeTitle = item.title.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            var imageHtml = "";
+            if(item.image) {
+                imageHtml = '<div class="card-thumbnail-wrap" onclick="openLightbox(\'' + item.image + '\')"><img src="' + item.image + '" class="card-thumbnail-img" alt="Thumbnail" loading="lazy"></div>';
+            }
+
+            if(item.type === 'pane-script' || item.isScript) {
+                var safeCode = item.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                box.innerHTML = 
+                    imageHtml +
+                    '<div class="box-head">' +
+                        '<span class="box-title">' + safeTitle + ' <span style="display:inline-flex; gap:4px;">' + devControls + '</span></span>' +
+                        '<button class="box-action" onclick="UtilsEngine.execCopy(this, \'' + key + '\')">COPY</button>' +
+                    '</div>' +
+                    '<div class="script-code">' + safeCode + '</div>';
+            } else {
+                box.innerHTML = 
+                    imageHtml +
+                    '<div class="box-head">' +
+                        '<span class="box-title">' + safeTitle + ' <span style="display:inline-flex; gap:4px;">' + devControls + '</span></span>' +
+                        '<a href="' + item.content + '" target="_blank" class="box-action">' + (LangEngine.currentLang==='vi'?'MỞ LINK ↗':'OPEN LINK ↗') + '</a>' +
+                    '</div>';
+            }
+
+            container.appendChild(box);
+            if(UtilsEngine.observer) UtilsEngine.observer.observe(box);
+        });
+
+        if(count === 0) {
+            container.innerHTML = '<div style="text-align:center; grid-column: 1/-1; padding:40px 20px; color:var(--text-muted);">' + (LangEngine.currentLang==='vi'?'Không tìm thấy tiện ích nào phù hợp.':'No matching items found.') + '</div>';
         }
     },
-    triggerDelete: function(key) {
-        ConfirmUI.show("XÓA TIỆN ÍCH NÀY KHỎI HỆ THỐNG?", () => { 
-            this.ref.child(key).remove().then(() => showToast("Đã xóa tiện ích!")); 
+
+    execSearch: function() {
+        this.renderCurrentTab();
+    },
+
+    execCopy: function(btn, key) {
+        var item = this.itemsMap[key];
+        if(!item) return;
+        var txt = item.content;
+        var ok = function() { 
+            btn.innerText = '✓ COPIED'; 
+            btn.classList.add('is-copied'); 
+            setTimeout(function() { btn.innerText = 'COPY'; btn.classList.remove('is-copied'); }, 2000); 
+        };
+        if(navigator.clipboard) {
+            navigator.clipboard.writeText(txt).then(ok).catch(function() { prompt('Copy:', txt); });
+        } else {
+            prompt('Copy:', txt);
+        }
+    },
+
+    triggerSave: function() {
+        ConfirmUI.show("LƯU TIỆN ÍCH LÊN HỆ THỐNG?", function() {
+            if(!IS_ADMIN) return;
+            var editKey = DOM.get('dev-edit-key').value;
+            var type = DOM.get('dev-util-type').value; 
+            var title = DOM.get('dev-util-title').value.trim(); 
+            var content = DOM.get('dev-util-content').value.trim();
+            var imgUrl = UtilsEngine.devUploadedBase64 || DOM.get('dev-util-image').value.trim();
+
+            if(!title || !content) { alert("Nhập đủ thông tin!"); return; }
+            if(editKey) {
+                UtilsEngine.ref.child(editKey).update({ type: type, title: title, content: content, image: imgUrl }).then(function() { 
+                    showToast("Đã cập nhật!"); 
+                    UtilsEngine.cancelEdit(); 
+                });
+            } else {
+                UtilsEngine.ref.push({ type: type, title: title, content: content, image: imgUrl, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(function() {
+                    showToast("Đã thêm mới!"); 
+                    UtilsEngine.cancelEdit(); 
+                });
+            }
         });
     },
-    triggerEdit: function(key, type, title, content) {
+
+    triggerDelete: function(key) {
+        ConfirmUI.show("XÓA TIỆN ÍCH NÀY?", function() { UtilsEngine.ref.child(key).remove().then(function() { showToast("Đã xóa!"); }); });
+    },
+
+    triggerEdit: function(key) {
+        var item = this.itemsMap[key];
+        if(!item) return;
         DOM.get('dev-edit-key').value = key;
-        DOM.get('dev-util-type').value = type;
-        DOM.get('dev-util-title').value = title;
-        DOM.get('dev-util-content').value = content;
+        DOM.get('dev-util-type').value = item.type;
+        DOM.get('dev-util-title').value = item.title;
+        DOM.get('dev-util-image').value = item.image || "";
+        DOM.get('dev-util-content').value = item.content;
         DOM.get('dev-panel-heading').innerText = "[DEV] CHỈNH SỬA TIỆN ÍCH";
         DOM.get('dev-submit-btn').innerText = "LƯU THAY ĐỔI";
         DOM.get('dev-cancel-btn').style.display = 'block';
-        openUI('modal-archive');
+        window.scrollTo({ top: DOM.get('dev-utils-panel').offsetTop - 100, behavior: 'smooth' });
     },
+
     cancelEdit: function() {
-        DOM.get('dev-edit-key').value = '';
+        DOM.get('dev-edit-key').value = ''; 
         DOM.get('dev-util-title').value = ''; 
+        DOM.get('dev-util-image').value = ''; 
         DOM.get('dev-util-content').value = '';
+        DOM.get('dev-file-name').innerText = "Chưa chọn ảnh";
+        UtilsEngine.devUploadedBase64 = "";
         DOM.get('dev-panel-heading').innerText = "[DEV] THÊM / SỬA TIỆN ÍCH";
         DOM.get('dev-submit-btn').innerText = "ĐĂNG TẢI";
         DOM.get('dev-cancel-btn').style.display = 'none';
     },
+
     loadDynamicUtils: function() {
         if(!this.ref) return;
-        this.ref.on('value', snapshot => {
-            DOM.queryAll('.tab-pane').forEach(p => p.innerHTML = '');
+        this.ref.on('value', function(snapshot) {
+            UtilsEngine.itemsMap = {};
             if(snapshot.exists()) {
-                snapshot.forEach(child => {
-                    const data = child.val(); const key = child.key; const pane = DOM.get(data.type);
-                    if(pane) {
-                        const box = document.createElement('div'); box.className = 'data-box dynamic-item';
-                        
-                        let devControls = '';
-                        if(IS_ADMIN) {
-                            devControls = `
-                                <button class="dev-circle-edit-btn" onclick="UtilsEngine.triggerEdit('${key}', '${data.type}', '${data.title.replace(/'/g, "\\'")}', '${data.content.replace(/'/g, "\\'")}')" title="Chỉnh sửa">✎</button>
-                                <button class="dev-delete-btn" onclick="UtilsEngine.triggerDelete('${key}')">XÓA</button>
-                            `;
-                        }
-                        
-                        if(data.type === 'pane-script' || data.isScript) {
-                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div style="display:inline-flex; align-items:center; gap:4px;">${devControls}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div><div class="script-code">${data.content.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>`;
-                        } else {
-                            box.innerHTML = `<div class="box-head"><span class="box-title">${data.title.replace(/</g,"&lt;")} <div style="display:inline-flex; align-items:center; gap:4px;">${devControls}</div></span><a href="${data.content}" target="_blank" class="box-action">MỞ</a></div>`;
-                        }
-                        pane.appendChild(box);
-                    }
+                snapshot.forEach(function(child) {
+                    UtilsEngine.itemsMap[child.key] = child.val();
                 });
             }
+            UtilsEngine.renderCurrentTab();
         });
     }
 };
 
 /* ==========================================================================
-   NOX GPT ENGINE (DEEPSEEK 4.0 PRO)
+   NOXGPT 3.1 PRO (CLAUDE OPUS 4 TIER AI ENGINE)
    ========================================================================== */
-const GptEngine = {
+var GptEngine = {
   defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
   defaultUrl: "https://api.xkiro.com/v1/chat/completions",
   getApiKey: function() { return localStorage.getItem('nox_ds_key') || this.defaultKey; },
   setApiKey: function(newKey) { localStorage.setItem('nox_ds_key', newKey.trim()); },
   
-  board: DOM.get('noxgpt-board'), input: DOM.get('noxgpt-field'), isGreeted: false,
-  messageHistory: [
-      { role: "system", content: "Bạn là NOXGPT, AI của NOX WEB (tạo ra bởi DEV HminhGalaxy). Trả lời ngắn gọn, chuẩn Hacker." }
-  ],
+  board: DOM.get('noxgpt-board'), 
+  input: DOM.get('noxgpt-field'), 
+  isGenerating: false,
+  isDeepThink: true,
+  currentModel: "3.1",
+  abortController: null,
+
+  systemInstruction: "You are NOXGPT 3.1 Pro (Flagship Claude Opus 4 equivalent AI on NOX WEB V75 Ultra Promax, developed by HminhGalaxy). Full website context: NOX WEB is Vietnam's top portal providing Roblox Lua scripts (Delta Executor, Kasumi Store, Speed Hub X, ArceusX), direct APK/IPA links without link bypass ads, and a thriving community. Character: Highly analytical, direct, intelligent, zero fluff, concise. Only use emoji/icons when necessary for structured readability. Master in Roblox Lua coding and architecture.",
+
+  messageHistory: [],
 
   init: function() {
-    if(this.isGreeted) return; this.isGreeted = true;
-    this.appendMsg('other', 'NOXGPT', 'Chào mừng đến với NOXGPT, bạn muốn hỏi về vấn đề gì?');
+    this.messageHistory = [{ role: "system", content: this.systemInstruction }];
+    AIQuota.updateUI();
   },
 
-  appendMsg: function(type, name, htmlContent, isError = false) {
+  switchModel: function(model) {
+      if (model === "3.1") {
+          var data = AIQuota.getData();
+          if (data.count <= 0) {
+              showToast("Hạn mức 3.1 Pro đã hết (Reset sau " + AIQuota.getRemainingTimeStr() + "). Đang dùng 2.5 Ultra.");
+              return;
+          }
+          this.currentModel = "3.1";
+          DOM.get('gpt-modal-card').classList.add('rainbow-mode-active');
+          DOM.get('gpt-active-model-title').className = "rainbow-title-glow";
+          DOM.get('gpt-active-model-title').innerText = "NOXGPT 3.1 PRO [QUANTUM]";
+          DOM.get('dropdown-m31-check').innerText = "✓";
+          DOM.get('dropdown-m25-check').innerText = "";
+          showToast("Đã kích hoạt NOXGPT 3.1 PRO (Rainbow Glow)");
+      } else {
+          this.currentModel = "2.5";
+          DOM.get('gpt-modal-card').classList.remove('rainbow-mode-active');
+          DOM.get('gpt-active-model-title').className = "";
+          DOM.get('gpt-active-model-title').innerText = "NOXGPT 2.5 ULTRA [STANDARD]";
+          DOM.get('dropdown-m31-check').innerText = "";
+          DOM.get('dropdown-m25-check').innerText = "✓";
+          showToast("Đã chuyển sang NOXGPT 2.5 Ultra");
+      }
+      this.toggleDropdown();
+  },
+
+  toggleDropdown: function() {
+      var d = DOM.get('gpt-options-dropdown');
+      if(d) {
+          d.classList.toggle('active');
+          AIQuota.updateUI();
+      }
+  },
+
+  toggleDeepThink: function() {
+      this.isDeepThink = !this.isDeepThink;
+      var status = DOM.get('dropdown-think-status');
+      var item = DOM.get('dropdown-item-think');
+      if(status && item) {
+          if(this.isDeepThink) {
+              item.classList.add('active');
+              status.innerText = "✓";
+          } else {
+              item.classList.remove('active');
+              status.innerText = "";
+          }
+      }
+      this.toggleDropdown();
+      showToast(this.isDeepThink ? "Deep Reasoning: BẬT" : "Deep Reasoning: TẮT");
+  },
+
+  clearHistory: function() {
+      this.messageHistory = [{ role: "system", content: this.systemInstruction }];
+      if(this.board) this.board.innerHTML = '';
+      this.toggleDropdown();
+      showToast("Đã làm mới đoạn hội thoại!");
+  },
+
+  setGeneratingState: function(state) {
+      this.isGenerating = state;
+      var btn = DOM.get('btn-gpt-send');
+      if(!btn) return;
+      if(state) {
+          btn.classList.add('is-stopping');
+          btn.innerHTML = '<div class="stop-spin-square"></div>';
+          btn.title = "Dừng tạo câu trả lời";
+      } else {
+          btn.classList.remove('is-stopping');
+          btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+          btn.title = "Gửi tin nhắn";
+      }
+  },
+
+  handleSendOrStop: function() {
+      if(this.isGenerating) {
+          this.stopGeneration();
+      } else {
+          this.submit();
+      }
+  },
+
+  stopGeneration: function() {
+      if(this.abortController) {
+          this.abortController.abort();
+          this.abortController = null;
+      }
+      this.setGeneratingState(false);
+      var loader = DOM.get('gpt-active-loader');
+      if(loader) loader.remove();
+      this.appendMsg('other', 'NOXGPT ' + this.currentModel, '<i>[Đã dừng tạo phản hồi]</i>');
+  },
+
+  formatMarkdown: function(text) {
+    var out = text.replace(/```([a-zA-Z]*)\n([\s\S]*?)```/g, function(match, lang, code) {
+        var safeCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return '<div class="formatted-code-block">' +
+            '<div class="code-block-header"><span>' + (lang || 'LUA/ROBLOX') + '</span></div>' +
+            '<pre class="code-block-content"><code>' + safeCode + '</code></pre>' +
+        '</div>';
+    });
+    out = out.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/\n/g, '<br>');
+    return out;
+  },
+
+  appendMsg: function(type, name, htmlContent) {
+    if(!this.board) this.board = DOM.get('noxgpt-board');
     if(!this.board) return;
-    const row = document.createElement('div'); row.className = `msg-row type-${type} ${isError ? 'type-error' : ''}`;
-    let innerHTML = '';
+    var row = document.createElement('div'); row.className = 'msg-row type-' + type;
+    var innerHTML = '';
     if(type === 'other') {
-      innerHTML += `<div class="msg-meta"><div class="msg-name sys">${name}</div></div>`;
+      innerHTML += '<div class="msg-meta"><div class="msg-name sys">' + name + '</div></div>';
     } else {
-      innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn</div></div>`;
+      innerHTML += '<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">' + (LangEngine.currentLang==='vi'?'Bạn':'You') + '</div></div>';
     }
-    innerHTML += `<div class="msg-bubble">${htmlContent}</div>`;
+    innerHTML += '<div class="msg-bubble">' + this.formatMarkdown(htmlContent) + '</div>';
     row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
     return row; 
   },
 
-  removeImage: function() { ImageProcessor.currentGptImage = null; DOM.get('gpt-preview-img').src = ''; DOM.get('gpt-preview-zone').classList.remove('active'); },
-
-  triggerFallbackUI: function(errorMessage) {
-    this.input.disabled = true; this.input.placeholder = "API Lỗi...";
-    const box = DOM.get('gpt-fallback-container');
-    if(box) { box.style.display = 'block'; box.querySelector('.api-fallback-title').innerText = `[LỖI API] ${errorMessage}`; }
+  // MINIMAL QUANTUM MORPHING LOADER (NO TEXT)
+  appendMorphingLoader: function() {
+      if(!this.board) this.board = DOM.get('noxgpt-board');
+      var row = document.createElement('div'); 
+      row.className = 'msg-row type-other';
+      row.id = 'gpt-active-loader';
+      row.innerHTML = 
+          '<div class="msg-meta"><div class="msg-name sys">NOXGPT ' + this.currentModel + '</div></div>' +
+          '<div class="msg-bubble">' +
+              '<div class="ai-morphing-loader">' +
+                  '<div class="morphing-shape"></div>' +
+              '</div>' +
+          '</div>';
+      this.board.appendChild(row); 
+      this.board.scrollTop = this.board.scrollHeight;
+      return row;
   },
 
-  validateAndSaveConfig: function() {
-      const keyInput = DOM.get('gpt-new-api-key'); const keyVal = keyInput ? keyInput.value.trim() : '';
-      if(!keyVal) { alert("Vui lòng nhập API Key!"); return; }
-      this.setApiKey(keyVal); DOM.get('gpt-fallback-container').style.display = 'none';
-      this.input.disabled = false; this.input.placeholder = "Nhập câu lệnh...";
-      this.appendMsg('other', 'System', 'Đã lưu API Key mới. Vui lòng thử lại.');
+  removeImage: function() { 
+    ImageProcessor.currentGptImage = null; 
+    var pImg = DOM.get('gpt-preview-img'); if(pImg) pImg.src = '';
+    var pZone = DOM.get('gpt-preview-zone'); if(pZone) pZone.style.display = 'none';
+    var upload = DOM.get('gpt-img-upload'); if(upload) upload.value = '';
+  },
+
+  // ACCURATE MULTILINGUAL PROMPT PARSER (FIX TẠO ẢNH 100%)
+  detectImageRequest: function(text) {
+      var lower = text.toLowerCase().trim();
+      var triggers = [
+          "tạo ảnh", "vẽ ảnh", "vẽ", "tạo hình", "hình ảnh về", "ảnh",
+          "draw", "paint", "generate image", "create image", "make a picture", "make an image", "make a home", "make a house", "make a", "picture of", "image of"
+      ];
+      
+      for(var i = 0; i < triggers.length; i++) {
+          var t = triggers[i];
+          if(lower.startsWith(t) || lower.indexOf(t) !== -1) {
+              var subject = lower.replace(t, "").replace(/[:,"']/g, "").trim();
+              if(!subject) subject = "modern architecture house";
+
+              if(subject.indexOf("ngôi nhà") !== -1 || subject.indexOf("nhà") !== -1 || subject.indexOf("home") !== -1 || subject.indexOf("house") !== -1) {
+                  return "luxurious modern architectural house exterior, grand glass walls, warm cozy indoor lights, beautiful modern garden patio, hyperrealistic 8k architectural photography, octane render, masterpiece";
+              }
+              if(subject.indexOf("người đàn ông lực điền") !== -1 || subject.indexOf("đàn ông cơ bắp") !== -1 || subject.indexOf("muscular man") !== -1 || subject.indexOf("bodybuilder") !== -1) {
+                  return "handsome athletic muscular man, powerful aesthetic physique, detailed muscle definition, 8k portrait photography, dramatic studio rim lighting, masterpiece, realistic skin texture";
+              }
+              if(subject.indexOf("xe") !== -1 || subject.indexOf("car") !== -1 || subject.indexOf("siêu xe") !== -1) {
+                  return "futuristic aerodynamic neon supercar, glowing rims, dark asphalt road, raytracing, cinematic 8k wallpaper";
+              }
+              if(subject.indexOf("cô gái") !== -1 || subject.indexOf("girl") !== -1 || subject.indexOf("nữ sinh") !== -1) {
+                  return "beautiful young woman portrait, natural studio lighting, ultra detailed face and eyes, 8k realistic photography";
+              }
+
+              return subject + ", 8k resolution, highly detailed, photorealistic, cinematic lighting, masterpiece";
+          }
+      }
+      return null;
   },
 
   submit: async function() {
-    const text = this.input.value.trim(); const base64Img = ImageProcessor.currentGptImage;
+    if(!this.input) this.input = DOM.get('noxgpt-field');
+    var text = this.input.value.trim(); var base64Img = ImageProcessor.currentGptImage;
     if(!text && !base64Img) return;
 
-    let userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
-    if(base64Img) { userHtml = `<img src="${base64Img}" class="chat-image">` + userHtml; }
+    // Check & Handle Model 3.1 Pro Quota
+    if (this.currentModel === "3.1") {
+        var canUse = AIQuota.useQuota();
+        if (!canUse) {
+            showToast("Đã hết 40 lượt dùng 3.1 Pro! Tự động chuyển về 2.5 Ultra.");
+            this.switchModel("2.5");
+        }
+    }
+
+    var userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+    if(base64Img) { userHtml = '<img src="' + base64Img + '" class="chat-image">' + userHtml; }
     
     this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
-    this.messageHistory.push({ role: "user", content: text || "[Đã gửi ảnh]" });
+    this.messageHistory.push({ role: "user", content: text || "[Sent Image]" });
 
-    const tempNode = this.appendMsg('other', 'NOXGPT', '<span style="opacity:0.6;">Đang xử lý...</span>');
+    this.setGeneratingState(true);
+
+    // AI IMAGE CREATION ENGINE
+    var imagePrompt = this.detectImageRequest(text);
+    if(imagePrompt) {
+        var loader = this.appendMorphingLoader();
+        var encoded = encodeURIComponent(imagePrompt);
+        var seed = Math.floor(Math.random() * 999999);
+        var imageUrl = 'https://image.pollinations.ai/prompt/' + encoded + '?width=1024&height=768&nologo=true&enhance=true&model=flux&seed=' + seed;
+        
+        // Deep thinking delay for accurate generation
+        var thinkDelay = this.isDeepThink ? 2800 : 1500;
+
+        setTimeout(function() {
+            if(loader) loader.remove();
+            GptEngine.setGeneratingState(false);
+            var titleMsg = (LangEngine.currentLang==='vi') ? "Đã tạo tác phẩm thành công:" : "Artwork generated successfully:";
+            var subMsg = (LangEngine.currentLang==='vi') ? "Bấm vào ảnh để xem toàn màn hình." : "Click image to view fullscreen.";
+            var imgHtml = '<div>' + titleMsg + '</div>' +
+                          '<img src="' + imageUrl + '" class="ai-image-result" onclick="openLightbox(\'' + imageUrl + '\')" alt="AI Art">' +
+                          '<div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">' + subMsg + '</div>';
+            GptEngine.appendMsg('other', 'NOXGPT ' + GptEngine.currentModel, imgHtml);
+            GptEngine.messageHistory.push({ role: "assistant", content: "Generated image for: " + imagePrompt });
+        }, thinkDelay);
+        return;
+    }
+
+    var tempLoader = this.appendMorphingLoader();
+    this.abortController = new AbortController();
 
     try {
-      const apiKey = this.getApiKey();
-      const response = await fetch(this.defaultUrl, {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-        body: JSON.stringify({ model: "deepseek/deepseek-v4-pro", messages: this.messageHistory })
+      var apiKey = this.getApiKey();
+      var response = await fetch(this.defaultUrl, {
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
+        body: JSON.stringify({ 
+            model: "deepseek/deepseek-v4-pro", 
+            messages: this.messageHistory,
+            temperature: (this.currentModel === "3.1") ? 0.55 : 0.7 
+        }),
+        signal: this.abortController.signal
       });
 
-      if(!response.ok) { const errData = await response.json().catch(()=>({})); throw new Error(errData.error?.message || `HTTP ${response.status}`); }
-      const data = await response.json(); tempNode.remove();
+      if(!response.ok) throw new Error("HTTP " + response.status);
+      var data = await response.json(); 
+      if(tempLoader) tempLoader.remove();
+      this.setGeneratingState(false);
       
       if(data.choices && data.choices[0] && data.choices[0].message) {
-          const reply = data.choices[0].message.content;
-          const formattedText = reply.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
-          this.appendMsg('other', 'NOXGPT', formattedText); 
+          var reply = data.choices[0].message.content;
+          this.appendMsg('other', 'NOXGPT ' + this.currentModel, reply); 
           this.messageHistory.push({ role: "assistant", content: reply });
-      } else { throw new Error("Format lỗi từ máy chủ"); }
+      }
     } catch(err) {
-      if(tempNode) tempNode.remove(); console.warn("AI Error:", err); this.triggerFallbackUI(err.message);
+      if(err.name === 'AbortError') return;
+      if(tempLoader) tempLoader.remove();
+      
+      // Fallback Puter AI SDK
+      if(typeof puter !== 'undefined' && puter.ai && puter.ai.chat) {
+          puter.ai.chat(text).then(function(res) {
+              GptEngine.setGeneratingState(false);
+              var puterReply = (typeof res === 'string') ? res : (res.message ? res.message.content : JSON.stringify(res));
+              GptEngine.appendMsg('other', 'NOXGPT ' + GptEngine.currentModel, puterReply);
+          }).catch(function() {
+              GptEngine.setGeneratingState(false);
+              var fb = DOM.get('gpt-fallback-container'); if(fb) fb.style.display = 'block';
+          });
+      } else {
+          GptEngine.setGeneratingState(false);
+          var fb = DOM.get('gpt-fallback-container'); if(fb) fb.style.display = 'block';
+      }
     }
+  },
+  validateAndSaveConfig: function() {
+      var key = DOM.get('gpt-new-api-key').value.trim();
+      if(!key) return;
+      this.setApiKey(key);
+      DOM.get('gpt-fallback-container').style.display = 'none';
+      this.appendMsg('other', 'System', 'Đã lưu API Key mới.');
   }
 };
-const _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
+var _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT ENGINE
+   FIREBASE CHAT & SCRIPT VAULT ENGINE
    ========================================================================== */
-const ChatEngine = {
+var ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
+  vaultMap: {},
   isSetup: false,
 
   initFirebase: function() {
     if(this.isSetup) return;
-    const firebaseConfig = {
+    var firebaseConfig = {
       apiKey: "AIzaSyDHyuP7FcF8SqOXsoyTeYnAvJbk0Uunq0c", authDomain: "chatting-74814.firebaseapp.com",
       databaseURL: "https://chatting-74814-default-rtdb.firebaseio.com", projectId: "chatting-74814",
       storageBucket: "chatting-74814.firebasestorage.app", messagingSenderId: "520016594870",
@@ -1118,215 +2485,168 @@ const ChatEngine = {
       
       UtilsEngine.init();
       ConfigEngine.init();
-      this.cleanupOldMessages(); setInterval(() => this.cleanupOldMessages(), 3600000); 
 
-      const savedUser = localStorage.getItem('nox_user_profile');
+      var savedUser = localStorage.getItem('nox_user_profile');
       if(savedUser) {
           try {
-              const profile = JSON.parse(savedUser);
+              var profile = JSON.parse(savedUser);
               this.userProfile = profile;
               if(profile.email === ADMIN_EMAIL) { 
                   IS_ADMIN = true; 
                   DOM.get('dev-utils-panel').style.display = 'flex'; 
                   DOM.get('dev-config-panel').style.display = 'flex'; 
                   DOM.get('dev-menu-editor-group').style.display = 'flex';
-                  DOM.get('dev-user-mgr-group').style.display = 'flex';
               }
               DOM.get('auth-guard').style.display = 'none';
-              AuthEngine.updateAuthUI(true, profile);
+              AuthEngine.updateAuthUI(true);
               this.listenForMessages();
           } catch(e) { localStorage.removeItem('nox_user_profile'); }
       }
 
-    } catch(err) { console.error("FB Init Err:", err); }
+    } catch(err) { console.error("Firebase Error:", err); }
   },
 
-  cleanupOldMessages: function() {
-    if(!this.dbRef) return;
-    const MS_24H = 86400000; const cutoff = Date.now() - MS_24H;
-    this.dbRef.orderByChild('timestamp').endAt(cutoff).once('value', (snapshot) => {
-      if(snapshot.exists()) { const updates = {}; snapshot.forEach((child) => { updates[child.key] = null; }); this.dbRef.update(updates); }
-    });
+  removeImage: function() { 
+    ImageProcessor.currentChatImage = null; 
+    var cImg = DOM.get('chat-preview-img'); if(cImg) cImg.src = '';
+    var cZone = DOM.get('chat-preview-zone'); if(cZone) cZone.style.display = 'none';
+    var upload = DOM.get('chat-img-upload'); if(upload) upload.value = '';
   },
 
-  removeImage: function() { ImageProcessor.currentChatImage = null; DOM.get('chat-preview-img').src = ''; DOM.get('chat-preview-zone').classList.remove('active'); },
-
-  appendMsg: function(senderName, htmlContent, isSystem = false, msgKey = null, role = 'NOX', isRecalled = false, senderEmail = '') {
+  appendMsg: function(senderName, htmlContent, isSystem, msgKey, role, isRecalled) {
+    if(!this.board) this.board = DOM.get('noxchat-board');
     if(!this.board) return;
-    let isMe = false; if(this.userProfile && senderName === this.userProfile.name) isMe = true;
-    
-    const rowType = isMe ? 'type-user' : 'type-other';
-    const row = document.createElement('div'); row.className = `msg-row ${rowType}`; row.id = msgKey ? `msg-${msgKey}` : '';
-    
-    let innerHTML = '';
-    let deleteBtn = (IS_ADMIN && msgKey && !isSystem) ? `<span style="cursor:pointer; color:var(--accent-danger); margin-left:8px;" onclick="ChatEngine.triggerDeleteMsg('${msgKey}')">[X]</span>` : '';
 
-    if(!isMe) {
-      let badge = ''; let nameClass = 'msg-name';
-      if(isSystem) { nameClass = 'msg-name sys'; }
-      else {
-          if(role === 'DEV') { badge = `<span class="badge-dev">[DEV]</span>`; nameClass = 'msg-name dev'; }
-          else if(role === 'NOX') { badge = `<span class="badge-nox">[NOX]</span>`; }
-          else { badge = `<span class="badge-guest">[GUEST]</span>`; }
-      }
-      let clickAction = (IS_ADMIN && senderEmail) ? `onclick="UserMgr.openModPanel('${senderName.replace(/'/g, "\\'")}', '${senderEmail}')"` : '';
-      innerHTML += `<div class="msg-meta"><div class="${nameClass}" ${clickAction} title="Bấm để Ban/Mute">${badge}${senderName} ${deleteBtn}</div></div>`;
-    } else {
-        innerHTML += `<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">Bạn ${deleteBtn}</div></div>`;
-    }
+    var isMe = (this.userProfile && senderName === this.userProfile.name);
+    var row = document.createElement('div'); 
+    row.className = 'msg-row ' + (isMe ? 'type-user' : 'type-other');
+    if(msgKey) row.id = 'msg-' + msgKey;
     
-    let bubbleContent = isRecalled ? '<span style="font-style:italic; color:var(--text-muted);">[Tin nhắn đã bị thu hồi]</span>' : htmlContent;
-    
-    const bubbleEl = document.createElement('div');
-    bubbleEl.className = `msg-bubble ${isRecalled ? 'recalled' : ''}`;
-    bubbleEl.innerHTML = bubbleContent;
-    
-    bubbleEl.onclick = (e) => {
-        e.stopPropagation();
-        document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
-        
-        if(isMe && !isRecalled && msgKey) {
-            const ctxMenu = document.createElement('div');
-            ctxMenu.className = 'msg-context-menu active';
-            ctxMenu.innerHTML = `
-                <button class="msg-context-btn" onclick="ChatEngine.openEditModal('${msgKey}')">Chỉnh sửa văn bản</button>
-                <button class="msg-context-btn danger" onclick="ChatEngine.triggerRecallMsg('${msgKey}')">Thu hồi tin nhắn</button>
-            `;
-            row.appendChild(ctxMenu);
-            document.addEventListener('pointerdown', (ev) => { if(!ctxMenu.contains(ev.target)) ctxMenu.remove(); }, { once: true });
-        }
-    };
+    var badge = role === 'DEV' ? '<span class="badge-dev">DEV</span>' : (role === 'NOX' ? '<span class="badge-nox">NOX</span>' : '<span class="badge-guest">GUEST</span>');
+    if(isSystem) badge = '';
 
-    const metaDiv = document.createElement('div'); metaDiv.innerHTML = innerHTML;
-    row.appendChild(metaDiv.firstElementChild); row.appendChild(bubbleEl);
-    
-    const existing = DOM.get(`msg-${msgKey}`);
-    if(existing) { existing.replaceWith(row); } 
-    else { this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight; }
+    row.innerHTML = 
+      '<div class="msg-meta" style="' + (isMe ? 'justify-content:flex-end;' : '') + '">' +
+        '<div class="msg-name ' + (isSystem ? 'sys' : '') + '">' + badge + senderName + '</div>' +
+      '</div>' +
+      '<div class="msg-bubble">' + (isRecalled ? '<i>[Tin nhắn đã bị thu hồi]</i>' : htmlContent) + '</div>';
+
+    this.board.appendChild(row); 
+    this.board.scrollTop = this.board.scrollHeight;
   },
-
-  activeMsgKey: null,
-  openEditModal: function(key) {
-      document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
-      this.activeMsgKey = key;
-      this.dbRef.child(key).once('value', snapshot => {
-          const data = snapshot.val();
-          if(data && data.text) {
-              DOM.get('edit-msg-textarea').value = data.text;
-              DOM.get('edit-msg-textarea').setAttribute('data-key', key);
-              openUI('modal-edit-msg');
-          }
-      });
-  },
-
-  saveEditedMsg: function() {
-      const key = DOM.get('edit-msg-textarea').getAttribute('data-key'); if(!key) return;
-      const newText = DOM.get('edit-msg-textarea').value.trim(); if(!newText) { alert("Tin nhắn trống!"); return; }
-      this.dbRef.child(key).update({ text: newText }).then(() => { closeUI('modal-edit-msg'); showToast("Đã chỉnh sửa tin nhắn!"); });
-  },
-
-  triggerRecallMsg: function(key) {
-      document.querySelectorAll('.msg-context-menu').forEach(m => m.remove());
-      ConfirmUI.show("THU HỒI TIN NHẮN NÀY?", () => {
-          this.dbRef.child(key).update({ recalled: true, text: "" }).then(() => { showToast("Đã thu hồi tin nhắn!"); });
-      });
-  },
-
-  triggerDeleteMsg: function(key) { ConfirmUI.show("BẠN CÓ CHẮC MUỐN XÓA TIN NHẮN NÀY KHỎI HỆ THỐNG?", () => { this.dbRef.child(key).remove(); }); },
 
   listenForMessages: function() {
     if(!this.dbRef) return;
-    this.dbRef.limitToLast(50).on('child_added', (snapshot) => {
-      const data = snapshot.val(); if(!data) return;
-      if(this.userProfile && data.user === this.userProfile.name && Date.now() - data.timestamp < 3000) return; 
-      let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
-      if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
-      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled, data.email);
+    this.dbRef.limitToLast(50).on('child_added', function(snapshot) {
+      var data = snapshot.val(); if(!data) return;
+      var html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+      if(data.image) { html = '<img src="' + data.image + '" class="chat-image" onclick="openLightbox(\'' + data.image + '\')">' + html; }
+      ChatEngine.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled);
     });
-    
-    this.dbRef.on('child_changed', (snapshot) => {
-      const data = snapshot.val(); if(!data) return;
-      let html = data.text ? data.text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
-      if(data.image) { html = `<img src="${data.image}" class="chat-image">` + html; }
-      this.appendMsg(data.user, html, false, snapshot.key, data.role, data.recalled, data.email);
-    });
-
-    this.dbRef.on('child_removed', (snapshot) => { const row = DOM.get(`msg-${snapshot.key}`); if(row) row.remove(); });
   },
 
   sendMsg: function() {
-    if(!this.userProfile) { alert("Chưa đăng nhập!"); return; }
-    if(!this.dbRef) return;
+    if(!this.userProfile) { alert("Vui lòng đăng nhập trước!"); return; }
+    var safeKey = this.userProfile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
     
-    const safeKey = this.userProfile.email.replace(/\./g, '_dot_').replace(/@/g, '_at_');
-    firebase.database().ref('nox_users_control/' + safeKey).once('value', snapshot => {
-        const ctrl = snapshot.val();
+    firebase.database().ref('nox_users_control/' + safeKey).once('value', function(snapshot) {
+        var ctrl = snapshot.val();
         if(ctrl && ctrl.isMuted && Date.now() < ctrl.muteUntil) {
-            const timeStr = new Date(ctrl.muteUntil).toLocaleTimeString();
-            alert(`BẠN ĐÃ BỊ CẤM TRONG 24H (Đến ${timeStr}). Lý do: ${ctrl.muteReason || 'Không có'}`);
+            var timeStr = new Date(ctrl.muteUntil).toLocaleTimeString();
+            alert('BẠN ĐÃ BỊ CẤM CHAT (Đến ' + timeStr + '). Lý do: ' + (ctrl.muteReason || 'Vi phạm quy định'));
             return;
         }
-        
-        const text = this.input.value.trim(); const base64Img = ImageProcessor.currentChatImage;
+        if(!ChatEngine.input) ChatEngine.input = DOM.get('noxchat-field');
+        var text = ChatEngine.input.value.trim(); var base64Img = ImageProcessor.currentChatImage;
         if(!text && !base64Img) return;
         
-        let displayHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
-        if(base64Img) displayHtml = `<img src="${base64Img}" class="chat-image">` + displayHtml;
-        
-        this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
-        
-        this.dbRef.push({ 
-            user: this.userProfile.name, role: this.userProfile.role, email: this.userProfile.email,
+        ChatEngine.input.value = ''; ChatEngine.input.style.height = '44px'; ChatEngine.removeImage();
+        ChatEngine.dbRef.push({ 
+            user: ChatEngine.userProfile.name, role: ChatEngine.userProfile.role, email: ChatEngine.userProfile.email,
             text: text, image: base64Img || "", recalled: false, 
             timestamp: firebase.database.ServerValue.TIMESTAMP 
-        }).catch(err => { this.appendMsg('SYSTEM', 'Gửi lỗi.', true); });
+        }).catch(function() { ChatEngine.appendMsg('SYSTEM', 'Lỗi gửi tin nhắn.', true); });
     });
   },
 
   sendScript: function() {
-      if(!this.userProfile) { alert("Vui lòng đăng nhập chat trước!"); return; }
-      const title = DOM.get('share-title').value.trim(); const code = DOM.get('share-code').value.trim();
-      if(!title || !code) { alert("Điền đủ thông tin!"); return; }
-      this.scriptRef.push({ user: this.userProfile.name, role: this.userProfile.role, title: title, code: code, timestamp: firebase.database.ServerValue.TIMESTAMP })
-      .then(() => { 
+      if(!this.userProfile) { alert("Vui lòng đăng nhập trước!"); return; }
+      var title = DOM.get('share-title').value.trim(); 
+      var image = DOM.get('share-image').value.trim();
+      var code = DOM.get('share-code').value.trim();
+      if(!title || !code) { alert("Điền đủ tên và mã script!"); return; }
+      this.scriptRef.push({ 
+          user: this.userProfile.name, 
+          role: this.userProfile.role, 
+          title: title, 
+          image: image, 
+          code: code, 
+          timestamp: firebase.database.ServerValue.TIMESTAMP 
+      }).then(function() { 
           showToast("Đăng Script thành công!"); 
-          DOM.get('share-title').value = ''; DOM.get('share-code').value = ''; 
+          DOM.get('share-title').value = ''; 
+          DOM.get('share-image').value = ''; 
+          DOM.get('share-code').value = ''; 
           closeUI('modal-script-share'); 
       });
   },
 
   loadVaultScripts: function() {
-      const vBoard = DOM.get('vault-board'); if(!vBoard) return;
-      vBoard.innerHTML = '<div style="text-align:center; padding: 20px;">Đang tải...</div>';
-      
-      this.scriptRef.limitToLast(50).on('value', (snapshot) => {
+      var vBoard = DOM.get('vault-board'); if(!vBoard) return;
+      vBoard.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--text-sub);">Đang tải...</div>';
+      this.scriptRef.limitToLast(50).on('value', function(snapshot) {
           vBoard.innerHTML = '';
-          if(!snapshot.exists()) { vBoard.innerHTML = '<div class="search-empty">Trống.</div>'; return; }
-          let scripts = []; snapshot.forEach(child => { scripts.push({key: child.key, ...child.val()}); }); scripts.reverse();
-          
-          scripts.forEach(s => {
-              const b = document.createElement('div'); b.className = 'data-box';
-              let delBtn = IS_ADMIN ? `<button class="dev-delete-btn" onclick="ConfirmUI.show('XÓA SCRIPT NÀY?', () => ChatEngine.scriptRef.child('${s.key}').remove())">XÓA</button>` : '';
-              let badge = s.role === 'DEV' ? `<span class="badge-dev">[DEV]</span>` : (s.role === 'NOX' ? `<span class="badge-nox">[NOX]</span>` : `<span class="badge-guest">[GUEST]</span>`);
-              let displayName = s.role === 'DEV' ? `<span style="color:var(--dev-color)">${s.user}</span>` : s.user;
+          ChatEngine.vaultMap = {};
+          if(!snapshot.exists()) { vBoard.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-muted);">Trống.</div>'; return; }
+          snapshot.forEach(function(child) {
+              var s = child.val();
+              ChatEngine.vaultMap[child.key] = s;
+              var box = document.createElement('div'); box.className = 'data-box';
+              var safeCode = s.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+              var imgHtml = s.image ? '<div class="card-thumbnail-wrap" onclick="openLightbox(\'' + s.image + '\')"><img src="' + s.image + '" class="card-thumbnail-img" alt="Script Preview"></div>' : '';
               
-              b.innerHTML = `
-                <div class="box-head"><span class="box-title">${s.title.replace(/</g,"&lt;")} <div>${delBtn}</div></span><button class="box-action" onclick="UtilsEngine.execCopy(this)">COPY</button></div>
-                <div class="script-code">${s.code.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
-                <div style="font-size:0.75rem; color:var(--text-sub); margin-top:4px;">${badge} Đóng góp bởi: ${displayName}</div>
-              `;
-              vBoard.appendChild(b);
+              box.innerHTML = 
+                imgHtml +
+                '<div class="box-head"><span class="box-title">' + s.title.replace(/</g,"&lt;") + '</span><button class="box-action" onclick="ChatEngine.copyVaultScript(this, \'' + child.key + '\')">COPY</button></div>' +
+                '<div class="script-code">' + safeCode + '</div>' +
+                '<div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Đóng góp bởi: ' + s.user + '</div>';
+              vBoard.appendChild(box);
           });
       });
+  },
+
+  copyVaultScript: function(btn, key) {
+      var s = this.vaultMap[key];
+      if(!s) return;
+      var txt = s.code;
+      var ok = function() {
+          btn.innerText = '✓ COPIED';
+          btn.classList.add('is-copied');
+          setTimeout(function() { btn.innerText = 'COPY'; btn.classList.remove('is-copied'); }, 2000);
+      };
+      if(navigator.clipboard) {
+          navigator.clipboard.writeText(txt).then(ok).catch(function() { prompt('Copy:', txt); });
+      } else {
+          prompt('Copy:', txt);
+      }
   }
 };
 
 /* ==========================================================================
-   SYSTEM BOOTSTRAP
+   INITIALIZE BOOTSTRAP
    ========================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
+  LoaderEngine.init();
+  LangEngine.init();
+  TimeEngine.init();
   AuthEngine.initGoogleIdentity();
   ChatEngine.initFirebase();
+  
+  // Realtime Ping Simulator
+  setInterval(function() {
+      var p = DOM.get('hud-ping');
+      if(p) p.innerText = Math.floor(Math.random() * 8 + 16) + "ms";
+  }, 3000);
 });
 </script>
 </body>
