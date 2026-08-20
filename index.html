@@ -5,14 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#02040A">
 
-<title>NOX GALAXY ASCENSION 2.0 — Cosmic Quantum OS</title>
-<meta name="description" content="NOX GALAXY ASCENSION 2.0. Hệ thống điều hành AI Quantum GalaxyZ 3 tầng, Roblox Lua Script Vault, APK & IPA Direct Link không quảng cáo.">
+<title>NOX GALAXY ASCENSION OS — Cosmic Quantum AI Operating System</title>
+<meta name="description" content="NOX GALAXY ASCENSION OS — Trung tâm điều hành trí tuệ nhân tạo GalaxyZ 3 tầng, Roblox Lua Script Vault, APK & IPA Direct Link không quảng cáo.">
 <meta name="robots" content="index, follow">
 
+<!-- Fonts: High-Tech Cosmic Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;900&display=swap" rel="stylesheet">
 
+<!-- Cloud SDKs -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -20,7 +22,7 @@
 
 <style>
 /* ==========================================================================
-   1. DESIGN TOKENS & COSMIC GLASS 2.0
+   1. DESIGN TOKENS & COSMIC GLASS 2.0 SYSTEM
    ========================================================================== */
 :root {
   --bg-void: #02040A;
@@ -28,6 +30,7 @@
   --bg-nebula: #08111F;
   --bg-input: rgba(4, 7, 18, 0.94);
 
+  /* Tiered Glass Surfaces */
   --glass-1: rgba(10, 18, 38, 0.68);
   --glass-2: rgba(12, 22, 48, 0.82);
   --glass-3: rgba(16, 28, 58, 0.92);
@@ -42,6 +45,7 @@
   --text-sub: #94A3B8;
   --text-muted: #64748B;
 
+  /* Quantum Lighting Tokens */
   --accent-cyan: #00D9F5;
   --accent-cyan-glow: rgba(0, 217, 245, 0.35);
   --accent-quantum: #00F5A0;
@@ -55,6 +59,12 @@
   --accent-danger-glow: rgba(255, 42, 95, 0.4);
   --dev-color: #FF2A85;
 
+  /* Model Distinct Colors */
+  --model-25-color: #A855F7;
+  --model-31-color: #00D9F5;
+  --model-34-color: #FF2A85;
+
+  /* Spacing Scale (4, 8, 12, 16, 20, 24, 32, 40, 48) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -64,11 +74,13 @@
   --space-8: 32px;
   --space-10: 40px;
 
+  /* Border Radii */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-full: 9999px;
 
+  /* Animation Easing */
   --ease-cosmic: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -124,7 +136,7 @@ a { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-quantum); }
 
 /* ==========================================================================
-   2. COSMIC BOOTSTRAP SCREEN
+   2. COSMIC BOOT SEQUENCE (STATE MACHINE SCREEN)
    ========================================================================== */
 #quantum-boot-screen {
   position: fixed;
@@ -136,7 +148,7 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
   align-items: center;
   padding: var(--space-6);
-  transition: opacity 0.6s var(--ease-cosmic), transform 0.6s var(--ease-cosmic);
+  transition: opacity 0.65s var(--ease-cosmic), transform 0.65s var(--ease-cosmic);
 }
 #quantum-boot-screen.is-loaded {
   opacity: 0;
@@ -146,14 +158,14 @@ a { text-decoration: none; color: inherit; }
 
 .boot-orbital-core {
   position: relative;
-  width: 130px;
-  height: 130px;
+  width: 140px;
+  height: 140px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: var(--space-6);
 }
-.boot-ring {
+.boot-ring-outer {
   position: absolute;
   inset: 0;
   border-radius: 50%;
@@ -172,7 +184,7 @@ a { text-decoration: none; color: inherit; }
 }
 .boot-logo-node {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 900;
   letter-spacing: 2px;
   background: linear-gradient(135deg, #FFF, var(--accent-cyan));
@@ -183,7 +195,7 @@ a { text-decoration: none; color: inherit; }
 @keyframes bootSpinReverse { 100% { transform: rotate(-360deg); } }
 
 .boot-progress-bar-wrap {
-  width: min(320px, 80vw);
+  width: min(340px, 82vw);
   height: 4px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-full);
@@ -203,7 +215,12 @@ a { text-decoration: none; color: inherit; }
   font-size: 0.78rem;
   color: var(--text-sub);
   letter-spacing: 1px;
-  min-height: 20px;
+  min-height: 22px;
+  text-align: center;
+}
+.boot-retry-btn {
+  display: none;
+  margin-top: var(--space-4);
 }
 
 /* ==========================================================================
@@ -360,7 +377,7 @@ a { text-decoration: none; color: inherit; }
 @keyframes pulseDotLive { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
 
 /* ==========================================================================
-   5. ICON & BUTTON DESIGN SYSTEM
+   5. PERFECT GEOMETRIC ICON & BUTTON SYSTEM
    ========================================================================== */
 .nox-icon {
   width: 18px;
@@ -378,7 +395,7 @@ a { text-decoration: none; color: inherit; }
 .btn {
   height: 40px;
   padding: 0 var(--space-4);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -414,7 +431,7 @@ a { text-decoration: none; color: inherit; }
   height: 38px;
   aspect-ratio: 1 / 1;
   padding: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -528,7 +545,7 @@ a { text-decoration: none; color: inherit; }
 @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
 /* ==========================================================================
-   7. SEARCH & VAULT FEED GRID
+   7. SEARCH & VAULT FEED GRID (MOBILE FIRST)
    ========================================================================== */
 .search-filter-deck {
   display: flex;
@@ -566,7 +583,7 @@ a { text-decoration: none; color: inherit; }
 .category-tab-row::-webkit-scrollbar { display: none; }
 .category-chip {
   padding: 8px 16px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   color: var(--text-muted);
   font-size: 0.8rem;
   font-weight: 700;
@@ -616,7 +633,7 @@ a { text-decoration: none; color: inherit; }
   background: rgba(0, 217, 245, 0.08);
   border: 1px solid rgba(0, 217, 245, 0.25);
   padding: 2px 8px;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-sm);
   text-transform: uppercase;
 }
 .card-title-text {
@@ -655,7 +672,7 @@ a { text-decoration: none; color: inherit; }
 .card-actions-dock .btn-primary, .card-actions-dock .btn-secondary { width: 100%; }
 
 /* ==========================================================================
-   8. MODAL WINDOWS & AI INTERFACE
+   8. MODAL WINDOWS & AI INTERFACE (NO HORIZONTAL OVERFLOW)
    ========================================================================== */
 .cosmic-modal-overlay {
   position: fixed;
@@ -707,14 +724,14 @@ a { text-decoration: none; color: inherit; }
 
 .ai-model-selector-deck {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background: rgba(4, 8, 20, 0.85);
   border-bottom: 1px solid var(--border-glass);
 }
-@media (max-width: 600px) {
-  .ai-model-selector-deck { grid-template-columns: 1fr; max-height: 180px; overflow-y: auto; }
+@media (max-width: 640px) {
+  .ai-model-selector-deck { grid-template-columns: 1fr; max-height: 190px; overflow-y: auto; }
 }
 
 .ai-tier-card {
@@ -729,11 +746,22 @@ a { text-decoration: none; color: inherit; }
   transition: all 0.2s ease;
 }
 .ai-tier-card:hover { border-color: rgba(0, 217, 245, 0.35); }
-.ai-tier-card.is-active {
+.ai-tier-card.is-active[data-model="2.5"] {
+  background: rgba(168, 85, 247, 0.14);
+  border-color: var(--model-25-color);
+  box-shadow: 0 0 14px var(--accent-cosmic-glow);
+}
+.ai-tier-card.is-active[data-model="3.1"] {
   background: rgba(0, 217, 245, 0.14);
-  border-color: var(--accent-cyan);
+  border-color: var(--model-31-color);
   box-shadow: 0 0 14px var(--accent-cyan-glow);
 }
+.ai-tier-card.is-active[data-model="3.4"] {
+  background: rgba(255, 42, 133, 0.14);
+  border-color: var(--model-34-color);
+  box-shadow: 0 0 14px var(--accent-danger-glow);
+}
+
 .ai-tier-name { font-size: 0.8rem; font-weight: 800; color: var(--text-main); }
 .ai-tier-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--accent-cyan); font-weight: 700; }
 .ai-tier-desc { font-size: 0.7rem; color: var(--text-sub); }
@@ -1029,9 +1057,10 @@ a { text-decoration: none; color: inherit; }
 </head>
 <body>
 
+<!-- Cosmic Boot Sequence -->
 <div id="quantum-boot-screen">
   <div class="boot-orbital-core">
-    <div class="boot-ring"></div>
+    <div class="boot-ring-outer"></div>
     <div class="boot-ring-inner"></div>
     <span class="boot-logo-node">NOX</span>
   </div>
@@ -1039,13 +1068,16 @@ a { text-decoration: none; color: inherit; }
     <div class="boot-progress-fill" id="boot-progress-bar"></div>
   </div>
   <div class="boot-log-text" id="boot-log-message">INITIALIZING QUANTUM CORE...</div>
+  <button class="btn btn-secondary boot-retry-btn" id="boot-retry-button" onclick="SystemBootstrapper.boot()">RETRY CONNECTION</button>
 </div>
 
+<!-- Cosmic Graphics Engine -->
 <canvas id="cosmic-canvas"></canvas>
 <div class="cosmic-nebula-aurora"></div>
 <div class="cosmic-planet-silhouette"></div>
 <div id="quantum-cursor-glow"></div>
 
+<!-- Top Floating Command Bar -->
 <header class="top-nav">
   <div class="brand-node" onclick="EasterEngine.triggerCorePulse()">
     <div class="quantum-orbital-orb">
@@ -1053,14 +1085,14 @@ a { text-decoration: none; color: inherit; }
     </div>
     <div class="brand-text-wrap">
       <span class="brand-title">NOX GALAXY</span>
-      <span class="brand-edition">ASCENSION 2.0</span>
+      <span class="brand-edition">ASCENSION OS</span>
     </div>
   </div>
 
   <div class="nav-actions-deck">
     <div class="status-badge-live">
       <span class="quantum-pulse-dot"></span>
-      <span id="ui-nav-status">ONLINE</span>
+      <span id="ui-nav-status">CONNECTING</span>
     </div>
 
     <button class="btn btn-secondary btn-icon" onclick="CommandPalette.open()" title="Command Palette (Ctrl + K)">
@@ -1078,6 +1110,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </header>
 
+<!-- Command Drawer (Sidebar OS Hub) -->
 <div class="drawer-backdrop-glass" id="nav-drawer-backdrop" onclick="if(event.target===this)toggleMenu()">
   <nav class="drawer-command-panel" id="nav-drawer">
     <div class="drawer-head-row">
@@ -1127,6 +1160,7 @@ a { text-decoration: none; color: inherit; }
       </button>
     </div>
 
+    <!-- Admin Dev Module Trigger -->
     <div class="drawer-category-group" id="dev-menu-editor-group" style="display:none;">
       <div class="drawer-subheading-tag" style="color:var(--dev-color);">[DEV] CONTROL CENTER</div>
       <button class="drawer-nav-item-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-dev-control'); DevCenter.init();">
@@ -1149,7 +1183,9 @@ a { text-decoration: none; color: inherit; }
   </nav>
 </div>
 
+<!-- Main Application Workspace -->
 <main class="os-container">
+  <!-- Telemetry HUD Bar -->
   <div class="telemetry-deck">
     <div class="hud-cell">
       <span>QUANTUM CORE:</span>
@@ -1171,13 +1207,14 @@ a { text-decoration: none; color: inherit; }
     </div>
     <div class="hud-cell">
       <span>AI MATRIX:</span>
-      <span class="hud-highlight">GALAXYZ 3.4</span>
+      <span class="hud-highlight" id="hud-ai-model-active">GALAXYZ 3.4</span>
     </div>
   </div>
 
+  <!-- Hero / Quantum Core Console -->
   <section class="hero-quantum-console">
     <div class="hero-meta-block">
-      <h1 class="hero-cosmic-h1" id="ui-title-text">NOX GALAXY ASCENSION 2.0</h1>
+      <h1 class="hero-cosmic-h1" id="ui-title-text">NOX GALAXY ASCENSION OS</h1>
       <p class="hero-desc">COSMIC QUANTUM AI & SCRIPT OPERATING SYSTEM</p>
     </div>
 
@@ -1197,6 +1234,7 @@ a { text-decoration: none; color: inherit; }
     </div>
   </section>
 
+  <!-- Search & Tabs Control Bar -->
   <section class="search-filter-deck">
     <input class="search-field-input" id="input-search" placeholder="🔍 Tìm kiếm Script, Tool, Bypass Link..." oninput="UtilsEngine.execSearch(this.value)">
 
@@ -1216,9 +1254,11 @@ a { text-decoration: none; color: inherit; }
     </div>
   </section>
 
+  <!-- Vault Feed Grid -->
   <section class="vault-cards-grid" id="main-feed-container"></section>
 </main>
 
+<!-- Modal: NOX AI 3-Tier Terminal -->
 <div class="cosmic-modal-overlay" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
   <div class="cosmic-modal-window">
     <div class="modal-deck-head">
@@ -1229,20 +1269,21 @@ a { text-decoration: none; color: inherit; }
       <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-noxgpt')">✕</button>
     </div>
 
+    <!-- 3-Tier Model Bar -->
     <div class="ai-model-selector-deck">
-      <div class="ai-tier-card" id="tier-card-25" onclick="GptEngine.switchModel('2.5')">
+      <div class="ai-tier-card" id="tier-card-25" data-model="2.5" onclick="AIRouter.switchModel('2.5')">
         <span class="ai-tier-name">GalaxyZ-2.5</span>
-        <span class="ai-tier-badge">⚡ FAST CASUAL</span>
-        <span class="ai-tier-desc">Không giới hạn • Độ trễ thấp</span>
+        <span class="ai-tier-badge" style="color:var(--model-25-color);">⚡ FAST CASUAL</span>
+        <span class="ai-tier-desc">Không giới hạn • Tốc độ cao</span>
       </div>
-      <div class="ai-tier-card" id="tier-card-31" onclick="GptEngine.switchModel('3.1')">
+      <div class="ai-tier-card" id="tier-card-31" data-model="3.1" onclick="AIRouter.switchModel('3.1')">
         <span class="ai-tier-name">GalaxyZ-3.1 Pro</span>
-        <span class="ai-tier-badge" id="quota-badge-31">◈ 60 / 60 (5H)</span>
+        <span class="ai-tier-badge" style="color:var(--model-31-color);" id="quota-badge-31">◈ 60 / 60 (5H)</span>
         <span class="ai-tier-desc">Reasoning & Coding • Cần Google</span>
       </div>
-      <div class="ai-tier-card is-active" id="tier-card-34" onclick="GptEngine.switchModel('3.4')">
+      <div class="ai-tier-card is-active" id="tier-card-34" data-model="3.4" onclick="AIRouter.switchModel('3.4')">
         <span class="ai-tier-name">GalaxyZ-3.4 Pro</span>
-        <span class="ai-tier-badge" id="quota-badge-34">★ 20 / 20 (5H)</span>
+        <span class="ai-tier-badge" style="color:var(--model-34-color);" id="quota-badge-34">★ 20 / 20 (5H)</span>
         <span class="ai-tier-desc">High Reasoning • Cần Google</span>
       </div>
     </div>
@@ -1250,7 +1291,7 @@ a { text-decoration: none; color: inherit; }
     <div id="gpt-fallback-container" style="display:none; padding:10px; background:var(--bg-input); border:1px dashed var(--accent-danger); margin:10px; border-radius:var(--radius-sm);">
       <div style="font-size:0.8rem; font-weight:800; color:var(--accent-danger); margin-bottom:6px;">CẦN CẬP NHẬT API KEY</div>
       <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key mới..." style="width:100%; padding:8px; background:var(--bg-void); border:1px solid var(--border-glass); margin-bottom:6px;">
-      <button class="btn btn-primary" style="width:100%; background:var(--accent-danger); color:#FFF; height:34px;" onclick="GptEngine.validateAndSaveConfig()">LƯU VÀ THỬ LẠI</button>
+      <button class="btn btn-primary" style="width:100%; background:var(--accent-danger); color:#FFF; height:34px;" onclick="AIRouter.validateAndSaveConfig()">LƯU VÀ THỬ LẠI</button>
     </div>
 
     <div class="chat-board-scroll" id="noxgpt-board"></div>
@@ -1258,15 +1299,15 @@ a { text-decoration: none; color: inherit; }
     <div class="chat-input-deck">
       <div id="gpt-preview-zone" style="display:none; align-items:center; gap:8px;">
         <img src="" id="gpt-preview-img" style="width:32px; height:32px; border-radius:4px; object-fit:cover;">
-        <div onclick="GptEngine.removeImage()" style="cursor:pointer; color:var(--accent-danger); font-weight:bold; font-size:0.8rem;">✕ Xóa ảnh</div>
+        <div onclick="AIRouter.removeImage()" style="cursor:pointer; color:var(--accent-danger); font-weight:bold; font-size:0.8rem;">✕ Xóa ảnh</div>
       </div>
       <div class="input-interactive-row">
         <label for="gpt-img-upload" class="btn btn-secondary btn-icon" title="Tải ảnh" style="flex-shrink:0;">
           <svg class="nox-icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
         </label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
-        <textarea id="noxgpt-field" class="chat-textarea-field" placeholder="Hỏi GalaxyZ..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
-        <button class="btn btn-primary btn-icon" id="btn-gpt-send" onclick="GptEngine.handleSendOrStop()" style="flex-shrink:0;">
+        <textarea id="noxgpt-field" class="chat-textarea-field" placeholder="Hỏi GalaxyZ..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); AIRouter.submit(); }"></textarea>
+        <button class="btn btn-primary btn-icon" id="btn-gpt-send" onclick="AIRouter.handleSendOrStop()" style="flex-shrink:0;">
           <svg class="nox-icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
@@ -1274,6 +1315,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Modal: Cosmic Global Chatroom -->
 <div class="cosmic-modal-overlay" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
   <div class="cosmic-modal-window" style="position: relative;">
     <div class="auth-curtain-overlay" id="auth-guard">
@@ -1324,6 +1366,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Modal: Script Share -->
 <div class="cosmic-modal-overlay" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
   <div class="cosmic-modal-window" style="max-width: 480px; height: auto;">
     <div class="modal-deck-head">
@@ -1339,6 +1382,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Modal: Script Vault -->
 <div class="cosmic-modal-overlay" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
   <div class="cosmic-modal-window">
     <div class="modal-deck-head">
@@ -1349,6 +1393,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Modal: NOX DEV Control Center -->
 <div class="cosmic-modal-overlay" id="modal-dev-control" onclick="if(event.target===this)closeUI('modal-dev-control')">
   <div class="cosmic-modal-window" style="max-width: 840px;">
     <div class="modal-deck-head">
@@ -1359,6 +1404,7 @@ a { text-decoration: none; color: inherit; }
       <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-dev-control')">✕</button>
     </div>
 
+    <!-- Dev Navigation Tabs -->
     <div class="dev-control-tabs">
       <button class="dev-tab-btn is-active" onclick="DevCenter.switchTab('dev-tab-overview', this)">OVERVIEW</button>
       <button class="dev-tab-btn" onclick="DevCenter.switchTab('dev-tab-users', this)">USER MANAGEMENT</button>
@@ -1367,6 +1413,7 @@ a { text-decoration: none; color: inherit; }
       <button class="dev-tab-btn" onclick="DevCenter.switchTab('dev-tab-logs', this)">AI LOGS</button>
     </div>
 
+    <!-- Tab 1: Overview -->
     <div class="dev-tab-pane is-active" id="dev-tab-overview">
       <div class="dev-stat-grid">
         <div class="dev-stat-card">
@@ -1388,6 +1435,7 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
+    <!-- Tab 2: User Management -->
     <div class="dev-tab-pane" id="dev-tab-users">
       <div style="display:flex; gap:8px;">
         <input type="text" id="dev-user-search-input" placeholder="Tìm user theo tên / email..." class="search-field-input" style="height:38px;" oninput="DevCenter.renderUsers()">
@@ -1400,6 +1448,7 @@ a { text-decoration: none; color: inherit; }
       <div id="dev-users-list-box" style="display:flex; flex-direction:column; gap:8px; max-height:380px; overflow-y:auto;"></div>
     </div>
 
+    <!-- Tab 3: Web Config -->
     <div class="dev-tab-pane" id="dev-tab-config">
       <input type="text" id="dev-conf-title" placeholder="Tiêu đề web..." class="search-field-input">
       <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V75 PROMAX)..." class="search-field-input">
@@ -1408,6 +1457,7 @@ a { text-decoration: none; color: inherit; }
       <button class="btn btn-primary" style="background:var(--dev-color); color:#FFF;" onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
     </div>
 
+    <!-- Tab 4: Utils & Scripts CRUD -->
     <div class="dev-tab-pane" id="dev-tab-utils">
       <input type="hidden" id="dev-edit-key" value="">
       <select id="dev-util-type" class="search-field-input">
@@ -1430,6 +1480,7 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
+    <!-- Tab 5: AI Logs -->
     <div class="dev-tab-pane" id="dev-tab-logs">
       <div id="dev-ai-logs-board" style="font-family:'JetBrains Mono', monospace; font-size:0.78rem; display:flex; flex-direction:column; gap:6px; max-height:360px; overflow-y:auto;">
         <div style="color:var(--text-muted);">Chưa có log mới.</div>
@@ -1438,6 +1489,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Command Palette Modal (Ctrl + K) -->
 <div id="command-palette-modal" onclick="if(event.target===this)CommandPalette.close()">
   <div class="palette-window">
     <input type="text" id="palette-search-box" class="palette-input" placeholder="Nhập lệnh hoặc tìm kiếm (VD: AI, Script, Chat, Dev)..." oninput="CommandPalette.filter(this.value)">
@@ -1445,6 +1497,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Modal: Confirm Action -->
 <div class="cosmic-modal-overlay" id="confirm-modal">
   <div class="vault-item-card" style="max-width:380px; width:100%; text-align:center; padding:24px; background:var(--glass-core);">
     <div style="color:var(--accent-danger); font-weight:800; margin-bottom:16px;" id="confirm-msg-text">BẠN CÓ CHẮC CHẮN?</div>
@@ -1455,6 +1508,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Global Lightbox & Toast -->
 <div id="image-lightbox" onclick="this.classList.remove('active')">
   <img src="" id="lightbox-img" alt="Enlarged Preview">
 </div>
@@ -1467,6 +1521,9 @@ a { text-decoration: none; color: inherit; }
 <script>
 "use strict";
 
+/* ==========================================================================
+   DOM UTILITIES & SYSTEM CORE
+   ========================================================================== */
 var DOM = {
   get: function(id) { return document.getElementById(id); },
   queryAll: function(sel) { return document.querySelectorAll(sel); }
@@ -1492,22 +1549,60 @@ var ADMIN_EMAIL = "hminhgalaxy@gmail.com";
 var IS_ADMIN = false;
 
 /* ==========================================================================
-   BOOT SEQUENCE CONTROLLER
+   SYSTEM BOOTSTRAPPER (STATE MACHINE)
    ========================================================================== */
-var BootEngine = {
-  progress: 0,
-  step: function(msg, pct) {
+var SystemBootstrapper = {
+  state: 'BOOTING',
+
+  updateStatus: function(msg, pct) {
     var txt = DOM.get('boot-log-message');
     var bar = DOM.get('boot-progress-bar');
     if(txt) txt.innerText = msg;
     if(bar) bar.style.width = pct + '%';
   },
-  complete: function() {
-    this.step("QUANTUM MATRIX SYNCHRONIZED", 100);
-    setTimeout(function() {
-      var scr = DOM.get('quantum-boot-screen');
-      if(scr) scr.classList.add('is-loaded');
-    }, 450);
+
+  boot: async function() {
+    this.state = 'BOOTING';
+    DOM.get('boot-retry-button').style.display = 'none';
+    this.updateStatus("INITIALIZING QUANTUM RUNTIME...", 10);
+
+    try {
+      GraphicsEngine.init();
+      CosmicCanvasEngine.init();
+      LangEngine.init();
+      TimeEngine.init();
+      AIRouter.init();
+
+      this.state = 'FIREBASE_CONNECTING';
+      this.updateStatus("CONNECTING TO GALAXY DATABASE...", 35);
+      await ChatEngine.initFirebaseAsync();
+
+      this.state = 'AUTH_LOADING';
+      this.updateStatus("AUTHENTICATING IDENTITY...", 65);
+      AuthEngine.initGoogleIdentity();
+      await AuthEngine.restoreSavedSession();
+
+      this.state = 'DATA_LOADING';
+      this.updateStatus("CALIBRATING DATA VAULT...", 85);
+      UtilsEngine.init();
+      ConfigEngine.init();
+
+      this.state = 'READY';
+      this.updateStatus("GALAXY ASCENSION CORE ONLINE", 100);
+      DOM.get('ui-nav-status').innerText = "ONLINE";
+
+      setTimeout(function() {
+        var scr = DOM.get('quantum-boot-screen');
+        if(scr) scr.classList.add('is-loaded');
+      }, 450);
+
+    } catch (err) {
+      console.error("Boot Sequence Error:", err);
+      this.state = 'ERROR';
+      this.updateStatus("GALAXY CORE CONNECTION FAILED", 100);
+      DOM.get('ui-nav-status').innerText = "OFFLINE";
+      DOM.get('boot-retry-button').style.display = 'inline-flex';
+    }
   }
 };
 
@@ -1529,7 +1624,7 @@ var GraphicsEngine = {
 };
 
 /* ==========================================================================
-   COSMIC CANVAS ENGINE
+   MULTI-LAYER COSMIC CANVAS ENGINE
    ========================================================================== */
 var CosmicCanvasEngine = {
   canvas: null, ctx: null, stars: [], shootingStars: [], numStars: 120,
@@ -1725,6 +1820,7 @@ var ServerQuotaEngine = {
   windowMs: 5 * 60 * 60 * 1000,
 
   checkAndConsumeQuota: async function(userId, modelTier) {
+    if (IS_ADMIN) return { allowed: true, remaining: "UNLIMITED", isDev: true };
     if (modelTier === "2.5") return { allowed: true, remaining: 9999 };
     if (!userId || userId.startsWith("guest_") || userId === "guest") {
       return { allowed: false, reason: "AUTH_REQUIRED" };
@@ -1763,6 +1859,11 @@ var ServerQuotaEngine = {
   },
 
   updateBadge: function(tier, remaining, max) {
+    if (IS_ADMIN) {
+      if (tier === "3.4") DOM.get('quota-badge-34').innerText = "★ UNLIMITED (DEV)";
+      if (tier === "3.1") DOM.get('quota-badge-31').innerText = "◈ UNLIMITED (DEV)";
+      return;
+    }
     if (tier === "3.4") {
       var b34 = DOM.get('quota-badge-34');
       if (b34) b34.innerText = "★ " + remaining + " / " + max + " (5H)";
@@ -1849,8 +1950,8 @@ var TimeEngine = {
    NOTICE TYPEWRITER ENGINE
    ========================================================================== */
 var NoticeTypewriter = {
-  fullTextVN: "⚡ NOX GALAXY ASCENSION 2.0 ⚡\n◈ Hệ điều hành trung tâm phân phối Roblox Lua Script, Link Bypass, Tool APK & iOS sạch không quảng cáo.\n◈ HỆ THỐNG AI 3 TẦNG: GalaxyZ-2.5 (Fast Casual), GalaxyZ-3.1 Pro (Advanced Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Bấm Ctrl + K để mở Command Palette điều hướng nhanh.",
-  fullTextEN: "⚡ NOX GALAXY ASCENSION 2.0 ⚡\n◈ Cosmic OS portal for Roblox Lua Scripts, Bypass Tools, APK & IPA direct links.\n◈ 3-TIER AI MATRIX: GalaxyZ-2.5 (Fast Casual), GalaxyZ-3.1 Pro (Advanced Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Press Ctrl + K to open the Cosmic Command Palette.",
+  fullTextVN: "⚡ NOX GALAXY ASCENSION OS ⚡\n◈ Hệ điều hành trung tâm phân phối Roblox Lua Script, Link Bypass, Tool APK & iOS sạch không quảng cáo.\n◈ HỆ THỐNG AI 3 TẦNG: GalaxyZ-2.5 (Fast Casual), GalaxyZ-3.1 Pro (Advanced Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Bấm Ctrl + K để mở Command Palette điều hướng nhanh.",
+  fullTextEN: "⚡ NOX GALAXY ASCENSION OS ⚡\n◈ Cosmic OS portal for Roblox Lua Scripts, Bypass Tools, APK & IPA direct links.\n◈ 3-TIER AI MATRIX: GalaxyZ-2.5 (Fast Casual), GalaxyZ-3.1 Pro (Advanced Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Press Ctrl + K to open the Cosmic Command Palette.",
   isExpanded: false, timer: null,
 
   toggle: function() {
@@ -1976,7 +2077,7 @@ var RestrictedAction = {
 };
 
 /* ==========================================================================
-   AUTH ENGINE
+   AUTHENTICATION ENGINE
    ========================================================================== */
 var AuthEngine = {
   initGoogleIdentity: function() {
@@ -2013,10 +2114,22 @@ var AuthEngine = {
   decodeJwt: function(token) {
     try { var base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join(''))); } catch(e) { return {}; }
   },
+  restoreSavedSession: async function() {
+    var savedUser = localStorage.getItem('nox_user_profile');
+    if(savedUser) {
+      try {
+        var profile = JSON.parse(savedUser);
+        this.login(profile);
+        ChatEngine.listenForMessages();
+      } catch(e) { localStorage.removeItem('nox_user_profile'); }
+    }
+  },
   login: function(profile) {
     if(profile.email === ADMIN_EMAIL) { 
       IS_ADMIN = true; 
-      var mGroup = DOM.get('dev-menu-editor-group'); if(mGroup) mGroup.style.display = 'flex';
+      DOM.get('dev-menu-editor-group').style.display = 'flex';
+      ServerQuotaEngine.updateBadge("3.4", "UNLIMITED", 20);
+      ServerQuotaEngine.updateBadge("3.1", "UNLIMITED", 60);
     }
     ChatEngine.userProfile = profile;
     localStorage.setItem('nox_user_profile', JSON.stringify(profile));
@@ -2028,7 +2141,7 @@ var AuthEngine = {
           name: profile.name, email: profile.email, role: profile.role, lastLogin: firebase.database.ServerValue.TIMESTAMP
         });
       }
-    } catch(e) { console.warn("Firebase offline"); }
+    } catch(e) { console.warn("Firebase registry update failed:", e); }
 
     var authGuard = DOM.get('auth-guard');
     if(authGuard) authGuard.style.display = 'none';
@@ -2153,7 +2266,7 @@ var MenuEditor = {
 };
 
 /* ==========================================================================
-   DEV CONTROL CENTER (ADMINISTRATION & METRICS)
+   DEV CONTROL CENTER (ADMINISTRATION & OBSERVABILITY)
    ========================================================================== */
 var DevCenter = {
   usersCache: [],
@@ -2185,7 +2298,7 @@ var DevCenter = {
   loadUsers: async function() {
     var box = DOM.get('dev-users-list-box');
     if(!box) return;
-    box.innerHTML = '<div style="text-align:center; padding:15px; color:var(--text-sub);">Đang đồng bộ dữ liệu người dùng...</div>';
+    box.innerHTML = '<div style="text-align:center; padding:15px; color:var(--text-sub);">Đang đồng bộ danh sách user...</div>';
     try {
       var regSnap = await firebase.database().ref('nox_users_registry').once('value');
       var ctrlSnap = await firebase.database().ref('nox_users_control').once('value');
@@ -2281,7 +2394,7 @@ var DevCenter = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (VAULT ITEMS)
+   UTILS ENGINE (VAULT DATA FEED)
    ========================================================================== */
 var UtilsEngine = {
   ref: null, itemsMap: {}, currentTab: 'pane-link', devUploadedBase64: "",
@@ -2483,42 +2596,58 @@ var UtilsEngine = {
 };
 
 /* ==========================================================================
-   AI ORCHESTRATION ENGINE (GALAXYZ 3-TIER ROUTING)
+   AI ORCHESTRATION LAYER (GALAXYZ 3-TIER ROUTING ENGINE)
    ========================================================================== */
-var GptEngine = {
+var AIRouter = {
   defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
   defaultUrl: "https://api.xkiro.com/v1/chat/completions",
   getApiKey: function() { return localStorage.getItem('nox_ds_key') || this.defaultKey; },
   setApiKey: function(newKey) { localStorage.setItem('nox_ds_key', newKey.trim()); },
-  
-  board: DOM.get('noxgpt-board'), 
-  input: DOM.get('noxgpt-field'), 
-  isGenerating: false, currentModel: "3.4", abortController: null,
-  
-  systemInstruction: "You are GalaxyZ-3.4 Pro (High Context Quantum AI on NOX GALAXY ASCENSION 2.0, created by HminhGalaxy). When asked about your identity, you must state: 'Tôi là GalaxyZ-3.4 Pro (High Reasoning) trên hệ thống NOX GALAXY ASCENSION 2.0.' Full website context: NOX WEB provides clean Roblox Lua scripts (Delta Executor, Kasumi Store, Speed Hub X, ArceusX), direct APK/IPA links without link bypass ads. Adapt style dynamically: for code, provide clean Lua/Python blocks with notes; for analytical requests, provide structured bullet points. Always maintain context and zero fluff.",
+
+  board: null,
+  input: null,
+  isGenerating: false,
+  currentModel: "3.4",
+  abortController: null,
+
+  tierConfigs: {
+    "2.5": {
+      name: "GalaxyZ-2.5",
+      temperature: 0.75,
+      systemPrompt: "You are GalaxyZ-2.5 (Fast Casual Cosmic AI on NOX GALAXY ASCENSION OS, created by HminhGalaxy). When asked about your identity, you must state: 'Tôi là GalaxyZ-2.5 (Fast Casual) trên hệ điều hành NOX GALAXY ASCENSION OS.' Focus on rapid, direct, and helpful casual assistance with zero fluff."
+    },
+    "3.1": {
+      name: "GalaxyZ-3.1 Pro",
+      temperature: 0.60,
+      systemPrompt: "You are GalaxyZ-3.1 Pro (Pro Reasoning & Coding AI on NOX GALAXY ASCENSION OS, created by HminhGalaxy). When asked about your identity, you must state: 'Tôi là GalaxyZ-3.1 Pro (Pro Reasoning & Coding) trên hệ điều hành NOX GALAXY ASCENSION OS.' Specialize in clean Roblox Lua scripting, full web development, step-by-step reasoning, and debugging."
+    },
+    "3.4": {
+      name: "GalaxyZ-3.4 Pro (High)",
+      temperature: 0.45,
+      systemPrompt: "You are GalaxyZ-3.4 Pro (High Reasoning & Max Quality AI on NOX GALAXY ASCENSION OS, created by HminhGalaxy). When asked about your identity, you must state: 'Tôi là GalaxyZ-3.4 Pro (High Reasoning) trên hệ điều hành NOX GALAXY ASCENSION OS.' You possess deep architectural reasoning, flawless code generation, deep context understanding, and zero hallucination policy."
+    }
+  },
+
   messageHistory: [],
 
   init: function() {
-    this.messageHistory = [{ role: "system", content: this.systemInstruction }];
+    this.board = DOM.get('noxgpt-board');
+    this.input = DOM.get('noxgpt-field');
+    this.switchModel("3.4");
   },
 
   switchModel: function(model) {
     this.currentModel = model;
     DOM.queryAll('.ai-tier-card').forEach(function(c) { c.classList.remove('is-active'); });
-    
-    if (model === "2.5") {
-      DOM.get('tier-card-25').classList.add('is-active');
-      DOM.get('gpt-active-model-title').innerText = "GALAXYZ 2.5 (FAST)";
-      showToast("GalaxyZ-2.5: Phản hồi nhanh");
-    } else if(model === "3.1") {
-      DOM.get('tier-card-31').classList.add('is-active');
-      DOM.get('gpt-active-model-title').innerText = "GALAXYZ 3.1 PRO";
-      showToast("GalaxyZ-3.1 Pro: Suy luận & Lập trình");
-    } else {
-      DOM.get('tier-card-34').classList.add('is-active');
-      DOM.get('gpt-active-model-title').innerText = "GALAXYZ 3.4 PRO (HIGH)";
-      showToast("GalaxyZ-3.4 Pro: Max Reasoning & Coding");
-    }
+    var targetCard = DOM.get('tier-card-' + model.replace('.', ''));
+    if(targetCard) targetCard.classList.add('is-active');
+
+    var conf = this.tierConfigs[model] || this.tierConfigs["3.4"];
+    DOM.get('gpt-active-model-title').innerText = conf.name.toUpperCase();
+    DOM.get('hud-ai-model-active').innerText = conf.name.toUpperCase();
+
+    this.messageHistory = [{ role: "system", content: conf.systemPrompt }];
+    showToast("Kích hoạt model: " + conf.name);
   },
 
   setGeneratingState: function(state) {
@@ -2544,7 +2673,7 @@ var GptEngine = {
     this.setGeneratingState(false);
     var loader = DOM.get('gpt-active-loader');
     if(loader) loader.remove();
-    this.appendMsg('other', 'GalaxyZ ' + this.currentModel, '<i>[Đã dừng tạo phản hồi]</i>');
+    this.appendMsg('other', this.tierConfigs[this.currentModel].name, '<i>[Đã dừng tạo phản hồi]</i>');
   },
 
   formatMarkdown: function(text) {
@@ -2580,7 +2709,7 @@ var GptEngine = {
     row.className = 'msg-row-block type-other';
     row.id = 'gpt-active-loader';
     row.innerHTML = 
-      '<div class="msg-meta-tag sys">GALAXYZ ' + this.currentModel + '</div>' +
+      '<div class="msg-meta-tag sys">' + this.tierConfigs[this.currentModel].name + '</div>' +
       '<div class="msg-bubble-glass">' +
         '<div class="quantum-processing-loader">' +
           '<div class="quantum-morph-core"></div>' +
@@ -2626,7 +2755,7 @@ var GptEngine = {
 
     if (!quotaCheck.allowed) {
       if (quotaCheck.reason === "AUTH_REQUIRED") {
-        showToast("Model " + this.currentModel + " yêu cầu đăng nhập Google.");
+        showToast("Model " + this.tierConfigs[this.currentModel].name + " yêu cầu đăng nhập Google.");
         openUI('modal-noxchat');
         return;
       }
@@ -2656,13 +2785,13 @@ var GptEngine = {
 
       setTimeout(function() {
         if(loader) loader.remove();
-        GptEngine.setGeneratingState(false);
+        AIRouter.setGeneratingState(false);
         var titleMsg = (LangEngine.currentLang==='vi') ? "Tác phẩm Quantum đã hoàn tất:" : "Quantum artwork generated:";
         var imgHtml = '<div>' + titleMsg + '</div>' +
           '<img src="' + imageUrl + '" style="max-width:100%; border-radius:6px; margin-top:6px; cursor:pointer;" onclick="openLightbox(\'' + imageUrl + '\')" alt="AI Art">';
-        GptEngine.appendMsg('other', 'GalaxyZ ' + GptEngine.currentModel, imgHtml);
-        GptEngine.messageHistory.push({ role: "assistant", content: "Generated image: " + imagePrompt });
-        DevCenter.logAiRequest('GalaxyZ-' + GptEngine.currentModel + ' [IMAGE]', Date.now() - startTime, true);
+        AIRouter.appendMsg('other', AIRouter.tierConfigs[AIRouter.currentModel].name, imgHtml);
+        AIRouter.messageHistory.push({ role: "assistant", content: "Generated image: " + imagePrompt });
+        DevCenter.logAiRequest(AIRouter.tierConfigs[AIRouter.currentModel].name + ' [IMAGE]', Date.now() - startTime, true);
       }, thinkDelay);
       return;
     }
@@ -2672,7 +2801,7 @@ var GptEngine = {
 
     try {
       var apiKey = this.getApiKey();
-      var temperatureValue = (this.currentModel === "3.4") ? 0.45 : ((this.currentModel === "3.1") ? 0.6 : 0.75);
+      var currentConfig = this.tierConfigs[this.currentModel] || this.tierConfigs["3.4"];
 
       var response = await fetch(this.defaultUrl, {
         method: 'POST', 
@@ -2680,7 +2809,7 @@ var GptEngine = {
         body: JSON.stringify({ 
           model: "deepseek/deepseek-v4-pro", 
           messages: this.messageHistory,
-          temperature: temperatureValue
+          temperature: currentConfig.temperature
         }),
         signal: this.abortController.signal
       });
@@ -2692,9 +2821,9 @@ var GptEngine = {
       
       if(data.choices && data.choices[0] && data.choices[0].message) {
         var reply = data.choices[0].message.content;
-        this.appendMsg('other', 'GalaxyZ ' + this.currentModel, reply); 
+        this.appendMsg('other', currentConfig.name, reply); 
         this.messageHistory.push({ role: "assistant", content: reply });
-        DevCenter.logAiRequest('GalaxyZ-' + this.currentModel, Date.now() - startTime, true);
+        DevCenter.logAiRequest(currentConfig.name, Date.now() - startTime, true);
       }
     } catch(err) {
       if(err.name === 'AbortError') return;
@@ -2702,19 +2831,19 @@ var GptEngine = {
       
       if(typeof puter !== 'undefined' && puter.ai && puter.ai.chat) {
         puter.ai.chat(text).then(function(res) {
-          GptEngine.setGeneratingState(false);
+          AIRouter.setGeneratingState(false);
           var puterReply = (typeof res === 'string') ? res : (res.message ? res.message.content : JSON.stringify(res));
-          GptEngine.appendMsg('other', 'GalaxyZ ' + GptEngine.currentModel, puterReply);
-          DevCenter.logAiRequest('GalaxyZ-' + GptEngine.currentModel + ' [PUTER]', Date.now() - startTime, true);
+          AIRouter.appendMsg('other', AIRouter.tierConfigs[AIRouter.currentModel].name, puterReply);
+          DevCenter.logAiRequest(AIRouter.tierConfigs[AIRouter.currentModel].name + ' [PUTER]', Date.now() - startTime, true);
         }).catch(function() {
-          GptEngine.setGeneratingState(false);
+          AIRouter.setGeneratingState(false);
           var fb = DOM.get('gpt-fallback-container'); if(fb) fb.style.display = 'block';
-          DevCenter.logAiRequest('GalaxyZ-' + GptEngine.currentModel, Date.now() - startTime, false);
+          DevCenter.logAiRequest(AIRouter.tierConfigs[AIRouter.currentModel].name, Date.now() - startTime, false);
         });
       } else {
-        GptEngine.setGeneratingState(false);
+        AIRouter.setGeneratingState(false);
         var fb = DOM.get('gpt-fallback-container'); if(fb) fb.style.display = 'block';
-        DevCenter.logAiRequest('GalaxyZ-' + GptEngine.currentModel, Date.now() - startTime, false);
+        DevCenter.logAiRequest(AIRouter.tierConfigs[AIRouter.currentModel].name, Date.now() - startTime, false);
       }
     }
   },
@@ -2726,7 +2855,7 @@ var GptEngine = {
     this.appendMsg('other', 'System', 'Đã lưu API Key mới.');
   }
 };
-var _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
+var _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') AIRouter.init(); };
 
 /* ==========================================================================
    FIREBASE CHAT & VAULT ENGINE
@@ -2735,49 +2864,25 @@ var ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
   vaultMap: {}, isSetup: false,
 
-  initFirebase: function() {
-    if(this.isSetup) return;
-    var firebaseConfig = {
-      apiKey: "AIzaSyDHyuP7FcF8SqOXsoyTeYnAvJbk0Uunq0c", authDomain: "chatting-74814.firebaseapp.com",
-      databaseURL: "https://chatting-74814-default-rtdb.firebaseio.com", projectId: "chatting-74814",
-      storageBucket: "chatting-74814.firebasestorage.app", messagingSenderId: "520016594870",
-      appId: "1:520016594870:web:df652fe9a0fd68dc7e6317", measurementId: "G-7HWYC4HCDT"
-    };
+  initFirebaseAsync: function() {
+    return new Promise(function(resolve, reject) {
+      var firebaseConfig = {
+        apiKey: "AIzaSyDHyuP7FcF8SqOXsoyTeYnAvJbk0Uunq0c", authDomain: "chatting-74814.firebaseapp.com",
+        databaseURL: "https://chatting-74814-default-rtdb.firebaseio.com", projectId: "chatting-74814",
+        storageBucket: "chatting-74814.firebasestorage.app", messagingSenderId: "520016594870",
+        appId: "1:520016594870:web:df652fe9a0fd68dc7e6317", measurementId: "G-7HWYC4HCDT"
+      };
 
-    try {
-      BootEngine.step("CONNECTING TO FIREBASE MATRIX...", 30);
-      if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-      this.dbRef = firebase.database().ref('nox_global_chat');
-      this.scriptRef = firebase.database().ref('nox_global_scripts'); 
-      this.isSetup = true; 
-      
-      BootEngine.step("LOADING USER PERMISSIONS & DATABASE...", 65);
-      UtilsEngine.init();
-      ConfigEngine.init();
-
-      var savedUser = localStorage.getItem('nox_user_profile');
-      if(savedUser) {
-        try {
-          var profile = JSON.parse(savedUser);
-          this.userProfile = profile;
-          if(profile.email === ADMIN_EMAIL) { 
-            IS_ADMIN = true; 
-            DOM.get('dev-menu-editor-group').style.display = 'flex';
-          }
-          DOM.get('auth-guard').style.display = 'none';
-          AuthEngine.updateAuthUI(true);
-          this.listenForMessages();
-        } catch(e) { localStorage.removeItem('nox_user_profile'); }
+      try {
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        ChatEngine.dbRef = firebase.database().ref('nox_global_chat');
+        ChatEngine.scriptRef = firebase.database().ref('nox_global_scripts'); 
+        ChatEngine.isSetup = true;
+        resolve(true);
+      } catch (err) {
+        reject(err);
       }
-
-      BootEngine.step("CONFIGURING GALAXYZ AI ROUTER...", 90);
-      setTimeout(function() { BootEngine.complete(); }, 300);
-
-    } catch(err) { 
-      console.error("Firebase Error:", err);
-      BootEngine.step("FIREBASE OFFLINE MODE", 100);
-      setTimeout(function() { BootEngine.complete(); }, 400);
-    }
+    });
   },
 
   removeImage: function() { 
@@ -2895,16 +3000,10 @@ var ChatEngine = {
 };
 
 /* ==========================================================================
-   INITIALIZE BOOTSTRAP
+   INITIALIZE SYSTEM BOOTSTRAPPER
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', function() {
-  BootEngine.step("STARTING NOX QUANTUM RUNTIME...", 10);
-  GraphicsEngine.init();
-  CosmicCanvasEngine.init();
-  LangEngine.init();
-  TimeEngine.init();
-  AuthEngine.initGoogleIdentity();
-  ChatEngine.initFirebase();
+  SystemBootstrapper.boot();
   
   setInterval(function() {
     var p = DOM.get('hud-ping');
