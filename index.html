@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#02040A">
 
-<title>NOX GALAXY QUANTUM — Next-Gen AI & Script Command Center</title>
-<meta name="description" content="NOX GALAXY QUANTUM. Hệ thống trung tâm điều khiển AI Quantum, Roblox Lua Scripts, Bypass Tools, APK/IPA Direct Link không quảng cáo.">
+<title>NOX GALAXY ASCENSION — Cosmic Quantum OS</title>
+<meta name="description" content="NOX GALAXY ASCENSION — Cosmic Quantum Operating System. Hệ thống điều hành trung tâm vũ trụ: AI Trợ lý 3 tầng GalaxyZ, Roblox Lua Scripts, Bypass Tools, APK & IPA Direct Link không quảng cáo.">
 <meta name="robots" content="index, follow">
 
-<!-- Fonts -->
+<!-- Cosmic Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;900&display=swap" rel="stylesheet">
 
-<!-- Third-Party Cloud Services -->
+<!-- Third-Party Cloud SDKs -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -22,18 +22,22 @@
 
 <style>
 /* ==========================================================================
-   1. DESIGN SYSTEM & CSS VARIABLES
+   1. DESIGN TOKENS & COSMIC GLASS 2.0 SYSTEM
    ========================================================================== */
 :root {
   --bg-void: #02040A;
   --bg-deep: #050816;
   --bg-nebula: #08111F;
-  --bg-card: rgba(10, 18, 38, 0.72);
-  --bg-card-hover: rgba(16, 28, 58, 0.88);
-  --bg-card-solid: #070D1F;
-  --bg-input: rgba(4, 7, 18, 0.9);
+  --bg-input: rgba(4, 7, 18, 0.92);
 
-  --border-glass: rgba(120, 180, 255, 0.12);
+  /* Glass 2.0 Hierarchy */
+  --glass-1: rgba(10, 18, 38, 0.65);
+  --glass-2: rgba(12, 22, 48, 0.78);
+  --glass-3: rgba(16, 28, 58, 0.88);
+  --glass-core: rgba(8, 14, 32, 0.96);
+
+  --border-subtle: rgba(120, 180, 255, 0.08);
+  --border-glass: rgba(120, 180, 255, 0.14);
   --border-focus: rgba(0, 245, 160, 0.6);
   --border-hover: rgba(0, 217, 245, 0.4);
 
@@ -41,15 +45,20 @@
   --text-sub: #94A3B8;
   --text-muted: #64748B;
 
+  /* Quantum Lighting Tokens */
   --accent-cyan: #00D9F5;
   --accent-cyan-glow: rgba(0, 217, 245, 0.35);
   --accent-quantum: #00F5A0;
-  --accent-quantum-glow: rgba(0, 245, 160, 0.35);
+  --accent-quantum-glow: rgba(0, 245, 160, 0.4);
   --accent-cosmic: #A855F7;
+  --accent-cosmic-glow: rgba(168, 85, 247, 0.35);
+  --accent-violet: #6366F1;
+  --accent-amber: #F59E0B;
   --accent-danger: #FF2A5F;
-  --accent-danger-bg: rgba(255, 42, 95, 0.12);
+  --accent-danger-glow: rgba(255, 42, 95, 0.4);
   --dev-color: #FF2A85;
 
+  /* Spacing Scale */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -59,17 +68,19 @@
   --space-8: 32px;
   --space-10: 40px;
 
+  /* Border Radii */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-full: 9999px;
 
+  /* Animations */
   --ease-cosmic: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ==========================================================================
-   2. RESET & GLOBAL BASE
+   2. RESET & MOBILE-FIRST BASE
    ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -96,10 +107,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: calc(72px + env(safe-area-inset-top, 0px));
-  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
-  padding-left: max(12px, env(safe-area-inset-left, 0px));
-  padding-right: max(12px, env(safe-area-inset-right, 0px));
+  padding-top: calc(76px + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(14px, env(safe-area-inset-left, 0px));
+  padding-right: max(14px, env(safe-area-inset-right, 0px));
   position: relative;
 }
 
@@ -122,7 +133,7 @@ a { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-quantum); }
 
 /* ==========================================================================
-   3. BACKGROUND ENGINE (CANVAS & AMBIENT AURORA)
+   3. MULTI-LAYER COSMIC VISUAL ENGINE (CANVAS & AMBIENT PLANETS)
    ========================================================================== */
 #cosmic-canvas {
   position: fixed;
@@ -133,95 +144,143 @@ a { text-decoration: none; color: inherit; }
   z-index: 0;
 }
 
-.ambient-aurora-top {
+.cosmic-nebula-aurora {
   position: fixed;
-  top: -150px;
+  top: -120px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(800px, 100vw);
-  height: 450px;
-  background: radial-gradient(circle, rgba(0, 217, 245, 0.12) 0%, rgba(168, 85, 247, 0.08) 45%, transparent 75%);
-  filter: blur(80px);
+  width: min(1000px, 100vw);
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 217, 245, 0.12) 0%, rgba(168, 85, 247, 0.08) 45%, rgba(99, 102, 241, 0.04) 70%, transparent 85%);
+  filter: blur(90px);
   pointer-events: none;
   z-index: 1;
 }
 
+.cosmic-planet-silhouette {
+  position: fixed;
+  bottom: -180px;
+  right: -100px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(168, 85, 247, 0.18), rgba(6, 12, 30, 0.85) 60%, var(--bg-void) 90%);
+  box-shadow: inset -10px -10px 40px rgba(0, 217, 245, 0.15), 0 0 50px rgba(168, 85, 247, 0.1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#quantum-cursor-glow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 380px; height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 217, 245, 0.06) 0%, rgba(168, 85, 247, 0.03) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+@media (pointer: coarse) { #quantum-cursor-glow { display: none !important; } }
+
 /* ==========================================================================
    4. LAYOUT SYSTEM & CONTAINERS
    ========================================================================== */
-.container {
+.os-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   position: relative;
   z-index: 2;
 }
 
 /* ==========================================================================
-   5. NAVBAR & HEADER
+   5. FLOATING GLASS NAVBAR (ASCENSION COMMAND BAR)
    ========================================================================== */
 .top-nav {
   position: fixed;
-  top: max(8px, env(safe-area-inset-top, 0px));
+  top: max(10px, env(safe-area-inset-top, 0px));
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 24px);
-  max-width: 1200px;
-  height: 56px;
+  width: calc(100% - 28px);
+  max-width: 1240px;
+  height: 58px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--space-4);
   border-radius: var(--radius-full);
-  background: rgba(7, 13, 31, 0.78);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--glass-2);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-glass);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 217, 245, 0.08);
   z-index: 1000;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.top-nav:hover { border-color: var(--border-hover); }
+.top-nav:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 217, 245, 0.15);
+}
 
-.brand {
+.brand-node {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   cursor: pointer;
   user-select: none;
 }
-.brand-orb {
-  width: 28px;
-  height: 28px;
+.quantum-orbital-orb {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, var(--accent-quantum), var(--accent-cyan));
-  box-shadow: 0 0 12px var(--accent-cyan-glow);
+  background: radial-gradient(circle at 30% 30%, var(--accent-quantum), var(--accent-cyan) 50%, var(--accent-violet) 90%);
+  box-shadow: 0 0 16px var(--accent-cyan-glow);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #02040A;
-  font-weight: 900;
-  font-size: 0.75rem;
+  position: relative;
   transition: transform 0.4s var(--ease-bounce);
 }
-.brand:hover .brand-orb { transform: rotate(180deg) scale(1.1); }
+.quantum-orbital-orb::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 245, 160, 0.4);
+  animation: slowOrbitalSpin 8s linear infinite;
+}
+@keyframes slowOrbitalSpin { 100% { transform: rotate(360deg); } }
+.brand-node:hover .quantum-orbital-orb { transform: scale(1.1); }
+
+.brand-text-wrap {
+  display: flex;
+  flex-direction: column;
+}
 .brand-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   font-weight: 900;
-  letter-spacing: 1px;
-  background: linear-gradient(135deg, #FFF, var(--accent-cyan));
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, #FFF 10%, var(--accent-cyan) 60%, var(--accent-quantum) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.brand-edition {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--accent-quantum);
+  letter-spacing: 1px;
+}
 
-.nav-actions {
+.nav-actions-deck {
   display: flex;
   align-items: center;
   gap: var(--space-2);
 }
 
-.status-indicator {
+.status-badge-live {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -233,21 +292,34 @@ a { text-decoration: none; color: inherit; }
   padding: 4px 10px;
   border-radius: var(--radius-full);
 }
-.pulse-dot {
+.quantum-pulse-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--accent-quantum);
   box-shadow: 0 0 8px var(--accent-quantum);
-  animation: dotPulse 1.6s infinite;
+  animation: pulseDotLive 1.6s infinite;
 }
-@keyframes dotPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
+@keyframes pulseDotLive { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
 
 /* ==========================================================================
-   6. BUTTON SYSTEM
+   6. CUSTOM ICONOGRAPHY & BUTTON SYSTEM
    ========================================================================== */
+.nox-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+  stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
 .btn {
-  height: 40px;
+  height: 42px;
   padding: 0 var(--space-4);
   border-radius: var(--radius-full);
   display: inline-flex;
@@ -265,15 +337,15 @@ a { text-decoration: none; color: inherit; }
   color: #02040A;
   box-shadow: 0 0 16px var(--accent-cyan-glow);
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 22px var(--accent-cyan-glow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 24px var(--accent-cyan-glow); }
 .btn-primary:active { transform: translateY(0); }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-glass);
   color: var(--text-main);
 }
-.btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.22); }
 
 .btn-ghost {
   background: transparent;
@@ -286,7 +358,7 @@ a { text-decoration: none; color: inherit; }
   border: 1px solid rgba(255, 42, 95, 0.3);
   color: var(--accent-danger);
 }
-.btn-danger:hover { background: var(--accent-danger); color: #FFF; }
+.btn-danger:hover { background: var(--accent-danger); color: #FFF; box-shadow: 0 0 15px var(--accent-danger-glow); }
 
 .btn-icon {
   width: 38px;
@@ -299,25 +371,25 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   7. TELEMETRY HUD BAR
+   7. TELEMETRY HUD & TIME ENGINE
    ========================================================================== */
-.telemetry-hud {
+.telemetry-deck {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: var(--space-2);
   width: 100%;
   margin-bottom: var(--space-4);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
-  background: var(--bg-card);
+  background: var(--glass-1);
   border: 1px solid var(--border-glass);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-sub);
 }
-.hud-item { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
-.hud-val { color: var(--accent-cyan); font-weight: 700; }
+.hud-cell { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.hud-highlight { color: var(--accent-cyan); font-weight: 700; }
 
 .hud-select {
   background: rgba(255, 255, 255, 0.05);
@@ -330,52 +402,52 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   8. HERO / DASHBOARD CORE
+   8. HERO / QUANTUM CORE CONSOLE
    ========================================================================== */
-.hero-deck {
+.hero-quantum-console {
   width: 100%;
   margin-bottom: var(--space-6);
   padding: var(--space-6);
-  background: var(--bg-card);
+  background: var(--glass-2);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
   position: relative;
   overflow: hidden;
 }
-.hero-deck::before {
+.hero-quantum-console::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-quantum), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-cyan) 30%, var(--accent-quantum) 70%, transparent);
 }
 
-.hero-header {
+.hero-meta-block {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
-.hero-title {
+.hero-cosmic-h1 {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-size: clamp(1.6rem, 4.5vw, 2.6rem);
   font-weight: 900;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #FFF 20%, var(--accent-cyan) 65%, var(--accent-cosmic) 100%);
+  background: linear-gradient(135deg, #FFFFFF 15%, var(--accent-cyan) 60%, var(--accent-cosmic) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   word-break: break-word;
 }
-.hero-subtitle {
+.hero-desc {
   font-size: 0.92rem;
   color: var(--text-sub);
   font-weight: 500;
 }
 
-.notice-board {
+.system-announcement-panel {
   padding: var(--space-4);
   border-radius: var(--radius-md);
   background: var(--bg-input);
@@ -384,15 +456,15 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
   gap: var(--space-2);
 }
-.notice-header {
+.announcement-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding-bottom: var(--space-2);
 }
-.notice-heading {
-  font-size: 0.85rem;
+.announcement-title-tag {
+  font-size: 0.84rem;
   font-weight: 800;
   color: var(--accent-cyan);
   display: flex;
@@ -400,26 +472,26 @@ a { text-decoration: none; color: inherit; }
   gap: var(--space-2);
   font-family: 'Orbitron', sans-serif;
 }
-.typewriter-content {
+.terminal-typewriter-box {
   font-size: 0.85rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--text-sub);
   font-family: 'JetBrains Mono', monospace;
   word-break: break-word;
 }
-.terminal-cursor {
+.quantum-terminal-cursor {
   display: inline-block;
   width: 7px;
   height: 14px;
   background-color: var(--accent-cyan);
   margin-left: 4px;
-  animation: blinkCursor 0.8s infinite;
+  animation: cursorBlink 0.8s infinite;
   vertical-align: middle;
 }
-@keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* Dev Admin Quick Edit Panel */
-.dev-panel {
+/* Dev Admin Config Deck */
+.dev-admin-deck {
   display: none;
   flex-direction: column;
   gap: var(--space-3);
@@ -429,7 +501,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: var(--radius-md);
   background: rgba(255, 42, 133, 0.04);
 }
-.dev-panel input, .dev-panel textarea, .dev-panel select {
+.dev-admin-deck input, .dev-admin-deck textarea, .dev-admin-deck select {
   width: 100%;
   padding: 10px var(--space-3);
   background: var(--bg-input);
@@ -439,75 +511,75 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   9. SEARCH & CATEGORY TABS
+   9. SEARCH & CATEGORY FILTER DECK
    ========================================================================== */
-.control-bar {
+.search-filter-deck {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
   margin-bottom: var(--space-5);
-  background: var(--bg-card);
+  background: var(--glass-1);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: var(--space-4);
   backdrop-filter: blur(20px);
 }
 
-.search-field {
+.search-field-input {
   width: 100%;
-  height: 46px;
+  height: 48px;
   padding: 0 var(--space-4);
   background: var(--bg-input);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-sm);
   color: var(--text-main);
   font-size: 0.9rem;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-.search-field:focus {
+.search-field-input:focus {
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 12px var(--accent-cyan-glow);
+  box-shadow: 0 0 16px var(--accent-cyan-glow);
 }
 
-.tab-strip {
+.category-tab-row {
   display: flex;
   gap: var(--space-2);
   overflow-x: auto;
   padding-bottom: 2px;
   -webkit-overflow-scrolling: touch;
 }
-.tab-strip::-webkit-scrollbar { display: none; }
-.tab-chip {
-  padding: 8px 16px;
+.category-tab-row::-webkit-scrollbar { display: none; }
+.category-chip {
+  padding: 8px 18px;
   border-radius: var(--radius-full);
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
   white-space: nowrap;
   transition: all 0.2s ease;
 }
-.tab-chip:hover { color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); }
-.tab-chip.is-active {
+.category-chip:hover { color: var(--text-main); border-color: rgba(255, 255, 255, 0.22); }
+.category-chip.is-active {
   color: #02040A;
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-quantum));
   border-color: transparent;
-  box-shadow: 0 0 14px var(--accent-cyan-glow);
+  box-shadow: 0 0 16px var(--accent-cyan-glow);
 }
 
 /* ==========================================================================
-   10. VAULT GRID & CARDS (FIX MOBILE CHEN CHÚC)
+   10. VAULT GRID & CARDS (MOBILE FIRST VERTICAL FLOW)
    ========================================================================== */
-.vault-grid {
+.vault-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
   gap: var(--space-4);
   width: 100%;
 }
 
-.vault-card {
-  background: var(--bg-card);
+.vault-item-card {
+  background: var(--glass-1);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-md);
   padding: var(--space-4);
@@ -519,19 +591,19 @@ a { text-decoration: none; color: inherit; }
   overflow: hidden;
   position: relative;
 }
-.vault-card:hover {
+.vault-item-card:hover {
   transform: translateY(-3px);
   border-color: var(--border-hover);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 16px var(--accent-cyan-glow);
 }
 
-.card-top-bar {
+.card-top-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: var(--space-2);
 }
-.card-category-badge {
+.card-category-tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.68rem;
   font-weight: 700;
@@ -542,12 +614,12 @@ a { text-decoration: none; color: inherit; }
   border-radius: var(--radius-full);
   text-transform: uppercase;
 }
-.card-admin-group {
+.card-admin-tools {
   display: flex;
   gap: var(--space-1);
 }
 
-.card-title {
+.card-title-text {
   font-size: 1.05rem;
   font-weight: 800;
   color: var(--text-main);
@@ -556,7 +628,7 @@ a { text-decoration: none; color: inherit; }
   overflow-wrap: anywhere;
 }
 
-.card-thumbnail-wrap {
+.card-preview-thumb {
   width: 100%;
   height: 160px;
   border-radius: var(--radius-sm);
@@ -565,16 +637,16 @@ a { text-decoration: none; color: inherit; }
   border: 1px solid var(--border-glass);
   cursor: pointer;
 }
-.card-thumbnail-img {
+.card-preview-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.35s var(--ease-cosmic);
 }
-.card-thumbnail-wrap:hover .card-thumbnail-img { transform: scale(1.04); }
+.card-preview-thumb:hover .card-preview-img { transform: scale(1.04); }
 
-.card-code-preview {
+.card-lua-code-block {
   padding: var(--space-3);
   border-radius: var(--radius-sm);
   background: var(--bg-input);
@@ -588,40 +660,40 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.5;
 }
 
-.card-footer {
+.card-actions-dock {
   margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
-.card-footer .btn-primary, .card-footer .btn-secondary {
+.card-actions-dock .btn-primary, .card-actions-dock .btn-secondary {
   width: 100%;
 }
 
 /* ==========================================================================
-   11. COMMAND DRAWER (MOBILE-FIRST MENU)
+   11. COMMAND DRAWER & FULL MODAL SYSTEM
    ========================================================================== */
-.drawer-backdrop {
+.drawer-backdrop-glass {
   position: fixed;
   inset: 0;
-  background: rgba(2, 4, 10, 0.75);
-  backdrop-filter: blur(12px);
+  background: rgba(2, 4, 10, 0.78);
+  backdrop-filter: blur(14px);
   z-index: 20000;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
-.drawer-backdrop.is-open { opacity: 1; pointer-events: auto; }
+.drawer-backdrop-glass.is-open { opacity: 1; pointer-events: auto; }
 
-.drawer-panel {
+.drawer-command-panel {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(380px, 86vw);
-  background: var(--bg-card-solid);
+  width: min(390px, 88vw);
+  background: var(--glass-core);
   border-left: 1px solid var(--border-glass);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.85);
   transform: translateX(100%);
   transition: transform 0.32s var(--ease-cosmic);
   display: flex;
@@ -631,35 +703,35 @@ a { text-decoration: none; color: inherit; }
   gap: var(--space-5);
   z-index: 20001;
 }
-.drawer-backdrop.is-open .drawer-panel { transform: translateX(0); }
+.drawer-backdrop-glass.is-open .drawer-command-panel { transform: translateX(0); }
 
-.drawer-head {
+.drawer-head-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border-glass);
   padding-bottom: var(--space-3);
 }
-.drawer-heading {
+.drawer-heading-text {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.05rem;
   font-weight: 800;
   color: var(--accent-cyan);
 }
 
-.drawer-section {
+.drawer-category-group {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
-.drawer-subheading {
+.drawer-subheading-tag {
   font-size: 0.72rem;
   font-weight: 800;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
-.drawer-link-btn {
+.drawer-nav-item-btn {
   width: 100%;
   padding: 12px var(--space-3);
   border-radius: var(--radius-sm);
@@ -672,17 +744,15 @@ a { text-decoration: none; color: inherit; }
   font-size: 0.88rem;
   transition: all 0.2s ease;
 }
-.drawer-link-btn:hover {
+.drawer-nav-item-btn:hover {
   background: rgba(0, 217, 245, 0.12);
   border-color: var(--accent-cyan);
   color: var(--accent-cyan);
   transform: translateX(4px);
 }
 
-/* ==========================================================================
-   12. MODAL SYSTEM
-   ========================================================================== */
-.modal-overlay {
+/* Cosmic Modals */
+.cosmic-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 30000;
@@ -690,19 +760,19 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
   align-items: center;
   padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
-  background: rgba(2, 4, 10, 0.85);
-  backdrop-filter: blur(20px);
+  background: rgba(2, 4, 10, 0.88);
+  backdrop-filter: blur(24px);
   opacity: 0;
   transition: opacity 0.28s var(--ease-cosmic);
 }
-.modal-overlay.is-active { display: flex; opacity: 1; }
+.cosmic-modal-overlay.is-active { display: flex; opacity: 1; }
 
-.modal-dialog {
-  width: clamp(320px, 94vw, 700px);
-  height: min(85dvh, 760px);
+.cosmic-modal-window {
+  width: clamp(320px, 94vw, 720px);
+  height: min(86dvh, 780px);
   display: flex;
   flex-direction: column;
-  background: var(--bg-card-solid);
+  background: var(--glass-core);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 24px rgba(0, 217, 245, 0.1);
@@ -710,9 +780,9 @@ a { text-decoration: none; color: inherit; }
   transition: transform 0.3s var(--ease-cosmic);
   overflow: hidden;
 }
-.modal-overlay.is-active .modal-dialog { transform: scale(1) translateY(0); }
+.cosmic-modal-overlay.is-active .cosmic-modal-window { transform: scale(1) translateY(0); }
 
-.modal-header {
+.modal-deck-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -721,9 +791,9 @@ a { text-decoration: none; color: inherit; }
   background: rgba(8, 14, 32, 0.95);
   position: relative;
 }
-.modal-title {
+.modal-deck-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -731,7 +801,40 @@ a { text-decoration: none; color: inherit; }
   color: var(--accent-cyan);
 }
 
-.chat-board {
+/* ==========================================================================
+   12. 3-TIER AI SELECTOR & CHAT INTERACTION
+   ========================================================================== */
+.ai-model-selector-deck {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(4, 8, 20, 0.8);
+  border-bottom: 1px solid var(--border-glass);
+  overflow-x: auto;
+}
+.ai-tier-card {
+  flex: 1;
+  min-width: 140px;
+  padding: 8px var(--space-2);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: all 0.2s ease;
+}
+.ai-tier-card:hover { border-color: rgba(0, 217, 245, 0.3); }
+.ai-tier-card.is-active {
+  background: rgba(0, 217, 245, 0.12);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px var(--accent-cyan-glow);
+}
+.ai-tier-name { font-size: 0.78rem; font-weight: 800; color: var(--text-main); }
+.ai-tier-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--accent-cyan); font-weight: 700; }
+
+.chat-board-scroll {
   flex: 1 1 auto;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -742,45 +845,41 @@ a { text-decoration: none; color: inherit; }
   background: var(--bg-void);
 }
 
-.msg-row {
+.msg-row-block {
   display: flex;
   flex-direction: column;
-  max-width: 86%;
-  animation: msgPop 0.25s var(--ease-cosmic);
+  max-width: 88%;
+  animation: msgFadeSlide 0.25s var(--ease-cosmic);
 }
-@keyframes msgPop { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-.msg-row.type-user { align-self: flex-end; align-items: flex-end; }
-.msg-row.type-other { align-self: flex-start; align-items: flex-start; }
+@keyframes msgFadeSlide { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.msg-row-block.type-user { align-self: flex-end; align-items: flex-end; }
+.msg-row-block.type-other { align-self: flex-start; align-items: flex-start; }
 
-.msg-meta { display: flex; align-items: center; gap: var(--space-1); margin-bottom: 4px; font-size: 0.74rem; color: var(--text-sub); }
-.msg-meta.sys { color: var(--accent-quantum); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+.msg-meta-tag { display: flex; align-items: center; gap: var(--space-1); margin-bottom: 4px; font-size: 0.74rem; color: var(--text-sub); }
+.msg-meta-tag.sys { color: var(--accent-quantum); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
 
-.badge-dev { color: #FFF; background: linear-gradient(135deg, #FF2A85, #BE185D); padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; }
-.badge-nox { color: #02040A; background: var(--accent-quantum); padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; }
-.badge-guest { color: var(--text-muted); border: 1px solid var(--border-glass); padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; background: var(--bg-input); }
-
-.msg-bubble {
-  padding: 10px 14px;
+.msg-bubble-glass {
+  padding: 11px 16px;
   border-radius: var(--radius-md);
   font-size: 0.9rem;
   line-height: 1.6;
   word-break: break-word;
   overflow-wrap: anywhere;
 }
-.msg-row.type-user .msg-bubble {
-  background: linear-gradient(135deg, rgba(0, 217, 245, 0.2), rgba(99, 102, 241, 0.2));
+.msg-row-block.type-user .msg-bubble-glass {
+  background: linear-gradient(135deg, rgba(0, 217, 245, 0.22), rgba(99, 102, 241, 0.22));
   border: 1px solid rgba(0, 217, 245, 0.35);
   color: #F1F5F9;
   border-bottom-right-radius: 2px;
 }
-.msg-row.type-other .msg-bubble {
-  background: var(--bg-card-solid);
+.msg-row-block.type-other .msg-bubble-glass {
+  background: var(--glass-core);
   border: 1px solid var(--border-glass);
   color: var(--text-main);
   border-bottom-left-radius: 2px;
 }
 
-.chat-input-bar {
+.chat-input-deck {
   background: rgba(8, 14, 32, 0.95);
   border-top: 1px solid var(--border-glass);
   padding: var(--space-3);
@@ -788,13 +887,13 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
   gap: var(--space-2);
 }
-.input-row { display: flex; align-items: flex-end; gap: var(--space-2); }
-.chat-textarea {
+.input-interactive-row { display: flex; align-items: flex-end; gap: var(--space-2); }
+.chat-textarea-field {
   flex: 1;
-  min-height: 42px;
-  height: 42px;
-  max-height: 110px;
-  padding: 10px var(--space-3);
+  min-height: 44px;
+  height: 44px;
+  max-height: 120px;
+  padding: 11px var(--space-3);
   border-radius: var(--radius-sm);
   background: var(--bg-input);
   border: 1px solid var(--border-glass);
@@ -803,59 +902,92 @@ a { text-decoration: none; color: inherit; }
   resize: none;
   overflow-y: auto;
 }
-.chat-textarea:focus { border-color: var(--accent-cyan); }
+.chat-textarea-field:focus { border-color: var(--accent-cyan); }
 
-/* Morphing Quantum Loader */
-.ai-loader-wrap {
+/* Quantum Processing Indicator */
+.quantum-processing-loader {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: var(--space-2);
   padding: 6px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent-cyan);
 }
-.quantum-morph {
-  width: 20px;
-  height: 20px;
+.quantum-morph-core {
+  width: 18px;
+  height: 18px;
   background: linear-gradient(135deg, var(--accent-quantum), var(--accent-cyan));
   box-shadow: 0 0 14px var(--accent-quantum-glow);
-  animation: morphShape 1.6s infinite ease-in-out;
+  animation: morphShapeLive 1.6s infinite ease-in-out;
 }
-@keyframes morphShape {
+@keyframes morphShapeLive {
   0% { border-radius: 50%; transform: rotate(0deg) scale(0.9); }
   50% { border-radius: 4px; transform: rotate(180deg) scale(1.1); box-shadow: 0 0 20px var(--accent-cyan-glow); }
   100% { border-radius: 50%; transform: rotate(360deg) scale(0.9); }
 }
 
-/* AI Dropdown */
-.ai-menu {
-  position: absolute;
-  top: 54px;
-  right: var(--space-4);
-  background: var(--bg-card-solid);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85);
-  padding: var(--space-2);
+/* ==========================================================================
+   13. COMMAND PALETTE (CTRL + K)
+   ========================================================================== */
+#command-palette-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 4, 10, 0.8);
+  backdrop-filter: blur(20px);
+  z-index: 40000;
   display: none;
-  flex-direction: column;
-  gap: 4px;
-  z-index: 100;
-  min-width: 230px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 16px 20px;
 }
-.ai-menu.active { display: flex; }
-.ai-menu-item {
-  padding: 8px var(--space-3);
+#command-palette-modal.is-active { display: flex; }
+.palette-window {
+  width: 100%;
+  max-width: 580px;
+  background: var(--glass-core);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 217, 245, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.palette-input {
+  width: 100%;
+  height: 52px;
+  padding: 0 var(--space-4);
+  background: var(--bg-input);
+  border-bottom: 1px solid var(--border-glass);
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+.palette-results {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.palette-item {
+  padding: 10px var(--space-3);
   border-radius: var(--radius-sm);
-  font-size: 0.82rem;
-  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 0.85rem;
   cursor: pointer;
+  transition: background 0.15s;
 }
-.ai-menu-item:hover { background: rgba(255, 255, 255, 0.06); }
-.ai-menu-item.active { color: var(--accent-cyan); }
+.palette-item:hover, .palette-item.is-selected {
+  background: rgba(0, 217, 245, 0.15);
+  color: var(--accent-cyan);
+}
 
-/* Image lightbox & Toast */
+/* ==========================================================================
+   14. TOAST & LIGHTBOX
+   ========================================================================== */
 #image-lightbox {
   position: fixed;
   inset: 0;
@@ -878,7 +1010,7 @@ a { text-decoration: none; color: inherit; }
 
 #toast-banner {
   position: fixed;
-  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
   right: max(16px, env(safe-area-inset-right, 0px));
   z-index: 60000;
   display: flex;
@@ -900,7 +1032,7 @@ a { text-decoration: none; color: inherit; }
 }
 #toast-banner.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
 
-.auth-curtain {
+.auth-curtain-overlay {
   position: absolute;
   inset: 0;
   z-index: 20;
@@ -914,82 +1046,105 @@ a { text-decoration: none; color: inherit; }
   text-align: center;
   padding: var(--space-6);
 }
-.auth-curtain.is-hidden { display: none; }
+.auth-curtain-overlay.is-hidden { display: none; }
 </style>
 </head>
 <body>
 
-<!-- Cosmic Canvas -->
+<!-- Cosmic Graphics Engine -->
 <canvas id="cosmic-canvas"></canvas>
-<div class="ambient-aurora-top"></div>
+<div class="cosmic-nebula-aurora"></div>
+<div class="cosmic-planet-silhouette"></div>
+<div id="quantum-cursor-glow"></div>
 
-<!-- Top Navigation -->
+<!-- Top Floating Command Bar -->
 <header class="top-nav">
-  <div class="brand" onclick="EasterEngine.triggerCorePulse()">
-    <div class="brand-orb">⚛</div>
-    <div class="brand-title">NOX GALAXY</div>
+  <div class="brand-node" onclick="EasterEngine.triggerCorePulse()">
+    <div class="quantum-orbital-orb">
+      <svg class="nox-icon" style="width:16px; height:16px; color:#02040A;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+    </div>
+    <div class="brand-text-wrap">
+      <span class="brand-title">NOX GALAXY</span>
+      <span class="brand-edition">ASCENSION OS</span>
+    </div>
   </div>
 
-  <div class="nav-actions">
-    <div class="status-indicator">
-      <span class="pulse-dot"></span>
+  <div class="nav-actions-deck">
+    <div class="status-badge-live">
+      <span class="quantum-pulse-dot"></span>
       <span id="ui-nav-status">ONLINE</span>
     </div>
+
+    <button class="btn btn-secondary btn-icon" onclick="CommandPalette.open()" title="Command Palette (Ctrl + K)">
+      <svg class="nox-icon" viewBox="0 0 24 24"><path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/></svg>
+    </button>
 
     <button class="btn btn-secondary btn-icon" onclick="LangEngine.toggle()" title="Đổi ngôn ngữ">
       <span id="txt-lang-badge" style="font-size:0.75rem; font-weight:800;">VN</span>
     </button>
 
     <button class="btn btn-primary" onclick="toggleMenu()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <svg class="nox-icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
       <span id="txt-menu-btn">MENU</span>
     </button>
   </div>
 </header>
 
-<!-- Command Drawer -->
-<div class="drawer-backdrop" id="nav-drawer-backdrop" onclick="if(event.target===this)toggleMenu()">
-  <nav class="drawer-panel" id="nav-drawer">
-    <div class="drawer-head">
-      <div class="drawer-heading" id="txt-drawer-title">COMMAND DECK</div>
+<!-- Command Drawer (Sidebar OS Hub) -->
+<div class="drawer-backdrop-glass" id="nav-drawer-backdrop" onclick="if(event.target===this)toggleMenu()">
+  <nav class="drawer-command-panel" id="nav-drawer">
+    <div class="drawer-head-row">
+      <div class="drawer-heading-text" id="txt-drawer-title">COMMAND DECK</div>
       <button class="btn btn-ghost btn-icon" onclick="toggleMenu()">✕</button>
     </div>
 
-    <div class="drawer-section">
-      <div class="drawer-subheading" id="txt-menu-ai-group">AI TRỢ LÝ & TRÒ CHUYỆN</div>
-      <button class="drawer-link-btn" onclick="RestrictedAction.checkAndOpen('modal-noxgpt')">
+    <!-- Graphics Preset Selector -->
+    <div class="drawer-category-group">
+      <div class="drawer-subheading-tag">ĐỒ HỌA VŨ TRỤ</div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:4px;">
+        <button class="btn btn-secondary" style="height:32px; font-size:0.7rem; padding:0;" onclick="GraphicsEngine.setPreset('LOW')">LOW</button>
+        <button class="btn btn-secondary" style="height:32px; font-size:0.7rem; padding:0;" onclick="GraphicsEngine.setPreset('MED')">MED</button>
+        <button class="btn btn-secondary" style="height:32px; font-size:0.7rem; padding:0;" onclick="GraphicsEngine.setPreset('HIGH')">HIGH</button>
+        <button class="btn btn-primary" style="height:32px; font-size:0.7rem; padding:0;" onclick="GraphicsEngine.setPreset('ULTRA')">ULTRA</button>
+      </div>
+    </div>
+
+    <div class="drawer-category-group">
+      <div class="drawer-subheading-tag" id="txt-menu-ai-group">AI TRỢ LÝ & TRÒ CHUYỆN</div>
+      <button class="drawer-nav-item-btn" onclick="RestrictedAction.checkAndOpen('modal-noxgpt')">
         <span style="display:flex; align-items:center; gap:8px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          NOXGPT QUANTUM AI
+          <svg class="nox-icon" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          NOX AI (GALAXYZ)
         </span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <svg class="nox-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
-      <button class="drawer-link-btn" onclick="RestrictedAction.checkAndOpen('modal-noxchat')">
+      <button class="drawer-nav-item-btn" onclick="RestrictedAction.checkAndOpen('modal-noxchat')">
         <span style="display:flex; align-items:center; gap:8px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-quantum)" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <svg class="nox-icon" style="color:var(--accent-quantum);" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
           GLOBAL CHAT
         </span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <svg class="nox-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
 
-    <div class="drawer-section">
-      <div class="drawer-subheading" id="txt-menu-auth-group">TÀI KHOẢN HỆ THỐNG</div>
+    <div class="drawer-category-group">
+      <div class="drawer-subheading-tag" id="txt-menu-auth-group">TÀI KHOẢN HỆ THỐNG</div>
       <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center; overflow:hidden;"></div>
-      <button class="drawer-link-btn" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">
+      <button class="drawer-nav-item-btn" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">
         <span style="display:flex; align-items:center; gap:8px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          <svg class="nox-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           <span id="txt-menu-guest-btn">ĐĂNG NHẬP KHÁCH</span>
         </span>
       </button>
-      <button class="drawer-link-btn" id="drawer-btn-logout" onclick="AuthEngine.triggerLogout()" style="display:none; color:var(--accent-danger); border-color:rgba(255, 42, 95, 0.3);">
+      <button class="drawer-nav-item-btn" id="drawer-btn-logout" onclick="AuthEngine.triggerLogout()" style="display:none; color:var(--accent-danger); border-color:rgba(255, 42, 95, 0.3);">
         <span id="txt-menu-logout-btn">ĐĂNG XUẤT</span>
       </button>
     </div>
 
-    <div class="drawer-section" id="dev-menu-editor-group" style="display:none;">
-      <div class="drawer-subheading" style="color:var(--dev-color);">[DEV] QUẢN TRỊ VIÊN</div>
-      <button class="drawer-link-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">
+    <!-- Admin Dev Module -->
+    <div class="drawer-category-group" id="dev-menu-editor-group" style="display:none;">
+      <div class="drawer-subheading-tag" style="color:var(--dev-color);">[DEV] CONTROL CENTER</div>
+      <button class="drawer-nav-item-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">
         <span>⚙ CHỈNH SỬA MENU</span>
       </button>
       <div id="dev-menu-editor-box" style="display:none; flex-direction:column; gap:8px;">
@@ -997,19 +1152,19 @@ a { text-decoration: none; color: inherit; }
         <input type="text" id="menu-item-link" placeholder="Đường dẫn URL...">
         <button class="btn btn-primary" style="background:var(--dev-color); color:#FFF;" onclick="MenuEditor.addMenuItem()">THÊM MỤC</button>
       </div>
-      <button class="drawer-link-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">
+      <button class="drawer-nav-item-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">
         <span>🛡 QUẢN LÝ NGƯỜI DÙNG</span>
       </button>
     </div>
 
-    <div class="drawer-section">
-      <div class="drawer-subheading" id="txt-menu-community-group">CỘNG ĐỒNG</div>
+    <div class="drawer-category-group">
+      <div class="drawer-subheading-tag" id="txt-menu-community-group">CỘNG ĐỒNG</div>
       <div id="dynamic-menu-links" style="display:flex; flex-direction:column; gap:8px;"></div>
-      <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="drawer-link-btn">
+      <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="drawer-nav-item-btn">
         <span style="color:#0068FF;">NHÓM ZALO NOX</span>
         ↗
       </a>
-      <a href="https://discord.gg/kRCKkw63s" target="_blank" class="drawer-link-btn">
+      <a href="https://discord.gg/kRCKkw63s" target="_blank" class="drawer-nav-item-btn">
         <span style="color:#5865F2;">DISCORD SERVER</span>
         ↗
       </a>
@@ -1017,17 +1172,17 @@ a { text-decoration: none; color: inherit; }
   </nav>
 </div>
 
-<!-- Main App Container -->
-<main class="container">
-  <!-- Telemetry HUD -->
-  <div class="telemetry-hud">
-    <div class="hud-item">
-      <span>CORE:</span>
-      <span class="hud-val">ONLINE</span>
+<!-- Main Application Workspace -->
+<main class="os-container">
+  <!-- Telemetry HUD Bar -->
+  <div class="telemetry-deck">
+    <div class="hud-cell">
+      <span>QUANTUM CORE:</span>
+      <span class="hud-highlight" id="hud-core-state">ONLINE</span>
     </div>
-    <div class="hud-item">
+    <div class="hud-cell">
       <span>CLOCK:</span>
-      <span id="hud-live-clock" class="hud-val">--:--:--</span>
+      <span id="hud-live-clock" class="hud-highlight">--:--:--</span>
       <select class="hud-select" id="hud-tz-select" onchange="TimeEngine.changeTz(this.value)">
         <option value="Asia/Ho_Chi_Minh">VN</option>
         <option value="Asia/Tokyo">Tokyo</option>
@@ -1035,40 +1190,40 @@ a { text-decoration: none; color: inherit; }
         <option value="America/New_York">NY</option>
       </select>
     </div>
-    <div class="hud-item">
+    <div class="hud-cell">
       <span>PING:</span>
-      <span id="hud-ping" class="hud-val">18ms</span>
+      <span id="hud-ping" class="hud-highlight">18ms</span>
     </div>
-    <div class="hud-item">
-      <span>AI ENGINE:</span>
-      <span class="hud-val">READY</span>
+    <div class="hud-cell">
+      <span>AI MATRIX:</span>
+      <span class="hud-highlight">GALAXYZ 3.4</span>
     </div>
   </div>
 
-  <!-- Hero Dashboard Core -->
-  <section class="hero-deck">
-    <div class="hero-header">
-      <h1 class="hero-title" id="ui-title-text">NOX GALAXY QUANTUM</h1>
-      <p class="hero-subtitle">NEXT-GEN AI & SCRIPT COMMAND CENTER</p>
+  <!-- Hero / Quantum Core Console -->
+  <section class="hero-quantum-console">
+    <div class="hero-meta-block">
+      <h1 class="hero-cosmic-h1" id="ui-title-text">NOX GALAXY ASCENSION</h1>
+      <p class="hero-desc">COSMIC QUANTUM AI & SCRIPT OPERATING SYSTEM</p>
     </div>
 
-    <div class="notice-board">
-      <div class="notice-header">
-        <div class="notice-heading" id="ui-notice-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+    <div class="system-announcement-panel">
+      <div class="announcement-head">
+        <div class="announcement-title-tag" id="ui-notice-title">
+          <svg class="nox-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
           <span id="txt-notice-heading">THÔNG BÁO HỆ THỐNG</span>
         </div>
-        <button class="btn btn-secondary" style="height:30px; font-size:0.75rem; padding:0 12px;" id="btn-notice-toggle" onclick="NoticeTypewriter.toggle()">
+        <button class="btn btn-secondary" style="height:32px; font-size:0.75rem; padding:0 12px;" id="btn-notice-toggle" onclick="NoticeTypewriter.toggle()">
           <span id="txt-notice-btn">NỘI DUNG</span>
         </button>
       </div>
-      <div class="typewriter-content" id="ui-notice-text-zone">
-        Nhấn vào nút <strong>NỘI DUNG</strong> phía trên để xem chi tiết...
+      <div class="terminal-typewriter-box" id="ui-notice-text-zone">
+        Nhấn vào nút <strong>NỘI DUNG</strong> phía trên để xem chi tiết thông báo...
       </div>
     </div>
 
     <!-- Dev Site Config Panel -->
-    <div class="dev-panel" id="dev-config-panel">
+    <div class="dev-admin-deck" id="dev-config-panel">
       <div style="color:var(--dev-color); font-weight:800; font-size:0.85rem;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
       <input type="text" id="dev-conf-title" placeholder="Tiêu đề web...">
       <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V75 PROMAX)...">
@@ -1079,27 +1234,27 @@ a { text-decoration: none; color: inherit; }
   </section>
 
   <!-- Search & Tabs Control Bar -->
-  <section class="control-bar">
-    <input class="search-field" id="input-search" placeholder="🔍 Tìm kiếm..." oninput="UtilsEngine.execSearch(this.value)">
+  <section class="search-filter-deck">
+    <input class="search-field-input" id="input-search" placeholder="🔍 Tìm kiếm Script, Tool, Bypass Link..." oninput="UtilsEngine.execSearch(this.value)">
 
-    <div class="tab-strip">
-      <button class="tab-chip is-active" onclick="UtilsEngine.switchTab('pane-link', this)">
+    <div class="category-tab-row">
+      <button class="category-chip is-active" onclick="UtilsEngine.switchTab('pane-link', this)">
         <span id="tab-txt-links">LINKS BYPASS</span>
       </button>
-      <button class="tab-chip" onclick="UtilsEngine.switchTab('pane-script', this)">
+      <button class="category-chip" onclick="UtilsEngine.switchTab('pane-script', this)">
         <span id="tab-txt-scripts">SCRIPTS LUA</span>
       </button>
-      <button class="tab-chip" onclick="UtilsEngine.switchTab('pane-apk', this)">
+      <button class="category-chip" onclick="UtilsEngine.switchTab('pane-apk', this)">
         <span id="tab-txt-apk">FILE APK</span>
       </button>
-      <button class="tab-chip" onclick="UtilsEngine.switchTab('pane-ios', this)">
+      <button class="category-chip" onclick="UtilsEngine.switchTab('pane-ios', this)">
         <span id="tab-txt-ios">IPA / IOS</span>
       </button>
     </div>
   </section>
 
-  <!-- Dev Add / Edit Item Panel -->
-  <div class="dev-panel" id="dev-utils-panel" style="margin-bottom: var(--space-4);">
+  <!-- Dev Item Editing Deck -->
+  <div class="dev-admin-deck" id="dev-utils-panel" style="margin-bottom: var(--space-4);">
     <div style="color:var(--dev-color); font-weight:bold;" id="dev-panel-heading">[DEV] THÊM / SỬA TIỆN ÍCH</div>
     <input type="hidden" id="dev-edit-key" value="">
     <select id="dev-util-type">
@@ -1123,45 +1278,33 @@ a { text-decoration: none; color: inherit; }
   </div>
 
   <!-- Vault Feed Grid -->
-  <section class="vault-grid" id="main-feed-container"></section>
+  <section class="vault-cards-grid" id="main-feed-container"></section>
 </main>
 
-<!-- Modal: NOXGPT Quantum AI -->
-<div class="modal-overlay" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <div class="modal-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-        <span id="gpt-active-model-title">NOXGPT 3.1 PRO</span>
+<!-- Modal: NOX AI 3-Tier Command Terminal -->
+<div class="cosmic-modal-overlay" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
+  <div class="cosmic-modal-window">
+    <div class="modal-deck-head">
+      <div class="modal-deck-title">
+        <svg class="nox-icon" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span id="gpt-active-model-title">GALAXYZ 3.4 PRO</span>
       </div>
-      
-      <div style="display:flex; align-items:center; gap:6px;">
-        <button class="btn btn-ghost btn-icon" onclick="GptEngine.toggleDropdown()" title="Cài đặt">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-        </button>
-        <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-noxgpt')">✕</button>
-      </div>
+      <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-noxgpt')">✕</button>
+    </div>
 
-      <div class="ai-menu" id="gpt-options-dropdown">
-        <div class="ai-menu-item active" id="dropdown-item-model31" onclick="GptEngine.switchModel('3.1')">
-          <span>⚡ Model: 3.1 Pro</span>
-          <span id="dropdown-m31-check">✓</span>
-        </div>
-        <div class="ai-menu-item" id="dropdown-item-model25" onclick="GptEngine.switchModel('2.5')">
-          <span>◈ Model: 2.5 Ultra</span>
-          <span id="dropdown-m25-check"></span>
-        </div>
-        <div style="height:1px; background:var(--border-glass); margin:2px 0;"></div>
-        <div class="ai-menu-item active" id="dropdown-item-think" onclick="GptEngine.toggleDeepThink()">
-          <span>🧠 Suy nghĩ sâu</span>
-          <span id="dropdown-think-status">✓</span>
-        </div>
-        <div style="font-size:0.68rem; color:var(--accent-cyan); padding:4px 10px;" id="dropdown-quota-info">
-          Hạn mức 3.1 Pro: 40/40 lượt
-        </div>
-        <div class="ai-menu-item" onclick="GptEngine.clearHistory()">
-          <span>🗑 Làm mới hội thoại</span>
-        </div>
+    <!-- 3-Tier Model Bar -->
+    <div class="ai-model-selector-deck">
+      <div class="ai-tier-card" id="tier-card-25" onclick="GptEngine.switchModel('2.5')">
+        <span class="ai-tier-name">GalaxyZ-2.5</span>
+        <span class="ai-tier-badge">⚡ FAST CASUAL</span>
+      </div>
+      <div class="ai-tier-card" id="tier-card-31" onclick="GptEngine.switchModel('3.1')">
+        <span class="ai-tier-name">GalaxyZ-3.1 Pro</span>
+        <span class="ai-tier-badge">◈ PRO REASONING</span>
+      </div>
+      <div class="ai-tier-card is-active" id="tier-card-34" onclick="GptEngine.switchModel('3.4')">
+        <span class="ai-tier-name">GalaxyZ-3.4 Pro</span>
+        <span class="ai-tier-badge">★ HIGH MAX</span>
       </div>
     </div>
 
@@ -1171,21 +1314,21 @@ a { text-decoration: none; color: inherit; }
       <button class="btn btn-primary" style="width:100%; background:var(--accent-danger); color:#FFF; height:34px;" onclick="GptEngine.validateAndSaveConfig()">LƯU VÀ THỬ LẠI</button>
     </div>
 
-    <div class="chat-board" id="noxgpt-board"></div>
+    <div class="chat-board-scroll" id="noxgpt-board"></div>
 
-    <div class="chat-input-bar">
+    <div class="chat-input-deck">
       <div id="gpt-preview-zone" style="display:none; align-items:center; gap:8px;">
         <img src="" id="gpt-preview-img" style="width:32px; height:32px; border-radius:4px; object-fit:cover;">
         <div onclick="GptEngine.removeImage()" style="cursor:pointer; color:var(--accent-danger); font-weight:bold; font-size:0.8rem;">✕ Xóa ảnh</div>
       </div>
-      <div class="input-row">
+      <div class="input-interactive-row">
         <label for="gpt-img-upload" class="btn btn-secondary btn-icon" title="Tải ảnh" style="flex-shrink:0;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <svg class="nox-icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
         </label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
-        <textarea id="noxgpt-field" class="chat-textarea" placeholder="Nhập tin nhắn hoặc 'Tạo ảnh ngôi nhà'..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
+        <textarea id="noxgpt-field" class="chat-textarea-field" placeholder="Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà'..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
         <button class="btn btn-primary btn-icon" id="btn-gpt-send" onclick="GptEngine.handleSendOrStop()" style="flex-shrink:0;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <svg class="nox-icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
     </div>
@@ -1193,20 +1336,20 @@ a { text-decoration: none; color: inherit; }
 </div>
 
 <!-- Modal: Cosmic Global Chatroom -->
-<div class="modal-overlay" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
-  <div class="modal-dialog" style="position: relative;">
-    <div class="auth-curtain" id="auth-guard">
-      <h2 style="font-size:1.3rem; font-weight:800; font-family:'Orbitron', sans-serif;">GLOBAL CHAT</h2>
+<div class="cosmic-modal-overlay" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
+  <div class="cosmic-modal-window" style="position: relative;">
+    <div class="auth-curtain-overlay" id="auth-guard">
+      <h2 style="font-size:1.3rem; font-weight:800; font-family:'Orbitron', sans-serif;">GLOBAL CHATROOM</h2>
       <p style="color:var(--text-sub); font-size:0.8rem;" id="txt-auth-desc">Đăng nhập để giao lưu cùng cộng đồng NOX.</p>
       <div id="google-login-mount"></div>
       <div style="color:var(--text-muted); font-size:0.75rem;">— HOẶC —</div>
       <button class="btn btn-secondary" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
     </div>
 
-    <div class="modal-header">
-      <div class="modal-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-quantum)" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        GLOBAL CHAT
+    <div class="modal-deck-head">
+      <div class="modal-deck-title">
+        <svg class="nox-icon" style="color:var(--accent-quantum);" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        COSMIC CHAT HUB
       </div>
       <div style="display:flex; gap:6px;">
         <button class="btn btn-secondary" style="height:32px; font-size:0.75rem; padding:0 10px;" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">📦 KHO SCRIPT</button>
@@ -1214,29 +1357,29 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <div class="chat-board" id="noxchat-board">
-      <div class="msg-row type-other">
-        <div class="msg-meta sys">Hệ Thống</div>
-        <div class="msg-bubble">⚡ Đã kết nối Firebase Realtime Database.</div>
+    <div class="chat-board-scroll" id="noxchat-board">
+      <div class="msg-row-block type-other">
+        <div class="msg-meta-tag sys">Hệ Thống</div>
+        <div class="msg-bubble-glass">⚡ Đã kết nối Firebase Realtime Database.</div>
       </div>
     </div>
 
-    <div class="chat-input-bar">
+    <div class="chat-input-deck">
       <div id="chat-preview-zone" style="display:none; align-items:center; gap:8px;">
         <img src="" id="chat-preview-img" style="width:32px; height:32px; border-radius:4px; object-fit:cover;">
         <div onclick="ChatEngine.removeImage()" style="cursor:pointer; color:var(--accent-danger); font-size:0.8rem;">✕ Xóa ảnh</div>
       </div>
-      <div class="input-row">
+      <div class="input-interactive-row">
         <button class="btn btn-secondary btn-icon" title="Chia sẻ Script" onclick="openUI('modal-script-share')" style="flex-shrink:0;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          <svg class="nox-icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </button>
         <label for="chat-img-upload" class="btn btn-secondary btn-icon" title="Gửi ảnh" style="flex-shrink:0;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <svg class="nox-icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
         </label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
-        <textarea id="noxchat-field" class="chat-textarea" placeholder="Nhập tin nhắn..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); ChatEngine.sendMsg(); }"></textarea>
+        <textarea id="noxchat-field" class="chat-textarea-field" placeholder="Nhập tin nhắn..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); ChatEngine.sendMsg(); }"></textarea>
         <button class="btn btn-primary btn-icon" onclick="ChatEngine.sendMsg()" style="flex-shrink:0;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <svg class="nox-icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
     </div>
@@ -1244,48 +1387,56 @@ a { text-decoration: none; color: inherit; }
 </div>
 
 <!-- Modal: Script Share -->
-<div class="modal-overlay" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
-  <div class="modal-dialog" style="max-width: 480px; height: auto;">
-    <div class="modal-header">
-      <div class="modal-title">Chia sẻ Script</div>
+<div class="cosmic-modal-overlay" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
+  <div class="cosmic-modal-window" style="max-width: 480px; height: auto;">
+    <div class="modal-deck-head">
+      <div class="modal-deck-title">Chia sẻ Script</div>
       <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-script-share')">✕</button>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px; padding:var(--space-4);">
-      <input type="text" id="share-title" placeholder="Tên Script (VD: Speed Hub X)..." class="search-field">
-      <input type="text" id="share-image" placeholder="URL hình ảnh Banner (tùy chọn)..." class="search-field">
-      <textarea id="share-code" placeholder="Dán mã Script Lua vào đây..." class="chat-textarea" style="height:120px; font-family:'JetBrains Mono', monospace; font-size:0.8rem;"></textarea>
+      <input type="text" id="share-title" placeholder="Tên Script (VD: Speed Hub X)..." class="search-field-input">
+      <input type="text" id="share-image" placeholder="URL hình ảnh Banner (tùy chọn)..." class="search-field-input">
+      <textarea id="share-code" placeholder="Dán mã Script Lua vào đây..." class="chat-textarea-field" style="height:120px; font-family:'JetBrains Mono', monospace; font-size:0.8rem;"></textarea>
       <button class="btn btn-primary" onclick="ChatEngine.sendScript()">ĐĂNG LÊN KHO SCRIPT</button>
     </div>
   </div>
 </div>
 
 <!-- Modal: Script Vault -->
-<div class="modal-overlay" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <div class="modal-title">Kho Script Cộng Đồng</div>
+<div class="cosmic-modal-overlay" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
+  <div class="cosmic-modal-window">
+    <div class="modal-deck-head">
+      <div class="modal-deck-title">Kho Script Đóng Góp</div>
       <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-script-vault')">✕</button>
     </div>
-    <div class="chat-board" id="vault-board"></div>
+    <div class="chat-board-scroll" id="vault-board"></div>
   </div>
 </div>
 
 <!-- Modal: User Management (Admin) -->
-<div class="modal-overlay" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <div class="modal-title" style="color:var(--dev-color);">[DEV] QUẢN LÝ NGƯỜI DÙNG</div>
+<div class="cosmic-modal-overlay" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
+  <div class="cosmic-modal-window">
+    <div class="modal-deck-head">
+      <div class="modal-deck-title" style="color:var(--dev-color);">[DEV] QUẢN LÝ NGƯỜI DÙNG</div>
       <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-user-mgr')">✕</button>
     </div>
-    <div class="chat-board" id="user-mgr-board">
+    <div class="chat-board-scroll" id="user-mgr-board">
       <div style="text-align:center; color:var(--text-sub); padding:20px;">Đang tải danh sách...</div>
     </div>
   </div>
 </div>
 
+<!-- Command Palette Modal (Ctrl + K) -->
+<div id="command-palette-modal" onclick="if(event.target===this)CommandPalette.close()">
+  <div class="palette-window">
+    <input type="text" id="palette-search-box" class="palette-input" placeholder="Nhập lệnh hoặc tìm kiếm (VD: AI, Script, Chat, Ultra)..." oninput="CommandPalette.filter(this.value)">
+    <div class="palette-results" id="palette-results-list"></div>
+  </div>
+</div>
+
 <!-- Modal: Confirm Action -->
-<div class="modal-overlay" id="confirm-modal">
-  <div class="vault-card" style="max-width:380px; width:100%; text-align:center; padding:24px; background:var(--bg-card-solid);">
+<div class="cosmic-modal-overlay" id="confirm-modal">
+  <div class="vault-item-card" style="max-width:380px; width:100%; text-align:center; padding:24px; background:var(--glass-core);">
     <div style="color:var(--accent-danger); font-weight:800; margin-bottom:16px;" id="confirm-msg-text">BẠN CÓ CHẮC CHẮN?</div>
     <div style="display:flex; gap:10px;">
       <button class="btn btn-danger" style="flex:1;" onclick="ConfirmUI.ok()">XÁC NHẬN</button>
@@ -1294,15 +1445,14 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Global Lightbox -->
+<!-- Global Lightbox & Toast -->
 <div id="image-lightbox" onclick="this.classList.remove('active')">
   <img src="" id="lightbox-img" alt="Enlarged Preview">
 </div>
 
-<!-- Global Toast -->
 <div id="toast-banner">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-  <span id="toast-msg-text">NOTIFICATION</span>
+  <svg class="nox-icon" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+  <span id="toast-msg-text">SYSTEM READY</span>
 </div>
 
 <script>
@@ -1315,9 +1465,9 @@ var DOM = {
 
 function autoResizeTextarea(el) {
   if(!el) return;
-  el.style.height = '42px';
+  el.style.height = '44px';
   var newHeight = el.scrollHeight;
-  if (newHeight > 110) newHeight = 110;
+  if (newHeight > 120) newHeight = 120;
   el.style.height = newHeight + 'px';
 }
 
@@ -1333,10 +1483,27 @@ var ADMIN_EMAIL = "hminhgalaxy@gmail.com";
 var IS_ADMIN = false;
 
 /* ==========================================================================
-   COSMIC CANVAS BACKGROUND ENGINE
+   GRAPHICS PRESET ENGINE
+   ========================================================================== */
+var GraphicsEngine = {
+  currentPreset: 'ULTRA',
+  setPreset: function(level) {
+    this.currentPreset = level;
+    localStorage.setItem('nox_graphics_preset', level);
+    CosmicCanvasEngine.resize();
+    showToast("Đồ họa: " + level + " Mode");
+  },
+  init: function() {
+    var saved = localStorage.getItem('nox_graphics_preset');
+    if(saved) this.currentPreset = saved;
+  }
+};
+
+/* ==========================================================================
+   MULTI-LAYER COSMIC CANVAS ENGINE
    ========================================================================== */
 var CosmicCanvasEngine = {
-  canvas: null, ctx: null, stars: [], shootingStars: [], numStars: 100,
+  canvas: null, ctx: null, stars: [], shootingStars: [], numStars: 120,
   width: window.innerWidth, height: window.innerHeight, animId: null, isOverdrive: false,
 
   init: function() {
@@ -1348,6 +1515,14 @@ var CosmicCanvasEngine = {
     this.createStars();
     this.loop();
     this.scheduleShootingStar();
+
+    // Ambient mouse tracking
+    var glow = DOM.get('quantum-cursor-glow');
+    if(glow) {
+      window.addEventListener('mousemove', function(e) {
+        glow.style.transform = 'translate(' + (e.clientX - 190) + 'px, ' + (e.clientY - 190) + 'px)';
+      });
+    }
 
     document.addEventListener('visibilitychange', function() {
       if(document.hidden) cancelAnimationFrame(CosmicCanvasEngine.animId);
@@ -1362,7 +1537,12 @@ var CosmicCanvasEngine = {
       this.canvas.width = this.width;
       this.canvas.height = this.height;
     }
-    this.numStars = this.width < 768 ? 45 : 95;
+    var preset = GraphicsEngine.currentPreset;
+    if(preset === 'LOW') this.numStars = 25;
+    else if(preset === 'MED') this.numStars = this.width < 768 ? 40 : 70;
+    else if(preset === 'HIGH') this.numStars = this.width < 768 ? 60 : 110;
+    else this.numStars = this.width < 768 ? 80 : 160;
+
     this.createStars();
   },
 
@@ -1372,15 +1552,16 @@ var CosmicCanvasEngine = {
       this.stars.push({
         x: Math.random() * this.width,
         y: Math.random() * this.height,
-        size: Math.random() * 1.5 + 0.3,
-        alpha: Math.random() * 0.7 + 0.2,
-        speed: Math.random() * 0.25 + 0.05,
-        color: (Math.random() > 0.6) ? '#00D9F5' : ((Math.random() > 0.5) ? '#A855F7' : '#FFFFFF')
+        size: Math.random() * 1.6 + 0.3,
+        alpha: Math.random() * 0.8 + 0.2,
+        speed: Math.random() * 0.28 + 0.05,
+        color: (Math.random() > 0.6) ? '#00D9F5' : ((Math.random() > 0.45) ? '#A855F7' : '#FFFFFF')
       });
     }
   },
 
   scheduleShootingStar: function() {
+    if(GraphicsEngine.currentPreset === 'LOW') return;
     var nextDelay = Math.random() * 10000 + 8000;
     setTimeout(function() {
       CosmicCanvasEngine.spawnShootingStar();
@@ -1392,8 +1573,8 @@ var CosmicCanvasEngine = {
     this.shootingStars.push({
       x: Math.random() * this.width * 0.8,
       y: Math.random() * (this.height * 0.4),
-      length: Math.random() * 70 + 35,
-      speed: Math.random() * 6 + 8,
+      length: Math.random() * 80 + 40,
+      speed: Math.random() * 7 + 9,
       alpha: 1,
       angle: Math.PI / 4
     });
@@ -1418,7 +1599,7 @@ var CosmicCanvasEngine = {
       var ss = CosmicCanvasEngine.shootingStars[j];
       ss.x += Math.cos(ss.angle) * ss.speed;
       ss.y += Math.sin(ss.angle) * ss.speed;
-      ss.alpha -= 0.018;
+      ss.alpha -= 0.016;
 
       if(ss.alpha <= 0) {
         CosmicCanvasEngine.shootingStars.splice(j, 1);
@@ -1426,7 +1607,7 @@ var CosmicCanvasEngine = {
       }
 
       CosmicCanvasEngine.ctx.strokeStyle = 'rgba(0, 217, 245, ' + ss.alpha + ')';
-      CosmicCanvasEngine.ctx.lineWidth = 1.5;
+      CosmicCanvasEngine.ctx.lineWidth = 1.6;
       CosmicCanvasEngine.ctx.beginPath();
       CosmicCanvasEngine.ctx.moveTo(ss.x, ss.y);
       CosmicCanvasEngine.ctx.lineTo(ss.x - Math.cos(ss.angle) * ss.length, ss.y - Math.sin(ss.angle) * ss.length);
@@ -1439,7 +1620,7 @@ var CosmicCanvasEngine = {
 };
 
 /* ==========================================================================
-   EASTER EGG
+   EASTER EGG (CORE OVERDRIVE)
    ========================================================================== */
 var EasterEngine = {
   clickCount: 0, timer: null,
@@ -1450,13 +1631,66 @@ var EasterEngine = {
     if(this.clickCount >= 5) {
       this.clickCount = 0;
       CosmicCanvasEngine.isOverdrive = !CosmicCanvasEngine.isOverdrive;
-      showToast(CosmicCanvasEngine.isOverdrive ? "🌌 HYPERDRIVE ACTIVATED!" : "⚡ CRUISE MODE RESTORED");
+      showToast(CosmicCanvasEngine.isOverdrive ? "🌌 HYPERDRIVE OVERDRIVE ACTIVATED!" : "⚡ CRUISE MODE RESTORED");
     }
   }
 };
 
 /* ==========================================================================
-   AI 3.1 PRO QUOTA MANAGER
+   COMMAND PALETTE (CTRL + K)
+   ========================================================================== */
+var CommandPalette = {
+  items: [
+    { title: "🤖 Mở AI GalaxyZ-3.4 Pro", action: function() { RestrictedAction.checkAndOpen('modal-noxgpt'); } },
+    { title: "💬 Mở Global Chatroom", action: function() { RestrictedAction.checkAndOpen('modal-noxchat'); } },
+    { title: "📦 Mở Kho Script Vault", action: function() { openUI('modal-script-vault'); ChatEngine.loadVaultScripts(); } },
+    { title: "🌐 Đổi ngôn ngữ (VN / EN)", action: function() { LangEngine.toggle(); } },
+    { title: "🎮 Chế độ đồ họa: ULTRA", action: function() { GraphicsEngine.setPreset('ULTRA'); } },
+    { title: "⚡ Chế độ đồ họa: LOW", action: function() { GraphicsEngine.setPreset('LOW'); } },
+    { title: "🛡 Mở DEV Control (Admin)", action: function() { if(IS_ADMIN){ openUI('modal-user-mgr'); UserMgr.loadUsers(); } else alert("Quyền Dev yêu cầu!"); } }
+  ],
+  open: function() {
+    var p = DOM.get('command-palette-modal');
+    if(p) {
+      p.classList.add('is-active');
+      DOM.get('palette-search-box').value = '';
+      this.filter('');
+      setTimeout(function() { DOM.get('palette-search-box').focus(); }, 100);
+    }
+  },
+  close: function() {
+    var p = DOM.get('command-palette-modal');
+    if(p) p.classList.remove('is-active');
+  },
+  filter: function(query) {
+    var q = query.toLowerCase().trim();
+    var list = DOM.get('palette-results-list');
+    if(!list) return;
+    list.innerHTML = '';
+    this.items.forEach(function(item) {
+      if(!q || item.title.toLowerCase().indexOf(q) !== -1) {
+        var el = document.createElement('div');
+        el.className = 'palette-item';
+        el.innerText = item.title;
+        el.onclick = function() {
+          CommandPalette.close();
+          item.action();
+        };
+        list.appendChild(el);
+      }
+    });
+  }
+};
+
+window.addEventListener('keydown', function(e) {
+  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault();
+    CommandPalette.open();
+  }
+});
+
+/* ==========================================================================
+   AI QUOTA ENGINE (40 REQUESTS / 5H)
    ========================================================================== */
 var AIQuota = {
   MAX: 40, INTERVAL: 5 * 60 * 60 * 1000,
@@ -1475,23 +1709,9 @@ var AIQuota = {
     if (data.count > 0) {
       data.count--;
       localStorage.setItem('nox_ai_31_quota_data', JSON.stringify(data));
-      this.updateUI();
       return true;
     }
     return false;
-  },
-  getRemainingTimeStr: function() {
-    var data = this.getData();
-    var diff = this.INTERVAL - (Date.now() - data.timestamp);
-    if (diff < 0) return "0h";
-    var hours = Math.floor(diff / (1000 * 60 * 60));
-    var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    return hours + "h " + mins + "p";
-  },
-  updateUI: function() {
-    var data = this.getData();
-    var info = DOM.get('dropdown-quota-info');
-    if (info) info.innerText = "Hạn mức 3.1 Pro: " + data.count + "/" + this.MAX + " lượt (" + this.getRemainingTimeStr() + ")";
   }
 };
 
@@ -1506,14 +1726,14 @@ var LangEngine = {
       authGroup: "TÀI KHOẢN HỆ THỐNG", guestBtn: "ĐĂNG NHẬP KHÁCH", logoutBtn: "ĐĂNG XUẤT",
       communityGroup: "CỘNG ĐỒNG", noticeHeading: "THÔNG BÁO HỆ THỐNG", noticeBtn: "NỘI DUNG",
       tabLinks: "LINKS BYPASS", tabScripts: "SCRIPTS LUA", tabApk: "FILE APK", tabIos: "IPA / IOS",
-      searchPlace: "🔍 Tìm kiếm...", aiPromptPlace: "Nhập tin nhắn hoặc 'Tạo ảnh ngôi nhà'..."
+      searchPlace: "🔍 Tìm kiếm Script, Tool, Bypass Link...", aiPromptPlace: "Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà'..."
     },
     en: {
       badge: "EN", menuBtn: "MENU", drawerTitle: "COMMAND DECK", aiGroup: "AI ASSISTANTS & CHAT",
       authGroup: "SYSTEM ACCOUNT", guestBtn: "GUEST LOGIN", logoutBtn: "LOGOUT",
-      communityGroup: "COMMUNITY", noticeHeading: "SYSTEM NOTICE", noticeBtn: "CONTENT",
+      communityGroup: "COMMUNITY", noticeHeading: "SYSTEM ANNOUNCEMENT", noticeBtn: "CONTENT",
       tabLinks: "BYPASS LINKS", tabScripts: "LUA SCRIPTS", tabApk: "APK FILES", tabIos: "IPA / IOS",
-      searchPlace: "🔍 Search...", aiPromptPlace: "Ask AI or 'Create image of a house'..."
+      searchPlace: "🔍 Search Scripts, Tools, Bypass Links...", aiPromptPlace: "Ask AI, request code or 'Create image of a house'..."
     }
   },
   init: function() {
@@ -1568,11 +1788,11 @@ var TimeEngine = {
 };
 
 /* ==========================================================================
-   NOTICE TYPEWRITER
+   NOTICE TYPEWRITER ENGINE
    ========================================================================== */
 var NoticeTypewriter = {
-  fullTextVN: "⚡ NOX GALAXY QUANTUM V75 ULTRA ⚡\n◈ Kho dữ liệu Script Lua Roblox, Link Bypass, Tool APK & iOS chuẩn không quảng cáo.\n◈ NOXGPT 3.1 PRO: Trí tuệ AI thế hệ mới với khả năng suy nghĩ sâu, tạo ảnh 8K chuẩn xác.\n◈ Hạn mức 40 lượt miễn phí cho 3.1 Pro (tự động reset sau 5 giờ).",
-  fullTextEN: "⚡ NOX GALAXY QUANTUM V75 ULTRA ⚡\n◈ Direct links for Roblox Lua Scripts, Bypass Tools, APK & IPA without ads.\n◈ NOXGPT 3.1 PRO: Flagship quantum AI with deep analytical reasoning & 8K image generator.\n◈ 40 free queries quota for 3.1 Pro (automatically resets every 5 hours).",
+  fullTextVN: "⚡ NOX GALAXY ASCENSION OS ⚡\n◈ Hệ sinh thái phân phối Roblox Lua Script, Link Bypass, Tool APK & iOS sạch không quảng cáo.\n◈ HỆ THỐNG AI 3 TẦNG: GalaxyZ-2.5 (Fast), GalaxyZ-3.1 Pro (Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Bấm Ctrl + K để mở Command Palette điều hướng nhanh.",
+  fullTextEN: "⚡ NOX GALAXY ASCENSION OS ⚡\n◈ Direct portal for Roblox Lua Scripts, Bypass Tools, APK & IPA without ads.\n◈ 3-TIER AI MATRIX: GalaxyZ-2.5 (Fast), GalaxyZ-3.1 Pro (Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Press Ctrl + K to open the Cosmic Command Palette.",
   isExpanded: false, timer: null,
 
   toggle: function() {
@@ -1598,7 +1818,7 @@ var NoticeTypewriter = {
     container.innerHTML = '';
     var i = 0;
     var cursor = document.createElement('span');
-    cursor.className = 'terminal-cursor';
+    cursor.className = 'quantum-terminal-cursor';
     container.appendChild(cursor);
 
     this.timer = setInterval(function() {
@@ -1664,11 +1884,13 @@ function closeUI(id) {
 
 window.addEventListener('keydown', function(e) {
   if(e.key === 'Escape') {
-    DOM.queryAll('.modal-overlay.is-active').forEach(function(m) { m.classList.remove('is-active'); });
+    DOM.queryAll('.cosmic-modal-overlay.is-active').forEach(function(m) { m.classList.remove('is-active'); });
     var d = DOM.get('nav-drawer-backdrop');
     if(d && d.classList.contains('is-open')) d.classList.remove('is-open');
     var lb = DOM.get('image-lightbox');
     if(lb && lb.classList.contains('active')) lb.classList.remove('active');
+    var cp = DOM.get('command-palette-modal');
+    if(cp && cp.classList.contains('is-active')) cp.classList.remove('is-active');
   }
 });
 
@@ -1864,7 +2086,7 @@ var MenuEditor = {
       if(snapshot.exists()) {
         snapshot.forEach(function(child) {
           var item = child.val(); var key = child.key;
-          var a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "drawer-link-btn";
+          var a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "drawer-nav-item-btn";
           var del = IS_ADMIN ? '<span style="color:var(--accent-danger); cursor:pointer;" onclick="event.preventDefault(); MenuEditor.deleteMenuItem(\'' + key + '\')">[X]</span>' : '';
           a.innerHTML = '<span>' + item.name + '</span> ' + del;
           container.appendChild(a);
@@ -1875,7 +2097,7 @@ var MenuEditor = {
 };
 
 /* ==========================================================================
-   USER MANAGER (DEV ONLY)
+   USER MANAGER (DEV CONTROL)
    ========================================================================== */
 var UserMgr = {
   loadUsers: async function() {
@@ -1890,7 +2112,7 @@ var UserMgr = {
       board.innerHTML = '';
       regSnap.forEach(function(child) {
         var u = child.val(); var safeKey = child.key; var control = controls[safeKey] || {};
-        var box = document.createElement('div'); box.className = 'vault-card';
+        var box = document.createElement('div'); box.className = 'vault-item-card';
         var statusHtml = '<span style="color:var(--accent-quantum)">Bình thường</span>';
         if(control.isBanned) statusHtml = '<span style="color:var(--accent-danger)">ĐÃ BAN (' + control.banReason + ')</span>';
         else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = '<span style="color:var(--accent-cyan)">ĐÃ MUTE đến ' + (new Date(control.muteUntil).toLocaleTimeString()) + '</span>';
@@ -1899,7 +2121,7 @@ var UserMgr = {
           '<div style="font-size:0.8rem; color:var(--text-muted);">Email: ' + u.email + '</div>' +
           '<div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ' + statusHtml + '</div>' +
           '<div style="display:flex; gap:8px; margin-top:8px;">' +
-            '<input type="text" id="um-ban-reason-' + safeKey + '" placeholder="Lý do ban..." class="search-field" style="height:36px;">' +
+            '<input type="text" id="um-ban-reason-' + safeKey + '" placeholder="Lý do ban..." class="search-field-input" style="height:36px;">' +
             '<button class="btn btn-danger" style="height:36px;" onclick="UserMgr.banFromPanel(\'' + safeKey + '\')">BAN</button>' +
             '<button class="btn btn-primary" style="height:36px;" onclick="UserMgr.uncontrolUser(\'' + safeKey + '\')">GỠ</button>' +
           '</div>';
@@ -1917,7 +2139,7 @@ var UserMgr = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (VAULT CARDS & MOBILE-FIRST LAYOUT)
+   UTILS ENGINE (VAULT FEED)
    ========================================================================== */
 var UtilsEngine = {
   ref: null, itemsMap: {}, currentTab: 'pane-link', devUploadedBase64: "",
@@ -1966,7 +2188,7 @@ var UtilsEngine = {
 
   switchTab: function(tabId, btn) {
     this.currentTab = tabId;
-    DOM.queryAll('.tab-chip').forEach(function(b) { b.classList.remove('is-active'); });
+    DOM.queryAll('.category-chip').forEach(function(b) { b.classList.remove('is-active'); });
     if(btn) btn.classList.add('is-active');
     this.renderCurrentTab();
   },
@@ -1986,7 +2208,7 @@ var UtilsEngine = {
 
       count++;
       var box = document.createElement('div');
-      box.className = 'vault-card';
+      box.className = 'vault-item-card';
       box.id = 'util-card-' + key;
 
       var devControls = IS_ADMIN ? 
@@ -1996,7 +2218,7 @@ var UtilsEngine = {
       var safeTitle = item.title.replace(/</g, "&lt;").replace(/>/g, "&gt;");
       var imageHtml = "";
       if(item.image) {
-        imageHtml = '<div class="card-thumbnail-wrap" onclick="openLightbox(\'' + item.image + '\')"><img src="' + item.image + '" class="card-thumbnail-img" alt="Thumbnail" loading="lazy"></div>';
+        imageHtml = '<div class="card-preview-thumb" onclick="openLightbox(\'' + item.image + '\')"><img src="' + item.image + '" class="card-preview-img" alt="Thumbnail" loading="lazy"></div>';
       }
 
       var categoryName = item.type === 'pane-link' ? 'LINK' : (item.type === 'pane-script' ? 'SCRIPT' : (item.type === 'pane-apk' ? 'APK' : 'IOS'));
@@ -2004,25 +2226,25 @@ var UtilsEngine = {
       if(item.type === 'pane-script' || item.isScript) {
         var safeCode = item.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
         box.innerHTML = 
-          '<div class="card-top-bar">' +
-            '<span class="card-category-badge">' + categoryName + '</span>' +
-            '<div class="card-admin-group">' + devControls + '</div>' +
+          '<div class="card-top-row">' +
+            '<span class="card-category-tag">' + categoryName + '</span>' +
+            '<div class="card-admin-tools">' + devControls + '</div>' +
           '</div>' +
-          '<h3 class="card-title">' + safeTitle + '</h3>' +
+          '<h3 class="card-title-text">' + safeTitle + '</h3>' +
           imageHtml +
-          '<div class="card-code-preview">' + safeCode + '</div>' +
-          '<div class="card-footer">' +
+          '<div class="card-lua-code-block">' + safeCode + '</div>' +
+          '<div class="card-actions-dock">' +
             '<button class="btn btn-primary" onclick="UtilsEngine.execCopy(this, \'' + key + '\')">COPY SCRIPT</button>' +
           '</div>';
       } else {
         box.innerHTML = 
-          '<div class="card-top-bar">' +
-            '<span class="card-category-badge">' + categoryName + '</span>' +
-            '<div class="card-admin-group">' + devControls + '</div>' +
+          '<div class="card-top-row">' +
+            '<span class="card-category-tag">' + categoryName + '</span>' +
+            '<div class="card-admin-tools">' + devControls + '</div>' +
           '</div>' +
-          '<h3 class="card-title">' + safeTitle + '</h3>' +
+          '<h3 class="card-title-text">' + safeTitle + '</h3>' +
           imageHtml +
-          '<div class="card-footer">' +
+          '<div class="card-actions-dock">' +
             '<a href="' + item.content + '" target="_blank" class="btn btn-primary">' + (LangEngine.currentLang==='vi'?'MỞ LINK ↗':'OPEN LINK ↗') + '</a>' +
           '</div>';
       }
@@ -2118,7 +2340,7 @@ var UtilsEngine = {
 };
 
 /* ==========================================================================
-   NOXGPT 3.1 PRO AI ENGINE
+   3-TIER NOX AI ENGINE (GALAXYZ 2.5 / 3.1 / 3.4)
    ========================================================================== */
 var GptEngine = {
   defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
@@ -2128,59 +2350,32 @@ var GptEngine = {
   
   board: DOM.get('noxgpt-board'), 
   input: DOM.get('noxgpt-field'), 
-  isGenerating: false, isDeepThink: true, currentModel: "3.1", abortController: null,
-  systemInstruction: "You are NOXGPT 3.1 Pro (Claude Opus 4 tier AI on NOX GALAXY QUANTUM, developed by HminhGalaxy). Full website context: NOX WEB is Vietnam's top portal providing Roblox Lua scripts (Delta Executor, Kasumi Store, Speed Hub X, ArceusX), direct APK/IPA links without bypass ads. Highly analytical, direct, concise, master in Roblox Lua coding and architecture.",
+  isGenerating: false, currentModel: "3.4", abortController: null,
+  
+  systemInstruction: "You are GalaxyZ-3.4 Pro (Cosmic Quantum AI on NOX GALAXY ASCENSION, developed by HminhGalaxy). Full website context: NOX WEB is Vietnam's top portal providing Roblox Lua scripts (Delta Executor, Kasumi Store, Speed Hub X, ArceusX), direct APK/IPA links without bypass ads. Adapt conversation style dynamically: for code, output clean formatted blocks; for explanations, use structured bullet points; for casual chat, be concise and friendly.",
   messageHistory: [],
 
   init: function() {
     this.messageHistory = [{ role: "system", content: this.systemInstruction }];
-    AIQuota.updateUI();
   },
 
   switchModel: function(model) {
-    if (model === "3.1") {
-      var data = AIQuota.getData();
-      if (data.count <= 0) {
-        showToast("Hạn mức 3.1 Pro đã hết. Đang dùng 2.5 Ultra.");
-        return;
-      }
-      this.currentModel = "3.1";
-      DOM.get('gpt-active-model-title').innerText = "NOXGPT 3.1 PRO";
-      DOM.get('dropdown-m31-check').innerText = "✓";
-      DOM.get('dropdown-m25-check').innerText = "";
-      showToast("Đã kích hoạt NOXGPT 3.1 PRO");
+    this.currentModel = model;
+    DOM.queryAll('.ai-tier-card').forEach(function(c) { c.classList.remove('is-active'); });
+    
+    if (model === "2.5") {
+      DOM.get('tier-card-25').classList.add('is-active');
+      DOM.get('gpt-active-model-title').innerText = "GALAXYZ 2.5 (FAST)";
+      showToast("Kích hoạt GalaxyZ-2.5: Phản hồi siêu tốc");
+    } else if(model === "3.1") {
+      DOM.get('tier-card-31').classList.add('is-active');
+      DOM.get('gpt-active-model-title').innerText = "GALAXYZ 3.1 PRO";
+      showToast("Kích hoạt GalaxyZ-3.1 Pro: Suy luận chuyên sâu");
     } else {
-      this.currentModel = "2.5";
-      DOM.get('gpt-active-model-title').innerText = "NOXGPT 2.5 ULTRA";
-      DOM.get('dropdown-m31-check').innerText = "";
-      DOM.get('dropdown-m25-check').innerText = "✓";
-      showToast("Đã chuyển sang NOXGPT 2.5 Ultra");
+      DOM.get('tier-card-34').classList.add('is-active');
+      DOM.get('gpt-active-model-title').innerText = "GALAXYZ 3.4 PRO (HIGH)";
+      showToast("Kích hoạt GalaxyZ-3.4 Pro: Max Reasoning & Coding");
     }
-    this.toggleDropdown();
-  },
-
-  toggleDropdown: function() {
-    var d = DOM.get('gpt-options-dropdown');
-    if(d) { d.classList.toggle('active'); AIQuota.updateUI(); }
-  },
-
-  toggleDeepThink: function() {
-    this.isDeepThink = !this.isDeepThink;
-    var status = DOM.get('dropdown-think-status');
-    var item = DOM.get('dropdown-item-think');
-    if(status && item) {
-      if(this.isDeepThink) { item.classList.add('active'); status.innerText = "✓"; }
-      else { item.classList.remove('active'); status.innerText = ""; }
-    }
-    this.toggleDropdown();
-    showToast(this.isDeepThink ? "Deep Reasoning: BẬT" : "Deep Reasoning: TẮT");
-  },
-
-  clearHistory: function() {
-    this.messageHistory = [{ role: "system", content: this.systemInstruction }];
-    if(this.board) this.board.innerHTML = '';
-    this.toggleDropdown();
-    showToast("Đã làm mới đoạn hội thoại!");
   },
 
   setGeneratingState: function(state) {
@@ -2191,7 +2386,7 @@ var GptEngine = {
       btn.innerHTML = '⏹';
       btn.title = "Dừng tạo câu trả lời";
     } else {
-      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+      btn.innerHTML = '<svg class="nox-icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
       btn.title = "Gửi tin nhắn";
     }
   },
@@ -2206,14 +2401,16 @@ var GptEngine = {
     this.setGeneratingState(false);
     var loader = DOM.get('gpt-active-loader');
     if(loader) loader.remove();
-    this.appendMsg('other', 'NOXGPT ' + this.currentModel, '<i>[Đã dừng tạo phản hồi]</i>');
+    this.appendMsg('other', 'GalaxyZ ' + this.currentModel, '<i>[Đã dừng tạo phản hồi]</i>');
   },
 
   formatMarkdown: function(text) {
     var out = text.replace(/```([a-zA-Z]*)\n([\s\S]*?)```/g, function(match, lang, code) {
       var safeCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      return '<div style="background:#03050C; border:1px solid rgba(0,217,245,0.2); border-radius:6px; margin:8px 0; overflow:hidden;">' +
-        '<div style="padding:4px 10px; background:rgba(255,255,255,0.05); font-size:0.7rem; color:var(--accent-cyan); font-family:monospace;">' + (lang || 'CODE') + '</div>' +
+      return '<div style="background:#03050C; border:1px solid rgba(0,217,245,0.25); border-radius:6px; margin:8px 0; overflow:hidden;">' +
+        '<div style="padding:4px 10px; background:rgba(255,255,255,0.05); font-size:0.7rem; color:var(--accent-cyan); font-family:monospace; display:flex; justify-content:space-between;">' +
+          '<span>' + (lang || 'CODE') + '</span>' +
+        '</div>' +
         '<pre style="padding:10px; font-family:monospace; font-size:0.8rem; color:#6EE7B7; overflow-x:auto;"><code>' + safeCode + '</code></pre>' +
       '</div>';
     });
@@ -2225,11 +2422,11 @@ var GptEngine = {
   appendMsg: function(type, name, htmlContent) {
     if(!this.board) this.board = DOM.get('noxgpt-board');
     if(!this.board) return;
-    var row = document.createElement('div'); row.className = 'msg-row type-' + type;
+    var row = document.createElement('div'); row.className = 'msg-row-block type-' + type;
     var innerHTML = '';
-    if(type === 'other') innerHTML += '<div class="msg-meta sys">' + name + '</div>';
-    else innerHTML += '<div class="msg-meta">' + (LangEngine.currentLang==='vi'?'Bạn':'You') + '</div>';
-    innerHTML += '<div class="msg-bubble">' + this.formatMarkdown(htmlContent) + '</div>';
+    if(type === 'other') innerHTML += '<div class="msg-meta-tag sys">' + name + '</div>';
+    else innerHTML += '<div class="msg-meta-tag">' + (LangEngine.currentLang==='vi'?'Bạn':'You') + '</div>';
+    innerHTML += '<div class="msg-bubble-glass">' + this.formatMarkdown(htmlContent) + '</div>';
     row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
     return row; 
   },
@@ -2237,13 +2434,14 @@ var GptEngine = {
   appendMorphingLoader: function() {
     if(!this.board) this.board = DOM.get('noxgpt-board');
     var row = document.createElement('div'); 
-    row.className = 'msg-row type-other';
+    row.className = 'msg-row-block type-other';
     row.id = 'gpt-active-loader';
     row.innerHTML = 
-      '<div class="msg-meta sys">NOX QUANTUM CORE</div>' +
-      '<div class="msg-bubble">' +
-        '<div class="ai-loader-wrap">' +
-          '<div class="quantum-morph"></div>' +
+      '<div class="msg-meta-tag sys">GALAXYZ ' + this.currentModel + '</div>' +
+      '<div class="msg-bubble-glass">' +
+        '<div class="quantum-processing-loader">' +
+          '<div class="quantum-morph-core"></div>' +
+          '<span>QUANTUM REASONING...</span>' +
         '</div>' +
       '</div>';
     this.board.appendChild(row); 
@@ -2268,7 +2466,7 @@ var GptEngine = {
       var t = triggers[i];
       if(lower.startsWith(t) || lower.indexOf(t) !== -1) {
         var subject = lower.replace(t, "").replace(/[:,"']/g, "").trim();
-        if(!subject) subject = "modern architecture house";
+        if(!subject) subject = "modern architecture cosmic house";
         return subject + ", 8k resolution, highly detailed, photorealistic, cinematic lighting, masterpiece";
       }
     }
@@ -2280,10 +2478,10 @@ var GptEngine = {
     var text = this.input.value.trim(); var base64Img = ImageProcessor.currentGptImage;
     if(!text && !base64Img) return;
 
-    if (this.currentModel === "3.1") {
+    if (this.currentModel === "3.1" || this.currentModel === "3.4") {
       var canUse = AIQuota.useQuota();
       if (!canUse) {
-        showToast("Đã hết lượt dùng 3.1 Pro! Chuyển sang 2.5 Ultra.");
+        showToast("Đã hết lượt dùng High Tier! Chuyển sang GalaxyZ-2.5.");
         this.switchModel("2.5");
       }
     }
@@ -2291,7 +2489,7 @@ var GptEngine = {
     var userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
     if(base64Img) userHtml = '<img src="' + base64Img + '" style="max-width:100%; border-radius:6px; margin-bottom:6px; display:block;">' + userHtml;
     
-    this.input.value = ''; this.input.style.height = '42px'; this.removeImage();
+    this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
     this.messageHistory.push({ role: "user", content: text || "[Sent Image]" });
     this.setGeneratingState(true);
@@ -2302,15 +2500,15 @@ var GptEngine = {
       var encoded = encodeURIComponent(imagePrompt);
       var seed = Math.floor(Math.random() * 999999);
       var imageUrl = 'https://image.pollinations.ai/prompt/' + encoded + '?width=1024&height=768&nologo=true&enhance=true&model=flux&seed=' + seed;
-      var thinkDelay = this.isDeepThink ? 2400 : 1200;
+      var thinkDelay = (this.currentModel === "3.4") ? 2200 : 1400;
 
       setTimeout(function() {
         if(loader) loader.remove();
         GptEngine.setGeneratingState(false);
-        var titleMsg = (LangEngine.currentLang==='vi') ? "Đã tạo tác phẩm thành công:" : "Artwork generated:";
+        var titleMsg = (LangEngine.currentLang==='vi') ? "Tác phẩm Quantum đã hoàn tất:" : "Quantum artwork generated:";
         var imgHtml = '<div>' + titleMsg + '</div>' +
           '<img src="' + imageUrl + '" style="max-width:100%; border-radius:6px; margin-top:6px; cursor:pointer;" onclick="openLightbox(\'' + imageUrl + '\')" alt="AI Art">';
-        GptEngine.appendMsg('other', 'NOXGPT ' + GptEngine.currentModel, imgHtml);
+        GptEngine.appendMsg('other', 'GalaxyZ ' + GptEngine.currentModel, imgHtml);
         GptEngine.messageHistory.push({ role: "assistant", content: "Generated image: " + imagePrompt });
       }, thinkDelay);
       return;
@@ -2321,13 +2519,15 @@ var GptEngine = {
 
     try {
       var apiKey = this.getApiKey();
+      var temperatureValue = (this.currentModel === "3.4") ? 0.45 : ((this.currentModel === "3.1") ? 0.6 : 0.75);
+
       var response = await fetch(this.defaultUrl, {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
         body: JSON.stringify({ 
           model: "deepseek/deepseek-v4-pro", 
           messages: this.messageHistory,
-          temperature: (this.currentModel === "3.1") ? 0.55 : 0.7 
+          temperature: temperatureValue
         }),
         signal: this.abortController.signal
       });
@@ -2339,7 +2539,7 @@ var GptEngine = {
       
       if(data.choices && data.choices[0] && data.choices[0].message) {
         var reply = data.choices[0].message.content;
-        this.appendMsg('other', 'NOXGPT ' + this.currentModel, reply); 
+        this.appendMsg('other', 'GalaxyZ ' + this.currentModel, reply); 
         this.messageHistory.push({ role: "assistant", content: reply });
       }
     } catch(err) {
@@ -2350,7 +2550,7 @@ var GptEngine = {
         puter.ai.chat(text).then(function(res) {
           GptEngine.setGeneratingState(false);
           var puterReply = (typeof res === 'string') ? res : (res.message ? res.message.content : JSON.stringify(res));
-          GptEngine.appendMsg('other', 'NOXGPT ' + GptEngine.currentModel, puterReply);
+          GptEngine.appendMsg('other', 'GalaxyZ ' + GptEngine.currentModel, puterReply);
         }).catch(function() {
           GptEngine.setGeneratingState(false);
           var fb = DOM.get('gpt-fallback-container'); if(fb) fb.style.display = 'block';
@@ -2428,15 +2628,15 @@ var ChatEngine = {
 
     var isMe = (this.userProfile && senderName === this.userProfile.name);
     var row = document.createElement('div'); 
-    row.className = 'msg-row ' + (isMe ? 'type-user' : 'type-other');
+    row.className = 'msg-row-block ' + (isMe ? 'type-user' : 'type-other');
     if(msgKey) row.id = 'msg-' + msgKey;
     
-    var badge = role === 'DEV' ? '<span class="badge-dev">DEV</span>' : (role === 'NOX' ? '<span class="badge-nox">NOX</span>' : '<span class="badge-guest">GUEST</span>');
+    var badge = role === 'DEV' ? '<span style="color:#FFF; background:#FF2A85; padding:1px 6px; border-radius:4px; font-size:0.65rem; font-weight:800;">DEV</span>' : (role === 'NOX' ? '<span style="color:#02040A; background:var(--accent-quantum); padding:1px 6px; border-radius:4px; font-size:0.65rem; font-weight:800;">NOX</span>' : '<span style="color:var(--text-muted); border:1px solid var(--border-glass); padding:1px 6px; border-radius:4px; font-size:0.65rem; background:var(--bg-input);">GUEST</span>');
     if(isSystem) badge = '';
 
     row.innerHTML = 
-      '<div class="msg-meta ' + (isSystem ? 'sys' : '') + '">' + badge + ' ' + senderName + '</div>' +
-      '<div class="msg-bubble">' + (isRecalled ? '<i>[Tin nhắn đã bị thu hồi]</i>' : htmlContent) + '</div>';
+      '<div class="msg-meta-tag ' + (isSystem ? 'sys' : '') + '">' + badge + ' ' + senderName + '</div>' +
+      '<div class="msg-bubble-glass">' + (isRecalled ? '<i>[Tin nhắn đã bị thu hồi]</i>' : htmlContent) + '</div>';
 
     this.board.appendChild(row); 
     this.board.scrollTop = this.board.scrollHeight;
@@ -2467,7 +2667,7 @@ var ChatEngine = {
       var text = ChatEngine.input.value.trim(); var base64Img = ImageProcessor.currentChatImage;
       if(!text && !base64Img) return;
       
-      ChatEngine.input.value = ''; ChatEngine.input.style.height = '42px'; ChatEngine.removeImage();
+      ChatEngine.input.value = ''; ChatEngine.input.style.height = '44px'; ChatEngine.removeImage();
       ChatEngine.dbRef.push({ 
         user: ChatEngine.userProfile.name, role: ChatEngine.userProfile.role, email: ChatEngine.userProfile.email,
         text: text, image: base64Img || "", recalled: false, 
@@ -2502,14 +2702,14 @@ var ChatEngine = {
       snapshot.forEach(function(child) {
         var s = child.val();
         ChatEngine.vaultMap[child.key] = s;
-        var box = document.createElement('div'); box.className = 'vault-card';
+        var box = document.createElement('div'); box.className = 'vault-item-card';
         var safeCode = s.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        var imgHtml = s.image ? '<div class="card-thumbnail-wrap" onclick="openLightbox(\'' + s.image + '\')"><img src="' + s.image + '" class="card-thumbnail-img" alt="Script Preview"></div>' : '';
+        var imgHtml = s.image ? '<div class="card-preview-thumb" onclick="openLightbox(\'' + s.image + '\')"><img src="' + s.image + '" class="card-preview-img" alt="Script Preview"></div>' : '';
         
         box.innerHTML = 
           imgHtml +
-          '<div class="card-top-bar"><h4 class="card-title">' + s.title.replace(/</g,"&lt;") + '</h4><button class="btn btn-primary" style="height:32px; font-size:0.75rem;" onclick="ChatEngine.copyVaultScript(this, \'' + child.key + '\')">COPY</button></div>' +
-          '<div class="card-code-preview">' + safeCode + '</div>' +
+          '<div class="card-top-row"><h4 class="card-title-text">' + s.title.replace(/</g,"&lt;") + '</h4><button class="btn btn-primary" style="height:32px; font-size:0.75rem;" onclick="ChatEngine.copyVaultScript(this, \'' + child.key + '\')">COPY</button></div>' +
+          '<div class="card-lua-code-block">' + safeCode + '</div>' +
           '<div style="font-size:0.72rem; color:var(--text-muted);">Đóng góp bởi: ' + s.user + '</div>';
         vBoard.appendChild(box);
       });
@@ -2530,9 +2730,10 @@ var ChatEngine = {
 };
 
 /* ==========================================================================
-   INITIALIZE BOOTSTRAP
+   INITIALIZE ASCENSION BOOTSTRAP
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', function() {
+  GraphicsEngine.init();
   CosmicCanvasEngine.init();
   LangEngine.init();
   TimeEngine.init();
