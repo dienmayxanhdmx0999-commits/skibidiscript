@@ -6,15 +6,13 @@
 <meta name="theme-color" content="#02040A">
 
 <title>NOX GALAXY ASCENSION 2.0 — Cosmic Quantum OS</title>
-<meta name="description" content="NOX GALAXY ASCENSION 2.0. Trung tâm điều hành trí tuệ nhân tạo GalaxyZ 3 tầng, Roblox Lua Scripts, Bypass Tools, APK & IPA Direct Link không quảng cáo.">
+<meta name="description" content="NOX GALAXY ASCENSION 2.0. Hệ thống điều hành AI Quantum GalaxyZ 3 tầng, Roblox Lua Script Vault, APK & IPA Direct Link không quảng cáo.">
 <meta name="robots" content="index, follow">
 
-<!-- Cosmic Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;900&display=swap" rel="stylesheet">
 
-<!-- Cloud SDKs -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -22,7 +20,7 @@
 
 <style>
 /* ==========================================================================
-   1. DESIGN TOKENS & GLASS 2.0 SYSTEM
+   1. DESIGN TOKENS & COSMIC GLASS 2.0
    ========================================================================== */
 :root {
   --bg-void: #02040A;
@@ -30,7 +28,6 @@
   --bg-nebula: #08111F;
   --bg-input: rgba(4, 7, 18, 0.94);
 
-  /* Glass Hierarchy */
   --glass-1: rgba(10, 18, 38, 0.68);
   --glass-2: rgba(12, 22, 48, 0.82);
   --glass-3: rgba(16, 28, 58, 0.92);
@@ -45,7 +42,6 @@
   --text-sub: #94A3B8;
   --text-muted: #64748B;
 
-  /* Quantum Lighting Tokens */
   --accent-cyan: #00D9F5;
   --accent-cyan-glow: rgba(0, 217, 245, 0.35);
   --accent-quantum: #00F5A0;
@@ -59,7 +55,6 @@
   --accent-danger-glow: rgba(255, 42, 95, 0.4);
   --dev-color: #FF2A85;
 
-  /* Spacing Scale (4, 8, 12, 16, 20, 24, 32, 40, 48) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -69,20 +64,15 @@
   --space-8: 32px;
   --space-10: 40px;
 
-  /* Border Radii */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-full: 9999px;
 
-  /* Animation Easing */
   --ease-cosmic: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ==========================================================================
-   2. RESET & MOBILE FIRST BASE
-   ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -134,7 +124,90 @@ a { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-quantum); }
 
 /* ==========================================================================
-   3. MULTI-LAYER COSMIC ENGINE (CANVAS + PLANET MESH)
+   2. COSMIC BOOTSTRAP SCREEN
+   ========================================================================== */
+#quantum-boot-screen {
+  position: fixed;
+  inset: 0;
+  background: #020308;
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-6);
+  transition: opacity 0.6s var(--ease-cosmic), transform 0.6s var(--ease-cosmic);
+}
+#quantum-boot-screen.is-loaded {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.boot-orbital-core {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--space-6);
+}
+.boot-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(0, 245, 160, 0.4);
+  animation: bootSpin 8s linear infinite;
+}
+.boot-ring-inner {
+  position: absolute;
+  inset: 16px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent-cyan);
+  border-bottom-color: var(--accent-cosmic);
+  animation: bootSpinReverse 3s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  box-shadow: 0 0 25px var(--accent-cyan-glow);
+}
+.boot-logo-node {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #FFF, var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@keyframes bootSpin { 100% { transform: rotate(360deg); } }
+@keyframes bootSpinReverse { 100% { transform: rotate(-360deg); } }
+
+.boot-progress-bar-wrap {
+  width: min(320px, 80vw);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+  position: relative;
+}
+.boot-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-quantum));
+  box-shadow: 0 0 12px var(--accent-quantum-glow);
+  transition: width 0.3s ease;
+}
+.boot-log-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-sub);
+  letter-spacing: 1px;
+  min-height: 20px;
+}
+
+/* ==========================================================================
+   3. BACKGROUND ENGINE & AMBIENT AURORA
    ========================================================================== */
 #cosmic-canvas {
   position: fixed;
@@ -144,7 +217,6 @@ a { text-decoration: none; color: inherit; }
   pointer-events: none;
   z-index: 0;
 }
-
 .cosmic-nebula-aurora {
   position: fixed;
   top: -140px;
@@ -157,7 +229,6 @@ a { text-decoration: none; color: inherit; }
   pointer-events: none;
   z-index: 1;
 }
-
 .cosmic-planet-silhouette {
   position: fixed;
   bottom: -190px;
@@ -170,7 +241,6 @@ a { text-decoration: none; color: inherit; }
   pointer-events: none;
   z-index: 1;
 }
-
 #quantum-cursor-glow {
   position: fixed;
   top: 0; left: 0;
@@ -185,7 +255,7 @@ a { text-decoration: none; color: inherit; }
 @media (pointer: coarse) { #quantum-cursor-glow { display: none !important; } }
 
 /* ==========================================================================
-   4. LAYOUT SYSTEM & CONTAINERS
+   4. LAYOUT & TOP NAVIGATION
    ========================================================================== */
 .os-container {
   width: 100%;
@@ -195,9 +265,6 @@ a { text-decoration: none; color: inherit; }
   z-index: 2;
 }
 
-/* ==========================================================================
-   5. NAVBAR & BRAND ORBITAL
-   ========================================================================== */
 .top-nav {
   position: fixed;
   top: max(10px, env(safe-area-inset-top, 0px));
@@ -242,25 +309,15 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
   position: relative;
   transition: transform 0.4s var(--ease-bounce);
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
 }
-.quantum-orbital-orb::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 1px dashed rgba(0, 245, 160, 0.4);
-  animation: slowOrbitalSpin 8s linear infinite;
-}
-@keyframes slowOrbitalSpin { 100% { transform: rotate(360deg); } }
 .brand-node:hover .quantum-orbital-orb { transform: scale(1.1); }
 
-.brand-text-wrap {
-  display: flex;
-  flex-direction: column;
-}
+.brand-text-wrap { display: flex; flex-direction: column; }
 .brand-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   font-weight: 900;
   letter-spacing: 1.5px;
   background: linear-gradient(135deg, #FFF 10%, var(--accent-cyan) 60%, var(--accent-quantum) 100%);
@@ -280,7 +337,6 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
   gap: var(--space-2);
 }
-
 .status-badge-live {
   display: inline-flex;
   align-items: center;
@@ -304,12 +360,12 @@ a { text-decoration: none; color: inherit; }
 @keyframes pulseDotLive { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
 
 /* ==========================================================================
-   6. CUSTOM ICONOGRAPHY & BUTTON SYSTEM
+   5. ICON & BUTTON DESIGN SYSTEM
    ========================================================================== */
 .nox-icon {
-  display: inline-block;
   width: 18px;
   height: 18px;
+  aspect-ratio: 1 / 1;
   stroke-width: 2.2;
   stroke: currentColor;
   fill: none;
@@ -320,7 +376,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .btn {
-  height: 42px;
+  height: 40px;
   padding: 0 var(--space-4);
   border-radius: var(--radius-full);
   display: inline-flex;
@@ -332,7 +388,6 @@ a { text-decoration: none; color: inherit; }
   transition: all 0.22s var(--ease-cosmic);
   white-space: nowrap;
 }
-
 .btn-primary {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-quantum));
   color: #02040A;
@@ -340,39 +395,34 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 24px var(--accent-cyan-glow); }
 .btn-primary:active { transform: translateY(0); }
-
 .btn-secondary {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-glass);
   color: var(--text-main);
 }
 .btn-secondary:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.22); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-sub);
-}
+.btn-ghost { background: transparent; color: var(--text-sub); }
 .btn-ghost:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
-
 .btn-danger {
   background: var(--accent-danger-bg);
   border: 1px solid rgba(255, 42, 95, 0.3);
   color: var(--accent-danger);
 }
 .btn-danger:hover { background: var(--accent-danger); color: #FFF; box-shadow: 0 0 15px var(--accent-danger-glow); }
-
 .btn-icon {
   width: 38px;
   height: 38px;
+  aspect-ratio: 1 / 1;
   padding: 0;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 /* ==========================================================================
-   7. TELEMETRY HUD BAR
+   6. TELEMETRY HUD & DASHBOARD
    ========================================================================== */
 .telemetry-deck {
   display: grid;
@@ -391,7 +441,6 @@ a { text-decoration: none; color: inherit; }
 }
 .hud-cell { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
 .hud-highlight { color: var(--accent-cyan); font-weight: 700; }
-
 .hud-select {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-glass);
@@ -402,9 +451,6 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
 }
 
-/* ==========================================================================
-   8. HERO / QUANTUM CORE CONSOLE
-   ========================================================================== */
 .hero-quantum-console {
   width: 100%;
   margin-bottom: var(--space-6);
@@ -426,15 +472,9 @@ a { text-decoration: none; color: inherit; }
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent-cyan) 30%, var(--accent-quantum) 70%, transparent);
 }
-
-.hero-meta-block {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
 .hero-cosmic-h1 {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 900;
   letter-spacing: -0.5px;
   background: linear-gradient(135deg, #FFFFFF 15%, var(--accent-cyan) 60%, var(--accent-cosmic) 100%);
@@ -442,11 +482,7 @@ a { text-decoration: none; color: inherit; }
   -webkit-text-fill-color: transparent;
   word-break: break-word;
 }
-.hero-desc {
-  font-size: 0.92rem;
-  color: var(--text-sub);
-  font-weight: 500;
-}
+.hero-desc { font-size: 0.92rem; color: var(--text-sub); font-weight: 500; }
 
 .system-announcement-panel {
   padding: var(--space-4);
@@ -492,7 +528,7 @@ a { text-decoration: none; color: inherit; }
 @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
 /* ==========================================================================
-   9. SEARCH & CATEGORY FILTER DECK
+   7. SEARCH & VAULT FEED GRID
    ========================================================================== */
 .search-filter-deck {
   display: flex;
@@ -505,10 +541,9 @@ a { text-decoration: none; color: inherit; }
   padding: var(--space-4);
   backdrop-filter: blur(20px);
 }
-
 .search-field-input {
   width: 100%;
-  height: 48px;
+  height: 46px;
   padding: 0 var(--space-4);
   background: var(--bg-input);
   border: 1px solid var(--border-glass);
@@ -519,9 +554,8 @@ a { text-decoration: none; color: inherit; }
 }
 .search-field-input:focus {
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 16px var(--accent-cyan-glow);
+  box-shadow: 0 0 14px var(--accent-cyan-glow);
 }
-
 .category-tab-row {
   display: flex;
   gap: var(--space-2);
@@ -531,10 +565,10 @@ a { text-decoration: none; color: inherit; }
 }
 .category-tab-row::-webkit-scrollbar { display: none; }
 .category-chip {
-  padding: 8px 18px;
+  padding: 8px 16px;
   border-radius: var(--radius-full);
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
@@ -546,19 +580,15 @@ a { text-decoration: none; color: inherit; }
   color: #02040A;
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-quantum));
   border-color: transparent;
-  box-shadow: 0 0 16px var(--accent-cyan-glow);
+  box-shadow: 0 0 14px var(--accent-cyan-glow);
 }
 
-/* ==========================================================================
-   10. VAULT GRID & VERTICAL MOBILE-FIRST CARDS
-   ========================================================================== */
 .vault-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
   gap: var(--space-4);
   width: 100%;
 }
-
 .vault-item-card {
   background: var(--glass-1);
   border: 1px solid var(--border-glass);
@@ -577,13 +607,7 @@ a { text-decoration: none; color: inherit; }
   border-color: var(--border-hover);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 16px var(--accent-cyan-glow);
 }
-
-.card-top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-2);
-}
+.card-top-row { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); }
 .card-category-tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.68rem;
@@ -595,144 +619,44 @@ a { text-decoration: none; color: inherit; }
   border-radius: var(--radius-full);
   text-transform: uppercase;
 }
-.card-admin-tools {
-  display: flex;
-  gap: var(--space-1);
-}
-
 .card-title-text {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 800;
   color: var(--text-main);
   line-height: 1.4;
   word-break: break-word;
   overflow-wrap: anywhere;
 }
-
 .card-preview-thumb {
   width: 100%;
-  height: 160px;
+  height: 150px;
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: #000;
   border: 1px solid var(--border-glass);
   cursor: pointer;
 }
-.card-preview-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.35s var(--ease-cosmic);
-}
+.card-preview-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s var(--ease-cosmic); }
 .card-preview-thumb:hover .card-preview-img { transform: scale(1.04); }
-
 .card-lua-code-block {
   padding: var(--space-3);
   border-radius: var(--radius-sm);
   background: var(--bg-input);
   border: 1px solid rgba(255, 255, 255, 0.04);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #6EE7B7;
   word-break: break-all;
-  max-height: 100px;
+  max-height: 90px;
   overflow-y: auto;
   line-height: 1.5;
 }
-
-.card-actions-dock {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-.card-actions-dock .btn-primary, .card-actions-dock .btn-secondary {
-  width: 100%;
-}
+.card-actions-dock { margin-top: auto; display: flex; flex-direction: column; gap: var(--space-2); }
+.card-actions-dock .btn-primary, .card-actions-dock .btn-secondary { width: 100%; }
 
 /* ==========================================================================
-   11. COMMAND DRAWER & FULL MODAL SYSTEM
+   8. MODAL WINDOWS & AI INTERFACE
    ========================================================================== */
-.drawer-backdrop-glass {
-  position: fixed;
-  inset: 0;
-  background: rgba(2, 4, 10, 0.78);
-  backdrop-filter: blur(14px);
-  z-index: 20000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-.drawer-backdrop-glass.is-open { opacity: 1; pointer-events: auto; }
-
-.drawer-command-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(390px, 88vw);
-  background: var(--glass-core);
-  border-left: 1px solid var(--border-glass);
-  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.85);
-  transform: translateX(100%);
-  transition: transform 0.32s var(--ease-cosmic);
-  display: flex;
-  flex-direction: column;
-  padding: calc(var(--space-6) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-6);
-  overflow-y: auto;
-  gap: var(--space-5);
-  z-index: 20001;
-}
-.drawer-backdrop-glass.is-open .drawer-command-panel { transform: translateX(0); }
-
-.drawer-head-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border-glass);
-  padding-bottom: var(--space-3);
-}
-.drawer-heading-text {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--accent-cyan);
-}
-
-.drawer-category-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-.drawer-subheading-tag {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-.drawer-nav-item-btn {
-  width: 100%;
-  padding: 12px var(--space-3);
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-glass);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 700;
-  font-size: 0.88rem;
-  transition: all 0.2s ease;
-}
-.drawer-nav-item-btn:hover {
-  background: rgba(0, 217, 245, 0.12);
-  border-color: var(--accent-cyan);
-  color: var(--accent-cyan);
-  transform: translateX(4px);
-}
-
-/* Cosmic Modal Overlays */
 .cosmic-modal-overlay {
   position: fixed;
   inset: 0;
@@ -750,7 +674,7 @@ a { text-decoration: none; color: inherit; }
 
 .cosmic-modal-window {
   width: clamp(320px, 94vw, 760px);
-  height: min(88dvh, 820px);
+  height: min(88dvh, 800px);
   display: flex;
   flex-direction: column;
   background: var(--glass-core);
@@ -770,11 +694,10 @@ a { text-decoration: none; color: inherit; }
   padding: var(--space-4);
   border-bottom: 1px solid var(--border-glass);
   background: rgba(8, 14, 32, 0.95);
-  position: relative;
 }
 .modal-deck-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -782,34 +705,27 @@ a { text-decoration: none; color: inherit; }
   color: var(--accent-cyan);
 }
 
-/* ==========================================================================
-   12. 3-TIER AI MODEL SELECTOR & CHAT TERMINAL
-   ========================================================================== */
 .ai-model-selector-deck {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background: rgba(4, 8, 20, 0.85);
   border-bottom: 1px solid var(--border-glass);
 }
-@media (max-width: 640px) {
-  .ai-model-selector-deck {
-    grid-template-columns: 1fr;
-    max-height: 220px;
-    overflow-y: auto;
-  }
+@media (max-width: 600px) {
+  .ai-model-selector-deck { grid-template-columns: 1fr; max-height: 180px; overflow-y: auto; }
 }
 
 .ai-tier-card {
-  padding: 10px var(--space-3);
+  padding: 8px var(--space-3);
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
   transition: all 0.2s ease;
 }
 .ai-tier-card:hover { border-color: rgba(0, 217, 245, 0.35); }
@@ -818,9 +734,9 @@ a { text-decoration: none; color: inherit; }
   border-color: var(--accent-cyan);
   box-shadow: 0 0 14px var(--accent-cyan-glow);
 }
-.ai-tier-name { font-size: 0.82rem; font-weight: 800; color: var(--text-main); }
+.ai-tier-name { font-size: 0.8rem; font-weight: 800; color: var(--text-main); }
 .ai-tier-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--accent-cyan); font-weight: 700; }
-.ai-tier-desc { font-size: 0.72rem; color: var(--text-sub); }
+.ai-tier-desc { font-size: 0.7rem; color: var(--text-sub); }
 
 .chat-board-scroll {
   flex: 1 1 auto;
@@ -832,7 +748,6 @@ a { text-decoration: none; color: inherit; }
   padding: var(--space-4);
   background: var(--bg-void);
 }
-
 .msg-row-block {
   display: flex;
   flex-direction: column;
@@ -842,12 +757,10 @@ a { text-decoration: none; color: inherit; }
 @keyframes msgFadeSlide { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .msg-row-block.type-user { align-self: flex-end; align-items: flex-end; }
 .msg-row-block.type-other { align-self: flex-start; align-items: flex-start; }
-
 .msg-meta-tag { display: flex; align-items: center; gap: var(--space-1); margin-bottom: 4px; font-size: 0.74rem; color: var(--text-sub); }
 .msg-meta-tag.sys { color: var(--accent-quantum); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-
 .msg-bubble-glass {
-  padding: 12px 16px;
+  padding: 11px 16px;
   border-radius: var(--radius-md);
   font-size: 0.9rem;
   line-height: 1.6;
@@ -878,10 +791,10 @@ a { text-decoration: none; color: inherit; }
 .input-interactive-row { display: flex; align-items: flex-end; gap: var(--space-2); }
 .chat-textarea-field {
   flex: 1;
-  min-height: 44px;
-  height: 44px;
-  max-height: 120px;
-  padding: 11px var(--space-3);
+  min-height: 42px;
+  height: 42px;
+  max-height: 110px;
+  padding: 10px var(--space-3);
   border-radius: var(--radius-sm);
   background: var(--bg-input);
   border: 1px solid var(--border-glass);
@@ -892,7 +805,7 @@ a { text-decoration: none; color: inherit; }
 }
 .chat-textarea-field:focus { border-color: var(--accent-cyan); }
 
-/* Quantum Processing Loader */
+/* Morphing Quantum Loader */
 .quantum-processing-loader {
   display: flex;
   align-items: center;
@@ -916,8 +829,68 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   13. DEV CONTROL CENTER (TABBED FULL MANAGEMENT)
+   9. DEV COMMAND CENTER & DRAWER
    ========================================================================== */
+.drawer-backdrop-glass {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 4, 10, 0.78);
+  backdrop-filter: blur(14px);
+  z-index: 20000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.drawer-backdrop-glass.is-open { opacity: 1; pointer-events: auto; }
+
+.drawer-command-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(380px, 86vw);
+  background: var(--glass-core);
+  border-left: 1px solid var(--border-glass);
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.85);
+  transform: translateX(100%);
+  transition: transform 0.32s var(--ease-cosmic);
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--space-6) + env(safe-area-inset-top, 0px)) var(--space-5) var(--space-6);
+  overflow-y: auto;
+  gap: var(--space-5);
+  z-index: 20001;
+}
+.drawer-backdrop-glass.is-open .drawer-command-panel { transform: translateX(0); }
+
+.drawer-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: var(--space-3);
+}
+.drawer-heading-text { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 800; color: var(--accent-cyan); }
+.drawer-category-group { display: flex; flex-direction: column; gap: var(--space-2); }
+.drawer-subheading-tag { font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; }
+.drawer-nav-item-btn {
+  width: 100%;
+  padding: 11px var(--space-3);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+.drawer-nav-item-btn:hover {
+  background: rgba(0, 217, 245, 0.12);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  transform: translateX(4px);
+}
+
 .dev-control-tabs {
   display: flex;
   gap: var(--space-2);
@@ -927,35 +900,20 @@ a { text-decoration: none; color: inherit; }
   overflow-x: auto;
 }
 .dev-tab-btn {
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: var(--radius-sm);
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-sub);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
   white-space: nowrap;
 }
-.dev-tab-btn.is-active {
-  color: #FFF;
-  background: var(--dev-color);
-  border-color: var(--dev-color);
-}
-
-.dev-tab-pane {
-  display: none;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  overflow-y: auto;
-}
+.dev-tab-btn.is-active { color: #FFF; background: var(--dev-color); border-color: var(--dev-color); }
+.dev-tab-pane { display: none; flex-direction: column; gap: var(--space-3); padding: var(--space-4); overflow-y: auto; }
 .dev-tab-pane.is-active { display: flex; }
 
-.dev-stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: var(--space-2);
-}
+.dev-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--space-2); }
 .dev-stat-card {
   padding: var(--space-3);
   border-radius: var(--radius-sm);
@@ -965,12 +923,10 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
   gap: 2px;
 }
-.dev-stat-val { font-size: 1.2rem; font-weight: 800; color: var(--accent-cyan); font-family: 'Orbitron', sans-serif; }
-.dev-stat-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+.dev-stat-val { font-size: 1.15rem; font-weight: 800; color: var(--accent-cyan); font-family: 'Orbitron', sans-serif; }
+.dev-stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
 
-/* ==========================================================================
-   14. COMMAND PALETTE (CTRL + K)
-   ========================================================================== */
+/* Command Palette (Ctrl+K) */
 #command-palette-modal {
   position: fixed;
   inset: 0;
@@ -985,7 +941,7 @@ a { text-decoration: none; color: inherit; }
 #command-palette-modal.is-active { display: flex; }
 .palette-window {
   width: 100%;
-  max-width: 580px;
+  max-width: 560px;
   background: var(--glass-core);
   border: 1px solid var(--border-hover);
   border-radius: var(--radius-md);
@@ -996,23 +952,16 @@ a { text-decoration: none; color: inherit; }
 }
 .palette-input {
   width: 100%;
-  height: 52px;
+  height: 50px;
   padding: 0 var(--space-4);
   background: var(--bg-input);
   border-bottom: 1px solid var(--border-glass);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: var(--text-main);
 }
-.palette-results {
-  max-height: 320px;
-  overflow-y: auto;
-  padding: var(--space-2);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+.palette-results { max-height: 300px; overflow-y: auto; padding: var(--space-2); display: flex; flex-direction: column; gap: 2px; }
 .palette-item {
-  padding: 10px var(--space-3);
+  padding: 9px var(--space-3);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -1021,14 +970,8 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
   transition: background 0.15s;
 }
-.palette-item:hover, .palette-item.is-selected {
-  background: rgba(0, 217, 245, 0.15);
-  color: var(--accent-cyan);
-}
+.palette-item:hover, .palette-item.is-selected { background: rgba(0, 217, 245, 0.15); color: var(--accent-cyan); }
 
-/* ==========================================================================
-   15. TOAST & LIGHTBOX
-   ========================================================================== */
 #image-lightbox {
   position: fixed;
   inset: 0;
@@ -1041,17 +984,11 @@ a { text-decoration: none; color: inherit; }
   cursor: zoom-out;
 }
 #image-lightbox.active { display: flex; }
-#image-lightbox img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: var(--radius-md);
-  box-shadow: 0 0 35px rgba(0, 217, 245, 0.25);
-}
+#image-lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: var(--radius-md); box-shadow: 0 0 35px rgba(0, 217, 245, 0.25); }
 
 #toast-banner {
   position: fixed;
-  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   right: max(16px, env(safe-area-inset-right, 0px));
   z-index: 60000;
   display: flex;
@@ -1092,13 +1029,23 @@ a { text-decoration: none; color: inherit; }
 </head>
 <body>
 
-<!-- Cosmic Visual Engine -->
+<div id="quantum-boot-screen">
+  <div class="boot-orbital-core">
+    <div class="boot-ring"></div>
+    <div class="boot-ring-inner"></div>
+    <span class="boot-logo-node">NOX</span>
+  </div>
+  <div class="boot-progress-bar-wrap">
+    <div class="boot-progress-fill" id="boot-progress-bar"></div>
+  </div>
+  <div class="boot-log-text" id="boot-log-message">INITIALIZING QUANTUM CORE...</div>
+</div>
+
 <canvas id="cosmic-canvas"></canvas>
 <div class="cosmic-nebula-aurora"></div>
 <div class="cosmic-planet-silhouette"></div>
 <div id="quantum-cursor-glow"></div>
 
-<!-- Top Floating Command Bar -->
 <header class="top-nav">
   <div class="brand-node" onclick="EasterEngine.triggerCorePulse()">
     <div class="quantum-orbital-orb">
@@ -1131,7 +1078,6 @@ a { text-decoration: none; color: inherit; }
   </div>
 </header>
 
-<!-- Command Drawer (Sidebar OS Hub) -->
 <div class="drawer-backdrop-glass" id="nav-drawer-backdrop" onclick="if(event.target===this)toggleMenu()">
   <nav class="drawer-command-panel" id="nav-drawer">
     <div class="drawer-head-row">
@@ -1139,7 +1085,6 @@ a { text-decoration: none; color: inherit; }
       <button class="btn btn-ghost btn-icon" onclick="toggleMenu()">✕</button>
     </div>
 
-    <!-- Graphics Preset Selector -->
     <div class="drawer-category-group">
       <div class="drawer-subheading-tag">ĐỒ HỌA VŨ TRỤ</div>
       <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:4px;">
@@ -1182,7 +1127,6 @@ a { text-decoration: none; color: inherit; }
       </button>
     </div>
 
-    <!-- Admin Dev Module Trigger -->
     <div class="drawer-category-group" id="dev-menu-editor-group" style="display:none;">
       <div class="drawer-subheading-tag" style="color:var(--dev-color);">[DEV] CONTROL CENTER</div>
       <button class="drawer-nav-item-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-dev-control'); DevCenter.init();">
@@ -1205,9 +1149,7 @@ a { text-decoration: none; color: inherit; }
   </nav>
 </div>
 
-<!-- Main Application Workspace -->
 <main class="os-container">
-  <!-- Telemetry HUD Bar -->
   <div class="telemetry-deck">
     <div class="hud-cell">
       <span>QUANTUM CORE:</span>
@@ -1233,7 +1175,6 @@ a { text-decoration: none; color: inherit; }
     </div>
   </div>
 
-  <!-- Hero / Quantum Core Console -->
   <section class="hero-quantum-console">
     <div class="hero-meta-block">
       <h1 class="hero-cosmic-h1" id="ui-title-text">NOX GALAXY ASCENSION 2.0</h1>
@@ -1256,7 +1197,6 @@ a { text-decoration: none; color: inherit; }
     </div>
   </section>
 
-  <!-- Search & Tabs Control Bar -->
   <section class="search-filter-deck">
     <input class="search-field-input" id="input-search" placeholder="🔍 Tìm kiếm Script, Tool, Bypass Link..." oninput="UtilsEngine.execSearch(this.value)">
 
@@ -1276,11 +1216,9 @@ a { text-decoration: none; color: inherit; }
     </div>
   </section>
 
-  <!-- Vault Feed Grid -->
   <section class="vault-cards-grid" id="main-feed-container"></section>
 </main>
 
-<!-- Modal: NOX AI 3-Tier Terminal -->
 <div class="cosmic-modal-overlay" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
   <div class="cosmic-modal-window">
     <div class="modal-deck-head">
@@ -1291,7 +1229,6 @@ a { text-decoration: none; color: inherit; }
       <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-noxgpt')">✕</button>
     </div>
 
-    <!-- 3-Tier Model Bar -->
     <div class="ai-model-selector-deck">
       <div class="ai-tier-card" id="tier-card-25" onclick="GptEngine.switchModel('2.5')">
         <span class="ai-tier-name">GalaxyZ-2.5</span>
@@ -1337,7 +1274,6 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Modal: Cosmic Global Chatroom -->
 <div class="cosmic-modal-overlay" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
   <div class="cosmic-modal-window" style="position: relative;">
     <div class="auth-curtain-overlay" id="auth-guard">
@@ -1388,7 +1324,6 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Modal: Script Share -->
 <div class="cosmic-modal-overlay" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
   <div class="cosmic-modal-window" style="max-width: 480px; height: auto;">
     <div class="modal-deck-head">
@@ -1404,7 +1339,6 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Modal: Script Vault -->
 <div class="cosmic-modal-overlay" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
   <div class="cosmic-modal-window">
     <div class="modal-deck-head">
@@ -1415,7 +1349,6 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Modal: NOX DEV Control Center -->
 <div class="cosmic-modal-overlay" id="modal-dev-control" onclick="if(event.target===this)closeUI('modal-dev-control')">
   <div class="cosmic-modal-window" style="max-width: 840px;">
     <div class="modal-deck-head">
@@ -1426,7 +1359,6 @@ a { text-decoration: none; color: inherit; }
       <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-dev-control')">✕</button>
     </div>
 
-    <!-- Dev Navigation Tabs -->
     <div class="dev-control-tabs">
       <button class="dev-tab-btn is-active" onclick="DevCenter.switchTab('dev-tab-overview', this)">OVERVIEW</button>
       <button class="dev-tab-btn" onclick="DevCenter.switchTab('dev-tab-users', this)">USER MANAGEMENT</button>
@@ -1435,7 +1367,6 @@ a { text-decoration: none; color: inherit; }
       <button class="dev-tab-btn" onclick="DevCenter.switchTab('dev-tab-logs', this)">AI LOGS</button>
     </div>
 
-    <!-- Tab 1: Overview -->
     <div class="dev-tab-pane is-active" id="dev-tab-overview">
       <div class="dev-stat-grid">
         <div class="dev-stat-card">
@@ -1457,7 +1388,6 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- Tab 2: User Management -->
     <div class="dev-tab-pane" id="dev-tab-users">
       <div style="display:flex; gap:8px;">
         <input type="text" id="dev-user-search-input" placeholder="Tìm user theo tên / email..." class="search-field-input" style="height:38px;" oninput="DevCenter.renderUsers()">
@@ -1470,7 +1400,6 @@ a { text-decoration: none; color: inherit; }
       <div id="dev-users-list-box" style="display:flex; flex-direction:column; gap:8px; max-height:380px; overflow-y:auto;"></div>
     </div>
 
-    <!-- Tab 3: Web Config -->
     <div class="dev-tab-pane" id="dev-tab-config">
       <input type="text" id="dev-conf-title" placeholder="Tiêu đề web..." class="search-field-input">
       <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V75 PROMAX)..." class="search-field-input">
@@ -1479,7 +1408,6 @@ a { text-decoration: none; color: inherit; }
       <button class="btn btn-primary" style="background:var(--dev-color); color:#FFF;" onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
     </div>
 
-    <!-- Tab 4: Utils & Scripts CRUD -->
     <div class="dev-tab-pane" id="dev-tab-utils">
       <input type="hidden" id="dev-edit-key" value="">
       <select id="dev-util-type" class="search-field-input">
@@ -1502,7 +1430,6 @@ a { text-decoration: none; color: inherit; }
       </div>
     </div>
 
-    <!-- Tab 5: AI Logs -->
     <div class="dev-tab-pane" id="dev-tab-logs">
       <div id="dev-ai-logs-board" style="font-family:'JetBrains Mono', monospace; font-size:0.78rem; display:flex; flex-direction:column; gap:6px; max-height:360px; overflow-y:auto;">
         <div style="color:var(--text-muted);">Chưa có log mới.</div>
@@ -1511,7 +1438,6 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Command Palette Modal (Ctrl + K) -->
 <div id="command-palette-modal" onclick="if(event.target===this)CommandPalette.close()">
   <div class="palette-window">
     <input type="text" id="palette-search-box" class="palette-input" placeholder="Nhập lệnh hoặc tìm kiếm (VD: AI, Script, Chat, Dev)..." oninput="CommandPalette.filter(this.value)">
@@ -1519,7 +1445,6 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Modal: Confirm Action -->
 <div class="cosmic-modal-overlay" id="confirm-modal">
   <div class="vault-item-card" style="max-width:380px; width:100%; text-align:center; padding:24px; background:var(--glass-core);">
     <div style="color:var(--accent-danger); font-weight:800; margin-bottom:16px;" id="confirm-msg-text">BẠN CÓ CHẮC CHẮN?</div>
@@ -1530,7 +1455,6 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Global Lightbox & Toast -->
 <div id="image-lightbox" onclick="this.classList.remove('active')">
   <img src="" id="lightbox-img" alt="Enlarged Preview">
 </div>
@@ -1550,9 +1474,9 @@ var DOM = {
 
 function autoResizeTextarea(el) {
   if(!el) return;
-  el.style.height = '44px';
+  el.style.height = '42px';
   var newHeight = el.scrollHeight;
-  if (newHeight > 120) newHeight = 120;
+  if (newHeight > 110) newHeight = 110;
   el.style.height = newHeight + 'px';
 }
 
@@ -1566,6 +1490,26 @@ function openLightbox(src) {
 
 var ADMIN_EMAIL = "hminhgalaxy@gmail.com";
 var IS_ADMIN = false;
+
+/* ==========================================================================
+   BOOT SEQUENCE CONTROLLER
+   ========================================================================== */
+var BootEngine = {
+  progress: 0,
+  step: function(msg, pct) {
+    var txt = DOM.get('boot-log-message');
+    var bar = DOM.get('boot-progress-bar');
+    if(txt) txt.innerText = msg;
+    if(bar) bar.style.width = pct + '%';
+  },
+  complete: function() {
+    this.step("QUANTUM MATRIX SYNCHRONIZED", 100);
+    setTimeout(function() {
+      var scr = DOM.get('quantum-boot-screen');
+      if(scr) scr.classList.add('is-loaded');
+    }, 450);
+  }
+};
 
 /* ==========================================================================
    GRAPHICS PRESET ENGINE
@@ -1585,7 +1529,7 @@ var GraphicsEngine = {
 };
 
 /* ==========================================================================
-   MULTI-LAYER COSMIC CANVAS ENGINE
+   COSMIC CANVAS ENGINE
    ========================================================================== */
 var CosmicCanvasEngine = {
   canvas: null, ctx: null, stars: [], shootingStars: [], numStars: 120,
@@ -1704,7 +1648,7 @@ var CosmicCanvasEngine = {
 };
 
 /* ==========================================================================
-   EASTER EGG (CORE OVERDRIVE)
+   EASTER EGG (CORE PULSE OVERDRIVE)
    ========================================================================== */
 var EasterEngine = {
   clickCount: 0, timer: null,
@@ -1731,7 +1675,7 @@ var CommandPalette = {
     { title: "🌐 Đổi ngôn ngữ (VN / EN)", action: function() { LangEngine.toggle(); } },
     { title: "🎮 Chế độ đồ họa: ULTRA", action: function() { GraphicsEngine.setPreset('ULTRA'); } },
     { title: "⚡ Chế độ đồ họa: LOW", action: function() { GraphicsEngine.setPreset('LOW'); } },
-    { title: "🛡 Mở DEV Control Center", action: function() { if(IS_ADMIN){ openUI('modal-dev-control'); DevCenter.init(); } else alert("Quyền Dev yêu cầu!"); } }
+    { title: "🛡 Mở DEV Control Center", action: function() { if(IS_ADMIN){ openUI('modal-dev-control'); DevCenter.init(); } else alert("Yêu cầu quyền Administrator!"); } }
   ],
   open: function() {
     var p = DOM.get('command-palette-modal');
@@ -1774,14 +1718,10 @@ window.addEventListener('keydown', function(e) {
 });
 
 /* ==========================================================================
-   SERVER-BACKED AI QUOTA ENGINE (5-HOUR ROLLING WINDOW)
+   SERVER-VALIDATED ROLLING QUOTA ENGINE (5-HOUR WINDOW)
    ========================================================================== */
 var ServerQuotaEngine = {
-  limits: {
-    "3.4": 20,
-    "3.1": 60,
-    "2.5": 9999
-  },
+  limits: { "3.4": 20, "3.1": 60, "2.5": 9999 },
   windowMs: 5 * 60 * 60 * 1000,
 
   checkAndConsumeQuota: async function(userId, modelTier) {
@@ -1798,7 +1738,6 @@ var ServerQuotaEngine = {
     try {
       var snapshot = await quotaRef.once('value');
       var timestamps = snapshot.val() || [];
-      // Clean timestamps outside 5h window
       var validTimestamps = timestamps.filter(function(ts) {
         return (now - ts) < ServerQuotaEngine.windowMs;
       });
@@ -1818,7 +1757,7 @@ var ServerQuotaEngine = {
       ServerQuotaEngine.updateBadge(modelTier, remaining, maxLimit);
       return { allowed: true, remaining: remaining };
     } catch(e) {
-      console.warn("Quota fallback to local:", e);
+      console.warn("Quota verification fallback:", e);
       return { allowed: true, remaining: 10 };
     }
   },
@@ -2214,7 +2153,7 @@ var MenuEditor = {
 };
 
 /* ==========================================================================
-   DEV CONTROL CENTER (TABBED FULL MANAGEMENT)
+   DEV CONTROL CENTER (ADMINISTRATION & METRICS)
    ========================================================================== */
 var DevCenter = {
   usersCache: [],
@@ -2342,7 +2281,7 @@ var DevCenter = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (VAULT CARDS)
+   UTILS ENGINE (VAULT ITEMS)
    ========================================================================== */
 var UtilsEngine = {
   ref: null, itemsMap: {}, currentTab: 'pane-link', devUploadedBase64: "",
@@ -2544,7 +2483,7 @@ var UtilsEngine = {
 };
 
 /* ==========================================================================
-   NOX GALAXY AI ORCHESTRATION LAYER (3-TIER ENGINE)
+   AI ORCHESTRATION ENGINE (GALAXYZ 3-TIER ROUTING)
    ========================================================================== */
 var GptEngine = {
   defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
@@ -2687,12 +2626,12 @@ var GptEngine = {
 
     if (!quotaCheck.allowed) {
       if (quotaCheck.reason === "AUTH_REQUIRED") {
-        showToast("Model " + this.currentModel + " yêu cầu đăng nhập tài khoản Google.");
+        showToast("Model " + this.currentModel + " yêu cầu đăng nhập Google.");
         openUI('modal-noxchat');
         return;
       }
       if (quotaCheck.reason === "LIMIT_REACHED") {
-        showToast("Bạn đã dùng hết hạn mức của model này (Reset sau ~" + quotaCheck.resetsIn + " phút).");
+        showToast("Hạn mức đã hết (Reset sau ~" + quotaCheck.resetsIn + " phút).");
         return;
       }
     }
@@ -2700,7 +2639,7 @@ var GptEngine = {
     var userHtml = text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
     if(base64Img) userHtml = '<img src="' + base64Img + '" style="max-width:100%; border-radius:6px; margin-bottom:6px; display:block;">' + userHtml;
     
-    this.input.value = ''; this.input.style.height = '44px'; this.removeImage();
+    this.input.value = ''; this.input.style.height = '42px'; this.removeImage();
     this.appendMsg('user', 'Bạn', userHtml);
     this.messageHistory.push({ role: "user", content: text || "[Sent Image]" });
     this.setGeneratingState(true);
@@ -2790,7 +2729,7 @@ var GptEngine = {
 var _openUI = openUI; openUI = function(id) { _openUI(id); if(id === 'modal-noxgpt') GptEngine.init(); };
 
 /* ==========================================================================
-   FIREBASE CHAT & SCRIPT VAULT ENGINE
+   FIREBASE CHAT & VAULT ENGINE
    ========================================================================== */
 var ChatEngine = {
   dbRef: null, scriptRef: null, userProfile: null, board: DOM.get('noxchat-board'), input: DOM.get('noxchat-field'),
@@ -2806,11 +2745,13 @@ var ChatEngine = {
     };
 
     try {
+      BootEngine.step("CONNECTING TO FIREBASE MATRIX...", 30);
       if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
       this.dbRef = firebase.database().ref('nox_global_chat');
       this.scriptRef = firebase.database().ref('nox_global_scripts'); 
       this.isSetup = true; 
       
+      BootEngine.step("LOADING USER PERMISSIONS & DATABASE...", 65);
       UtilsEngine.init();
       ConfigEngine.init();
 
@@ -2828,7 +2769,15 @@ var ChatEngine = {
           this.listenForMessages();
         } catch(e) { localStorage.removeItem('nox_user_profile'); }
       }
-    } catch(err) { console.error("Firebase Error:", err); }
+
+      BootEngine.step("CONFIGURING GALAXYZ AI ROUTER...", 90);
+      setTimeout(function() { BootEngine.complete(); }, 300);
+
+    } catch(err) { 
+      console.error("Firebase Error:", err);
+      BootEngine.step("FIREBASE OFFLINE MODE", 100);
+      setTimeout(function() { BootEngine.complete(); }, 400);
+    }
   },
 
   removeImage: function() { 
@@ -2883,7 +2832,7 @@ var ChatEngine = {
       var text = ChatEngine.input.value.trim(); var base64Img = ImageProcessor.currentChatImage;
       if(!text && !base64Img) return;
       
-      ChatEngine.input.value = ''; ChatEngine.input.style.height = '44px'; ChatEngine.removeImage();
+      ChatEngine.input.value = ''; ChatEngine.input.style.height = '42px'; ChatEngine.removeImage();
       ChatEngine.dbRef.push({ 
         user: ChatEngine.userProfile.name, role: ChatEngine.userProfile.role, email: ChatEngine.userProfile.email,
         text: text, image: base64Img || "", recalled: false, 
@@ -2924,7 +2873,7 @@ var ChatEngine = {
         
         box.innerHTML = 
           imgHtml +
-          '<div class="card-top-row"><h4 class="card-title-text">' + s.title.replace(/</g,"&lt;") + '</h4><button class="btn btn-primary" style="height:32px; font-size:0.75rem;" onclick="ChatEngine.copyVaultScript(this, \'' + child.key + '\')">COPY</button></div>' +
+          '<div class="card-top-row"><h4 class="card-title-text">' + s.title.replace(/</g,"&lt;") + '</h4><button class="btn btn-primary" style="height:30px; font-size:0.75rem;" onclick="ChatEngine.copyVaultScript(this, \'' + child.key + '\')">COPY</button></div>' +
           '<div class="card-lua-code-block">' + safeCode + '</div>' +
           '<div style="font-size:0.72rem; color:var(--text-muted);">Đóng góp bởi: ' + s.user + '</div>';
         vBoard.appendChild(box);
@@ -2946,9 +2895,10 @@ var ChatEngine = {
 };
 
 /* ==========================================================================
-   INITIALIZE ASCENSION 2.0 BOOTSTRAP
+   INITIALIZE BOOTSTRAP
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', function() {
+  BootEngine.step("STARTING NOX QUANTUM RUNTIME...", 10);
   GraphicsEngine.init();
   CosmicCanvasEngine.init();
   LangEngine.init();
