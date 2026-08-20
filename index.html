@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#02040A">
 
-<title>NOX GALAXY ASCENSION — Cosmic Quantum OS</title>
-<meta name="description" content="NOX GALAXY ASCENSION — Cosmic Quantum Operating System. Hệ thống điều hành trung tâm vũ trụ: AI Trợ lý 3 tầng GalaxyZ, Roblox Lua Scripts, Bypass Tools, APK & IPA Direct Link không quảng cáo.">
+<title>NOX GALAXY ASCENSION 2.0 — Cosmic Quantum OS</title>
+<meta name="description" content="NOX GALAXY ASCENSION 2.0. Trung tâm điều hành trí tuệ nhân tạo GalaxyZ 3 tầng, Roblox Lua Scripts, Bypass Tools, APK & IPA Direct Link không quảng cáo.">
 <meta name="robots" content="index, follow">
 
 <!-- Cosmic Typography -->
@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;900&display=swap" rel="stylesheet">
 
-<!-- Third-Party Cloud SDKs -->
+<!-- Cloud SDKs -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -22,24 +22,24 @@
 
 <style>
 /* ==========================================================================
-   1. DESIGN TOKENS & COSMIC GLASS 2.0 SYSTEM
+   1. DESIGN TOKENS & GLASS 2.0 SYSTEM
    ========================================================================== */
 :root {
   --bg-void: #02040A;
   --bg-deep: #050816;
   --bg-nebula: #08111F;
-  --bg-input: rgba(4, 7, 18, 0.92);
+  --bg-input: rgba(4, 7, 18, 0.94);
 
-  /* Glass 2.0 Hierarchy */
-  --glass-1: rgba(10, 18, 38, 0.65);
-  --glass-2: rgba(12, 22, 48, 0.78);
-  --glass-3: rgba(16, 28, 58, 0.88);
-  --glass-core: rgba(8, 14, 32, 0.96);
+  /* Glass Hierarchy */
+  --glass-1: rgba(10, 18, 38, 0.68);
+  --glass-2: rgba(12, 22, 48, 0.82);
+  --glass-3: rgba(16, 28, 58, 0.92);
+  --glass-core: rgba(8, 14, 32, 0.98);
 
   --border-subtle: rgba(120, 180, 255, 0.08);
   --border-glass: rgba(120, 180, 255, 0.14);
-  --border-focus: rgba(0, 245, 160, 0.6);
-  --border-hover: rgba(0, 217, 245, 0.4);
+  --border-focus: rgba(0, 245, 160, 0.65);
+  --border-hover: rgba(0, 217, 245, 0.45);
 
   --text-main: #F8FAFC;
   --text-sub: #94A3B8;
@@ -55,10 +55,11 @@
   --accent-violet: #6366F1;
   --accent-amber: #F59E0B;
   --accent-danger: #FF2A5F;
+  --accent-danger-bg: rgba(255, 42, 95, 0.12);
   --accent-danger-glow: rgba(255, 42, 95, 0.4);
   --dev-color: #FF2A85;
 
-  /* Spacing Scale */
+  /* Spacing Scale (4, 8, 12, 16, 20, 24, 32, 40, 48) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -74,13 +75,13 @@
   --radius-lg: 20px;
   --radius-full: 9999px;
 
-  /* Animations */
+  /* Animation Easing */
   --ease-cosmic: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ==========================================================================
-   2. RESET & MOBILE-FIRST BASE
+   2. RESET & MOBILE FIRST BASE
    ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -133,7 +134,7 @@ a { text-decoration: none; color: inherit; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-quantum); }
 
 /* ==========================================================================
-   3. MULTI-LAYER COSMIC VISUAL ENGINE (CANVAS & AMBIENT PLANETS)
+   3. MULTI-LAYER COSMIC ENGINE (CANVAS + PLANET MESH)
    ========================================================================== */
 #cosmic-canvas {
   position: fixed;
@@ -146,25 +147,25 @@ a { text-decoration: none; color: inherit; }
 
 .cosmic-nebula-aurora {
   position: fixed;
-  top: -120px;
+  top: -140px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1000px, 100vw);
-  height: 500px;
+  width: min(1100px, 100vw);
+  height: 520px;
   background: radial-gradient(circle, rgba(0, 217, 245, 0.12) 0%, rgba(168, 85, 247, 0.08) 45%, rgba(99, 102, 241, 0.04) 70%, transparent 85%);
-  filter: blur(90px);
+  filter: blur(95px);
   pointer-events: none;
   z-index: 1;
 }
 
 .cosmic-planet-silhouette {
   position: fixed;
-  bottom: -180px;
-  right: -100px;
+  bottom: -190px;
+  right: -110px;
   width: 480px;
   height: 480px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, rgba(168, 85, 247, 0.18), rgba(6, 12, 30, 0.85) 60%, var(--bg-void) 90%);
+  background: radial-gradient(circle at 32% 32%, rgba(168, 85, 247, 0.18), rgba(6, 12, 30, 0.85) 60%, var(--bg-void) 90%);
   box-shadow: inset -10px -10px 40px rgba(0, 217, 245, 0.15), 0 0 50px rgba(168, 85, 247, 0.1);
   pointer-events: none;
   z-index: 1;
@@ -195,7 +196,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   5. FLOATING GLASS NAVBAR (ASCENSION COMMAND BAR)
+   5. NAVBAR & BRAND ORBITAL
    ========================================================================== */
 .top-nav {
   position: fixed;
@@ -371,7 +372,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   7. TELEMETRY HUD & TIME ENGINE
+   7. TELEMETRY HUD BAR
    ========================================================================== */
 .telemetry-deck {
   display: grid;
@@ -490,26 +491,6 @@ a { text-decoration: none; color: inherit; }
 }
 @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* Dev Admin Config Deck */
-.dev-admin-deck {
-  display: none;
-  flex-direction: column;
-  gap: var(--space-3);
-  margin-top: var(--space-2);
-  border: 1px dashed var(--dev-color);
-  padding: var(--space-4);
-  border-radius: var(--radius-md);
-  background: rgba(255, 42, 133, 0.04);
-}
-.dev-admin-deck input, .dev-admin-deck textarea, .dev-admin-deck select {
-  width: 100%;
-  padding: 10px var(--space-3);
-  background: var(--bg-input);
-  border: 1px solid var(--border-glass);
-  color: var(--text-main);
-  border-radius: var(--radius-sm);
-}
-
 /* ==========================================================================
    9. SEARCH & CATEGORY FILTER DECK
    ========================================================================== */
@@ -569,7 +550,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   10. VAULT GRID & CARDS (MOBILE FIRST VERTICAL FLOW)
+   10. VAULT GRID & VERTICAL MOBILE-FIRST CARDS
    ========================================================================== */
 .vault-cards-grid {
   display: grid;
@@ -751,7 +732,7 @@ a { text-decoration: none; color: inherit; }
   transform: translateX(4px);
 }
 
-/* Cosmic Modals */
+/* Cosmic Modal Overlays */
 .cosmic-modal-overlay {
   position: fixed;
   inset: 0;
@@ -768,8 +749,8 @@ a { text-decoration: none; color: inherit; }
 .cosmic-modal-overlay.is-active { display: flex; opacity: 1; }
 
 .cosmic-modal-window {
-  width: clamp(320px, 94vw, 720px);
-  height: min(86dvh, 780px);
+  width: clamp(320px, 94vw, 760px);
+  height: min(88dvh, 820px);
   display: flex;
   flex-direction: column;
   background: var(--glass-core);
@@ -802,37 +783,44 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   12. 3-TIER AI SELECTOR & CHAT INTERACTION
+   12. 3-TIER AI MODEL SELECTOR & CHAT TERMINAL
    ========================================================================== */
 .ai-model-selector-deck {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  background: rgba(4, 8, 20, 0.8);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(4, 8, 20, 0.85);
   border-bottom: 1px solid var(--border-glass);
-  overflow-x: auto;
 }
+@media (max-width: 640px) {
+  .ai-model-selector-deck {
+    grid-template-columns: 1fr;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+}
+
 .ai-tier-card {
-  flex: 1;
-  min-width: 140px;
-  padding: 8px var(--space-2);
+  padding: 10px var(--space-3);
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-glass);
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   transition: all 0.2s ease;
 }
-.ai-tier-card:hover { border-color: rgba(0, 217, 245, 0.3); }
+.ai-tier-card:hover { border-color: rgba(0, 217, 245, 0.35); }
 .ai-tier-card.is-active {
-  background: rgba(0, 217, 245, 0.12);
+  background: rgba(0, 217, 245, 0.14);
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 12px var(--accent-cyan-glow);
+  box-shadow: 0 0 14px var(--accent-cyan-glow);
 }
-.ai-tier-name { font-size: 0.78rem; font-weight: 800; color: var(--text-main); }
+.ai-tier-name { font-size: 0.82rem; font-weight: 800; color: var(--text-main); }
 .ai-tier-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--accent-cyan); font-weight: 700; }
+.ai-tier-desc { font-size: 0.72rem; color: var(--text-sub); }
 
 .chat-board-scroll {
   flex: 1 1 auto;
@@ -859,7 +847,7 @@ a { text-decoration: none; color: inherit; }
 .msg-meta-tag.sys { color: var(--accent-quantum); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
 
 .msg-bubble-glass {
-  padding: 11px 16px;
+  padding: 12px 16px;
   border-radius: var(--radius-md);
   font-size: 0.9rem;
   line-height: 1.6;
@@ -904,7 +892,7 @@ a { text-decoration: none; color: inherit; }
 }
 .chat-textarea-field:focus { border-color: var(--accent-cyan); }
 
-/* Quantum Processing Indicator */
+/* Quantum Processing Loader */
 .quantum-processing-loader {
   display: flex;
   align-items: center;
@@ -928,12 +916,65 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   13. COMMAND PALETTE (CTRL + K)
+   13. DEV CONTROL CENTER (TABBED FULL MANAGEMENT)
+   ========================================================================== */
+.dev-control-tabs {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(4, 8, 20, 0.9);
+  border-bottom: 1px solid var(--border-glass);
+  overflow-x: auto;
+}
+.dev-tab-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  white-space: nowrap;
+}
+.dev-tab-btn.is-active {
+  color: #FFF;
+  background: var(--dev-color);
+  border-color: var(--dev-color);
+}
+
+.dev-tab-pane {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  overflow-y: auto;
+}
+.dev-tab-pane.is-active { display: flex; }
+
+.dev-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--space-2);
+}
+.dev-stat-card {
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dev-stat-val { font-size: 1.2rem; font-weight: 800; color: var(--accent-cyan); font-family: 'Orbitron', sans-serif; }
+.dev-stat-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+
+/* ==========================================================================
+   14. COMMAND PALETTE (CTRL + K)
    ========================================================================== */
 #command-palette-modal {
   position: fixed;
   inset: 0;
-  background: rgba(2, 4, 10, 0.8);
+  background: rgba(2, 4, 10, 0.82);
   backdrop-filter: blur(20px);
   z-index: 40000;
   display: none;
@@ -986,7 +1027,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ==========================================================================
-   14. TOAST & LIGHTBOX
+   15. TOAST & LIGHTBOX
    ========================================================================== */
 #image-lightbox {
   position: fixed;
@@ -1051,7 +1092,7 @@ a { text-decoration: none; color: inherit; }
 </head>
 <body>
 
-<!-- Cosmic Graphics Engine -->
+<!-- Cosmic Visual Engine -->
 <canvas id="cosmic-canvas"></canvas>
 <div class="cosmic-nebula-aurora"></div>
 <div class="cosmic-planet-silhouette"></div>
@@ -1065,7 +1106,7 @@ a { text-decoration: none; color: inherit; }
     </div>
     <div class="brand-text-wrap">
       <span class="brand-title">NOX GALAXY</span>
-      <span class="brand-edition">ASCENSION OS</span>
+      <span class="brand-edition">ASCENSION 2.0</span>
     </div>
   </div>
 
@@ -1141,19 +1182,11 @@ a { text-decoration: none; color: inherit; }
       </button>
     </div>
 
-    <!-- Admin Dev Module -->
+    <!-- Admin Dev Module Trigger -->
     <div class="drawer-category-group" id="dev-menu-editor-group" style="display:none;">
       <div class="drawer-subheading-tag" style="color:var(--dev-color);">[DEV] CONTROL CENTER</div>
-      <button class="drawer-nav-item-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">
-        <span>⚙ CHỈNH SỬA MENU</span>
-      </button>
-      <div id="dev-menu-editor-box" style="display:none; flex-direction:column; gap:8px;">
-        <input type="text" id="menu-item-name" placeholder="Tên mục...">
-        <input type="text" id="menu-item-link" placeholder="Đường dẫn URL...">
-        <button class="btn btn-primary" style="background:var(--dev-color); color:#FFF;" onclick="MenuEditor.addMenuItem()">THÊM MỤC</button>
-      </div>
-      <button class="drawer-nav-item-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">
-        <span>🛡 QUẢN LÝ NGƯỜI DÙNG</span>
+      <button class="drawer-nav-item-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-dev-control'); DevCenter.init();">
+        <span>⚙ DEV CONTROL CENTER</span>
       </button>
     </div>
 
@@ -1203,7 +1236,7 @@ a { text-decoration: none; color: inherit; }
   <!-- Hero / Quantum Core Console -->
   <section class="hero-quantum-console">
     <div class="hero-meta-block">
-      <h1 class="hero-cosmic-h1" id="ui-title-text">NOX GALAXY ASCENSION</h1>
+      <h1 class="hero-cosmic-h1" id="ui-title-text">NOX GALAXY ASCENSION 2.0</h1>
       <p class="hero-desc">COSMIC QUANTUM AI & SCRIPT OPERATING SYSTEM</p>
     </div>
 
@@ -1220,16 +1253,6 @@ a { text-decoration: none; color: inherit; }
       <div class="terminal-typewriter-box" id="ui-notice-text-zone">
         Nhấn vào nút <strong>NỘI DUNG</strong> phía trên để xem chi tiết thông báo...
       </div>
-    </div>
-
-    <!-- Dev Site Config Panel -->
-    <div class="dev-admin-deck" id="dev-config-panel">
-      <div style="color:var(--dev-color); font-weight:800; font-size:0.85rem;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
-      <input type="text" id="dev-conf-title" placeholder="Tiêu đề web...">
-      <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V75 PROMAX)...">
-      <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo...">
-      <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." style="height:70px; resize:none;"></textarea>
-      <button class="btn btn-primary" style="background:var(--dev-color); color:#FFF;" onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
     </div>
   </section>
 
@@ -1253,41 +1276,17 @@ a { text-decoration: none; color: inherit; }
     </div>
   </section>
 
-  <!-- Dev Item Editing Deck -->
-  <div class="dev-admin-deck" id="dev-utils-panel" style="margin-bottom: var(--space-4);">
-    <div style="color:var(--dev-color); font-weight:bold;" id="dev-panel-heading">[DEV] THÊM / SỬA TIỆN ÍCH</div>
-    <input type="hidden" id="dev-edit-key" value="">
-    <select id="dev-util-type">
-      <option value="pane-link">Link</option>
-      <option value="pane-script">Script</option>
-      <option value="pane-apk">APK</option>
-      <option value="pane-ios">iOS</option>
-    </select>
-    <input type="text" id="dev-util-title" placeholder="Tên tiện ích...">
-    <input type="text" id="dev-util-image" placeholder="URL Banner / Thumbnail...">
-    <div style="display:flex; align-items:center; gap:10px;">
-      <label for="dev-file-img" class="btn btn-secondary" style="cursor:pointer; height:34px; font-size:0.75rem;">📁 TẢI ẢNH TỪ MÁY</label>
-      <input type="file" id="dev-file-img" accept="image/*" style="display:none;" onchange="UtilsEngine.handleDevImage(this)">
-      <span id="dev-file-name" style="font-size:0.75rem; color:var(--text-sub);">Chưa chọn ảnh</span>
-    </div>
-    <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..."></textarea>
-    <div style="display:flex; gap:10px;">
-      <button class="btn btn-primary" style="flex:1; background:var(--dev-color); color:#FFF;" onclick="UtilsEngine.triggerSave()" id="dev-submit-btn">ĐĂNG TẢI</button>
-      <button class="btn btn-secondary" onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; flex:1;">HỦY</button>
-    </div>
-  </div>
-
   <!-- Vault Feed Grid -->
   <section class="vault-cards-grid" id="main-feed-container"></section>
 </main>
 
-<!-- Modal: NOX AI 3-Tier Command Terminal -->
+<!-- Modal: NOX AI 3-Tier Terminal -->
 <div class="cosmic-modal-overlay" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
   <div class="cosmic-modal-window">
     <div class="modal-deck-head">
       <div class="modal-deck-title">
         <svg class="nox-icon" style="color:var(--accent-cyan);" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        <span id="gpt-active-model-title">GALAXYZ 3.4 PRO</span>
+        <span id="gpt-active-model-title">GALAXYZ 3.4 PRO (HIGH)</span>
       </div>
       <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-noxgpt')">✕</button>
     </div>
@@ -1297,14 +1296,17 @@ a { text-decoration: none; color: inherit; }
       <div class="ai-tier-card" id="tier-card-25" onclick="GptEngine.switchModel('2.5')">
         <span class="ai-tier-name">GalaxyZ-2.5</span>
         <span class="ai-tier-badge">⚡ FAST CASUAL</span>
+        <span class="ai-tier-desc">Không giới hạn • Độ trễ thấp</span>
       </div>
       <div class="ai-tier-card" id="tier-card-31" onclick="GptEngine.switchModel('3.1')">
         <span class="ai-tier-name">GalaxyZ-3.1 Pro</span>
-        <span class="ai-tier-badge">◈ PRO REASONING</span>
+        <span class="ai-tier-badge" id="quota-badge-31">◈ 60 / 60 (5H)</span>
+        <span class="ai-tier-desc">Reasoning & Coding • Cần Google</span>
       </div>
       <div class="ai-tier-card is-active" id="tier-card-34" onclick="GptEngine.switchModel('3.4')">
         <span class="ai-tier-name">GalaxyZ-3.4 Pro</span>
-        <span class="ai-tier-badge">★ HIGH MAX</span>
+        <span class="ai-tier-badge" id="quota-badge-34">★ 20 / 20 (5H)</span>
+        <span class="ai-tier-desc">High Reasoning • Cần Google</span>
       </div>
     </div>
 
@@ -1326,7 +1328,7 @@ a { text-decoration: none; color: inherit; }
           <svg class="nox-icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
         </label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
-        <textarea id="noxgpt-field" class="chat-textarea-field" placeholder="Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà'..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
+        <textarea id="noxgpt-field" class="chat-textarea-field" placeholder="Hỏi GalaxyZ..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
         <button class="btn btn-primary btn-icon" id="btn-gpt-send" onclick="GptEngine.handleSendOrStop()" style="flex-shrink:0;">
           <svg class="nox-icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
@@ -1413,15 +1415,98 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<!-- Modal: User Management (Admin) -->
-<div class="cosmic-modal-overlay" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
-  <div class="cosmic-modal-window">
+<!-- Modal: NOX DEV Control Center -->
+<div class="cosmic-modal-overlay" id="modal-dev-control" onclick="if(event.target===this)closeUI('modal-dev-control')">
+  <div class="cosmic-modal-window" style="max-width: 840px;">
     <div class="modal-deck-head">
-      <div class="modal-deck-title" style="color:var(--dev-color);">[DEV] QUẢN LÝ NGƯỜI DÙNG</div>
-      <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-user-mgr')">✕</button>
+      <div class="modal-deck-title" style="color:var(--dev-color);">
+        <svg class="nox-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        NOX DEV CONTROL CENTER
+      </div>
+      <button class="btn btn-ghost btn-icon" onclick="closeUI('modal-dev-control')">✕</button>
     </div>
-    <div class="chat-board-scroll" id="user-mgr-board">
-      <div style="text-align:center; color:var(--text-sub); padding:20px;">Đang tải danh sách...</div>
+
+    <!-- Dev Navigation Tabs -->
+    <div class="dev-control-tabs">
+      <button class="dev-tab-btn is-active" onclick="DevCenter.switchTab('dev-tab-overview', this)">OVERVIEW</button>
+      <button class="dev-tab-btn" onclick="DevCenter.switchTab('dev-tab-users', this)">USER MANAGEMENT</button>
+      <button class="dev-tab-btn" onclick="DevCenter.switchTab('dev-tab-config', this)">WEB CONFIG</button>
+      <button class="dev-tab-btn" onclick="DevCenter.switchTab('dev-tab-utils', this)">SCRIPTS & UTILS</button>
+      <button class="dev-tab-btn" onclick="DevCenter.switchTab('dev-tab-logs', this)">AI LOGS</button>
+    </div>
+
+    <!-- Tab 1: Overview -->
+    <div class="dev-tab-pane is-active" id="dev-tab-overview">
+      <div class="dev-stat-grid">
+        <div class="dev-stat-card">
+          <span class="dev-stat-val" id="dev-stat-users">0</span>
+          <span class="dev-stat-label">TOTAL USERS</span>
+        </div>
+        <div class="dev-stat-card">
+          <span class="dev-stat-val" id="dev-stat-requests">0</span>
+          <span class="dev-stat-label">AI REQUESTS</span>
+        </div>
+        <div class="dev-stat-card">
+          <span class="dev-stat-val" style="color:var(--accent-quantum);">HEALTHY</span>
+          <span class="dev-stat-label">DATABASE</span>
+        </div>
+        <div class="dev-stat-card">
+          <span class="dev-stat-val" style="color:var(--accent-cyan);">ONLINE</span>
+          <span class="dev-stat-label">AI ROUTER</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: User Management -->
+    <div class="dev-tab-pane" id="dev-tab-users">
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="dev-user-search-input" placeholder="Tìm user theo tên / email..." class="search-field-input" style="height:38px;" oninput="DevCenter.renderUsers()">
+        <select id="dev-user-filter-role" class="search-field-input" style="height:38px; width:140px;" onchange="DevCenter.renderUsers()">
+          <option value="ALL">Tất cả</option>
+          <option value="NOX">Google User</option>
+          <option value="GUEST">Guest</option>
+        </select>
+      </div>
+      <div id="dev-users-list-box" style="display:flex; flex-direction:column; gap:8px; max-height:380px; overflow-y:auto;"></div>
+    </div>
+
+    <!-- Tab 3: Web Config -->
+    <div class="dev-tab-pane" id="dev-tab-config">
+      <input type="text" id="dev-conf-title" placeholder="Tiêu đề web..." class="search-field-input">
+      <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V75 PROMAX)..." class="search-field-input">
+      <input type="text" id="dev-conf-noticetitle" placeholder="Tiêu đề thông báo..." class="search-field-input">
+      <textarea id="dev-conf-noticetext" placeholder="Nội dung thông báo..." class="chat-textarea-field" style="height:80px; resize:none;"></textarea>
+      <button class="btn btn-primary" style="background:var(--dev-color); color:#FFF;" onclick="ConfigEngine.saveConfig()">CẬP NHẬT HỆ THỐNG</button>
+    </div>
+
+    <!-- Tab 4: Utils & Scripts CRUD -->
+    <div class="dev-tab-pane" id="dev-tab-utils">
+      <input type="hidden" id="dev-edit-key" value="">
+      <select id="dev-util-type" class="search-field-input">
+        <option value="pane-link">Link</option>
+        <option value="pane-script">Script</option>
+        <option value="pane-apk">APK</option>
+        <option value="pane-ios">iOS</option>
+      </select>
+      <input type="text" id="dev-util-title" placeholder="Tên tiện ích..." class="search-field-input">
+      <input type="text" id="dev-util-image" placeholder="URL Banner / Thumbnail..." class="search-field-input">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <label for="dev-file-img" class="btn btn-secondary" style="cursor:pointer; height:34px; font-size:0.75rem;">📁 TẢI ẢNH</label>
+        <input type="file" id="dev-file-img" accept="image/*" style="display:none;" onchange="UtilsEngine.handleDevImage(this)">
+        <span id="dev-file-name" style="font-size:0.75rem; color:var(--text-sub);">Chưa chọn ảnh</span>
+      </div>
+      <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..." class="chat-textarea-field" style="height:90px;"></textarea>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-primary" style="flex:1; background:var(--dev-color); color:#FFF;" onclick="UtilsEngine.triggerSave()" id="dev-submit-btn">ĐĂNG TẢI</button>
+        <button class="btn btn-secondary" onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; flex:1;">HỦY</button>
+      </div>
+    </div>
+
+    <!-- Tab 5: AI Logs -->
+    <div class="dev-tab-pane" id="dev-tab-logs">
+      <div id="dev-ai-logs-board" style="font-family:'JetBrains Mono', monospace; font-size:0.78rem; display:flex; flex-direction:column; gap:6px; max-height:360px; overflow-y:auto;">
+        <div style="color:var(--text-muted);">Chưa có log mới.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1429,7 +1514,7 @@ a { text-decoration: none; color: inherit; }
 <!-- Command Palette Modal (Ctrl + K) -->
 <div id="command-palette-modal" onclick="if(event.target===this)CommandPalette.close()">
   <div class="palette-window">
-    <input type="text" id="palette-search-box" class="palette-input" placeholder="Nhập lệnh hoặc tìm kiếm (VD: AI, Script, Chat, Ultra)..." oninput="CommandPalette.filter(this.value)">
+    <input type="text" id="palette-search-box" class="palette-input" placeholder="Nhập lệnh hoặc tìm kiếm (VD: AI, Script, Chat, Dev)..." oninput="CommandPalette.filter(this.value)">
     <div class="palette-results" id="palette-results-list"></div>
   </div>
 </div>
@@ -1516,7 +1601,6 @@ var CosmicCanvasEngine = {
     this.loop();
     this.scheduleShootingStar();
 
-    // Ambient mouse tracking
     var glow = DOM.get('quantum-cursor-glow');
     if(glow) {
       window.addEventListener('mousemove', function(e) {
@@ -1647,7 +1731,7 @@ var CommandPalette = {
     { title: "🌐 Đổi ngôn ngữ (VN / EN)", action: function() { LangEngine.toggle(); } },
     { title: "🎮 Chế độ đồ họa: ULTRA", action: function() { GraphicsEngine.setPreset('ULTRA'); } },
     { title: "⚡ Chế độ đồ họa: LOW", action: function() { GraphicsEngine.setPreset('LOW'); } },
-    { title: "🛡 Mở DEV Control (Admin)", action: function() { if(IS_ADMIN){ openUI('modal-user-mgr'); UserMgr.loadUsers(); } else alert("Quyền Dev yêu cầu!"); } }
+    { title: "🛡 Mở DEV Control Center", action: function() { if(IS_ADMIN){ openUI('modal-dev-control'); DevCenter.init(); } else alert("Quyền Dev yêu cầu!"); } }
   ],
   open: function() {
     var p = DOM.get('command-palette-modal');
@@ -1690,28 +1774,63 @@ window.addEventListener('keydown', function(e) {
 });
 
 /* ==========================================================================
-   AI QUOTA ENGINE (40 REQUESTS / 5H)
+   SERVER-BACKED AI QUOTA ENGINE (5-HOUR ROLLING WINDOW)
    ========================================================================== */
-var AIQuota = {
-  MAX: 40, INTERVAL: 5 * 60 * 60 * 1000,
-  getData: function() {
-    var raw = localStorage.getItem('nox_ai_31_quota_data');
-    var data = raw ? JSON.parse(raw) : null;
-    var now = Date.now();
-    if (!data || !data.timestamp || (now - data.timestamp) > this.INTERVAL) {
-      data = { count: this.MAX, timestamp: now };
-      localStorage.setItem('nox_ai_31_quota_data', JSON.stringify(data));
-    }
-    return data;
+var ServerQuotaEngine = {
+  limits: {
+    "3.4": 20,
+    "3.1": 60,
+    "2.5": 9999
   },
-  useQuota: function() {
-    var data = this.getData();
-    if (data.count > 0) {
-      data.count--;
-      localStorage.setItem('nox_ai_31_quota_data', JSON.stringify(data));
-      return true;
+  windowMs: 5 * 60 * 60 * 1000,
+
+  checkAndConsumeQuota: async function(userId, modelTier) {
+    if (modelTier === "2.5") return { allowed: true, remaining: 9999 };
+    if (!userId || userId.startsWith("guest_") || userId === "guest") {
+      return { allowed: false, reason: "AUTH_REQUIRED" };
     }
-    return false;
+
+    var safeKey = userId.replace(/\./g, '_dot_').replace(/@/g, '_at_');
+    var maxLimit = this.limits[modelTier] || 20;
+    var now = Date.now();
+    var quotaRef = firebase.database().ref('nox_ai_quotas/' + safeKey + '/' + modelTier);
+
+    try {
+      var snapshot = await quotaRef.once('value');
+      var timestamps = snapshot.val() || [];
+      // Clean timestamps outside 5h window
+      var validTimestamps = timestamps.filter(function(ts) {
+        return (now - ts) < ServerQuotaEngine.windowMs;
+      });
+
+      if (validTimestamps.length >= maxLimit) {
+        return { 
+          allowed: false, 
+          reason: "LIMIT_REACHED", 
+          remaining: 0, 
+          resetsIn: Math.ceil((ServerQuotaEngine.windowMs - (now - validTimestamps[0])) / 60000) 
+        };
+      }
+
+      validTimestamps.push(now);
+      await quotaRef.set(validTimestamps);
+      var remaining = maxLimit - validTimestamps.length;
+      ServerQuotaEngine.updateBadge(modelTier, remaining, maxLimit);
+      return { allowed: true, remaining: remaining };
+    } catch(e) {
+      console.warn("Quota fallback to local:", e);
+      return { allowed: true, remaining: 10 };
+    }
+  },
+
+  updateBadge: function(tier, remaining, max) {
+    if (tier === "3.4") {
+      var b34 = DOM.get('quota-badge-34');
+      if (b34) b34.innerText = "★ " + remaining + " / " + max + " (5H)";
+    } else if (tier === "3.1") {
+      var b31 = DOM.get('quota-badge-31');
+      if (b31) b31.innerText = "◈ " + remaining + " / " + max + " (5H)";
+    }
   }
 };
 
@@ -1726,14 +1845,14 @@ var LangEngine = {
       authGroup: "TÀI KHOẢN HỆ THỐNG", guestBtn: "ĐĂNG NHẬP KHÁCH", logoutBtn: "ĐĂNG XUẤT",
       communityGroup: "CỘNG ĐỒNG", noticeHeading: "THÔNG BÁO HỆ THỐNG", noticeBtn: "NỘI DUNG",
       tabLinks: "LINKS BYPASS", tabScripts: "SCRIPTS LUA", tabApk: "FILE APK", tabIos: "IPA / IOS",
-      searchPlace: "🔍 Tìm kiếm Script, Tool, Bypass Link...", aiPromptPlace: "Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà'..."
+      searchPlace: "🔍 Tìm kiếm Script, Tool, Bypass Link...", aiPromptPlace: "Hỏi GalaxyZ..."
     },
     en: {
       badge: "EN", menuBtn: "MENU", drawerTitle: "COMMAND DECK", aiGroup: "AI ASSISTANTS & CHAT",
       authGroup: "SYSTEM ACCOUNT", guestBtn: "GUEST LOGIN", logoutBtn: "LOGOUT",
       communityGroup: "COMMUNITY", noticeHeading: "SYSTEM ANNOUNCEMENT", noticeBtn: "CONTENT",
       tabLinks: "BYPASS LINKS", tabScripts: "LUA SCRIPTS", tabApk: "APK FILES", tabIos: "IPA / IOS",
-      searchPlace: "🔍 Search Scripts, Tools, Bypass Links...", aiPromptPlace: "Ask AI, request code or 'Create image of a house'..."
+      searchPlace: "🔍 Search Scripts, Tools, Bypass Links...", aiPromptPlace: "Ask GalaxyZ..."
     }
   },
   init: function() {
@@ -1791,8 +1910,8 @@ var TimeEngine = {
    NOTICE TYPEWRITER ENGINE
    ========================================================================== */
 var NoticeTypewriter = {
-  fullTextVN: "⚡ NOX GALAXY ASCENSION OS ⚡\n◈ Hệ sinh thái phân phối Roblox Lua Script, Link Bypass, Tool APK & iOS sạch không quảng cáo.\n◈ HỆ THỐNG AI 3 TẦNG: GalaxyZ-2.5 (Fast), GalaxyZ-3.1 Pro (Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Bấm Ctrl + K để mở Command Palette điều hướng nhanh.",
-  fullTextEN: "⚡ NOX GALAXY ASCENSION OS ⚡\n◈ Direct portal for Roblox Lua Scripts, Bypass Tools, APK & IPA without ads.\n◈ 3-TIER AI MATRIX: GalaxyZ-2.5 (Fast), GalaxyZ-3.1 Pro (Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Press Ctrl + K to open the Cosmic Command Palette.",
+  fullTextVN: "⚡ NOX GALAXY ASCENSION 2.0 ⚡\n◈ Hệ điều hành trung tâm phân phối Roblox Lua Script, Link Bypass, Tool APK & iOS sạch không quảng cáo.\n◈ HỆ THỐNG AI 3 TẦNG: GalaxyZ-2.5 (Fast Casual), GalaxyZ-3.1 Pro (Advanced Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Bấm Ctrl + K để mở Command Palette điều hướng nhanh.",
+  fullTextEN: "⚡ NOX GALAXY ASCENSION 2.0 ⚡\n◈ Cosmic OS portal for Roblox Lua Scripts, Bypass Tools, APK & IPA direct links.\n◈ 3-TIER AI MATRIX: GalaxyZ-2.5 (Fast Casual), GalaxyZ-3.1 Pro (Advanced Reasoning), GalaxyZ-3.4 Pro (High Context/Coding).\n◈ Press Ctrl + K to open the Cosmic Command Palette.",
   isExpanded: false, timer: null,
 
   toggle: function() {
@@ -1868,7 +1987,7 @@ function showToast(msg) {
 }
 
 function toggleMenu() { 
-  var d = DOM.get('nav-drawer-backdrop');
+  var d = DOM.get('nav-drawer-backdrop-glass');
   if(d) d.classList.toggle('is-open');
   if(!ChatEngine.userProfile && DOM.get('drawer-google-login-wrap') && !DOM.get('drawer-google-login-wrap').hasChildNodes()) {
     AuthEngine.renderGoogleButtons();
@@ -1876,7 +1995,7 @@ function toggleMenu() {
 }
 function openUI(id) { 
   var e = DOM.get(id); if(e) e.classList.add('is-active'); 
-  var d = DOM.get('nav-drawer-backdrop'); if(d) d.classList.remove('is-open');
+  var d = DOM.get('nav-drawer-backdrop-glass'); if(d) d.classList.remove('is-open');
 }
 function closeUI(id) { 
   var e = DOM.get(id); if(e) e.classList.remove('is-active'); 
@@ -1885,7 +2004,7 @@ function closeUI(id) {
 window.addEventListener('keydown', function(e) {
   if(e.key === 'Escape') {
     DOM.queryAll('.cosmic-modal-overlay.is-active').forEach(function(m) { m.classList.remove('is-active'); });
-    var d = DOM.get('nav-drawer-backdrop');
+    var d = DOM.get('nav-drawer-backdrop-glass');
     if(d && d.classList.contains('is-open')) d.classList.remove('is-open');
     var lb = DOM.get('image-lightbox');
     if(lb && lb.classList.contains('active')) lb.classList.remove('active');
@@ -1958,8 +2077,6 @@ var AuthEngine = {
   login: function(profile) {
     if(profile.email === ADMIN_EMAIL) { 
       IS_ADMIN = true; 
-      var uPanel = DOM.get('dev-utils-panel'); if(uPanel) uPanel.style.display = 'flex'; 
-      var cPanel = DOM.get('dev-config-panel'); if(cPanel) cPanel.style.display = 'flex'; 
       var mGroup = DOM.get('dev-menu-editor-group'); if(mGroup) mGroup.style.display = 'flex';
     }
     ChatEngine.userProfile = profile;
@@ -2097,49 +2214,135 @@ var MenuEditor = {
 };
 
 /* ==========================================================================
-   USER MANAGER (DEV CONTROL)
+   DEV CONTROL CENTER (TABBED FULL MANAGEMENT)
    ========================================================================== */
-var UserMgr = {
-  loadUsers: async function() {
+var DevCenter = {
+  usersCache: [],
+  init: function() {
     if(!IS_ADMIN) return;
-    var board = DOM.get('user-mgr-board'); if(!board) return;
-    board.innerHTML = '<div style="text-align:center; padding:20px;">Đang tải danh sách user...</div>';
+    this.loadStats();
+    this.loadUsers();
+  },
+  switchTab: function(tabId, btn) {
+    DOM.queryAll('.dev-tab-btn').forEach(function(b) { b.classList.remove('is-active'); });
+    DOM.queryAll('.dev-tab-pane').forEach(function(p) { p.classList.remove('is-active'); });
+    if(btn) btn.classList.add('is-active');
+    var target = DOM.get(tabId);
+    if(target) target.classList.add('is-active');
+  },
+  loadStats: function() {
+    firebase.database().ref('nox_users_registry').once('value').then(function(snap) {
+      var count = snap.exists() ? Object.keys(snap.val()).length : 0;
+      var el = DOM.get('dev-stat-users');
+      if(el) el.innerText = count;
+    });
+    firebase.database().ref('nox_ai_logs').once('value').then(function(snap) {
+      var count = snap.exists() ? Object.keys(snap.val()).length : 0;
+      var el = DOM.get('dev-stat-requests');
+      if(el) el.innerText = count;
+      DevCenter.renderLogs(snap.val() || {});
+    });
+  },
+  loadUsers: async function() {
+    var box = DOM.get('dev-users-list-box');
+    if(!box) return;
+    box.innerHTML = '<div style="text-align:center; padding:15px; color:var(--text-sub);">Đang đồng bộ dữ liệu người dùng...</div>';
     try {
       var regSnap = await firebase.database().ref('nox_users_registry').once('value');
-      if(!regSnap.exists()) { board.innerHTML = '<div style="text-align:center; padding:20px;">Chưa có người dùng.</div>'; return; }
       var ctrlSnap = await firebase.database().ref('nox_users_control').once('value');
       var controls = ctrlSnap.val() || {};
-      board.innerHTML = '';
-      regSnap.forEach(function(child) {
-        var u = child.val(); var safeKey = child.key; var control = controls[safeKey] || {};
-        var box = document.createElement('div'); box.className = 'vault-item-card';
-        var statusHtml = '<span style="color:var(--accent-quantum)">Bình thường</span>';
-        if(control.isBanned) statusHtml = '<span style="color:var(--accent-danger)">ĐÃ BAN (' + control.banReason + ')</span>';
-        else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = '<span style="color:var(--accent-cyan)">ĐÃ MUTE đến ' + (new Date(control.muteUntil).toLocaleTimeString()) + '</span>';
-        box.innerHTML = 
-          '<div style="font-weight:bold; color:var(--text-main);">' + u.name + '</div>' +
-          '<div style="font-size:0.8rem; color:var(--text-muted);">Email: ' + u.email + '</div>' +
-          '<div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ' + statusHtml + '</div>' +
-          '<div style="display:flex; gap:8px; margin-top:8px;">' +
-            '<input type="text" id="um-ban-reason-' + safeKey + '" placeholder="Lý do ban..." class="search-field-input" style="height:36px;">' +
-            '<button class="btn btn-danger" style="height:36px;" onclick="UserMgr.banFromPanel(\'' + safeKey + '\')">BAN</button>' +
-            '<button class="btn btn-primary" style="height:36px;" onclick="UserMgr.uncontrolUser(\'' + safeKey + '\')">GỠ</button>' +
-          '</div>';
-        board.appendChild(box);
+      DevCenter.usersCache = [];
+      if(regSnap.exists()) {
+        regSnap.forEach(function(child) {
+          DevCenter.usersCache.push({ key: child.key, ...child.val(), control: controls[child.key] || {} });
+        });
+      }
+      DevCenter.renderUsers();
+    } catch(e) {
+      box.innerHTML = '<div style="color:var(--accent-danger); padding:10px;">Lỗi tải dữ liệu.</div>';
+    }
+  },
+  renderUsers: function() {
+    var box = DOM.get('dev-users-list-box');
+    if(!box) return;
+    var search = (DOM.get('dev-user-search-input') ? DOM.get('dev-user-search-input').value.toLowerCase().trim() : '');
+    var filterRole = DOM.get('dev-user-filter-role') ? DOM.get('dev-user-filter-role').value : 'ALL';
+    box.innerHTML = '';
+
+    var filtered = DevCenter.usersCache.filter(function(u) {
+      var matchSearch = !search || (u.name && u.name.toLowerCase().includes(search)) || (u.email && u.email.toLowerCase().includes(search));
+      var matchRole = filterRole === 'ALL' || u.role === filterRole;
+      return matchSearch && matchRole;
+    });
+
+    if(filtered.length === 0) {
+      box.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-muted);">Không tìm thấy người dùng phù hợp.</div>';
+      return;
+    }
+
+    filtered.forEach(function(u) {
+      var card = document.createElement('div');
+      card.className = 'vault-item-card';
+      card.style.padding = '12px';
+      var isBanned = u.control.isBanned;
+      var statusHtml = isBanned ? '<span style="color:var(--accent-danger)">BANNED</span>' : '<span style="color:var(--accent-quantum)">ACTIVE</span>';
+      
+      card.innerHTML = 
+        '<div style="display:flex; justify-content:space-between; align-items:center;">' +
+          '<div>' +
+            '<div style="font-weight:800; font-size:0.9rem;">' + u.name + ' <span class="card-category-tag">' + u.role + '</span></div>' +
+            '<div style="font-size:0.75rem; color:var(--text-muted);">' + u.email + ' • ' + statusHtml + '</div>' +
+          '</div>' +
+          '<div style="display:flex; gap:6px;">' +
+            (isBanned ? 
+              '<button class="btn btn-primary" style="height:28px; font-size:0.7rem; padding:0 8px;" onclick="DevCenter.unbanUser(\'' + u.key + '\')">UNBAN</button>' :
+              '<button class="btn btn-danger" style="height:28px; font-size:0.7rem; padding:0 8px;" onclick="DevCenter.banUser(\'' + u.key + '\')">BAN</button>') +
+          '</div>' +
+        '</div>';
+      box.appendChild(card);
+    });
+  },
+  banUser: function(key) {
+    var reason = prompt("Lý do ban:") || "Vi phạm quy định";
+    firebase.database().ref('nox_users_control/' + key).update({ isBanned: true, banReason: reason }).then(function() {
+      showToast("Đã Ban user!");
+      DevCenter.loadUsers();
+    });
+  },
+  unbanUser: function(key) {
+    firebase.database().ref('nox_users_control/' + key).update({ isBanned: false }).then(function() {
+      showToast("Đã gỡ ban!");
+      DevCenter.loadUsers();
+    });
+  },
+  logAiRequest: function(model, latencyMs, success) {
+    try {
+      firebase.database().ref('nox_ai_logs').push({
+        model: model,
+        latency: latencyMs,
+        success: success,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
       });
-    } catch (e) { board.innerHTML = '<div>Lỗi tải danh sách người dùng.</div>'; }
+    } catch(e) {}
   },
-  banFromPanel: function(safeKey) {
-    var reason = (DOM.get('um-ban-reason-' + safeKey) ? DOM.get('um-ban-reason-' + safeKey).value.trim() : '') || "Vi phạm quy định";
-    firebase.database().ref('nox_users_control/' + safeKey).update({ isBanned: true, banReason: reason }).then(function() { showToast("Đã Ban user!"); UserMgr.loadUsers(); });
-  },
-  uncontrolUser: function(safeKey) {
-    firebase.database().ref('nox_users_control/' + safeKey).set({ isBanned: false, isMuted: false }).then(function() { showToast("Đã gỡ phạt!"); UserMgr.loadUsers(); });
+  renderLogs: function(logsObj) {
+    var board = DOM.get('dev-ai-logs-board');
+    if(!board) return;
+    board.innerHTML = '';
+    var keys = Object.keys(logsObj).reverse().slice(0, 30);
+    keys.forEach(function(k) {
+      var item = logsObj[k];
+      var row = document.createElement('div');
+      row.style.padding = '4px 0';
+      row.style.borderBottom = '1px solid rgba(255,255,255,0.03)';
+      row.innerHTML = '<span style="color:var(--accent-cyan);">[' + item.model + ']</span> ' + item.latency + 'ms • ' + (item.success ? '<span style="color:var(--accent-quantum);">OK</span>' : '<span style="color:var(--accent-danger);">ERR</span>');
+      board.appendChild(row);
+    });
   }
 };
 
 /* ==========================================================================
-   UTILS ENGINE (VAULT FEED)
+   UTILS ENGINE (VAULT CARDS)
    ========================================================================== */
 var UtilsEngine = {
   ref: null, itemsMap: {}, currentTab: 'pane-link', devUploadedBase64: "",
@@ -2310,7 +2513,8 @@ var UtilsEngine = {
     DOM.get('dev-panel-heading').innerText = "[DEV] CHỈNH SỬA TIỆN ÍCH";
     DOM.get('dev-submit-btn').innerText = "LƯU THAY ĐỔI";
     DOM.get('dev-cancel-btn').style.display = 'block';
-    window.scrollTo({ top: DOM.get('dev-utils-panel').offsetTop - 90, behavior: 'smooth' });
+    openUI('modal-dev-control');
+    DevCenter.switchTab('dev-tab-utils', null);
   },
 
   cancelEdit: function() {
@@ -2340,7 +2544,7 @@ var UtilsEngine = {
 };
 
 /* ==========================================================================
-   3-TIER NOX AI ENGINE (GALAXYZ 2.5 / 3.1 / 3.4)
+   NOX GALAXY AI ORCHESTRATION LAYER (3-TIER ENGINE)
    ========================================================================== */
 var GptEngine = {
   defaultKey: "sk-xt-1e76a82a6e5be8a063d9f79d41f248c1469aeb7196683edc",
@@ -2352,7 +2556,7 @@ var GptEngine = {
   input: DOM.get('noxgpt-field'), 
   isGenerating: false, currentModel: "3.4", abortController: null,
   
-  systemInstruction: "You are GalaxyZ-3.4 Pro (Cosmic Quantum AI on NOX GALAXY ASCENSION, developed by HminhGalaxy). Full website context: NOX WEB is Vietnam's top portal providing Roblox Lua scripts (Delta Executor, Kasumi Store, Speed Hub X, ArceusX), direct APK/IPA links without bypass ads. Adapt conversation style dynamically: for code, output clean formatted blocks; for explanations, use structured bullet points; for casual chat, be concise and friendly.",
+  systemInstruction: "You are GalaxyZ-3.4 Pro (High Context Quantum AI on NOX GALAXY ASCENSION 2.0, created by HminhGalaxy). When asked about your identity, you must state: 'Tôi là GalaxyZ-3.4 Pro (High Reasoning) trên hệ thống NOX GALAXY ASCENSION 2.0.' Full website context: NOX WEB provides clean Roblox Lua scripts (Delta Executor, Kasumi Store, Speed Hub X, ArceusX), direct APK/IPA links without link bypass ads. Adapt style dynamically: for code, provide clean Lua/Python blocks with notes; for analytical requests, provide structured bullet points. Always maintain context and zero fluff.",
   messageHistory: [],
 
   init: function() {
@@ -2366,15 +2570,15 @@ var GptEngine = {
     if (model === "2.5") {
       DOM.get('tier-card-25').classList.add('is-active');
       DOM.get('gpt-active-model-title').innerText = "GALAXYZ 2.5 (FAST)";
-      showToast("Kích hoạt GalaxyZ-2.5: Phản hồi siêu tốc");
+      showToast("GalaxyZ-2.5: Phản hồi nhanh");
     } else if(model === "3.1") {
       DOM.get('tier-card-31').classList.add('is-active');
       DOM.get('gpt-active-model-title').innerText = "GALAXYZ 3.1 PRO";
-      showToast("Kích hoạt GalaxyZ-3.1 Pro: Suy luận chuyên sâu");
+      showToast("GalaxyZ-3.1 Pro: Suy luận & Lập trình");
     } else {
       DOM.get('tier-card-34').classList.add('is-active');
       DOM.get('gpt-active-model-title').innerText = "GALAXYZ 3.4 PRO (HIGH)";
-      showToast("Kích hoạt GalaxyZ-3.4 Pro: Max Reasoning & Coding");
+      showToast("GalaxyZ-3.4 Pro: Max Reasoning & Coding");
     }
   },
 
@@ -2460,7 +2664,7 @@ var GptEngine = {
     var lower = text.toLowerCase().trim();
     var triggers = [
       "tạo ảnh", "vẽ ảnh", "vẽ", "tạo hình", "hình ảnh về", "ảnh",
-      "draw", "paint", "generate image", "create image", "make a picture", "make an image", "make a home", "make a house", "make a"
+      "draw", "paint", "generate image", "create image", "make a picture", "make an image", "make a home", "make a house"
     ];
     for(var i = 0; i < triggers.length; i++) {
       var t = triggers[i];
@@ -2478,11 +2682,18 @@ var GptEngine = {
     var text = this.input.value.trim(); var base64Img = ImageProcessor.currentGptImage;
     if(!text && !base64Img) return;
 
-    if (this.currentModel === "3.1" || this.currentModel === "3.4") {
-      var canUse = AIQuota.useQuota();
-      if (!canUse) {
-        showToast("Đã hết lượt dùng High Tier! Chuyển sang GalaxyZ-2.5.");
-        this.switchModel("2.5");
+    var currentUser = ChatEngine.userProfile ? ChatEngine.userProfile.email : null;
+    var quotaCheck = await ServerQuotaEngine.checkAndConsumeQuota(currentUser, this.currentModel);
+
+    if (!quotaCheck.allowed) {
+      if (quotaCheck.reason === "AUTH_REQUIRED") {
+        showToast("Model " + this.currentModel + " yêu cầu đăng nhập tài khoản Google.");
+        openUI('modal-noxchat');
+        return;
+      }
+      if (quotaCheck.reason === "LIMIT_REACHED") {
+        showToast("Bạn đã dùng hết hạn mức của model này (Reset sau ~" + quotaCheck.resetsIn + " phút).");
+        return;
       }
     }
 
@@ -2493,6 +2704,8 @@ var GptEngine = {
     this.appendMsg('user', 'Bạn', userHtml);
     this.messageHistory.push({ role: "user", content: text || "[Sent Image]" });
     this.setGeneratingState(true);
+
+    var startTime = Date.now();
 
     var imagePrompt = this.detectImageRequest(text);
     if(imagePrompt) {
@@ -2510,6 +2723,7 @@ var GptEngine = {
           '<img src="' + imageUrl + '" style="max-width:100%; border-radius:6px; margin-top:6px; cursor:pointer;" onclick="openLightbox(\'' + imageUrl + '\')" alt="AI Art">';
         GptEngine.appendMsg('other', 'GalaxyZ ' + GptEngine.currentModel, imgHtml);
         GptEngine.messageHistory.push({ role: "assistant", content: "Generated image: " + imagePrompt });
+        DevCenter.logAiRequest('GalaxyZ-' + GptEngine.currentModel + ' [IMAGE]', Date.now() - startTime, true);
       }, thinkDelay);
       return;
     }
@@ -2541,6 +2755,7 @@ var GptEngine = {
         var reply = data.choices[0].message.content;
         this.appendMsg('other', 'GalaxyZ ' + this.currentModel, reply); 
         this.messageHistory.push({ role: "assistant", content: reply });
+        DevCenter.logAiRequest('GalaxyZ-' + this.currentModel, Date.now() - startTime, true);
       }
     } catch(err) {
       if(err.name === 'AbortError') return;
@@ -2551,13 +2766,16 @@ var GptEngine = {
           GptEngine.setGeneratingState(false);
           var puterReply = (typeof res === 'string') ? res : (res.message ? res.message.content : JSON.stringify(res));
           GptEngine.appendMsg('other', 'GalaxyZ ' + GptEngine.currentModel, puterReply);
+          DevCenter.logAiRequest('GalaxyZ-' + GptEngine.currentModel + ' [PUTER]', Date.now() - startTime, true);
         }).catch(function() {
           GptEngine.setGeneratingState(false);
           var fb = DOM.get('gpt-fallback-container'); if(fb) fb.style.display = 'block';
+          DevCenter.logAiRequest('GalaxyZ-' + GptEngine.currentModel, Date.now() - startTime, false);
         });
       } else {
         GptEngine.setGeneratingState(false);
         var fb = DOM.get('gpt-fallback-container'); if(fb) fb.style.display = 'block';
+        DevCenter.logAiRequest('GalaxyZ-' + GptEngine.currentModel, Date.now() - startTime, false);
       }
     }
   },
@@ -2603,8 +2821,6 @@ var ChatEngine = {
           this.userProfile = profile;
           if(profile.email === ADMIN_EMAIL) { 
             IS_ADMIN = true; 
-            DOM.get('dev-utils-panel').style.display = 'flex'; 
-            DOM.get('dev-config-panel').style.display = 'flex'; 
             DOM.get('dev-menu-editor-group').style.display = 'flex';
           }
           DOM.get('auth-guard').style.display = 'none';
@@ -2730,7 +2946,7 @@ var ChatEngine = {
 };
 
 /* ==========================================================================
-   INITIALIZE ASCENSION BOOTSTRAP
+   INITIALIZE ASCENSION 2.0 BOOTSTRAP
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', function() {
   GraphicsEngine.init();
