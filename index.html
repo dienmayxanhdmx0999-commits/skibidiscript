@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#030508">
+<meta name="theme-color" content="#02030A">
 
-<title>NOX WEB V75 ULTRA PROMAX - Quantum Opus</title>
-<meta name="description" content="NOX-SKIBIDI WEB V75 ULTRA PROMAX. Kho tiện ích, Script Roblox, APK Direct Link không quảng cáo.">
+<title>NOX GALAXY QUANTUM — Cosmic AI & Script Command Center</title>
+<meta name="description" content="NOX GALAXY QUANTUM. Hệ thống điều hành trung tâm vũ trụ: AI Trợ lý Quantum, Roblox Lua Scripts, Bypass Tools, APK/IPA Direct Link sạch không quảng cáo.">
 <meta name="robots" content="index, follow">
 
+<!-- Cosmic Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
 
+<!-- Core Frameworks & Cloud Services -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -20,142 +22,200 @@
 
 <style>
 /* ==========================================================================
-   V75 ULTRA PROMAX DESIGN SYSTEM
+   NOX GALAXY QUANTUM — DESIGN SYSTEM (COSMIC ULTRA)
    ========================================================================== */
 :root {
-  --bg-core: #030508;        
-  --bg-card: rgba(11, 15, 25, 0.82);       
-  --bg-card-hover: rgba(18, 24, 40, 0.94); 
-  --bg-card-solid: #080c14;
-  --bg-input: rgba(6, 9, 16, 0.96);       
-  
-  --border-color: rgba(255, 255, 255, 0.08);   
-  --border-focus: rgba(0, 245, 160, 0.45);
-  --border-hover: rgba(255, 255, 255, 0.2);
-  
-  --text-main: #f8fafc;      
-  --text-sub: #94a3b8;       
-  --text-muted: #64748b;
-  
-  --accent-emerald: #00f5a0;
-  --accent-emerald-glow: rgba(0, 245, 160, 0.35);
-  --accent-cyan: #00d9f5;
+  --bg-void: #02030A;
+  --bg-deep: #050714;
+  --bg-nebula: #080B18;
+  --bg-card: rgba(11, 16, 34, 0.72);
+  --bg-card-hover: rgba(16, 24, 48, 0.88);
+  --bg-card-solid: #080C1A;
+  --bg-input: rgba(5, 8, 20, 0.85);
+
+  --border-subtle: rgba(0, 217, 245, 0.12);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(0, 245, 160, 0.55);
+  --border-hover: rgba(0, 217, 245, 0.35);
+
+  --text-main: #F8FAFC;
+  --text-sub: #94A3B8;
+  --text-muted: #64748B;
+
+  --accent-cyan: #00D9F5;
   --accent-cyan-glow: rgba(0, 217, 245, 0.35);
-  --accent-danger: #ff2a5f;
-  --accent-danger-bg: rgba(255, 42, 95, 0.12);
-  --dev-color: #ff2a85;
-  --accent-amber: #f59e0b;
-  
-  --rad-lg: 18px;
-  --rad-md: 12px; 
+  --accent-quantum: #00F5A0;
+  --accent-quantum-glow: rgba(0, 245, 160, 0.4);
+  --accent-cosmic: #A855F7;
+  --accent-cosmic-glow: rgba(168, 85, 247, 0.35);
+  --accent-violet: #6366F1;
+  --accent-danger: #FF2A5F;
+  --accent-danger-glow: rgba(255, 42, 95, 0.45);
+  --dev-color: #FF2A85;
+
+  --rad-lg: 20px;
+  --rad-md: 14px;
   --rad-sm: 8px;
-  
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --ease-cosmic: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-* { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
-  -webkit-tap-highlight-color: transparent; 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-button, input, textarea, select { 
-  font-family: 'Plus Jakarta Sans', sans-serif; 
-  outline: none; 
-  border: none; 
-  border-radius: var(--rad-sm); 
-  box-sizing: border-box; 
+button, input, textarea, select {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none;
+  border: none;
+  border-radius: var(--rad-sm);
+  box-sizing: border-box;
 }
 
 a { text-decoration: none; color: inherit; }
 
-html { 
-  font-family: 'Plus Jakarta Sans', sans-serif; 
-  font-size: 15px; 
-  width: 100%; 
-  background-color: var(--bg-core);
+html {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  width: 100%;
+  background-color: var(--bg-void);
   color-scheme: dark;
   scroll-behavior: smooth;
 }
 
 body {
-  width: 100%; 
-  min-height: 100vh; 
-  background-color: var(--bg-core);
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(0, 245, 160, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 85% 90%, rgba(0, 217, 245, 0.08) 0%, transparent 45%),
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
-  overflow-x: hidden; 
-  display: flex; 
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-void);
+  overflow-x: hidden;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 85px 16px 80px; 
+  padding: 95px 16px 80px;
   color: var(--text-main);
+  position: relative;
 }
 
+/* ==========================================================================
+   COSMIC BACKGROUND ENGINE (CANVAS & AMBIENT AURORA)
+   ========================================================================== */
+#cosmic-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora-glow-top {
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(0, 217, 245, 0.1) 40%, transparent 75%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.aurora-glow-bottom {
+  position: fixed;
+  bottom: -20%;
+  right: -10%;
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(0, 245, 160, 0.08) 45%, transparent 75%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ambient Cursor Light (Desktop) */
+#quantum-cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 217, 245, 0.07) 0%, rgba(168, 85, 247, 0.04) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+  will-change: transform;
+}
+
+@media (pointer: coarse) {
+  #quantum-cursor-glow { display: none !important; }
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-emerald); }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb { background: rgba(0, 217, 245, 0.25); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-quantum); box-shadow: 0 0 10px var(--accent-quantum); }
 
 /* ==========================================================================
-   QUANTUM CIRCULAR LOADING SCREEN
+   INITIALIZATION QUANTUM SCREEN
    ========================================================================== */
 #quantum-loader {
   position: fixed;
   inset: 0;
-  background: #020306;
+  background: #020308;
   z-index: 999999;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.7s var(--ease-spring), transform 0.7s var(--ease-spring);
+  transition: opacity 0.75s var(--ease-cosmic), transform 0.75s var(--ease-cosmic);
 }
 #quantum-loader.fade-out {
   opacity: 0;
-  transform: scale(1.06);
+  transform: scale(1.08);
   pointer-events: none;
 }
 
-.loader-spinner-wrap {
+.quantum-core-reactor {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.loader-ring-outer {
+.reactor-ring-1 {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px dashed rgba(0, 245, 160, 0.4);
-  animation: spinRight 6s linear infinite;
+  border: 1px dashed rgba(0, 245, 160, 0.45);
+  animation: cosmicSpin 10s linear infinite;
 }
-.loader-ring-mid {
+.reactor-ring-2 {
   position: absolute;
   inset: 12px;
   border-radius: 50%;
   border: 2px solid transparent;
   border-top-color: var(--accent-cyan);
-  border-bottom-color: var(--accent-emerald);
-  animation: spinLeft 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-  box-shadow: 0 0 25px rgba(0, 245, 160, 0.25);
+  border-bottom-color: var(--accent-cosmic);
+  animation: cosmicSpinReverse 3.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  box-shadow: 0 0 30px rgba(0, 217, 245, 0.35);
 }
-.loader-ring-inner {
+.reactor-ring-3 {
   position: absolute;
   inset: 28px;
   border-radius: 50%;
-  border: 2px dashed rgba(255, 42, 133, 0.5);
-  animation: spinRight 3s linear infinite;
+  border: 1.5px dashed rgba(255, 42, 133, 0.5);
+  animation: cosmicSpin 4s linear infinite;
 }
-.loader-center-node {
+.reactor-core-symbol {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -163,219 +223,240 @@ body {
   position: relative;
   z-index: 5;
 }
-.loader-center-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.15rem;
+.reactor-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.25rem;
   font-weight: 900;
-  letter-spacing: 1px;
-  background: linear-gradient(135deg, #fff, var(--accent-emerald));
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #FFF 10%, var(--accent-cyan) 60%, var(--accent-quantum) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.loader-center-sub {
+.reactor-sub {
   font-size: 0.65rem;
   font-family: 'JetBrains Mono', monospace;
-  color: var(--accent-cyan);
+  color: var(--accent-quantum);
   font-weight: 700;
+  letter-spacing: 2px;
 }
 
-@keyframes spinRight { 100% { transform: rotate(360deg); } }
-@keyframes spinLeft { 100% { transform: rotate(-360deg); } }
+@keyframes cosmicSpin { 100% { transform: rotate(360deg); } }
+@keyframes cosmicSpinReverse { 100% { transform: rotate(-360deg); } }
 
 .loader-status-text {
-  margin-top: 24px;
+  margin-top: 26px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
   color: var(--text-sub);
-  letter-spacing: 1.5px;
-  animation: pulseOpacity 1.5s infinite ease-in-out;
+  letter-spacing: 2px;
+  animation: cosmicPulse 2s infinite ease-in-out;
 }
-@keyframes pulseOpacity { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes cosmicPulse { 0%, 100% { opacity: 0.4; transform: scale(0.98); } 50% { opacity: 1; transform: scale(1.02); color: var(--accent-cyan); } }
 
 /* ==========================================================================
-   RAINBOW THEME ANIMATION FOR NOXGPT 3.1 PRO
+   FLOATING COSMIC GLASS NAVBAR
    ========================================================================== */
-@keyframes rainbowBorder {
-  0% { border-color: #ff007f; box-shadow: 0 0 22px rgba(255, 0, 127, 0.4); }
-  25% { border-color: #00f5a0; box-shadow: 0 0 22px rgba(0, 245, 160, 0.4); }
-  50% { border-color: #00d9f5; box-shadow: 0 0 22px rgba(0, 217, 245, 0.4); }
-  75% { border-color: #a855f7; box-shadow: 0 0 22px rgba(168, 85, 247, 0.4); }
-  100% { border-color: #ff007f; box-shadow: 0 0 22px rgba(255, 0, 127, 0.4); }
-}
-
-@keyframes rainbowGradientText {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.rainbow-mode-active {
-  animation: rainbowBorder 4s linear infinite !important;
-}
-
-.rainbow-title-glow {
-  background: linear-gradient(90deg, #ff007f, #00f5a0, #00d9f5, #a855f7, #ff007f);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbowGradientText 4s ease infinite;
-}
-
-/* ==========================================================================
-   TOP CONTROLS & HUD
-   ========================================================================== */
-.top-nav { 
-  position: fixed; 
-  top: 18px; 
-  left: 20px; 
-  right: 20px;
+.top-nav {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 1040px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100; 
-  pointer-events: none;
+  padding: 10px 18px;
+  border-radius: 99px;
+  background: rgba(8, 12, 28, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 217, 245, 0.08);
+  z-index: 100;
+  transition: all 0.3s var(--ease-cosmic);
 }
-.top-nav > * { pointer-events: auto; }
-
-.menu-trigger { 
-  height: 44px; 
-  padding: 0 18px; 
-  border-radius: 99px; 
-  background: rgba(14, 18, 28, 0.85); 
-  backdrop-filter: blur(16px); 
-  border: 1px solid var(--border-color); 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-  color: var(--text-main); 
-  font-weight: 800; 
-  font-size: 0.85rem; 
-  cursor: pointer; 
-  transition: all 0.25s var(--ease-spring); 
-  box-shadow: 0 8px 25px rgba(0,0,0,0.5); 
-}
-.menu-trigger:hover { 
-  border-color: var(--accent-emerald); 
-  color: var(--accent-emerald); 
-  box-shadow: 0 0 20px rgba(0, 245, 160, 0.3); 
-  transform: scale(1.04); 
+.top-nav:hover {
+  border-color: rgba(0, 217, 245, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 217, 245, 0.15);
 }
 
-.lang-switch-btn {
-  height: 44px;
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.brand-icon-orb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #00F5A0, #00D9F5 45%, #6366F1 85%);
+  box-shadow: 0 0 16px var(--accent-cyan-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #02030A;
+  font-weight: 900;
+  font-size: 0.8rem;
+  transition: transform 0.4s var(--ease-bounce);
+}
+.brand-wrap:hover .brand-icon-orb { transform: rotate(180deg) scale(1.1); }
+.brand-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, #FFF, var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-actions-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-btn {
+  height: 38px;
   padding: 0 16px;
   border-radius: 99px;
-  background: rgba(14, 18, 28, 0.85);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
   color: var(--text-main);
-  font-weight: 800;
-  font-size: 0.8rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
-  transition: all 0.25s var(--ease-spring);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  transition: all 0.25s var(--ease-cosmic);
 }
-.lang-switch-btn:hover {
+.nav-btn:hover {
+  background: rgba(0, 217, 245, 0.12);
   border-color: var(--accent-cyan);
   color: var(--accent-cyan);
+  box-shadow: 0 0 15px var(--accent-cyan-glow);
+  transform: translateY(-1px);
 }
 
-.live-hud-bar {
+.nav-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--accent-quantum);
+  background: rgba(0, 245, 160, 0.08);
+  border: 1px solid rgba(0, 245, 160, 0.25);
+  padding: 4px 12px;
+  border-radius: 99px;
+}
+.pulse-dot-green {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-quantum);
+  box-shadow: 0 0 8px var(--accent-quantum);
+  animation: dotPulse 1.6s infinite;
+}
+@keyframes dotPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.7); } }
+
+/* ==========================================================================
+   SYSTEM TELEMETRY HUD & TIME ENGINE
+   ========================================================================== */
+.system-hud-deck {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 860px;
+  max-width: 960px;
+  margin: 0 auto 16px;
   padding: 10px 20px;
-  margin-bottom: 16px;
   border-radius: 99px;
-  background: rgba(14, 18, 28, 0.65);
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(16px);
-  font-size: 0.78rem;
-  color: var(--text-muted);
+  background: rgba(9, 14, 32, 0.6);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(20px);
+  font-size: 0.76rem;
+  color: var(--text-sub);
   font-family: 'JetBrains Mono', monospace;
   gap: 12px;
   flex-wrap: wrap;
+  z-index: 2;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
-.hud-item { display: flex; align-items: center; gap: 8px; }
-.hud-status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent-emerald);
-  box-shadow: 0 0 8px var(--accent-emerald);
-  animation: pulseDot 1.5s infinite;
-}
-@keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.hud-cell { display: flex; align-items: center; gap: 8px; }
+.hud-val-active { color: var(--accent-cyan); font-weight: 700; }
 
-.timezone-select {
+.timezone-dropdown {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-glass);
   color: var(--text-main);
   font-size: 0.72rem;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 6px;
   cursor: pointer;
+  transition: border-color 0.2s;
 }
+.timezone-dropdown:hover { border-color: var(--accent-cyan); }
 
 /* ==========================================================================
-   FIX LỖI MENU TRANH CHẤP NỀN (FULLSCREEN MODAL KHÔNG BỊ TRÀN)
+   COMMAND DECK DRAWER (FULLSCREEN COSMIC GLASS)
    ========================================================================== */
-.drawer-menu { 
-  position: fixed; 
-  inset: 0; 
-  width: 100vw; 
-  height: 100dvh; 
-  z-index: 100000; 
-  display: none; 
-  flex-direction: column; 
-  background: #050811; 
-  backdrop-filter: blur(30px); 
-  -webkit-backdrop-filter: blur(30px);
-  overflow-y: auto; 
+.command-drawer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 100000;
+  display: none;
+  flex-direction: column;
+  background: rgba(3, 5, 14, 0.94);
+  backdrop-filter: blur(36px);
+  -webkit-backdrop-filter: blur(36px);
+  overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 30px 20px 60px; 
+  padding: 30px 20px 60px;
 }
-.drawer-menu.is-open { 
-  display: flex; 
-  animation: menuOpenFade 0.3s var(--ease-spring);
+.command-drawer.is-open {
+  display: flex;
+  animation: drawerZoomIn 0.35s var(--ease-cosmic) forwards;
 }
-@keyframes menuOpenFade {
+@keyframes drawerZoomIn {
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
 
-.fullscreen-menu-header {
-  max-width: 860px;
+.drawer-header {
+  max-width: 960px;
   width: 100%;
   margin: 0 auto 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-glass);
   padding-bottom: 18px;
 }
-.fullscreen-title {
-  font-family: 'Space Grotesk', sans-serif;
+.drawer-title {
+  font-family: 'Orbitron', sans-serif;
   font-size: 1.25rem;
   font-weight: 900;
+  letter-spacing: 1.5px;
   display: flex;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(135deg, #fff, var(--accent-emerald));
+  background: linear-gradient(135deg, #FFF, var(--accent-cyan));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.fullscreen-close {
+.drawer-close-btn {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
   color: var(--text-sub);
   display: flex;
   justify-content: center;
@@ -383,415 +464,534 @@ body {
   cursor: pointer;
   transition: all 0.25s var(--ease-bounce);
 }
-.fullscreen-close:hover {
-  background: var(--accent-danger-bg);
-  color: var(--accent-danger);
+.drawer-close-btn:hover {
+  background: var(--accent-danger);
+  color: #FFF;
   border-color: var(--accent-danger);
   transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 20px var(--accent-danger-glow);
 }
 
-.fullscreen-menu-grid {
-  max-width: 860px;
+.drawer-grid {
+  max-width: 960px;
   width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
-.menu-section-card {
-  background: rgba(14, 18, 28, 0.85);
-  border: 1px solid var(--border-color);
+.drawer-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
   border-radius: var(--rad-md);
-  padding: 20px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  transition: all 0.3s var(--ease-cosmic);
 }
-.menu-section-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(20, 26, 42, 0.95);
+.drawer-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 217, 245, 0.1);
+  transform: translateY(-2px);
 }
-.section-title {
-  font-size: 0.78rem;
+.drawer-section-title {
+  font-size: 0.75rem;
   font-weight: 800;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.btn-menu-item {
+.drawer-action-btn {
   width: 100%;
   padding: 13px 16px;
   border-radius: var(--rad-sm);
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-glass);
   color: var(--text-main);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   cursor: pointer;
-  transition: all 0.25s var(--ease-spring);
+  transition: all 0.25s var(--ease-cosmic);
 }
-.btn-menu-item:hover {
-  background: rgba(0, 245, 160, 0.12);
-  border-color: var(--accent-emerald);
-  color: var(--accent-emerald);
+.drawer-action-btn:hover {
+  background: rgba(0, 217, 245, 0.12);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
   transform: translateX(4px);
+  box-shadow: 0 0 15px var(--accent-cyan-glow);
 }
 
 /* ==========================================================================
-   HERO BANNER & SPECIAL CHARACTER TYPOGRAPHY
+   HERO / QUANTUM CORE INTERFACE
    ========================================================================== */
-.hero-wrapper { 
-  width: 100%; 
-  max-width: 860px; 
-  margin: 0 auto 24px; 
-  animation: heroFadeIn 0.6s var(--ease-spring);
+.hero-quantum-deck {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 24px;
+  z-index: 2;
+  animation: heroCosmicFade 0.7s var(--ease-cosmic);
 }
-@keyframes heroFadeIn {
-  from { opacity: 0; transform: translateY(25px) scale(0.98); }
+@keyframes heroCosmicFade {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.hero-card { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 22px; 
-  padding: 34px 30px; 
-  width: 100%; 
+.quantum-hero-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 36px 32px;
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--rad-lg);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 217, 245, 0.06);
+  position: relative;
+  overflow: hidden;
 }
-.title-wrap { 
-  display: flex; 
-  flex-direction: column; 
-  align-items: flex-start; 
-  gap: 10px; 
+
+.quantum-hero-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-quantum), transparent);
 }
-.title-main { 
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2.5rem; 
-  font-weight: 900; 
-  background: linear-gradient(135deg, #ffffff 30%, #00f5a0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.5px;
+
+.hero-header-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
-.status-badge { 
-  font-size: 0.75rem; 
-  font-weight: 800; 
-  padding: 6px 16px; 
-  border-radius: 99px; 
-  background: rgba(0, 245, 160, 0.12); 
-  color: var(--accent-emerald); 
-  border: 1px solid rgba(0, 245, 160, 0.35); 
+.quantum-version-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 99px;
+  background: rgba(0, 245, 160, 0.1);
+  color: var(--accent-quantum);
+  border: 1px solid rgba(0, 245, 160, 0.3);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  letter-spacing: 0.8px;
+  letter-spacing: 1px;
 }
 
-.info-board { 
-  padding: 20px 22px; 
-  border-radius: var(--rad-md); 
-  background: var(--bg-input); 
-  border: 1px solid var(--border-color); 
-  width: 100%; 
+.hero-cosmic-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #FFFFFF 20%, var(--accent-cyan) 65%, var(--accent-cosmic) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
 }
-.info-board-head {
+
+.hero-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-sub);
+  font-weight: 500;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* Cosmic System Board / Typewriter */
+.quantum-system-board {
+  padding: 20px 24px;
+  border-radius: var(--rad-md);
+  background: var(--bg-input);
+  border: 1px solid var(--border-glass);
+  width: 100%;
+}
+.system-board-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 8px;
 }
-.info-board-title {
-  font-size: 0.95rem;
+.system-board-heading {
+  font-size: 0.92rem;
   font-weight: 800;
-  color: var(--accent-emerald);
+  color: var(--accent-cyan);
   display: flex;
   align-items: center;
   gap: 8px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
 }
-.typewriter-zone { 
-  font-size: 0.9rem; 
-  line-height: 1.7; 
-  color: var(--text-sub); 
+.btn-cosmic-ghost {
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-cosmic);
+}
+.btn-cosmic-ghost:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  background: rgba(0, 217, 245, 0.1);
+}
+
+.typewriter-viewport {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--text-sub);
   min-height: 24px;
   font-family: 'JetBrains Mono', monospace;
 }
-.typing-cursor {
+.terminal-cursor {
   display: inline-block;
   width: 7px;
   height: 15px;
-  background-color: var(--accent-emerald);
+  background-color: var(--accent-cyan);
   margin-left: 4px;
-  animation: blink 0.8s infinite;
+  animation: blinkCursor 0.8s infinite;
   vertical-align: middle;
 }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-.dev-config-box { 
-  display: none; 
-  flex-direction: column; 
-  gap: 12px; 
-  margin-top: 10px; 
-  border: 1px dashed var(--dev-color); 
-  padding: 18px; 
-  border-radius: var(--rad-md); 
-  background: rgba(255, 42, 133, 0.05); 
-  width: 100%; 
+/* Dev Admin Quick Edit Panel */
+.dev-admin-config-deck {
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+  border: 1px dashed var(--dev-color);
+  padding: 20px;
+  border-radius: var(--rad-md);
+  background: rgba(255, 42, 133, 0.04);
+  width: 100%;
 }
-.dev-config-box input, .dev-config-box textarea { 
-  width: 100%; 
-  padding: 12px; 
-  background: var(--bg-input); 
-  color: var(--text-main); 
-  border: 1px solid var(--border-color); 
+.dev-admin-config-deck input, .dev-admin-config-deck textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-input);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--rad-sm);
 }
-.dev-config-box button { 
-  width: 100%; 
-  padding: 12px; 
-  background: var(--dev-color); 
-  color: #fff; 
-  font-weight: 800; 
-  cursor: pointer; 
-  border-radius: var(--rad-sm); 
+.dev-admin-config-deck button {
+  width: 100%;
+  padding: 13px;
+  background: var(--dev-color);
+  color: #FFF;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: var(--rad-sm);
+  transition: opacity 0.2s;
 }
+.dev-admin-config-deck button:hover { opacity: 0.9; }
 
 /* ==========================================================================
-   FEED & UTILITIES GRID
+   VAULT SEARCH & UTILITIES FEED
    ========================================================================== */
-.feed-container {
+.vault-container {
   width: 100%;
-  max-width: 860px;
+  max-width: 960px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
+  z-index: 2;
 }
 
-.feed-header-bar {
+.vault-control-bar {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-glass);
   border-radius: var(--rad-lg);
-  padding: 20px;
-  backdrop-filter: blur(20px);
+  padding: 22px;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
 
-.tab-nav { 
-  display: flex; 
-  gap: 8px; 
-  overflow-x: auto; 
+.search-input-field {
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: var(--rad-sm);
+  background: var(--bg-input);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  font-size: 0.92rem;
+  transition: all 0.25s var(--ease-cosmic);
+}
+.search-input-field:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 18px var(--accent-cyan-glow);
+}
+
+.category-tab-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
   padding-bottom: 2px;
 }
-.tab-nav::-webkit-scrollbar { display: none; }
-.tab-btn { 
-  padding: 10px 20px; 
-  border-radius: 99px; 
-  color: var(--text-muted); 
-  font-size: 0.85rem; 
-  font-weight: 800; 
+.category-tab-strip::-webkit-scrollbar { display: none; }
+.tab-chip {
+  padding: 10px 22px;
+  border-radius: 99px;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 800;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
-  transition: all 0.25s var(--ease-spring); 
-  white-space: nowrap; 
+  border: 1px solid var(--border-glass);
+  transition: all 0.25s var(--ease-cosmic);
+  white-space: nowrap;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.tab-btn:hover { color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); }
-.tab-btn.is-active { 
-  color: #032b1c; 
-  background: var(--accent-emerald); 
-  border-color: var(--accent-emerald); 
-  box-shadow: 0 0 15px var(--accent-emerald-glow);
+.tab-chip:hover { color: var(--text-main); border-color: rgba(255, 255, 255, 0.2); }
+.tab-chip.is-active {
+  color: #02030A;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-quantum));
+  border-color: transparent;
+  box-shadow: 0 0 20px var(--accent-cyan-glow);
 }
 
-.feed-items-grid {
+.vault-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 18px;
-  min-height: 200px;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+  min-height: 220px;
 }
 @media (max-width: 768px) {
-  .feed-items-grid { grid-template-columns: 1fr; }
+  .vault-grid { grid-template-columns: 1fr; }
 }
 
-.scroll-reveal {
+.cosmic-reveal-item {
   opacity: 0;
-  transform: scale(0.92) translateY(20px);
-  transition: opacity 0.45s var(--ease-spring), transform 0.45s var(--ease-spring);
+  transform: scale(0.94) translateY(24px);
+  transition: opacity 0.45s var(--ease-cosmic), transform 0.45s var(--ease-cosmic);
 }
-.scroll-reveal.in-view {
+.cosmic-reveal-item.in-view {
   opacity: 1;
   transform: scale(1) translateY(0);
 }
 
-.data-box { 
-  padding: 20px 22px; 
-  border-radius: var(--rad-md); 
-  background: var(--bg-card); 
-  border: 1px solid var(--border-color); 
-  display: flex; 
-  flex-direction: column; 
-  gap: 14px; 
+.vault-item-card {
+  padding: 22px;
+  border-radius: var(--rad-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   backdrop-filter: blur(20px);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  transition: all 0.3s var(--ease-cosmic);
   overflow: hidden;
+  position: relative;
 }
-.data-box:hover { 
-  border-color: var(--border-focus); 
-  background: var(--bg-card-hover); 
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 245, 160, 0.15);
-  transform: translateY(-2px);
+.vault-item-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 217, 245, 0.15);
+  transform: translateY(-3px);
 }
 
-.card-thumbnail-wrap {
+.card-banner-frame {
   width: 100%;
   height: 180px;
   border-radius: var(--rad-sm);
   overflow: hidden;
   background: #000;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-glass);
   cursor: pointer;
   position: relative;
 }
-.card-thumbnail-img {
+.card-banner-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s var(--ease-cosmic);
 }
-.card-thumbnail-wrap:hover .card-thumbnail-img { transform: scale(1.04); }
+.card-banner-frame:hover .card-banner-img { transform: scale(1.05); }
 
-.box-head { display: flex; justify-content: space-between; align-items: center; }
-.box-title { font-size: 1.05rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-.box-action { 
-  padding: 8px 18px; 
-  border-radius: 99px; 
-  background: rgba(255, 255, 255, 0.06); 
-  color: var(--text-main); 
-  border: 1px solid var(--border-color); 
-  font-weight: 800; 
-  font-size: 0.8rem; 
-  transition: all 0.2s ease; 
-  cursor: pointer; 
-  display: inline-flex; 
-  align-items: center; 
-  gap: 6px; 
+.card-header-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
-.box-action:hover { border-color: var(--text-main); background: rgba(255, 255, 255, 0.15); transform: scale(1.04); }
-.box-action.is-copied { background: var(--accent-emerald) !important; color: #032b1c !important; border-color: var(--accent-emerald) !important; }
+.card-title-text {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-action-pill {
+  padding: 8px 18px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass);
+  font-weight: 800;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-action-pill:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  background: rgba(0, 217, 245, 0.15);
+  box-shadow: 0 0 15px var(--accent-cyan-glow);
+  transform: scale(1.04);
+}
+.btn-action-pill.is-copied {
+  background: var(--accent-quantum) !important;
+  color: #02030A !important;
+  border-color: var(--accent-quantum) !important;
+  box-shadow: 0 0 20px var(--accent-quantum-glow) !important;
+}
 
-.script-code { 
-  padding: 14px; 
-  border-radius: var(--rad-sm); 
-  background: var(--bg-input); 
-  border: 1px solid rgba(255, 255, 255, 0.04); 
-  font-family: 'JetBrains Mono', monospace; 
-  font-size: 0.82rem; 
-  color: #a7f3d0; 
-  word-break: break-all; 
-  user-select: all; 
-  line-height: 1.6; 
+.script-editor-preview {
+  padding: 14px;
+  border-radius: var(--rad-sm);
+  background: var(--bg-input);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: #6EE7B7;
+  word-break: break-all;
+  user-select: all;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
-   NOXGPT 3.1 PRO CHAT MODAL (AUTO-ADJUST & RAINBOW)
+   NOXGPT QUANTUM AI MODAL & MESSAGE ENGINE
    ========================================================================== */
-.modal-backdrop { 
-  position: fixed; 
-  inset: 0; 
-  z-index: 20000; 
-  display: none; 
-  justify-content: center; 
-  align-items: center; 
-  padding: 12px; 
-  background: rgba(2, 4, 7, 0.85); 
-  backdrop-filter: blur(20px); 
-  opacity: 0; 
-  transition: opacity 0.3s var(--ease-spring); 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background: rgba(2, 3, 10, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-cosmic);
 }
-.modal-backdrop.is-active { display: flex; opacity: 1; }
+.modal-overlay.is-active { display: flex; opacity: 1; }
 
-.modal-content { 
-  width: clamp(320px, 94vw, 680px); 
-  height: 85dvh; 
-  max-height: 780px; 
-  display: flex; 
-  flex-direction: column; 
-  background: var(--bg-card-solid); 
-  border: 1px solid var(--border-color); 
-  border-radius: var(--rad-lg); 
-  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.95); 
-  transform: scale(0.94) translateY(15px); 
-  transition: transform 0.35s var(--ease-spring); 
-  overflow: hidden; 
+.modal-quantum-card {
+  width: clamp(320px, 94vw, 720px);
+  height: 85dvh;
+  max-height: 800px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--rad-lg);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 217, 245, 0.1);
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.35s var(--ease-cosmic);
+  overflow: hidden;
 }
-.modal-backdrop.is-active .modal-content { transform: scale(1) translateY(0); }
+.modal-overlay.is-active .modal-quantum-card { transform: scale(1) translateY(0); }
 
-.modal-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 14px 18px; 
-  border-bottom: 1px solid var(--border-color); 
-  background: rgba(14, 18, 28, 0.95); 
+.quantum-ai-glow-border {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 35px rgba(0, 217, 245, 0.25), 0 0 15px rgba(168, 85, 247, 0.2) !important;
+}
+
+.modal-deck-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-glass);
+  background: rgba(9, 14, 30, 0.9);
   position: relative;
 }
-.modal-heading { 
-  font-size: 0.98rem; 
-  font-weight: 800; 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-  color: var(--text-main); 
+.modal-title-wrap {
+  font-size: 1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-main);
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
 }
-.modal-actions { display: flex; align-items: center; gap: 8px; }
 
-.modal-btn-icon { 
-  width: 34px; 
-  height: 34px; 
-  border-radius: 50%; 
-  background: rgba(255, 255, 255, 0.05); 
-  border: 1px solid var(--border-color); 
-  color: var(--text-sub); 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  transition: all 0.2s ease; 
-  cursor: pointer; 
+.btn-icon-cosmic {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  color: var(--text-sub);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
-.modal-btn-icon:hover { background: rgba(255, 255, 255, 0.12); color: var(--text-main); }
+.btn-icon-cosmic:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-main);
+  border-color: var(--accent-cyan);
+}
 
-/* 3-DOTS DROPDOWN MENU */
-.gpt-dots-dropdown {
+/* AI Dropdown Menu */
+.ai-settings-menu {
   position: absolute;
-  top: 54px;
-  right: 18px;
+  top: 58px;
+  right: 20px;
   background: var(--bg-card-solid);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-glass);
   border-radius: var(--rad-md);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-  padding: 8px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+  padding: 10px;
   display: none;
   flex-direction: column;
   gap: 6px;
   z-index: 1000;
-  min-width: 220px;
+  min-width: 240px;
 }
-.gpt-dots-dropdown.active { display: flex; animation: dropDownFade 0.2s var(--ease-spring); }
-@keyframes dropDownFade { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+.ai-settings-menu.active { display: flex; animation: dropdownPop 0.2s var(--ease-cosmic); }
+@keyframes dropdownPop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
-.dropdown-item {
+.ai-menu-item {
   padding: 10px 14px;
   border-radius: var(--rad-sm);
   background: transparent;
@@ -804,277 +1004,349 @@ body {
   cursor: pointer;
   transition: background 0.2s;
 }
-.dropdown-item:hover { background: rgba(255, 255, 255, 0.06); }
-.dropdown-item.active { color: var(--accent-cyan); }
+.ai-menu-item:hover { background: rgba(255, 255, 255, 0.06); }
+.ai-menu-item.active { color: var(--accent-cyan); }
 
-/* CHAT MESSAGES */
-.chat-messages { 
-  flex: 1 1 auto; 
-  overflow-y: auto; 
+/* Chat Thread */
+.chat-conversation-thread {
+  flex: 1 1 auto;
+  overflow-y: auto;
   overscroll-behavior: contain;
-  display: flex; 
-  flex-direction: column; 
-  gap: 14px; 
-  padding: 16px; 
-  background: var(--bg-core); 
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: var(--bg-void);
 }
-.msg-row { 
-  display: flex; 
-  flex-direction: column; 
-  max-width: 86%; 
-  position: relative; 
-  animation: msgPop 0.28s var(--ease-spring); 
+.msg-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 86%;
+  position: relative;
+  animation: cosmicMsgFade 0.28s var(--ease-cosmic);
 }
-@keyframes msgPop { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
-.msg-row.type-user { align-self: flex-end; align-items: flex-end; }
-.msg-row.type-other { align-self: flex-start; align-items: flex-start; }
+@keyframes cosmicMsgFade { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.msg-container.type-user { align-self: flex-end; align-items: flex-end; }
+.msg-container.type-other { align-self: flex-start; align-items: flex-start; }
 
-.msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.msg-name { font-size: 0.78rem; font-weight: 800; color: var(--text-sub); display: inline-flex; align-items: center; gap: 4px; }
-.msg-name.sys { color: var(--accent-emerald); }
+.msg-meta-line { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.msg-sender-name { font-size: 0.78rem; font-weight: 800; color: var(--text-sub); display: inline-flex; align-items: center; gap: 4px; }
+.msg-sender-name.sys { color: var(--accent-quantum); font-family: 'JetBrains Mono', monospace; }
 
-.badge-dev { color: #fff; background: linear-gradient(135deg, #ff2a85, #be185d); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; }
-.badge-nox { color: #032b1c; background: var(--accent-emerald); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; }
-.badge-guest { color: var(--text-muted); border: 1px solid var(--border-color); padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; background: var(--bg-input); }
+.badge-tag-dev { color: #FFF; background: linear-gradient(135deg, #FF2A85, #BE185D); padding: 2px 7px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; }
+.badge-tag-nox { color: #02030A; background: var(--accent-quantum); padding: 2px 7px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; }
+.badge-tag-guest { color: var(--text-muted); border: 1px solid var(--border-glass); padding: 2px 7px; border-radius: 4px; font-size: 0.65rem; background: var(--bg-input); }
 
-.msg-bubble { 
-  padding: 12px 16px; 
-  border-radius: 14px; 
-  font-size: 0.92rem; 
-  line-height: 1.6; 
-  word-wrap: break-word; 
-  border: 1px solid transparent; 
+.msg-glass-bubble {
+  padding: 13px 18px;
+  border-radius: 16px;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  word-wrap: break-word;
+  border: 1px solid transparent;
 }
-.msg-row.type-user .msg-bubble { 
-  background: linear-gradient(135deg, rgba(0, 245, 160, 0.2), rgba(0, 217, 245, 0.2)); 
-  border-color: rgba(0, 245, 160, 0.35); 
-  color: #e2e8f0; 
-  border-bottom-right-radius: 2px; 
+.msg-container.type-user .msg-glass-bubble {
+  background: linear-gradient(135deg, rgba(0, 217, 245, 0.2), rgba(99, 102, 241, 0.2));
+  border-color: rgba(0, 217, 245, 0.35);
+  color: #F1F5F9;
+  border-bottom-right-radius: 2px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
-.msg-row.type-other .msg-bubble { 
-  background: var(--bg-card-solid); 
-  color: var(--text-main); 
-  border-color: var(--border-color); 
-  border-bottom-left-radius: 2px; 
+.msg-container.type-other .msg-glass-bubble {
+  background: var(--bg-card-solid);
+  color: var(--text-main);
+  border-color: var(--border-glass);
+  border-bottom-left-radius: 2px;
 }
 
-/* MINIMAL QUANTUM MORPHING LOADER (CIRCLE -> SQUARE -> CIRCLE) */
+/* AI Morphing Quantum Loader */
 .ai-morphing-loader {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 10px;
+  padding: 8px 12px;
 }
-.morphing-shape {
-  width: 20px;
-  height: 20px;
-  background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
-  box-shadow: 0 0 15px var(--accent-emerald-glow);
-  animation: morphCircleSquareCircle 1.6s infinite ease-in-out;
+.morphing-quantum-core {
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, var(--accent-quantum), var(--accent-cyan));
+  box-shadow: 0 0 18px var(--accent-quantum-glow);
+  animation: quantumMorphing 1.8s infinite ease-in-out;
 }
-@keyframes morphCircleSquareCircle {
+@keyframes quantumMorphing {
   0% { border-radius: 50%; transform: rotate(0deg) scale(0.9); }
-  50% { border-radius: 4px; transform: rotate(180deg) scale(1.15); box-shadow: 0 0 20px var(--accent-cyan-glow); }
+  50% { border-radius: 4px; transform: rotate(180deg) scale(1.15); box-shadow: 0 0 25px var(--accent-cyan-glow); }
   100% { border-radius: 50%; transform: rotate(360deg) scale(0.9); }
 }
 
-.ai-image-result {
+.ai-generated-visual {
   max-width: 100%;
-  max-height: 220px;
+  max-height: 240px;
   border-radius: var(--rad-sm);
-  margin-top: 8px;
-  border: 1px solid var(--accent-emerald);
+  margin-top: 10px;
+  border: 1px solid var(--accent-cyan);
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(0, 245, 160, 0.2);
+  box-shadow: 0 0 25px rgba(0, 217, 245, 0.25);
   display: block;
 }
 
-.chat-footer { 
-  background: rgba(14, 18, 28, 0.95); 
-  border-top: 1px solid var(--border-color); 
-  padding: 12px 16px; 
-  display: flex; 
-  flex-direction: column; 
-  gap: 8px; 
+.chat-interactive-footer {
+  background: rgba(9, 14, 30, 0.95);
+  border-top: 1px solid var(--border-glass);
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.chat-input-wrapper { display: flex; align-items: flex-end; gap: 8px; width: 100%; }
-.chat-field { 
-  flex: 1; 
-  min-width: 0; 
-  min-height: 44px; 
-  height: 44px; 
-  max-height: 110px; 
-  padding: 11px 14px; 
-  border-radius: var(--rad-sm); 
-  background: var(--bg-input); 
-  border: 1px solid var(--border-color); 
-  color: var(--text-main); 
-  font-size: 0.9rem; 
-  resize: none; 
-  overflow-y: auto; 
+.input-assembly-bar { display: flex; align-items: flex-end; gap: 10px; width: 100%; }
+.interactive-textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  height: 44px;
+  max-height: 120px;
+  padding: 11px 16px;
+  border-radius: var(--rad-sm);
+  background: var(--bg-input);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  font-size: 0.92rem;
+  resize: none;
+  overflow-y: auto;
+  transition: border-color 0.2s;
 }
-.chat-field:focus { border-color: var(--accent-emerald); }
+.interactive-textarea:focus { border-color: var(--accent-cyan); }
 
-.btn-photo { 
-  height: 44px; 
-  width: 44px; 
-  border-radius: var(--rad-sm); 
-  background: var(--bg-input); 
-  color: var(--text-sub); 
-  border: 1px solid var(--border-color); 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  cursor: pointer; 
-  transition: 0.2s; 
-  flex-shrink: 0; 
+.btn-media-picker {
+  height: 44px;
+  width: 44px;
+  border-radius: var(--rad-sm);
+  background: var(--bg-input);
+  color: var(--text-sub);
+  border: 1px solid var(--border-glass);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
 }
-.btn-photo:hover { background: rgba(255, 255, 255, 0.08); color: var(--text-main); }
+.btn-media-picker:hover { background: rgba(255, 255, 255, 0.08); color: var(--text-main); border-color: var(--accent-cyan); }
 
-/* SEND / STOP BUTTON WITH ROTATING SQUARE */
-.chat-send { 
-  height: 44px; 
-  padding: 0 18px; 
-  border-radius: var(--rad-sm); 
-  background: var(--accent-emerald); 
-  color: #032b1c; 
-  font-weight: 800; 
-  font-size: 0.85rem; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  gap: 6px; 
-  cursor: pointer; 
-  transition: all 0.2s ease; 
-  flex-shrink: 0; 
+/* Send / Stop Pulse Button */
+.btn-execute-send {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: var(--rad-sm);
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-quantum));
+  color: #02030A;
+  font-weight: 800;
+  font-size: 0.88rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 0 15px var(--accent-cyan-glow);
 }
-.chat-send.is-stopping {
+.btn-execute-send:hover { transform: scale(1.03); }
+
+.btn-execute-send.is-stopping {
   background: var(--accent-danger);
-  color: #fff;
-  box-shadow: 0 0 18px rgba(255, 42, 95, 0.5);
+  color: #FFF;
+  box-shadow: 0 0 20px var(--accent-danger-glow);
 }
-.chat-send.is-stopping .stop-spin-square {
+.btn-execute-send.is-stopping .stop-spin-square {
   width: 14px;
   height: 14px;
-  background: #fff;
+  background: #FFF;
   border-radius: 2px;
-  animation: spinSquareStop 1.8s linear infinite;
+  animation: stopSpin 1.8s linear infinite;
 }
-@keyframes spinSquareStop { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes stopSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-/* LIGHTBOX */
+/* Lightbox */
 #image-lightbox {
-  position: fixed; 
-  inset: 0; 
-  background: rgba(0, 0, 0, 0.94); 
-  z-index: 300000; 
-  display: none; 
-  justify-content: center; 
-  align-items: center; 
-  padding: 20px; 
-  cursor: zoom-out; 
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 300000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  cursor: zoom-out;
 }
 #image-lightbox.active { display: flex; }
 #image-lightbox img {
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 92vw;
+  max-height: 92vh;
   object-fit: contain;
   border-radius: var(--rad-md);
-  box-shadow: 0 0 30px rgba(0, 245, 160, 0.2);
+  box-shadow: 0 0 40px rgba(0, 217, 245, 0.3);
 }
 
-/* Markdown blocks */
-.formatted-code-block { background: #040608; border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; margin: 8px 0; overflow: hidden; }
-.code-block-header { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
-.code-block-content { padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #6ee7b7; overflow-x: auto; white-space: pre-wrap; }
+/* Toast System */
+#toast-banner {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 400000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: var(--rad-md);
+  background: rgba(8, 12, 28, 0.92);
+  border: 1px solid var(--accent-cyan);
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.88rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--accent-cyan-glow);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.35s var(--ease-cosmic);
+  pointer-events: none;
+}
+#toast-banner.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
 
-/* AUTH BLOCKER */
-.auth-blocker { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; background: rgba(6, 8, 14, 0.96); backdrop-filter: blur(16px); text-align: center; padding: 32px; }
-.auth-blocker.is-hidden { display: none; }
+/* Markdown Code Blocks */
+.formatted-code-block { background: #03050C; border: 1px solid rgba(0, 217, 245, 0.15); border-radius: 6px; margin: 10px 0; overflow: hidden; }
+.code-block-header { display: flex; justify-content: space-between; align-items: center; padding: 7px 14px; background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid rgba(255, 255, 255, 0.06); font-size: 0.74rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
+.code-block-content { padding: 12px 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: #6EE7B7; overflow-x: auto; white-space: pre-wrap; }
+
+/* Auth Blocker */
+.auth-blocker-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  background: rgba(4, 6, 16, 0.96);
+  backdrop-filter: blur(20px);
+  text-align: center;
+  padding: 32px;
+}
+.auth-blocker-curtain.is-hidden { display: none; }
 </style>
 </head>
 <body>
 
+<!-- Cosmic Background Canvas & Aurora Mesh -->
+<canvas id="cosmic-canvas"></canvas>
+<div class="aurora-glow-top"></div>
+<div class="aurora-glow-bottom"></div>
+<div id="quantum-cursor-glow"></div>
+
+<!-- Initializer Loading Sequence -->
 <div id="quantum-loader">
-  <div class="loader-spinner-wrap">
-    <div class="loader-ring-outer"></div>
-    <div class="loader-ring-mid"></div>
-    <div class="loader-ring-inner"></div>
-    <div class="loader-center-node">
-      <span class="loader-center-title">NOX</span>
-      <span class="loader-center-sub">V75 ULTRA</span>
+  <div class="quantum-core-reactor">
+    <div class="reactor-ring-1"></div>
+    <div class="reactor-ring-2"></div>
+    <div class="reactor-ring-3"></div>
+    <div class="reactor-core-symbol">
+      <span class="reactor-title">NOX</span>
+      <span class="reactor-sub">QUANTUM</span>
     </div>
   </div>
-  <div class="loader-status-text" id="loader-status-msg">INITIALIZING V75 QUANTUM CORE...</div>
+  <div class="loader-status-text" id="loader-status-msg">INITIALIZING QUANTUM AI CORE...</div>
 </div>
 
+<!-- Image Lightbox Modal -->
 <div id="image-lightbox" onclick="this.classList.remove('active')">
   <img src="" id="lightbox-img" alt="Enlarged Preview">
 </div>
 
+<!-- Global System Toast -->
 <div id="toast-banner">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-  <span id="toast-msg-text">CẬP NHẬT MỚI TỪ MÁY CHỦ!</span>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+  <span id="toast-msg-text">QUANTUM PROTOCOL SYNCHRONIZED</span>
 </div>
 
+<!-- Floating Cosmic Glass Navbar -->
 <header class="top-nav">
-  <button class="menu-trigger" onclick="toggleMenu()">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span id="txt-menu-btn">MENU</span>
-  </button>
-  
-  <button class="lang-switch-btn" onclick="LangEngine.toggle()">
-    <span id="txt-lang-badge">🇻🇳 VN</span>
-  </button>
+  <div class="brand-wrap" onclick="EasterEngine.triggerCorePulse()">
+    <div class="brand-icon-orb">⚛</div>
+    <div class="brand-text">NOX GALAXY</div>
+  </div>
+
+  <div class="nav-actions-wrap">
+    <div class="nav-status-badge">
+      <span class="pulse-dot-green"></span>
+      <span id="ui-nav-status">CORE ONLINE</span>
+    </div>
+
+    <button class="nav-btn" onclick="LangEngine.toggle()">
+      <span id="txt-lang-badge">🇻🇳 VN</span>
+    </button>
+
+    <button class="nav-btn" onclick="toggleMenu()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <span id="txt-menu-btn">MENU</span>
+    </button>
+  </div>
 </header>
 
-<nav class="drawer-menu" id="nav-drawer">
-  <div class="fullscreen-menu-header">
-    <div class="fullscreen-title">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 17 22 12"></polyline></svg>
-      <span id="txt-drawer-title">BẢNG ĐIỀU KHIỂN HỆ THỐNG</span>
+<!-- Command Deck Drawer -->
+<nav class="command-drawer" id="nav-drawer">
+  <div class="drawer-header">
+    <div class="drawer-title">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 17 22 12"></polyline></svg>
+      <span id="txt-drawer-title">QUANTUM COMMAND DECK</span>
     </div>
-    <button class="fullscreen-close" onclick="toggleMenu()" title="Đóng menu (ESC)">
+    <button class="drawer-close-btn" onclick="toggleMenu()" title="Đóng menu (ESC)">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
   </div>
 
-  <div class="fullscreen-menu-grid">
-    <div class="menu-section-card">
-      <div class="section-title">
+  <div class="drawer-grid">
+    <!-- AI Assistants & Chat -->
+    <div class="drawer-card">
+      <div class="drawer-section-title">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
         <span id="txt-menu-ai-group">AI TRỢ LÝ & TRÒ CHUYỆN</span>
       </div>
-      <button class="btn-menu-item" onclick="RestrictedAction.checkAndOpen('modal-noxgpt')">
+      <button class="drawer-action-btn" onclick="RestrictedAction.checkAndOpen('modal-noxgpt')">
         <span style="display:flex; align-items:center; gap:10px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          <span class="rainbow-title-glow">NOXGPT 3.1 PRO [AI]</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span style="color:var(--accent-cyan);">NOXGPT QUANTUM AI</span>
         </span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
-      <button class="btn-menu-item" onclick="RestrictedAction.checkAndOpen('modal-noxchat')">
+      <button class="drawer-action-btn" onclick="RestrictedAction.checkAndOpen('modal-noxchat')">
         <span style="display:flex; align-items:center; gap:10px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-          GLOBAL CHATROOM
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-quantum)" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          COSMIC CHATROOM
         </span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
     </div>
 
-    <div class="menu-section-card">
-      <div class="section-title">
+    <!-- System Account -->
+    <div class="drawer-card">
+      <div class="drawer-section-title">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         <span id="txt-menu-auth-group">TÀI KHOẢN HỆ THỐNG</span>
       </div>
       <div id="drawer-google-login-wrap" style="width:100%; display:flex; justify-content:center; margin-bottom: 4px; overflow:hidden;"></div>
-      <button class="btn-menu-item" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">
+      <button class="drawer-action-btn" id="drawer-btn-guest" onclick="AuthEngine.guestLogin()">
         <span style="display:flex; align-items:center; gap:10px;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
           <span id="txt-menu-guest-btn">ĐĂNG NHẬP KHÁCH</span>
         </span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
-      <button class="btn-menu-item" id="drawer-btn-logout" onclick="AuthEngine.triggerLogout()" style="display:none; color:var(--accent-danger); border-color:rgba(255, 42, 95, 0.3);">
+      <button class="drawer-action-btn" id="drawer-btn-logout" onclick="AuthEngine.triggerLogout()" style="display:none; color:var(--accent-danger); border-color:rgba(255, 42, 95, 0.3);">
         <span style="display:flex; align-items:center; gap:10px;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
           <span id="txt-menu-logout-btn">ĐĂNG XUẤT</span>
@@ -1082,37 +1354,39 @@ body {
       </button>
     </div>
 
-    <div class="menu-section-card" id="dev-menu-editor-group" style="display:none;">
-      <div class="section-title" style="color:var(--dev-color);">
+    <!-- Admin Dev Control -->
+    <div class="drawer-card" id="dev-menu-editor-group" style="display:none;">
+      <div class="drawer-section-title" style="color:var(--dev-color);">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--dev-color)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
         [DEV] QUẢN TRỊ VIÊN
       </div>
-      <button class="btn-menu-item" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">
+      <button class="drawer-action-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="MenuEditor.toggleEditor()">
         <span>⚙ CHỈNH SỬA MENU</span>
       </button>
       <div id="dev-menu-editor-box" style="display:none; flex-direction:column; gap:8px;">
-          <input type="text" id="menu-item-name" placeholder="Tên mục..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-          <input type="text" id="menu-item-link" placeholder="Đường dẫn URL..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-          <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#fff; font-weight:800; cursor:pointer;">THÊM MỤC</button>
+          <input type="text" id="menu-item-name" placeholder="Tên mục..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-glass);">
+          <input type="text" id="menu-item-link" placeholder="Đường dẫn URL..." style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-glass);">
+          <button onclick="MenuEditor.addMenuItem()" style="padding:10px; background:var(--dev-color); color:#FFF; font-weight:800; cursor:pointer;">THÊM MỤC</button>
       </div>
-      <button class="btn-menu-item" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">
+      <button class="drawer-action-btn" style="border-color:var(--dev-color); color:var(--dev-color);" onclick="openUI('modal-user-mgr'); UserMgr.loadUsers();">
         <span>🛡 QUẢN LÝ NGƯỜI DÙNG</span>
       </button>
     </div>
 
-    <div class="menu-section-card">
-      <div class="section-title">
+    <!-- Community Network -->
+    <div class="drawer-card">
+      <div class="drawer-section-title">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>
         <span id="txt-menu-community-group">KÊNH CỘNG ĐỒNG</span>
       </div>
       <div id="dynamic-menu-links" style="display:flex; flex-direction:column; gap:8px;"></div>
-      <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="btn-menu-item">
-        <span style="display:flex; align-items:center; gap:10px; color:#0068ff;">
+      <a href="https://zalo.me/g/db0epbye4robazncg2jc" target="_blank" class="drawer-action-btn">
+        <span style="display:flex; align-items:center; gap:10px; color:#0068FF;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           NHÓM ZALO NOX
         </span>
       </a>
-      <a href="https://discord.gg/kRCKkw63s" target="_blank" class="btn-menu-item">
+      <a href="https://discord.gg/kRCKkw63s" target="_blank" class="drawer-action-btn">
         <span style="display:flex; align-items:center; gap:10px; color:#5865F2;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           DISCORD SERVER
@@ -1122,52 +1396,59 @@ body {
   </div>
 </nav>
 
-<div class="live-hud-bar">
-  <div class="hud-item">
-    <div class="hud-status-dot"></div>
+<!-- System Telemetry HUD Bar -->
+<div class="system-hud-deck">
+  <div class="hud-cell">
+    <div class="pulse-dot-green"></div>
     <span>NOX QUANTUM CORE</span>
   </div>
-  <div class="hud-item">
+  <div class="hud-cell">
     <span>🌐 CLOCK:</span>
-    <span id="hud-live-clock" style="color:var(--accent-emerald); font-weight:700;">--:--:--</span>
-    <select class="timezone-select" id="hud-tz-select" onchange="TimeEngine.changeTz(this.value)">
+    <span id="hud-live-clock" class="hud-val-active">--:--:--</span>
+    <select class="timezone-dropdown" id="hud-tz-select" onchange="TimeEngine.changeTz(this.value)">
       <option value="Asia/Ho_Chi_Minh">VN (GMT+7)</option>
       <option value="Asia/Tokyo">Tokyo (GMT+9)</option>
       <option value="UTC">London (UTC)</option>
       <option value="America/New_York">New York (EST)</option>
     </select>
   </div>
-  <div class="hud-item">
-    <span>PING: <span id="hud-ping">20ms</span></span>
+  <div class="hud-cell">
+    <span>PING: <span id="hud-ping" class="hud-val-active">18ms</span></span>
+  </div>
+  <div class="hud-cell">
+    <span>AI CORE: <span class="hud-val-active">ONLINE</span></span>
   </div>
 </div>
 
-<div class="hero-wrapper">
-  <main class="hero-card glass-panel" id="dashboard-card">
-    <div class="title-wrap">
-      <span class="status-badge" id="ui-version-badge">
-        <span class="pulse-glow-dot"></span> ⚡ 𝗣𝗛𝗜𝗘̂𝗡 𝗕𝗔̉𝗡 𝗩𝟳𝟱 𝗨𝗟𝗧𝗥𝗔 𝗣𝗥𝗢𝗠𝗔𝗫 ⚡
+<!-- Hero / Quantum Core Section -->
+<div class="hero-quantum-deck">
+  <main class="quantum-hero-panel">
+    <div class="hero-header-meta">
+      <span class="quantum-version-chip" id="ui-version-badge">
+        <span class="pulse-dot-green"></span> ⚡ QUANTUM OPUS V75 ULTRA ⚡
       </span>
-      <h1 class="title-main" id="ui-title-text">⚡ 𝗡𝗢𝗫-𝗦𝗞𝗜𝗕𝗜𝗗𝗜 𝗪𝗘𝗕 ⚡</h1>
+      <h1 class="hero-cosmic-title" id="ui-title-text">NOX GALAXY QUANTUM</h1>
+      <p class="hero-subtitle">NEXT GENERATION AI & SCRIPT COMMAND CENTER</p>
     </div>
 
-    <div class="info-board">
-      <div class="info-board-head">
-        <div class="info-board-title" id="ui-notice-title">
+    <div class="quantum-system-board">
+      <div class="system-board-header">
+        <div class="system-board-heading" id="ui-notice-title">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          <span id="txt-notice-heading">◈ 𝗧𝗛𝗢̂𝗡𝗚 𝗕𝗔́𝗢 𝗛𝗘̣̂ 𝗧𝗛𝗢̂́𝗡𝗚 ◈</span>
+          <span id="txt-notice-heading">◈ THÔNG BÁO HỆ THỐNG ◈</span>
         </div>
-        <button class="btn-cyber-outline" id="btn-notice-toggle" onclick="NoticeTypewriter.toggle()">
+        <button class="btn-cosmic-ghost" id="btn-notice-toggle" onclick="NoticeTypewriter.toggle()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
           <span id="txt-notice-btn">NỘI DUNG</span>
         </button>
       </div>
-      <div class="typewriter-zone" id="ui-notice-text-zone">
+      <div class="typewriter-viewport" id="ui-notice-text-zone">
         Nhấn vào nút <strong>NỘI DUNG</strong> phía trên để xem chi tiết thông báo...
       </div>
     </div>
 
-    <div class="dev-config-box" id="dev-config-panel">
+    <!-- Dev Configuration Panel -->
+    <div class="dev-admin-config-deck" id="dev-config-panel">
         <div style="color:var(--dev-color); font-weight:800; font-size:0.85rem;">[DEV] CẤU HÌNH GIAO DIỆN WEB</div>
         <input type="text" id="dev-conf-title" placeholder="Tên tiêu đề web...">
         <input type="text" id="dev-conf-version" placeholder="Phiên bản (VD: V75 PROMAX)...">
@@ -1178,34 +1459,36 @@ body {
   </main>
 </div>
 
-<div class="feed-container">
-  <div class="feed-header-bar">
-    <input class="chat-field" id="input-search" placeholder="🔍 Tìm kiếm Script, Link Bypass, Tool APK..." oninput="UtilsEngine.execSearch(this.value)" style="width:100%;">
+<!-- Vault & Utilities Feed -->
+<div class="vault-container">
+  <div class="vault-control-bar">
+    <input class="search-input-field" id="input-search" placeholder="🔍 Tìm kiếm Script, Link Bypass, Tool APK..." oninput="UtilsEngine.execSearch(this.value)">
 
-    <div class="tab-nav">
-      <button class="tab-btn is-active" onclick="UtilsEngine.switchTab('pane-link', this)">
+    <div class="category-tab-strip">
+      <button class="tab-chip is-active" onclick="UtilsEngine.switchTab('pane-link', this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
         <span id="tab-txt-links">LINKS BYPASS</span>
       </button>
-      <button class="tab-btn" onclick="UtilsEngine.switchTab('pane-script', this)">
+      <button class="tab-chip" onclick="UtilsEngine.switchTab('pane-script', this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
         <span id="tab-txt-scripts">SCRIPTS LUA</span>
       </button>
-      <button class="tab-btn" onclick="UtilsEngine.switchTab('pane-apk', this)">
+      <button class="tab-chip" onclick="UtilsEngine.switchTab('pane-apk', this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon></svg>
         <span id="tab-txt-apk">FILE APK</span>
       </button>
-      <button class="tab-btn" onclick="UtilsEngine.switchTab('pane-ios', this)">
+      <button class="tab-chip" onclick="UtilsEngine.switchTab('pane-ios', this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle></svg>
         <span id="tab-txt-ios">IPA / IOS</span>
       </button>
     </div>
   </div>
 
-  <div class="dev-config-box" id="dev-utils-panel" style="margin-bottom:10px;">
+  <!-- Admin Add / Edit Item Panel -->
+  <div class="dev-admin-config-deck" id="dev-utils-panel" style="margin-bottom:10px;">
       <div style="color:var(--dev-color); font-weight:bold;" id="dev-panel-heading">[DEV] THÊM / SỬA TIỆN ÍCH</div>
       <input type="hidden" id="dev-edit-key" value="">
-      <select id="dev-util-type" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
+      <select id="dev-util-type" style="padding:10px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-glass);">
           <option value="pane-link">Link</option>
           <option value="pane-script">Script</option>
           <option value="pane-apk">APK</option>
@@ -1214,56 +1497,57 @@ body {
       <input type="text" id="dev-util-title" placeholder="Tên tiện ích...">
       <input type="text" id="dev-util-image" placeholder="URL hình ảnh Banner / Thumbnail...">
       <div style="display:flex; align-items:center; gap:10px;">
-        <label for="dev-file-img" class="btn-cyber-outline" style="cursor:pointer;">📁 TẢI ẢNH TỪ MÁY</label>
+        <label for="dev-file-img" class="btn-cosmic-ghost" style="cursor:pointer;">📁 TẢI ẢNH TỪ MÁY</label>
         <input type="file" id="dev-file-img" accept="image/*" style="display:none;" onchange="UtilsEngine.handleDevImage(this)">
         <span id="dev-file-name" style="font-size:0.8rem; color:var(--text-sub);">Chưa chọn ảnh</span>
       </div>
       <textarea id="dev-util-content" placeholder="Link URL hoặc Mã Script..."></textarea>
       <div style="display:flex; gap:10px;">
-          <button onclick="UtilsEngine.triggerSave()" style="flex:1; background:var(--dev-color); color:#fff; padding:12px; font-weight:bold;" id="dev-submit-btn">ĐĂNG TẢI</button>
-          <button onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; background:var(--border-color); color:var(--text-main); flex:1; padding:12px;">HỦY</button>
+          <button onclick="UtilsEngine.triggerSave()" style="flex:1; background:var(--dev-color); color:#FFF; padding:12px; font-weight:bold;" id="dev-submit-btn">ĐĂNG TẢI</button>
+          <button onclick="UtilsEngine.cancelEdit()" id="dev-cancel-btn" style="display:none; background:var(--border-glass); color:var(--text-main); flex:1; padding:12px;">HỦY</button>
       </div>
   </div>
 
-  <div class="feed-items-grid" id="main-feed-container"></div>
+  <div class="vault-grid" id="main-feed-container"></div>
 </div>
 
-<div class="modal-backdrop" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
-  <div class="modal-content rainbow-mode-active" id="gpt-modal-card">
-    <div class="modal-header">
-      <div class="modal-heading">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-        <span id="gpt-active-model-title" class="rainbow-title-glow">NOXGPT 3.1 PRO [QUANTUM]</span>
+<!-- NOXGPT Quantum AI Modal -->
+<div class="modal-overlay" id="modal-noxgpt" onclick="if(event.target===this)closeUI('modal-noxgpt')">
+  <div class="modal-quantum-card quantum-ai-glow-border" id="gpt-modal-card">
+    <div class="modal-deck-header">
+      <div class="modal-title-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <span id="gpt-active-model-title" style="color:var(--accent-cyan);">NOXGPT 3.1 PRO [QUANTUM]</span>
       </div>
       
-      <div class="modal-actions">
-        <button class="modal-btn-icon" onclick="GptEngine.toggleDropdown()" title="Tùy chọn AI">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button class="btn-icon-cosmic" onclick="GptEngine.toggleDropdown()" title="Tùy chọn AI">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
         </button>
-
-        <button class="modal-btn-icon" onclick="closeUI('modal-noxgpt')" title="Đóng">
+        <button class="btn-icon-cosmic" onclick="closeUI('modal-noxgpt')" title="Đóng">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
       </div>
 
-      <div class="gpt-dots-dropdown" id="gpt-options-dropdown">
-        <div class="dropdown-item active" id="dropdown-item-model31" onclick="GptEngine.switchModel('3.1')">
+      <!-- Settings Dropdown -->
+      <div class="ai-settings-menu" id="gpt-options-dropdown">
+        <div class="ai-menu-item active" id="dropdown-item-model31" onclick="GptEngine.switchModel('3.1')">
           <span>⚡ Model: NOXGPT 3.1 Pro</span>
           <span id="dropdown-m31-check">✓</span>
         </div>
-        <div class="dropdown-item" id="dropdown-item-model25" onclick="GptEngine.switchModel('2.5')">
+        <div class="ai-menu-item" id="dropdown-item-model25" onclick="GptEngine.switchModel('2.5')">
           <span>◈ Model: NOXGPT 2.5 Ultra</span>
           <span id="dropdown-m25-check"></span>
         </div>
-        <div style="height:1px; background:var(--border-color); margin:4px 0;"></div>
-        <div class="dropdown-item active" id="dropdown-item-think" onclick="GptEngine.toggleDeepThink()">
+        <div style="height:1px; background:var(--border-glass); margin:4px 0;"></div>
+        <div class="ai-menu-item active" id="dropdown-item-think" onclick="GptEngine.toggleDeepThink()">
           <span>🧠 Suy nghĩ sâu (Deep Reasoning)</span>
           <span id="dropdown-think-status">✓</span>
         </div>
         <div style="font-size:0.7rem; color:var(--accent-cyan); padding:4px 14px;" id="dropdown-quota-info">
           Hạn mức 3.1 Pro: 40/40 lượt (5h reset)
         </div>
-        <div class="dropdown-item" onclick="GptEngine.clearHistory()">
+        <div class="ai-menu-item" onclick="GptEngine.clearHistory()">
           <span>🗑 Làm mới hội thoại</span>
         </div>
       </div>
@@ -1271,25 +1555,25 @@ body {
     
     <div id="gpt-fallback-container" style="display:none; padding:14px; background:var(--bg-input); border:1px dashed var(--accent-danger); margin:12px; border-radius:var(--rad-sm);">
         <div style="font-size:0.85rem; font-weight:800; color:var(--accent-danger); margin-bottom:8px;" id="gpt-fallback-title">[LỖI] CẦN CẬP NHẬT API KEY</div>
-        <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key mới..." style="width:100%; padding:10px; background:var(--bg-core); border:1px solid var(--border-color); color:var(--text-main); margin-bottom:8px;">
-        <button onclick="GptEngine.validateAndSaveConfig()" style="width:100%; padding:10px; background:var(--accent-danger); color:#fff; font-weight:800; cursor:pointer;">LƯU VÀ THỬ LẠI</button>
+        <input type="text" id="gpt-new-api-key" placeholder="Nhập API Key mới..." style="width:100%; padding:10px; background:var(--bg-void); border:1px solid var(--border-glass); color:var(--text-main); margin-bottom:8px;">
+        <button onclick="GptEngine.validateAndSaveConfig()" style="width:100%; padding:10px; background:var(--accent-danger); color:#FFF; font-weight:800; cursor:pointer;">LƯU VÀ THỬ LẠI</button>
     </div>
 
-    <div class="chat-messages" id="noxgpt-board"></div>
+    <div class="chat-conversation-thread" id="noxgpt-board"></div>
     
-    <div class="chat-footer">
+    <div class="chat-interactive-footer">
       <div id="gpt-preview-zone" style="display:none; align-items:center; gap:10px;">
         <img src="" id="gpt-preview-img" style="width:36px; height:36px; border-radius:6px; object-fit:cover;">
         <div onclick="GptEngine.removeImage()" style="cursor:pointer; color:var(--accent-danger); font-weight:bold;">✕</div>
       </div>
-      <div class="chat-input-wrapper">
-        <label for="gpt-img-upload" class="btn-photo" title="Tải ảnh">
+      <div class="input-assembly-bar">
+        <label for="gpt-img-upload" class="btn-media-picker" title="Tải ảnh">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
         </label>
         <input type="file" id="gpt-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'gpt')">
-        <textarea id="noxgpt-field" class="chat-field" placeholder="Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà', 'Make a home'..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
+        <textarea id="noxgpt-field" class="interactive-textarea" placeholder="Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà'..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); GptEngine.submit(); }"></textarea>
         
-        <button class="chat-send" id="btn-gpt-send" onclick="GptEngine.handleSendOrStop()">
+        <button class="btn-execute-send" id="btn-gpt-send" onclick="GptEngine.handleSendOrStop()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
         </button>
       </div>
@@ -1297,50 +1581,51 @@ body {
   </div>
 </div>
 
-<div class="modal-backdrop" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
-  <div class="modal-content" style="position: relative;">
+<!-- Cosmic Global Chatroom Modal -->
+<div class="modal-overlay" id="modal-noxchat" onclick="if(event.target===this)closeUI('modal-noxchat')">
+  <div class="modal-quantum-card" style="position: relative;">
     
-    <div class="auth-blocker" id="auth-guard">
-      <h2 style="font-size:1.5rem; font-weight:800; color:var(--text-main);">GLOBAL CHATROOM</h2>
-      <p style="color:var(--text-sub); font-size:0.85rem;" id="txt-auth-desc">Đăng nhập để giao lưu cùng cộng đồng NOX.</p>
+    <div class="auth-blocker-curtain" id="auth-guard">
+      <h2 style="font-size:1.5rem; font-weight:800; color:var(--text-main); font-family:'Orbitron', sans-serif;">COSMIC CHATROOM</h2>
+      <p style="color:var(--text-sub); font-size:0.85rem;" id="txt-auth-desc">Đăng nhập để giao lưu cùng cộng đồng NOX toàn cầu.</p>
       <div id="google-login-mount"></div>
       <div style="margin: 4px 0; color: var(--text-muted); font-size:0.8rem;">— HOẶC —</div>
-      <button class="btn-primary" style="width:auto; padding:10px 22px;" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
+      <button class="btn-action-pill" style="padding:10px 24px; background:var(--accent-cyan); color:#02030A;" onclick="AuthEngine.guestLogin()">ĐĂNG NHẬP KHÁCH</button>
     </div>
 
-    <div class="modal-header">
-      <div class="modal-heading">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        GLOBAL CHAT
+    <div class="modal-deck-header">
+      <div class="modal-title-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-quantum)" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        COSMIC CHAT
       </div>
       <div style="display:flex; gap:8px;">
-        <button class="btn-cyber-outline" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">📦 KHO SCRIPT</button>
-        <button class="modal-btn-icon" onclick="closeUI('modal-noxchat')">✕</button>
+        <button class="btn-cosmic-ghost" onclick="openUI('modal-script-vault'); ChatEngine.loadVaultScripts();">📦 KHO SCRIPT</button>
+        <button class="btn-icon-cosmic" onclick="closeUI('modal-noxchat')">✕</button>
       </div>
     </div>
     
-    <div class="chat-messages" id="noxchat-board">
-      <div class="msg-row type-other">
-        <div class="msg-meta"><div class="msg-name sys">Hệ Thống</div></div>
-        <div class="msg-bubble">⚡ Đã kết nối Firebase Realtime Database thành công.</div>
+    <div class="chat-conversation-thread" id="noxchat-board">
+      <div class="msg-container type-other">
+        <div class="msg-meta-line"><div class="msg-sender-name sys">Hệ Thống</div></div>
+        <div class="msg-glass-bubble">⚡ Đã kết nối Firebase Realtime Database thành công.</div>
       </div>
     </div>
     
-    <div class="chat-footer">
+    <div class="chat-interactive-footer">
       <div id="chat-preview-zone" style="display:none; align-items:center; gap:10px;">
         <img src="" id="chat-preview-img" style="width:36px; height:36px; border-radius:6px; object-fit:cover;">
         <div onclick="ChatEngine.removeImage()" style="cursor:pointer; color:var(--accent-danger); font-weight:bold;">✕</div>
       </div>
-      <div class="chat-input-wrapper">
-        <button class="btn-photo" title="Chia sẻ Script" onclick="openUI('modal-script-share')">
+      <div class="input-assembly-bar">
+        <button class="btn-media-picker" title="Chia sẻ Script" onclick="openUI('modal-script-share')">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
         </button>
-        <label for="chat-img-upload" class="btn-photo" title="Gửi ảnh">
+        <label for="chat-img-upload" class="btn-media-picker" title="Gửi ảnh">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
         </label>
         <input type="file" id="chat-img-upload" accept="image/*" style="display:none;" onchange="ImageProcessor.handleSelect(this, 'chat')">
-        <textarea id="noxchat-field" class="chat-field" placeholder="Nhập tin nhắn..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); ChatEngine.sendMsg(); }"></textarea>
-        <button class="chat-send" onclick="ChatEngine.sendMsg()">
+        <textarea id="noxchat-field" class="interactive-textarea" placeholder="Nhập tin nhắn..." oninput="autoResizeTextarea(this)" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); ChatEngine.sendMsg(); }"></textarea>
+        <button class="btn-execute-send" onclick="ChatEngine.sendMsg()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
         </button>
       </div>
@@ -1348,49 +1633,53 @@ body {
   </div>
 </div>
 
-<div class="modal-backdrop" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
-  <div class="modal-content" style="max-width: 500px; height: auto;">
-    <div class="modal-header">
-      <div class="modal-heading">Chia sẻ Script Cộng Đồng</div>
-      <button class="modal-btn-icon" onclick="closeUI('modal-script-share')">✕</button>
+<!-- Script Share Modal -->
+<div class="modal-overlay" id="modal-script-share" onclick="if(event.target===this)closeUI('modal-script-share')">
+  <div class="modal-quantum-card" style="max-width: 520px; height: auto;">
+    <div class="modal-deck-header">
+      <div class="modal-title-wrap">Chia sẻ Script Cộng Đồng</div>
+      <button class="btn-icon-cosmic" onclick="closeUI('modal-script-share')">✕</button>
     </div>
-    <div style="display:flex; flex-direction:column; gap:12px; padding:20px;">
-      <input type="text" id="share-title" placeholder="Tên Script (VD: Speed Hub X)..." style="padding:12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-      <input type="text" id="share-image" placeholder="URL hình ảnh Banner (tùy chọn)..." style="padding:12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">
-      <textarea id="share-code" placeholder="Dán mã Script Lua vào đây..." style="height:140px; resize:none; font-family:'JetBrains Mono', monospace; font-size:0.85rem; padding:12px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);"></textarea>
-      <button class="btn-primary" onclick="ChatEngine.sendScript()">ĐĂNG LÊN KHO SCRIPT</button>
+    <div style="display:flex; flex-direction:column; gap:14px; padding:24px;">
+      <input type="text" id="share-title" placeholder="Tên Script (VD: Speed Hub X)..." style="padding:12px 16px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-glass);">
+      <input type="text" id="share-image" placeholder="URL hình ảnh Banner (tùy chọn)..." style="padding:12px 16px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-glass);">
+      <textarea id="share-code" placeholder="Dán mã Script Lua vào đây..." style="height:140px; resize:none; font-family:'JetBrains Mono', monospace; font-size:0.85rem; padding:12px 16px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-glass);"></textarea>
+      <button class="btn-action-pill" style="width:100%; justify-content:center; padding:12px; background:var(--accent-quantum); color:#02030A;" onclick="ChatEngine.sendScript()">ĐĂNG LÊN KHO SCRIPT</button>
     </div>
   </div>
 </div>
 
-<div class="modal-backdrop" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-heading">Kho Script Đóng Góp</div>
-      <button class="modal-btn-icon" onclick="closeUI('modal-script-vault')">✕</button>
+<!-- Script Vault Modal -->
+<div class="modal-overlay" id="modal-script-vault" onclick="if(event.target===this)closeUI('modal-script-vault')">
+  <div class="modal-quantum-card">
+    <div class="modal-deck-header">
+      <div class="modal-title-wrap">Kho Script Đóng Góp</div>
+      <button class="btn-icon-cosmic" onclick="closeUI('modal-script-vault')">✕</button>
     </div>
-    <div class="chat-messages" id="vault-board"></div>
+    <div class="chat-conversation-thread" id="vault-board"></div>
   </div>
 </div>
 
-<div class="modal-backdrop" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-heading" style="color:var(--dev-color);">[DEV] QUẢN LÝ NGƯỜI DÙNG</div>
-      <button class="modal-btn-icon" onclick="closeUI('modal-user-mgr')">✕</button>
+<!-- User Management Modal (Admin) -->
+<div class="modal-overlay" id="modal-user-mgr" onclick="if(event.target===this)closeUI('modal-user-mgr')">
+  <div class="modal-quantum-card">
+    <div class="modal-deck-header">
+      <div class="modal-title-wrap" style="color:var(--dev-color);">[DEV] QUẢN LÝ NGƯỜI DÙNG</div>
+      <button class="btn-icon-cosmic" onclick="closeUI('modal-user-mgr')">✕</button>
     </div>
-    <div class="chat-messages" id="user-mgr-board">
+    <div class="chat-conversation-thread" id="user-mgr-board">
         <div style="text-align:center; color:var(--text-sub); padding:20px;">Đang tải danh sách...</div>
     </div>
   </div>
 </div>
 
-<div class="modal-backdrop" id="confirm-modal">
-    <div class="data-box" style="max-width:400px; width:100%; text-align:center; padding:24px; background:var(--bg-card-solid);">
+<!-- Action Confirm Modal -->
+<div class="modal-overlay" id="confirm-modal">
+    <div class="vault-item-card" style="max-width:420px; width:100%; text-align:center; padding:26px; background:var(--bg-card-solid);">
         <div style="color:var(--accent-danger); font-weight:800; margin-bottom:20px; font-size:1rem;" id="confirm-msg-text">BẠN CÓ CHẮC CHẮN?</div>
         <div style="display:flex; gap:12px;">
-            <button class="btn-primary" style="background:var(--accent-danger); color:#fff;" onclick="ConfirmUI.ok()">XÁC NHẬN</button>
-            <button class="btn-cyber-outline" style="flex:1;" onclick="ConfirmUI.no()">HỦY</button>
+            <button class="btn-action-pill" style="background:var(--accent-danger); color:#FFF; flex:1; justify-content:center;" onclick="ConfirmUI.ok()">XÁC NHẬN</button>
+            <button class="btn-cosmic-ghost" style="flex:1; justify-content:center;" onclick="ConfirmUI.no()">HỦY</button>
         </div>
     </div>
 </div>
@@ -1407,7 +1696,7 @@ function autoResizeTextarea(el) {
     if(!el) return;
     el.style.height = '44px';
     var newHeight = el.scrollHeight;
-    if (newHeight > 110) newHeight = 110;
+    if (newHeight > 120) newHeight = 120;
     el.style.height = newHeight + 'px';
 }
 
@@ -1421,6 +1710,153 @@ function openLightbox(src) {
 
 var ADMIN_EMAIL = "hminhgalaxy@gmail.com";
 var IS_ADMIN = false;
+
+/* ==========================================================================
+   COSMIC CANVAS BACKGROUND ENGINE
+   ========================================================================== */
+var CosmicCanvasEngine = {
+  canvas: null,
+  ctx: null,
+  stars: [],
+  shootingStars: [],
+  numStars: 140,
+  width: window.innerWidth,
+  height: window.innerHeight,
+  animId: null,
+  isOverdrive: false,
+
+  init: function() {
+    this.canvas = DOM.get('cosmic-canvas');
+    if(!this.canvas) return;
+    this.ctx = this.canvas.getContext('2d');
+    this.resize();
+
+    window.addEventListener('resize', function() { CosmicCanvasEngine.resize(); });
+    this.createStars();
+    this.loop();
+    this.scheduleShootingStar();
+
+    // Mouse Tracking Ambient Glow
+    var glow = DOM.get('quantum-cursor-glow');
+    if(glow) {
+      window.addEventListener('mousemove', function(e) {
+        glow.style.transform = 'translate(' + (e.clientX - 190) + 'px, ' + (e.clientY - 190) + 'px)';
+      });
+    }
+
+    // Battery & Tab Optimization
+    document.addEventListener('visibilitychange', function() {
+      if(document.hidden) {
+        cancelAnimationFrame(CosmicCanvasEngine.animId);
+      } else {
+        CosmicCanvasEngine.loop();
+      }
+    });
+  },
+
+  resize: function() {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    if(this.canvas) {
+      this.canvas.width = this.width;
+      this.canvas.height = this.height;
+    }
+    this.numStars = this.width < 768 ? 70 : 140;
+    this.createStars();
+  },
+
+  createStars: function() {
+    this.stars = [];
+    for(var i = 0; i < this.numStars; i++) {
+      this.stars.push({
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        size: Math.random() * 1.6 + 0.3,
+        alpha: Math.random() * 0.8 + 0.2,
+        speed: Math.random() * 0.35 + 0.05,
+        color: (Math.random() > 0.6) ? '#00D9F5' : ((Math.random() > 0.5) ? '#A855F7' : '#FFFFFF')
+      });
+    }
+  },
+
+  scheduleShootingStar: function() {
+    var nextDelay = Math.random() * 10000 + 8000;
+    setTimeout(function() {
+      CosmicCanvasEngine.spawnShootingStar();
+      CosmicCanvasEngine.scheduleShootingStar();
+    }, nextDelay);
+  },
+
+  spawnShootingStar: function() {
+    this.shootingStars.push({
+      x: Math.random() * this.width * 0.8,
+      y: Math.random() * (this.height * 0.4),
+      length: Math.random() * 80 + 40,
+      speed: Math.random() * 7 + 9,
+      alpha: 1,
+      angle: Math.PI / 4
+    });
+  },
+
+  loop: function() {
+    CosmicCanvasEngine.ctx.clearRect(0, 0, CosmicCanvasEngine.width, CosmicCanvasEngine.height);
+
+    // Draw Ambient Starfield
+    for(var i = 0; i < CosmicCanvasEngine.stars.length; i++) {
+      var s = CosmicCanvasEngine.stars[i];
+      s.y -= (CosmicCanvasEngine.isOverdrive ? s.speed * 8 : s.speed);
+      if(s.y < 0) { s.y = CosmicCanvasEngine.height; s.x = Math.random() * CosmicCanvasEngine.width; }
+
+      CosmicCanvasEngine.ctx.fillStyle = s.color;
+      CosmicCanvasEngine.ctx.globalAlpha = s.alpha;
+      CosmicCanvasEngine.ctx.beginPath();
+      CosmicCanvasEngine.ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      CosmicCanvasEngine.ctx.fill();
+    }
+
+    // Draw Shooting Stars
+    for(var j = CosmicCanvasEngine.shootingStars.length - 1; j >= 0; j--) {
+      var ss = CosmicCanvasEngine.shootingStars[j];
+      ss.x += Math.cos(ss.angle) * ss.speed;
+      ss.y += Math.sin(ss.angle) * ss.speed;
+      ss.alpha -= 0.015;
+
+      if(ss.alpha <= 0) {
+        CosmicCanvasEngine.shootingStars.splice(j, 1);
+        continue;
+      }
+
+      CosmicCanvasEngine.ctx.strokeStyle = 'rgba(0, 217, 245, ' + ss.alpha + ')';
+      CosmicCanvasEngine.ctx.lineWidth = 2;
+      CosmicCanvasEngine.ctx.beginPath();
+      CosmicCanvasEngine.ctx.moveTo(ss.x, ss.y);
+      CosmicCanvasEngine.ctx.lineTo(ss.x - Math.cos(ss.angle) * ss.length, ss.y - Math.sin(ss.angle) * ss.length);
+      CosmicCanvasEngine.ctx.stroke();
+    }
+
+    CosmicCanvasEngine.ctx.globalAlpha = 1;
+    CosmicCanvasEngine.animId = requestAnimationFrame(CosmicCanvasEngine.loop);
+  }
+};
+
+/* ==========================================================================
+   EASTER EGG ENGINE (QUANTUM CORE OVERDRIVE)
+   ========================================================================== */
+var EasterEngine = {
+  clickCount: 0,
+  timer: null,
+  triggerCorePulse: function() {
+    this.clickCount++;
+    clearTimeout(this.timer);
+    this.timer = setTimeout(function() { EasterEngine.clickCount = 0; }, 2000);
+
+    if(this.clickCount >= 5) {
+      this.clickCount = 0;
+      CosmicCanvasEngine.isOverdrive = !CosmicCanvasEngine.isOverdrive;
+      showToast(CosmicCanvasEngine.isOverdrive ? "🌌 QUANTUM HYPERDRIVE ACTIVATED!" : "⚡ QUANTUM CRUISE MODE RESTORED");
+    }
+  }
+};
 
 /* ==========================================================================
    AI 3.1 PRO QUOTA MANAGER (40 REQUESTS / 5 HOURS RESET)
@@ -1480,14 +1916,14 @@ var LangEngine = {
             guestBtn: "ĐĂNG NHẬP KHÁCH",
             logoutBtn: "ĐĂNG XUẤT",
             communityGroup: "KÊNH CỘNG ĐỒNG",
-            noticeHeading: "◈ 𝗧𝗛𝗢̂𝗡𝗚 𝗕𝗔́𝗢 𝗛𝗘̣̂ 𝗧𝗛𝗢̂́𝗡𝗚 ◈",
+            noticeHeading: "◈ THÔNG BÁO HỆ THỐNG ◈",
             noticeBtn: "NỘI DUNG",
             tabLinks: "LINKS BYPASS",
             tabScripts: "SCRIPTS LUA",
             tabApk: "FILE APK",
             tabIos: "IPA / IOS",
             searchPlace: "🔍 Tìm kiếm Script, Link Bypass, Tool APK...",
-            aiPromptPlace: "Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà', 'Make a home'..."
+            aiPromptPlace: "Nhập câu hỏi, yêu cầu code hoặc 'Tạo ảnh ngôi nhà'..."
         },
         en: {
             badge: "🇬🇧 EN",
@@ -1505,7 +1941,7 @@ var LangEngine = {
             tabApk: "APK FILES",
             tabIos: "IPA / IOS",
             searchPlace: "🔍 Search Scripts, Bypass Links, APK Tools...",
-            aiPromptPlace: "Ask AI, write Script or 'Make a modern home'..."
+            aiPromptPlace: "Ask AI, write Script or 'Create image of modern house'..."
         }
     },
     init: function() {
@@ -1569,7 +2005,7 @@ var TimeEngine = {
 };
 
 /* ==========================================================================
-   CIRCULAR LOADING CONTROLLER
+   LOADER CONTROLLER
    ========================================================================== */
 var LoaderEngine = {
     init: function() {
@@ -1577,18 +2013,18 @@ var LoaderEngine = {
             var loader = DOM.get('quantum-loader');
             if(loader) {
                 loader.classList.add('fade-out');
-                setTimeout(function() { loader.style.display = 'none'; }, 700);
+                setTimeout(function() { loader.style.display = 'none'; }, 750);
             }
-        }, 1800);
+        }, 1600);
     }
 };
 
 /* ==========================================================================
-   NOTICE TYPEWRITER ENGINE (KÝ TỰ ĐẶC BIỆT & V75 PROMAX)
+   NOTICE TYPEWRITER ENGINE
    ========================================================================== */
 var NoticeTypewriter = {
-    fullTextVN: "⚡ 𝗡𝗢𝗫 𝗪𝗘𝗕 𝗨𝗟𝗧𝗥𝗔 𝗣𝗥𝗢𝗠𝗔𝗫 𝗩𝟳𝟱 ⚡\n◈ Nơi cung cấp Script Lua Roblox, Link Bypass, Tool APK & iOS chuẩn không quảng cáo.\n◈ NOXGPT 3.1 PRO: Đỉnh cao trí tuệ AI thế hệ mới (ngang tầm Claude Opus 4), suy nghĩ sâu, tạo ảnh 8K chuẩn xác.\n◈ Hạn mức 40 lượt cho 3.1 Pro (tự động reset sau 5 giờ).",
-    fullTextEN: "⚡ 𝗡𝗢𝗫 𝗪𝗘𝗕 𝗨𝗟𝗧𝗥𝗔 𝗣𝗥𝗢𝗠𝗔𝗫 𝗩𝟳𝟱 ⚡\n◈ The ultimate hub for Roblox Lua Scripts, Bypass Tools, APK & IPA without ads.\n◈ NOXGPT 3.1 PRO: Flagship quantum AI (Opus 4 tier), deep analytical reasoning & accurate 8K image generator.\n◈ 40 free queries quota for 3.1 Pro (resets every 5 hours).",
+    fullTextVN: "⚡ NOX GALAXY QUANTUM V75 ULTRA ⚡\n◈ Kho dữ liệu Script Lua Roblox, Link Bypass, Tool APK & iOS chuẩn không quảng cáo.\n◈ NOXGPT 3.1 PRO: Trí tuệ AI thế hệ mới với khả năng suy nghĩ sâu, tạo ảnh 8K chuẩn xác.\n◈ Hạn mức 40 lượt miễn phí cho 3.1 Pro (tự động reset sau 5 giờ).",
+    fullTextEN: "⚡ NOX GALAXY QUANTUM V75 ULTRA ⚡\n◈ Next-generation hub for Roblox Lua Scripts, Bypass Tools, APK & IPA direct links.\n◈ NOXGPT 3.1 PRO: Flagship quantum AI with deep analytical reasoning & 8K image generator.\n◈ 40 free queries quota for 3.1 Pro (automatically resets every 5 hours).",
     isExpanded: false,
     timer: null,
 
@@ -1616,7 +2052,7 @@ var NoticeTypewriter = {
         container.innerHTML = '';
         var i = 0;
         var cursor = document.createElement('span');
-        cursor.className = 'typing-cursor';
+        cursor.className = 'terminal-cursor';
         container.appendChild(cursor);
 
         this.timer = setInterval(function() {
@@ -1685,7 +2121,7 @@ function closeUI(id) {
 
 window.addEventListener('keydown', function(e) {
     if(e.key === 'Escape') {
-        DOM.queryAll('.modal-backdrop.is-active').forEach(function(m) { m.classList.remove('is-active'); });
+        DOM.queryAll('.modal-overlay.is-active').forEach(function(m) { m.classList.remove('is-active'); });
         var d = DOM.get('nav-drawer');
         if(d && d.classList.contains('is-open')) d.classList.remove('is-open');
         var lb = DOM.get('image-lightbox');
@@ -1847,7 +2283,7 @@ var ConfigEngine = {
             var data = snapshot.val();
             if(data) {
                 if(data.title && DOM.get('ui-title-text')) DOM.get('ui-title-text').innerText = data.title;
-                if(data.version && DOM.get('ui-version-badge')) DOM.get('ui-version-badge').innerHTML = '<span class="pulse-glow-dot"></span> ⚡ PHIÊN BẢN ' + data.version + ' ⚡';
+                if(data.version && DOM.get('ui-version-badge')) DOM.get('ui-version-badge').innerHTML = '<span class="pulse-dot-green"></span> ⚡ ' + data.version + ' ⚡';
                 if(data.noticeTitle && DOM.get('ui-notice-title')) DOM.get('ui-notice-title').innerText = data.noticeTitle;
                 if(data.noticeText) NoticeTypewriter.fullTextVN = data.noticeText;
             }
@@ -1888,7 +2324,7 @@ var MenuEditor = {
             if(snapshot.exists()) {
                 snapshot.forEach(function(child) {
                     var item = child.val(); var key = child.key;
-                    var a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "btn-menu-item";
+                    var a = document.createElement('a'); a.href = item.link; a.target = "_blank"; a.className = "drawer-action-btn";
                     var del = IS_ADMIN ? '<span style="color:var(--accent-danger); cursor:pointer;" onclick="event.preventDefault(); MenuEditor.deleteMenuItem(\'' + key + '\')">[X]</span>' : '';
                     a.innerHTML = '<span>' + item.name + '</span> ' + del;
                     container.appendChild(a);
@@ -1914,18 +2350,18 @@ var UserMgr = {
             board.innerHTML = '';
             regSnap.forEach(function(child) {
                 var u = child.val(); var safeKey = child.key; var control = controls[safeKey] || {};
-                var box = document.createElement('div'); box.className = 'data-box';
-                var statusHtml = '<span style="color:var(--accent-emerald)">Bình thường</span>';
+                var box = document.createElement('div'); box.className = 'vault-item-card';
+                var statusHtml = '<span style="color:var(--accent-quantum)">Bình thường</span>';
                 if(control.isBanned) statusHtml = '<span style="color:var(--accent-danger)">ĐÃ BAN (' + control.banReason + ')</span>';
-                else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = '<span style="color:var(--accent-amber)">ĐÃ MUTE đến ' + (new Date(control.muteUntil).toLocaleTimeString()) + '</span>';
+                else if(control.isMuted && Date.now() < control.muteUntil) statusHtml = '<span style="color:var(--accent-cyan)">ĐÃ MUTE đến ' + (new Date(control.muteUntil).toLocaleTimeString()) + '</span>';
                 box.innerHTML = 
                     '<div style="font-weight:bold; color:var(--text-main);">' + u.name + '</div>' +
                     '<div style="font-size:0.8rem; color:var(--text-muted);">Email: ' + u.email + '</div>' +
                     '<div style="font-size:0.85rem; color:var(--text-sub);">Trạng thái: ' + statusHtml + '</div>' +
                     '<div style="display:flex; gap:8px; margin-top:8px;">' +
-                        '<input type="text" id="um-ban-reason-' + safeKey + '" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-color);">' +
-                        '<button style="padding:8px 16px; background:var(--accent-danger); color:#fff; font-weight:bold; cursor:pointer;" onclick="UserMgr.banFromPanel(\'' + safeKey + '\')">BAN</button>' +
-                        '<button style="padding:8px 16px; background:var(--accent-emerald); color:#022c22; font-weight:bold; cursor:pointer;" onclick="UserMgr.uncontrolUser(\'' + safeKey + '\')">GỠ PHẠT</button>' +
+                        '<input type="text" id="um-ban-reason-' + safeKey + '" placeholder="Lý do ban..." style="flex:1; padding:8px; background:var(--bg-input); color:var(--text-main); border:1px solid var(--border-glass);">' +
+                        '<button style="padding:8px 16px; background:var(--accent-danger); color:#FFF; font-weight:bold; cursor:pointer;" onclick="UserMgr.banFromPanel(\'' + safeKey + '\')">BAN</button>' +
+                        '<button style="padding:8px 16px; background:var(--accent-quantum); color:#02030A; font-weight:bold; cursor:pointer;" onclick="UserMgr.uncontrolUser(\'' + safeKey + '\')">GỠ PHẠT</button>' +
                     '</div>';
                 board.appendChild(box);
             });
@@ -1941,7 +2377,7 @@ var UserMgr = {
 };
 
 /* ==========================================================================
-   UTILS ENGINE (FEED CARDS & SCROLL REVEAL)
+   UTILS ENGINE (VAULT CARDS & SCROLL REVEAL)
    ========================================================================== */
 var UtilsEngine = {
     ref: null,
@@ -2005,7 +2441,7 @@ var UtilsEngine = {
 
     switchTab: function(tabId, btn) {
         this.currentTab = tabId;
-        DOM.queryAll('.tab-btn').forEach(function(b) { b.classList.remove('is-active'); });
+        DOM.queryAll('.tab-chip').forEach(function(b) { b.classList.remove('is-active'); });
         if(btn) btn.classList.add('is-active');
         this.renderCurrentTab();
     },
@@ -2025,34 +2461,34 @@ var UtilsEngine = {
 
             count++;
             var box = document.createElement('div');
-            box.className = 'data-box scroll-reveal';
+            box.className = 'vault-item-card cosmic-reveal-item';
             box.id = 'util-card-' + key;
 
             var devControls = IS_ADMIN ? 
-                '<button style="padding:4px 8px; background:var(--accent-blue); color:#fff; border-radius:4px; cursor:pointer;" onclick="UtilsEngine.triggerEdit(\'' + key + '\')">✎</button> ' +
-                '<button style="padding:4px 8px; background:var(--accent-danger); color:#fff; border-radius:4px; cursor:pointer;" onclick="UtilsEngine.triggerDelete(\'' + key + '\')">XÓA</button>' : '';
+                '<button style="padding:4px 8px; background:var(--accent-cyan); color:#02030A; border-radius:4px; cursor:pointer;" onclick="UtilsEngine.triggerEdit(\'' + key + '\')">✎</button> ' +
+                '<button style="padding:4px 8px; background:var(--accent-danger); color:#FFF; border-radius:4px; cursor:pointer;" onclick="UtilsEngine.triggerDelete(\'' + key + '\')">XÓA</button>' : '';
 
             var safeTitle = item.title.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             var imageHtml = "";
             if(item.image) {
-                imageHtml = '<div class="card-thumbnail-wrap" onclick="openLightbox(\'' + item.image + '\')"><img src="' + item.image + '" class="card-thumbnail-img" alt="Thumbnail" loading="lazy"></div>';
+                imageHtml = '<div class="card-banner-frame" onclick="openLightbox(\'' + item.image + '\')"><img src="' + item.image + '" class="card-banner-img" alt="Thumbnail" loading="lazy"></div>';
             }
 
             if(item.type === 'pane-script' || item.isScript) {
                 var safeCode = item.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 box.innerHTML = 
                     imageHtml +
-                    '<div class="box-head">' +
-                        '<span class="box-title">' + safeTitle + ' <span style="display:inline-flex; gap:4px;">' + devControls + '</span></span>' +
-                        '<button class="box-action" onclick="UtilsEngine.execCopy(this, \'' + key + '\')">COPY</button>' +
+                    '<div class="card-header-line">' +
+                        '<span class="card-title-text">' + safeTitle + ' <span style="display:inline-flex; gap:4px;">' + devControls + '</span></span>' +
+                        '<button class="btn-action-pill" onclick="UtilsEngine.execCopy(this, \'' + key + '\')">COPY</button>' +
                     '</div>' +
-                    '<div class="script-code">' + safeCode + '</div>';
+                    '<div class="script-editor-preview">' + safeCode + '</div>';
             } else {
                 box.innerHTML = 
                     imageHtml +
-                    '<div class="box-head">' +
-                        '<span class="box-title">' + safeTitle + ' <span style="display:inline-flex; gap:4px;">' + devControls + '</span></span>' +
-                        '<a href="' + item.content + '" target="_blank" class="box-action">' + (LangEngine.currentLang==='vi'?'MỞ LINK ↗':'OPEN LINK ↗') + '</a>' +
+                    '<div class="card-header-line">' +
+                        '<span class="card-title-text">' + safeTitle + ' <span style="display:inline-flex; gap:4px;">' + devControls + '</span></span>' +
+                        '<a href="' + item.content + '" target="_blank" class="btn-action-pill">' + (LangEngine.currentLang==='vi'?'MỞ LINK ↗':'OPEN LINK ↗') + '</a>' +
                     '</div>';
             }
 
@@ -2169,7 +2605,7 @@ var GptEngine = {
   currentModel: "3.1",
   abortController: null,
 
-  systemInstruction: "You are NOXGPT 3.1 Pro (Flagship Claude Opus 4 equivalent AI on NOX WEB V75 Ultra Promax, developed by HminhGalaxy). Full website context: NOX WEB is Vietnam's top portal providing Roblox Lua scripts (Delta Executor, Kasumi Store, Speed Hub X, ArceusX), direct APK/IPA links without link bypass ads, and a thriving community. Character: Highly analytical, direct, intelligent, zero fluff, concise. Only use emoji/icons when necessary for structured readability. Master in Roblox Lua coding and architecture.",
+  systemInstruction: "You are NOXGPT 3.1 Pro (Flagship Claude Opus 4 equivalent AI on NOX GALAXY QUANTUM, developed by HminhGalaxy). Full website context: NOX WEB is Vietnam's top portal providing Roblox Lua scripts (Delta Executor, Kasumi Store, Speed Hub X, ArceusX), direct APK/IPA links without bypass ads, and a thriving community. Character: Highly analytical, direct, intelligent, zero fluff, concise. Only use emoji/icons when necessary for structured readability. Master in Roblox Lua coding and architecture.",
 
   messageHistory: [],
 
@@ -2186,16 +2622,12 @@ var GptEngine = {
               return;
           }
           this.currentModel = "3.1";
-          DOM.get('gpt-modal-card').classList.add('rainbow-mode-active');
-          DOM.get('gpt-active-model-title').className = "rainbow-title-glow";
           DOM.get('gpt-active-model-title').innerText = "NOXGPT 3.1 PRO [QUANTUM]";
           DOM.get('dropdown-m31-check').innerText = "✓";
           DOM.get('dropdown-m25-check').innerText = "";
-          showToast("Đã kích hoạt NOXGPT 3.1 PRO (Rainbow Glow)");
+          showToast("Đã kích hoạt NOXGPT 3.1 PRO (Cosmic Glow)");
       } else {
           this.currentModel = "2.5";
-          DOM.get('gpt-modal-card').classList.remove('rainbow-mode-active');
-          DOM.get('gpt-active-model-title').className = "";
           DOM.get('gpt-active-model-title').innerText = "NOXGPT 2.5 ULTRA [STANDARD]";
           DOM.get('dropdown-m31-check').innerText = "";
           DOM.get('dropdown-m25-check').innerText = "✓";
@@ -2286,29 +2718,28 @@ var GptEngine = {
   appendMsg: function(type, name, htmlContent) {
     if(!this.board) this.board = DOM.get('noxgpt-board');
     if(!this.board) return;
-    var row = document.createElement('div'); row.className = 'msg-row type-' + type;
+    var row = document.createElement('div'); row.className = 'msg-container type-' + type;
     var innerHTML = '';
     if(type === 'other') {
-      innerHTML += '<div class="msg-meta"><div class="msg-name sys">' + name + '</div></div>';
+      innerHTML += '<div class="msg-meta-line"><div class="msg-sender-name sys">' + name + '</div></div>';
     } else {
-      innerHTML += '<div class="msg-meta" style="justify-content:flex-end;"><div class="msg-name">' + (LangEngine.currentLang==='vi'?'Bạn':'You') + '</div></div>';
+      innerHTML += '<div class="msg-meta-line" style="justify-content:flex-end;"><div class="msg-sender-name">' + (LangEngine.currentLang==='vi'?'Bạn':'You') + '</div></div>';
     }
-    innerHTML += '<div class="msg-bubble">' + this.formatMarkdown(htmlContent) + '</div>';
+    innerHTML += '<div class="msg-glass-bubble">' + this.formatMarkdown(htmlContent) + '</div>';
     row.innerHTML = innerHTML; this.board.appendChild(row); this.board.scrollTop = this.board.scrollHeight;
     return row; 
   },
 
-  // MINIMAL QUANTUM MORPHING LOADER (NO TEXT)
   appendMorphingLoader: function() {
       if(!this.board) this.board = DOM.get('noxgpt-board');
       var row = document.createElement('div'); 
-      row.className = 'msg-row type-other';
+      row.className = 'msg-container type-other';
       row.id = 'gpt-active-loader';
       row.innerHTML = 
-          '<div class="msg-meta"><div class="msg-name sys">NOXGPT ' + this.currentModel + '</div></div>' +
-          '<div class="msg-bubble">' +
+          '<div class="msg-meta-line"><div class="msg-sender-name sys">NOX QUANTUM CORE</div></div>' +
+          '<div class="msg-glass-bubble">' +
               '<div class="ai-morphing-loader">' +
-                  '<div class="morphing-shape"></div>' +
+                  '<div class="morphing-quantum-core"></div>' +
               '</div>' +
           '</div>';
       this.board.appendChild(row); 
@@ -2323,7 +2754,6 @@ var GptEngine = {
     var upload = DOM.get('gpt-img-upload'); if(upload) upload.value = '';
   },
 
-  // ACCURATE MULTILINGUAL PROMPT PARSER (FIX TẠO ẢNH 100%)
   detectImageRequest: function(text) {
       var lower = text.toLowerCase().trim();
       var triggers = [
@@ -2361,7 +2791,6 @@ var GptEngine = {
     var text = this.input.value.trim(); var base64Img = ImageProcessor.currentGptImage;
     if(!text && !base64Img) return;
 
-    // Check & Handle Model 3.1 Pro Quota
     if (this.currentModel === "3.1") {
         var canUse = AIQuota.useQuota();
         if (!canUse) {
@@ -2379,7 +2808,6 @@ var GptEngine = {
 
     this.setGeneratingState(true);
 
-    // AI IMAGE CREATION ENGINE
     var imagePrompt = this.detectImageRequest(text);
     if(imagePrompt) {
         var loader = this.appendMorphingLoader();
@@ -2387,7 +2815,6 @@ var GptEngine = {
         var seed = Math.floor(Math.random() * 999999);
         var imageUrl = 'https://image.pollinations.ai/prompt/' + encoded + '?width=1024&height=768&nologo=true&enhance=true&model=flux&seed=' + seed;
         
-        // Deep thinking delay for accurate generation
         var thinkDelay = this.isDeepThink ? 2800 : 1500;
 
         setTimeout(function() {
@@ -2396,7 +2823,7 @@ var GptEngine = {
             var titleMsg = (LangEngine.currentLang==='vi') ? "Đã tạo tác phẩm thành công:" : "Artwork generated successfully:";
             var subMsg = (LangEngine.currentLang==='vi') ? "Bấm vào ảnh để xem toàn màn hình." : "Click image to view fullscreen.";
             var imgHtml = '<div>' + titleMsg + '</div>' +
-                          '<img src="' + imageUrl + '" class="ai-image-result" onclick="openLightbox(\'' + imageUrl + '\')" alt="AI Art">' +
+                          '<img src="' + imageUrl + '" class="ai-generated-visual" onclick="openLightbox(\'' + imageUrl + '\')" alt="AI Art">' +
                           '<div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">' + subMsg + '</div>';
             GptEngine.appendMsg('other', 'NOXGPT ' + GptEngine.currentModel, imgHtml);
             GptEngine.messageHistory.push({ role: "assistant", content: "Generated image for: " + imagePrompt });
@@ -2434,7 +2861,6 @@ var GptEngine = {
       if(err.name === 'AbortError') return;
       if(tempLoader) tempLoader.remove();
       
-      // Fallback Puter AI SDK
       if(typeof puter !== 'undefined' && puter.ai && puter.ai.chat) {
           puter.ai.chat(text).then(function(res) {
               GptEngine.setGeneratingState(false);
@@ -2519,17 +2945,17 @@ var ChatEngine = {
 
     var isMe = (this.userProfile && senderName === this.userProfile.name);
     var row = document.createElement('div'); 
-    row.className = 'msg-row ' + (isMe ? 'type-user' : 'type-other');
+    row.className = 'msg-container ' + (isMe ? 'type-user' : 'type-other');
     if(msgKey) row.id = 'msg-' + msgKey;
     
-    var badge = role === 'DEV' ? '<span class="badge-dev">DEV</span>' : (role === 'NOX' ? '<span class="badge-nox">NOX</span>' : '<span class="badge-guest">GUEST</span>');
+    var badge = role === 'DEV' ? '<span class="badge-tag-dev">DEV</span>' : (role === 'NOX' ? '<span class="badge-tag-nox">NOX</span>' : '<span class="badge-tag-guest">GUEST</span>');
     if(isSystem) badge = '';
 
     row.innerHTML = 
-      '<div class="msg-meta" style="' + (isMe ? 'justify-content:flex-end;' : '') + '">' +
-        '<div class="msg-name ' + (isSystem ? 'sys' : '') + '">' + badge + senderName + '</div>' +
+      '<div class="msg-meta-line" style="' + (isMe ? 'justify-content:flex-end;' : '') + '">' +
+        '<div class="msg-sender-name ' + (isSystem ? 'sys' : '') + '">' + badge + senderName + '</div>' +
       '</div>' +
-      '<div class="msg-bubble">' + (isRecalled ? '<i>[Tin nhắn đã bị thu hồi]</i>' : htmlContent) + '</div>';
+      '<div class="msg-glass-bubble">' + (isRecalled ? '<i>[Tin nhắn đã bị thu hồi]</i>' : htmlContent) + '</div>';
 
     this.board.appendChild(row); 
     this.board.scrollTop = this.board.scrollHeight;
@@ -2601,14 +3027,14 @@ var ChatEngine = {
           snapshot.forEach(function(child) {
               var s = child.val();
               ChatEngine.vaultMap[child.key] = s;
-              var box = document.createElement('div'); box.className = 'data-box';
+              var box = document.createElement('div'); box.className = 'vault-item-card';
               var safeCode = s.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-              var imgHtml = s.image ? '<div class="card-thumbnail-wrap" onclick="openLightbox(\'' + s.image + '\')"><img src="' + s.image + '" class="card-thumbnail-img" alt="Script Preview"></div>' : '';
+              var imgHtml = s.image ? '<div class="card-banner-frame" onclick="openLightbox(\'' + s.image + '\')"><img src="' + s.image + '" class="card-banner-img" alt="Script Preview"></div>' : '';
               
               box.innerHTML = 
                 imgHtml +
-                '<div class="box-head"><span class="box-title">' + s.title.replace(/</g,"&lt;") + '</span><button class="box-action" onclick="ChatEngine.copyVaultScript(this, \'' + child.key + '\')">COPY</button></div>' +
-                '<div class="script-code">' + safeCode + '</div>' +
+                '<div class="card-header-line"><span class="card-title-text">' + s.title.replace(/</g,"&lt;") + '</span><button class="btn-action-pill" onclick="ChatEngine.copyVaultScript(this, \'' + child.key + '\')">COPY</button></div>' +
+                '<div class="script-editor-preview">' + safeCode + '</div>' +
                 '<div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Đóng góp bởi: ' + s.user + '</div>';
               vBoard.appendChild(box);
           });
@@ -2633,21 +3059,22 @@ var ChatEngine = {
 };
 
 /* ==========================================================================
-   INITIALIZE BOOTSTRAP
+   INITIALIZE APPLICATION
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', function() {
+  CosmicCanvasEngine.init();
   LoaderEngine.init();
   LangEngine.init();
   TimeEngine.init();
   AuthEngine.initGoogleIdentity();
   ChatEngine.initFirebase();
   
-  // Realtime Ping Simulator
+  // Realtime Ping Simulation
   setInterval(function() {
       var p = DOM.get('hud-ping');
-      if(p) p.innerText = Math.floor(Math.random() * 8 + 16) + "ms";
+      if(p) p.innerText = Math.floor(Math.random() * 8 + 14) + "ms";
   }, 3000);
 });
 </script>
 </body>
-            </html>
+</html>
