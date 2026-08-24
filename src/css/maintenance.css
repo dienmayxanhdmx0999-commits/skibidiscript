@@ -1,0 +1,175 @@
+.maintenance-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: radial-gradient(circle at center, rgba(8, 17, 31, 0.85) 0%, rgba(2, 4, 10, 0.98) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-4);
+  backdrop-filter: blur(20px);
+}
+
+.maintenance-central-card {
+  width: 100%;
+  max-width: 680px;
+  background: var(--glass-core);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-5);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 217, 245, 0.15);
+}
+
+.maintenance-logo-cluster {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.maintenance-orb {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--accent-quantum), var(--accent-cyan) 50%, var(--accent-violet) 90%);
+  box-shadow: 0 0 24px var(--accent-cyan-glow);
+  animation: pulseLogo 3s infinite alternate;
+}
+
+@keyframes pulseLogo {
+  0% { transform: scale(0.95); filter: drop-shadow(0 0 10px var(--accent-cyan-glow)); }
+  100% { transform: scale(1.05); filter: drop-shadow(0 0 25px var(--accent-quantum-glow)); }
+}
+
+.maintenance-brand {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #FFF, var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.maintenance-subbrand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--accent-quantum);
+  letter-spacing: 3px;
+  display: block;
+}
+
+.maintenance-notice-text {
+  font-size: 0.95rem;
+  color: var(--text-sub);
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.countdown-deck {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-input);
+  border: 1px solid var(--border-glass);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  min-width: 75px;
+}
+
+.countdown-digit {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.countdown-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.countdown-separator {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  color: var(--accent-cyan);
+  font-weight: 800;
+}
+
+.dev-terminal-dialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 4, 10, 0.94);
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-4);
+}
+
+.terminal-bar {
+  width: 100%;
+  max-width: 520px;
+  background: #0D1527;
+  padding: 8px 16px;
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border-glass);
+  border-bottom: none;
+}
+
+.terminal-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+}
+
+.btn-terminal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.terminal-body {
+  width: 100%;
+  max-width: 520px;
+  background: #030611;
+  border: 1px solid var(--border-glass);
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.terminal-log-output {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--accent-quantum);
+  background: rgba(0, 0, 0, 0.6);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  min-height: 120px;
+  max-height: 180px;
+  overflow-y: auto;
+  line-height: 1.6;
+}
