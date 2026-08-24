@@ -1,0 +1,52 @@
+:root {
+  --bg-void: #02040A;
+  --bg-deep: #050816;
+  --bg-nebula: #08111F;
+  --bg-input: rgba(4, 7, 18, 0.94);
+
+  --glass-1: rgba(10, 18, 38, 0.68);
+  --glass-2: rgba(12, 22, 48, 0.82);
+  --glass-3: rgba(16, 28, 58, 0.92);
+  --glass-core: rgba(8, 14, 32, 0.98);
+
+  --border-subtle: rgba(120, 180, 255, 0.08);
+  --border-glass: rgba(120, 180, 255, 0.14);
+  --border-focus: rgba(0, 245, 160, 0.65);
+  --border-hover: rgba(0, 217, 245, 0.45);
+
+  --text-main: #F8FAFC;
+  --text-sub: #94A3B8;
+  --text-muted: #64748B;
+
+  --accent-cyan: #00D9F5;
+  --accent-cyan-glow: rgba(0, 217, 245, 0.35);
+  --accent-quantum: #00F5A0;
+  --accent-quantum-glow: rgba(0, 245, 160, 0.4);
+  --accent-cosmic: #A855F7;
+  --accent-cosmic-glow: rgba(168, 85, 247, 0.35);
+  --accent-violet: #6366F1;
+  --accent-amber: #F59E0B;
+  --accent-danger: #FF2A5F;
+  --accent-danger-glow: rgba(255, 42, 95, 0.4);
+  --dev-color: #FF2A85;
+
+  --model-25-color: #A855F7;
+  --model-31-color: #00D9F5;
+  --model-34-color: #FF2A85;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --ease-cosmic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
